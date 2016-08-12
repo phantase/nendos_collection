@@ -38,7 +38,7 @@ function get_nendoroidHands($nendoroid_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id, h.skin_color, h.skin_color_hex, h.leftright, h.posture, h.description FROM hands AS h WHERE h.nendoroid_number = :nendoroid_id");
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id, h.skin_color, h.skin_color_hex, h.leftright, h.posture, h.description FROM hands AS h WHERE h.nendoroid_id = :nendoroid_id");
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->execute();
   $hands = $req->fetchAll(PDO::FETCH_ASSOC);
