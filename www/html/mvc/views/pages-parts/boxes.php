@@ -2,24 +2,25 @@
           <div id="main">
             <div class="inner">
               <header>
-                <h1>Boxes</h1>
+                <h2>Boxes</h2>
               </header>
-              <section>
-                <div class="box alt">
-                  <div class="row uniform">
+              <section class="tiles">
 <?php
 foreach ($boxes as $box) {
 ?>
-                    <div class="2u">
-                      <span class="image fit">
-                        <img src="images/nendos/boxes/<?= $box['internalid'] ?>.jpg" alt="" />
-                      </span>
+                <article class="sixth">
+                  <span class="image fit">
+                    <img src="images/nendos/boxes/<?= $box['internalid'] ?>.jpg" alt="" />
+                  </span>
+                  <a href="box/<?= $box['name'] ?>_<?= $box['internalid'] ?>/">
+                    <div class="content">
+                      <h4><?= $box['type'] ?> #<?= $box['name'] ?></h4>
                     </div>
+                  </a>
+                </article>
 <?php
 }
 ?>
-                  </div>
-                </div>
               </section>
             </div>
           </div>

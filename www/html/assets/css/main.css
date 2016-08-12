@@ -2605,6 +2605,10 @@
 			margin: 2.5em 0 0 2.5em;
 		}
 
+		.tiles article.sixth {
+			width: calc(16.6666% - 2.5em);
+		}
+
 			.tiles article > .image {
 				-moz-transition: -moz-transform 0.5s ease;
 				-webkit-transition: -webkit-transform 0.5s ease;
@@ -2729,42 +2733,6 @@
 					.tiles article > a .content > :last-child {
 						margin-bottom: 0;
 					}
-
-			.tiles article.pink > .image:before {
-				background-color: pink;
-			}
-
-			.tiles article.lightblue > .image:before {
-				background-color: lightblue;
-			}
-
-			.tiles article.lightgreen > .image:before {
-				background-color: lightgreen;
-			}
-
-			.tiles article.orchid > .image:before {
-				background-color: orchid;
-			}
-
-			.tiles article.green > .image:before {
-				background-color: green;
-			}
-
-			.tiles article.darksalmon > .image:before {
-				background-color: darksalmon;
-			}
-
-			.tiles article.gold > .image:before {
-				background-color: gold;
-			}
-
-			.tiles article.blue > .image:before {
-				background-color: blue;
-			}
-
-			.tiles article.goldenrod > .image:before {
-				background-color: goldenrod;
-			}
 
 			body:not(.is-touch) .tiles article:hover > .image {
 				-moz-transform: scale(1.1);
