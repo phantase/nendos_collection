@@ -9,7 +9,7 @@ foreach ($nendoroids as $key => $nendoroid) {
 include_once('mvc/models/get_boxes.php');
 $count_boxes = count_nendoroidBoxes();
 include_once('mvc/models/get_faces.php');
-$count_faces = count_nendoroidFaces();
+$count_faces = count_allFaces();
 include_once('mvc/models/get_hairs.php');
 $count_hairs = count_nendoroidHairs();
 include_once('mvc/models/get_bodyparts.php');
