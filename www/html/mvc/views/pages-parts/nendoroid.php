@@ -8,7 +8,7 @@
                 <div class="row">
                   <div class="2u 12u$(medium)">
                     <span class="image fit">
-                      <img src="images/nendos/<?= $nendoroid['box_name'] ?>/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
+                      <img src="images/nendos/nendoroids/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
                     </span>
                   </div>
                   <div class="6u 12u$(medium)">
@@ -53,7 +53,7 @@
 ?>
                       <div class="4u">
                         <span class="image fit tooltip">
-                          <img src="images/nendos/<?= $nendoroid['box_name'] ?>/faces/<?= $face['internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/faces/<?= $face['internalid'] ?>.jpg" alt="" />
                           <span class="tooltiptext">Eyes: <?= $face['eyes'] ?><br/>Mouth: <?= $face['mouth'] ?></span>
                         </span>
                       </div>
@@ -68,7 +68,7 @@
 ?>
                       <div class="4u">
                         <span class="image fit tooltip">
-                          <img src="images/nendos/<?= $nendoroid['box_name'] ?>/hairs/<?= $hair['internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/hairs/<?= $hair['internalid'] ?>.jpg" alt="" />
                           <span class="tooltiptext"><?= $hair['frontback'] ?><br/>Haircut: <?= $hair['haircut'] ?><br/>Description: <?= $hair['description'] ?></span>
                         </span>
                       </div>
@@ -83,7 +83,7 @@
 ?>
                       <div class="3u">
                         <span class="image fit tooltip">
-                          <img src="images/nendos/<?= $nendoroid['box_name'] ?>/hands/<?= $hand['internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/hands/<?= $hand['internalid'] ?>.jpg" alt="" />
                           <span class="tooltiptext"><?= $hand['leftright'] ?><br/>Posture: <?= $hand['posture'] ?></span>
                         </span>
                       </div>
@@ -98,7 +98,7 @@
 ?>
                       <div class="3u">
                         <span class="image fit tooltip">
-                          <img src="images/nendos/<?= $nendoroid['box_name'] ?>/body_parts/<?= $body_part['internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/body_parts/<?= $body_part['internalid'] ?>.jpg" alt="" />
                           <span class="tooltiptext"><?= $body_part['part'] ?><br/>Description: <?= $body_part['description'] ?></span>
                         </span>
                       </div>
@@ -113,7 +113,7 @@
 ?>
                       <div class="4u">
                         <span class="image fit tooltip">
-                          <img src="images/nendos/<?= $nendoroid['box_name'] ?>/accessories/<?= $accessory['internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/accessories/<?= $accessory['internalid'] ?>.jpg" alt="" />
                           <span class="tooltiptext"><?= $accessory['type'] ?><br/>Description: <?= $accessory['description'] ?></span>
                         </span>
                       </div>

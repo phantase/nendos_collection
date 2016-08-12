@@ -99,7 +99,7 @@
                 </style>
                 <article id="nendo_<?= $nendoroid['internalid'] ?>">
                   <span class="image">
-                    <img src="images/nendos/<?= $nendoroid['box_name'] ?>/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/nendoroids/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
                   </span>
                   <a href="nendoroid/<?= $nendoroid['box_name'] ?>/<?= $nendoroid['url'] ?>_<?= $nendoroid['internalid'] ?>/">
                     <h2>#<?= $nendoroid['box_name'] ?><br/><?= $nendoroid['name'] ?></h2>
