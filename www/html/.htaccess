@@ -8,4 +8,6 @@ RewriteRule ^nendoroids$                          index.php?action=nendoroids [L
 RewriteRule ^nendoroids/$                         index.php?action=nendoroids [L]
 RewriteRule ^faces$                               index.php?action=faces [L]
 RewriteRule ^faces/$                              index.php?action=faces [L]
+RewriteRule ^hairs$                               index.php?action=hairs [L]
+RewriteRule ^hairs/$                              index.php?action=hairs [L]
 RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&box=$1&nendourlname=$2&nendointernalid=$3 [L]
