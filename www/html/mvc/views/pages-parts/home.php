@@ -99,12 +99,12 @@
                 </style>
                 <article id="nendo_<?= $nendoroid['internalid'] ?>">
                   <span class="image">
-                    <img src="images/nendos/<?= $nendoroid['boxname'] ?>/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/<?= $nendoroid['box_name'] ?>/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
                   </span>
-                  <a href="nendoroid/<?= $nendoroid['boxname'] ?>/<?= $nendoroid['url'] ?>_<?= $nendoroid['internalid'] ?>/">
-                    <h2>#<?= $nendoroid['boxname'] ?><br/><?= $nendoroid['name'] ?></h2>
+                  <a href="nendoroid/<?= $nendoroid['box_name'] ?>/<?= $nendoroid['url'] ?>_<?= $nendoroid['internalid'] ?>/">
+                    <h2>#<?= $nendoroid['box_name'] ?><br/><?= $nendoroid['name'] ?></h2>
                     <div class="content">
-                      <p><?= $nendoroid['origin'] ?> - <?= $nendoroid['name'] ?> - <?= $nendoroid['boxtype'] ?> #<?= $nendoroid['boxname'] ?> - <?= $nendoroid['version'] ?> (<?= $nendoroid['editor'] ?>)</p>
+                      <p><?= $nendoroid['origin'] ?> - <?= $nendoroid['name'] ?> - <?= $nendoroid['box_type'] ?> #<?= $nendoroid['box_name'] ?> - <?= $nendoroid['version'] ?> (<?= $nendoroid['editor'] ?>)</p>
                     </div>
                   </a>
                 </article>

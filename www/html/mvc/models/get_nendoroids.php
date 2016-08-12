@@ -15,7 +15,7 @@ function get_allNendoroids()
 {
   global $bdd;
 
-  $req = $bdd->prepare('SELECT n.internalid, n.boxid, n.name, n.origin, n.version, n.editor, n.dominant_color, b.name AS boxname, b.type AS boxtype FROM nendoroids AS n, boxes AS b WHERE n.boxid=b.internalid;');
+  $req = $bdd->prepare('SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.editor, n.dominant_color, b.name AS box_name, b.type AS box_type FROM nendoroids AS n, boxes AS b WHERE n.box_id=b.internalid;');
   $req->execute();
   $nendoroids = $req->fetchAll(PDO::FETCH_ASSOC);
 
