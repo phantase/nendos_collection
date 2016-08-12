@@ -39,6 +39,9 @@
     case "bodyparts":
       include_once('mvc/controllers/bodyparts.php');
       break;
+    case "accessories":
+      include_once('mvc/controllers/accessories.php');
+      break;
     case "nendoroid":
       include_once('mvc/controllers/nendoroid.php');
       break;
