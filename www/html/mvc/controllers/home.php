@@ -8,11 +8,15 @@ foreach ($nendoroids as $key => $nendoroid) {
 }
 include_once('mvc/models/get_boxes.php');
 $count_boxes = count_nendoroidBoxes();
-include_once('mvc/models/get_parts.php');
+include_once('mvc/models/get_faces.php');
 $count_faces = count_nendoroidFaces();
+include_once('mvc/models/get_hairs.php');
 $count_hairs = count_nendoroidHairs();
+include_once('mvc/models/get_bodyparts.php');
 $count_body_parts = count_nendoroidBodyParts();
+include_once('mvc/models/get_hands.php');
 $count_hands = count_nendoroidHands();
+include_once('mvc/models/get_accessories.php');
 $count_accessories = count_nendoroidAccessories();
 
 include_once('mvc/views/pages/skeleton.php');
