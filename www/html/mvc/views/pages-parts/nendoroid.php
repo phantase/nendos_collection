@@ -98,7 +98,7 @@
 ?>
                       <div class="3u">
                         <span class="image fit tooltip">
-                          <img src="images/nendos/body_parts/<?= $body_part['internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/bodyparts/<?= $body_part['internalid'] ?>.jpg" alt="" />
                           <span class="tooltiptext"><?= $body_part['part'] ?><br/>Description: <?= $body_part['description'] ?></span>
                         </span>
                       </div>
