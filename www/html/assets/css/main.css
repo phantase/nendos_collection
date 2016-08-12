@@ -2647,6 +2647,10 @@
 					opacity: 0.8;
 				}
 
+				.tiles article.sixth .image:before {
+	        background-color: rgba(254,254,254,0.5);
+	      }
+
 				.tiles article > .image:after {
 					-moz-pointer-events: none;
 					-webkit-pointer-events: none;
