@@ -2,7 +2,6 @@
           <div id="main">
             <div class="inner">
               <header>
-                <!--<h1>There is currently <a href="nendoroids"><?= count($nendoroids) ?></a> Nendoroids in the DB.</h1>-->
                 <div class="row">
                   <div class="6u">
                     &nbsp;
@@ -24,7 +23,7 @@
                         <span class="info-box-icon nendo_nendo_icon"></span>
                         <div class="info-box-content">
                           <span class="info-box-text">Nendoroids</span>
-                          <span class="info-box-number"><?= count($nendoroids); ?></span>
+                          <span class="info-box-number"><?= $count_nendoroids; ?></span>
                         </div>
                       </div>
                     </a>
