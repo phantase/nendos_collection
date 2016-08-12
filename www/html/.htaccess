@@ -1,7 +1,9 @@
 Options +FollowSymlinks
 RewriteEngine On
 
+# HOME
 RewriteRule ^home$                                index.php?action=home [L]
+# LISTINGS
 RewriteRule ^boxes$                               index.php?action=boxes [L]
 RewriteRule ^boxes/$                              index.php?action=boxes [L]
 RewriteRule ^nendoroids$                          index.php?action=nendoroids [L]
@@ -16,4 +18,5 @@ RewriteRule ^bodyparts$                           index.php?action=bodyparts [L]
 RewriteRule ^bodyparts/$                          index.php?action=bodyparts [L]
 RewriteRule ^accessories$                         index.php?action=accessories [L]
 RewriteRule ^accessories/$                        index.php?action=accessories [L]
+# SINGLE PAGES
 RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&box=$1&nendourlname=$2&nendointernalid=$3 [L]
