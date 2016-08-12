@@ -1,5 +1,4 @@
 <?php
-
 /** Count all the faces available in the DB */
 function count_allFaces()
 {
@@ -11,7 +10,7 @@ function count_allFaces()
 
   return $count['count'];
 }
-
+/** Get all the faces available in the DB */
 function get_allFaces()
 {
   global $bdd;
@@ -22,7 +21,6 @@ function get_allFaces()
 
   return $faces;
 }
-
 /** Count all the faces available for a specific Nendoroid */
 function count_nendoroidFaces($number)
 {
@@ -35,7 +33,6 @@ function count_nendoroidFaces($number)
 
   return $count['count'];
 }
-
 /** Get all the faces available for a specific Nendoroid */
 function get_nendoroidFaces($number)
 {
@@ -48,4 +45,3 @@ function get_nendoroidFaces($number)
 
   return $faces;
 }
-

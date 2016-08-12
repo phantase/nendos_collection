@@ -1,6 +1,6 @@
 <?php
-
-function count_nendoroids()
+/** Count all Nendoroids available in the DB */
+function count_allNendoroids()
 {
   global $bdd;
 
@@ -10,7 +10,7 @@ function count_nendoroids()
 
   return $count['count'];
 }
-
+/** Get all Nendoroids available in the DB */
 function get_allNendoroids()
 {
   global $bdd;
@@ -21,7 +21,7 @@ function get_allNendoroids()
 
   return $nendoroids;
 }
-
+/** Get a single Nendoroid based on its internalid */
 function get_singleNendoroid($number)
 {
   global $bdd;
