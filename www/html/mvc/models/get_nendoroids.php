@@ -1,5 +1,16 @@
 <?php
 
+function count_nendoroids()
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT count(*) AS count FROM nendoroids AS n");
+  $req->execute();
+  $count = $req->fetch();
+
+  return $count['count'];
+}
+
 function get_allNendoroids()
 {
   global $bdd;
