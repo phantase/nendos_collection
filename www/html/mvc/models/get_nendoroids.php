@@ -22,12 +22,12 @@ function get_allNendoroids()
   return $nendoroids;
 }
 /** Get a single Nendoroid based on its internalid */
-function get_singleNendoroid($number)
+function get_singleNendoroid($nendoroid_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.editor, n.dominant_color, b.name AS box_name, b.type AS box_type FROM nendoroids AS n, boxes AS b WHERE n.box_id=b.internalid AND n.internalid = :number");
-  $req->bindParam(':number',$number);
+  $req = $bdd->prepare("SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.editor, n.dominant_color, b.name AS box_name, b.type AS box_type FROM nendoroids AS n, boxes AS b WHERE n.box_id=b.internalid AND n.internalid = :nendoroid_id");
+  $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->execute();
   $nendoroid = $req->fetch();
 
