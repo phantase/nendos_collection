@@ -17,6 +17,6 @@ $count_body_parts = count_nendoroidBodyParts();
 include_once('mvc/models/get_hands.php');
 $count_hands = count_nendoroidHands();
 include_once('mvc/models/get_accessories.php');
-$count_accessories = count_nendoroidAccessories();
+$count_accessories = count_allAccessories();
 
 include_once('mvc/views/pages/skeleton.php');
