@@ -1,6 +1,6 @@
 <?php
 
-function count_nendoroidHairs()
+function count_allHairs()
 {
   global $bdd;
 

@@ -1,6 +1,6 @@
 <?php
 
-function count_nendoroidHands()
+function count_allHands()
 {
   global $bdd;
 

@@ -1,6 +1,6 @@
 <?php
 
-function count_nendoroidBoxes()
+function count_allBoxes()
 {
   global $bdd;
 
