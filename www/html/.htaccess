@@ -1,5 +1,7 @@
 Options +FollowSymlinks
 RewriteEngine On
 
-RewriteRule ^home$                            index.php?action=home [L]
-RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$                 index.php?action=nendoroid&box=$1&nendourlname=$2&nendointernalid=$3 [L]
+RewriteRule ^home$                                index.php?action=home [L]
+RewriteRule ^boxes$                               index.php?action=boxes [L]
+RewriteRule ^boxes/$                              index.php?action=boxes [L]
+RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&box=$1&nendourlname=$2&nendointernalid=$3 [L]

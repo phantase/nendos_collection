@@ -21,6 +21,9 @@
   $action = isset($_GET['action']) ? $_GET['action'] : "home";
 
   switch($action) {
+    case "boxes":
+      include_once('mvc/controllers/boxes.php');
+      break;
     case "nendoroid":
       include_once('mvc/controllers/nendoroid.php');
       break;
@@ -28,5 +31,4 @@
     default:
       include_once('mvc/controllers/home.php');
       break;
-
   }
