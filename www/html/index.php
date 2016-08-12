@@ -24,11 +24,14 @@
     case "boxes":
       include_once('mvc/controllers/boxes.php');
       break;
-    case "nendoroid":
-      include_once('mvc/controllers/nendoroid.php');
-      break;
     case "nendoroids":
       include_once('mvc/controllers/nendoroids.php');
+      break;
+    case "faces":
+      include_once('mvc/controllers/faces.php');
+      break;
+    case "nendoroid":
+      include_once('mvc/controllers/nendoroid.php');
       break;
     case "home":
     default:
