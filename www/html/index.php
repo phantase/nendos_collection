@@ -27,6 +27,9 @@
     case "nendoroid":
       include_once('mvc/controllers/nendoroid.php');
       break;
+    case "nendoroids":
+      include_once('mvc/controllers/nendoroids.php');
+      break;
     case "home":
     default:
       include_once('mvc/controllers/home.php');
