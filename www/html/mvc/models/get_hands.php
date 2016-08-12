@@ -45,4 +45,16 @@ function get_nendoroidHands($nendoroid_id)
 
   return $hands;
 }
+/** Get all the Hands available for a specific Box */
+function get_boxHands($box_id)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id, h.skin_color, h.skin_color_hex, h.leftright, h.posture, h.description FROM hands AS h WHERE h.box_id = :box_id");
+  $req->bindParam(':box_id',$box_id);
+  $req->execute();
+  $hands = $req->fetchAll(PDO::FETCH_ASSOC);
+
+  return $hands;
+}
 

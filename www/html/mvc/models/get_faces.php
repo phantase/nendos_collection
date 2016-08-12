@@ -45,3 +45,15 @@ function get_nendoroidFaces($nendoroid_id)
 
   return $faces;
 }
+/** Get all the faces available for a specific Box */
+function get_boxFaces($box_id)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT f.internalid, f.box_id, f.nendoroid_id, f.eyes, f.eyes_color, f.eyes_color_hex, f.mouth, f.skin_color, f.skin_color_hex, f.sex FROM faces AS f WHERE f.box_id = :box_id");
+  $req->bindParam(':box_id',$box_id);
+  $req->execute();
+  $faces = $req->fetchAll(PDO::FETCH_ASSOC);
+
+  return $faces;
+}

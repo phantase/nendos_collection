@@ -33,3 +33,15 @@ function get_singleNendoroid($nendoroid_id)
 
   return $nendoroid;
 }
+/** Get all Nendoroid for a certain box internalid */
+function get_boxNendoroids($box_id)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.editor, n.dominant_color, b.name AS box_name, b.type AS box_type FROM nendoroids AS n, boxes AS b WHERE n.box_id=b.internalid AND n.box_id = :box_id");
+  $req->bindParam(':box_id',$box_id);
+  $req->execute();
+  $nendoroids = $req->fetchAll(PDO::FETCH_ASSOC);
+
+  return $nendoroids;
+}

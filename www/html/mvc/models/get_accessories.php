@@ -45,3 +45,15 @@ function get_nendoroidAccessories($nendoroid_id)
 
   return $accessories;
 }
+/** Get all the accessories available for a specific Box */
+function get_boxAccessories($box_id)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type, a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description FROM accessories AS a WHERE a.box_id = :box_id");
+  $req->bindParam(':box_id',$box_id);
+  $req->execute();
+  $accessories = $req->fetchAll(PDO::FETCH_ASSOC);
+
+  return $accessories;
+}

@@ -19,4 +19,5 @@ RewriteRule ^bodyparts/$                          index.php?action=bodyparts [L]
 RewriteRule ^accessories$                         index.php?action=accessories [L]
 RewriteRule ^accessories/$                        index.php?action=accessories [L]
 # SINGLE PAGES
+RewriteRUle ^box/(.*)_([0-9]+)/$                  index.php?action=box&boxinternalid=$2 [L]
 RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&box=$1&nendourlname=$2&nendointernalid=$3 [L]

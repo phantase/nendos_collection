@@ -45,3 +45,15 @@ function get_nendoroidHairs($nendoroid_id)
 
   return $hairs;
 }
+/** Get all the Hairs available for a specific Box */
+function get_boxHairs($box_id)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id, h.main_color, h.main_color_hex, h.other_color, h.other_color_hex, h.haircut, h.description, h.frontback FROM hairs AS h WHERE h.box_id = :box_id");
+  $req->bindParam(':box_id',$box_id);
+  $req->execute();
+  $hairs = $req->fetchAll(PDO::FETCH_ASSOC);
+
+  return $hairs;
+}
