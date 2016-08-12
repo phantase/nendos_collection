@@ -33,6 +33,9 @@
     case "hairs":
       include_once('mvc/controllers/hairs.php');
       break;
+    case "hands":
+      include_once('mvc/controllers/hands.php');
+      break;
     case "nendoroid":
       include_once('mvc/controllers/nendoroid.php');
       break;
