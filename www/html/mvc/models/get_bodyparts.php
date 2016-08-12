@@ -4,7 +4,7 @@ function count_allBodyParts()
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT count(*) As count FROM body_parts AS bo");
+  $req = $bdd->prepare("SELECT count(*) As count FROM body_parts AS bp");
   $req->execute();
   $count = $req->fetch();
 
@@ -22,24 +22,24 @@ function get_allBodyParts()
   return $body_parts;
 }
 /** Count all the body parts available for a specific Nendoroid */
-function count_nendoroidBodyParts($number)
+function count_nendoroidBodyParts($nendoroid_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT count(*) As count FROM body_parts AS bo WHERE bp.nendoroid_number = :number");
-  $req->bindParam(':number',$number);
+  $req = $bdd->prepare("SELECT count(*) As count FROM body_parts AS bp WHERE bp.nendoroid_id = :nendoroid_id");
+  $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->execute();
   $count = $req->fetch();
 
   return $count['count'];
 }
 /** Get all the body parts available for a specific Nendoroid */
-function get_nendoroidBodyParts($number)
+function get_nendoroidBodyParts($nendoroid_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT bp.internalid, bp.box_id, bp.nendoroid_id, bp.part, bp.main_color, bp.main_color_hex, bp.second_color, bp.second_color_hex, bp.description FROM body_parts AS bp WHERE bp.nendoroid_id = :number");
-  $req->bindParam(':number',$number);
+  $req = $bdd->prepare("SELECT bp.internalid, bp.box_id, bp.nendoroid_id, bp.part, bp.main_color, bp.main_color_hex, bp.second_color, bp.second_color_hex, bp.description FROM body_parts AS bp WHERE bp.nendoroid_id = :nendoroid_id");
+  $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->execute();
   $body_parts = $req->fetchAll(PDO::FETCH_ASSOC);
 
