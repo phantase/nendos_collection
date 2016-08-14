@@ -13,20 +13,17 @@
                 </div>
                 <div  class="8u">
                   <h4>Nendoroids</h4>
-<?php
-  $divider = "fourth";
-  include("mvc/views/pages-sections/nendoroids.php");
-?>
+<?php showNendoroids($nendoroids,"article",null); ?>
               <h4>Faces</h4>
-<?php include("mvc/views/pages-sections/faces.php"); ?>
+<?php showFaces($faces,"article","fourth"); ?>
               <h4>Hands</h4>
-<?php include("mvc/views/pages-sections/hands.php"); ?>
+<?php showHands($hands,"article","fourth"); ?>
               <h4>Body Parts</h4>
-<?php include("mvc/views/pages-sections/bodyparts.php"); ?>
+<?php showBodyParts($bodyparts,"article","fourth"); ?>
               <h4>Hairs</h4>
-<?php include("mvc/views/pages-sections/hairs.php"); ?>
+<?php showHairs($hairs,"article","fourth"); ?>
               <h4>Accessories</h4>
-<?php include("mvc/views/pages-sections/accessories.php"); ?>
+<?php showAccessories($accessories,"article","fourth"); ?>
                 </div>
               </div>
 

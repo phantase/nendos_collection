@@ -4,6 +4,6 @@
               <header>
                 <h2>Hands</h2>
               </header>
-<?php include("mvc/views/pages-sections/hands.php"); ?>
+<?php showHands($hands,"article","sixth"); ?>
             </div>
           </div>

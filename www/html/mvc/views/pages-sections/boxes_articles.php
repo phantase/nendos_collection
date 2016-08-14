@@ -1,8 +1,16 @@
               <section class="tiles">
 <?php
 foreach ($boxes as $box) {
+  if( isset($divider) ){
 ?>
-                <article class="sixth">
+                <article class="<?= $divider ?>">
+<?php
+  } else {
+?>
+                <article>
+<?php
+  }
+?>
                   <span class="image fit">
                     <img src="images/nendos/boxes/<?= $box['internalid'] ?>.jpg" alt="" />
                   </span>

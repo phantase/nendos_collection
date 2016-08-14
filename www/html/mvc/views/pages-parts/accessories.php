@@ -4,6 +4,6 @@
               <header>
                 <h2>Accessories</h2>
               </header>
-<?php include("mvc/views/pages-sections/accessories.php"); ?>
+<?php showAccessories($accessories,"article","sixth"); ?>
             </div>
           </div>

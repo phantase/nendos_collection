@@ -4,6 +4,6 @@
               <header>
                 <h2>Nendoroids</h2>
               </header>
-<?php include("mvc/views/pages-sections/nendoroids.php"); ?>
+<?php showNendoroids($nendoroids,"article","sixth"); ?>
             </div>
           </div>

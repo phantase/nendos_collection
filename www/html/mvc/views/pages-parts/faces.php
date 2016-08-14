@@ -4,6 +4,6 @@
               <header>
                 <h2>Faces</h2>
               </header>
-<?php include("mvc/views/pages-sections/faces.php"); ?>
+<?php showFaces($faces,"article","sixth"); ?>
             </div>
           </div>

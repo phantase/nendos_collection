@@ -4,6 +4,6 @@
               <header>
                 <h2>Hairs</h2>
               </header>
-<?php include("mvc/views/pages-sections/hairs.php"); ?>
+<?php showHairs($hairs,"article","sixth"); ?>
             </div>
           </div>

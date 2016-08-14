@@ -2609,6 +2609,10 @@
 			width: calc(16.6666% - 2.5em);
 		}
 
+		.tiles article.fifth {
+			width: calc(20% - 2.5em);
+		}
+
 		.tiles article.fourth {
 			width: calc(25% - 2.5em);
 		}
@@ -3379,7 +3383,7 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    /*border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
 
 /* Tooltip text */

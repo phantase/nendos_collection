@@ -1,12 +1,20 @@
               <section class="tiles">
 <?php
 foreach ($bodyparts as $bodypart) {
+  if( isset($divider) ){
 ?>
-                <article class="sixth">
+                <article class="<?= $divider ?>">
+<?php
+  } else {
+?>
+                <article>
+<?php
+  }
+?>
                   <span class="image fit">
                     <img src="images/nendos/bodyparts/<?= $bodypart['internalid'] ?>.jpg" alt="" />
                   </span>
-                  <a href="face/<?= $bodypart['internalid'] ?>/">
+                  <a href="bodypart/<?= $bodypart['internalid'] ?>/">
                   </a>
                 </article>
 <?php

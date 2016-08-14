@@ -16,6 +16,8 @@
 
   // Stuff for the access to the DB
   include_once('mvc/models/sql_connection.php');
+  // Stuff to have the different renderers for the parts
+  include_once('mvc/views/pages-sections/func_sections.php');
 
   // Retrieve the parameter action which is used to navigate in the MVC
   $action = isset($_GET['action']) ? $_GET['action'] : "home";

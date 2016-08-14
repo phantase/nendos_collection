@@ -1,15 +1,15 @@
               <section class="tiles">
 <?php
 foreach ($nendoroids as $nendoroid) {
-if( isset($divider) ){
+  if( isset($divider) ){
 ?>
                 <article class="<?= $divider ?>">
 <?php
-} else {
+  } else {
 ?>
                 <article>
 <?php
-}
+  }
 ?>
                   <span class="image fit">
                     <img src="images/nendos/nendoroids/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
