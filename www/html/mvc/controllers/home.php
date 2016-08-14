@@ -13,7 +13,7 @@ $count_faces = count_allFaces();
 include_once('mvc/models/get_hairs.php');
 $count_hairs = count_allHairs();
 include_once('mvc/models/get_bodyparts.php');
-$count_body_parts = count_allBodyParts();
+$count_bodyparts = count_allBodyParts();
 include_once('mvc/models/get_hands.php');
 $count_hands = count_allHands();
 include_once('mvc/models/get_accessories.php');
