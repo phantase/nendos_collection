@@ -88,31 +88,7 @@
                 </div>
               </header>
               <p/>
-              <section class="tiles">
-<?php
-  foreach ($nendoroids as $nendoroid) {
-?>
-                <style>
-                  .tiles article#nendo_<?= $nendoroid['internalid'] ?> > .image:before {
-                    background-color: #<?= $nendoroid['dominant_color'] ?>;
-                  }
-                </style>
-                <article id="nendo_<?= $nendoroid['internalid'] ?>">
-                  <span class="image">
-                    <img src="images/nendos/nendoroids/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
-                  </span>
-                  <a href="nendoroid/<?= $nendoroid['box_name'] ?>/<?= $nendoroid['url'] ?>_<?= $nendoroid['internalid'] ?>/">
-                    <h2>#<?= $nendoroid['box_name'] ?><br/><?= $nendoroid['name'] ?></h2>
-                    <div class="content">
-                      <p><?= $nendoroid['origin'] ?> - <?= $nendoroid['name'] ?> - <?= $nendoroid['box_type'] ?> #<?= $nendoroid['box_name'] ?> - <?= $nendoroid['version'] ?> (<?= $nendoroid['editor'] ?>)</p>
-                    </div>
-                  </a>
-                </article>
-<?php
-  }
-?>
-              </section>
-
+<?php showNendoroids($nendoroids, "home",null); ?>
               <div class="pager">
                 <ul class="pagination"></ul>
               </div>
