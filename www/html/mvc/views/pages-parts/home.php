@@ -7,15 +7,7 @@
                     &nbsp;
                   </div>
                   <div class="3u">
-                    <a href="boxes">
-                      <div class="info-box">
-                        <span class="info-box-icon nendo_boxes_icon"></span>
-                        <div class="info-box-content">
-                          <span class="info-box-text">Boxes</span>
-                          <span class="info-box-number"><?= $count_boxes; ?></span>
-                        </div>
-                      </div>
-                    </a>
+                  <?php showBoxesCount($count_boxes); ?>
                   </div>
                   <div class="3u">
                     <a href="nendoroids">
@@ -88,7 +80,7 @@
                 </div>
               </header>
               <p/>
-<?php showNendoroids($nendoroids, "home",null); ?>
+<?php showNendoroidsListing($nendoroids, "home",null); ?>
               <div class="pager">
                 <ul class="pagination"></ul>
               </div>

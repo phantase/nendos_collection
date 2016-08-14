@@ -4,6 +4,6 @@
               <header>
                 <h2>Hands</h2>
               </header>
-<?php showHands($hands,"article","sixth"); ?>
+<?php showHandsListing($hands,"article","sixth"); ?>
             </div>
           </div>

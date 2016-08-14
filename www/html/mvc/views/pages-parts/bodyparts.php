@@ -4,6 +4,6 @@
               <header>
                 <h2>Body Parts</h2>
               </header>
-<?php showBodyParts($bodyparts,"article","sixth"); ?>
+<?php showBodyPartsListing($bodyparts,"article","sixth"); ?>
             </div>
           </div>

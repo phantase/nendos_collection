@@ -4,6 +4,6 @@
               <header>
                 <h2>Nendoroids</h2>
               </header>
-<?php showNendoroids($nendoroids,"article","sixth"); ?>
+<?php showNendoroidsListing($nendoroids,"article","sixth"); ?>
             </div>
           </div>

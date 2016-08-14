@@ -13,33 +13,33 @@
                 </div>
                 <div  class="8u">
                   <h4>Nendoroids</h4>
-<?php showNendoroids($nendoroids,"article",null); ?>
+<?php showNendoroidsListing($nendoroids,"article",null); ?>
                 </div>
               </div>
               <div class="row">
                 <div class="6u">
               <h4>Faces</h4>
-<?php showFaces($faces,"article","fourth"); ?>
+<?php showFacesListing($faces,"article","fourth"); ?>
                 </div>
                 <div class="6u">
               <h4>Hairs</h4>
-<?php showHairs($hairs,"article","fourth"); ?>
+<?php showHairsListing($hairs,"article","fourth"); ?>
                 </div>
               </div>
               <div class="row">
                 <div class="6u">
               <h4>Hands</h4>
-<?php showHands($hands,"article","fourth"); ?>
+<?php showHandsListing($hands,"article","fourth"); ?>
                 </div>
                 <div class="6u">
               <h4>Body Parts</h4>
-<?php showBodyParts($bodyparts,"article","fourth"); ?>
+<?php showBodyPartsListing($bodyparts,"article","fourth"); ?>
                 </div>
               </div>
               <div class="row">
                 <div class="6u">
               <h4>Accessories</h4>
-<?php showAccessories($accessories,"article","fourth"); ?>
+<?php showAccessoriesListing($accessories,"article","fourth"); ?>
                 </div>
               </div>
 

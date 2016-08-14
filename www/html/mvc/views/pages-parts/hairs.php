@@ -4,6 +4,6 @@
               <header>
                 <h2>Hairs</h2>
               </header>
-<?php showHairs($hairs,"article","sixth"); ?>
+<?php showHairsListing($hairs,"article","sixth"); ?>
             </div>
           </div>

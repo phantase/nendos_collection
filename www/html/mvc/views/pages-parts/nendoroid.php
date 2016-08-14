@@ -50,7 +50,7 @@
                 <div class="row">
                   <div class="6u 12u$(medium)">
 <h4>Faces</h4>
-<?php showFaces($faces,"articles","fourth"); ?>
+<?php showFacesListing($faces,"articles","fourth"); ?>
                   </div>
                 </div>
 

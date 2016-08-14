@@ -4,6 +4,6 @@
               <header>
                 <h2>Boxes</h2>
               </header>
-<?php showBoxes($boxes,"article","sixth"); ?>
+<?php showBoxesListing($boxes,"article","sixth"); ?>
             </div>
           </div>

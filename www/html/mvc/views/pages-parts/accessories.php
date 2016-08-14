@@ -4,6 +4,6 @@
               <header>
                 <h2>Accessories</h2>
               </header>
-<?php showAccessories($accessories,"article","sixth"); ?>
+<?php showAccessoriesListing($accessories,"article","sixth"); ?>
             </div>
           </div>

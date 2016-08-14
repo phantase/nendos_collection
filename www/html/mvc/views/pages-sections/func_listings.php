@@ -1,29 +1,29 @@
 <?php
 
-function showAccessories($accessories,$renderer,$divider){
-  include('mvc/views/pages-sections/accessories_articles.php');
+function showAccessoriesListing($accessories,$renderer,$divider){
+  include('mvc/views/pages-sections/articles/accessories.php');
 }
 
-function showBodyParts($bodyparts,$renderer,$divider){
-  include('mvc/views/pages-sections/bodyparts_articles.php');
+function showBodyPartsListing($bodyparts,$renderer,$divider){
+  include('mvc/views/pages-sections/articles/bodyparts.php');
 }
 
-function showBoxes($boxes,$renderer,$divider){
-  include('mvc/views/pages-sections/boxes_articles.php');
+function showBoxesListing($boxes,$renderer,$divider){
+  include('mvc/views/pages-sections/articles/boxes.php');
 }
 
-function showFaces($faces,$renderer,$divider){
-  include('mvc/views/pages-sections/faces_articles.php');
+function showFacesListing($faces,$renderer,$divider){
+  include('mvc/views/pages-sections/articles/faces.php');
 }
 
-function showHairs($hairs,$renderer,$divider){
-  include('mvc/views/pages-sections/hairs_articles.php');
+function showHairsListing($hairs,$renderer,$divider){
+  include('mvc/views/pages-sections/articles/hairs.php');
 }
 
-function showHands($hands,$renderer,$divider){
-  include('mvc/views/pages-sections/hands_articles.php');
+function showHandsListing($hands,$renderer,$divider){
+  include('mvc/views/pages-sections/articles/hands.php');
 }
 
-function showNendoroids($nendoroids,$renderer,$divider){
-  include('mvc/views/pages-sections/nendoroids_articles.php');
+function showNendoroidsListing($nendoroids,$renderer,$divider){
+  include('mvc/views/pages-sections/articles/nendoroids.php');
 }

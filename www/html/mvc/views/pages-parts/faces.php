@@ -4,6 +4,6 @@
               <header>
                 <h2>Faces</h2>
               </header>
-<?php showFaces($faces,"article","sixth"); ?>
+<?php showFacesListing($faces,"article","sixth"); ?>
             </div>
           </div>
