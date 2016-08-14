@@ -2609,6 +2609,10 @@
 			width: calc(16.6666% - 2.5em);
 		}
 
+		.tiles article.fourth {
+			width: calc(25% - 2.5em);
+		}
+
 			.tiles article > .image {
 				-moz-transition: -moz-transform 0.5s ease;
 				-webkit-transition: -webkit-transform 0.5s ease;
@@ -2647,7 +2651,7 @@
 					opacity: 0.8;
 				}
 
-				.tiles article.sixth .image:before {
+				.tiles article.sixth .image:before, .tiles article.fourth .image:before {
 	        background-color: rgba(254,254,254,0.5);
 	      }
 
