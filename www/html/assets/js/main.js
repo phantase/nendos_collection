@@ -302,4 +302,12 @@ $('#logout_button').click(function(){
 	});
 });
 
+$('#newBoxForm').hide();
+$('#noNewBox').hide();
+$('#newBox,#noNewBox').click(function(){
+	$('#newBoxForm').toggle();
+	$('#newBox').toggle();
+	$('#noNewBox').toggle();
+});
+
 })(jQuery);

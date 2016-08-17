@@ -3521,3 +3521,10 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 #login_button, #logout_button {
 	cursor: pointer;
 }
+
+.bordered {
+	padding:10px 0px;
+	border-radius: 5px;
+	border: dashed 1px #000;
+	background-color:#efefef;
+}
