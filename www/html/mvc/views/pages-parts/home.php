@@ -3,7 +3,17 @@
             <div class="inner">
               <header>
                 <div class="row">
-                  <div class="6u">
+                  <div class="4u">
+
+                    <?php
+                    if(!isset($_SESSION['userid'])) {
+                      include('mvc/views/pages-sections/others/box_login.php');
+                    } else {
+                      include('mvc/views/pages-sections/others/box_logged.php');
+                    }
+                    ?>
+                  </div>
+                  <div class="2u">
                     &nbsp;
                   </div>
                   <div class="3u"><?php showBoxesCounter($count_boxes); ?></div>

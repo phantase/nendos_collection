@@ -3471,6 +3471,11 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
     text-align: center;
 }
 
+.login_icon {
+		background-image: url('../../images/icon_login.png');
+		background-repeat: no-repeat;
+		background-size:100%;
+}
 .nendo_face_icon {
 		background-image: url('../../images/icon_nendo_face.png');
 		background-repeat: no-repeat;
@@ -3507,4 +3512,12 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 		background-image: url('../../images/icon_nendo_nendo.png');
 		background-repeat: no-repeat;
 		background-size:100%;
+}
+
+.info-box-text input {
+		height: 2.2em;
+}
+
+#login_button, #logout_button {
+	cursor: pointer;
 }

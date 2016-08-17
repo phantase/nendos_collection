@@ -12,6 +12,9 @@ RewriteCond %{DOCUMENT_ROOT}/nendos/images/nendos/$1/$2.jpg -f
 RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/nendos/$1/$2.jpg [L]
 RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/unknown.png [L]
 
+# LOGIN
+RewriteRule ^loginandout$                         index.php?action=loginandout [L]
+
 # HOME
 RewriteRule ^home$                                index.php?action=home [L]
 # LISTINGS

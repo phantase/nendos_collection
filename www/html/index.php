@@ -24,6 +24,10 @@
   $action = isset($_GET['action']) ? $_GET['action'] : "home";
 
   switch($action) {
+    // LOGIN
+    case "loginandout":
+      include_once('mvc/controllers/loginandout.php');
+      break;
     // LISTINGS
     case "boxes":
       include_once('mvc/controllers/boxes.php');

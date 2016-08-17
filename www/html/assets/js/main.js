@@ -276,4 +276,30 @@ $(window).hashchange();
 
 	});
 
+$('#login_button').click(function(){
+	var username = $('#username').val();
+	var password = $('#password').val();
+	var encpass = btoa(btoa(btoa(password)));
+	$.post("loginandout",{action:"login",username:username,password:encpass},function(data){
+		if( data == "1"){
+			// SUCCESS
+			window.location.reload(true);
+		} else {
+			// FAIL
+			$('#username').val('');
+			$('#password').val('');
+		}
+	});
+});
+$('#logout_button').click(function(){
+	$.post("loginandout",{action:"logout"},function(data){
+		if( data == "1"){
+			// SUCCESS
+			window.location.reload(true);
+		} else {
+			// FAIL
+		}
+	});
+});
+
 })(jQuery);
