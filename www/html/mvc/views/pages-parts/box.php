@@ -1,10 +1,6 @@
         <!-- Main -->
           <div id="main">
             <div class="inner">
-              <header>
-                <h1>BOX: <?= $box['type'] ?> #<?= $box['name'] ?></h1>
-              </header>
-
               <div class="row">
                 <div  class="4u">
                   <span class="image fit">

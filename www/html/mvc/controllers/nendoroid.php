@@ -16,6 +16,8 @@ if( isset($_GET['nendointernalid']) ){
   include_once('mvc/models/get_accessories.php');
   $accessories = get_nendoroidAccessories($nendointernalid);
 
+  $page_title = $nendoroid['origin']." - ".$nendoroid['name'];
+
   include_once('mvc/views/pages/skeleton.php');
 
 } else {

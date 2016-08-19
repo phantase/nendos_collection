@@ -21,6 +21,8 @@ if( isset($_GET['boxinternalid']) ){
   include_once('mvc/models/get_accessories.php');
   $accessories = get_boxAccessories($boxinternalid);
 
+  $page_title = "Box - ".$box['type']." #".$box['name'];
+
   include_once('mvc/views/pages/skeleton.php');
 
 } else {

@@ -1,9 +1,6 @@
         <!-- Main -->
           <div id="main">
             <div class="inner">
-              <header>
-                <h1><?= $nendoroid['origin'] ?> - <?= $nendoroid['name'] ?></h1>
-              </header>
               <section>
                 <div class="row">
                   <div class="4u 12u$(medium)">
