@@ -19,6 +19,6 @@ $count_hands = count_allHands();
 include_once('mvc/models/get_accessories.php');
 $count_accessories = count_allAccessories();
 
-$page_title = "Home";
+$page_title = "Nendoroids DB";
 
 include_once('mvc/views/pages/skeleton.php');

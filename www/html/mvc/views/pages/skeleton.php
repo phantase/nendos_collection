@@ -6,7 +6,7 @@
 -->
 <html>
   <head>
-    <title>Nendoroids DB [<?= $page_title ?>]</title>
+    <title><?= $page_title ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <base href="/nendos/">
@@ -28,7 +28,7 @@
 
               <!-- Logo -->
                 <a href="/nendos/" class="logo">
-                  <span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Nendoroids DB [<?= $page_title ?>]</span>
+                  <span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title"><?= $page_title ?></span>
                 </a>
 
               <!-- Nav -->
