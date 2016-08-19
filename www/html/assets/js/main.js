@@ -323,7 +323,7 @@ $('#newBox,#noNewBox').click(function(){
             .appendTo( this );
         }
       },
-      items: "[title], [face], [hair], [hand], [bodypart], [accessory]",
+      items: "[title], [face], [hair], [hand], [bodypart], [accessory], [nendoroid]",
       content: function() {
       	var element = $(this);
       	if( element.is("[title]") ){
@@ -346,9 +346,12 @@ $('#newBox,#noNewBox').click(function(){
       		return "<b style='color:#F57921;'>" + element.attr("bodypart") + "</b>" +
       			"<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
       	}
-      	if( element.is("[accessory]") ){
-      		return "<b style='color:#F57921;'>" + element.attr("accessory") + "</b>" +
-      			"<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
+        if( element.is("[accessory]") ){
+          return "<b style='color:#F57921;'>" + element.attr("accessory") + "</b>" +
+            "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
+        }
+      	if( element.is("[nendoroid]") ){
+      		return element.attr("origin") + " - " + element.attr("name");
       	}
       }
     });

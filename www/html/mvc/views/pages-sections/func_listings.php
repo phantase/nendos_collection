@@ -22,7 +22,7 @@ function showBodyPartsListing($bodyparts,$renderer,$divider){
   }
 }
 
-function showBoxesListing($boxes,$renderer,$divider){
+function showBoxesListing($boxes,$renderer,$divider,$withlinks=false){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/articles/boxes.php');
@@ -66,10 +66,14 @@ function showHandsListing($hands,$renderer,$divider){
   }
 }
 
-function showNendoroidsListing($nendoroids,$renderer,$divider){
+function showNendoroidsListing($nendoroids,$renderer,$divider,$withlinks=false){
   switch($renderer){
     case "article":
+    case "home":
       include('mvc/views/pages-sections/articles/nendoroids.php');
+      break;
+    case "simple":
+      include('mvc/views/pages-sections/simple_listings/nendoroids.php');
       break;
   }
 }

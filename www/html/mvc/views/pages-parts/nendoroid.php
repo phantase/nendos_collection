@@ -14,7 +14,7 @@
                         <tbody>
                           <tr>
                             <th>Nendoroid #</th>
-                            <td><?= $nendoroid['box_name'] ?></td>
+                            <td><a href="box/<?= $nendoroid['box_name'] ?>_<?= $nendoroid['box_id'] ?>/"><?= $nendoroid['box_name'] ?></a></td>
                           </tr>
                           <tr>
                             <th>Origin</th>
