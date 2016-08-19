@@ -10,7 +10,7 @@ if( isset($_GET['nendointernalid']) ){
   include_once('mvc/models/get_hands.php');
   $hands = get_nendoroidHands($nendointernalid);
   include_once('mvc/models/get_bodyparts.php');
-  $body_parts = get_nendoroidBodyParts($nendointernalid);
+  $bodyparts = get_nendoroidBodyParts($nendointernalid);
   include_once('mvc/models/get_hairs.php');
   $hairs = get_nendoroidHairs($nendointernalid);
   include_once('mvc/models/get_accessories.php');

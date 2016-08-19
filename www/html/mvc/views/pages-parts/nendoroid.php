@@ -46,96 +46,24 @@
 
                 <div class="row">
                   <div class="6u 12u$(medium)">
-<h4>Faces</h4>
-<?php showFacesListing($faces,"articles","fourth"); ?>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="6u 12u$(medium)">
                     <h4>Faces</h4>
-                    <div class="row">
-<?php
-  foreach ($faces as $face) {
-?>
-                      <div class="3u">
-                        <span class="image fit tooltip">
-                          <img src="images/nendos/faces/<?= $face['internalid'] ?>.jpg" alt="" />
-                          <span class="tooltiptext">Eyes: <?= $face['eyes'] ?><br/>Mouth: <?= $face['mouth'] ?></span>
-                        </span>
-                      </div>
-<?php
-  }
-?>
-                    </div>
+                    <?php showFacesListing($faces,"simple",null); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hairs</h4>
-                    <div class="row">
-<?php
-  foreach ($hairs as $hair) {
-?>
-                      <div class="3u">
-                        <span class="image fit tooltip">
-                          <img src="images/nendos/hairs/<?= $hair['internalid'] ?>.jpg" alt="" />
-                          <span class="tooltiptext"><?= $hair['frontback'] ?><br/>Haircut: <?= $hair['haircut'] ?><br/>Description: <?= $hair['description'] ?></span>
-                        </span>
-                      </div>
-<?php
-  }
-?>
-                    </div>
+                    <?php showHairsListing($hairs,"simple",null); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hands</h4>
-                    <div class="row">
-<?php
-  foreach ($hands as $hand) {
-?>
-                      <div class="3u">
-                        <span class="image fit tooltip">
-                          <img src="images/nendos/hands/<?= $hand['internalid'] ?>.jpg" alt="" />
-                          <span class="tooltiptext"><?= $hand['leftright'] ?><br/>Posture: <?= $hand['posture'] ?></span>
-                        </span>
-                      </div>
-<?php
-  }
-?>
-                    </div>
+                    <?php showHandsListing($hands,"simple",null); ?>
                   </div>
                   <div class="6u 12u$(medium)">
-                    <h4>Body Parts</h4>
-                    <div class="row">
-<?php
-  foreach ($body_parts as $body_part) {
-?>
-                      <div class="3u">
-                        <span class="image fit tooltip">
-                          <img src="images/nendos/bodyparts/<?= $body_part['internalid'] ?>.jpg" alt="" />
-                          <span class="tooltiptext"><?= $body_part['part'] ?><br/>Description: <?= $body_part['description'] ?></span>
-                        </span>
-                      </div>
-<?php
-  }
-?>
-                    </div>
+                    <h4>Body parts</h4>
+                    <?php showBodyPartsListing($bodyparts,"simple",null); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Accessories</h4>
-                    <div class="row">
-<?php
-  foreach ($accessories as $accessory) {
-?>
-                      <div class="3u">
-                        <span class="image fit tooltip">
-                          <img src="images/nendos/accessories/<?= $accessory['internalid'] ?>.jpg" alt="" />
-                          <span class="tooltiptext"><?= $accessory['type'] ?><br/>Description: <?= $accessory['description'] ?></span>
-                        </span>
-                      </div>
-<?php
-  }
-?>
-                    </div>
+                    <?php showAccessoriesListing($accessories,"simple",null); ?>
                   </div>
                 </div>
               </section>
