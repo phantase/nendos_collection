@@ -67,5 +67,9 @@ function showHandsListing($hands,$renderer,$divider){
 }
 
 function showNendoroidsListing($nendoroids,$renderer,$divider){
-  include('mvc/views/pages-sections/articles/nendoroids.php');
+  switch($renderer){
+    case "article":
+      include('mvc/views/pages-sections/articles/nendoroids.php');
+      break;
+  }
 }
