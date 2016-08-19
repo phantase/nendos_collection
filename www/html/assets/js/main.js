@@ -310,4 +310,47 @@ $('#newBox,#noNewBox').click(function(){
 	$('#noNewBox').toggle();
 });
 
+    $( document ).tooltip({
+      position: {
+        my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      },
+      items: "[title], [face], [hair], [hand], [bodypart], [accessory]",
+      content: function() {
+      	var element = $(this);
+      	if( element.is("[title]") ){
+      		return element.attr("title");
+      	}
+      	if( element.is("[face]") ){
+      		return "<b style='color:#F57921;'>Eyes: </b>" + element.attr("eyes") +
+    				"<br/><b style='color:#F57921;'>"+"Mouth: </b>" + element.attr("mouth");
+      	}
+      	if( element.is("[hair]") ){
+      		return "<b style='color:#F57921;'>" + element.attr("frontback") + "</b>" +
+      			"<br/><b style='color:#F57921;'>Haircut: </b>" + element.attr("haircut") +
+      			"<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
+      	}
+      	if( element.is("[hand]") ){
+      		return "<b style='color:#F57921;'>" + element.attr("leftright") + "</b>" +
+      			"<br/><b style='color:#F57921;'>Posture: </b>" + element.attr("posture");
+      	}
+      	if( element.is("[bodypart]") ){
+      		return "<b style='color:#F57921;'>" + element.attr("bodypart") + "</b>" +
+      			"<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
+      	}
+      	if( element.is("[accessory]") ){
+      		return "<b style='color:#F57921;'>" + element.attr("accessory") + "</b>" +
+      			"<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
+      	}
+      }
+    });
+
 })(jQuery);

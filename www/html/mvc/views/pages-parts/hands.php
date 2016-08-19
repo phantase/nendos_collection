@@ -1,6 +1,6 @@
         <!-- Main -->
           <div id="main">
             <div class="inner">
-<?php showHandsListing($hands,"article","sixth"); ?>
+<?php showHandsListing($hands,"simple",null); ?>
             </div>
           </div>

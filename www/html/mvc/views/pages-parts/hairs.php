@@ -1,6 +1,6 @@
         <!-- Main -->
           <div id="main">
             <div class="inner">
-<?php showHairsListing($hairs,"article","sixth"); ?>
+<?php showHairsListing($hairs,"simple",null); ?>
             </div>
           </div>

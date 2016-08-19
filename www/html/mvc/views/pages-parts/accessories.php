@@ -1,6 +1,6 @@
         <!-- Main -->
           <div id="main">
             <div class="inner">
-<?php showAccessoriesListing($accessories,"article","sixth"); ?>
+<?php showAccessoriesListing($accessories,"simple",null); ?>
             </div>
           </div>
