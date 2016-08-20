@@ -3,7 +3,7 @@
 function showAccessoriesListing($accessories,$renderer,$divider){
   switch($renderer){
     case "article":
-      include('mvc/views/pages-sections/articles/accessories.php');
+      include('mvc/views/pages-sections/article_listings/accessories.php');
       break;
     case "simple":
       include('mvc/views/pages-sections/simple_listings/accessories.php');
@@ -14,7 +14,7 @@ function showAccessoriesListing($accessories,$renderer,$divider){
 function showBodyPartsListing($bodyparts,$renderer,$divider){
   switch($renderer){
     case "article":
-      include('mvc/views/pages-sections/articles/bodyparts.php');
+      include('mvc/views/pages-sections/article_listings/bodyparts.php');
       break;
     case "simple":
       include('mvc/views/pages-sections/simple_listings/bodyparts.php');
@@ -25,7 +25,7 @@ function showBodyPartsListing($bodyparts,$renderer,$divider){
 function showBoxesListing($boxes,$renderer,$divider,$withlinks=false){
   switch($renderer){
     case "article":
-      include('mvc/views/pages-sections/articles/boxes.php');
+      include('mvc/views/pages-sections/article_listings/boxes.php');
       break;
     case "simple":
       include('mvc/views/pages-sections/simple_listings/boxes.php');
@@ -36,7 +36,7 @@ function showBoxesListing($boxes,$renderer,$divider,$withlinks=false){
 function showFacesListing($faces,$renderer,$divider){
   switch($renderer){
     case "article":
-      include('mvc/views/pages-sections/articles/faces.php');
+      include('mvc/views/pages-sections/article_listings/faces.php');
       break;
     case "simple":
       include('mvc/views/pages-sections/simple_listings/faces.php');
@@ -47,7 +47,7 @@ function showFacesListing($faces,$renderer,$divider){
 function showHairsListing($hairs,$renderer,$divider){
   switch($renderer){
     case "article":
-      include('mvc/views/pages-sections/articles/hairs.php');
+      include('mvc/views/pages-sections/article_listings/hairs.php');
       break;
     case "simple":
       include('mvc/views/pages-sections/simple_listings/hairs.php');
@@ -58,7 +58,7 @@ function showHairsListing($hairs,$renderer,$divider){
 function showHandsListing($hands,$renderer,$divider){
   switch($renderer){
     case "article":
-      include('mvc/views/pages-sections/articles/hands.php');
+      include('mvc/views/pages-sections/article_listings/hands.php');
       break;
     case "simple":
       include('mvc/views/pages-sections/simple_listings/hands.php');
@@ -70,7 +70,7 @@ function showNendoroidsListing($nendoroids,$renderer,$divider,$withlinks=false){
   switch($renderer){
     case "article":
     case "home":
-      include('mvc/views/pages-sections/articles/nendoroids.php');
+      include('mvc/views/pages-sections/article_listings/nendoroids.php');
       break;
     case "simple":
       include('mvc/views/pages-sections/simple_listings/nendoroids.php');
