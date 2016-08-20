@@ -3,16 +3,30 @@
             <div class="inner">
               <header>
                 <div class="row">
+                  <?php
+                  if(!isset($_SESSION['userid'])) {
+                  ?>
                   <div class="6u 12u$(medium)">
-
                     <?php
-                    if(!isset($_SESSION['userid'])) {
                       include('mvc/views/pages-sections/others/box_login.php');
-                    } else {
-                      include('mvc/views/pages-sections/others/box_logged.php');
-                    }
                     ?>
                   </div>
+                  <?php
+                    } else {
+                  ?>
+                  <div class="4u 8u(medium)">
+                    <?php
+                      include('mvc/views/pages-sections/others/box_logged.php');
+                    ?>
+                  </div>
+                  <div class="2u 4u$(medium)">
+                    <div class="info-box add-box nendo_boxes_icon">
+                      <i class="icon fa-plus"></i>
+                    </div>
+                  </div>
+                  <?php
+                    }
+                  ?>
                   <div class="3u 6u(medium)"><?php showBoxesCounter($count_boxes); ?></div>
                   <div class="3u 6u(medium)"><?php showNendoroidsCounter($count_nendoroids); ?></div>
                 </div>

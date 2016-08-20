@@ -3573,3 +3573,9 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
     bottom: -20px;
     top: auto;
   }
+
+.add-box {
+	background-size: contain;
+	background-position: center;
+	background-color: #FAB483;
+}
