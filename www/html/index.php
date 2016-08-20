@@ -26,11 +26,11 @@
   switch($action) {
     // LOGIN
     case "loginandout":
-      include_once('mvc/controllers/loginandout.php');
+      include_once('mvc/controllers/services/loginandout.php');
       break;
     // ADD BOX
     case "add_box":
-      include_once('mvc/controllers/add_box.php');
+      include_once('mvc/controllers/services/add_box.php');
       break;
     // LISTINGS
     case "boxes":

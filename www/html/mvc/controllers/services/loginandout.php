@@ -16,7 +16,7 @@ if( isset($_POST['action']) && $_POST['action'] == 'login' ){
 
   $encpass = encrypt($username.$password.$A_SALT);
 
-  include_once('mvc/models/get_users.php');
+  include_once('mvc/models/users.php');
 
   $user = checkAndGet_singleUser($username,$encpass);
 
