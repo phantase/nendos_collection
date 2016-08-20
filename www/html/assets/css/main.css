@@ -3579,3 +3579,7 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 	background-position: center;
 	background-color: #FAB483;
 }
+
+#button_new_box {
+	cursor: pointer;
+}

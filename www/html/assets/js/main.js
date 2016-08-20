@@ -354,4 +354,30 @@ $('#newBox,#noNewBox').click(function(){
       }
     });
 
+    function addBox() {
+      dialog_new_box.dialog("close");
+      return true;
+    }
+
+    var dialog_new_box = $('#dialog_new_box').dialog({
+      autoOpen: false,
+      height: 400,
+      width: 350,
+      modal: true,
+      buttons: {
+        "Create a box": addBox,
+        Cancel: function() {
+          dialog_new_box.dialog("close");
+        }
+      },
+      close: function() {
+        // do nothing
+      }
+    });
+
+    $('#button_new_box').click(function(){
+      dialog_new_box.dialog("open");
+      console.log(dialog_new_box);
+    });
+
 })(jQuery);
