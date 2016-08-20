@@ -355,6 +355,16 @@ $('#newBox,#noNewBox').click(function(){
     });
 
     function addBox() {
+      var new_box_name = $('#new_box_name').val();
+      var new_box_type = $('#new_box_type').val();
+      $.post("box/add",{action:"add_box",new_box_name:new_box_name,new_box_type:new_box_type},function(data){
+        if(data.result == "success"){
+          window.location.replace("box/"+data.box_name+"_"+data.box_internalid+"/");
+        } else {
+          dialog_new_box.dialog("open");
+        }
+        console.log(data);
+      });
       dialog_new_box.dialog("close");
       return true;
     }
@@ -377,7 +387,6 @@ $('#newBox,#noNewBox').click(function(){
 
     $('#button_new_box').click(function(){
       dialog_new_box.dialog("open");
-      console.log(dialog_new_box);
     });
 
 })(jQuery);

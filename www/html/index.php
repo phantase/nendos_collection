@@ -28,6 +28,10 @@
     case "loginandout":
       include_once('mvc/controllers/loginandout.php');
       break;
+    // ADD BOX
+    case "add_box":
+      include_once('mvc/controllers/add_box.php');
+      break;
     // LISTINGS
     case "boxes":
       include_once('mvc/controllers/boxes.php');

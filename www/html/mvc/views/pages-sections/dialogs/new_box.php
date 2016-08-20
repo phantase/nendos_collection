@@ -2,7 +2,7 @@
   <form>
     <fieldset>
       <input type="text" name="new_box_name" id="new_box_name" placeholder="Box name" />
-      <input type="text" name="new_box_type" id="new_box_Type" placeholder="Box type" />
+      <input type="text" name="new_box_type" id="new_box_type" placeholder="Box type" />
     </fieldset>
   </form>
 </div>

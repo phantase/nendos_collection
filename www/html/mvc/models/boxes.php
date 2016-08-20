@@ -33,3 +33,17 @@ function get_singleBox($boxinternalid)
 
   return $box;
 }
+/** Add a single box in the DB */
+function add_singleBox($boxname,$boxtype)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("INSERT INTO boxes(name,type) VALUES(:boxname,:boxtype)");
+  $req->bindParam(':boxname',$boxname);
+  $req->bindParam(':boxtype',$boxtype);
+  $req->execute();
+
+  $boxinternalid = $bdd->lastInsertId();
+
+  return $boxinternalid;
+}

@@ -15,6 +15,9 @@ RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/unknown.png [L]
 # LOGIN
 RewriteRule ^loginandout$                         index.php?action=loginandout [L]
 
+# ADD BOX
+RewriteRule ^box/add$                             index.php?action=add_box [L]
+
 # HOME
 RewriteRule ^home$                                index.php?action=home [L]
 # LISTINGS
