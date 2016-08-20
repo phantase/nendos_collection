@@ -5,6 +5,9 @@
                 <div  class="4u 12u(medium)">
                   <span class="image fit">
                     <img src="images/nendos/boxes/<?= $box['internalid'] ?>.jpg" alt="" />
+                    <?php if(isset($_SESSION['userid'])){ ?>
+                      <i class="icon style2 fa-edit included" title="Add/Change the picture"></i>
+                    <?php } ?>
                   </span>
                 </div>
                 <div  class="8u 12u(medium)">

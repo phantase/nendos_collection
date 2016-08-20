@@ -3583,3 +3583,9 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 #button_new_box {
 	cursor: pointer;
 }
+
+.included {
+	position: absolute;
+	top:0px;
+	left:0px;
+}
