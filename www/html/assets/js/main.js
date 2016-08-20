@@ -205,7 +205,6 @@ var Paging = $(".pagination").paging(cont.length, { // make all elements navigat
     lapping: 0, // don't overlap pages for the moment
     page: null, // start at page, can also be "null" or negative
     onSelect: function (page) {
-        console.log(this);
 
         var data = this.slice;
 
@@ -265,7 +264,6 @@ var Paging = $(".pagination").paging(cont.length, { // make all elements navigat
 });
 
 $(window).hashchange(function() {
-	console.log(window.location.hash);
 	if (window.location.hash)
 		Paging.setPage(window.location.hash.substr(1));
 	else
