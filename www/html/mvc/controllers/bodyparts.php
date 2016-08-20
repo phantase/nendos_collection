@@ -1,6 +1,6 @@
 <?php
 
-include_once('mvc/models/get_bodyparts.php');
+include_once('mvc/models/bodyparts.php');
 $bodyparts = get_allBodyParts();
 
 $page_title = "Body parts";

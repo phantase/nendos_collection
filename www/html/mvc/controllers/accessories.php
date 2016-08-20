@@ -1,6 +1,6 @@
 <?php
 
-include_once('mvc/models/get_accessories.php');
+include_once('mvc/models/accessories.php');
 $accessories = get_allAccessories();
 
 $page_title = "Accessories";

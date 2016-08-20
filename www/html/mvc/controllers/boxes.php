@@ -1,6 +1,6 @@
 <?php
 
-include_once('mvc/models/get_boxes.php');
+include_once('mvc/models/boxes.php');
 $boxes = get_allBoxes();
 
 $page_title = "Boxes";

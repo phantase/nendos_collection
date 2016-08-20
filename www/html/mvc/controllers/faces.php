@@ -1,6 +1,6 @@
 <?php
 
-include_once('mvc/models/get_faces.php');
+include_once('mvc/models/faces.php');
 $faces = get_allFaces();
 
 $page_title = "Faces";

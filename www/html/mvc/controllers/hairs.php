@@ -1,6 +1,6 @@
 <?php
 
-include_once('mvc/models/get_hairs.php');
+include_once('mvc/models/hairs.php');
 $hairs = get_allHairs();
 
 $page_title = "Hairs";

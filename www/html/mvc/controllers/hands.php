@@ -1,6 +1,6 @@
 <?php
 
-include_once('mvc/models/get_hands.php');
+include_once('mvc/models/hands.php');
 $hands = get_allHands();
 
 $page_title = "Hands";
