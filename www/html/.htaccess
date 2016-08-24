@@ -17,6 +17,8 @@ RewriteRule ^loginandout$                         index.php?action=loginandout [
 
 # ADD BOX
 RewriteRule ^box/add$                             index.php?action=add_box [L]
+# ADD PICTURE on BOX
+RewriteRule ^box/([0-9]+)/picupload$              index.php?action=picupload&part=box&internalid=$1 [L]
 
 # HOME
 RewriteRule ^home$                                index.php?action=home [L]

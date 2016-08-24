@@ -389,4 +389,28 @@ $('#newBox,#noNewBox').click(function(){
       dialog_new_box.dialog("open");
     });
 
+    $('.dropzone').hide();
+
+    $('.editpic').click(function(){
+      var spanZoneId = 'span_'+$(this)[0].id.split('_')[1];
+      var dropZoneId = 'drop_'+$(this)[0].id.split('_')[1];
+      var boxInternalid = $(this)[0].id.split('_')[1].substring(3);
+
+      $('#'+spanZoneId).hide();
+      $('#'+dropZoneId).show();
+      $('#'+dropZoneId).css('height',$('#'+dropZoneId).css('width'));
+
+      var dropZone = new FileDrop(dropZoneId);
+      dropZone.event('send',function(files){
+        files.each(function(file){
+          file.event('done',function(xhr){
+            console.log('HEREHEREHEREHERE');
+            console.log(xhr);
+            console.log('EREHEREHEREHEREH');
+          });
+          file.sendTo('box/'+boxInternalid+'/picupload');
+        });
+      });
+    });
+
 })(jQuery);

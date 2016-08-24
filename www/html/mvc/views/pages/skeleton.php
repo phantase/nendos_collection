@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/jquery-ui.min.css" />
     <link rel="stylesheet" href="assets/css/jquery-ui.structure.min.css" />
     <link rel="stylesheet" href="assets/css/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="assets/css/filedrop.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -77,6 +78,7 @@
       <script src="assets/js/jquery.paging.min.js"></script>
       <script src="assets/js/jquery.ba-hashchange.min.js"></script>
       <script src="assets/js/jquery-ui.min.js"></script>
+      <script src="assets/js/filedrop-min.js"></script>
       <script src="assets/js/skel.min.js"></script>
       <script src="assets/js/util.js"></script>
       <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->

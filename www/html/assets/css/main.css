@@ -3589,3 +3589,10 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 	top:0px;
 	left:0px;
 }
+
+.dropzone {
+	border: dashed 10px #F57921;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}

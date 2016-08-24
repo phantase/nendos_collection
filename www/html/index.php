@@ -32,6 +32,10 @@
     case "add_box":
       include_once('mvc/controllers/services/add_box.php');
       break;
+    // ADD PICTURE on SOMETHING
+    case "picupload":
+      include_once('mvc/controllers/services/picupload.php');
+      break;
     // LISTINGS
     case "boxes":
       include_once('mvc/controllers/boxes.php');
