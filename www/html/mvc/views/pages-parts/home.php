@@ -39,7 +39,7 @@
                 </div>
               </header>
               <p/>
-<?php showNendoroidsListing($nendoroids, "home",null); ?>
+<?php showNendoroidsListing($nendoroids, "home"); ?>
               <div class="pager">
                 <ul class="pagination"></ul>
               </div>

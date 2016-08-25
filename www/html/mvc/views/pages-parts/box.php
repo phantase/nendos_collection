@@ -15,7 +15,7 @@
                 </div>
                 <div  class="8u 12u(medium)">
                   <h4>Nendoroids</h4>
-<?php showNendoroidsListing($nendoroids,"simple",null,true); ?>
+<?php showNendoroidsListing($nendoroids,"simple",true); ?>
                 </div>
               </div>
               <div class="row">
