@@ -43,3 +43,9 @@
 
             </div>
           </div>
+
+<?php
+if(isset($_SESSION['userid'])) {
+  include('mvc/views/pages-sections/dialogs/new_nendoroid.php');
+}
+?>

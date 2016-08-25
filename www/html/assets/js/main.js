@@ -418,4 +418,28 @@ $('#newBox,#noNewBox').click(function(){
       $(this).children().css('padding-top',($(this).height()-$(this).children().height())/2);
     });
 
+    function addNendoroid() {
+      return true;
+    }
+
+    var dialog_new_nendoroid = $('#dialog_new_nendoroid').dialog({
+      autoOpen: false,
+      height: 400,
+      width: 350,
+      modal: true,
+      buttons: {
+        "Create a nendoroid": addNendoroid,
+        Cancel: function() {
+          dialog_new_nendoroid.dialog("close");
+        }
+      },
+      close: function() {
+        // do nothing
+      }
+    });
+
+    $('#withadd_nendoroid').click(function(){
+      dialog_new_nendoroid.dialog("open");
+    });
+
 })(jQuery);
