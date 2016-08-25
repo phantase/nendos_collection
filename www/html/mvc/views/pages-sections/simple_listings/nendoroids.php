@@ -16,4 +16,15 @@
 <?php
   }
 ?>
+<?php
+  if( $withadd && isset($_SESSION['userid']) ){
+?>
+                      <div class="4u 6u(medium)">
+                        <span class="image fit withadd" id="withadd_nendoroid" title="Add a Nendoroid">
+                          <p><i class="icon fa-plus"></i></p>
+                        </span>
+                      </div>
+<?php
+  }
+?>
                     </div>

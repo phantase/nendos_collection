@@ -3596,3 +3596,10 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 	vertical-align: middle;
 	font-weight: bold;
 }
+
+.withadd {
+	border: dashed 5px #F57921;
+	background-color: #CDCDCD;
+	text-align: center;
+	vertical-align: middle;
+}

@@ -413,4 +413,9 @@ $('#newBox,#noNewBox').click(function(){
       });
     });
 
+    $('.withadd').each(function(){
+      $(this).css('height',$(this).css('width'));
+      $(this).children().css('padding-top',($(this).height()-$(this).children().height())/2);
+    });
+
 })(jQuery);

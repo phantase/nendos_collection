@@ -1,6 +1,6 @@
 <?php
 
-function showAccessoriesListing($accessories,$renderer,$divider){
+function showAccessoriesListing($accessories,$renderer,$withlinks=false,$withadd=false){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/accessories.php');
@@ -11,7 +11,7 @@ function showAccessoriesListing($accessories,$renderer,$divider){
   }
 }
 
-function showBodyPartsListing($bodyparts,$renderer,$divider){
+function showBodyPartsListing($bodyparts,$renderer,$withlinks=false,$withadd=false){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/bodyparts.php');
@@ -22,7 +22,7 @@ function showBodyPartsListing($bodyparts,$renderer,$divider){
   }
 }
 
-function showBoxesListing($boxes,$renderer,$divider,$withlinks=false){
+function showBoxesListing($boxes,$renderer,$withlinks=false,$withadd=false){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/boxes.php');
@@ -33,7 +33,7 @@ function showBoxesListing($boxes,$renderer,$divider,$withlinks=false){
   }
 }
 
-function showFacesListing($faces,$renderer,$divider){
+function showFacesListing($faces,$renderer,$withlinks=false,$withadd=false){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/faces.php');
@@ -44,7 +44,7 @@ function showFacesListing($faces,$renderer,$divider){
   }
 }
 
-function showHairsListing($hairs,$renderer,$divider){
+function showHairsListing($hairs,$renderer,$withlinks=false,$withadd=false){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/hairs.php');
@@ -55,7 +55,7 @@ function showHairsListing($hairs,$renderer,$divider){
   }
 }
 
-function showHandsListing($hands,$renderer,$divider){
+function showHandsListing($hands,$renderer,$withlinks=false,$withadd=false){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/hands.php');
@@ -66,7 +66,7 @@ function showHandsListing($hands,$renderer,$divider){
   }
 }
 
-function showNendoroidsListing($nendoroids,$renderer,$withlinks=false){
+function showNendoroidsListing($nendoroids,$renderer,$withlinks=false,$withadd=false){
   switch($renderer){
     case "article":
     case "home":

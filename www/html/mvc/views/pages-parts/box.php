@@ -15,29 +15,29 @@
                 </div>
                 <div  class="8u 12u(medium)">
                   <h4>Nendoroids</h4>
-<?php showNendoroidsListing($nendoroids,"simple",true); ?>
+<?php showNendoroidsListing($nendoroids,"simple",true,true); ?>
                 </div>
               </div>
               <div class="row">
                 <div class="6u 12u(medium)">
               <h4>Faces</h4>
-<?php showFacesListing($faces,"simple",null); ?>
+<?php showFacesListing($faces,"simple",false,true); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hairs</h4>
-<?php showHairsListing($hairs,"simple",null); ?>
+<?php showHairsListing($hairs,"simple",false,true); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hands</h4>
-<?php showHandsListing($hands,"simple",null); ?>
+<?php showHandsListing($hands,"simple",false,true); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Body Parts</h4>
-<?php showBodyPartsListing($bodyparts,"simple",null); ?>
+<?php showBodyPartsListing($bodyparts,"simple",false,true); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Accessories</h4>
-<?php showAccessoriesListing($accessories,"simple",null); ?>
+<?php showAccessoriesListing($accessories,"simple",false,true); ?>
                 </div>
               </div>
 
