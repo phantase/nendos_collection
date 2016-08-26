@@ -3603,3 +3603,7 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 	text-align: center;
 	vertical-align: middle;
 }
+
+blockquote.warning {
+	border-left: solid 4px #F57921;
+}

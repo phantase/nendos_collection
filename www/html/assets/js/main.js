@@ -354,39 +354,21 @@ $('#newBox,#noNewBox').click(function(){
       }
     });
 
-    function addBox() {
+    $('#new_box_submit').click(function(){
+      $('#new_box_submit').prop('disabled',true);
+      $('#new_box_submit').prop('value','Adding...');
       var new_box_name = $('#new_box_name').val();
       var new_box_type = $('#new_box_type').val();
-      $.post("box/add",{action:"add_box",new_box_name:new_box_name,new_box_type:new_box_type},function(data){
+      $.post("services/box/add",{action:"add_box",new_box_name:new_box_name,new_box_type:new_box_type},function(data){
         if(data.result == "success"){
           window.location.replace("box/"+data.box_name+"_"+data.box_internalid+"/");
         } else {
-          dialog_new_box.dialog("open");
+          $('#new_box_submit').prop('disabled',false);
+          $('#new_box_submit').prop('value','Add Box');
+          $('#warning_message').html('<strong>Warning:</strong> Something wrong has occurred and your request was not a success, please retry...');
+          $('#warning_message').fadeIn();
         }
-        console.log(data);
       });
-      dialog_new_box.dialog("close");
-      return true;
-    }
-
-    var dialog_new_box = $('#dialog_new_box').dialog({
-      autoOpen: false,
-      height: 400,
-      width: 350,
-      modal: true,
-      buttons: {
-        "Create a box": addBox,
-        Cancel: function() {
-          dialog_new_box.dialog("close");
-        }
-      },
-      close: function() {
-        // do nothing
-      }
-    });
-
-    $('#button_new_box').click(function(){
-      dialog_new_box.dialog("open");
     });
 
     $('.dropzone').hide();

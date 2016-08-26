@@ -20,9 +20,11 @@
                     ?>
                   </div>
                   <div class="2u 4u$(medium)">
-                    <div class="info-box add-box nendo_boxes_icon" id="button_new_box">
-                      <i class="icon fa-plus"></i>
-                    </div>
+                    <a href="box/add">
+                      <div class="info-box add-box nendo_boxes_icon" id="button_new_box">
+                        <i class="icon fa-plus"></i>
+                      </div>
+                    </a>
                   </div>
                   <?php
                     }
@@ -46,8 +48,3 @@
 
             </div>
           </div>
-<?php
-if(isset($_SESSION['userid'])) {
-  include('mvc/views/pages-sections/dialogs/new_box.php');
-}
-?>

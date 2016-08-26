@@ -36,6 +36,10 @@
     case "picupload":
       include_once('mvc/controllers/services/picupload.php');
       break;
+    // EDIT
+    case "edit_box":
+      include_once('mvc/controllers/edit_box.php');
+      break;
     // LISTINGS
     case "boxes":
       include_once('mvc/controllers/boxes.php');

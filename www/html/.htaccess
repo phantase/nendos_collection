@@ -15,10 +15,13 @@ RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/unknown.png [L]
 # LOGIN
 RewriteRule ^loginandout$                         index.php?action=loginandout [L]
 
-# ADD BOX
-RewriteRule ^box/add$                             index.php?action=add_box [L]
-# ADD PICTURE on BOX
-RewriteRule ^box/([0-9]+)/picupload$              index.php?action=picupload&part=box&internalid=$1 [L]
+# SERVICES
+RewriteRule ^services/box/add$                    index.php?action=add_box [L]
+RewriteRule ^services/box/([0-9]+)/picupload$     index.php?action=picupload&part=box&internalid=$1 [L]
+
+# EDIT
+RewriteRule ^box/add$                             index.php?action=edit_box&target=add [L]
+RewriteRule ^box/(.*)_([0-9]+)/edit$              index.php?action=edit_box&target=edit&boxinternalid=$2 [L]
 
 # HOME
 RewriteRule ^home$                                index.php?action=home [L]
