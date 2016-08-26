@@ -26,7 +26,7 @@ services:
   web:
     depends_on:
       - db
-    image: ftertre/apache-php-ext
+    image: ftertre/damp
     links:
       - db
     restart: always
