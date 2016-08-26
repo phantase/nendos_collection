@@ -3,7 +3,7 @@
 // Database connection
 try
 {
-    $bdd = new PDO('mysql:host=localhost;dbname=nendos;charset=utf8', 'root', '');
+    $bdd = new PDO('mysql:host=db;dbname=nendos;charset=utf8', 'nendos', 'nendospass');
 }
 catch(Exception $e)
 {

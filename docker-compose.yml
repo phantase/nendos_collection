@@ -7,9 +7,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: arootpassword
-      MYSQL_DATABASE: adatabase
-      MYSQL_USER: anuser
-      MYSQL_PASSWORD: apassword
+      MYSQL_DATABASE: nendos
+      MYSQL_USER: nendos
+      MYSQL_PASSWORD: nendospass
 
   phpmyadmin:
     depends_on:
@@ -34,3 +34,4 @@ services:
       - "80:80"
     volumes:
       - "./www/html:/var/www/html"
+      - "./.data/nendos:/var/www/html/images/nendos/"

@@ -20,6 +20,11 @@ if( isset($_GET['part']) && isset($_GET['internalid']) ){
       exit;
       break;
   }
+  // Just in case, for new and empty project, create the missing folders
+  if( !file_exists($destination_folder) ){
+    mkdir($destination_folder,0777,true);
+  }
+
   // Upload data can be POST'ed as raw form data or uploaded via <iframe> and <form>
   // using regular multipart/form-data enctype (which is handled by PHP $_FILES).
   if (!empty($_FILES['fd-file']) and is_uploaded_file($_FILES['fd-file']['tmp_name'])) {

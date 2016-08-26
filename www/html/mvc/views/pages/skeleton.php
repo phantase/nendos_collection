@@ -9,7 +9,7 @@
     <title><?= $page_title ?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <base href="/nendos/">
+    <base href="/">
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
     <link rel="stylesheet" href="assets/css/jquery-ui.min.css" />
     <link rel="stylesheet" href="assets/css/jquery-ui.structure.min.css" />
@@ -28,7 +28,7 @@
             <div class="inner">
 
               <!-- Logo -->
-                <a href="/nendos/" class="logo">
+                <a href="/" class="logo">
                   <span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title"><?= $page_title ?></span>
                 </a>
 

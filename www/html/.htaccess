@@ -4,11 +4,11 @@ RewriteEngine On
 # IMAGES
 ## WARNING, need to check why we need to add the path of the application...
 ## NENDOROIDS
-RewriteCond %{DOCUMENT_ROOT}/nendos/images/nendos/nendoroids/tile-$1.jpg -f
+RewriteCond %{DOCUMENT_ROOT}/images/nendos/nendoroids/tile-$1.jpg -f
 RewriteRule ^images/nendos/nendoroids/tile-([0-9]+).jpg$    images/nendos/nendoroids/tile-$1.jpg [L]
 RewriteRule ^images/nendos/nendoroids/tile-([0-9]+).jpg$    images/unknown.png [L]
 ## OTHERS
-RewriteCond %{DOCUMENT_ROOT}/nendos/images/nendos/$1/$2.jpg -f
+RewriteCond %{DOCUMENT_ROOT}/images/nendos/$1/$2.jpg -f
 RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/nendos/$1/$2.jpg [L]
 RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/unknown.png [L]
 
