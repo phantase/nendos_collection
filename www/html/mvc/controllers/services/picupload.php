@@ -1,8 +1,7 @@
 <?php
 
 $quality = 90;
-$maxwidth = 1500;
-$maxheight = 1500;
+$max_size = 500;
 
 header('Content-Type: application/json');
 
@@ -52,18 +51,22 @@ if( isset($_GET['part']) && isset($_GET['internalid']) ){
     exit;
   }
 
+  $destination = $destination_folder . $_GET['internalid'] . '.jpg';
+  $destinationfull = $destination_folder . $_GET['internalid'] . '_full.jpg';
+
   //switch statement below checks allowed image type
   //as well as creates new image from given file
   switch($image_type){
     case 'image/jpeg': case 'image/pjpeg':
-      $image_res = imagecreatefromjpeg($image_temp); break;
+      $image_res = imagecreatefromjpeg($image_temp);
+      normal_resize_image($image_res, $destination, $image_type, $max_size, $image_width, $image_height, $quality);
+      break;
     default:
       $image_res = false;
   }
 
   if($image_res){
-    $destination = $destination_folder . $_GET['internalid'] . '.jpg';
-    if(save_image($image_res, $destination, $image_type, $quality)){
+    if(save_image($image_res, $destinationfull, $image_type, $quality)){
       echo json_encode(array('result'=>'success'));
     }
   } else {
@@ -90,4 +93,54 @@ function save_image($source, $destination, $image_type, $quality){
       break;
     default: return false;
   }
+}
+#####  This function will proportionally resize image #####
+function normal_resize_image($source, $destination, $image_type, $max_size, $image_width, $image_height, $quality){
+
+  if($image_width <= 0 || $image_height <= 0){return false;} //return false if nothing to resize
+
+  //do not resize if image is smaller than max size
+  if($image_width <= $max_size && $image_height <= $max_size){
+    if(save_image($source, $destination, $image_type, $quality)){
+      return true;
+    }
+  }
+
+  //Construct a proportional size of new image
+  $image_scale  = min($max_size/$image_width, $max_size/$image_height);
+  $new_width    = ceil($image_scale * $image_width);
+  $new_height   = ceil($image_scale * $image_height);
+
+  $new_canvas   = imagecreatetruecolor( $new_width, $new_height ); //Create a new true color image
+
+  //Copy and resize part of an image with resampling
+  if(imagecopyresampled($new_canvas, $source, 0, 0, 0, 0, $new_width, $new_height, $image_width, $image_height)){
+    save_image($new_canvas, $destination, $image_type, $quality); //save resized image
+  }
+
+  return true;
+}
+
+##### This function corps image to create exact square, no matter what its original size! ######
+function crop_image_square($source, $destination, $image_type, $square_size, $image_width, $image_height, $quality){
+  if($image_width <= 0 || $image_height <= 0){return false;} //return false if nothing to resize
+
+  if( $image_width > $image_height )
+  {
+    $y_offset = 0;
+    $x_offset = ($image_width - $image_height) / 2;
+    $s_size   = $image_width - ($x_offset * 2);
+  }else{
+    $x_offset = 0;
+    $y_offset = ($image_height - $image_width) / 2;
+    $s_size = $image_height - ($y_offset * 2);
+  }
+  $new_canvas = imagecreatetruecolor( $square_size, $square_size); //Create a new true color image
+
+  //Copy and resize part of an image with resampling
+  if(imagecopyresampled($new_canvas, $source, 0, 0, $x_offset, $y_offset, $square_size, $square_size, $s_size, $s_size)){
+    save_image($new_canvas, $destination, $image_type, $quality);
+  }
+
+  return true;
 }
