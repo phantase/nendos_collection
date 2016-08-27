@@ -6,8 +6,8 @@ if( isset($_GET['target']) ){
     case "add":
       $page_title = "Add a new Nendoroid";
       if( isset($_GET['box_id']) && isset($_GET['box_name']) ){
-        $box_name = 484;
-        $box_id = 1;
+        $box_name = $_GET['box_name'];
+        $box_id = $_GET['box_id'];
       }
       break;
     default:

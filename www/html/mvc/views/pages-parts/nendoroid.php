@@ -4,9 +4,15 @@
               <section>
                 <div class="row">
                   <div class="4u 12u$(medium)">
-                    <span class="image fit">
-                      <img src="images/nendos/nendoroids/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
+                    <span class="image fit" id="span_nendoroid<?= $nendoroid['internalid'] ?>">
+                      <img src="images/nendos/nendoroids/<?= $nendoroid['internalid'] ?>.jpg" alt="" />
+                      <?php if(isset($_SESSION['userid'])){ ?>
+                        <i class="icon style2 fa-edit included editpic" id="editpic_nendoroid<?= $nendoroid['internalid'] ?>" title="Add/Change the picture" part="nendoroid" internalid="<?= $nendoroid['internalid'] ?>"></i>
+                      <?php } ?>
                     </span>
+                    <fieldset class="dropzone image fit" id="drop_nendoroid<?= $nendoroid['internalid'] ?>" style="display:none;">
+                      <p>Drop a file here, <br/>or click to browse your computer...</p>
+                    </fieldset>
                   </div>
                   <div class="8u 12u$(medium)">
                     <div class="table-wrapper">

@@ -6,10 +6,10 @@
                   <span class="image fit" id="span_box<?= $box['internalid'] ?>">
                     <img src="images/nendos/boxes/<?= $box['internalid'] ?>.jpg" alt="" />
                     <?php if(isset($_SESSION['userid'])){ ?>
-                      <i class="icon style2 fa-edit included editpic" id="editpic_box<?= $box['internalid'] ?>" title="Add/Change the picture"></i>
+                      <i class="icon style2 fa-edit included editpic" id="editpic_box<?= $box['internalid'] ?>" title="Add/Change the picture" part="box" internalid="<?= $box['internalid'] ?>"></i>
                     <?php } ?>
                   </span>
-                  <fieldset class="dropzone image fit" id="drop_box<?= $box['internalid'] ?>">
+                  <fieldset class="dropzone image fit" id="drop_box<?= $box['internalid'] ?>" style="display:none;">
                     <p>Drop a file here, <br/>or click to browse your computer...</p>
                   </fieldset>
                 </div>

@@ -401,7 +401,7 @@ $('#newBox,#noNewBox').click(function(){
             new_nendoroid_color:new_nendoroid_color
           },function(data){
             if(data.result && data.result == "success"){
-              window.location.replace("nendoroid/"+data.nendoroid_internalid+"/");
+              window.location.replace("nendoroid/"+data.nendoroid_url+"_"+data.nendoroid_internalid+"/");
             } else {
               $('#new_nendoroid_submit').prop('disabled',false);
               $('#new_nendoroid_submit').prop('value','Add Nendoroid');
@@ -424,7 +424,8 @@ $('#newBox,#noNewBox').click(function(){
     $('.editpic').click(function(){
       var spanZoneId = 'span_'+$(this)[0].id.split('_')[1];
       var dropZoneId = 'drop_'+$(this)[0].id.split('_')[1];
-      var boxInternalid = $(this)[0].id.split('_')[1].substring(3);
+      var internalid = $(this).attr('internalid');
+      var parttype = $(this).attr('part');
 
       $('#'+spanZoneId).hide();
       $('#'+dropZoneId).show();
@@ -441,7 +442,7 @@ $('#newBox,#noNewBox').click(function(){
               $('#'+dropZoneId).hide();
             }
           });
-          file.sendTo('services/box/'+boxInternalid+'/picupload');
+          file.sendTo('services/'+parttype+'/'+internalid+'/picupload');
         });
       });
     });

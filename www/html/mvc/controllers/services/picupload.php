@@ -16,6 +16,9 @@ if( isset($_GET['part']) && isset($_GET['internalid']) ){
     case 'box':
       $destination_folder = 'images/nendos/boxes/';
       break;
+    case 'nendoroid':
+      $destination_folder = 'images/nendos/nendoroids/';
+      break;
     default:
       echo json_encode(array('result'=>'failure','reason'=>'This part is not supported at the moment...'));
       exit;

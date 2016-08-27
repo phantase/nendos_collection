@@ -19,7 +19,7 @@ foreach ($nendoroids as $nendoroid) {
   }
 ?>
                   <span class="image fit">
-                    <img src="images/nendos/nendoroids/tile-<?= $nendoroid['internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/nendoroids/<?= $nendoroid['internalid'] ?>.jpg" alt="" />
                   </span>
                   <a href="nendoroid/<?= $nendoroid['box_name'] ?>/<?= $nendoroid['url'] ?>_<?= $nendoroid['internalid'] ?>/">
 <?php if( $renderer == "article" ) { ?>

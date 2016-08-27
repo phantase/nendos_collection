@@ -3,11 +3,6 @@ RewriteEngine On
 
 # IMAGES
 ## WARNING, need to check why we need to add the path of the application...
-## NENDOROIDS
-RewriteCond %{DOCUMENT_ROOT}/images/nendos/nendoroids/tile-$1.jpg -f
-RewriteRule ^images/nendos/nendoroids/tile-([0-9]+).jpg$    images/nendos/nendoroids/tile-$1.jpg [L]
-RewriteRule ^images/nendos/nendoroids/tile-([0-9]+).jpg$    images/unknown.png [L]
-## OTHERS
 RewriteCond %{DOCUMENT_ROOT}/images/nendos/$1/$2.jpg -f
 RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/nendos/$1/$2.jpg [L]
 RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/unknown.png [L]
@@ -18,7 +13,7 @@ RewriteRule ^loginandout$                         index.php?action=loginandout [
 # SERVICES
 RewriteRule ^services/box/add$                    index.php?action=add_box [L]
 RewriteRule ^services/nendoroid/add$              index.php?action=add_nendoroid [L]
-RewriteRule ^services/box/([0-9]+)/picupload$     index.php?action=picupload&part=box&internalid=$1 [L]
+RewriteRule ^services/(box|nendoroid)/([0-9]+)/picupload$     index.php?action=picupload&part=$1&internalid=$2 [L]
 
 # EDIT
 RewriteRule ^box/add$                             index.php?action=edit_box&target=add [L]
@@ -44,4 +39,5 @@ RewriteRule ^accessories$                         index.php?action=accessories [
 RewriteRule ^accessories/$                        index.php?action=accessories [L]
 # SINGLE PAGES
 RewriteRUle ^box/(.*)_([0-9]+)/$                  index.php?action=box&boxinternalid=$2 [L]
-RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&box=$1&nendourlname=$2&nendointernalid=$3 [L]
+RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&nendointernalid=$3 [L]
+RewriteRule ^nendoroid/(.*)_([0-9]+)/$            index.php?action=nendoroid&nendointernalid=$2 [L]

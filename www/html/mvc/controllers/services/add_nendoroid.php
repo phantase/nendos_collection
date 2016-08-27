@@ -23,6 +23,7 @@ if( isset($_POST['new_nendoroid_box_id']) && strlen($_POST['new_nendoroid_box_id
   if(strlen($nendoroid_color)>6){
     $nendoroid_color = substr($nendoroid_color,1);
   }
+  $nendoroid_url = preg_replace('/^-+|-+$/', '', strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $nendoroid_name)));
 
   include_once('mvc/models/nendoroids.php');
 
@@ -40,7 +41,8 @@ if( isset($_POST['new_nendoroid_box_id']) && strlen($_POST['new_nendoroid_box_id
                           'nendoroid_origin'=>$nendoroid_origin,
                           'nendoroid_version'=>$nendoroid_version,
                           'nendoroid_editor'=>$nendoroid_editor,
-                          'nendoroid_color'=>$nendoroid_color));
+                          'nendoroid_color'=>$nendoroid_color,
+                          'nendoroid_url'=>$nendoroid_url));
   } else {
     echo json_encode(array('result'=>'failure','reason'=>'Not able to create DB record'));
   }
