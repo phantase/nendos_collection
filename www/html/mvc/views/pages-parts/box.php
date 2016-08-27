@@ -15,7 +15,7 @@
                 </div>
                 <div  class="8u 12u(medium)">
                   <h4>Nendoroids</h4>
-<?php showNendoroidsListing($nendoroids,"simple",true,true); ?>
+<?php showNendoroidsListing($nendoroids,"simple",true,true,$box['name'],$box['internalid']); ?>
                 </div>
               </div>
               <div class="row">
@@ -43,9 +43,3 @@
 
             </div>
           </div>
-
-<?php
-if(isset($_SESSION['userid'])) {
-  include('mvc/views/pages-sections/dialogs/new_nendoroid.php');
-}
-?>

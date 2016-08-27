@@ -28,9 +28,12 @@
     case "loginandout":
       include_once('mvc/controllers/services/loginandout.php');
       break;
-    // ADD BOX
+    // ADD
     case "add_box":
       include_once('mvc/controllers/services/add_box.php');
+      break;
+    case "add_nendoroid":
+      include_once('mvc/controllers/services/add_nendoroid.php');
       break;
     // ADD PICTURE on SOMETHING
     case "picupload":
@@ -39,6 +42,9 @@
     // EDIT
     case "edit_box":
       include_once('mvc/controllers/edit_box.php');
+      break;
+    case "edit_nendoroid":
+      include_once('mvc/controllers/edit_nendoroid.php');
       break;
     // LISTINGS
     case "boxes":

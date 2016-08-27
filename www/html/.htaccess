@@ -17,11 +17,13 @@ RewriteRule ^loginandout$                         index.php?action=loginandout [
 
 # SERVICES
 RewriteRule ^services/box/add$                    index.php?action=add_box [L]
+RewriteRule ^services/nendoroid/add$              index.php?action=add_nendoroid [L]
 RewriteRule ^services/box/([0-9]+)/picupload$     index.php?action=picupload&part=box&internalid=$1 [L]
 
 # EDIT
 RewriteRule ^box/add$                             index.php?action=edit_box&target=add [L]
-RewriteRule ^box/(.*)_([0-9]+)/edit$              index.php?action=edit_box&target=edit&boxinternalid=$2 [L]
+RewriteRule ^nendoroid/add$                       index.php?action=edit_nendoroid&target=add [L]
+RewriteRule ^box/(.*)_([0-9]+)/addnendoroid$      index.php?action=edit_nendoroid&target=add&box_name=$1&box_id=$2 [L]
 
 # HOME
 RewriteRule ^home$                                index.php?action=home [L]

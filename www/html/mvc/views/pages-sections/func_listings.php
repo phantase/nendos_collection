@@ -66,7 +66,7 @@ function showHandsListing($hands,$renderer,$withlinks=false,$withadd=false){
   }
 }
 
-function showNendoroidsListing($nendoroids,$renderer,$withlinks=false,$withadd=false){
+function showNendoroidsListing($nendoroids,$renderer,$withlinks=false,$withadd=false,$box_name=null,$box_id=null){
   switch($renderer){
     case "article":
     case "home":

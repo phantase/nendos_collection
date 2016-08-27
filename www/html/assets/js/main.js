@@ -359,16 +359,64 @@ $('#newBox,#noNewBox').click(function(){
       $('#new_box_submit').prop('value','Adding...');
       var new_box_name = $('#new_box_name').val();
       var new_box_type = $('#new_box_type').val();
-      $.post("services/box/add",{action:"add_box",new_box_name:new_box_name,new_box_type:new_box_type},function(data){
-        if(data.result == "success"){
-          window.location.replace("box/"+data.box_name+"_"+data.box_internalid+"/");
-        } else {
-          $('#new_box_submit').prop('disabled',false);
-          $('#new_box_submit').prop('value','Add Box');
-          $('#warning_message').html('<strong>Warning:</strong> Something wrong has occurred and your request was not a success, please retry...');
-          $('#warning_message').fadeIn();
+      $.post("services/box/add",
+        {
+          action:"add_box",
+          new_box_name:new_box_name,
+          new_box_type:new_box_type
+        },function(data){
+          if(data.result == "success"){
+            window.location.replace("box/"+data.box_name+"_"+data.box_internalid+"/");
+          } else {
+            $('#new_box_submit').prop('disabled',false);
+            $('#new_box_submit').prop('value','Add Box');
+            $('#warning_message').html('<strong>Warning:</strong> Something wrong has occurred and your request was not a success, please retry...');
+            $('#warning_message').fadeIn();
+          }
         }
-      });
+      );
+    });
+
+    $('#new_nendoroid_submit').click(function(){
+      $('#new_nendoroid_submit').prop('disabled',true);
+      $('#new_nendoroid_submit').prop('value','Adding...');
+
+      if($('#new_nendoroid_box_id')){
+        var new_nendoroid_box_id = $('#new_nendoroid_box_id').val();
+        var new_nendoroid_box_name = $('#new_nendoroid_box_name').val();
+        var new_nendoroid_name = $('#new_nendoroid_name').val();
+        var new_nendoroid_origin = $('#new_nendoroid_origin').val();
+        var new_nendoroid_version = $('#new_nendoroid_version').val();
+        var new_nendoroid_editor = $('#new_nendoroid_editor').val();
+        var new_nendoroid_color = $('#new_nendoroid_color').val();
+        $.post("services/nendoroid/add",
+          {
+            action:"add_nendoroid",
+            new_nendoroid_box_id:new_nendoroid_box_id,
+            new_nendoroid_box_name:new_nendoroid_box_name,
+            new_nendoroid_name:new_nendoroid_name,
+            new_nendoroid_origin:new_nendoroid_origin,
+            new_nendoroid_version:new_nendoroid_version,
+            new_nendoroid_editor:new_nendoroid_editor,
+            new_nendoroid_color:new_nendoroid_color
+          },function(data){
+            if(data.result && data.result == "success"){
+              window.location.replace("nendoroid/"+data.nendoroid_internalid+"/");
+            } else {
+              $('#new_nendoroid_submit').prop('disabled',false);
+              $('#new_nendoroid_submit').prop('value','Add Nendoroid');
+              $('#warning_message').html('<strong>Warning:</strong> Something wrong has occurred and your request was not a success, please retry...');
+              $('#warning_message').fadeIn();
+            }
+          }
+        );
+      } else {
+        $('#new_nendoroid_submit').prop('disabled',false);
+        $('#new_nendoroid_submit').prop('value','Add Nendoroid');
+        $('#warning_message').html('<strong>Warning:</strong> For the moment, adding a Nendoroid directly (i.e. without coming from a box) is not permitted...');
+        $('#warning_message').fadeIn();
+      }
+
     });
 
     $('.dropzone').hide();
@@ -401,30 +449,6 @@ $('#newBox,#noNewBox').click(function(){
     $('.withadd').each(function(){
       $(this).css('height',$(this).css('width'));
       $(this).children().css('padding-top',($(this).height()-$(this).children().height())/2);
-    });
-
-    function addNendoroid() {
-      return true;
-    }
-
-    var dialog_new_nendoroid = $('#dialog_new_nendoroid').dialog({
-      autoOpen: false,
-      height: 400,
-      width: 350,
-      modal: true,
-      buttons: {
-        "Create a nendoroid": addNendoroid,
-        Cancel: function() {
-          dialog_new_nendoroid.dialog("close");
-        }
-      },
-      close: function() {
-        // do nothing
-      }
-    });
-
-    $('#withadd_nendoroid').click(function(){
-      dialog_new_nendoroid.dialog("open");
     });
 
 })(jQuery);

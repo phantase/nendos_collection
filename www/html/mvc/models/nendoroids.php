@@ -45,3 +45,21 @@ function get_boxNendoroids($box_id)
 
   return $nendoroids;
 }
+/** Add a single nendoroid in the DB */
+function add_singleNendoroid($box_id,$nendoroid_name,$nendoroid_origin,$nendoroid_version,$nendoroid_editor,$nendoroid_color)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("INSERT INTO nendoroids(box_id,name,origin,version,editor,dominant_color) VALUES(:box_id,:nendoroid_name,:nendoroid_origin,:nendoroid_version,:nendoroid_editor,:nendoroid_color)");
+  $req->bindParam(':box_id',$box_id);
+  $req->bindParam(':nendoroid_name',$nendoroid_name);
+  $req->bindParam(':nendoroid_origin',$nendoroid_origin);
+  $req->bindParam(':nendoroid_version',$nendoroid_version);
+  $req->bindParam(':nendoroid_editor',$nendoroid_editor);
+  $req->bindParam(':nendoroid_color',$nendoroid_color);
+  $req->execute();
+
+  $nendoroidinternalid = $bdd->lastInsertId();
+
+  return $nendoroidinternalid;
+}

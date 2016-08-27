@@ -20,9 +20,11 @@
   if( $withadd && isset($_SESSION['userid']) ){
 ?>
                       <div class="4u 6u(medium)">
-                        <span class="image fit withadd" id="withadd_nendoroid" title="Add a Nendoroid">
-                          <p><i class="icon fa-plus"></i></p>
-                        </span>
+                        <a href="box/<?= $box_name ?>_<?= $box_id ?>/addnendoroid">
+                          <span class="image fit withadd" id="withadd_nendoroid" title="Add a Nendoroid">
+                            <p><i class="icon fa-plus"></i></p>
+                          </span>
+                        </a>
                       </div>
 <?php
   }
