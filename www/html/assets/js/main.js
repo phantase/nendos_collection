@@ -390,7 +390,7 @@ $('#newBox,#noNewBox').click(function(){
             console.log(xhr);
             console.log('EREHEREHEREHEREH');
           });
-          file.sendTo('box/'+boxInternalid+'/picupload');
+          file.sendTo('services/box/'+boxInternalid+'/picupload');
         });
       });
     });
