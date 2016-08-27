@@ -10,30 +10,37 @@ function decrypt($string){
 
 $A_SALT = "Sel de Guérande";
 
-if( isset($_POST['action']) && $_POST['action'] == 'login' ){
-  $username = htmlentities($_POST['username']);
-  $password = htmlentities($_POST['password']);
+if( isset($_POST['action']) ){
+  $action = $_POST['action'];
 
-  $encpass = encrypt($username.$password.$A_SALT);
+  switch($action){
+    case 'login':
+      $username = htmlentities($_POST['username']);
+      $password = htmlentities($_POST['password']);
 
-  include_once('mvc/models/users.php');
+      $encpass = encrypt($username.$password.$A_SALT);
 
-  $user = checkAndGet_singleUser($username,$encpass);
+      include_once('mvc/models/users.php');
 
-  if( $user ){
-    $_SESSION['userid'] = $user['internalid'];
-    $_SESSION['username'] = $user['username'];
-    $_SESSION['password'] = $password;
-    echo 1;
-  } else {
-    echo 0;
+      $user = checkAndGet_singleUser($username,$encpass);
+
+      if( $user ){
+        $_SESSION['userid'] = $user['internalid'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['password'] = $password;
+        echo 1;
+      } else {
+        echo 0;
+      }
+      break;
+    case 'logout':
+      if( session_destroy() ){
+        echo 1;
+      } else {
+        echo 0;
+      }
+      break;
   }
-
-
-} else if( isset($_POST['action']) && $_POST['action'] == 'logout' ){
-  if( session_destroy() ){
-    echo 1;
-  } else {
-    echo 0;
-  }
+} else {
+  echo 0
 }
