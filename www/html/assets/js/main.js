@@ -386,9 +386,12 @@ $('#newBox,#noNewBox').click(function(){
       dropZone.event('send',function(files){
         files.each(function(file){
           file.event('done',function(xhr){
-            console.log('HEREHEREHEREHERE');
-            console.log(xhr);
-            console.log('EREHEREHEREHEREH');
+            var jsonrep = $.parseJSON(xhr.response);
+            if( jsonrep.result == "success" ){
+              $('#span_'+jsonrep.part+jsonrep.internalid+' img').prop('src',$('#span_'+jsonrep.part+jsonrep.internalid+' img').prop('src')+'?ts='+Date.now());
+              $('#'+spanZoneId).show();
+              $('#'+dropZoneId).hide();
+            }
           });
           file.sendTo('services/box/'+boxInternalid+'/picupload');
         });

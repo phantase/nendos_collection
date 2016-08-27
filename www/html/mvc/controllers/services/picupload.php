@@ -51,8 +51,10 @@ if( isset($_GET['part']) && isset($_GET['internalid']) ){
     exit;
   }
 
-  $destination = $destination_folder . $_GET['internalid'] . '.jpg';
-  $destinationfull = $destination_folder . $_GET['internalid'] . '_full.jpg';
+  $internalid = $_GET['internalid'];
+
+  $destination = $destination_folder . $internalid . '.jpg';
+  $destinationfull = $destination_folder . $internalid . '_full.jpg';
 
   //switch statement below checks allowed image type
   //as well as creates new image from given file
@@ -67,7 +69,7 @@ if( isset($_GET['part']) && isset($_GET['internalid']) ){
 
   if($image_res){
     if(save_image($image_res, $destinationfull, $image_type, $quality)){
-      echo json_encode(array('result'=>'success'));
+      echo json_encode(array('result'=>'success','part'=>$part,'internalid'=>$internalid));
     }
   } else {
     echo json_encode(array('result'=>'failure','reason'=>'Image is not valid to save as jpeg'));
