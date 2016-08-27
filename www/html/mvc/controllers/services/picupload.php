@@ -1,6 +1,8 @@
 <?php
 
 $quality = 90;
+$maxwidth = 1500;
+$maxheight = 1500;
 
 header('Content-Type: application/json');
 
@@ -16,7 +18,7 @@ if( isset($_GET['part']) && isset($_GET['internalid']) ){
       $destination_folder = 'images/nendos/boxes/';
       break;
     default:
-      echo json_encode(array('result'=>'failure','reason'=>'Wrong part'));
+      echo json_encode(array('result'=>'failure','reason'=>'This part is not supported at the moment...'));
       exit;
       break;
   }
