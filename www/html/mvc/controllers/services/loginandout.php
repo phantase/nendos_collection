@@ -42,5 +42,5 @@ if( isset($_POST['action']) ){
       break;
   }
 } else {
-  echo 0
+  echo 0;
 }
