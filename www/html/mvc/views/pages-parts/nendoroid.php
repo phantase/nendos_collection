@@ -69,7 +69,7 @@
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Accessories</h4>
-                    <?php showAccessoriesListing($accessories,"simple"); ?>
+                    <?php showAccessoriesListing($accessories,"simple",true,true,$nendoroid['box_name'],$nendoroid['box_id'],$nendoroid['url'],$nendoroid['internalid']); ?>
                   </div>
                 </div>
               </section>

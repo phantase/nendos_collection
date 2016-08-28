@@ -1,6 +1,6 @@
 <?php
 
-function showAccessoriesListing($accessories,$renderer,$withlinks=false,$withadd=false){
+function showAccessoriesListing($accessories,$renderer,$withlinks=false,$withadd=false,$box_name=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/accessories.php');

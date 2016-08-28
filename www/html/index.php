@@ -51,6 +51,9 @@
     case "add_bodypart":
       include_once('mvc/controllers/services/add_bodypart.php');
       break;
+    case "add_accessory":
+      include_once('mvc/controllers/services/add_accessory.php');
+      break;
     // ADD PICTURE on SOMETHING
     case "picupload":
       include_once('mvc/controllers/services/picupload.php');
@@ -73,6 +76,9 @@
       break;
     case "edit_bodypart":
       include_once('mvc/controllers/edit_bodypart.php');
+      break;
+    case "edit_accessory":
+      include_once('mvc/controllers/edit_accessory.php');
       break;
     // LISTINGS
     case "boxes":
@@ -114,6 +120,9 @@
       break;
     case "bodypart":
       include_once('mvc/controllers/bodypart.php');
+      break;
+    case "accessory":
+      include_once('mvc/controllers/accessory.php');
       break;
     // OTHER
     case "credits":

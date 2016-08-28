@@ -3,9 +3,15 @@
   foreach ($accessories as $accessory) {
 ?>
                       <div class="2u 3u(medium)">
+                      <?php if($withlinks){ ?>
+                        <a href="accessory/<?= $accessory['internalid'] ?>/">
+                      <?php } ?>
                         <span class="image fit" accessory="<?= $accessory['type'] ?>" description="<?= $accessory['description'] ?>" >
                           <img src="images/nendos/accessories/<?= $accessory['internalid'] ?>.jpg" alt="" />
                         </span>
+                      <?php if($withlinks){ ?>
+                        </a>
+                      <?php } ?>
                       </div>
 <?php
   }
@@ -14,9 +20,11 @@
   if( $withadd && isset($_SESSION['userid']) ){
 ?>
                       <div class="2u 3u(medium)">
-                        <span class="image fit withadd" id="withid" title="Add an accessory">
-                          <p><i class="icon fa-plus"></i></p>
-                        </span>
+                        <a href="<?php if(isset($box_id)){ ?>box/<?= $box_name ?>_<?= $box_id ?>/<?php } ?><?php if(isset($nendoroid_id)){ ?>nendoroid/<?= $nendoroid_url ?>_<?= $nendoroid_id ?>/<?php } ?>addaccessory">
+                          <span class="image fit withadd" id="withid" title="Add Accessory">
+                            <p><i class="icon fa-plus"></i></p>
+                          </span>
+                        </a>
                       </div>
 <?php
   }
