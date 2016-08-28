@@ -72,7 +72,7 @@
                   <div class="4u$ 12u$(medium)">
                     <ul class="actions">
                       <li>
-                        <input type="button" name="new_nendoroid_submit" id="new_nendoroid_submit" value="Add nendoroid" />
+                        <input type="button" name="new_face_submit" id="new_face_submit" value="Add Face" />
                       </li>
                     </ul>
                   </div>

@@ -57,3 +57,36 @@ function get_boxFaces($box_id)
 
   return $faces;
 }
+/** Get a single face with its internalid */
+function get_singleFace($face_id)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT f.internalid, f.box_id, b.name AS box_name, b.type AS box_type, f.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, f.eyes, f.eyes_color, f.eyes_color_hex, f.mouth, f.skin_color, f.skin_color_hex, f.sex FROM faces AS f LEFT JOIN boxes AS b ON f.box_id = b.internalid LEFT JOIN nendoroids AS n ON f.nendoroid_id = n.internalid WHERE f.internalid = :face_id");
+  $req->bindParam(':face_id',$face_id);
+  $req->execute();
+  $face = $req->fetch();
+
+  return $face;
+}
+/** Add a single face in the DB */
+function add_singleFace($box_id,$nendoroid_id,$face_eyes,$face_eyes_color,$face_eyes_color_hex,$face_mouth,$face_skin_color,$face_skin_color_hex,$face_sex)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("INSERT INTO faces(box_id,nendoroid_id,eyes,eyes_color,eyes_color_hex,mouth,skin_color,skin_color_hex,sex) VALUES(:box_id,:nendoroid_id,:eyes,:eyes_color,:eyes_color_hex,:mouth,:skin_color,:skin_color_hex,:sex)");
+  $req->bindParam(':box_id',$box_id);
+  $req->bindParam(':nendoroid_id',$nendoroid_id);
+  $req->bindParam(':eyes',$face_eyes);
+  $req->bindParam(':eyes_color',$face_eyes_color);
+  $req->bindParam(':eyes_color_hex',$face_eyes_color_hex);
+  $req->bindParam(':mouth',$face_mouth);
+  $req->bindParam(':skin_color',$face_skin_color);
+  $req->bindParam(':skin_color_hex',$face_skin_color_hex);
+  $req->bindParam(':sex',$face_sex);
+  $req->execute();
+
+  $faceinternalid = $bdd->lastInsertId();
+
+  return $faceinternalid;
+}

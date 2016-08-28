@@ -14,6 +14,10 @@
       break;
   }
 
+  function urlize($string){
+    return preg_replace('/^-+|-+$/', '', strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $string)));
+  }
+
   // Stuff for the access to the DB
   include_once('mvc/models/sql_connection.php');
   // Stuff to have the different renderers for the parts
@@ -80,6 +84,9 @@
       break;
     case "nendoroid":
       include_once('mvc/controllers/nendoroid.php');
+      break;
+    case "face":
+      include_once('mvc/controllers/face.php');
       break;
     // OTHER
     case "credits":

@@ -3,9 +3,15 @@
   foreach ($faces as $face) {
 ?>
                       <div class="2u 3u(medium)">
+                      <?php if($withlinks){ ?>
+                        <a href="face/<?= $face['internalid'] ?>/">
+                      <?php } ?>
                         <span class="image fit" face="" eyes="<?= $face['eyes'] ?>" mouth="<?= $face['mouth'] ?>">
                           <img src="images/nendos/faces/<?= $face['internalid'] ?>.jpg" alt="" />
                         </span>
+                      <?php if($withlinks){ ?>
+                        </a>
+                      <?php } ?>
                       </div>
 <?php
   }

@@ -21,7 +21,7 @@
               <div class="row">
                 <div class="6u 12u(medium)">
               <h4>Faces</h4>
-<?php showFacesListing($faces,"simple",false,true,$box['name'],$box['internalid']); ?>
+<?php showFacesListing($faces,"simple",true,true,$box['name'],$box['internalid']); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hairs</h4>

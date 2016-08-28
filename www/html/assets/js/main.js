@@ -419,6 +419,51 @@ $('#newBox,#noNewBox').click(function(){
 
     });
 
+    $('#new_face_submit').click(function(){
+      $('#new_face_submit').prop('disabled',true);
+      $('#new_face_submit').prop('value','Adding...');
+
+      if($('#new_face_box_id').val()!="0"){
+        var new_face_box_id = $('#new_face_box_id').val();
+        var new_face_nendoroid_id = $('#new_face_nendoroid_id').val();
+        var new_face_eyes = $('#new_face_eyes').val();
+        var new_face_eyes_color = $('#new_face_eyes_color').val();
+        var new_face_eyes_color_hex = $('#new_face_eyes_color_hex').val();
+        var new_face_mouth = $('#new_face_mouth').val();
+        var new_face_skin_color = $('#new_face_skin_color').val();
+        var new_face_skin_color_hex = $('#new_face_skin_color_hex').val();
+        var new_face_sex = $('#new_face_sex').val();
+        $.post("services/face/add",
+          {
+            action:"add_face",
+            new_face_box_id:new_face_box_id,
+            new_face_nendoroid_id:new_face_nendoroid_id,
+            new_face_eyes:new_face_eyes,
+            new_face_eyes_color:new_face_eyes_color,
+            new_face_eyes_color_hex:new_face_eyes_color_hex,
+            new_face_mouth:new_face_mouth,
+            new_face_skin_color:new_face_skin_color,
+            new_face_skin_color_hex:new_face_skin_color_hex,
+            new_face_sex:new_face_sex
+          },function(data){
+            if(data.result && data.result == "success"){
+              window.location.replace("face/"+data.face_internalid+"/");
+            } else {
+              $('#new_face_submit').prop('disabled',false);
+              $('#new_face_submit').prop('value','Add Face');
+              $('#warning_message').html('<strong>Warning:</strong> Something wrong has occurred and your request was not a success, please retry...');
+              $('#warning_message').fadeIn();
+            }
+          }
+        );
+      } else {
+        $('#new_face_submit').prop('disabled',false);
+        $('#new_face_submit').prop('value','Add Face');
+        $('#warning_message').html('<strong>Warning:</strong> Please choose a box for this Face.');
+        $('#warning_message').fadeIn();
+      }
+    });
+
     $('.dropzone').hide();
 
     $('.editpic').click(function(){

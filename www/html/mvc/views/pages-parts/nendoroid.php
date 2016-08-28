@@ -53,23 +53,23 @@
                 <div class="row">
                   <div class="6u 12u$(medium)">
                     <h4>Faces</h4>
-                    <?php showFacesListing($faces,"simple",false,true,$nendoroid['box_name'],$nendoroid['box_id'],$nendoroid['url'],$nendoroid['internalid']); ?>
+                    <?php showFacesListing($faces,"simple",true,true,$nendoroid['box_name'],$nendoroid['box_id'],$nendoroid['url'],$nendoroid['internalid']); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hairs</h4>
-                    <?php showHairsListing($hairs,"simple",null); ?>
+                    <?php showHairsListing($hairs,"simple"); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hands</h4>
-                    <?php showHandsListing($hands,"simple",null); ?>
+                    <?php showHandsListing($hands,"simple"); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Body parts</h4>
-                    <?php showBodyPartsListing($bodyparts,"simple",null); ?>
+                    <?php showBodyPartsListing($bodyparts,"simple"); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Accessories</h4>
-                    <?php showAccessoriesListing($accessories,"simple",null); ?>
+                    <?php showAccessoriesListing($accessories,"simple"); ?>
                   </div>
                 </div>
               </section>

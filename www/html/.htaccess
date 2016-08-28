@@ -13,7 +13,8 @@ RewriteRule ^loginandout$                         index.php?action=loginandout [
 # SERVICES
 RewriteRule ^services/box/add$                    index.php?action=add_box [L]
 RewriteRule ^services/nendoroid/add$              index.php?action=add_nendoroid [L]
-RewriteRule ^services/(box|nendoroid)/([0-9]+)/picupload$     index.php?action=picupload&part=$1&internalid=$2 [L]
+RewriteRule ^services/face/add$                   index.php?action=add_face [L]
+RewriteRule ^services/(box|nendoroid|face)/([0-9]+)/picupload$     index.php?action=picupload&part=$1&internalid=$2 [L]
 
 # EDIT
 RewriteRule ^box/add$                             index.php?action=edit_box&target=add [L]
@@ -45,3 +46,4 @@ RewriteRule ^accessories/$                        index.php?action=accessories [
 RewriteRUle ^box/(.*)_([0-9]+)/$                  index.php?action=box&boxinternalid=$2 [L]
 RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&nendointernalid=$3 [L]
 RewriteRule ^nendoroid/(.*)_([0-9]+)/$            index.php?action=nendoroid&nendointernalid=$2 [L]
+RewriteRule ^face/([0-9]+)/$                      index.php?action=face&faceinternalid=$1 [L]
