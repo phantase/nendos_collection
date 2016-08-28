@@ -29,7 +29,7 @@
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hands</h4>
-<?php showHandsListing($hands,"simple",false,false); ?>
+<?php showHandsListing($hands,"simple",true,true,$box['name'],$box['internalid']); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Body Parts</h4>

@@ -61,7 +61,7 @@
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hands</h4>
-                    <?php showHandsListing($hands,"simple"); ?>
+                    <?php showHandsListing($hands,"simple",true,true,$nendoroid['box_name'],$nendoroid['box_id'],$nendoroid['url'],$nendoroid['internalid']); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Body parts</h4>

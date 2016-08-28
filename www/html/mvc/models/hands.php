@@ -57,4 +57,34 @@ function get_boxHands($box_id)
 
   return $hands;
 }
+/** Get a single hair with its internalid */
+function get_singleHand($hand_id)
+{
+  global $bdd;
 
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, b.name AS box_name, b.type AS box_type, h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, h.skin_color, h.skin_color_hex, h.leftright, h.description, h.posture FROM hands AS h LEFT JOIN boxes AS b ON h.box_id = b.internalid LEFT JOIN nendoroids AS n ON h.nendoroid_id = n.internalid WHERE h.internalid = :hand_id");
+  $req->bindParam(':hand_id',$hand_id);
+  $req->execute();
+  $face = $req->fetch();
+
+  return $face;
+}
+/** Add a single hair in the DB */
+function add_singleHand($box_id,$nendoroid_id,$hand_skin_color,$hand_skin_color_hex,$hand_leftright,$hand_posture,$hand_description)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("INSERT INTO hands(box_id,nendoroid_id,skin_color,skin_color_hex,leftright,posture,description) VALUES(:box_id,:nendoroid_id,:skin_color,:skin_color_hex,:leftright,:posture,:description)");
+  $req->bindParam(':box_id',$box_id);
+  $req->bindParam(':nendoroid_id',$nendoroid_id);
+  $req->bindParam(':skin_color',$hand_skin_color);
+  $req->bindParam(':skin_color_hex',$hand_skin_color_hex);
+  $req->bindParam(':leftright',$hand_leftright);
+  $req->bindParam(':posture',$hand_posture);
+  $req->bindParam(':description',$hand_description);
+  $req->execute();
+
+  $handinternalid = $bdd->lastInsertId();
+
+  return $handinternalid;
+}

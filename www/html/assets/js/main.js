@@ -502,9 +502,50 @@ $('#newBox,#noNewBox').click(function(){
           }
         );
       } else {
-        $('#new_face_submit').prop('disabled',false);
-        $('#new_face_submit').prop('value','Add Hair');
+        $('#new_hair_submit').prop('disabled',false);
+        $('#new_hair_submit').prop('value','Add Hair');
         $('#warning_message').html('<strong>Warning:</strong> Please choose a box for this Hair.');
+        $('#warning_message').fadeIn();
+      }
+    });
+
+    $('#new_hand_submit').click(function(){
+      $('#new_hand_submit').prop('disabled',true);
+      $('#new_hand_submit').prop('value','Adding...');
+
+      if($('#new_hand_box_id').val()!="0"){
+        var new_hand_box_id = $('#new_hand_box_id').val();
+        var new_hand_nendoroid_id = $('#new_hand_nendoroid_id').val();
+        var new_hand_skin_color = $('#new_hand_skin_color').val();
+        var new_hand_skin_color_hex = $('#new_hand_skin_color_hex').val();
+        var new_hand_posture = $('#new_hand_posture').val();
+        var new_hand_leftright = $('#new_hand_leftright').val();
+        var new_hand_description = $('#new_hand_description').val();
+        $.post("services/hand/add",
+          {
+            action:"add_hand",
+            new_hand_box_id:new_hand_box_id,
+            new_hand_nendoroid_id:new_hand_nendoroid_id,
+            new_hand_skin_color:new_hand_skin_color,
+            new_hand_skin_color_hex:new_hand_skin_color_hex,
+            new_hand_posture:new_hand_posture,
+            new_hand_leftright:new_hand_leftright,
+            new_hand_description:new_hand_description
+          },function(data){
+            if(data.result && data.result == "success"){
+              window.location.replace("hand/"+data.hand_internalid+"/");
+            } else {
+              $('#new_hand_submit').prop('disabled',false);
+              $('#new_hand_submit').prop('value','Add Hand');
+              $('#warning_message').html('<strong>Warning:</strong> Something wrong has occurred and your request was not a success, please retry...');
+              $('#warning_message').fadeIn();
+            }
+          }
+        );
+      } else {
+        $('#new_hand_submit').prop('disabled',false);
+        $('#new_hand_submit').prop('value','Add Hair');
+        $('#warning_message').html('<strong>Warning:</strong> Please choose a box for this Hand.');
         $('#warning_message').fadeIn();
       }
     });

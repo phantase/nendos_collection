@@ -15,7 +15,8 @@ RewriteRule ^services/box/add$                    index.php?action=add_box [L]
 RewriteRule ^services/nendoroid/add$              index.php?action=add_nendoroid [L]
 RewriteRule ^services/face/add$                   index.php?action=add_face [L]
 RewriteRule ^services/hair/add$                   index.php?action=add_hair [L]
-RewriteRule ^services/(box|nendoroid|face|hair)/([0-9]+)/picupload$     index.php?action=picupload&part=$1&internalid=$2 [L]
+RewriteRule ^services/hand/add$                   index.php?action=add_hand [L]
+RewriteRule ^services/(box|nendoroid|face|hair|hand)/([0-9]+)/picupload$     index.php?action=picupload&part=$1&internalid=$2 [L]
 
 # EDIT
 RewriteRule ^box/add$                             index.php?action=edit_box&target=add [L]
@@ -27,6 +28,9 @@ RewriteRule ^addface$                             index.php?action=edit_face&tar
 RewriteRule ^box/(.*)_([0-9]+)/nendoroid/(.*)_([0-9]+)/addhair$      index.php?action=edit_hair&target=add&box_id=$2&nendoroid_id=$4 [L]
 RewriteRule ^box/(.*)_([0-9]+)/addhair$           index.php?action=edit_hair&target=add&box_id=$2 [L]
 RewriteRule ^addhair$                             index.php?action=edit_hair&target=add [L]
+RewriteRule ^box/(.*)_([0-9]+)/nendoroid/(.*)_([0-9]+)/addhand$      index.php?action=edit_hand&target=add&box_id=$2&nendoroid_id=$4 [L]
+RewriteRule ^box/(.*)_([0-9]+)/addhand$           index.php?action=edit_hand&target=add&box_id=$2 [L]
+RewriteRule ^addhand$                             index.php?action=edit_hand&target=add [L]
 
 # HOME
 RewriteRule ^home$                                index.php?action=home [L]
@@ -52,3 +56,4 @@ RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&nen
 RewriteRule ^nendoroid/(.*)_([0-9]+)/$            index.php?action=nendoroid&nendointernalid=$2 [L]
 RewriteRule ^face/([0-9]+)/$                      index.php?action=face&faceinternalid=$1 [L]
 RewriteRule ^hair/([0-9]+)/$                      index.php?action=hair&hairinternalid=$1 [L]
+RewriteRule ^hand/([0-9]+)/$                      index.php?action=hand&handinternalid=$1 [L]

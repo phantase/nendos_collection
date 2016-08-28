@@ -4,7 +4,7 @@
               <div class="row uniform">
                   <div class="4u 12u$(medium)">
                     <div class="select-wrapper">
-                      <select name="new_hair_box_id" id="new_hair_box_id" class="select_box_id">
+                      <select name="new_hand_box_id" id="new_hand_box_id" class="select_box_id">
 <?php
   if(count($boxes)>1){
 ?>
@@ -22,9 +22,9 @@
                       </select>
                     </div>
                   </div>
-                  <div class="4u$ 12u$(medium)">
+                  <div class="4u 12u$(medium)">
                     <div class="select-wrapper">
-                      <select name="new_hair_nendoroid_id" id="new_hair_nendoroid_id" class="select_nendoroid_id">
+                      <select name="new_hand_nendoroid_id" id="new_hand_nendoroid_id" class="select_nendoroid_id">
 <?php
   if( ! isset($_GET['nendoroid_id']) ){
 ?>
@@ -42,36 +42,30 @@
                       </select>
                     </div>
                   </div>
-                  <div class="3u 8u(medium)">
-                    <input type="text" name="new_hair_main_color" id="new_hair_main_color" placeholder="Main color" disabled/>
-                  </div>
-                  <div class="3u 4u$(medium)">
-                    <input type="color" name="new_hair_main_color_hex" id="new_hair_main_color_hex" placeholder="Main color code" class="color_to_name" />
-                  </div>
-                  <div class="3u 8u(medium)">
-                    <input type="text" name="new_hair_other_color" id="new_hair_other_color" placeholder="Other color" disabled/>
-                  </div>
-                  <div class="3u$ 4u$(medium)">
-                    <input type="color" name="new_hair_other_color_hex" id="new_hair_other_color_hex" placeholder="Other color code" class="color_to_name" />
-                  </div>
-                  <div class="8u 12u$(medium)">
-                    <input type="text" name="new_hair_haircut" id="new_hair_haircut" placeholder="Haircut" />
-                  </div>
                   <div class="4u$ 12u$(medium)">
                     <div class="select-wrapper">
-                      <select name="new_hair_frontback" id="new_hair_frontback">
-                        <option value="front" class="frontback">Front</option>
-                        <option value="back" class="frontback">Back</option>
+                      <select name="new_hand_leftright" id="new_hand_leftright">
+                        <option value="left" class="leftright">Left</option>
+                        <option value="right" class="leftright">Right</option>
                       </select>
                     </div>
                   </div>
+                  <div class="6u 12u$(medium)">
+                    <input type="text" name="new_hand_posture" id="new_hand_posture" placeholder="Posture" />
+                  </div>
+                  <div class="3u 8u(medium)">
+                    <input type="text" name="new_hand_skin_color" id="new_hand_skin_color" placeholder="Skin color" disabled/>
+                  </div>
+                  <div class="3u 4u$(medium)">
+                    <input type="color" name="new_hand_skin_color_hex" id="new_hand_skin_color_hex" placeholder="Skin color code" class="color_to_name" />
+                  </div>
                   <div class="12u$">
-                    <input type="text" name="new_hair_description" id="new_hair_description" placeholder="Description" />
+                    <input type="text" name="new_hand_description" id="new_hand_description" placeholder="Description" />
                   </div>
                   <div class="4u$ 12u$(medium)">
                     <ul class="actions">
                       <li>
-                        <input type="button" name="new_hair_submit" id="new_hair_submit" value="Add Hair" />
+                        <input type="button" name="new_hand_submit" id="new_hand_submit" value="Add hand" />
                       </li>
                     </ul>
                   </div>
