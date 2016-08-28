@@ -54,6 +54,7 @@
               <li><a href="./hands">Hands</a></li>
               <li><a href="./bodyparts">Body Parts</a></li>
               <li><a href="./accessories">Accessories</a></li>
+              <li><a href="./credits">Credits</a></li>
               <li><a href="elements.html">Elements</a></li>
             </ul>
           </nav>
@@ -81,6 +82,7 @@
       <script src="assets/js/filedrop-min.js"></script>
       <script src="assets/js/skel.min.js"></script>
       <script src="assets/js/util.js"></script>
+      <script src="assets/js/ntc.js"></script>
       <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
       <script src="assets/js/main.js"></script>
 

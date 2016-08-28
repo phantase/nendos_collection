@@ -6,18 +6,6 @@ if( isset($_GET['target']) ){
     case "add":
       $page_title = "Add a new Box";
       break;
-    case "edit":
-      if( isset($_GET['boxinternalid'])){
-        $boxinternalid = $_GET['boxinternalid'];
-
-        include_once('mvc/models/boxes.php');
-        $box = get_singleBox($boxinternalid);
-
-        $page_title = "Edit Box - ".$box['type']." #".$box['name'];
-      } else {
-        die('error');
-      }
-      break;
     default:
       die('error');
       break;

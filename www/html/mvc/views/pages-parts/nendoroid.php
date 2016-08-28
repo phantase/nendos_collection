@@ -53,7 +53,7 @@
                 <div class="row">
                   <div class="6u 12u$(medium)">
                     <h4>Faces</h4>
-                    <?php showFacesListing($faces,"simple",null); ?>
+                    <?php showFacesListing($faces,"simple",false,true,$nendoroid['box_name'],$nendoroid['box_id'],$nendoroid['url'],$nendoroid['internalid']); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hairs</h4>

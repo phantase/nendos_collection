@@ -35,6 +35,9 @@
     case "add_nendoroid":
       include_once('mvc/controllers/services/add_nendoroid.php');
       break;
+    case "add_face":
+      include_once('mvc/controllers/services/add_face.php');
+      break;
     // ADD PICTURE on SOMETHING
     case "picupload":
       include_once('mvc/controllers/services/picupload.php');
@@ -45,6 +48,9 @@
       break;
     case "edit_nendoroid":
       include_once('mvc/controllers/edit_nendoroid.php');
+      break;
+    case "edit_face":
+      include_once('mvc/controllers/edit_face.php');
       break;
     // LISTINGS
     case "boxes":
@@ -74,6 +80,10 @@
       break;
     case "nendoroid":
       include_once('mvc/controllers/nendoroid.php');
+      break;
+    // OTHER
+    case "credits":
+      include_once('mvc/controllers/credits.php');
       break;
     // HOME
     case "home":

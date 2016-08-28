@@ -3,12 +3,24 @@
             <div class="inner">
               <div class="row uniform">
                   <div class="4u 12u$(medium)">
-<?php if( isset($box_id) ){ ?>
-                    <input type="hidden" name="new_nendoroid_box_id" id="new_nendoroid_box_id" value="<?= $box_id ?>" />
-                    <input type="text" name="new_nendoroid_box_name" id="new_nendoroid_box_name" placeholder="Nendoroid box name" value="<?= $box_name ?>" disabled />
-<?php } else { ?>
-                    <input type="text" name="new_nendoroid_box_name" id="new_nendoroid_box_name" placeholder="Nendoroid box name" />
-<?php } ?>
+                    <div class="select-wrapper">
+                      <select name="new_nendoroid_box_id" id="new_nendoroid_box_id">
+<?php
+  if(count($boxes)>1){
+?>
+                        <option value>- Box -</option>
+<?php
+  }
+?>
+<?php
+  foreach ($boxes as $box) {
+?>
+                        <option value="<?= $box['internalid'] ?>"><?= $box['type'] ?> #<?= $box['name']; ?></option>
+<?php
+  }
+?>
+                      </select>
+                    </div>
                   </div>
                   <div class="4u 12u$(medium)">
                     <input type="text" name="new_nendoroid_name" id="new_nendoroid_name" placeholder="Nendoroid name" />

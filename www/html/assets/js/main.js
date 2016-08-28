@@ -381,7 +381,7 @@ $('#newBox,#noNewBox').click(function(){
       $('#new_nendoroid_submit').prop('disabled',true);
       $('#new_nendoroid_submit').prop('value','Adding...');
 
-      if($('#new_nendoroid_box_id')){
+      if($('#new_nendoroid_box_id').val()!=""){
         var new_nendoroid_box_id = $('#new_nendoroid_box_id').val();
         var new_nendoroid_box_name = $('#new_nendoroid_box_name').val();
         var new_nendoroid_name = $('#new_nendoroid_name').val();
@@ -413,7 +413,7 @@ $('#newBox,#noNewBox').click(function(){
       } else {
         $('#new_nendoroid_submit').prop('disabled',false);
         $('#new_nendoroid_submit').prop('value','Add Nendoroid');
-        $('#warning_message').html('<strong>Warning:</strong> For the moment, adding a Nendoroid directly (i.e. without coming from a box) is not permitted...');
+        $('#warning_message').html('<strong>Warning:</strong> Please choose a box for this Nendoroid.');
         $('#warning_message').fadeIn();
       }
 
@@ -450,6 +450,30 @@ $('#newBox,#noNewBox').click(function(){
     $('.withadd').each(function(){
       $(this).css('height',$(this).css('width'));
       $(this).children().css('padding-top',($(this).height()-$(this).children().height())/2);
+    });
+
+    $('#new_face_box_id').change(function(){
+      $('option.nendoroid').show();
+      if($(this).val()!="0"){
+        $('option.nendoroid[box!='+$(this).val()+']').hide();
+        $('option.nendoroid[value=0]').show();
+      }
+    });
+
+    $('#new_face_nendoroid_id').change(function(){
+      $('option.box').show();
+      if($(this).val()!="0"){
+        var correspbox = $('option.nendoroid[value='+$(this).val()+']').attr('box');
+        $('option.box[value!='+correspbox+']').hide();
+        $('option.box[value='+correspbox+']').prop('selected',true);
+      }
+    });
+
+    $('#new_face_eyes_color_hex').change(function(){
+      $('#new_face_eyes_color').val(ntc.name($(this).val())[1]);
+    });
+    $('#new_face_skin_color_hex').change(function(){
+      $('#new_face_skin_color').val(ntc.name($(this).val())[1]);
     });
 
 })(jQuery);

@@ -21,23 +21,23 @@
               <div class="row">
                 <div class="6u 12u(medium)">
               <h4>Faces</h4>
-<?php showFacesListing($faces,"simple",false,true); ?>
+<?php showFacesListing($faces,"simple",false,true,$box['name'],$box['internalid']); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hairs</h4>
-<?php showHairsListing($hairs,"simple",false,true); ?>
+<?php showHairsListing($hairs,"simple",false,false); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hands</h4>
-<?php showHandsListing($hands,"simple",false,true); ?>
+<?php showHandsListing($hands,"simple",false,false); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Body Parts</h4>
-<?php showBodyPartsListing($bodyparts,"simple",false,true); ?>
+<?php showBodyPartsListing($bodyparts,"simple",false,false); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Accessories</h4>
-<?php showAccessoriesListing($accessories,"simple",false,true); ?>
+<?php showAccessoriesListing($accessories,"simple",false,false); ?>
                 </div>
               </div>
 

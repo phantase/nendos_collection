@@ -5,9 +5,13 @@ if( isset($_GET['target']) ){
   switch($target){
     case "add":
       $page_title = "Add a new Nendoroid";
-      if( isset($_GET['box_id']) && isset($_GET['box_name']) ){
-        $box_name = $_GET['box_name'];
+      include_once('mvc/models/boxes.php');
+      if( isset($_GET['box_id']) ){
         $box_id = $_GET['box_id'];
+        $box = get_singleBox($box_id);
+        $boxes = array($box);
+      } else {
+        $boxes = get_allBoxes();
       }
       break;
     default:

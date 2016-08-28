@@ -5,6 +5,7 @@ if( isset($_GET['nendointernalid']) ){
 
   include_once('mvc/models/nendoroids.php');
   $nendoroid = get_singleNendoroid($nendointernalid);
+  $nendoroid['url'] = preg_replace('/^-+|-+$/', '', strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $nendoroid['name'])));
   include_once('mvc/models/faces.php');
   $faces = get_nendoroidFaces($nendointernalid);
   include_once('mvc/models/hands.php');

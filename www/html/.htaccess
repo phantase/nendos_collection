@@ -17,11 +17,15 @@ RewriteRule ^services/(box|nendoroid)/([0-9]+)/picupload$     index.php?action=p
 
 # EDIT
 RewriteRule ^box/add$                             index.php?action=edit_box&target=add [L]
-RewriteRule ^nendoroid/add$                       index.php?action=edit_nendoroid&target=add [L]
-RewriteRule ^box/(.*)_([0-9]+)/addnendoroid$      index.php?action=edit_nendoroid&target=add&box_name=$1&box_id=$2 [L]
+RewriteRule ^box/(.*)_([0-9]+)/addnendoroid$      index.php?action=edit_nendoroid&target=add&box_id=$2 [L]
+RewriteRule ^addnendoroid$                        index.php?action=edit_nendoroid&target=add [L]
+RewriteRule ^box/(.*)_([0-9]+)/nendoroid/(.*)_([0-9]+)/addface$      index.php?action=edit_face&target=add&box_id=$2&nendoroid_id=$4 [L]
+RewriteRule ^box/(.*)_([0-9]+)/addface$           index.php?action=edit_face&target=add&box_id=$2 [L]
+RewriteRule ^addface$                             index.php?action=edit_face&target=add [L]
 
 # HOME
 RewriteRule ^home$                                index.php?action=home [L]
+RewriteRule ^credits$                             index.php?action=credits [L]
 # LISTINGS
 RewriteRule ^boxes$                               index.php?action=boxes [L]
 RewriteRule ^boxes/$                              index.php?action=boxes [L]
