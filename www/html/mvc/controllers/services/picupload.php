@@ -13,6 +13,9 @@ if( ! isset($_SESSION['userid']) ){
 if( isset($_GET['part']) && isset($_GET['internalid']) ){
   $part = $_GET['part'];
   switch($part){
+    case 'bodypart':
+      $destination_folder = 'images/nendos/bodyparts/';
+      break;
     case 'box':
       $destination_folder = 'images/nendos/boxes/';
       break;

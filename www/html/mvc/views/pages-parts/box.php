@@ -33,11 +33,11 @@
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Body Parts</h4>
-<?php showBodyPartsListing($bodyparts,"simple",false,false); ?>
+<?php showBodyPartsListing($bodyparts,"simple",true,true,$box['name'],$box['internalid']); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Accessories</h4>
-<?php showAccessoriesListing($accessories,"simple",false,false); ?>
+<?php showAccessoriesListing($accessories,"simple"); ?>
                 </div>
               </div>
 

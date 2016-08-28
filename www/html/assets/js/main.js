@@ -550,6 +550,49 @@ $('#newBox,#noNewBox').click(function(){
       }
     });
 
+    $('#new_bodypart_submit').click(function(){
+      $('#new_bodypart_submit').prop('disabled',true);
+      $('#new_bodypart_submit').prop('value','Adding...');
+
+      if($('#new_bodypart_box_id').val()!="0"){
+        var new_bodypart_box_id = $('#new_bodypart_box_id').val();
+        var new_bodypart_nendoroid_id = $('#new_bodypart_nendoroid_id').val();
+        var new_bodypart_main_color = $('#new_bodypart_main_color').val();
+        var new_bodypart_main_color_hex = $('#new_bodypart_main_color_hex').val();
+        var new_bodypart_second_color = $('#new_bodypart_second_color').val();
+        var new_bodypart_second_color_hex = $('#new_bodypart_second_color_hex').val();
+        var new_bodypart_part = $('#new_bodypart_part').val();
+        var new_bodypart_description = $('#new_bodypart_description').val();
+        $.post("services/bodypart/add",
+          {
+            action:"add_bodypart",
+            new_bodypart_box_id:new_bodypart_box_id,
+            new_bodypart_nendoroid_id:new_bodypart_nendoroid_id,
+            new_bodypart_main_color:new_bodypart_main_color,
+            new_bodypart_main_color_hex:new_bodypart_main_color_hex,
+            new_bodypart_second_color:new_bodypart_second_color,
+            new_bodypart_second_color_hex:new_bodypart_second_color_hex,
+            new_bodypart_part:new_bodypart_part,
+            new_bodypart_description:new_bodypart_description
+          },function(data){
+            if(data.result && data.result == "success"){
+              window.location.replace("bodypart/"+data.bodypart_internalid+"/");
+            } else {
+              $('#new_bodypart_submit').prop('disabled',false);
+              $('#new_bodypart_submit').prop('value','Add Bodypart');
+              $('#warning_message').html('<strong>Warning:</strong> Something wrong has occurred and your request was not a success, please retry...');
+              $('#warning_message').fadeIn();
+            }
+          }
+        );
+      } else {
+        $('#new_bodypart_submit').prop('disabled',false);
+        $('#new_bodypart_submit').prop('value','Add Bodypart');
+        $('#warning_message').html('<strong>Warning:</strong> Please choose a box for this Bodypart.');
+        $('#warning_message').fadeIn();
+      }
+    });
+
     $('.dropzone').hide();
 
     $('.editpic').click(function(){

@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `body_parts` (
   `main_color_hex` varchar(6) NOT NULL,
   `second_color` varchar(30) NOT NULL,
   `second_color_hex` varchar(6) NOT NULL,
-  `description` varchar(150) NOT NULL,
+  `description` varchar(200) NOT NULL,
   PRIMARY KEY (`internalid`),
   UNIQUE KEY `internalid` (`internalid`),
   KEY `box_id` (`box_id`),
@@ -201,7 +201,7 @@ ALTER TABLE `accessories`
 -- Constraints for table `body_parts`
 --
 ALTER TABLE `body_parts`
-  ADD CONSTRAINT `body_parts_ibfk_1` FOREIGN KEY (`internalid`) REFERENCES `boxes` (`internalid`),
+  ADD CONSTRAINT `body_parts_ibfk_1` FOREIGN KEY (`box_id`) REFERENCES `boxes` (`internalid`),
   ADD CONSTRAINT `body_parts_ibfk_2` FOREIGN KEY (`nendoroid_id`) REFERENCES `nendoroids` (`internalid`);
 
 --
