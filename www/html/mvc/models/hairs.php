@@ -57,6 +57,18 @@ function get_boxHairs($box_id)
 
   return $hairs;
 }
+/** Get a single hair with its internalid */
+function get_singleHair($hair_id)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, b.name AS box_name, b.type AS box_type, h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, h.main_color, h.main_color_hex, h.other_color, h.other_color_hex, h.haircut, h.description, h.frontback FROM hairs AS h LEFT JOIN boxes AS b ON h.box_id = b.internalid LEFT JOIN nendoroids AS n ON h.nendoroid_id = n.internalid WHERE h.internalid = :hair_id");
+  $req->bindParam(':hair_id',$hair_id);
+  $req->execute();
+  $face = $req->fetch();
+
+  return $face;
+}
 /** Add a single hair in the DB */
 function add_singleHair($box_id,$nendoroid_id,$hair_main_color,$hair_main_color_hex,$hair_other_color,$hair_other_color_hex,$hair_haircut,$hair_frontback,$hair_description)
 {

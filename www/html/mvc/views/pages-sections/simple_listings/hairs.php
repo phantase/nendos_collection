@@ -4,7 +4,7 @@
 ?>
                       <div class="2u 3u(medium)">
                       <?php if($withlinks){ ?>
-                        <a href="face/<?= $face['internalid'] ?>/">
+                        <a href="hair/<?= $hair['internalid'] ?>/">
                       <?php } ?>
                         <span class="image fit" hair="" frontback="<?= $hair['frontback'] ?>" haircut="<?= $hair['haircut'] ?>" description="<?= $hair['description'] ?>">
                           <img src="images/nendos/hairs/<?= $hair['internalid'] ?>.jpg" alt="" />

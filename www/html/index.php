@@ -94,6 +94,9 @@
     case "face":
       include_once('mvc/controllers/face.php');
       break;
+    case "hair":
+      include_once('mvc/controllers/hair.php');
+      break;
     // OTHER
     case "credits":
       include_once('mvc/controllers/credits.php');

@@ -19,6 +19,9 @@ if( isset($_GET['part']) && isset($_GET['internalid']) ){
     case 'face':
       $destination_folder = 'images/nendos/faces/';
       break;
+    case 'hair':
+      $destination_folder = 'images/nendos/hairs/';
+      break;
     case 'nendoroid':
       $destination_folder = 'images/nendos/nendoroids/';
       break;
