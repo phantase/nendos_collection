@@ -4,7 +4,7 @@
               <div class="row uniform">
                   <div class="4u 12u$(medium)">
                     <div class="select-wrapper">
-                      <select name="new_face_box_id" id="new_face_box_id" class="select_box_id">
+                      <select name="new_hair_box_id" id="new_hair_box_id" class="select_box_id">
 <?php
   if(count($boxes)>1){
 ?>
@@ -24,7 +24,7 @@
                   </div>
                   <div class="4u$ 12u$(medium)">
                     <div class="select-wrapper">
-                      <select name="new_face_nendoroid_id" id="new_face_nendoroid_id" class="select_nendoroid_id">
+                      <select name="new_hair_nendoroid_id" id="new_hair_nendoroid_id" class="select_nendoroid_id">
 <?php
   if( ! isset($_GET['nendoroid_id']) ){
 ?>
@@ -42,41 +42,40 @@
                       </select>
                     </div>
                   </div>
-                  <div class="4u 12u$(medium)">
-                    <input type="text" name="new_face_eyes" id="new_face_eyes" placeholder="Eyes" />
+                  <div class="3u 8u(medium)">
+                    <input type="text" name="new_hair_main_color" id="new_hair_main_color" placeholder="Main color" disabled/>
                   </div>
-                  <div class="4u 12u$(medium)">
-                    <input type="text" name="new_face_eyes_color" id="new_face_eyes_color" placeholder="Eyes color name" disabled />
+                  <div class="3u 4u$(medium)">
+                    <input type="color" name="new_hair_main_color_hex" id="new_hair_main_color_hex" placeholder="Main color code" class="color_to_name" />
+                  </div>
+                  <div class="3u 8u(medium)">
+                    <input type="text" name="new_hair_other_color" id="new_hair_other_color" placeholder="Other color" disabled/>
+                  </div>
+                  <div class="3u$ 4u$(medium)">
+                    <input type="color" name="new_hair_other_color_hex" id="new_hair_other_color_hex" placeholder="Other color code" class="color_to_name" />
+                  </div>
+                  <div class="8u 12u$(medium)">
+                    <input type="text" name="new_hair_haircut" id="new_hair_haircut" placeholder="Haircut" />
                   </div>
                   <div class="4u$ 12u$(medium)">
-                    <input type="color" name="new_face_eyes_color_hex" id="new_face_eyes_color_hex" placeholder="Eyes color code" class="color_to_name" />
-                  </div>
-                  <div class="4u 12u$(medium)">
-                    <input type="text" name="new_face_mouth" id="new_face_mouth" placeholder="Mouth" />
-                  </div>
-                  <div class="4u 12u$(medium)">
-                    <input type="text" name="new_face_skin_color" id="new_face_skin_color" placeholder="Skin color name" disabled />
-                  </div>
-                  <div class="4u$ 12u$(medium)">
-                    <input type="color" name="new_face_skin_color_hex" id="new_face_skin_color_hex" placeholder="Skin color code" class="color_to_name" />
-                  </div>
-                  <div class="4u 12u$(medium)">
                     <div class="select-wrapper">
-                      <select name="new_face_sex" id="new_face_sex">
-                        <option value="undefined" class="sex">- Sex -</option>
-                        <option value="female" class="sex">Female</option>
-                        <option value="male" class="sex">Male</option>
+                      <select name="new_hair_frontback" id="new_hair_frontback">
+                        <option value="front" class="sex">Front</option>
+                        <option value="back" class="sex">Back</option>
                       </select>
                     </div>
+                  </div>
+                  <div class="12u$">
+                    <input type="text" name="new_hair_description" id="new_hair_description" placeholder="Description" />
                   </div>
                   <div class="4u$ 12u$(medium)">
                     <ul class="actions">
                       <li>
-                        <input type="button" name="new_face_submit" id="new_face_submit" value="Add Face" />
+                        <input type="button" name="new_hair_submit" id="new_hair_submit" value="Add Hair" />
                       </li>
                     </ul>
                   </div>
-                  <div class="12u">
+                  <div class="12u$">
                     <blockquote class="warning" id="warning_message" style="display:none;"></blockquote>
                   </div>
               </div>

@@ -14,7 +14,8 @@ RewriteRule ^loginandout$                         index.php?action=loginandout [
 RewriteRule ^services/box/add$                    index.php?action=add_box [L]
 RewriteRule ^services/nendoroid/add$              index.php?action=add_nendoroid [L]
 RewriteRule ^services/face/add$                   index.php?action=add_face [L]
-RewriteRule ^services/(box|nendoroid|face)/([0-9]+)/picupload$     index.php?action=picupload&part=$1&internalid=$2 [L]
+RewriteRule ^services/hair/add$                   index.php?action=add_hair [L]
+RewriteRule ^services/(box|nendoroid|face/hair)/([0-9]+)/picupload$     index.php?action=picupload&part=$1&internalid=$2 [L]
 
 # EDIT
 RewriteRule ^box/add$                             index.php?action=edit_box&target=add [L]
@@ -23,6 +24,9 @@ RewriteRule ^addnendoroid$                        index.php?action=edit_nendoroi
 RewriteRule ^box/(.*)_([0-9]+)/nendoroid/(.*)_([0-9]+)/addface$      index.php?action=edit_face&target=add&box_id=$2&nendoroid_id=$4 [L]
 RewriteRule ^box/(.*)_([0-9]+)/addface$           index.php?action=edit_face&target=add&box_id=$2 [L]
 RewriteRule ^addface$                             index.php?action=edit_face&target=add [L]
+RewriteRule ^box/(.*)_([0-9]+)/nendoroid/(.*)_([0-9]+)/addhair$      index.php?action=edit_hair&target=add&box_id=$2&nendoroid_id=$4 [L]
+RewriteRule ^box/(.*)_([0-9]+)/addhair$           index.php?action=edit_hair&target=add&box_id=$2 [L]
+RewriteRule ^addhair$                             index.php?action=edit_hair&target=add [L]
 
 # HOME
 RewriteRule ^home$                                index.php?action=home [L]

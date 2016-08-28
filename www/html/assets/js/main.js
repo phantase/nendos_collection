@@ -464,6 +464,51 @@ $('#newBox,#noNewBox').click(function(){
       }
     });
 
+    $('#new_hair_submit').click(function(){
+      $('#new_hair_submit').prop('disabled',true);
+      $('#new_hair_submit').prop('value','Adding...');
+
+      if($('#new_hair_box_id').val()!="0"){
+        var new_hair_box_id = $('#new_hair_box_id').val();
+        var new_hair_nendoroid_id = $('#new_hair_nendoroid_id').val();
+        var new_hair_main_color = $('#new_hair_main_color').val();
+        var new_hair_main_color_hex = $('#new_hair_main_color_hex').val();
+        var new_hair_other_color = $('#new_hair_other_color').val();
+        var new_hair_other_color_hex = $('#new_hair_other_color_hex').val();
+        var new_hair_haircut = $('#new_hair_haircut').val();
+        var new_hair_frontback = $('#new_hair_frontback').val();
+        var new_hair_description = $('#new_hair_description').val();
+        $.post("services/hair/add",
+          {
+            action:"add_hair",
+            new_hair_box_id:new_hair_box_id,
+            new_hair_nendoroid_id:new_hair_nendoroid_id,
+            new_hair_main_color:new_hair_main_color,
+            new_hair_main_color_hex:new_hair_main_color_hex,
+            new_hair_other_color:new_hair_other_color,
+            new_hair_other_color_hex:new_hair_other_color_hex,
+            new_hair_haircut:new_hair_haircut,
+            new_hair_frontback:new_hair_frontback,
+            new_hair_description:new_hair_description
+          },function(data){
+            if(data.result && data.result == "success"){
+              window.location.replace("hair/"+data.hair_internalid+"/");
+            } else {
+              $('#new_hair_submit').prop('disabled',false);
+              $('#new_hair_submit').prop('value','Add Hair');
+              $('#warning_message').html('<strong>Warning:</strong> Something wrong has occurred and your request was not a success, please retry...');
+              $('#warning_message').fadeIn();
+            }
+          }
+        );
+      } else {
+        $('#new_face_submit').prop('disabled',false);
+        $('#new_face_submit').prop('value','Add Hair');
+        $('#warning_message').html('<strong>Warning:</strong> Please choose a box for this Hair.');
+        $('#warning_message').fadeIn();
+      }
+    });
+
     $('.dropzone').hide();
 
     $('.editpic').click(function(){
@@ -497,7 +542,7 @@ $('#newBox,#noNewBox').click(function(){
       $(this).children().css('padding-top',($(this).height()-$(this).children().height())/2);
     });
 
-    $('#new_face_box_id').change(function(){
+    $('.select_box_id').change(function(){
       $('option.nendoroid').show();
       if($(this).val()!="0"){
         $('option.nendoroid[box!='+$(this).val()+']').hide();
@@ -505,7 +550,7 @@ $('#newBox,#noNewBox').click(function(){
       }
     });
 
-    $('#new_face_nendoroid_id').change(function(){
+    $('.select_nendoroid_id').change(function(){
       $('option.box').show();
       if($(this).val()!="0"){
         var correspbox = $('option.nendoroid[value='+$(this).val()+']').attr('box');
@@ -514,11 +559,9 @@ $('#newBox,#noNewBox').click(function(){
       }
     });
 
-    $('#new_face_eyes_color_hex').change(function(){
-      $('#new_face_eyes_color').val(ntc.name($(this).val())[1]);
-    });
-    $('#new_face_skin_color_hex').change(function(){
-      $('#new_face_skin_color').val(ntc.name($(this).val())[1]);
+    $('.color_to_name').change(function(){
+      var id_name = $(this)[0].id.substring(0,$(this)[0].id.length-4);
+      $('#'+id_name).val(ntc.name($(this).val())[1]);
     });
 
 })(jQuery);

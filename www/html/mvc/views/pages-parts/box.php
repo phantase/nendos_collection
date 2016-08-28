@@ -25,7 +25,7 @@
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hairs</h4>
-<?php showHairsListing($hairs,"simple",false,false); ?>
+<?php showHairsListing($hairs,"simple",true,true,$box['name'],$box['internalid']); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hands</h4>

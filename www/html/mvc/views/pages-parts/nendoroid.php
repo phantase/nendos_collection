@@ -57,7 +57,7 @@
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hairs</h4>
-                    <?php showHairsListing($hairs,"simple"); ?>
+                    <?php showHairsListing($hairs,"simple",true,true,$nendoroid['box_name'],$nendoroid['box_id'],$nendoroid['url'],$nendoroid['internalid']); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hands</h4>

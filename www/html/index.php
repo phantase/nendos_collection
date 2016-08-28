@@ -42,6 +42,9 @@
     case "add_face":
       include_once('mvc/controllers/services/add_face.php');
       break;
+    case "add_hair":
+      include_once('mvc/controllers/services/add_hair.php');
+      break;
     // ADD PICTURE on SOMETHING
     case "picupload":
       include_once('mvc/controllers/services/picupload.php');
@@ -55,6 +58,9 @@
       break;
     case "edit_face":
       include_once('mvc/controllers/edit_face.php');
+      break;
+    case "edit_hair":
+      include_once('mvc/controllers/edit_hair.php');
       break;
     // LISTINGS
     case "boxes":
