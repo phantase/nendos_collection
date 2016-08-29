@@ -40,7 +40,7 @@
     case "add_accessory":
     // ADD PICTURE on SOMETHING
     case "picupload":
-      include_once('mvc/controllers/services/'.$action.'.php');
+      $include_page = 'services/'.$action;
       break;
     // EDIT
     case "edit_box":
@@ -50,7 +50,7 @@
     case "edit_hand":
     case "edit_bodypart":
     case "edit_accessory":
-      include_once('mvc/controllers/'.$action.'.php');
+      $include_page = 'edit/'.$action;
       break;
     // LISTINGS
     case "boxes":
@@ -60,7 +60,7 @@
     case "hands":
     case "bodyparts":
     case "accessories":
-      include_once('mvc/controllers/'.$action.'.php');
+      $include_page = 'listings/'.$action;
       break;
     // SINGLE PAGES
     case "box":
@@ -70,15 +70,17 @@
     case "hand":
     case "bodypart":
     case "accessory":
-      include_once('mvc/controllers/'.$action.'.php');
+      $include_page = 'single/'.$action;
       break;
     // OTHER
     case "credits":
-      include_once('mvc/controllers/credits.php');
+      $include_page = $action;
       break;
     // HOME
     case "home":
     default:
-      include_once('mvc/controllers/home.php');
+      $include_page = 'home';
       break;
   }
+
+  include_once('mvc/controllers/'.$include_page.'.php');

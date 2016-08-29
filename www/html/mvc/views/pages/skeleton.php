@@ -60,7 +60,7 @@
           </nav>
 
 <?php
-  include_once('mvc/views/pages-parts/'.$action.'.php');
+  include_once('mvc/views/pages-parts/'.$include_page.'.php');
 ?>
 
         <!-- Footer -->
