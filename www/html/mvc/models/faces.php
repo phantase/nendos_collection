@@ -62,7 +62,7 @@ function get_singleFace($face_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT f.internalid, f.box_id, b.name AS box_name, b.type AS box_type, f.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, f.eyes, f.eyes_color, f.eyes_color_hex, f.mouth, f.skin_color, f.skin_color_hex, f.sex FROM faces AS f LEFT JOIN boxes AS b ON f.box_id = b.internalid LEFT JOIN nendoroids AS n ON f.nendoroid_id = n.internalid WHERE f.internalid = :face_id");
+  $req = $bdd->prepare("SELECT f.internalid, f.box_id, b.name AS box_name, b.type AS box_type, f.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, f.eyes, f.eyes_color, f.eyes_color_hex, f.mouth, f.skin_color, f.skin_color_hex, f.sex, f.creator, uc.username AS creator_name, f.creation, f.editor, ue.username AS editor_name, f.edition, NOW() AS now  FROM faces AS f LEFT JOIN boxes AS b ON f.box_id = b.internalid LEFT JOIN nendoroids AS n ON f.nendoroid_id = n.internalid LEFT JOIN users AS uc ON f.creator = uc.internalid LEFT JOIN users AS ue ON f.editor = ue.internalid WHERE f.internalid = :face_id");
   $req->bindParam(':face_id',$face_id);
   $req->execute();
   $face = $req->fetch();
