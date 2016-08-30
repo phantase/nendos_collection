@@ -62,7 +62,7 @@ function get_singleBodypart($bodypart_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT bp.internalid, bp.box_id, b.name AS box_name, b.type AS box_type, bp.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, bp.main_color, bp.main_color_hex, bp.second_color, bp.second_color_hex, bp.part, bp.description FROM body_parts AS bp LEFT JOIN boxes AS b ON bp.box_id = b.internalid LEFT JOIN nendoroids AS n ON bp.nendoroid_id = n.internalid WHERE bp.internalid = :bodypart_id");
+  $req = $bdd->prepare("SELECT bp.internalid, bp.box_id, b.name AS box_name, b.type AS box_type, bp.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, bp.main_color, bp.main_color_hex, bp.second_color, bp.second_color_hex, bp.part, bp.description, bp.creator, uc.username AS creator_name, bp.creation, bp.editor, ue.username AS editor_name, bp.edition, NOW() AS now  FROM body_parts AS bp LEFT JOIN boxes AS b ON bp.box_id = b.internalid LEFT JOIN nendoroids AS n ON bp.nendoroid_id = n.internalid LEFT JOIN users AS uc ON bp.creator = uc.internalid LEFT JOIN users AS ue ON bp.editor = ue.internalid WHERE bp.internalid = :bodypart_id");
   $req->bindParam(':bodypart_id',$bodypart_id);
   $req->execute();
   $bodypart = $req->fetch();
