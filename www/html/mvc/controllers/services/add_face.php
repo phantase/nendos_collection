@@ -43,7 +43,8 @@ if( isset($_POST['new_face_box_id']) && strlen($_POST['new_face_box_id'])>0
                                 $face_mouth,
                                 $face_skin_color,
                                 $face_skin_color_hex,
-                                $face_sex);
+                                $face_sex,
+                                $_SESSION['userid']);
   if( isset($internalid) && $internalid != 0 ){
     echo json_encode(array('result'=>'success',
                           'face_internalid'=>$internalid,

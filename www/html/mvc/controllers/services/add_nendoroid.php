@@ -32,7 +32,8 @@ if( isset($_POST['new_nendoroid_box_id']) && strlen($_POST['new_nendoroid_box_id
                                     $nendoroid_origin,
                                     $nendoroid_version,
                                     $nendoroid_company,
-                                    $nendoroid_color);
+                                    $nendoroid_color,
+                                    $_SESSION['userid']);
   if( isset($internalid) && $internalid != 0 ){
     echo json_encode(array('result'=>'success',
                           'nendoroid_internalid'=>$internalid,

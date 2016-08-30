@@ -40,7 +40,8 @@ if( isset($_POST['new_bodypart_box_id']) && strlen($_POST['new_bodypart_box_id']
                                 $bodypart_second_color,
                                 $bodypart_second_color_hex,
                                 $bodypart_part,
-                                $bodypart_description);
+                                $bodypart_description,
+                                $_SESSION['userid']);
   if( isset($internalid) && $internalid != 0 ){
     echo json_encode(array('result'=>'success',
                           'bodypart_internalid'=>$internalid,

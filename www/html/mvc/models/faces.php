@@ -70,11 +70,11 @@ function get_singleFace($face_id)
   return $face;
 }
 /** Add a single face in the DB */
-function add_singleFace($box_id,$nendoroid_id,$face_eyes,$face_eyes_color,$face_eyes_color_hex,$face_mouth,$face_skin_color,$face_skin_color_hex,$face_sex)
+function add_singleFace($box_id,$nendoroid_id,$face_eyes,$face_eyes_color,$face_eyes_color_hex,$face_mouth,$face_skin_color,$face_skin_color_hex,$face_sex,$userid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO faces(box_id,nendoroid_id,eyes,eyes_color,eyes_color_hex,mouth,skin_color,skin_color_hex,sex) VALUES(:box_id,:nendoroid_id,:eyes,:eyes_color,:eyes_color_hex,:mouth,:skin_color,:skin_color_hex,:sex)");
+  $req = $bdd->prepare("INSERT INTO faces(box_id,nendoroid_id,eyes,eyes_color,eyes_color_hex,mouth,skin_color,skin_color_hex,sex,creator,creation,editor,edition) VALUES(:box_id,:nendoroid_id,:eyes,:eyes_color,:eyes_color_hex,:mouth,:skin_color,:skin_color_hex,:sex,:creator,NOW(),:editor,NOW()");
   $req->bindParam(':box_id',$box_id);
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->bindParam(':eyes',$face_eyes);
@@ -84,6 +84,8 @@ function add_singleFace($box_id,$nendoroid_id,$face_eyes,$face_eyes_color,$face_
   $req->bindParam(':skin_color',$face_skin_color);
   $req->bindParam(':skin_color_hex',$face_skin_color_hex);
   $req->bindParam(':sex',$face_sex);
+  $req->bindParam(':creator',$userid);
+  $req->bindParam(':editor',$userid);
   $req->execute();
 
   $faceinternalid = $bdd->lastInsertId();

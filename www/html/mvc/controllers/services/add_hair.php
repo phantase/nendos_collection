@@ -43,7 +43,8 @@ if( isset($_POST['new_hair_box_id']) && strlen($_POST['new_hair_box_id'])>0
                                 $hair_other_color_hex,
                                 $hair_haircut,
                                 $hair_frontback,
-                                $hair_description);
+                                $hair_description,
+                                $_SESSION['userid']);
   if( isset($internalid) && $internalid != 0 ){
     echo json_encode(array('result'=>'success',
                           'hair_internalid'=>$internalid,

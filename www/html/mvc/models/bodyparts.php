@@ -70,11 +70,11 @@ function get_singleBodypart($bodypart_id)
   return $bodypart;
 }
 /** Add a single bodypart in the DB */
-function add_singleBodypart($box_id,$nendoroid_id,$bodypart_main_color,$bodypart_main_color_hex,$bodypart_second_color,$bodypart_second_color_hex,$bodypart_part,$bodypart_description)
+function add_singleBodypart($box_id,$nendoroid_id,$bodypart_main_color,$bodypart_main_color_hex,$bodypart_second_color,$bodypart_second_color_hex,$bodypart_part,$bodypart_description,$userid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO body_parts(box_id,nendoroid_id,main_color,main_color_hex,second_color,second_color_hex,part,description) VALUES(:box_id,:nendoroid_id,:main_color,:main_color_hex,:second_color,:second_color_hex,:part,:description)");
+  $req = $bdd->prepare("INSERT INTO body_parts(box_id,nendoroid_id,main_color,main_color_hex,second_color,second_color_hex,part,description,creator,creation,editor,edition) VALUES(:box_id,:nendoroid_id,:main_color,:main_color_hex,:second_color,:second_color_hex,:part,:description,:creator,NOW(),:editor,NOW())");
   $req->bindParam(':box_id',$box_id);
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->bindParam(':main_color',$bodypart_main_color);
@@ -83,6 +83,8 @@ function add_singleBodypart($box_id,$nendoroid_id,$bodypart_main_color,$bodypart
   $req->bindParam(':second_color_hex',$bodypart_second_color_hex);
   $req->bindParam(':part',$bodypart_part);
   $req->bindParam(':description',$bodypart_description);
+  $req->bindParam(':creator',$userid);
+  $req->bindParam(':editor',$userid);
   $req->execute();
 
   $bodypartinternalid = $bdd->lastInsertId();

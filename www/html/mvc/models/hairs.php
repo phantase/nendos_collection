@@ -70,11 +70,11 @@ function get_singleHair($hair_id)
   return $face;
 }
 /** Add a single hair in the DB */
-function add_singleHair($box_id,$nendoroid_id,$hair_main_color,$hair_main_color_hex,$hair_other_color,$hair_other_color_hex,$hair_haircut,$hair_frontback,$hair_description)
+function add_singleHair($box_id,$nendoroid_id,$hair_main_color,$hair_main_color_hex,$hair_other_color,$hair_other_color_hex,$hair_haircut,$hair_frontback,$hair_description,$userid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO hairs(box_id,nendoroid_id,main_color,main_color_hex,other_color,other_color_hex,haircut,description,frontback) VALUES(:box_id,:nendoroid_id,:main_color,:main_color_hex,:other_color,:other_color_hex,:haircut,:description,:frontback)");
+  $req = $bdd->prepare("INSERT INTO hairs(box_id,nendoroid_id,main_color,main_color_hex,other_color,other_color_hex,haircut,description,frontback,creator,creatio,;editor,edition) VALUES(:box_id,:nendoroid_id,:main_color,:main_color_hex,:other_color,:other_color_hex,:haircut,:description,:frontback,:creator,NOW(),:editor,NOW())");
   $req->bindParam(':box_id',$box_id);
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->bindParam(':main_color',$hair_main_color);
@@ -84,6 +84,8 @@ function add_singleHair($box_id,$nendoroid_id,$hair_main_color,$hair_main_color_
   $req->bindParam(':haircut',$hair_haircut);
   $req->bindParam(':frontback',$hair_frontback);
   $req->bindParam(':description',$hair_description);
+  $req->bindParam(':creator',$userid);
+  $req->bindParam(':editor',$userid);
   $req->execute();
 
   $hairinternalid = $bdd->lastInsertId();

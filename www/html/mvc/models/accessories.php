@@ -70,11 +70,11 @@ function get_singleAccessory($accessory_id)
   return $bodypart;
 }
 /** Add a single accessory in the DB */
-function add_singleAccessory($box_id,$nendoroid_id,$accessory_type,$accessory_main_color,$accessory_main_color_hex,$accessory_other_color,$accessory_other_color_hex,$accessory_description)
+function add_singleAccessory($box_id,$nendoroid_id,$accessory_type,$accessory_main_color,$accessory_main_color_hex,$accessory_other_color,$accessory_other_color_hex,$accessory_description,$userid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO accessories(box_id,nendoroid_id,type,main_color,main_color_hex,other_color,other_color_hex,description) VALUES(:box_id,:nendoroid_id,:type,:main_color,:main_color_hex,:other_color,:other_color_hex,:description)");
+  $req = $bdd->prepare("INSERT INTO accessories(box_id,nendoroid_id,type,main_color,main_color_hex,other_color,other_color_hex,description,creator,creation,editor,edition) VALUES(:box_id,:nendoroid_id,:type,:main_color,:main_color_hex,:other_color,:other_color_hex,:description,:creator,NOW(),:editor,NOW())");
   $req->bindParam(':box_id',$box_id);
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->bindParam(':type',$accessory_type);
@@ -83,6 +83,8 @@ function add_singleAccessory($box_id,$nendoroid_id,$accessory_type,$accessory_ma
   $req->bindParam(':other_color',$accessory_other_color);
   $req->bindParam(':other_color_hex',$accessory_other_color_hex);
   $req->bindParam(':description',$accessory_description);
+  $req->bindParam(':creator',$userid);
+  $req->bindParam(':editor',$userid);
   $req->execute();
 
   $accessoryinternalid = $bdd->lastInsertId();

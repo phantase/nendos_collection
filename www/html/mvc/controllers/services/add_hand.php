@@ -34,7 +34,8 @@ if( isset($_POST['new_hand_box_id']) && strlen($_POST['new_hand_box_id'])>0
                                 $hand_skin_color_hex,
                                 $hand_leftright,
                                 $hand_posture,
-                                $hand_description);
+                                $hand_description,
+                                $_SESSION['userid']);
   if( isset($internalid) && $internalid != 0 ){
     echo json_encode(array('result'=>'success',
                           'hand_internalid'=>$internalid,

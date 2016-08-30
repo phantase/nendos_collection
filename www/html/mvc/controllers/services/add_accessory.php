@@ -40,7 +40,8 @@ if( isset($_POST['new_accessory_box_id']) && strlen($_POST['new_accessory_box_id
                                 $accessory_main_color_hex,
                                 $accessory_other_color,
                                 $accessory_other_color_hex,
-                                $accessory_description);
+                                $accessory_description,
+                                $_SESSION['userid']);
   if( isset($internalid) && $internalid != 0 ){
     echo json_encode(array('result'=>'success',
                           'accessory_internalid'=>$internalid,

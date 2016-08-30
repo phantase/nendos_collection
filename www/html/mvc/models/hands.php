@@ -70,11 +70,11 @@ function get_singleHand($hand_id)
   return $face;
 }
 /** Add a single hair in the DB */
-function add_singleHand($box_id,$nendoroid_id,$hand_skin_color,$hand_skin_color_hex,$hand_leftright,$hand_posture,$hand_description)
+function add_singleHand($box_id,$nendoroid_id,$hand_skin_color,$hand_skin_color_hex,$hand_leftright,$hand_posture,$hand_description,$userid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO hands(box_id,nendoroid_id,skin_color,skin_color_hex,leftright,posture,description) VALUES(:box_id,:nendoroid_id,:skin_color,:skin_color_hex,:leftright,:posture,:description)");
+  $req = $bdd->prepare("INSERT INTO hands(box_id,nendoroid_id,skin_color,skin_color_hex,leftright,posture,description,creator,creation,editor,edition) VALUES(:box_id,:nendoroid_id,:skin_color,:skin_color_hex,:leftright,:posture,:description,:creator,NOW(),:editor,NOW())");
   $req->bindParam(':box_id',$box_id);
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->bindParam(':skin_color',$hand_skin_color);
@@ -82,6 +82,8 @@ function add_singleHand($box_id,$nendoroid_id,$hand_skin_color,$hand_skin_color_
   $req->bindParam(':leftright',$hand_leftright);
   $req->bindParam(':posture',$hand_posture);
   $req->bindParam(':description',$hand_description);
+  $req->bindParam(':creator',$userid);
+  $req->bindParam(':editor',$userid);
   $req->execute();
 
   $handinternalid = $bdd->lastInsertId();
