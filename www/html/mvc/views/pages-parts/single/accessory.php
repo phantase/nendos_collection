@@ -46,6 +46,7 @@
                     </div>
                   </div>
                 </div>
+                <hr/>
+<?php include('mvc/views/pages-sections/others/metadata.php'); ?>
               </div>
             </div>
-          </div>

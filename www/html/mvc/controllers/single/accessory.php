@@ -8,6 +8,14 @@ if( isset($_GET['accessoryinternalid']) ){
   if($accessory['nendoroid_id']){
     $accessory['nendoroid_url'] = urlize($accessory['nendoroid_name']);
   }
+  $metadata = array('creator'=>$accessory['creator'],
+                    'creator_name'=>$accessory['creator_name'],
+                    'creation'=>$accessory['creation'],
+                    'creation_diff'=>((new DateTime($accessory['now']))->diff(new DateTime($accessory['creation']))),
+                    'editor'=>$accessory['editor'],
+                    'editor_name'=>$accessory['editor_name'],
+                    'edition'=>$accessory['edition'],
+                    'edition_diff'=>((new DateTime($accessory['now']))->diff(new DateTime($accessory['edition']))));
 
   $page_title = "Accessory";
 

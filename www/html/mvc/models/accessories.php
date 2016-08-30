@@ -62,7 +62,7 @@ function get_singleAccessory($accessory_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT a.internalid, a.box_id, b.name AS box_name, b.type AS box_type, a.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, a.type, a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description FROM accessories AS a LEFT JOIN boxes AS b ON a.box_id = b.internalid LEFT JOIN nendoroids AS n ON a.nendoroid_id = n.internalid WHERE a.internalid = :accessory_id");
+  $req = $bdd->prepare("SELECT a.internalid, a.box_id, b.name AS box_name, b.type AS box_type, a.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, a.type, a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description, a.creator, uc.username AS creator_name, a.creation, a.editor, ue.username AS editor_name, a.edition, NOW() AS now FROM accessories AS a LEFT JOIN boxes AS b ON a.box_id = b.internalid LEFT JOIN nendoroids AS n ON a.nendoroid_id = n.internalid LEFT JOIN users AS uc ON a.creator = uc.internalid LEFT JOIN users AS ue ON a.editor = ue.internalid WHERE a.internalid = :accessory_id");
   $req->bindParam(':accessory_id',$accessory_id);
   $req->execute();
   $bodypart = $req->fetch();
