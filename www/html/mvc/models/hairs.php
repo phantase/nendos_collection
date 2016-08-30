@@ -62,7 +62,7 @@ function get_singleHair($hair_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, b.name AS box_name, b.type AS box_type, h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, h.main_color, h.main_color_hex, h.other_color, h.other_color_hex, h.haircut, h.description, h.frontback FROM hairs AS h LEFT JOIN boxes AS b ON h.box_id = b.internalid LEFT JOIN nendoroids AS n ON h.nendoroid_id = n.internalid WHERE h.internalid = :hair_id");
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, b.name AS box_name, b.type AS box_type, h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, h.main_color, h.main_color_hex, h.other_color, h.other_color_hex, h.haircut, h.description, h.frontback, h.creator, uc.username AS creator_name, h.creation, h.editor, ue.username AS editor_name, h.edition, NOW() AS now FROM hairs AS h LEFT JOIN boxes AS b ON h.box_id = b.internalid LEFT JOIN nendoroids AS n ON h.nendoroid_id = n.internalid LEFT JOIN users AS uc ON h.creator = uc.internalid LEFT JOIN users AS ue ON h.editor = ue.internalid WHERE h.internalid = :hair_id");
   $req->bindParam(':hair_id',$hair_id);
   $req->execute();
   $face = $req->fetch();

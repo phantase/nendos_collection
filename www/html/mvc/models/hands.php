@@ -62,7 +62,7 @@ function get_singleHand($hand_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, b.name AS box_name, b.type AS box_type, h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, h.skin_color, h.skin_color_hex, h.leftright, h.description, h.posture FROM hands AS h LEFT JOIN boxes AS b ON h.box_id = b.internalid LEFT JOIN nendoroids AS n ON h.nendoroid_id = n.internalid WHERE h.internalid = :hand_id");
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, b.name AS box_name, b.type AS box_type, h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, h.skin_color, h.skin_color_hex, h.leftright, h.description, h.posture, h.creator, uc.username AS creator_name, h.creation, h.editor, ue.username AS editor_name, h.edition, NOW() AS now FROM hands AS h LEFT JOIN boxes AS b ON h.box_id = b.internalid LEFT JOIN nendoroids AS n ON h.nendoroid_id = n.internalid LEFT JOIN users AS uc ON h.creator = uc.internalid LEFT JOIN users AS ue ON h.editor = ue.internalid WHERE h.internalid = :hand_id");
   $req->bindParam(':hand_id',$hand_id);
   $req->execute();
   $face = $req->fetch();
