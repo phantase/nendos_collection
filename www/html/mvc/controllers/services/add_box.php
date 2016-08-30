@@ -14,7 +14,7 @@ if( isset($_POST['new_box_name']) && strlen($_POST['new_box_name'])>0 && isset($
 
   include_once('mvc/models/boxes.php');
 
-  $boxinternalid = add_singleBox($box_name,$box_type);
+  $boxinternalid = add_singleBox($box_name,$box_type,$_SESSION['userid']);
   if( isset($boxinternalid) ){
     echo json_encode(array('result'=>'success','box_internalid'=>$boxinternalid,'box_name'=>$box_name,'box_type'=>$box_type));
   } else {
