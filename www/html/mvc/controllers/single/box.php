@@ -5,6 +5,14 @@ if( isset($_GET['boxinternalid']) ){
 
   include_once('mvc/models/boxes.php');
   $box = get_singleBox($boxinternalid);
+  $metadata = array('creator'=>$box['creator'],
+                    'creator_name'=>$box['creator_name'],
+                    'creation'=>$box['creation'],
+                    'creation_diff'=>((new DateTime())->diff(new DateTime($box['creation']))),
+                    'editor'=>$box['editor'],
+                    'editor_name'=>$box['editor_name'],
+                    'edition'=>$box['edition'],
+                    'edition_diff'=>((new DateTime())->diff(new DateTime($box['edition']))));
   include_once('mvc/models/nendoroids.php');
   $nendoroids = get_boxNendoroids($boxinternalid);
   foreach ($nendoroids as $key => $nendoroid) {

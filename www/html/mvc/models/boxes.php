@@ -26,7 +26,7 @@ function get_singleBox($boxinternalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT b.internalid, b.name, b.type FROM boxes AS b WHERE b.internalid = :boxinternalid");
+  $req = $bdd->prepare("SELECT b.internalid, b.name, b.type, b.creator, uc.username AS creator_name, b.creation, b.editor, ue.username AS editor_name, b.edition FROM boxes AS b LEFT JOIN users AS uc ON b.creator = uc.internalid LEFT JOIN users AS ue ON b.creator = ue.internalid WHERE b.internalid = :boxinternalid");
   $req->bindParam(':boxinternalid',$boxinternalid);
   $req->execute();
   $box = $req->fetch();

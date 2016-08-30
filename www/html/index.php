@@ -13,9 +13,40 @@
       $locale = 'fr_FR';
       break;
   }
+  // Arbitrary set
+  date_default_timezone_set('Europe/Paris');
 
   function urlize($string){
     return preg_replace('/^-+|-+$/', '', strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $string)));
+  }
+  function intervalFormater($interval){
+    if($interval->y>1){
+      return $interval->format('%y years');
+    } else if($interval->y>0){
+      return $interval->format('1 year');
+    } else if($interval->m>1){
+      return $interval->format('%m months');
+    } else if($interval->m>0){
+      return $interval->format('1 month');
+    } else if($interval->d>1){
+      return $interval->format('%d days');
+    } else if($interval->d>0){
+      return $interval->format('1 day');
+    } else if($interval->h>1){
+      return $interval->format('%h hours');
+    } else if($interval->h>0){
+      return $interval->format('1 hour');
+    } else if($interval->i>1){
+      return $interval->format('%i minutes');
+    } else if($interval->i>0){
+      return $interval->format('1 minute');
+    } else if($interval->s>1){
+      return $interval->format('%s seconds');
+    } else if($interval->s>0){
+      return $interval->format('1 second');
+    }
+
+    return "toto";
   }
 
   // Stuff for the access to the DB

@@ -4,6 +4,7 @@
               <div class="row">
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_box<?= $box['internalid'] ?>">
+                  <span class="image fit" id="span_box<?= $box['internalid'] ?>">
                     <img src="images/nendos/boxes/<?= $box['internalid'] ?>.jpg" alt="" />
                     <?php if(isset($_SESSION['userid'])){ ?>
                       <i class="icon style2 fa-edit included editpic" id="editpic_box<?= $box['internalid'] ?>" title="Add/Change the picture" part="box" internalid="<?= $box['internalid'] ?>"></i>
@@ -40,6 +41,7 @@
 <?php showAccessoriesListing($accessories,"simple",true,true,$box['name'],$box['internalid']); ?>
                 </div>
               </div>
-
+              <hr/>
+<?php include('mvc/views/pages-sections/others/metadata.php'); ?>
             </div>
           </div>
