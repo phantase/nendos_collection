@@ -26,7 +26,7 @@ function get_singleNendoroid($nendoroid_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.company, n.dominant_color, b.name AS box_name, b.type AS box_type FROM nendoroids AS n, boxes AS b WHERE n.box_id=b.internalid AND n.internalid = :nendoroid_id");
+  $req = $bdd->prepare("SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.company, n.dominant_color, b.name AS box_name, b.type AS box_type, n.creator, uc.username AS creator_name, n.creation, n.editor, ue.username AS editor_name, n.edition, NOW() AS now FROM nendoroids AS n, boxes AS b, users AS uc, users AS ue WHERE n.box_id = b.internalid AND n.creator = uc.internalid AND n.editor = ue.internalid AND n.internalid = :nendoroid_id");
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->execute();
   $nendoroid = $req->fetch();

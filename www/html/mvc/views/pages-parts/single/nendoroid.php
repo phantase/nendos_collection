@@ -72,6 +72,8 @@
                     <?php showAccessoriesListing($accessories,"simple",true,true,$nendoroid['box_name'],$nendoroid['box_id'],$nendoroid['url'],$nendoroid['internalid']); ?>
                   </div>
                 </div>
+                <hr/>
+<?php include('mvc/views/pages-sections/others/metadata.php'); ?>
               </section>
             </div>
           </div>
