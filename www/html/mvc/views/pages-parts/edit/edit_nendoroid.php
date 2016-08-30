@@ -32,7 +32,7 @@
                     <input type="text" name="new_nendoroid_version" id="new_nendoroid_version" placeholder="Nendoroid version" />
                   </div>
                   <div class="4u 12u$(medium)">
-                    <input type="text" name="new_nendoroid_editor" id="new_nendoroid_editor" placeholder="Nendoroid editor" />
+                    <input type="text" name="new_nendoroid_company" id="new_nendoroid_company" placeholder="Nendoroid company" />
                   </div>
                   <div class="4u 12u$(medium)">
                     <input type="color" name="new_nendoroid_color" id="new_nendoroid_color" placeholder="Nendoroid dominant color" />

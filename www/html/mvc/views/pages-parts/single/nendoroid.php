@@ -41,8 +41,8 @@
   }
 ?>
                           <tr>
-                            <th>Editor</th>
-                            <td><?= $nendoroid['editor'] ?></td>
+                            <th>Company</th>
+                            <td><?= $nendoroid['company'] ?></td>
                           </tr>
                         </tbody>
                       </table>
