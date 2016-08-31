@@ -4,7 +4,7 @@
                 </div>
 
               </div>
-              <div class="row" id="menu_area" style="display:none;" sortdest="boxes">
+              <div class="row" id="menu_area" style="display:none;" sortdest="nendoroids">
 
                 <!-- Order by -->
                 <div class="12u">
@@ -16,9 +16,15 @@
                   </div>
                   <div class="select-wrapper">
                     <select name="order" id="order">
-                      <optgroup label="Box">
+                      <optgroup label="Nendoroid">
                         <option value="name" <?= ($selected_order=="name")?"selected":""; ?>>Name</option>
-                        <option value="type" <?= ($selected_order=="type")?"selected":""; ?>>Type</option>
+                        <option value="origin" <?= ($selected_order=="origin")?"selected":""; ?>>Origin</option>
+                        <option value="version" <?= ($selected_order=="version")?"selected":""; ?>>Version</option>
+                        <option value="company" <?= ($selected_order=="company")?"selected":""; ?>>Company</option>
+                      </optgroup>
+                      <optgroup label="Box">
+                        <option value="box" <?= ($selected_order=="name")?"selected":""; ?>>Name</option>
+                        <option value="type" <?= ($selected_order=="box")?"selected":""; ?>>Type</option>
                       </optgroup>
                       <optgroup label="DB">
                         <option value="creator" <?= ($selected_order=="creator")?"selected":""; ?>>Creator</option>
@@ -30,3 +36,6 @@
                   </div>
                   <div class="label">Sort by</div>
                 </div>
+              </div>
+              <div class="row">
+              &nbsp;
