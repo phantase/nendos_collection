@@ -698,7 +698,7 @@ $('#newBox,#noNewBox').click(function(){
     });
 
     $('#order,#direction').change(function(){
-      window.location.replace("boxes/orderby/"+$('#order').val()+"_"+$('#direction').val()+"/");
+      window.location.replace($('#menu_area').attr('sortdest')+"/orderby/"+$('#order').val()+"_"+$('#direction').val()+"/");
     });
 
 

@@ -22,7 +22,7 @@ function get_allNendoroids($order="name",$direction="DESC")
 
   global $bdd;
 
-  $req = $bdd->prepare('SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.company, n.dominant_color,
+  $req = $bdd->prepare("SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.company, n.dominant_color,
                         b.name AS box_name, b.type AS box_type, b.name AS box, b.type AS type,
                         n.creator AS creatorid, uc.username AS creator, n.creation,
                         n.editor AS editorid, ue.username AS editor, n.edition,
@@ -30,7 +30,8 @@ function get_allNendoroids($order="name",$direction="DESC")
                         FROM nendoroids AS n, boxes AS b,
                         users AS uc, users AS ue
                         WHERE n.box_id=b.internalid
-                        AND n.creator = uc.internalid AND n.editor = ue.internalid;');
+                        AND n.creator = uc.internalid AND n.editor = ue.internalid
+                        ORDER BY $order $direction;");
   $req->execute();
   $nendoroids = $req->fetchAll(PDO::FETCH_ASSOC);
 

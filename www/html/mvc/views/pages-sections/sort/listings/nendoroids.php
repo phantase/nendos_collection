@@ -23,8 +23,8 @@
                         <option value="company" <?= ($selected_order=="company")?"selected":""; ?>>Company</option>
                       </optgroup>
                       <optgroup label="Box">
-                        <option value="box" <?= ($selected_order=="name")?"selected":""; ?>>Name</option>
-                        <option value="type" <?= ($selected_order=="box")?"selected":""; ?>>Type</option>
+                        <option value="box" <?= ($selected_order=="box")?"selected":""; ?>>Name</option>
+                        <option value="type" <?= ($selected_order=="type")?"selected":""; ?>>Type</option>
                       </optgroup>
                       <optgroup label="DB">
                         <option value="creator" <?= ($selected_order=="creator")?"selected":""; ?>>Creator</option>
