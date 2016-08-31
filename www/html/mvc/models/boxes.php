@@ -14,18 +14,18 @@ function count_allBoxes()
 /** Get all the boxes available in the DB */
 function get_allBoxes($order="name",$direction="DESC")
 {
-  $orders = array("internalid","name","type","creator_name,creation,editor_name,edition");
+  $orders = array("name","type","creator","creation","editor","edition");
   $key = array_search($order, $orders);
   $order = $orders[$key];
-  $directions = array("ASC","DESC");
+  $directions = array("asc","desc");
   $key = array_search($direction, $directions);
   $direction = $directions[$key];
 
   global $bdd;
 
   $req = $bdd->prepare("SELECT b.internalid, b.name, b.type,
-                        b.creator, uc.username AS creator_name, b.creation,
-                        b.editor, ue.username AS editor_name, b.edition,
+                        b.creator AS creatorid, uc.username AS creator, b.creation,
+                        b.editor AS editorid, ue.username AS editor, b.edition,
                         NOW() AS now
                         FROM boxes AS b
                         LEFT JOIN users AS uc ON b.creator = uc.internalid
@@ -42,8 +42,8 @@ function get_singleBox($boxinternalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT b.internalid, b.name, b.type,
-                        b.creator, uc.username AS creator_name, b.creation,
-                        b.editor, ue.username AS editor_name, b.edition,
+                        b.creator AS creatorid, uc.username AS creator, b.creation,
+                        b.editor AS editorid, ue.username AS editor, b.edition,
                         NOW() AS now
                         FROM boxes AS b
                         LEFT JOIN users AS uc ON b.creator = uc.internalid

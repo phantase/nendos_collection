@@ -26,11 +26,22 @@
         <!-- Header -->
           <header id="header">
             <div class="inner">
+              <div class="row">
 
-              <!-- Logo -->
-                <a href="/" class="logo">
-                  <span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title"><?= $page_title ?></span>
-                </a>
+                <!-- Logo -->
+                <div class="11u 10u(small)">
+                  <a href="/" class="logo">
+                    <span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title"><?= $page_title ?></span>
+                  </a>
+                </div>
+
+<?php
+if( file_exists('mvc/views/pages-sections/sort/'.$include_page.'.php') ) {
+  include_once('mvc/views/pages-sections/sort/'.$include_page.'.php');
+}
+?>
+
+              </div>
 
               <!-- Nav -->
                 <nav>

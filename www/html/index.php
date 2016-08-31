@@ -46,7 +46,7 @@
       return $interval->format('1 second');
     }
 
-    return "toto";
+    return "An error has occured";
   }
 
   // Stuff for the access to the DB

@@ -691,4 +691,15 @@ $('#newBox,#noNewBox').click(function(){
       $('#'+id_name).val(ntc.name($(this).val())[1]);
     });
 
+    $('#menu_button').click(function(){
+      $('#menu_area').toggle();
+      $('#menu_area .label').css('height',$('#menu_area div.select-wrapper').css('height'));
+      $('#menu_area .label').css('line-height',$('#menu_area div.select-wrapper').css('height'));
+    });
+
+    $('#order,#direction').change(function(){
+      window.location.replace("boxes/orderby/"+$('#order').val()+"_"+$('#direction').val()+"/");
+    });
+
+
 })(jQuery);

@@ -2,7 +2,7 @@
 <?php
   foreach ($boxes as $box) {
 ?>
-                      <div class="2u 4u(medium)">
+                      <div class="2u 3u(medium) 4u(small)">
                       <?php if($withlinks){ ?>
                         <a href="box/<?= $box['name'] ?>_<?= $box['internalid'] ?>/">
                       <?php } ?>

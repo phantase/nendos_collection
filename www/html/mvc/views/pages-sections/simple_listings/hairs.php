@@ -2,7 +2,7 @@
 <?php
   foreach ($hairs as $hair) {
 ?>
-                      <div class="2u 3u(medium)">
+                      <div class="2u 3u(small)">
                       <?php if($withlinks){ ?>
                         <a href="hair/<?= $hair['internalid'] ?>/">
                       <?php } ?>
@@ -19,7 +19,7 @@
 <?php
   if( $withadd && isset($_SESSION['userid']) ){
 ?>
-                      <div class="2u 3u(medium)">
+                      <div class="2u 3u(small)">
                         <a href="<?php if(isset($box_id)){ ?>box/<?= $box_name ?>_<?= $box_id ?>/<?php } ?><?php if(isset($nendoroid_id)){ ?>nendoroid/<?= $nendoroid_url ?>_<?= $nendoroid_id ?>/<?php } ?>addhair">
                           <span class="image fit withadd" id="withid" title="Add Hair">
                             <p><i class="icon fa-plus"></i></p>
