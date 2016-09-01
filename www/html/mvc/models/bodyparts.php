@@ -12,14 +12,33 @@ function count_allBodyParts()
   return $count['count'];
 }
 /** Get all the body parts available in the DB */
-function get_allBodyParts()
+function get_allBodyParts($order="creation",$direction="desc")
 {
+  $orders = array("color","part","box","type","nendoroid","origin","version","company","creator","creation","editor","edition");
+  $key = array_search($order, $orders);
+  $order = $orders[$key];
+  $directions = array("asc","desc");
+  $key = array_search($direction, $directions);
+  $direction = $directions[$key];
+
   global $bdd;
 
   $req = $bdd->prepare("SELECT bp.internalid, bp.box_id, bp.nendoroid_id, bp.part,
                         bp.main_color, bp.main_color_hex, bp.second_color, bp.second_color_hex,
-                        bp.description
-                        FROM body_parts AS bp");
+                        bp.description,
+                        b.name AS box_name, b.type AS box_type,
+                        b.name AS box, b.type AS type,
+                        n.name AS nendoroid_name, n.origin AS nendoroid_origin, n.version AS nendoroid_version, n.company AS nendoroid_company,
+                        n.name AS nendoroid, n.origin AS origin, n.version AS version, n.company AS company,
+                        bp.creator AS creatorid, uc.username AS creator, bp.creation,
+                        bp.editor AS editorid, ue.username AS editor, bp.edition,
+                        NOW() AS now
+                        FROM body_parts AS bp, nendoroids AS n, boxes AS b,
+                        users AS uc, users AS ue
+                        WHERE bp.box_id = b.internalid
+                        AND bp.nendoroid_id = n.internalid
+                        AND bp.creator = uc.internalid AND bp.editor = ue.internalid
+                        ORDER BY $order $direction;");
   $req->execute();
   $body_parts = $req->fetchAll(PDO::FETCH_ASSOC);
 
