@@ -4,10 +4,10 @@
 ?>
                       <div class="2u 3u(medium) 4u(small)">
                       <?php if($withlinks){ ?>
-                        <a href="box/<?= $box['name'] ?>_<?= $box['internalid'] ?>/">
+                        <a href="box/<?= $box['box_internalid'] ?>/<?= $box['box_url'] ?>/">
                       <?php } ?>
-                        <span class="image fit" title="<?= $box['type'] ?> #<?= $box['name'] ?>">
-                          <img src="images/nendos/boxes/<?= $box['internalid'] ?>.jpg" alt="" />
+                        <span class="image fit" box="" number="<?= $box['box_number'] ?>"  name="<?= $box['box_name'] ?>"category="<?= $box['box_category'] ?>">
+                          <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>.jpg" alt="" />
                         </span>
                       <?php if($withlinks){ ?>
                         </a>

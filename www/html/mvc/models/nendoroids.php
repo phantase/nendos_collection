@@ -60,21 +60,23 @@ function get_singleNendoroid($nendoroid_id)
   return $nendoroid;
 }
 /** Get all Nendoroid for a certain box internalid */
-function get_boxNendoroids($box_id)
+function get_boxNendoroids($box_internalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.company, n.dominant_color,
-                        b.name AS box_name, b.type AS box_type, b.name AS box, b.type AS type,
-                        n.creator AS creatorid, uc.username AS creator, n.creation,
-                        n.editor AS editorid, ue.username AS editor, n.edition,
+  $req = $bdd->prepare("SELECT n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.origin AS nendoroid_origin, n.version AS nendoroid_version,
+                        n.company AS nendoroid_company, n.dominant_color AS nendoroid_dominant_color,
+                        n.boxid AS box_internalid, b.name AS box_name, b.category AS box_category,
+                        n.creatorid AS db_creatorid, uc.username AS db_creatorname, n.creationdate AS db_creationdate,
+                        n.editorid  AS db_editorid, ue.username AS db_editorname, n.editiondate AS db_creationdate,
                         NOW() AS now
                         FROM nendoroids AS n, boxes AS b,
                         users AS uc, users AS ue
-                        WHERE n.box_id=b.internalid
-                        AND n.creator = uc.internalid AND n.editor = ue.internalid
-                        AND n.box_id = :box_id");
-  $req->bindParam(':box_id',$box_id);
+                        WHERE n.boxid=b.internalid
+                        AND n.creatorid = uc.internalid AND n.editorid = ue.internalid
+                        AND n.boxid = :boxid");
+  $req->bindParam(':boxid',$box_internalid);
   $req->execute();
   $nendoroids = $req->fetchAll(PDO::FETCH_ASSOC);
 

@@ -17,14 +17,15 @@
                   <div class="select-wrapper">
                     <select name="order" id="order">
                       <optgroup label="Box">
-                        <option value="name" <?= ($selected_order=="name")?"selected":""; ?>>Name</option>
-                        <option value="type" <?= ($selected_order=="type")?"selected":""; ?>>Type</option>
+                        <option value="box_number" <?= ($selected_order=="box_number")?"selected":""; ?>>Number</option>
+                        <option value="box_name" <?= ($selected_order=="box_name")?"selected":""; ?>>Name</option>
+                        <option value="box_category" <?= ($selected_order=="box_category")?"selected":""; ?>>Category</option>
                       </optgroup>
                       <optgroup label="DB">
-                        <option value="creator" <?= ($selected_order=="creator")?"selected":""; ?>>Creator</option>
-                        <option value="creation" <?= ($selected_order=="creation")?"selected":""; ?>>Creation date</option>
-                        <option value="editor" <?= ($selected_order=="editor")?"selected":""; ?>>Last editor</option>
-                        <option value="edition" <?= ($selected_order=="edition")?"selected":""; ?>>Last edition date</option>
+                        <option value="db_creatorname" <?= ($selected_order=="db_creatorname")?"selected":""; ?>>Creator</option>
+                        <option value="db_creationdate" <?= ($selected_order=="db_creationdate")?"selected":""; ?>>Creation date</option>
+                        <option value="db_editorname" <?= ($selected_order=="db_editorname")?"selected":""; ?>>Last editor</option>
+                        <option value="db_editiondate" <?= ($selected_order=="db_editiondate")?"selected":""; ?>>Last edition date</option>
                       </optgroup>
                     </select>
                   </div>

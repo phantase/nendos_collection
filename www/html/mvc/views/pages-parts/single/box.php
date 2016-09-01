@@ -3,20 +3,20 @@
             <div class="inner">
               <div class="row">
                 <div  class="4u 12u(medium)">
-                  <span class="image fit" id="span_box<?= $box['internalid'] ?>">
-                  <span class="image fit" id="span_box<?= $box['internalid'] ?>">
-                    <img src="images/nendos/boxes/<?= $box['internalid'] ?>.jpg" alt="" />
+                  <span class="image fit" id="span_box<?= $box['box_internalid'] ?>">
+                  <span class="image fit" id="span_box<?= $box['box_internalid'] ?>">
+                    <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>.jpg" alt="" />
                     <?php if(isset($_SESSION['userid'])){ ?>
-                      <i class="icon style2 fa-edit included editpic" id="editpic_box<?= $box['internalid'] ?>" title="Add/Change the picture" part="box" internalid="<?= $box['internalid'] ?>"></i>
+                      <i class="icon style2 fa-edit included editpic" id="editpic_box<?= $box['box_internalid'] ?>" title="Add/Change the picture" part="box" internalid="<?= $box['box_internalid'] ?>"></i>
                     <?php } ?>
                   </span>
-                  <fieldset class="dropzone image fit" id="drop_box<?= $box['internalid'] ?>" style="display:none;">
+                  <fieldset class="dropzone image fit" id="drop_box<?= $box['box_internalid'] ?>" style="display:none;">
                     <p>Drop a file here, <br/>or click to browse your computer...</p>
                   </fieldset>
                 </div>
                 <div  class="8u 12u(medium)">
                   <h4>Nendoroids</h4>
-<?php showNendoroidsListing($nendoroids,"simple",true,true,$box['name'],$box['internalid']); ?>
+<?php showNendoroidsListing($nendoroids,"simple",true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
               </div>
               <div class="row">

@@ -1,6 +1,6 @@
 <?php
 
-function showAccessoriesListing($accessories,$renderer,$withlinks=false,$withadd=false,$box_name=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showAccessoriesListing($accessories,$renderer,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/accessories.php');
@@ -11,7 +11,7 @@ function showAccessoriesListing($accessories,$renderer,$withlinks=false,$withadd
   }
 }
 
-function showBodyPartsListing($bodyparts,$renderer,$withlinks=false,$withadd=false,$box_name=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showBodyPartsListing($bodyparts,$renderer,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/bodyparts.php');
@@ -33,7 +33,7 @@ function showBoxesListing($boxes,$renderer,$withlinks=false,$withadd=false){
   }
 }
 
-function showFacesListing($faces,$renderer,$withlinks=false,$withadd=false,$box_name=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showFacesListing($faces,$renderer,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/faces.php');
@@ -44,7 +44,7 @@ function showFacesListing($faces,$renderer,$withlinks=false,$withadd=false,$box_
   }
 }
 
-function showHairsListing($hairs,$renderer,$withlinks=false,$withadd=false,$box_name=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showHairsListing($hairs,$renderer,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/hairs.php');
@@ -55,7 +55,7 @@ function showHairsListing($hairs,$renderer,$withlinks=false,$withadd=false,$box_
   }
 }
 
-function showHandsListing($hands,$renderer,$withlinks=false,$withadd=false,$box_name=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showHandsListing($hands,$renderer,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   switch($renderer){
     case "article":
       include('mvc/views/pages-sections/article_listings/hands.php');
@@ -66,7 +66,7 @@ function showHandsListing($hands,$renderer,$withlinks=false,$withadd=false,$box_
   }
 }
 
-function showNendoroidsListing($nendoroids,$renderer,$withlinks=false,$withadd=false,$box_name=null,$box_id=null){
+function showNendoroidsListing($nendoroids,$renderer,$withlinks=false,$withadd=false,$box_url=null,$box_id=null){
   switch($renderer){
     case "article":
     case "home":

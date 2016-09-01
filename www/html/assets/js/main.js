@@ -321,12 +321,21 @@ $('#newBox,#noNewBox').click(function(){
             .appendTo( this );
         }
       },
-      items: "[title], [face], [hair], [hand], [bodypart], [accessory], [nendoroid]",
+      items: "[title], [box], [face], [hair], [hand], [bodypart], [accessory], [nendoroid]",
       content: function() {
       	var element = $(this);
       	if( element.is("[title]") ){
       		return element.attr("title");
       	}
+        if( element.is("[box]") ){
+          var numtooltip = "";
+          if( element.attr("number").length > 0 ){
+            numtooltip = " #" + element.attr("number");
+          }
+          return "<b style='color:#F57921;'>" + element.attr("category") + "</b>" +
+            numtooltip +
+            "<br/>" + element.attr("name");
+        }
       	if( element.is("[face]") ){
       		return "<b style='color:#F57921;'>Eyes: </b>" + element.attr("eyes") +
     				"<br/><b style='color:#F57921;'>"+"Mouth: </b>" + element.attr("mouth");
@@ -357,16 +366,20 @@ $('#newBox,#noNewBox').click(function(){
     $('#new_box_submit').click(function(){
       $('#new_box_submit').prop('disabled',true);
       $('#new_box_submit').prop('value','Adding...');
+      var new_box_number = $('#new_box_number').val();
       var new_box_name = $('#new_box_name').val();
-      var new_box_type = $('#new_box_type').val();
+      var new_box_category = $('#new_box_category').val();
+      var new_box_officialurl = $('#new_box_officialurl').val();
       $.post("services/box/add",
         {
           action:"add_box",
+          new_box_number:new_box_number,
           new_box_name:new_box_name,
-          new_box_type:new_box_type
+          new_box_category:new_box_category,
+          new_box_officialurl:new_box_officialurl
         },function(data){
           if(data.result == "success"){
-            window.location.replace("box/"+data.box_name+"_"+data.box_internalid+"/");
+            window.location.replace("box/"+data.box_internalid+"/"+data.box_url+"/");
           } else {
             $('#new_box_submit').prop('disabled',false);
             $('#new_box_submit').prop('value','Add Box');

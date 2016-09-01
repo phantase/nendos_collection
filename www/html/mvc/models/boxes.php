@@ -4,7 +4,7 @@ function count_allBoxes()
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT count(*) As count
+  $req = $bdd->prepare("SELECT count(*) AS count
                         FROM boxes AS b");
   $req->execute();
   $count = $req->fetch();
@@ -12,9 +12,9 @@ function count_allBoxes()
   return $count['count'];
 }
 /** Get all the boxes available in the DB */
-function get_allBoxes($order="name",$direction="DESC")
+function get_allBoxes($order="db_creationdate",$direction="DESC")
 {
-  $orders = array("name","type","creator","creation","editor","edition");
+  $orders = array("box_name","box_number","box_category","db_creatorname","db_creationdate","db_editorname","db_editiondate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -23,13 +23,13 @@ function get_allBoxes($order="name",$direction="DESC")
 
   global $bdd;
 
-  $req = $bdd->prepare("SELECT b.internalid, b.name, b.type,
-                        b.creator AS creatorid, uc.username AS creator, b.creation,
-                        b.editor AS editorid, ue.username AS editor, b.edition,
+  $req = $bdd->prepare("SELECT b.internalid AS box_internalid, b.number AS box_number, b.name AS box_name, b.category AS box_category,
+                        b.creatorid AS db_creatorid, uc.username AS db_creatorname, b.creationdate AS db_creationdate,
+                        b.editorid AS db_editorid, ue.username AS db_editorname, b.editiondate AS db_editiondate,
                         NOW() AS now
                         FROM boxes AS b
-                        LEFT JOIN users AS uc ON b.creator = uc.internalid
-                        LEFT JOIN users AS ue ON b.creator = ue.internalid
+                        LEFT JOIN users AS uc ON b.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON b.editorid = ue.internalid
                         ORDER BY $order $direction");
   $req->execute();
   $boxes = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -37,38 +37,40 @@ function get_allBoxes($order="name",$direction="DESC")
   return $boxes;
 }
 /** Get a single box from its internalid */
-function get_singleBox($boxinternalid)
+function get_singleBox($box_internalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT b.internalid, b.name, b.type,
-                        b.creator AS creatorid, uc.username AS creator, b.creation,
-                        b.editor AS editorid, ue.username AS editor, b.edition,
+  $req = $bdd->prepare("SELECT b.internalid AS box_internalid, b.number AS box_number,  b.name AS box_name, b.category AS box_category,
+                        b.creatorid AS db_creatorid, uc.username AS db_creatorname, b.creationdate AS db_creationdate,
+                        b.editorid AS db_editorid, ue.username AS db_editorname, b.editiondate AS db_editiondate,
                         NOW() AS now
                         FROM boxes AS b
-                        LEFT JOIN users AS uc ON b.creator = uc.internalid
-                        LEFT JOIN users AS ue ON b.creator = ue.internalid
-                        WHERE b.internalid = :boxinternalid");
-  $req->bindParam(':boxinternalid',$boxinternalid);
+                        LEFT JOIN users AS uc ON b.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON b.editorid = ue.internalid
+                        WHERE b.internalid = :box_internalid");
+  $req->bindParam(':box_internalid',$box_internalid);
   $req->execute();
   $box = $req->fetch();
 
   return $box;
 }
 /** Add a single box in the DB */
-function add_singleBox($boxname,$boxtype,$userid)
+function add_singleBox($box_number,$box_name,$box_category,$box_officialurl,$userid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO boxes(name,type,creator,creation,editor,edition)
-                        VALUES(:boxname,:boxtype,:creator,NOW(),:editor,NOW())");
-  $req->bindParam(':boxname',$boxname);
-  $req->bindParam(':boxtype',$boxtype);
-  $req->bindParam(':creator',$userid);
-  $req->bindParam(':editor',$userid);
+  $req = $bdd->prepare("INSERT INTO boxes(number,name,category,officialurl,creatorid,creationdate,editorid,editiondate)
+                        VALUES(:box_number,:box_name,:box_category,:box_officialurl,:creatorid,NOW(),:editorid,NOW())");
+  $req->bindParam(':box_number',$box_number);
+  $req->bindParam(':box_name',$box_name);
+  $req->bindParam(':box_category',$box_category);
+  $req->bindParam(':box_officialurl',$box_officialurl);
+  $req->bindParam(':creatorid',$userid);
+  $req->bindParam(':editorid',$userid);
   $req->execute();
 
-  $boxinternalid = $bdd->lastInsertId();
+  $box_internalid = $bdd->lastInsertId();
 
-  return $boxinternalid;
+  return $box_internalid;
 }
