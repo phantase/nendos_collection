@@ -12,14 +12,33 @@ function count_allHairs()
   return $count['count'];
 }
 /** Get all the Hairs available in the DB */
-function get_allHairs()
+function get_allHairs($order,$direction)
 {
+  $orders = array("color","frontback","box","type","nendoroid","origin","version","company","creator","creation","editor","edition");
+  $key = array_search($order, $orders);
+  $order = $orders[$key];
+  $directions = array("asc","desc");
+  $key = array_search($direction, $directions);
+  $direction = $directions[$key];
+
   global $bdd;
 
   $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id,
-                        h.main_color, h.main_color_hex, h.other_color, h.other_color_hex,
-                        h.haircut, h.description, h.frontback
-                        FROM hairs AS h");
+                        h.main_color, h.main_color_hex, h.other_color, h.other_color_hex, h.main_color AS color,
+                        h.haircut, h.description, h.frontback,
+                        b.name AS box_name, b.type AS box_type,
+                        b.name AS box, b.type AS type,
+                        n.name AS nendoroid_name, n.origin AS nendoroid_origin, n.version AS nendoroid_version, n.company AS nendoroid_company,
+                        n.name AS nendoroid, n.origin AS origin, n.version AS version, n.company AS company,
+                        h.creator AS creatorid, uc.username AS creator, h.creation,
+                        h.editor AS editorid, ue.username AS editor, h.edition,
+                        NOW() AS now
+                        FROM hairs AS h, nendoroids AS n, boxes AS b,
+                        users AS uc, users AS ue
+                        WHERE h.box_id = b.internalid
+                        AND h.nendoroid_id = n.internalid
+                        AND h.creator = uc.internalid AND h.editor = ue.internalid
+                        ORDER BY $order $direction;");
   $req->execute();
   $hairs = $req->fetchAll(PDO::FETCH_ASSOC);
 
