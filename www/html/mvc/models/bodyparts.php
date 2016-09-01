@@ -25,7 +25,7 @@ function get_allBodyParts($order="creation",$direction="desc")
 
   $req = $bdd->prepare("SELECT bp.internalid, bp.box_id, bp.nendoroid_id, bp.part,
                         bp.main_color, bp.main_color_hex, bp.second_color, bp.second_color_hex,
-                        bp.description,
+                        bp.description, bp.main_color AS color,
                         b.name AS box_name, b.type AS box_type,
                         b.name AS box, b.type AS type,
                         n.name AS nendoroid_name, n.origin AS nendoroid_origin, n.version AS nendoroid_version, n.company AS nendoroid_company,
