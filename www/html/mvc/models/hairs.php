@@ -12,7 +12,7 @@ function count_allHairs()
   return $count['count'];
 }
 /** Get all the Hairs available in the DB */
-function get_allHairs($order,$direction)
+function get_allHairs($order="creation",$direction="desc")
 {
   $orders = array("color","frontback","box","type","nendoroid","origin","version","company","creator","creation","editor","edition");
   $key = array_search($order, $orders);

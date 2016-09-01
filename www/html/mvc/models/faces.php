@@ -12,7 +12,7 @@ function count_allFaces()
   return $count['count'];
 }
 /** Get all the faces available in the DB */
-function get_allFaces($order,$direction)
+function get_allFaces($order="creation",$direction="desc")
 {
   $orders = array("eyes_color","skin_color","sex","box","type","nendoroid","origin","version","company","creator","creation","editor","edition");
   $key = array_search($order, $orders);
