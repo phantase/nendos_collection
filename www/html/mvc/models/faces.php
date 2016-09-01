@@ -12,14 +12,32 @@ function count_allFaces()
   return $count['count'];
 }
 /** Get all the faces available in the DB */
-function get_allFaces()
+function get_allFaces($order,$direction)
 {
+  $orders = array("eyes_color","skin_color","sex","box","type","nendoroid","origin","version","company","creator","creation","editor","edition");
+  $key = array_search($order, $orders);
+  $order = $orders[$key];
+  $directions = array("asc","desc");
+  $key = array_search($direction, $directions);
+  $direction = $directions[$key];
+
   global $bdd;
 
   $req = $bdd->prepare("SELECT f.internalid, f.box_id, f.nendoroid_id,
                         f.eyes, f.eyes_color, f.eyes_color_hex,
-                        f.mouth, f.skin_color, f.skin_color_hex, f.sex
-                        FROM faces AS f");
+                        f.mouth, f.skin_color, f.skin_color_hex, f.sex,
+                        b.name AS box_name, b.type AS box_type, b.name AS box, b.type AS type,
+                        n.name AS nendoroid_name, n.origin AS nendoroid_origin, n.version AS nendoroid_version, n.company AS nendoroid_company,
+                        n.name AS nendoroid, n.origin AS origin, n.version AS version, n.company AS company,
+                        f.creator AS creatorid, uc.username AS creator, f.creation,
+                        f.editor AS editorid, ue.username AS editor, f.edition,
+                        NOW() AS now
+                        FROM faces AS f, nendoroids AS n, boxes AS b,
+                        users AS uc, users AS ue
+                        WHERE f.box_id = b.internalid
+                        AND f.nendoroid_id = n.internalid
+                        AND f.creator = uc.internalid AND f.editor = ue.internalid
+                        ORDER BY $order $direction;");
   $req->execute();
   $faces = $req->fetchAll(PDO::FETCH_ASSOC);
 
