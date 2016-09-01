@@ -4,7 +4,8 @@ function count_allHairs()
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT count(*) AS count FROM hairs AS h");
+  $req = $bdd->prepare("SELECT count(*) AS count
+                        FROM hairs AS h");
   $req->execute();
   $count = $req->fetch();
 
@@ -15,7 +16,10 @@ function get_allHairs()
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id, h.main_color, h.main_color_hex, h.other_color, h.other_color_hex, h.haircut, h.description, h.frontback FROM hairs AS h");
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id,
+                        h.main_color, h.main_color_hex, h.other_color, h.other_color_hex,
+                        h.haircut, h.description, h.frontback
+                        FROM hairs AS h");
   $req->execute();
   $hairs = $req->fetchAll(PDO::FETCH_ASSOC);
 
@@ -26,7 +30,9 @@ function count_nendoroidHairs($nendoroid_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT count(*) AS count FROM hairs AS h WHERE h.nendoroid_id = :nendoroid_id");
+  $req = $bdd->prepare("SELECT count(*) AS count
+                        FROM hairs AS h
+                        WHERE h.nendoroid_id = :nendoroid_id");
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->execute();
   $count = $req->fetch();
@@ -38,7 +44,11 @@ function get_nendoroidHairs($nendoroid_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id, h.main_color, h.main_color_hex, h.other_color, h.other_color_hex, h.haircut, h.description, h.frontback FROM hairs AS h WHERE h.nendoroid_id = :nendoroid_id");
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id,
+                        h.main_color, h.main_color_hex, h.other_color, h.other_color_hex,
+                        h.haircut, h.description, h.frontback
+                        FROM hairs AS h
+                        WHERE h.nendoroid_id = :nendoroid_id");
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->execute();
   $hairs = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -50,7 +60,11 @@ function get_boxHairs($box_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id, h.main_color, h.main_color_hex, h.other_color, h.other_color_hex, h.haircut, h.description, h.frontback FROM hairs AS h WHERE h.box_id = :box_id");
+  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id,
+                        h.main_color, h.main_color_hex, h.other_color, h.other_color_hex,
+                        h.haircut, h.description, h.frontback
+                        FROM hairs AS h
+                        WHERE h.box_id = :box_id");
   $req->bindParam(':box_id',$box_id);
   $req->execute();
   $hairs = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -62,7 +76,20 @@ function get_singleHair($hair_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, b.name AS box_name, b.type AS box_type, h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version, h.main_color, h.main_color_hex, h.other_color, h.other_color_hex, h.haircut, h.description, h.frontback, h.creator, uc.username AS creator_name, h.creation, h.editor, ue.username AS editor_name, h.edition, NOW() AS now FROM hairs AS h LEFT JOIN boxes AS b ON h.box_id = b.internalid LEFT JOIN nendoroids AS n ON h.nendoroid_id = n.internalid LEFT JOIN users AS uc ON h.creator = uc.internalid LEFT JOIN users AS ue ON h.editor = ue.internalid WHERE h.internalid = :hair_id");
+  $req = $bdd->prepare("SELECT h.internalid,
+                        h.box_id, b.name AS box_name, b.type AS box_type,
+                        h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        h.main_color, h.main_color_hex, h.other_color, h.other_color_hex,
+                        h.haircut, h.description, h.frontback,
+                        h.creator, uc.username AS creator_name, h.creation,
+                        h.editor, ue.username AS editor_name, h.edition,
+                        NOW() AS now
+                        FROM hairs AS h
+                        LEFT JOIN boxes AS b ON h.box_id = b.internalid
+                        LEFT JOIN nendoroids AS n ON h.nendoroid_id = n.internalid
+                        LEFT JOIN users AS uc ON h.creator = uc.internalid
+                        LEFT JOIN users AS ue ON h.editor = ue.internalid
+                        WHERE h.internalid = :hair_id");
   $req->bindParam(':hair_id',$hair_id);
   $req->execute();
   $face = $req->fetch();
@@ -74,7 +101,10 @@ function add_singleHair($box_id,$nendoroid_id,$hair_main_color,$hair_main_color_
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO hairs(box_id,nendoroid_id,main_color,main_color_hex,other_color,other_color_hex,haircut,description,frontback,creator,creatio,;editor,edition) VALUES(:box_id,:nendoroid_id,:main_color,:main_color_hex,:other_color,:other_color_hex,:haircut,:description,:frontback,:creator,NOW(),:editor,NOW())");
+  $req = $bdd->prepare("INSERT INTO hairs(box_id,nendoroid_id,main_color,main_color_hex,other_color,other_color_hex,
+                        haircut,description,frontback,creator,creatio,;editor,edition)
+                        VALUES(:box_id,:nendoroid_id,:main_color,:main_color_hex,:other_color,:other_color_hex,
+                        :haircut,:description,:frontback,:creator,NOW(),:editor,NOW())");
   $req->bindParam(':box_id',$box_id);
   $req->bindParam(':nendoroid_id',$nendoroid_id);
   $req->bindParam(':main_color',$hair_main_color);
