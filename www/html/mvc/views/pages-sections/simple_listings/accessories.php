@@ -6,7 +6,7 @@
                       <?php if($withlinks){ ?>
                         <a href="accessory/<?= $accessory['internalid'] ?>/">
                       <?php } ?>
-                        <span class="image fit" accessory="<?= $accessory['type'] ?>" description="<?= $accessory['description'] ?>" >
+                        <span class="image fit" accessory="<?= $accessory['accessory'] ?>" description="<?= $accessory['description'] ?>" >
                           <img src="images/nendos/accessories/<?= $accessory['internalid'] ?>.jpg" alt="" />
                         </span>
                       <?php if($withlinks){ ?>

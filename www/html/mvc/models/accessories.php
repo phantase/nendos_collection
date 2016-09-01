@@ -12,13 +12,33 @@ function count_allAccessories()
   return $count['count'];
 }
 /** Get all the accessories available in the DB */
-function get_allAccessories()
+function get_allAccessories($order="creation",$direction="desc")
 {
+  $orders = array("color","accessory","box","type","nendoroid","origin","version","company","creator","creation","editor","edition");
+  $key = array_search($order, $orders);
+  $order = $orders[$key];
+  $directions = array("asc","desc");
+  $key = array_search($direction, $directions);
+  $direction = $directions[$key];
+
   global $bdd;
 
-  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type,
-                        a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description
-                        FROM accessories AS a");
+  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type AS accessory,
+                        a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description,
+                        a.main_color AS color,
+                        b.name AS box_name, b.type AS box_type,
+                        b.name AS box, b.type AS type,
+                        n.name AS nendoroid_name, n.origin AS nendoroid_origin, n.version AS nendoroid_version, n.company AS nendoroid_company,
+                        n.name AS nendoroid, n.origin AS origin, n.version AS version, n.company AS company,
+                        a.creator AS creatorid, uc.username AS creator, a.creation,
+                        a.editor AS editorid, ue.username AS editor, a.edition,
+                        NOW() AS now
+                        FROM accessories AS a, nendoroids AS n, boxes AS b,
+                        users AS uc, users AS ue
+                        WHERE a.box_id = b.internalid
+                        AND a.nendoroid_id = n.internalid
+                        AND a.creator = uc.internalid AND a.editor = ue.internalid
+                        ORDER BY $order $direction;");
   $req->execute();
   $accessories = $req->fetchAll(PDO::FETCH_ASSOC);
 
@@ -43,7 +63,7 @@ function get_nendoroidAccessories($nendoroid_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type,
+  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type AS accessory,
                         a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description
                         FROM accessories AS a
                         WHERE a.nendoroid_id = :nendoroid_id");
@@ -58,7 +78,7 @@ function get_boxAccessories($box_id)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type,
+  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type AS accessory,
                         a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description
                         FROM accessories AS a
                         WHERE a.box_id = :box_id");
@@ -78,8 +98,8 @@ function get_singleAccessory($accessory_id)
                         a.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version,
                         a.type, a.main_color, a.main_color_hex, a.other_color, a.other_color_hex,
                         a.description,
-                        a.creator, uc.username AS creator_name,
-                        a.creation, a.editor, ue.username AS editor_name, a.edition,
+                        a.creator AS creatorid, uc.username AS creator, a.creation,
+                        a.editor AS editorid, ue.username AS editor, a.edition,
                         NOW() AS now
                         FROM accessories AS a
                         LEFT JOIN boxes AS b ON a.box_id = b.internalid

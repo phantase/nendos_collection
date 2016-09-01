@@ -82,6 +82,10 @@ RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|com
 RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=bodyparts&order=$1&direction=$2 [L]
 RewriteRule ^accessories$                         index.php?action=accessories [L]
 RewriteRule ^accessories/$                        index.php?action=accessories [L]
+RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                          index.php?action=accessories&order=$1 [L]
+RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$                         index.php?action=accessories&order=$1 [L]
+RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$               index.php?action=accessories&order=$1&direction=$2 [L]
+RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=accessories&order=$1&direction=$2 [L]
 # SINGLE PAGES
 RewriteRUle ^box/(.*)_([0-9]+)/$                  index.php?action=box&boxinternalid=$2 [L]
 RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&nendointernalid=$3 [L]
