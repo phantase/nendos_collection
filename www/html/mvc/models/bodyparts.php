@@ -100,8 +100,8 @@ function get_singleBodypart($bodypart_id)
                         bp.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version,
                         bp.main_color, bp.main_color_hex, bp.second_color, bp.second_color_hex,
                         bp.part, bp.description,
-                        bp.creator, uc.username AS creator_name, bp.creation,
-                        bp.editor, ue.username AS editor_name, bp.edition,
+                        bp.creator AS creatorid, uc.username AS creator, bp.creation,
+                        bp.editor AS editorid, ue.username AS editor, bp.edition,
                         NOW() AS now
                         FROM body_parts AS bp
                         LEFT JOIN boxes AS b ON bp.box_id = b.internalid

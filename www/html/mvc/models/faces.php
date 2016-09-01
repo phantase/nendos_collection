@@ -99,8 +99,8 @@ function get_singleFace($face_id)
                         f.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version,
                         f.eyes, f.eyes_color, f.eyes_color_hex,
                         f.mouth, f.skin_color, f.skin_color_hex, f.sex,
-                        f.creator, uc.username AS creator_name, f.creation,
-                        f.editor, ue.username AS editor_name, f.edition,
+                        f.creator AS creatorid, uc.username AS creator, f.creation,
+                        f.editor AS editorid, ue.username AS editor, f.edition,
                         NOW() AS now
                         FROM faces AS f
                         LEFT JOIN boxes AS b ON f.box_id = b.internalid

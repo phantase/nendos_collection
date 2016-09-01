@@ -100,8 +100,8 @@ function get_singleHand($hand_id)
                         h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version,
                         h.skin_color, h.skin_color_hex,
                         h.leftright, h.description, h.posture,
-                        h.creator, uc.username AS creator_name, h.creation,
-                        h.editor, ue.username AS editor_name, h.edition,
+                        h.creator AS creatorid, uc.username AS creator, h.creation,
+                        h.editor AS editorid, ue.username AS editor, h.edition,
                         NOW() AS now
                         FROM hands AS h
                         LEFT JOIN boxes AS b ON h.box_id = b.internalid
