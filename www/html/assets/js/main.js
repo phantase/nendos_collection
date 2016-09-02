@@ -714,5 +714,39 @@ $('#newBox,#noNewBox').click(function(){
       window.location.replace($('#menu_area').attr('sortdest')+"/orderby/"+$('#order').val()+"_"+$('#direction').val()+"/");
     });
 
+    $('.field_edit').click(function(){
+      $('i[field='+$(this).attr('field')+']').toggle();
+      $('input[field='+$(this).attr('field')+']').toggle();
+      $('span[field='+$(this).attr('field')+']').toggle();
+    });
+
+    $('.field_valid').click(function(){
+      if($(this).hasClass('fa-check')){ // button Validate => See if it can be better to do the test on another thing than a CSS class...
+        var value = $('input[field='+$(this).attr('field')+']').val();
+        var field = $(this).attr('field');
+        var element = $('#info_table').attr('element');
+        var internalid = $('#info_table').attr('internalid');
+
+        $.post("services/"+element+"/"+internalid+"/edit",
+          {
+            field:field,
+            value:value
+          },function(data){
+            if(data.result && data.result == "success"){
+              if(data.field != 'officialurl' ){
+                $('span[field='+data.field+']').html(data.value);
+              } else {
+                $('span[field='+data.field+']a').attr('href',data.value);
+              }
+              $('i[field='+data.field+']').toggle();
+              $('input[field='+data.field+']').toggle();
+              $('span[field='+data.field+']').toggle();
+            } else {
+              alert('Please correct your field...');
+            }
+          }
+        );
+      }
+    });
 
 })(jQuery);

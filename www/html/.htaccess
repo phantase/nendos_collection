@@ -1,26 +1,26 @@
 Options +FollowSymlinks
 RewriteEngine On
 
-# IMAGES
-## WARNING, need to check why we need to add the path of the application...
+##########
+# IMAGES #
+##########
 RewriteCond %{DOCUMENT_ROOT}/images/nendos/$1/$2.jpg -f
-RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/nendos/$1/$2.jpg [L]
-RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$    images/unknown.png [L]
+RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         images/nendos/$1/$2.jpg [L]
+RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         images/unknown.png [L]
 
-# LOGIN
-RewriteRule ^loginandout$                         index.php?action=loginandout [L]
+#########
+# LOGIN #
+#########
+RewriteRule ^loginandout$                                             index.php?action=loginandout [L]
 
-# SERVICES
-RewriteRule ^services/box/add$                    index.php?action=add_box [L]
-RewriteRule ^services/nendoroid/add$              index.php?action=add_nendoroid [L]
-RewriteRule ^services/face/add$                   index.php?action=add_face [L]
-RewriteRule ^services/hair/add$                   index.php?action=add_hair [L]
-RewriteRule ^services/hand/add$                   index.php?action=add_hand [L]
-RewriteRule ^services/bodypart/add$               index.php?action=add_bodypart [L]
-RewriteRule ^services/accessory/add$              index.php?action=add_accessory [L]
-RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/([0-9]+)/picupload$     index.php?action=picupload&part=$1&internalid=$2 [L]
+############
+# SERVICES #
+############
+RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/([0-9]+)/(add|edit|picupload)$    index.php?action=$3&element=$1&internalid=$2 [L]
 
-# EDIT
+########
+# EDIT #
+########
 RewriteRule ^box/add$                                                 index.php?action=edit_box&target=add [L]
 RewriteRule ^box/(.*)_([0-9]+)/addnendoroid$                          index.php?action=edit_nendoroid&target=add&box_id=$2 [L]
 RewriteRule ^addnendoroid$                                            index.php?action=edit_nendoroid&target=add [L]
@@ -40,10 +40,14 @@ RewriteRule ^box/(.*)_([0-9]+)/nendoroid/(.*)_([0-9]+)/addaccessory$  index.php?
 RewriteRule ^box/(.*)_([0-9]+)/addaccessory$                          index.php?action=edit_accessory&target=add&box_id=$2 [L]
 RewriteRule ^addaccessory$                                            index.php?action=edit_accessory&target=add [L]
 
-# HOME
-RewriteRule ^home$                                index.php?action=home [L]
-RewriteRule ^credits$                             index.php?action=credits [L]
-# LISTINGS
+########
+# HOME #
+########
+RewriteRule ^home$                                                    index.php?action=home [L]
+RewriteRule ^credits$                                                 index.php?action=credits [L]
+############
+# LISTINGS #
+############
 RewriteRule ^boxes$                                                                                                                       index.php?action=boxes [L]
 RewriteRule ^boxes/$                                                                                                                      index.php?action=boxes [L]
 RewriteRule ^boxes/orderby/(box_name|box_number|box_category|db_creatorname|db_creationdate|db_editorname|db_editiondate)$                index.php?action=boxes&order=$1 [L]
@@ -86,7 +90,10 @@ RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|vers
 RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$                         index.php?action=accessories&order=$1 [L]
 RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$               index.php?action=accessories&order=$1&direction=$2 [L]
 RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=accessories&order=$1&direction=$2 [L]
-# SINGLE PAGES
+
+################
+# SINGLE PAGES #
+################
 RewriteRUle ^box/([0-9]+)/(.*)/$                  index.php?action=box&box_internalid=$1 [L]
 RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&nendointernalid=$3 [L]
 RewriteRule ^nendoroid/(.*)_([0-9]+)/$            index.php?action=nendoroid&nendointernalid=$2 [L]

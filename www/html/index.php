@@ -49,11 +49,20 @@
     return "An error has occured";
   }
 
+  function canEdit(){
+    if(isset($_SESSION['userid'])){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // Stuff for the access to the DB
   include_once('mvc/models/sql_connection.php');
   // Stuff to have the different renderers for the parts
   include_once('mvc/views/pages-sections/func_listings.php');
   include_once('mvc/views/pages-sections/func_counts.php');
+  include_once('mvc/views/pages-sections/func_others.php');
 
   // Retrieve the parameter action which is used to navigate in the MVC
   $action = isset($_GET['action']) ? $_GET['action'] : "home";
@@ -71,6 +80,10 @@
     case "add_accessory":
     // ADD PICTURE on SOMETHING
     case "picupload":
+      $include_page = 'services/'.$action;
+      break;
+    // EDIT
+    case "edit":
       $include_page = 'services/'.$action;
       break;
     // EDIT

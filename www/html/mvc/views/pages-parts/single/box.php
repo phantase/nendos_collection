@@ -2,7 +2,7 @@
           <div id="main">
             <div class="inner">
               <div class="row">
-                <div  class="4u 12u(medium)">
+                <div  class="4u 12u(small)">
                   <span class="image fit" id="span_box<?= $box['box_internalid'] ?>">
                   <span class="image fit" id="span_box<?= $box['box_internalid'] ?>">
                     <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>.jpg" alt="" />
@@ -14,7 +14,29 @@
                     <p>Drop a file here, <br/>or click to browse your computer...</p>
                   </fieldset>
                 </div>
-                <div  class="8u 12u(medium)">
+                <div class="8u 12u(small)">
+                  <div class="table-wrapper">
+                    <table id="info_table" element="box" internalid="<?= $box['box_internalid'] ?>">
+                      <tbody>
+<?php
+if( canEdit() || $box['box_number'] ){
+  tableField('number','Number',$box['box_number']);
+}
+  tableField('name','Name',$box['box_name']);
+if( canEdit() || $box['box_series'] ){
+  tableField('series','Series',$box['box_series']);
+}
+  tableField('manufacturer','Manufacturer',$box['box_manufacturer']);
+  tableField('category','Category',$box['box_category']);
+  tableFieldWithLink('officialurl','Links','GSC product page',$box['box_officialurl']);
+?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div  class="12u">
                   <h4>Nendoroids</h4>
 <?php showNendoroidsListing($nendoroids,"simple",true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>

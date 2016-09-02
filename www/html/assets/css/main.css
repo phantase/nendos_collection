@@ -3662,3 +3662,22 @@ blockquote.warning {
 #menu_area .select-wrapper:before {
 	width: 1em;
 }
+
+.fa-edit {
+	cursor: pointer;
+}
+
+.fa-edit:hover {
+	color: #F57921;
+}
+
+.atright {
+	float:right;
+}
+
+input[forwhat] {
+	height:inherit;
+}
+
+span[forwhat] {
+}

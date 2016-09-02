@@ -14,7 +14,7 @@ function count_allBoxes()
 /** Get all the boxes available in the DB */
 function get_allBoxes($order="db_creationdate",$direction="DESC")
 {
-  $orders = array("box_name","box_number","box_category","db_creatorname","db_creationdate","db_editorname","db_editiondate");
+  $orders = array("box_number","box_name","box_series","box_manufacturer","box_category","db_creatorname","db_creationdate","db_editorname","db_editiondate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -23,7 +23,9 @@ function get_allBoxes($order="db_creationdate",$direction="DESC")
 
   global $bdd;
 
-  $req = $bdd->prepare("SELECT b.internalid AS box_internalid, b.number AS box_number, b.name AS box_name, b.category AS box_category,
+  $req = $bdd->prepare("SELECT b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.officialurl AS box_officialurl,
                         b.creatorid AS db_creatorid, uc.username AS db_creatorname, b.creationdate AS db_creationdate,
                         b.editorid AS db_editorid, ue.username AS db_editorname, b.editiondate AS db_editiondate,
                         NOW() AS now
@@ -41,7 +43,9 @@ function get_singleBox($box_internalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT b.internalid AS box_internalid, b.number AS box_number,  b.name AS box_name, b.category AS box_category,
+  $req = $bdd->prepare("SELECT b.internalid AS box_internalid,
+                        b.number AS box_number,  b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.officialurl AS box_officialurl,
                         b.creatorid AS db_creatorid, uc.username AS db_creatorname, b.creationdate AS db_creationdate,
                         b.editorid AS db_editorid, ue.username AS db_editorname, b.editiondate AS db_editiondate,
                         NOW() AS now
@@ -56,14 +60,16 @@ function get_singleBox($box_internalid)
   return $box;
 }
 /** Add a single box in the DB */
-function add_singleBox($box_number,$box_name,$box_category,$box_officialurl,$userid)
+function add_singleBox($box_number,$box_name,$box_series,$box_manufacturer,$box_category,$box_officialurl,$userid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO boxes(number,name,category,officialurl,creatorid,creationdate,editorid,editiondate)
-                        VALUES(:box_number,:box_name,:box_category,:box_officialurl,:creatorid,NOW(),:editorid,NOW())");
+  $req = $bdd->prepare("INSERT INTO boxes(number,name,series,manufacturer,category,officialurl,creatorid,creationdate,editorid,editiondate)
+                        VALUES(:box_number,:box_name,:box_series,:box_manufacturer,:box_category,:box_officialurl,:creatorid,NOW(),:editorid,NOW())");
   $req->bindParam(':box_number',$box_number);
   $req->bindParam(':box_name',$box_name);
+  $req->bindParam(':box_series',$box_series);
+  $req->bindParam(':box_manufacturer',$box_manufacturer);
   $req->bindParam(':box_category',$box_category);
   $req->bindParam(':box_officialurl',$box_officialurl);
   $req->bindParam(':creatorid',$userid);
