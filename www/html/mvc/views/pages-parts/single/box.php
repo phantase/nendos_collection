@@ -19,15 +19,16 @@
                     <table id="info_table" element="box" internalid="<?= $box['box_internalid'] ?>">
                       <tbody>
 <?php
-if( canEdit() || $box['box_number'] ){
   tableField('number','Number',$box['box_number']);
-}
   tableField('name','Name',$box['box_name']);
-if( canEdit() || $box['box_series'] ){
   tableField('series','Series',$box['box_series']);
-}
   tableField('manufacturer','Manufacturer',$box['box_manufacturer']);
   tableField('category','Category',$box['box_category']);
+  tableField('price','Price &yen;',$box['box_price']);
+  tableField('releasedate','Release date',((isset($box['box_releasedate'])?(split("-",$box['box_releasedate'])[0]."/".split("-",$box['box_releasedate'])[1]):null)));
+  tableField('specifications','Specifications',$box['box_specifications']);
+  tableField('sculptor','Sculptor',$box['box_sculptor']);
+  tableField('cooperation','Cooperation',$box['box_cooperation']);
   tableFieldWithLink('officialurl','Links','GSC product page',$box['box_officialurl']);
 ?>
                       </tbody>

@@ -17,7 +17,7 @@ if(canEdit()){
     if($resultInfo[0] == "00000"){
       echo json_encode(array('result'=>'success','element'=>$element,'internalid'=>$internalid,'field'=>$field,'value'=>$value));
     } else {
-      echo json_encode(array('result'=>'failure','errorInfo'=>$resultInfo));
+      echo json_encode(array('result'=>'failure','errorInfo'=>$resultInfo[2]));
     }
   } else {
     echo json_encode(array('result'=>'failure','reason'=>'Missing parameters'));

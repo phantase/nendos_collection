@@ -2429,7 +2429,7 @@
 
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
-		overflow-x: auto;
+		/*overflow-x: auto;*/ /* CHANGE BY PH */
 	}
 
 	table {

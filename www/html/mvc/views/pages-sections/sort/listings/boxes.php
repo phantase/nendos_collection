@@ -19,7 +19,13 @@
                       <optgroup label="Box">
                         <option value="box_number" <?= ($selected_order=="box_number")?"selected":""; ?>>Number</option>
                         <option value="box_name" <?= ($selected_order=="box_name")?"selected":""; ?>>Name</option>
+                        <option value="box_series" <?= ($selected_order=="box_series")?"selected":""; ?>>Series</option>
+                        <option value="box_manufacturer" <?= ($selected_order=="box_manufacturer")?"selected":""; ?>>Manufacturer</option>
                         <option value="box_category" <?= ($selected_order=="box_category")?"selected":""; ?>>Category</option>
+                        <option value="box_price" <?= ($selected_order=="box_price")?"selected":""; ?>>Price</option>
+                        <option value="box_releasedate" <?= ($selected_order=="box_releasedate")?"selected":""; ?>>Release date</option>
+                        <option value="box_sculptor" <?= ($selected_order=="box_sculptor")?"selected":""; ?>>Sculptor</option>
+                        <option value="box_cooperation" <?= ($selected_order=="box_cooperation")?"selected":""; ?>>Cooperation</option>
                       </optgroup>
                       <optgroup label="DB">
                         <option value="db_creatorname" <?= ($selected_order=="db_creatorname")?"selected":""; ?>>Creator</option>

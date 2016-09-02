@@ -278,7 +278,7 @@ $('#login_button').click(function(){
 	var username = $('#username').val();
 	var password = $('#password').val();
 	var encpass = btoa(btoa(btoa(password)));
-	$.post("loginandout",{action:"login",username:username,password:encpass},function(data){
+	$.post("services/loginandout",{action:"login",username:username,password:encpass},function(data){
 		if( data == "1"){
 			// SUCCESS
 			window.location.reload(true);
@@ -290,7 +290,7 @@ $('#login_button').click(function(){
 	});
 });
 $('#logout_button').click(function(){
-	$.post("loginandout",{action:"logout"},function(data){
+	$.post("services/loginandout",{action:"logout"},function(data){
 		if( data == "1"){
 			// SUCCESS
 			window.location.reload(true);
@@ -334,7 +334,8 @@ $('#newBox,#noNewBox').click(function(){
           }
           return "<b style='color:#F57921;'>" + element.attr("category") + "</b>" +
             numtooltip +
-            "<br/>" + element.attr("name");
+            "<br/>" + element.attr("name") +
+            "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>" ;
         }
       	if( element.is("[face]") ){
       		return "<b style='color:#F57921;'>Eyes: </b>" + element.attr("eyes") +
@@ -368,18 +369,32 @@ $('#newBox,#noNewBox').click(function(){
       $('#new_box_submit').prop('value','Adding...');
       var new_box_number = $('#new_box_number').val();
       var new_box_name = $('#new_box_name').val();
+      var new_box_series = $('#new_box_series').val();
+      var new_box_manufacturer = $('#new_box_manufacturer').val();
       var new_box_category = $('#new_box_category').val();
+      var new_box_price = $('#new_box_price').val();
+      var new_box_releasedate = $('#new_box_releasedate').val();
+      var new_box_specifications = $('#new_box_specifications').val();
+      var new_box_sculptor = $('#new_box_sculptor').val();
+      var new_box_cooperation = $('#new_box_cooperation').val();
       var new_box_officialurl = $('#new_box_officialurl').val();
+
       $.post("services/box/add",
         {
-          action:"add_box",
           new_box_number:new_box_number,
           new_box_name:new_box_name,
+          new_box_series:new_box_series,
+          new_box_manufacturer:new_box_manufacturer,
           new_box_category:new_box_category,
+          new_box_price:new_box_price,
+          new_box_releasedate:new_box_releasedate,
+          new_box_specifications:new_box_specifications,
+          new_box_sculptor:new_box_sculptor,
+          new_box_cooperation:new_box_cooperation,
           new_box_officialurl:new_box_officialurl
         },function(data){
           if(data.result == "success"){
-            window.location.replace("box/"+data.box_internalid+"/"+data.box_url+"/");
+            window.location.replace("box/"+data.new_box_internalid+"/"+data.new_box_url+"/");
           } else {
             $('#new_box_submit').prop('disabled',false);
             $('#new_box_submit').prop('value','Add Box');

@@ -22,15 +22,8 @@ function showBodyPartsListing($bodyparts,$renderer,$withlinks=false,$withadd=fal
   }
 }
 
-function showBoxesListing($boxes,$renderer,$withlinks=false,$withadd=false){
-  switch($renderer){
-    case "article":
-      include('mvc/views/pages-sections/article_listings/boxes.php');
-      break;
-    case "simple":
-      include('mvc/views/pages-sections/simple_listings/boxes.php');
-      break;
-  }
+function showBoxesListing($boxes,$sortingfield=null,$withlinks=false,$withadd=false){
+    include('mvc/views/pages-sections/simple_listings/boxes.php');
 }
 
 function showFacesListing($faces,$renderer,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){

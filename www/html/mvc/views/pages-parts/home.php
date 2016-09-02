@@ -20,7 +20,7 @@
                     ?>
                   </div>
                   <div class="2u 4u$(medium)">
-                    <a href="box/add">
+                    <a href="addbox">
                       <div class="info-box add-box nendo_boxes_icon" id="button_new_box">
                         <i class="icon fa-plus"></i>
                       </div>

@@ -1,3 +1,4 @@
+<?php if( canEdit() || isset($value) ) { ?>
                         <tr>
                           <th>
                             <?= $label ?>
@@ -17,3 +18,4 @@
                             </span>
                           </td>
                         </tr>
+<?php } ?>

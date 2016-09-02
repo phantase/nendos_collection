@@ -6,7 +6,11 @@
                       <?php if($withlinks){ ?>
                         <a href="box/<?= $box['box_internalid'] ?>/<?= $box['box_url'] ?>/">
                       <?php } ?>
-                        <span class="image fit" box="" number="<?= $box['box_number'] ?>"  name="<?= $box['box_name'] ?>"category="<?= $box['box_category'] ?>">
+                        <span class="image fit"
+                            box="" number="<?= $box['box_number'] ?>"
+                            name="<?= $box['box_name'] ?>"category="<?= $box['box_category'] ?>"
+                            sortingfield="<?= $sortingfield ?>"
+                            sortingvalue="<?= $box[$sortingfield] ?>">
                           <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>.jpg" alt="" />
                         </span>
                       <?php if($withlinks){ ?>

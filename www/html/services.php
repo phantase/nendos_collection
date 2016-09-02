@@ -28,48 +28,21 @@
   $action = isset($_GET['action']) ? $_GET['action'] : "home";
 
   switch($action) {
+    // LOGIN
+    case "loginandout":
     // ADD
+    case "add_box":
+    case "add_nendoroid":
+    case "add_face":
+    case "add_hair":
+    case "add_hand":
+    case "add_bodypart":
+    case "add_accessory":
+    // ADD & EDIT & PICUPLOAD
     case "add":
-      $include_page = $action;
-      break;
-    // EDIT
-    case "edit_box":
-    case "edit_nendoroid":
-    case "edit_face":
-    case "edit_hair":
-    case "edit_hand":
-    case "edit_bodypart":
-    case "edit_accessory":
-      $include_page = 'edit/'.$action;
-      break;
-    // LISTINGS
-    case "boxes":
-    case "nendoroids":
-    case "faces":
-    case "hairs":
-    case "hands":
-    case "bodyparts":
-    case "accessories":
-      $include_page = 'listings/'.$action;
-      break;
-    // SINGLE PAGES
-    case "box":
-    case "nendoroid":
-    case "face":
-    case "hair":
-    case "hand":
-    case "bodypart":
-    case "accessory":
-      $include_page = 'single/'.$action;
-      break;
-    // OTHER
-    case "credits":
-      $include_page = $action;
-      break;
-    // HOME
-    case "home":
-    default:
-      $include_page = 'home';
+    case "edit":
+    case "picupload":
+      $include_page = 'services/'.$action;
       break;
   }
 

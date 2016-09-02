@@ -12,14 +12,19 @@ function edit_singleElement($element,$internalid,$field,$value,$userid)
   $allowedField = array(
     "accessories" =>  array(""),
     "bodyparts"   =>  array(""),
-    "boxes"       =>  array("number","name","series","manufacturer","category","officialurl"),
+    "boxes"       =>  array(null,"number","name","series","manufacturer","category","price","releasedate","specifications","sculptor","cooperation","officialurl"),
     "faces"       =>  array(""),
     "hairs"       =>  array(""),
     "hands"       =>  array(""),
     "nendoroids"  =>  array(""),
     );
-  $key = array_search($field,$allowedField[$tablename]);
-  $field = $allowedField[$tablename][$key];
+  $keyfield = array_search($field,$allowedField[$tablename]);
+  $field = $allowedField[$tablename][$keyfield];
+  $datefield = array(null,"releasedate");
+  $keydatefield = array_search($field, $datefield);
+  if( $keydatefield ){
+    $value = split("/",$value)[0]."-".split("/", $value)[1]."-01";
+  }
 
   $req = $bdd->prepare("UPDATE $tablename SET $field = :value, editorid = :editorid WHERE internalid = :internalid");
   $req->bindParam(':internalid',$internalid);
