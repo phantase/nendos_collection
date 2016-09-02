@@ -1,27 +1,27 @@
 Options +FollowSymlinks
 RewriteEngine On
 
-##########
-# IMAGES #
-##########
+############
+## IMAGES ##
+############
 RewriteCond %{DOCUMENT_ROOT}/images/nendos/$1/$2.jpg -f
 RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         images/nendos/$1/$2.jpg [L]
 RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         images/unknown.png [L]
 
-#########
-# LOGIN #
-#########
+###########
+## LOGIN ##
+###########
 RewriteRule ^services/loginandout$                                    services.php?action=loginandout [L]
 
-############
-# SERVICES #
-############
+##############
+## SERVICES ##
+##############
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/([0-9]+)/(edit|picupload)$    services.php?action=$3&element=$1&internalid=$2 [L]
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/add$                          services.php?action=add&element=$1 [L]
 
-########
-# EDIT #
-########
+##########
+## EDIT ##
+##########
 RewriteRule ^addbox$                                                  index.php?action=add&element=box [L]
 
 #RewriteRule ^box/(.*)_([0-9]+)/addnendoroid$                          index.php?action=edit_nendoroid&target=add&box_id=$2 [L]
@@ -42,50 +42,65 @@ RewriteRule ^addbox$                                                  index.php?
 #RewriteRule ^box/(.*)_([0-9]+)/addaccessory$                          index.php?action=edit_accessory&target=add&box_id=$2 [L]
 #RewriteRule ^addaccessory$                                            index.php?action=edit_accessory&target=add [L]
 
-########
-# HOME #
-########
+####################
+## HOME & CREDITS ##
+####################
 RewriteRule ^home$                                                    index.php?action=home [L]
 RewriteRule ^credits$                                                 index.php?action=credits [L]
-############
-# LISTINGS #
-############
-RewriteRule ^boxes$                                                                                                                       index.php?action=boxes [L]
-RewriteRule ^boxes/$                                                                                                                      index.php?action=boxes [L]
-RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)$                index.php?action=boxes&order=$1 [L]
-RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)/$               index.php?action=boxes&order=$1 [L]
-RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)_(asc|desc)$     index.php?action=boxes&order=$1&direction=$2 [L]
-RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)_(asc|desc)/$    index.php?action=boxes&order=$1&direction=$2 [L]
-#RewriteRule ^nendoroids$                                                                                              index.php?action=nendoroids [L]
-#RewriteRule ^nendoroids/$                                                                                             index.php?action=nendoroids [L]
+
+##############
+## LISTINGS ##
+##############
+
+# BOXES #
+RewriteRule ^boxes$                                                                                                                                                                                                           index.php?action=boxes [L]
+RewriteRule ^boxes/$                                                                                                                                                                                                          index.php?action=boxes [L]
+RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)$                 index.php?action=boxes&order=$1 [L]
+RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)/$                index.php?action=boxes&order=$1 [L]
+RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)_(asc|desc)$      index.php?action=boxes&order=$1&direction=$2 [L]
+RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)_(asc|desc)/$     index.php?action=boxes&order=$1&direction=$2 [L]
+
+# NENDOROIDS #
+RewriteRule ^nendoroids$                                                                                              index.php?action=nendoroids [L]
+RewriteRule ^nendoroids/$                                                                                             index.php?action=nendoroids [L]
 #RewriteRule ^nendoroids/orderby/(name|origin|version|company|box|type|creator|creation|editor|edition)$               index.php?action=nendoroids&order=$1 [L]
 #RewriteRule ^nendoroids/orderby/(name|origin|version|company|box|type|creator|creation|editor|edition)/$              index.php?action=nendoroids&order=$1 [L]
 #RewriteRule ^nendoroids/orderby/(name|origin|version|company|box|type|creator|creation|editor|edition)_(asc|desc)$    index.php?action=nendoroids&order=$1&direction=$2 [L]
 #RewriteRule ^nendoroids/orderby/(name|origin|version|company|box|type|creator|creation|editor|edition)_(asc|desc)/$   index.php?action=nendoroids&order=$1&direction=$2 [L]
+
+# FACES #
 #RewriteRule ^faces$                               index.php?action=faces [L]
 #RewriteRule ^faces/$                              index.php?action=faces [L]
 #RewriteRule ^faces/orderby/(eyes_color|skin_color|sex|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                index.php?action=faces&order=$1 [L]
 #RewriteRule ^faces/orderby/(eyes_color|skin_color|sex|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$               index.php?action=faces&order=$1 [L]
 #RewriteRule ^faces/orderby/(eyes_color|skin_color|sex|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$     index.php?action=faces&order=$1&direction=$2 [L]
 #RewriteRule ^faces/orderby/(eyes_color|skin_color|sex|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$    index.php?action=faces&order=$1&direction=$2 [L]
+
+# HAIRS #
 #RewriteRule ^hairs$                               index.php?action=hairs [L]
 #RewriteRule ^hairs/$                              index.php?action=hairs [L]
 #RewriteRule ^hairs/orderby/(color|frontback|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                          index.php?action=hairs&order=$1 [L]
 #RewriteRule ^hairs/orderby/(color|frontback|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$                         index.php?action=hairs&order=$1 [L]
 #RewriteRule ^hairs/orderby/(color|frontback|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$               index.php?action=hairs&order=$1&direction=$2 [L]
 #RewriteRule ^hairs/orderby/(color|frontback|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=hairs&order=$1&direction=$2 [L]
+
+# HANDS #
 #RewriteRule ^hands$                               index.php?action=hands [L]
 #RewriteRule ^hands/$                              index.php?action=hands [L]
 #RewriteRule ^hands/orderby/(color|leftright|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                          index.php?action=hands&order=$1 [L]
 #RewriteRule ^hands/orderby/(color|leftright|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$                         index.php?action=hands&order=$1 [L]
 #RewriteRule ^hands/orderby/(color|leftright|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$               index.php?action=hands&order=$1&direction=$2 [L]
 #RewriteRule ^hands/orderby/(color|leftright|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=hands&order=$1&direction=$2 [L]
+
+# BODYPARTS #
 #RewriteRule ^bodyparts$                           index.php?action=bodyparts [L]
 #RewriteRule ^bodyparts/$                          index.php?action=bodyparts [L]
 #RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                          index.php?action=bodyparts&order=$1 [L]
 #RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$                         index.php?action=bodyparts&order=$1 [L]
 #RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$               index.php?action=bodyparts&order=$1&direction=$2 [L]
 #RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=bodyparts&order=$1&direction=$2 [L]
+
+# ACCESSORIES #
 #RewriteRule ^accessories$                         index.php?action=accessories [L]
 #RewriteRule ^accessories/$                        index.php?action=accessories [L]
 #RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                          index.php?action=accessories&order=$1 [L]
@@ -93,9 +108,9 @@ RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_
 #RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$               index.php?action=accessories&order=$1&direction=$2 [L]
 #RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=accessories&order=$1&direction=$2 [L]
 
-################
-# SINGLE PAGES #
-################
+##################
+## SINGLE PAGES ##
+##################
 RewriteRUle ^box/([0-9]+)/(.*)/$                  index.php?action=box&box_internalid=$1 [L]
 #RewriteRule ^nendoroid/(.*)/(.*)_([0-9]+)/$       index.php?action=nendoroid&nendointernalid=$3 [L]
 #RewriteRule ^nendoroid/(.*)_([0-9]+)/$            index.php?action=nendoroid&nendointernalid=$2 [L]

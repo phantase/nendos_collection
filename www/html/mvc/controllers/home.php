@@ -1,17 +1,24 @@
 <?php
 
-$count_nendoroids = count_allNendoroids();
-$nendoroids = get_allNendoroids();
-foreach ($nendoroids as $key => $nendoroid) {
-  $nendoroids[$key]['url'] = preg_replace('/^-+|-+$/', '', strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $nendoroid['name'])));
+$resultInfo = get_allNendoroids();
+if($resultInfo[0] == "00000" ){
+
+  $nendoroids = $resultInfo[4];
+  foreach ($nendoroids as $key => $nendoroid) {
+    $nendoroids[$key]['nendoroid_url'] = urlize($nendoroid['nendoroid_name']);
+  }
+
+  $count_boxes = count_allBoxes();
+  $count_nendoroids = count_allNendoroids();
+  $count_faces = count_allFaces();
+  $count_hairs = count_allHairs();
+  $count_bodyparts = count_allBodyParts();
+  $count_hands = count_allHands();
+  $count_accessories = count_allAccessories();
+
+  $page_title = "Nendoroids DB";
+} else {
+  $page_title = "Error";
+  $include_page = "error";
 }
-$count_boxes = count_allBoxes();
-$count_faces = count_allFaces();
-$count_hairs = count_allHairs();
-$count_bodyparts = count_allBodyParts();
-$count_hands = count_allHands();
-$count_accessories = count_allAccessories();
-
-$page_title = "Nendoroids DB";
-
 include_once('mvc/views/pages/skeleton.php');

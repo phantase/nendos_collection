@@ -12,9 +12,13 @@ function count_allNendoroids()
   return $count['count'];
 }
 /** Get all Nendoroids available in the DB */
-function get_allNendoroids($order="name",$direction="DESC")
+function get_allNendoroids($order="db_creationdate",$direction="DESC")
 {
-  $orders = array("name","origin","version","company","box","type","creator","creation","editor","edition");
+  $orders = array("nendoroid_name","nendoroid_version","nendoroid_sex",
+                  "box_number","box_name","box_series",
+                  "box_manufacturer","box_category","box_price",
+                  "box_releasedate","box_sculptor","box_cooperation",
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -23,20 +27,32 @@ function get_allNendoroids($order="name",$direction="DESC")
 
   global $bdd;
 
-  $req = $bdd->prepare("SELECT n.internalid, n.box_id, n.name, n.origin, n.version, n.company, n.dominant_color,
-                        b.name AS box_name, b.type AS box_type, b.name AS box, b.type AS type,
-                        n.creator AS creatorid, uc.username AS creator, n.creation,
-                        n.editor AS editorid, ue.username AS editor, n.edition,
+  $req = $bdd->prepare("SELECT n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        n.creatorid AS db_creatorid, uc.username AS db_creatorname, n.creationdate AS db_creationdate,
+                        n.editorid AS db_editorid, ue.username AS db_editorname, n.editiondate AS db_editiondate,
                         NOW() AS now
-                        FROM nendoroids AS n, boxes AS b,
-                        users AS uc, users AS ue
-                        WHERE n.box_id=b.internalid
-                        AND n.creator = uc.internalid AND n.editor = ue.internalid
+                        FROM nendoroids AS n
+                        LEFT JOIN boxes AS b ON n.boxid = b.internalid
+                        LEFT JOIN users AS uc ON n.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON n.editorid = ue.internalid
                         ORDER BY $order $direction;");
   $req->execute();
-  $nendoroids = $req->fetchAll(PDO::FETCH_ASSOC);
 
-  return $nendoroids;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
 }
 /** Get a single Nendoroid based on its internalid */
 function get_singleNendoroid($nendoroid_id)
