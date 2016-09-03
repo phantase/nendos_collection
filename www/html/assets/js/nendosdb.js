@@ -53,10 +53,14 @@ $(function(){
         if( element.attr("box_number").length > 0 ){
           box_number_tooltip = " #" + element.attr("box_number");
         }
+        var sorting_tooltip = "";
+        if( element.attr("sortingfield").length > 0 ){
+          sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
+        }
         return "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
           box_number_tooltip +
           "<br/>" + element.attr("box_name") +
-          "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>" ;
+          sorting_tooltip;
       }
       if( element.is("[face]") ){
         return "<b style='color:#F57921;'>Eyes: </b>" + element.attr("eyes") +
@@ -84,10 +88,14 @@ $(function(){
         if( element.attr("box_number").length > 0 ){
           box_number_tooltip = " #" + element.attr("box_number");
         }
+        var sorting_tooltip = "";
+        if( element.attr("sortingfield").length > 0 ){
+          sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
+        }
         return "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
           box_number_tooltip +
           "<br/>" + element.attr("nendoroid_name") +
-          "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>" ;
+          sorting_tooltip;
       }
     }
   });
