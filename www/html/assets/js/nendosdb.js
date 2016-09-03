@@ -95,6 +95,7 @@ $(function(){
         return "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
           box_number_tooltip +
           "<br/>" + element.attr("nendoroid_name") +
+          "<br/>" + element.attr("nendoroid_version") +
           sorting_tooltip;
       }
     }

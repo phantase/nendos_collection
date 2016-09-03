@@ -4,13 +4,13 @@
               <section>
                 <div class="row">
                   <div class="4u 12u$(medium)">
-                    <span class="image fit" id="span_nendoroid<?= $nendoroid['internalid'] ?>">
-                      <img src="images/nendos/nendoroids/<?= $nendoroid['internalid'] ?>.jpg" alt="" />
+                    <span class="image fit" id="span_nendoroid<?= $nendoroid['nendoroid_internalid'] ?>">
+                      <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>.jpg" alt="" />
                       <?php if(isset($_SESSION['userid'])){ ?>
-                        <i class="icon style2 fa-edit included editpic" id="editpic_nendoroid<?= $nendoroid['internalid'] ?>" title="Add/Change the picture" part="nendoroid" internalid="<?= $nendoroid['internalid'] ?>"></i>
+                        <i class="icon style2 fa-edit included editpic" id="editpic_nendoroid<?= $nendoroid['nendoroid_internalid'] ?>" title="Add/Change the picture" part="nendoroid" internalid="<?= $nendoroid['nendoroid_internalid'] ?>"></i>
                       <?php } ?>
                     </span>
-                    <fieldset class="dropzone image fit" id="drop_nendoroid<?= $nendoroid['internalid'] ?>" style="display:none;">
+                    <fieldset class="dropzone image fit" id="drop_nendoroid<?= $nendoroid['nendoroid_internalid'] ?>" style="display:none;">
                       <p>Drop a file here, <br/>or click to browse your computer...</p>
                     </fieldset>
                   </div>
@@ -20,30 +20,22 @@
                         <tbody>
                           <tr>
                             <th>Box</th>
-                            <td><a href="box/<?= $nendoroid['box_name'] ?>_<?= $nendoroid['box_id'] ?>/"><?= $nendoroid['box_type'] ?> #<?= $nendoroid['box_name'] ?></a></td>
-                          </tr>
-                          <tr>
-                            <th>Origin</th>
-                            <td><?= $nendoroid['origin'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Character</th>
-                            <td><?= $nendoroid['name'] ?></td>
-                          </tr>
-<?php
-  if( strlen($nendoroid['version'])>0 ){
-?>
-                          <tr>
-                            <th>Version</th>
-                            <td><?= $nendoroid['version'] ?></td>
+                            <td>
+                              <a href="box/<?= $nendoroid['box_internalid'] ?>/<?= $nendoroid['box_url'] ?>/">
+                                <?= $nendoroid['box_category'] ?>
+                                <?php if( isset($nendoroid['box_number']) && strlen($nendoroid['box_number'])>0 ){ ?>
+                                  #<?= $nendoroid['box_number'] ?>
+                                <?php } ?>
+                                <br/>
+                                <?= $nendoroid['box_name'] ?>
+                              </a>
+                            </td>
                           </tr>
 <?php
-  }
+  tableField('name','Name',$nendoroid['nendoroid_name']);
+  tableField('version','Version',$nendoroid['nendoroid_version']);
+  tableField('sex','Sex',$nendoroid['nendoroid_sex']);
 ?>
-                          <tr>
-                            <th>Company</th>
-                            <td><?= $nendoroid['company'] ?></td>
-                          </tr>
                         </tbody>
                       </table>
                     </div>

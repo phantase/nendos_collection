@@ -39,7 +39,7 @@
               <div class="row">
                 <div  class="12u">
                   <h4>Nendoroids</h4>
-<?php showNendoroidsListing($nendoroids,"simple",true,true,$box['box_url'],$box['box_internalid']); ?>
+<?php showNendoroidsListing($nendoroids,null,"simple",true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
               </div>
               <div class="row">

@@ -9,6 +9,7 @@
                         <span class="image fit"
                               nendoroid=""
                               nendoroid_name="<?= $nendoroid['nendoroid_name'] ?>"
+                              nendoroid_version="<?= $nendoroid['nendoroid_version'] ?>"
                               box_number="<?= $nendoroid['box_number'] ?>"
                               box_category="<?= $nendoroid['box_category'] ?>"
                               sortingfield="<?= $sortingfield ?>"

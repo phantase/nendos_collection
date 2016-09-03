@@ -59,14 +59,10 @@ function showHandsListing($hands,$renderer,$withlinks=false,$withadd=false,$box_
   }
 }
 
-function showNendoroidsListing($nendoroids,$renderer,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null){
-  switch($renderer){
-    case "article":
-    case "home":
-      include('mvc/views/pages-sections/article_listings/nendoroids.php');
-      break;
-    case "simple":
-      include('mvc/views/pages-sections/simple_listings/nendoroids.php');
-      break;
-  }
+function showNendoroidsListing($nendoroids,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null){
+  include('mvc/views/pages-sections/simple_listings/nendoroids.php');
+}
+
+function showNendoroidsArticle($nendoroids){
+  include('mvc/views/pages-sections/article_listings/nendoroids.php');
 }
