@@ -16,7 +16,7 @@
                   </div>
                   <div class="8u 12u$(medium)">
                     <div class="table-wrapper">
-                      <table>
+                      <table id="info_table" element="nendoroid" internalid="<?= $nendoroid['nendoroid_internalid'] ?>">
                         <tbody>
                           <tr>
                             <th>Box</th>

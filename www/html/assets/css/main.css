@@ -3663,11 +3663,11 @@ blockquote.warning {
 	width: 1em;
 }
 
-.fa-edit {
+.fa-edit, .fa-check {
 	cursor: pointer;
 }
 
-.fa-edit:hover {
+.fa-edit:hover, .fa-check:hover {
 	color: #F57921;
 }
 
@@ -3679,5 +3679,3 @@ input[forwhat] {
 	height:inherit;
 }
 
-span[forwhat] {
-}
