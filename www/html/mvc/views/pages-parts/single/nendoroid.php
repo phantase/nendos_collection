@@ -45,23 +45,23 @@
                 <div class="row">
                   <div class="6u 12u$(medium)">
                     <h4>Faces</h4>
-                    <?php showFacesListing($faces,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showFacesListing($faces,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hairs</h4>
-                    <?php showHairsListing($hairs,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showHairsListing($hairs,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Hands</h4>
-                    <?php showHandsListing($hands,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showHandsListing($hands,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Body parts</h4>
-                    <?php showBodyPartsListing($bodyparts,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showBodyPartsListing($bodyparts,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
                   <div class="6u 12u$(medium)">
                     <h4>Accessories</h4>
-                    <?php showAccessoriesListing($accessories,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showAccessoriesListing($accessories,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
                 </div>
                 <hr/>

@@ -1,10 +1,10 @@
 <?php
 
-function showAccessoriesListing($accessories,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showAccessoriesListing($accessories,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   include('mvc/views/pages-sections/simple_listings/accessories.php');
 }
 
-function showBodyPartsListing($bodyparts,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showBodyPartsListing($bodyparts,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   include('mvc/views/pages-sections/simple_listings/bodyparts.php');
 }
 
@@ -12,15 +12,15 @@ function showBoxesListing($boxes,$sortingfield=null,$withlinks=false,$withadd=fa
     include('mvc/views/pages-sections/simple_listings/boxes.php');
 }
 
-function showFacesListing($faces,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showFacesListing($faces,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   include('mvc/views/pages-sections/simple_listings/faces.php');
 }
 
-function showHairsListing($hairs,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showHairsListing($hairs,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   include('mvc/views/pages-sections/simple_listings/hairs.php');
 }
 
-function showHandsListing($hands,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showHandsListing($hands,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
   include('mvc/views/pages-sections/simple_listings/hands.php');
 }
 

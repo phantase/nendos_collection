@@ -12,9 +12,14 @@ function count_allFaces()
   return $count['count'];
 }
 /** Get all the faces available in the DB */
-function get_allFaces($order="creation",$direction="desc")
+function get_allFaces($order="db_creation",$direction="desc")
 {
-  $orders = array("eyes_color","skin_color","sex","box","type","nendoroid","origin","version","company","creator","creation","editor","edition");
+  $orders = array("face_eyes_color","face_skin_color","face_sex",
+                  "nendoroid_name","nendoroid_version","nendoroid_sex",
+                  "box_number","box_name","box_series",
+                  "box_manufacturer","box_category","box_price",
+                  "box_releasedate","box_sculptor","box_cooperation",
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -23,106 +28,186 @@ function get_allFaces($order="creation",$direction="desc")
 
   global $bdd;
 
-  $req = $bdd->prepare("SELECT f.internalid, f.box_id, f.nendoroid_id,
-                        f.eyes, f.eyes_color, f.eyes_color_hex,
-                        f.mouth, f.skin_color, f.skin_color_hex, f.sex,
-                        b.name AS box_name, b.type AS box_type, b.name AS box, b.type AS type,
-                        n.name AS nendoroid_name, n.origin AS nendoroid_origin, n.version AS nendoroid_version, n.company AS nendoroid_company,
-                        n.name AS nendoroid, n.origin AS origin, n.version AS version, n.company AS company,
-                        f.creator AS creatorid, uc.username AS creator, f.creation,
-                        f.editor AS editorid, ue.username AS editor, f.edition,
+  $req = $bdd->prepare("SELECT f.internalid AS face_internalid,
+                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color, f.eyes_color_hex AS face_eyes_color_hex,
+                        f.mouth AS face_mouth, f.skin_color AS face_skin_color, f.skin_color_hex AS face_skin_color_hex,
+                        f.sex AS face_sex,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
+                        f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
                         NOW() AS now
-                        FROM faces AS f, nendoroids AS n, boxes AS b,
-                        users AS uc, users AS ue
-                        WHERE f.box_id = b.internalid
-                        AND f.nendoroid_id = n.internalid
-                        AND f.creator = uc.internalid AND f.editor = ue.internalid
+                        FROM faces AS f
+                        LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON f.boxid = b.internalid
+                        LEFT JOIN users AS uc ON f.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON f.editorid = ue.internalid
                         ORDER BY $order $direction;");
   $req->execute();
-  $faces = $req->fetchAll(PDO::FETCH_ASSOC);
 
-  return $faces;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
 }
 /** Count all the faces available for a specific Nendoroid */
-function count_nendoroidFaces($nendoroid_id)
+function count_nendoroidFaces($nendoroid_internalid)
 {
   global $bdd;
 
   $req = $bdd->prepare("SELECT count(*) AS count
                         FROM faces AS f
-                        WHERE f.nendoroid_id = :nendoroid_id");
-  $req->bindParam(':nendoroid_id',$nendoroid_id);
+                        WHERE f.nendoroidid = :nendoroid_internalid");
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
   $count = $req->fetch();
 
   return $count['count'];
 }
 /** Get all the faces available for a specific Nendoroid */
-function get_nendoroidFaces($nendoroid_id)
+function get_nendoroidFaces($nendoroid_internalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT f.internalid, f.box_id, f.nendoroid_id,
-                        f.eyes, f.eyes_color, f.eyes_color_hex,
-                        f.mouth, f.skin_color, f.skin_color_hex, f.sex
-                        FROM faces AS f
-                        WHERE f.nendoroid_id = :nendoroid_id");
-  $req->bindParam(':nendoroid_id',$nendoroid_id);
-  $req->execute();
-  $faces = $req->fetchAll(PDO::FETCH_ASSOC);
-
-  return $faces;
-}
-/** Get all the faces available for a specific Box */
-function get_boxFaces($box_id)
-{
-  global $bdd;
-
-  $req = $bdd->prepare("SELECT f.internalid, f.box_id, f.nendoroid_id,
-                        f.eyes, f.eyes_color, f.eyes_color_hex,
-                        f.mouth, f.skin_color, f.skin_color_hex, f.sex
-                        FROM faces AS f
-                        WHERE f.box_id = :box_id");
-  $req->bindParam(':box_id',$box_id);
-  $req->execute();
-  $faces = $req->fetchAll(PDO::FETCH_ASSOC);
-
-  return $faces;
-}
-/** Get a single face with its internalid */
-function get_singleFace($face_id)
-{
-  global $bdd;
-
-  $req = $bdd->prepare("SELECT f.internalid,
-                        f.box_id, b.name AS box_name, b.type AS box_type,
-                        f.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version,
-                        f.eyes, f.eyes_color, f.eyes_color_hex,
-                        f.mouth, f.skin_color, f.skin_color_hex, f.sex,
-                        f.creator AS creatorid, uc.username AS creator, f.creation,
-                        f.editor AS editorid, ue.username AS editor, f.edition,
+  $req = $bdd->prepare("SELECT f.internalid AS face_internalid,
+                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color, f.eyes_color_hex AS face_eyes_color_hex,
+                        f.mouth AS face_mouth, f.skin_color AS face_skin_color, f.skin_color_hex AS face_skin_color_hex,
+                        f.sex AS face_sex,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
+                        f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
                         NOW() AS now
                         FROM faces AS f
-                        LEFT JOIN boxes AS b ON f.box_id = b.internalid
-                        LEFT JOIN nendoroids AS n ON f.nendoroid_id = n.internalid
-                        LEFT JOIN users AS uc ON f.creator = uc.internalid
-                        LEFT JOIN users AS ue ON f.editor = ue.internalid
-                        WHERE f.internalid = :face_id");
-  $req->bindParam(':face_id',$face_id);
+                        LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON f.boxid = b.internalid
+                        LEFT JOIN users AS uc ON f.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON f.editorid = ue.internalid
+                        WHERE f.nendoroidid = :nendoroid_internalid");
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
-  $face = $req->fetch();
 
-  return $face;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
 }
-/** Add a single face in the DB */
-function add_singleFace($box_id,$nendoroid_id,$face_eyes,$face_eyes_color,$face_eyes_color_hex,$face_mouth,$face_skin_color,$face_skin_color_hex,$face_sex,$userid)
+/** Get all the faces available for a specific Box */
+function get_boxFaces($box_internalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO faces(box_id,nendoroid_id,eyes,eyes_color,eyes_color_hex,mouth,skin_color,skin_color_hex,sex,creator,creation,editor,edition)
-                        VALUES(:box_id,:nendoroid_id,:eyes,:eyes_color,:eyes_color_hex,:mouth,:skin_color,:skin_color_hex,:sex,:creator,NOW(),:editor,NOW()");
-  $req->bindParam(':box_id',$box_id);
-  $req->bindParam(':nendoroid_id',$nendoroid_id);
+  $req = $bdd->prepare("SELECT f.internalid AS face_internalid,
+                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color, f.eyes_color_hex AS face_eyes_color_hex,
+                        f.mouth AS face_mouth, f.skin_color AS face_skin_color, f.skin_color_hex AS face_skin_color_hex,
+                        f.sex AS face_sex,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
+                        f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
+                        NOW() AS now
+                        FROM faces AS f
+                        LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON f.boxid = b.internalid
+                        LEFT JOIN users AS uc ON f.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON f.editorid = ue.internalid
+                        WHERE f.boxid = :box_internalid");
+  $req->bindParam(':box_internalid',$box_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+/** Get a single face with its internalid */
+function get_singleFace($face_internalid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT f.internalid AS face_internalid,
+                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color, f.eyes_color_hex AS face_eyes_color_hex,
+                        f.mouth AS face_mouth, f.skin_color AS face_skin_color, f.skin_color_hex AS face_skin_color_hex,
+                        f.sex AS face_sex,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
+                        f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
+                        NOW() AS now
+                        FROM faces AS f
+                        LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON f.boxid = b.internalid
+                        LEFT JOIN users AS uc ON f.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON f.editorid = ue.internalid
+                        WHERE f.internalid = :face_internalid");
+  $req->bindParam(':face_internalid',$face_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetch();
+  }
+
+  return $resultInfo;
+}
+/** Add a single face in the DB */
+function add_singleFace($box_internalid,$nendoroid_internalid,
+                        $face_eyes,$face_eyes_color,$face_eyes_color_hex,
+                        $face_mouth,$face_skin_color,$face_skin_color_hex,
+                        $face_sex,
+                        $userid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("INSERT INTO faces(boxid,nendoroidid,
+                                          eyes,eyes_color,eyes_color_hex,
+                                          mouth,skin_color,skin_color_hex,sex,
+                                          creatorid,creationdate,editorid,editiondate)
+                        VALUES(:box_internalid,:nendoroid_internalid,
+                              :eyes,:eyes_color,:eyes_color_hex,
+                              :mouth,:skin_color,:skin_color_hex,
+                              :sex,
+                              :creatorid,NOW(),:editorid,NOW()");
+  $req->bindParam(':box_internalid',$box_internalid);
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->bindParam(':eyes',$face_eyes);
   $req->bindParam(':eyes_color',$face_eyes_color);
   $req->bindParam(':eyes_color_hex',$face_eyes_color_hex);
@@ -130,11 +215,16 @@ function add_singleFace($box_id,$nendoroid_id,$face_eyes,$face_eyes_color,$face_
   $req->bindParam(':skin_color',$face_skin_color);
   $req->bindParam(':skin_color_hex',$face_skin_color_hex);
   $req->bindParam(':sex',$face_sex);
-  $req->bindParam(':creator',$userid);
-  $req->bindParam(':editor',$userid);
+  $req->bindParam(':creatorid',$userid);
+  $req->bindParam(':editorid',$userid);
   $req->execute();
 
-  $faceinternalid = $bdd->lastInsertId();
+  $resultInfo = $req->errorInfo();
 
-  return $faceinternalid;
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $bdd->lastInsertId();
+  }
+
+  return $resultInfo;
+
 }

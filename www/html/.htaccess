@@ -69,8 +69,8 @@ RewriteRule ^nendoroids/orderby/(nendoroid_name|nendoroid_version|nendoroid_sex|
 RewriteRule ^nendoroids/orderby/(nendoroid_name|nendoroid_version|nendoroid_sex|box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)_(asc|desc)/$   index.php?action=nendoroids&order=$1&direction=$2 [L]
 
 # FACES #
-#RewriteRule ^faces$                               index.php?action=faces [L]
-#RewriteRule ^faces/$                              index.php?action=faces [L]
+RewriteRule ^faces$                               index.php?action=faces [L]
+RewriteRule ^faces/$                              index.php?action=faces [L]
 #RewriteRule ^faces/orderby/(eyes_color|skin_color|sex|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                index.php?action=faces&order=$1 [L]
 #RewriteRule ^faces/orderby/(eyes_color|skin_color|sex|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$               index.php?action=faces&order=$1 [L]
 #RewriteRule ^faces/orderby/(eyes_color|skin_color|sex|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$     index.php?action=faces&order=$1&direction=$2 [L]

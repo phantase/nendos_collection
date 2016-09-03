@@ -19,11 +19,41 @@ if( isset($_GET['nendoroid_internalid']) ){
                       'db_editiondate'  =>  $nendoroid['db_editiondate'],
                       'db_editiondiff'  =>  ((new DateTime($nendoroid['now']))->diff(new DateTime($nendoroid['db_editiondate']))));
 
-    $faces = get_nendoroidFaces($nendoroid_internalid);
-    $hands = get_nendoroidHands($nendoroid_internalid);
-    $bodyparts = get_nendoroidBodyParts($nendoroid_internalid);
-    $hairs = get_nendoroidHairs($nendoroid_internalid);
-    $accessories = get_nendoroidAccessories($nendoroid_internalid);
+    $resultInfo = get_nendoroidFaces($nendoroid_internalid);
+    if($resultInfo[0]!="00000"){
+      $include_page = "error";
+      $page_title = "Error";
+    }
+    $faces = $resultInfo[4];
+  /*
+    $resultInfo = get_nendoroidHands($nendoroid_internalid);
+    if($resultInfo[0]!="00000"){
+      $include_page = "error";
+      $page_title = "Error";
+    }
+    $hands = $resultInfo[4];
+
+    $resultInfo = get_nendoroidBodyParts($nendoroid_internalid);
+    if($resultInfo[0]!="00000"){
+      $include_page = "error";
+      $page_title = "Error";
+    }
+    $bodyparts = $resultInfo[4];
+
+    $resultInfo = get_nendoroidHairs($nendoroid_internalid);
+    if($resultInfo[0]!="00000"){
+      $include_page = "error";
+      $page_title = "Error";
+    }
+    $hairs = $resultInfo[4];
+
+    $resultInfo = get_nendoroidAccessories($nendoroid_internalid);
+    if($resultInfo[0]!="00000"){
+      $include_page = "error";
+      $page_title = "Error";
+    }
+    $accessories = $resultInfo[4];
+  */
 
     $page_title = $nendoroid['nendoroid_name'];
     if( isset($nendoroid['nendoroid_version']) && strlen($nendoroid['nendoroid_version'])>0){

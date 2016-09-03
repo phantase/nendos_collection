@@ -4,10 +4,15 @@
 ?>
                       <div class="2u 3u(small)">
                       <?php if($withlinks){ ?>
-                        <a href="face/<?= $face['internalid'] ?>/">
+                        <a href="face/<?= $face['face_internalid'] ?>/">
                       <?php } ?>
-                        <span class="image fit" face="" eyes="<?= $face['eyes'] ?>" mouth="<?= $face['mouth'] ?>">
-                          <img src="images/nendos/faces/<?= $face['internalid'] ?>.jpg" alt="" />
+                        <span class="image fit"
+                              face=""
+                              eyes="<?= $face['face_eyes'] ?>"
+                              mouth="<?= $face['face_mouth'] ?>"
+                              sortingfield="<?= $sortingfield ?>"
+                              sortingvalue="<?= $face[$sortingfield] ?>">
+                          <img src="images/nendos/faces/<?= $face['face_internalid'] ?>.jpg" alt="" />
                         </span>
                       <?php if($withlinks){ ?>
                         </a>

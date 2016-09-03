@@ -45,9 +45,11 @@ $(function(){
     items: "[title], [box], [face], [hair], [hand], [bodypart], [accessory], [nendoroid]",
     content: function() {
       var element = $(this);
+      // DEFAULT (title)
       if( element.is("[title]") ){
         return element.attr("title");
       }
+      // BOX
       if( element.is("[box]") ){
         var box_number_tooltip = "";
         if( element.attr("box_number").length > 0 ){
@@ -62,27 +64,58 @@ $(function(){
           "<br/>" + element.attr("box_name") +
           sorting_tooltip;
       }
+      // FACE
       if( element.is("[face]") ){
+        var sorting_tooltip = "";
+        if( element.attr("sortingfield").length > 0 ){
+          sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
+        }
         return "<b style='color:#F57921;'>Eyes: </b>" + element.attr("eyes") +
-          "<br/><b style='color:#F57921;'>"+"Mouth: </b>" + element.attr("mouth");
+          "<br/><b style='color:#F57921;'>"+"Mouth: </b>" + element.attr("mouth") +
+          sorting_tooltip;
       }
+      // HAIR
       if( element.is("[hair]") ){
+        var sorting_tooltip = "";
+        if( element.attr("sortingfield").length > 0 ){
+          sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
+        }
         return "<b style='color:#F57921;'>" + element.attr("frontback") + "</b>" +
           "<br/><b style='color:#F57921;'>Haircut: </b>" + element.attr("haircut") +
-          "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
+          "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description") +
+          sorting_tooltip;
       }
+      // HAND
       if( element.is("[hand]") ){
+        var sorting_tooltip = "";
+        if( element.attr("sortingfield").length > 0 ){
+          sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
+        }
         return "<b style='color:#F57921;'>" + element.attr("leftright") + "</b>" +
-          "<br/><b style='color:#F57921;'>Posture: </b>" + element.attr("posture");
+          "<br/><b style='color:#F57921;'>Posture: </b>" + element.attr("posture") +
+          sorting_tooltip;
       }
+      // BODYPART
       if( element.is("[bodypart]") ){
+        var sorting_tooltip = "";
+        if( element.attr("sortingfield").length > 0 ){
+          sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
+        }
         return "<b style='color:#F57921;'>" + element.attr("bodypart") + "</b>" +
-          "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
+          "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description") +
+          sorting_tooltip;
       }
+      // ACCESSORY
       if( element.is("[accessory]") ){
+        var sorting_tooltip = "";
+        if( element.attr("sortingfield").length > 0 ){
+          sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
+        }
         return "<b style='color:#F57921;'>" + element.attr("accessory") + "</b>" +
-          "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
+          "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description") +
+          sorting_tooltip;
       }
+      // NENDOROID
       if( element.is("[nendoroid]") ){
         var box_number_tooltip = "";
         if( element.attr("box_number").length > 0 ){

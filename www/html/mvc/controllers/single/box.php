@@ -24,12 +24,41 @@ if( isset($_GET['box_internalid']) ){
     $nendoroids[$key]['nendoroid_url'] = urlize($nendoroid['nendoroid_name']);
   }
 
-  $faces = get_boxFaces($box_internalid);
-  $hands = get_boxHands($box_internalid);
-  $bodyparts = get_boxBodyParts($box_internalid);
-  $hairs = get_boxHairs($box_internalid);
-  $accessories = get_boxAccessories($box_internalid);
+  $resultInfo = get_boxFaces($box_internalid);
+  if($resultInfo[0]!="00000"){
+    $include_page = "error";
+    $page_title = "Error";
+  }
+  $faces = $resultInfo[4];
+/*
+  $resultInfo = get_boxHands($box_internalid);
+  if($resultInfo[0]!="00000"){
+    $include_page = "error";
+    $page_title = "Error";
+  }
+  $hands = $resultInfo[4];
 
+  $resultInfo = get_boxBodyParts($box_internalid);
+  if($resultInfo[0]!="00000"){
+    $include_page = "error";
+    $page_title = "Error";
+  }
+  $bodyparts = $resultInfo[4];
+
+  $resultInfo = get_boxHairs($box_internalid);
+  if($resultInfo[0]!="00000"){
+    $include_page = "error";
+    $page_title = "Error";
+  }
+  $hairs = $resultInfo[4];
+
+  $resultInfo = get_boxAccessories($box_internalid);
+  if($resultInfo[0]!="00000"){
+    $include_page = "error";
+    $page_title = "Error";
+  }
+  $accessories = $resultInfo[4];
+*/
   $page_title = "Box - ".$box['box_category'];
   if($box['box_number']){
     $page_title .= " #".$box['box_number'];
