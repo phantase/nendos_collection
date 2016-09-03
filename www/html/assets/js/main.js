@@ -394,7 +394,7 @@ $('#newBox,#noNewBox').click(function(){
           new_box_officialurl:new_box_officialurl
         },function(data){
           if(data.result == "success"){
-            window.location.replace("box/"+data.new_box_internalid+"/"+data.new_box_url+"/");
+            window.location.assign("box/"+data.new_box_internalid+"/"+data.new_box_url+"/");
           } else {
             $('#new_box_submit').prop('disabled',false);
             $('#new_box_submit').prop('value','Add Box');
@@ -429,7 +429,7 @@ $('#newBox,#noNewBox').click(function(){
             new_nendoroid_color:new_nendoroid_color
           },function(data){
             if(data.result && data.result == "success"){
-              window.location.replace("nendoroid/"+data.nendoroid_url+"_"+data.nendoroid_internalid+"/");
+              window.location.assign("nendoroid/"+data.nendoroid_url+"_"+data.nendoroid_internalid+"/");
             } else {
               $('#new_nendoroid_submit').prop('disabled',false);
               $('#new_nendoroid_submit').prop('value','Add Nendoroid');
@@ -475,7 +475,7 @@ $('#newBox,#noNewBox').click(function(){
             new_face_sex:new_face_sex
           },function(data){
             if(data.result && data.result == "success"){
-              window.location.replace("face/"+data.face_internalid+"/");
+              window.location.assign("face/"+data.face_internalid+"/");
             } else {
               $('#new_face_submit').prop('disabled',false);
               $('#new_face_submit').prop('value','Add Face');
@@ -520,7 +520,7 @@ $('#newBox,#noNewBox').click(function(){
             new_hair_description:new_hair_description
           },function(data){
             if(data.result && data.result == "success"){
-              window.location.replace("hair/"+data.hair_internalid+"/");
+              window.location.assign("hair/"+data.hair_internalid+"/");
             } else {
               $('#new_hair_submit').prop('disabled',false);
               $('#new_hair_submit').prop('value','Add Hair');
@@ -561,7 +561,7 @@ $('#newBox,#noNewBox').click(function(){
             new_hand_description:new_hand_description
           },function(data){
             if(data.result && data.result == "success"){
-              window.location.replace("hand/"+data.hand_internalid+"/");
+              window.location.assign("hand/"+data.hand_internalid+"/");
             } else {
               $('#new_hand_submit').prop('disabled',false);
               $('#new_hand_submit').prop('value','Add Hand');
@@ -604,7 +604,7 @@ $('#newBox,#noNewBox').click(function(){
             new_bodypart_description:new_bodypart_description
           },function(data){
             if(data.result && data.result == "success"){
-              window.location.replace("bodypart/"+data.bodypart_internalid+"/");
+              window.location.assign("bodypart/"+data.bodypart_internalid+"/");
             } else {
               $('#new_bodypart_submit').prop('disabled',false);
               $('#new_bodypart_submit').prop('value','Add Bodypart');
@@ -647,7 +647,7 @@ $('#newBox,#noNewBox').click(function(){
             new_accessory_description:new_accessory_description
           },function(data){
             if(data.result && data.result == "success"){
-              window.location.replace("accessory/"+data.accessory_internalid+"/");
+              window.location.assign("accessory/"+data.accessory_internalid+"/");
             } else {
               $('#new_accessory_submit').prop('disabled',false);
               $('#new_accessory_submit').prop('value','Add Accessory');
@@ -726,7 +726,7 @@ $('#newBox,#noNewBox').click(function(){
     });
 
     $('#order,#direction').change(function(){
-      window.location.replace($('#menu_area').attr('sortdest')+"/orderby/"+$('#order').val()+"_"+$('#direction').val()+"/");
+      window.location.assign($('#menu_area').attr('sortdest')+"/orderby/"+$('#order').val()+"_"+$('#direction').val()+"/");
     });
 
     $('.field_edit').click(function(){
