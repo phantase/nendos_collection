@@ -63,10 +63,10 @@ RewriteRule ^boxes/orderby/(box_number|box_name|box_series|box_manufacturer|box_
 # NENDOROIDS #
 RewriteRule ^nendoroids$                                                                                              index.php?action=nendoroids [L]
 RewriteRule ^nendoroids/$                                                                                             index.php?action=nendoroids [L]
-#RewriteRule ^nendoroids/orderby/(name|origin|version|company|box|type|creator|creation|editor|edition)$               index.php?action=nendoroids&order=$1 [L]
-#RewriteRule ^nendoroids/orderby/(name|origin|version|company|box|type|creator|creation|editor|edition)/$              index.php?action=nendoroids&order=$1 [L]
-#RewriteRule ^nendoroids/orderby/(name|origin|version|company|box|type|creator|creation|editor|edition)_(asc|desc)$    index.php?action=nendoroids&order=$1&direction=$2 [L]
-#RewriteRule ^nendoroids/orderby/(name|origin|version|company|box|type|creator|creation|editor|edition)_(asc|desc)/$   index.php?action=nendoroids&order=$1&direction=$2 [L]
+RewriteRule ^nendoroids/orderby/(nendoroid_name|nendoroid_version|nendoroid_sex|box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)$               index.php?action=nendoroids&order=$1 [L]
+RewriteRule ^nendoroids/orderby/(nendoroid_name|nendoroid_version|nendoroid_sex|box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)/$              index.php?action=nendoroids&order=$1 [L]
+RewriteRule ^nendoroids/orderby/(nendoroid_name|nendoroid_version|nendoroid_sex|box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)_(asc|desc)$    index.php?action=nendoroids&order=$1&direction=$2 [L]
+RewriteRule ^nendoroids/orderby/(nendoroid_name|nendoroid_version|nendoroid_sex|box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)_(asc|desc)/$   index.php?action=nendoroids&order=$1&direction=$2 [L]
 
 # FACES #
 #RewriteRule ^faces$                               index.php?action=faces [L]
