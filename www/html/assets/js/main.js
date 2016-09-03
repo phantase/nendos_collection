@@ -195,84 +195,8 @@
 
 				});
 
-var prev = {start: 0, stop: 0},
-    cont = $('.tiles article');
-var Paging = $(".pagination").paging(cont.length, { // make all elements navigatable
-    //format: '[ < . (qq -) ncn (- pp) > ]', // define how the navigation should look like and in which order onFormat() get's called
-    //format: '[ < (q-) ncn (-p) > ]', // define how the navigation should look like and in which order onFormat() get's called
-    format: '[ < nncnn > ]', // define how the navigation should look like and in which order onFormat() get's called
-    perpage: 3, // show 6 elements per page
-    lapping: 0, // don't overlap pages for the moment
-    page: null, // start at page, can also be "null" or negative
-    onSelect: function (page) {
+  });
 
-        var data = this.slice;
-
-				cont.slice(prev[0], prev[1]).css('display', 'none');
-				cont.slice(data[0], data[1]).fadeIn("slow");
-
-				prev = data;
-
-				return true; // locate!
-    },
-    onFormat: function (type) {
-        switch (type) {
-	        case 'block':
-						if (!this.active)
-							return '<li><a>' + this.value + '</a></li>';
-						else if (this.value != this.page)
-							return '<li><a href="#' + this.value + '">' + this.value + '</a></li>';
-						return '<li><a class="active">' + this.value + '</a></li>';
-
-					case 'next':
-						if (this.active)
-							return '<li><a href="#' + this.value + '" class="next icon fa-angle-right"></a></li>';
-						return '<li><a class="disabled icon fa-angle-right"></a></li>';
-
-					case 'prev':
-						if (this.active)
-							return '<li><a href="#' + this.value + '" class="prev icon fa-angle-left"></a></li>';
-						return '<li><a class="disabled icon fa-angle-left"></a></li>';
-
-					case 'first':
-						if (this.active)
-							return '<li><a href="#' + this.value + '" class="first icon fa-angle-double-left"></a></li>';
-						return '<li><a class="disabled icon fa-angle-double-left"></a></li>';
-
-					case 'last':
-						if (this.active)
-							return '<li><a href="#' + this.value + '" class="last icon fa-angle-double-right"></a></li>';
-						return '<li><a class="disabled icon fa-angle-double-right"></a></li>';
-
-					case "leap":
-						if (this.active)
-							return '<li><a>&nbsp;</a></li>';
-						return "";
-
-					case 'fill':
-						if (this.active)
-							return '<li><a>...</a></li>';
-						return "";
-					case 'right':
- 					case 'left':
-						if (!this.active) {
-							return '';
-						}
-						return '<li><a href="#' + this.value + '">' + this.value + '</a></li>';
-				}
-    	}
-});
-
-$(window).hashchange(function() {
-	if (window.location.hash)
-		Paging.setPage(window.location.hash.substr(1));
-	else
-		Paging.setPage(1); // we dropped the initial page selection and need to run it manually
-});
-
-$(window).hashchange();
-
-	});
 
 $('#login_button').click(function(){
 	var username = $('#username').val();

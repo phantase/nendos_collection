@@ -87,8 +87,6 @@ if( file_exists('mvc/views/pages-sections/sort/'.$include_page.'.php') ) {
 
     <!-- Scripts -->
       <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/jquery.paging.min.js"></script>
-      <script src="assets/js/jquery.ba-hashchange.min.js"></script>
       <script src="assets/js/jquery-ui.min.js"></script>
       <script src="assets/js/filedrop-min.js"></script>
       <script src="assets/js/skel.min.js"></script>
