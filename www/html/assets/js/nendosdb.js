@@ -147,27 +147,23 @@ $(function(){
     $('#new_nendoroid_submit').prop('disabled',true);
     $('#new_nendoroid_submit').prop('value','Adding...');
 
-    if($('#new_nendoroid_box_id').val()!=""){
-      var new_nendoroid_box_id    = $('#new_nendoroid_box_id').val();
-      var new_nendoroid_box_name  = $('#new_nendoroid_box_name').val();
-      var new_nendoroid_name      = $('#new_nendoroid_name').val();
-      var new_nendoroid_origin    = $('#new_nendoroid_origin').val();
-      var new_nendoroid_version   = $('#new_nendoroid_version').val();
-      var new_nendoroid_editor    = $('#new_nendoroid_editor').val();
-      var new_nendoroid_color     = $('#new_nendoroid_color').val();
+    if($('#new_nendoroid_box_internalid').val()!=""){
+      var new_nendoroid_box_internalid    = $('#new_nendoroid_box_internalid').val();
+      var new_nendoroid_name              = $('#new_nendoroid_name').val();
+      var new_nendoroid_version           = $('#new_nendoroid_version').val();
+      var new_nendoroid_sex               = $('#new_nendoroid_sex').val();
+      var new_nendoroid_color             = $('#new_nendoroid_color').val();
       $.post("services/nendoroid/add",
         {
           action:"add_nendoroid",
-          new_nendoroid_box_id:new_nendoroid_box_id,
-          new_nendoroid_box_name:new_nendoroid_box_name,
+          new_nendoroid_box_internalid:new_nendoroid_box_internalid,
           new_nendoroid_name:new_nendoroid_name,
-          new_nendoroid_origin:new_nendoroid_origin,
           new_nendoroid_version:new_nendoroid_version,
-          new_nendoroid_editor:new_nendoroid_editor,
+          new_nendoroid_sex:new_nendoroid_sex,
           new_nendoroid_color:new_nendoroid_color
         },function(data){
           if(data.result && data.result == "success"){
-            window.location.assign("nendoroid/"+data.nendoroid_url+"_"+data.nendoroid_internalid+"/");
+            window.location.assign("nendoroid/"+data.new_nendoroid_internalid+"/"+data.new_nendoroid_url+"/");
           } else {
             $('#new_nendoroid_submit').prop('disabled',false);
             $('#new_nendoroid_submit').prop('value','Add Nendoroid');

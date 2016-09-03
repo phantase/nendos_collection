@@ -122,23 +122,27 @@ function get_boxNendoroids($box_internalid)
   return $resultInfo;
 }
 /** Add a single nendoroid in the DB */
-function add_singleNendoroid($box_id,$nendoroid_name,$nendoroid_origin,$nendoroid_version,$nendoroid_company,$nendoroid_color,$userid)
+function add_singleNendoroid($box_internalid,$nendoroid_name,$nendoroid_version,$nendoroid_sex,$nendoroid_color,$userid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO nendoroids(box_id,name,origin,version,company,dominant_color,creator,creation;editor,edition)
-                        VALUES(:box_id,:nendoroid_name,:nendoroid_origin,:nendoroid_version,:nendoroid_company,:nendoroid_color,:creator,NOW(),:editor,NOW())");
-  $req->bindParam(':box_id',$box_id);
+  $req = $bdd->prepare("INSERT INTO nendoroids(boxid,name,version,sex,dominant_color,creatorid,creationdate,editorid,editiondate)
+                        VALUES(:box_internalid,:nendoroid_name,:nendoroid_version,:nendoroid_sex,:nendoroid_color,
+                        :creatorid,NOW(),:editorid,NOW())");
+  $req->bindParam(':box_internalid',$box_internalid);
   $req->bindParam(':nendoroid_name',$nendoroid_name);
-  $req->bindParam(':nendoroid_origin',$nendoroid_origin);
   $req->bindParam(':nendoroid_version',$nendoroid_version);
-  $req->bindParam(':nendoroid_company',$nendoroid_company);
+  $req->bindParam(':nendoroid_sex',$nendoroid_sex);
   $req->bindParam(':nendoroid_color',$nendoroid_color);
-  $req->bindParam(':creator',$userid);
-  $req->bindParam(':editor',$userid);
+  $req->bindParam(':creatorid',$userid);
+  $req->bindParam(':editorid',$userid);
   $req->execute();
 
-  $nendoroidinternalid = $bdd->lastInsertId();
+  $resultInfo = $req->errorInfo();
 
-  return $nendoroidinternalid;
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $bdd->lastInsertId();
+  }
+
+  return $resultInfo;
 }

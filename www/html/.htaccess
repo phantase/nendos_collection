@@ -19,13 +19,13 @@ RewriteRule ^services/loginandout$                                    services.p
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/([0-9]+)/(edit|picupload)$    services.php?action=$3&element=$1&internalid=$2 [L]
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/add$                          services.php?action=add&element=$1 [L]
 
-##########
-## EDIT ##
-##########
+#########
+## ADD ##
+#########
 RewriteRule ^addbox$                                                  index.php?action=add&element=box [L]
+RewriteRule ^box/([0-9]+)/(.*)/addnendoroid$                          index.php?action=add&element=nendoroid&box_internalid=$1 [L]
+RewriteRule ^addnendoroid$                                            index.php?action=add&element=nendoroid [L]
 
-#RewriteRule ^box/(.*)_([0-9]+)/addnendoroid$                          index.php?action=edit_nendoroid&target=add&box_id=$2 [L]
-#RewriteRule ^addnendoroid$                                            index.php?action=edit_nendoroid&target=add [L]
 #RewriteRule ^box/(.*)_([0-9]+)/nendoroid/(.*)_([0-9]+)/addface$       index.php?action=edit_face&target=add&box_id=$2&nendoroid_id=$4 [L]
 #RewriteRule ^box/(.*)_([0-9]+)/addface$                               index.php?action=edit_face&target=add&box_id=$2 [L]
 #RewriteRule ^addface$                                                 index.php?action=edit_face&target=add [L]
