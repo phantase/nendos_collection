@@ -6,7 +6,13 @@
                       <?php if($withlinks){ ?>
                         <a href="nendoroid/<?= $nendoroid['nendoroid_internalid'] ?>/<?= $nendoroid['nendoroid_url'] ?>/">
                       <?php } ?>
-                        <span class="image fit" nendoroid="" name="<?= $nendoroid['nendoroid_name'] ?>" origin="<?= $nendoroid['nendoroid_origin'] ?>">
+                        <span class="image fit"
+                              nendoroid=""
+                              nendoroid_name="<?= $nendoroid['nendoroid_name'] ?>"
+                              box_number="<?= $nendoroid['box_number'] ?>"
+                              box_category="<?= $nendoroid['box_category'] ?>"
+                              sortingfield="<?= $sortingfield ?>"
+                              sortingvalue="<?= $nendoroid[$sortingfield] ?>">
                           <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>.jpg" alt="" />
                         </span>
                       <?php if($withlinks){ ?>

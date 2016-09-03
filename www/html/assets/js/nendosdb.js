@@ -49,13 +49,13 @@ $(function(){
         return element.attr("title");
       }
       if( element.is("[box]") ){
-        var numtooltip = "";
-        if( element.attr("number").length > 0 ){
-          numtooltip = " #" + element.attr("number");
+        var box_number_tooltip = "";
+        if( element.attr("box_number").length > 0 ){
+          box_number_tooltip = " #" + element.attr("box_number");
         }
-        return "<b style='color:#F57921;'>" + element.attr("category") + "</b>" +
-          numtooltip +
-          "<br/>" + element.attr("name") +
+        return "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
+          box_number_tooltip +
+          "<br/>" + element.attr("box_name") +
           "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>" ;
       }
       if( element.is("[face]") ){
@@ -80,7 +80,14 @@ $(function(){
           "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description");
       }
       if( element.is("[nendoroid]") ){
-        return element.attr("origin") + " - " + element.attr("name");
+        var box_number_tooltip = "";
+        if( element.attr("box_number").length > 0 ){
+          box_number_tooltip = " #" + element.attr("box_number");
+        }
+        return "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
+          box_number_tooltip +
+          "<br/>" + element.attr("nendoroid_name") +
+          "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>" ;
       }
     }
   });
@@ -487,7 +494,5 @@ $(function(){
       );
     }
   });
-
-
 
 });
