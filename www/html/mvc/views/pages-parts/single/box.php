@@ -39,29 +39,29 @@
               <div class="row">
                 <div  class="12u">
                   <h4>Nendoroids</h4>
-<?php showNendoroidsListing($nendoroids,null,"simple",true,true,$box['box_url'],$box['box_internalid']); ?>
+<?php showNendoroidsListing($nendoroids,null,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
               </div>
               <div class="row">
                 <div class="6u 12u(medium)">
               <h4>Faces</h4>
-<?php showFacesListing($faces,"simple",true,true,$box['name'],$box['internalid']); ?>
+<?php showFacesListing($faces,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hairs</h4>
-<?php showHairsListing($hairs,"simple",true,true,$box['name'],$box['internalid']); ?>
+<?php showHairsListing($hairs,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Hands</h4>
-<?php showHandsListing($hands,"simple",true,true,$box['name'],$box['internalid']); ?>
+<?php showHandsListing($hands,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Body Parts</h4>
-<?php showBodyPartsListing($bodyparts,"simple",true,true,$box['name'],$box['internalid']); ?>
+<?php showBodyPartsListing($bodyparts,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
                 <div class="6u 12u(medium)">
               <h4>Accessories</h4>
-<?php showAccessoriesListing($accessories,"simple",true,true,$box['name'],$box['internalid']); ?>
+<?php showAccessoriesListing($accessories,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
               </div>
               <hr/>
