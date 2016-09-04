@@ -22,22 +22,35 @@ RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/add$    
 #########
 ## ADD ##
 #########
+
+# BOX #
 RewriteRule ^addbox$                                                  index.php?action=add&element=box [L]
+
+# NENDOROID #
 RewriteRule ^box/([0-9]+)/(.*)/addnendoroid$                          index.php?action=add&element=nendoroid&box_internalid=$1 [L]
 RewriteRule ^addnendoroid$                                            index.php?action=add&element=nendoroid [L]
 
+# FACE #
 RewriteRule ^box/([0-9]+)/(.*)/nendoroid/([0-9]+)/(.*)/addface$       index.php?action=add&element=face&box_internalid=$1&nendoroid_internalid=$3 [L]
 RewriteRule ^box/([0-9]+)/(.*)/addface$                               index.php?action=add&element=face&box_internalid=$1 [L]
 RewriteRule ^addface$                                                 index.php?action=add&element=face [L]
+
+# HAIR #
 RewriteRule ^box/([0-9]+)/(.*)/nendoroid/([0-9]+)/(.*)/addhair$       index.php?action=add&element=hair&box_internalid=$1&nendoroid_internalid=$3 [L]
 RewriteRule ^box/([0-9]+)/(.*)/addhair$                               index.php?action=add&element=hair&box_internalid=$1 [L]
 RewriteRule ^addhair$                                                 index.php?action=add&element=hair [L]
+
+# HAND #
 RewriteRule ^box/([0-9]+)/(.*)/nendoroid/([0-9]+)/(.*)/addhand$       index.php?action=add&element=hand&box_internalid=$1&nendoroid_internalid=$3 [L]
 RewriteRule ^box/([0-9]+)/(.*)/addhand$                               index.php?action=add&element=hand&box_internalid=$1 [L]
 RewriteRule ^addhand$                                                 index.php?action=add&element=hand [L]
+
+# BODYPART #
 RewriteRule ^box/([0-9]+)/(.*)/nendoroid/([0-9]+)/(.*)/addbodypart$   index.php?action=add&element=bodypart&box_internalid=$1&nendoroid_internalid=$3 [L]
 RewriteRule ^box/([0-9]+)/(.*)/addbodypart$                           index.php?action=add&element=bodypart&box_internalid=$1 [L]
 RewriteRule ^addbodypart$                                             index.php?action=add&element=bodypart [L]
+
+# ACCESSORY #
 RewriteRule ^box/([0-9]+)/(.*)/nendoroid/([0-9]+)/(.*)/addaccessory$  index.php?action=add&element=accessory&box_internalid=$1&nendoroid_internalid=$3 [L]
 RewriteRule ^box/([0-9]+)/(.*)/addaccessory$                          index.php?action=add&element=accessory&box_internalid=$1 [L]
 RewriteRule ^addaccessory$                                            index.php?action=add&element=accessory [L]
@@ -115,8 +128,8 @@ RewriteRUle ^box/([0-9]+)/(.*)/$                  index.php?action=box&box_inter
 RewriteRUle ^box/([0-9]+)/$                       index.php?action=box&box_internalid=$1 [L]
 RewriteRule ^nendoroid/([0-9]+)/(.*)/$            index.php?action=nendoroid&nendoroid_internalid=$1 [L]
 RewriteRule ^nendoroid/([0-9]+)/$                 index.php?action=nendoroid&nendoroid_internalid=$1 [L]
-#RewriteRule ^face/([0-9]+)/$                      index.php?action=face&face_internalid=$1 [L]
-#RewriteRule ^hair/([0-9]+)/$                      index.php?action=hair&hair_internalid=$1 [L]
-#RewriteRule ^hand/([0-9]+)/$                      index.php?action=hand&hand_internalid=$1 [L]
-#RewriteRule ^bodypart/([0-9]+)/$                  index.php?action=bodypart&bodypart_internalid=$1 [L]
-#RewriteRule ^accessory/([0-9]+)/$                 index.php?action=accessory&accessory_internalid=$1 [L]
+RewriteRule ^face/([0-9]+)/$                      index.php?action=face&face_internalid=$1 [L]
+RewriteRule ^hair/([0-9]+)/$                      index.php?action=hair&hair_internalid=$1 [L]
+RewriteRule ^hand/([0-9]+)/$                      index.php?action=hand&hand_internalid=$1 [L]
+RewriteRule ^bodypart/([0-9]+)/$                  index.php?action=bodypart&bodypart_internalid=$1 [L]
+RewriteRule ^accessory/([0-9]+)/$                 index.php?action=accessory&accessory_internalid=$1 [L]
