@@ -12,7 +12,7 @@ function count_allFaces()
   return $count['count'];
 }
 /** Get all the faces available in the DB */
-function get_allFaces($order="db_creation",$direction="desc")
+function get_allFaces($order="db_creationdate",$direction="desc")
 {
   $orders = array("face_eyes_color","face_skin_color","face_sex",
                   "nendoroid_name","nendoroid_version","nendoroid_sex",
@@ -226,5 +226,4 @@ function add_singleFace($box_internalid,$nendoroid_internalid,
   }
 
   return $resultInfo;
-
 }
