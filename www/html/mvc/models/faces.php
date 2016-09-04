@@ -199,7 +199,8 @@ function add_singleFace($box_internalid,$nendoroid_internalid,
 
   $req = $bdd->prepare("INSERT INTO faces(boxid,nendoroidid,
                                           eyes,eyes_color,eyes_color_hex,
-                                          mouth,skin_color,skin_color_hex,sex,
+                                          mouth,skin_color,skin_color_hex,
+                                          sex,
                                           creatorid,creationdate,editorid,editiondate)
                         VALUES(:box_internalid,:nendoroid_internalid,
                               :eyes,:eyes_color,:eyes_color_hex,

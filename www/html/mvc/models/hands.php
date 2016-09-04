@@ -12,9 +12,14 @@ function count_allHands()
   return $count['count'];
 }
 /** Get all the Hands available in the DB */
-function get_allHands($order="creation",$direction="desc")
+function get_allHands($order="db_creationdate",$direction="desc")
 {
-  $orders = array("color","leftright","box","type","nendoroid","origin","version","company","creator","creation","editor","edition");
+  $orders = array("hand_skin_color","hand_leftright",
+                  "nendoroid_name","nendoroid_version","nendoroid_sex",
+                  "box_number","box_name","box_series",
+                  "box_manufacturer","box_category","box_price",
+                  "box_releasedate","box_sculptor","box_cooperation",
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -23,117 +28,201 @@ function get_allHands($order="creation",$direction="desc")
 
   global $bdd;
 
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id,
-                        h.skin_color, h.skin_color_hex, h.skin_color AS color,
-                        h.leftright, h.posture, h.description,
-                        b.name AS box_name, b.type AS box_type,
-                        b.name AS box, b.type AS type,
-                        n.name AS nendoroid_name, n.origin AS nendoroid_origin, n.version AS nendoroid_version, n.company AS nendoroid_company,
-                        n.name AS nendoroid, n.origin AS origin, n.version AS version, n.company AS company,
-                        h.creator AS creatorid, uc.username AS creator, h.creation,
-                        h.editor AS editorid, ue.username AS editor, h.edition,
+  $req = $bdd->prepare("SELECT h.internalid AS hand_internalid,
+                        h.skin_color AS hand_skin_color, h.skin_color_hex AS hand_skin_color_hex,
+                        h.leftright AS hand_leftright, h.posture AS hand_posture,
+                        h.description AS hand_description,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
+                        h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
                         NOW() AS now
-                        FROM hands AS h, nendoroids AS n, boxes AS b,
-                        users AS uc, users AS ue
-                        WHERE h.box_id = b.internalid
-                        AND h.nendoroid_id = n.internalid
-                        AND h.creator = uc.internalid AND h.editor = ue.internalid
+                        FROM hands AS h
+                        LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON h.boxid = b.internalid
+                        LEFT JOIN users AS uc ON h.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON h.editorid = ue.internalid
                         ORDER BY $order $direction;");
   $req->execute();
-  $hands = $req->fetchAll(PDO::FETCH_ASSOC);
 
-  return $hands;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
 }
 /** Count all the Hands available for a specific Nendoroid */
-function count_nendoroidHands($nendoroid_id)
+function count_nendoroidHands($nendoroid_internalid)
 {
   global $bdd;
 
   $req = $bdd->prepare("SELECT count(*) AS count
                         FROM hands AS h
-                        WHERE h.nendoroid_id = :nendoroid_id");
-  $req->bindParam(':nendoroid_id',$nendoroid_id);
+                        WHERE h.nendoroidid = :nendoroid_internalid");
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
   $count = $req->fetch();
 
   return $count['count'];
 }
 /** Get all the Hands available for a specific Nendoroid */
-function get_nendoroidHands($nendoroid_id)
+function get_nendoroidHands($nendoroid_internalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id,
-                        h.skin_color, h.skin_color_hex,
-                        h.leftright, h.posture, h.description
-                        FROM hands AS h
-                        WHERE h.nendoroid_id = :nendoroid_id");
-  $req->bindParam(':nendoroid_id',$nendoroid_id);
-  $req->execute();
-  $hands = $req->fetchAll(PDO::FETCH_ASSOC);
-
-  return $hands;
-}
-/** Get all the Hands available for a specific Box */
-function get_boxHands($box_id)
-{
-  global $bdd;
-
-  $req = $bdd->prepare("SELECT h.internalid, h.box_id, h.nendoroid_id,
-                        h.skin_color, h.skin_color_hex,
-                        h.leftright, h.posture, h.description
-                        FROM hands AS h
-                        WHERE h.box_id = :box_id");
-  $req->bindParam(':box_id',$box_id);
-  $req->execute();
-  $hands = $req->fetchAll(PDO::FETCH_ASSOC);
-
-  return $hands;
-}
-/** Get a single hair with its internalid */
-function get_singleHand($hand_id)
-{
-  global $bdd;
-
-  $req = $bdd->prepare("SELECT h.internalid,
-                        h.box_id, b.name AS box_name, b.type AS box_type,
-                        h.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version,
-                        h.skin_color, h.skin_color_hex,
-                        h.leftright, h.description, h.posture,
-                        h.creator AS creatorid, uc.username AS creator, h.creation,
-                        h.editor AS editorid, ue.username AS editor, h.edition,
+  $req = $bdd->prepare("SELECT h.internalid AS hand_internalid,
+                        h.skin_color AS hand_skin_color, h.skin_color_hex AS hand_skin_color_hex,
+                        h.leftright AS hand_leftright, h.posture AS hand_posture,
+                        h.description AS hand_description,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
+                        h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
                         NOW() AS now
                         FROM hands AS h
-                        LEFT JOIN boxes AS b ON h.box_id = b.internalid
-                        LEFT JOIN nendoroids AS n ON h.nendoroid_id = n.internalid
-                        LEFT JOIN users AS uc ON h.creator = uc.internalid
-                        LEFT JOIN users AS ue ON h.editor = ue.internalid
-                        WHERE h.internalid = :hand_id");
-  $req->bindParam(':hand_id',$hand_id);
+                        LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON h.boxid = b.internalid
+                        LEFT JOIN users AS uc ON h.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON h.editorid = ue.internalid
+                        WHERE h.nendoroidid = :nendoroid_internalid");
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
-  $face = $req->fetch();
 
-  return $face;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
 }
-/** Add a single hair in the DB */
-function add_singleHand($box_id,$nendoroid_id,$hand_skin_color,$hand_skin_color_hex,$hand_leftright,$hand_posture,$hand_description,$userid)
+/** Get all the Hands available for a specific Box */
+function get_boxHands($box_internalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO hands(box_id,nendoroid_id,skin_color,skin_color_hex,leftright,posture,description,creator,creation,editor,edition)
-                        VALUES(:box_id,:nendoroid_id,:skin_color,:skin_color_hex,:leftright,:posture,:description,:creator,NOW(),:editor,NOW())");
-  $req->bindParam(':box_id',$box_id);
-  $req->bindParam(':nendoroid_id',$nendoroid_id);
+  $req = $bdd->prepare("SELECT h.internalid AS hand_internalid,
+                        h.skin_color AS hand_skin_color, h.skin_color_hex AS hand_skin_color_hex,
+                        h.leftright AS hand_leftright, h.posture AS hand_posture,
+                        h.description AS hand_description,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
+                        h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
+                        NOW() AS now
+                        FROM hands AS h
+                        LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON h.boxid = b.internalid
+                        LEFT JOIN users AS uc ON h.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON h.editorid = ue.internalid
+                        WHERE h.boxid = :box_internalid");
+  $req->bindParam(':box_internalid',$box_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+/** Get a single hair with its internalid */
+function get_singleHand($hand_internalid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT h.internalid AS hand_internalid,
+                        h.skin_color AS hand_skin_color, h.skin_color_hex AS hand_skin_color_hex,
+                        h.leftright AS hand_leftright, h.posture AS hand_posture,
+                        h.description AS hand_description,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
+                        h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
+                        NOW() AS now
+                        FROM hands AS h
+                        LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON h.boxid = b.internalid
+                        LEFT JOIN users AS uc ON h.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON h.editorid = ue.internalid
+                        WHERE h.internalid = :hand_internalid");
+  $req->bindParam(':hand_internalid',$hand_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+/** Add a single hair in the DB */
+function add_singleHand($box_internalid,$nendoroid_internalid,
+                        $hand_skin_color,$hand_skin_color_hex,
+                        $hand_leftright,$hand_posture,
+                        $hand_description,
+                        $userid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("INSERT INTO hands(boxid,nendoroidid,
+                                          skin_color,skin_color_hex,
+                                          leftright,posture,
+                                          description,
+                                          creatorid,creationdate,editorid,editiondate)
+                        VALUES(:box_internalid,:nendoroid_internalid,
+                              :skin_color,:skin_color_hex,
+                              :leftright,:posture,
+                              :description,
+                              :creatorid,NOW(),:editorid,NOW())");
+  $req->bindParam(':box_internalid',$box_internalid);
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->bindParam(':skin_color',$hand_skin_color);
   $req->bindParam(':skin_color_hex',$hand_skin_color_hex);
   $req->bindParam(':leftright',$hand_leftright);
   $req->bindParam(':posture',$hand_posture);
   $req->bindParam(':description',$hand_description);
-  $req->bindParam(':creator',$userid);
-  $req->bindParam(':editor',$userid);
+  $req->bindParam(':creatorid',$userid);
+  $req->bindParam(':editorid',$userid);
   $req->execute();
 
-  $handinternalid = $bdd->lastInsertId();
+  $resultInfo = $req->errorInfo();
 
-  return $handinternalid;
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $bdd->lastInsertId();
+  }
+
+  return $resultInfo;
 }

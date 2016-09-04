@@ -12,9 +12,14 @@ function count_allAccessories()
   return $count['count'];
 }
 /** Get all the accessories available in the DB */
-function get_allAccessories($order="creation",$direction="desc")
+function get_allAccessories($order="db_creationdate",$direction="desc")
 {
-  $orders = array("color","accessory","box","type","nendoroid","origin","version","company","creator","creation","editor","edition");
+  $orders = array("accessory_type","accessory_main_color","accessory_other_color",
+                  "nendoroid_name","nendoroid_version","nendoroid_sex",
+                  "box_number","box_name","box_series",
+                  "box_manufacturer","box_category","box_price",
+                  "box_releasedate","box_sculptor","box_cooperation",
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -23,116 +28,202 @@ function get_allAccessories($order="creation",$direction="desc")
 
   global $bdd;
 
-  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type AS accessory,
-                        a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description,
-                        a.main_color AS color,
-                        b.name AS box_name, b.type AS box_type,
-                        b.name AS box, b.type AS type,
-                        n.name AS nendoroid_name, n.origin AS nendoroid_origin, n.version AS nendoroid_version, n.company AS nendoroid_company,
-                        n.name AS nendoroid, n.origin AS origin, n.version AS version, n.company AS company,
-                        a.creator AS creatorid, uc.username AS creator, a.creation,
-                        a.editor AS editorid, ue.username AS editor, a.edition,
+  $req = $bdd->prepare("SELECT a.internalid AS accessory_internalid,
+                        a.main_color AS accessory_main_color, a.main_color_hex AS accessory_main_color_hex,
+                        a.other_color AS accessory_other_color, a.other_color_hex AS accessory_other_color_hex,
+                        a.type AS accessory_type, a.description AS accessory_description,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
+                        a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
                         NOW() AS now
-                        FROM accessories AS a, nendoroids AS n, boxes AS b,
-                        users AS uc, users AS ue
-                        WHERE a.box_id = b.internalid
-                        AND a.nendoroid_id = n.internalid
-                        AND a.creator = uc.internalid AND a.editor = ue.internalid
+                        FROM accessories AS a
+                        LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON a.boxid = b.internalid
+                        LEFT JOIN users AS uc ON a.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON a.editorid = ue.internalid
                         ORDER BY $order $direction;");
   $req->execute();
-  $accessories = $req->fetchAll(PDO::FETCH_ASSOC);
 
-  return $accessories;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
 }
 /** Count all the accessories available for a specific Nendoroid */
-function count_nendoroidAccessories($nendoroid_id)
+function count_nendoroidAccessories($nendoroid_internalid)
 {
   global $bdd;
 
   $req = $bdd->prepare("SELECT count(*) AS count
                         FROM accessories AS a
-                        WHERE a.nendoroid_number = :nendoroid_id");
-  $req->bindParam(':nendoroid_id',$nendoroid_id);
+                        WHERE a.nendoroidid = :nendoroid_internalid");
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
   $count = $req->fetch();
 
   return $count['count'];
 }
 /** Get all the accessories available for a specific Nendoroid */
-function get_nendoroidAccessories($nendoroid_id)
+function get_nendoroidAccessories($nendoroid_internalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type AS accessory,
-                        a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description
-                        FROM accessories AS a
-                        WHERE a.nendoroid_id = :nendoroid_id");
-  $req->bindParam(':nendoroid_id',$nendoroid_id);
-  $req->execute();
-  $accessories = $req->fetchAll(PDO::FETCH_ASSOC);
-
-  return $accessories;
-}
-/** Get all the accessories available for a specific Box */
-function get_boxAccessories($box_id)
-{
-  global $bdd;
-
-  $req = $bdd->prepare("SELECT a.internalid, a.box_id, a.nendoroid_id, a.type AS accessory,
-                        a.main_color, a.main_color_hex, a.other_color, a.other_color_hex, a.description
-                        FROM accessories AS a
-                        WHERE a.box_id = :box_id");
-  $req->bindParam(':box_id',$box_id);
-  $req->execute();
-  $accessories = $req->fetchAll(PDO::FETCH_ASSOC);
-
-  return $accessories;
-}
-/** Get a single accessory with its internalid */
-function get_singleAccessory($accessory_id)
-{
-  global $bdd;
-
-  $req = $bdd->prepare("SELECT a.internalid,
-                        a.box_id, b.name AS box_name, b.type AS box_type,
-                        a.nendoroid_id, n.name AS nendoroid_name, n.version AS nendoroid_version,
-                        a.type, a.main_color, a.main_color_hex, a.other_color, a.other_color_hex,
-                        a.description,
-                        a.creator AS creatorid, uc.username AS creator, a.creation,
-                        a.editor AS editorid, ue.username AS editor, a.edition,
+  $req = $bdd->prepare("SELECT a.internalid AS accessory_internalid,
+                        a.main_color AS accessory_main_color, a.main_color_hex AS accessory_main_color_hex,
+                        a.other_color AS accessory_other_color, a.other_color_hex AS accessory_other_color_hex,
+                        a.type AS accessory_type, a.description AS accessory_description,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
+                        a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
                         NOW() AS now
                         FROM accessories AS a
-                        LEFT JOIN boxes AS b ON a.box_id = b.internalid
-                        LEFT JOIN nendoroids AS n ON a.nendoroid_id = n.internalid
-                        LEFT JOIN users AS uc ON a.creator = uc.internalid
-                        LEFT JOIN users AS ue ON a.editor = ue.internalid
-                        WHERE a.internalid = :accessory_id");
-  $req->bindParam(':accessory_id',$accessory_id);
+                        LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON a.boxid = b.internalid
+                        LEFT JOIN users AS uc ON a.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON a.editorid = ue.internalid
+                        WHERE a.nendoroidid = :nendoroid_internalid");
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
-  $bodypart = $req->fetch();
 
-  return $bodypart;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
 }
-/** Add a single accessory in the DB */
-function add_singleAccessory($box_id,$nendoroid_id,$accessory_type,$accessory_main_color,$accessory_main_color_hex,$accessory_other_color,$accessory_other_color_hex,$accessory_description,$userid)
+/** Get all the accessories available for a specific Box */
+function get_boxAccessories($box_internalid)
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO accessories(box_id,nendoroid_id,type,main_color,main_color_hex,other_color,other_color_hex,description,creator,creation,editor,edition)
-                        VALUES(:box_id,:nendoroid_id,:type,:main_color,:main_color_hex,:other_color,:other_color_hex,:description,:creator,NOW(),:editor,NOW())");
-  $req->bindParam(':box_id',$box_id);
-  $req->bindParam(':nendoroid_id',$nendoroid_id);
+  $req = $bdd->prepare("SELECT a.internalid AS accessory_internalid,
+                        a.main_color AS accessory_main_color, a.main_color_hex AS accessory_main_color_hex,
+                        a.other_color AS accessory_other_color, a.other_color_hex AS accessory_other_color_hex,
+                        a.type AS accessory_type, a.description AS accessory_description,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
+                        a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
+                        NOW() AS now
+                        FROM accessories AS a
+                        LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON a.boxid = b.internalid
+                        LEFT JOIN users AS uc ON a.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON a.editorid = ue.internalid
+                        WHERE a.boxid = :box_internalid");
+  $req->bindParam(':box_internalid',$box_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+/** Get a single accessory with its internalid */
+function get_singleAccessory($accessory_internalid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT a.internalid AS accessory_internalid,
+                        a.main_color AS accessory_main_color, a.main_color_hex AS accessory_main_color_hex,
+                        a.other_color AS accessory_other_color, a.other_color_hex AS accessory_other_color_hex,
+                        a.type AS accessory_type, a.description AS accessory_description,
+                        n.internalid AS nendoroid_internalid,
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        n.sex AS nendoroid_sex, n.dominant_color AS nendoroid_dominant_color,
+                        b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
+                        a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
+                        NOW() AS now
+                        FROM accessories AS a
+                        LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON a.boxid = b.internalid
+                        LEFT JOIN users AS uc ON a.creatorid = uc.internalid
+                        LEFT JOIN users AS ue ON a.editorid = ue.internalid
+                        WHERE a.internalid = :accessory_internalid");
+  $req->bindParam(':accessory_internalid',$accessory_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+/** Add a single accessory in the DB */
+function add_singleAccessory($box_internalid,$nendoroid_internalid,
+                            $accessory_type,$accessory_main_color,$accessory_main_color_hex,
+                            $accessory_other_color,$accessory_other_color_hex,
+                            $accessory_description,
+                            $userid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("INSERT INTO accessories(boxid,nendoroidid,
+                                                type,main_color,main_color_hex,
+                                                other_color,other_color_hex,
+                                                description,
+                                                creatorid,creationdate,editorid,editiondate)
+                        VALUES(:box_internalid,:nendoroid_internalid,
+                              :type,:main_color,:main_color_hex,
+                              :other_color,:other_color_hex,
+                              :description,
+                              :creatorid,NOW(),:editorid,NOW())");
+  $req->bindParam(':box_internalid',$box_internalid);
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->bindParam(':type',$accessory_type);
   $req->bindParam(':main_color',$accessory_main_color);
   $req->bindParam(':main_color_hex',$accessory_main_color_hex);
   $req->bindParam(':other_color',$accessory_other_color);
   $req->bindParam(':other_color_hex',$accessory_other_color_hex);
   $req->bindParam(':description',$accessory_description);
-  $req->bindParam(':creator',$userid);
-  $req->bindParam(':editor',$userid);
+  $req->bindParam(':creatorid',$userid);
+  $req->bindParam(':editorid',$userid);
   $req->execute();
 
-  $accessoryinternalid = $bdd->lastInsertId();
+  $resultInfo = $req->errorInfo();
 
-  return $accessoryinternalid;
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $bdd->lastInsertId();
+  }
+
+  return $resultInfo;
 }
