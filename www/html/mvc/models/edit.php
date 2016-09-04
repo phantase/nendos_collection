@@ -10,12 +10,12 @@ function edit_singleElement($element,$internalid,$field,$value,$userid)
   $key = array_search($element, $allowedElement);
   $tablename = $allowedTable[$key];
   $allowedField = array(
-    "accessories" =>  array(null,""),
-    "bodyparts"   =>  array(null,""),
+    "accessories" =>  array(null,"type","main_color","other_color","description"),
+    "bodyparts"   =>  array(null,"part","main_color","other_color","description"),
     "boxes"       =>  array(null,"number","name","series","manufacturer","category","price","releasedate","specifications","sculptor","cooperation","officialurl"),
-    "faces"       =>  array(null,""),
-    "hairs"       =>  array(null,""),
-    "hands"       =>  array(null,""),
+    "faces"       =>  array(null,"eyes","eyes_color","mouth","skin_color","sex"),
+    "hairs"       =>  array(null,"haircut","frontback","main_color","other_color","description"),
+    "hands"       =>  array(null,"posture","leftright","skin_color","description"),
     "nendoroids"  =>  array(null,"name","version","sex"),
     );
   $keyfield = array_search($field,$allowedField[$tablename]);

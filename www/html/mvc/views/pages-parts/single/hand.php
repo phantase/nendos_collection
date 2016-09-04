@@ -21,11 +21,11 @@
                 </div>
                 <div class="8u 12u$(medium)">
                     <div class="table-wrapper">
-                      <table>
+                      <table id="info_table" element="hand" internalid="<?= $hand['hand_internalid'] ?>">
                         <tbody>
                           <tr>
                             <th>Box</th>
-                            <td colspan="3">
+                            <td>
                               <a href="box/<?= $hand['box_internalid'] ?>/<?= $hand['box_url'] ?>/">
                                 <?= $hand['box_category'] ?>
                                 <?php if( isset($hand['box_number']) && strlen($hand['box_number'])>0 ){ ?>
@@ -39,19 +39,15 @@
 <?php if( isset($hand['nendoroid_name']) && strlen($hand['nendoroid_name'])>0 ){ ?>
                           <tr>
                             <th>Nendoroid</th>
-                            <td colspan="3"><a href="nendoroid/<?= $hand['nendoroid_internalid'] ?>/<?= $hand['nendoroid_url'] ?>/"><?= $hand['nendoroid_name'] ?><?php if(isset($hand['nendoroid_version']) && strlen($hand['nendoroid_version'])>0){ ?> - <?= $hand['nendoroid_version'] ?><?php } ?></a></td>
+                            <td><a href="nendoroid/<?= $hand['nendoroid_internalid'] ?>/<?= $hand['nendoroid_url'] ?>/"><?= $hand['nendoroid_name'] ?><?php if(isset($hand['nendoroid_version']) && strlen($hand['nendoroid_version'])>0){ ?> - <?= $hand['nendoroid_version'] ?><?php } ?></a></td>
                           </tr>
 <?php } ?>
-                          <tr>
-                            <th>Posture</th>
-                            <td><?= $hand['hand_posture'] ?></td>
-                            <td><?= $hand['hand_leftright'] ?></td>
-                            <td><?= $hand['hand_skin_color'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Description</th>
-                            <td colspan="3"><?= $hand['hand_description'] ?></td>
-                          </tr>
+<?php
+  tableField('posture','Posture',$hand['hand_posture']);
+  tableField('leftright','Left/right',$hand['hand_leftright']);
+  tableField('skin_color','Skin color',$hand['hand_skin_color']);
+  tableField('description','Description',$hand['hand_description']);
+?>
                         </tbody>
                       </table>
                     </div>

@@ -21,11 +21,11 @@
                 </div>
                 <div class="8u 12u$(medium)">
                     <div class="table-wrapper">
-                      <table>
+                      <table id="info_table" element="face" internalid="<?= $face['face_internalid'] ?>">
                         <tbody>
                           <tr>
                             <th>Box</th>
-                            <td colspan="3">
+                            <td>
                               <a href="box/<?= $face['box_internalid'] ?>/<?= $face['box_url'] ?>/">
                                 <?= $face['box_category'] ?>
                                 <?php if( isset($face['box_number']) && strlen($face['box_number'])>0 ){ ?>
@@ -39,24 +39,16 @@
 <?php if( isset($face['nendoroid_name']) && strlen($face['nendoroid_name'])>0 ){ ?>
                           <tr>
                             <th>Nendoroid</th>
-                            <td colspan="3"><a href="nendoroid/<?= $face['nendoroid_internalid'] ?>/<?= $face['nendoroid_url'] ?>/"><?= $face['nendoroid_name'] ?><?php if(isset($face['nendoroid_version']) && strlen($face['nendoroid_version'])>0){ ?> - <?= $face['nendoroid_version'] ?><?php } ?></a></td>
+                            <td><a href="nendoroid/<?= $face['nendoroid_internalid'] ?>/<?= $face['nendoroid_url'] ?>/"><?= $face['nendoroid_name'] ?><?php if(isset($face['nendoroid_version']) && strlen($face['nendoroid_version'])>0){ ?> - <?= $face['nendoroid_version'] ?><?php } ?></a></td>
                           </tr>
 <?php } ?>
-                          <tr>
-                            <th>Eyes</th>
-                            <td colspan="2"><?= $face['face_eyes'] ?></td>
-                            <td><?= $face['face_eyes_color'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Mouth</th>
-                            <td colspan="3"><?= $face['face_mouth'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Skin</th>
-                            <td><?= $face['face_skin_color'] ?></td>
-                            <th>Sex</th>
-                            <td><?= $face['face_sex'] ?></td>
-                          </tr>
+<?php
+  tableField('eyes','Eyes',$face['face_eyes']);
+  tableField('eyes_color','Eyes color',$face['face_eyes_color']);
+  tableField('mouth','Mouth',$face['face_mouth']);
+  tableField('skin_color','Skin color',$face['face_skin_color']);
+  tableField('sex','Sex',$face['face_sex']);
+?>
                         </tbody>
                       </table>
                     </div>

@@ -21,7 +21,7 @@
                 </div>
                 <div class="8u 12u$(medium)">
                     <div class="table-wrapper">
-                      <table>
+                      <table id="info_table" element="bodypart" internalid="<?= $bodypart['bodypart_internalid'] ?>">
                         <tbody>
                           <tr>
                             <th>Box</th>
@@ -42,20 +42,12 @@
                             <td colspan="3"><a href="nendoroid/<?= $bodypart['nendoroid_internalid'] ?>/<?= $bodypart['nendoroid_url'] ?>/"><?= $bodypart['nendoroid_name'] ?><?php if(isset($bodypart['nendoroid_version']) && strlen($bodypart['nendoroid_version'])>0){ ?> - <?= $bodypart['nendoroid_version'] ?><?php } ?></a></td>
                           </tr>
 <?php } ?>
-                          <tr>
-                            <th>Part</th>
-                            <td colspan="3"><?= $bodypart['bodypart_part'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Main color</th>
-                            <td><?= $bodypart['bodypart_main_color'] ?></td>
-                            <th>Other color</th>
-                            <td><?= $bodypart['bodypart_other_color'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Description</th>
-                            <td colspan="3"><?= $bodypart['bodypart_description'] ?></td>
-                          </tr>
+<?php
+  tableField('part','Part',$bodypart['bodypart_part']);
+  tableField('main_color','Main color',$bodypart['bodypart_main_color']);
+  tableField('other_color','Other color',$bodypart['bodypart_other_color']);
+  tableField('description','Description',$bodypart['bodypart_description']);
+?>
                         </tbody>
                       </table>
                     </div>

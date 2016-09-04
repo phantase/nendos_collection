@@ -21,11 +21,11 @@
                 </div>
                 <div class="8u 12u$(medium)">
                     <div class="table-wrapper">
-                      <table>
+                      <table id="info_table" element="hair" internalid="<?= $hair['hair_internalid'] ?>">
                         <tbody>
                           <tr>
                             <th>Box</th>
-                            <td colspan="3">
+                            <td>
                               <a href="box/<?= $hair['box_internalid'] ?>/<?= $hair['box_url'] ?>/">
                                 <?= $hair['box_category'] ?>
                                 <?php if( isset($hair['box_number']) && strlen($hair['box_number'])>0 ){ ?>
@@ -39,24 +39,16 @@
 <?php if( isset($hair['nendoroid_name']) && strlen($hair['nendoroid_name'])>0 ){ ?>
                           <tr>
                             <th>Nendoroid</th>
-                            <td colspan="3"><a href="nendoroid/<?= $hair['nendoroid_internalid'] ?>/<?= $hair['nendoroid_url'] ?>/"><?= $hair['nendoroid_name'] ?><?php if(isset($hair['nendoroid_version']) && strlen($hair['nendoroid_version'])>0){ ?> - <?= $hair['nendoroid_version'] ?><?php } ?></a></td>
+                            <td><a href="nendoroid/<?= $hair['nendoroid_internalid'] ?>/<?= $hair['nendoroid_url'] ?>/"><?= $hair['nendoroid_name'] ?><?php if(isset($hair['nendoroid_version']) && strlen($hair['nendoroid_version'])>0){ ?> - <?= $hair['nendoroid_version'] ?><?php } ?></a></td>
                           </tr>
 <?php } ?>
-                          <tr>
-                            <th>Haircut</th>
-                            <td colspan="2"><?= $hair['hair_haircut'] ?></td>
-                            <td><?= $hair['hair_frontback'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Main color</th>
-                            <td><?= $hair['hair_main_color'] ?></td>
-                            <th>Other color</th>
-                            <td><?= $hair['hair_other_color'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Description</th>
-                            <td colspan="3"><?= $hair['hair_description'] ?></td>
-                          </tr>
+<?php
+  tableField('haircut','Haircut',$hair['hair_haircut']);
+  tableField('frontback','Front/Back',$hair['hair_frontback']);
+  tableField('main_color','Main color',$hair['hair_main_color']);
+  tableField('other_color','Other color',$hair['hair_other_color']);
+  tableField('description','Description',$hair['hair_description']);
+?>
                         </tbody>
                       </table>
                     </div>

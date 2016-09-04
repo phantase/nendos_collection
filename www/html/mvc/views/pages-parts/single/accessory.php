@@ -21,11 +21,11 @@
                 </div>
                 <div class="8u 12u$(medium)">
                     <div class="table-wrapper">
-                      <table>
+                      <table id="info_table" element="accessory" internalid="<?= $accessory['accessory_internalid'] ?>">
                         <tbody>
                           <tr>
                             <th>Box</th>
-                            <td colspan="3">
+                            <td>
                               <a href="box/<?= $accessory['box_internalid'] ?>/<?= $accessory['box_url'] ?>/">
                                 <?= $accessory['box_category'] ?>
                                 <?php if( isset($accessory['box_number']) && strlen($accessory['box_number'])>0 ){ ?>
@@ -39,23 +39,17 @@
 <?php if( isset($accessory['nendoroid_name']) && strlen($accessory['nendoroid_name'])>0 ){ ?>
                           <tr>
                             <th>Nendoroid</th>
-                            <td colspan="3"><a href="nendoroid/<?= $accessory['nendoroid_internalid'] ?>/<?= $accessory['nendoroid_url'] ?>/"><?= $accessory['nendoroid_name'] ?><?php if(isset($accessory['nendoroid_version']) && strlen($accessory['nendoroid_version'])>0){ ?> - <?= $accessory['nendoroid_version'] ?><?php } ?></a></td>
+                            <td>
+                              <a href="nendoroid/<?= $accessory['nendoroid_internalid'] ?>/<?= $accessory['nendoroid_url'] ?>/"><?= $accessory['nendoroid_name'] ?><?php if(isset($accessory['nendoroid_version']) && strlen($accessory['nendoroid_version'])>0){ ?> - <?= $accessory['nendoroid_version'] ?><?php } ?></a>
+                            </td>
                           </tr>
 <?php } ?>
-                          <tr>
-                            <th>Type</th>
-                            <td colspan="3"><?= $accessory['accessory_type'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Main color</th>
-                            <td><?= $accessory['accessory_main_color'] ?></td>
-                            <th>Other color</th>
-                            <td><?= $accessory['accessory_other_color'] ?></td>
-                          </tr>
-                          <tr>
-                            <th>Description</th>
-                            <td colspan="3"><?= $accessory['accessory_description'] ?></td>
-                          </tr>
+<?php
+  tableField('type','Type',$accessory['accessory_type']);
+  tableField('main_color','Main color',$accessory['accessory_main_color']);
+  tableField('other_color','Other color',$accessory['accessory_other_color']);
+  tableField('description','Description',$accessory['accessory_description']);
+?>
                         </tbody>
                       </table>
                     </div>

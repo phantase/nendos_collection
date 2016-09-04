@@ -7,7 +7,7 @@
                             <i class="icon fa-check atright field_valid" title="Save field" field="<?= $field ?>" style="display:none;"></i>
 <?php } ?>
                           </th>
-                          <td>
+                          <td colspan="<?= $colspan ?>">
 <?php if(canEdit()) { ?>
                             <input type="text" value="<?= $link ?>" field="<?= $field ?>" style="display:none;" />
 <?php } ?>
