@@ -14,7 +14,7 @@ function count_allHairs()
 /** Get all the Hairs available in the DB */
 function get_allHairs($order="db_creationdate",$direction="desc")
 {
-  $orders = array("hair_main_color","hair_other_color","hair_frontback",
+  $orders = array("hair_haircut","hair_main_color","hair_other_color","hair_frontback",
                   "nendoroid_name","nendoroid_version","nendoroid_sex",
                   "box_number","box_name","box_series",
                   "box_manufacturer","box_category","box_price",

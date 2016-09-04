@@ -17,24 +17,32 @@
                   <div class="select-wrapper">
                     <select name="order" id="order">
                       <optgroup label="Hair">
-                        <option value="color" <?= ($selected_order=="color")?"selected":""; ?>>Color</option>
-                        <option value="frontback" <?= ($selected_order=="frontback")?"selected":""; ?>>Front/Back</option>
+                        <option value="hair_haircut" <?= ($selected_order=="hair_haircut")?"selected":""; ?>>Haircut</option>
+                        <option value="hair_main_color" <?= ($selected_order=="hair_main_color")?"selected":""; ?>>Main color</option>
+                        <option value="hair_other_color" <?= ($selected_order=="hair_other_color")?"selected":""; ?>>Other color</option>
+                        <option value="hair_frontback" <?= ($selected_order=="hair_frontback")?"selected":""; ?>>Front/Back</option>
                       </optgroup>
                       <optgroup label="Nendoroid">
-                        <option value="nendoroid" <?= ($selected_order=="nendoroid")?"selected":""; ?>>Name</option>
-                        <option value="origin" <?= ($selected_order=="origin")?"selected":""; ?>>Origin</option>
-                        <option value="version" <?= ($selected_order=="version")?"selected":""; ?>>Version</option>
-                        <option value="company" <?= ($selected_order=="company")?"selected":""; ?>>Company</option>
+                        <option value="nendoroid_name" <?= ($selected_order=="nendoroid_name")?"selected":""; ?>>Name</option>
+                        <option value="nendoroid_version" <?= ($selected_order=="nendoroid_version")?"selected":""; ?>>Version</option>
+                        <option value="nendoroid_sex" <?= ($selected_order=="nendoroid_sex")?"selected":""; ?>>Sex</option>
                       </optgroup>
                       <optgroup label="Box">
-                        <option value="box" <?= ($selected_order=="box")?"selected":""; ?>>Name</option>
-                        <option value="type" <?= ($selected_order=="type")?"selected":""; ?>>Type</option>
+                        <option value="box_number" <?= ($selected_order=="box_number")?"selected":""; ?>>Number</option>
+                        <option value="box_name" <?= ($selected_order=="box_name")?"selected":""; ?>>Name</option>
+                        <option value="box_series" <?= ($selected_order=="box_series")?"selected":""; ?>>Series</option>
+                        <option value="box_manufacturer" <?= ($selected_order=="box_manufacturer")?"selected":""; ?>>Manufacturer</option>
+                        <option value="box_category" <?= ($selected_order=="box_category")?"selected":""; ?>>Category</option>
+                        <option value="box_price" <?= ($selected_order=="box_price")?"selected":""; ?>>Price</option>
+                        <option value="box_releasedate" <?= ($selected_order=="box_releasedate")?"selected":""; ?>>Release date</option>
+                        <option value="box_sculptor" <?= ($selected_order=="box_sculptor")?"selected":""; ?>>Sculptor</option>
+                        <option value="box_cooperation" <?= ($selected_order=="box_cooperation")?"selected":""; ?>>Cooperation</option>
                       </optgroup>
                       <optgroup label="DB">
-                        <option value="creator" <?= ($selected_order=="creator")?"selected":""; ?>>Creator</option>
-                        <option value="creation" <?= ($selected_order=="creation")?"selected":""; ?>>Creation date</option>
-                        <option value="editor" <?= ($selected_order=="editor")?"selected":""; ?>>Last editor</option>
-                        <option value="edition" <?= ($selected_order=="edition")?"selected":""; ?>>Last edition date</option>
+                        <option value="db_creatorname" <?= ($selected_order=="db_creatorname")?"selected":""; ?>>Creator</option>
+                        <option value="db_creationdate" <?= ($selected_order=="db_creationdate")?"selected":""; ?>>Creation date</option>
+                        <option value="db_editorname" <?= ($selected_order=="db_editorname")?"selected":""; ?>>Last editor</option>
+                        <option value="db_editiondate" <?= ($selected_order=="db_editiondate")?"selected":""; ?>>Last edition date</option>
                       </optgroup>
                     </select>
                   </div>

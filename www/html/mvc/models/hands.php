@@ -14,7 +14,7 @@ function count_allHands()
 /** Get all the Hands available in the DB */
 function get_allHands($order="db_creationdate",$direction="desc")
 {
-  $orders = array("hand_skin_color","hand_leftright",
+  $orders = array("hand_posture","hand_skin_color","hand_leftright",
                   "nendoroid_name","nendoroid_version","nendoroid_sex",
                   "box_number","box_name","box_series",
                   "box_manufacturer","box_category","box_price",
