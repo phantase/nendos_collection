@@ -3,13 +3,19 @@
             <div class="inner">
               <div class="row">
                 <div  class="4u 12u(medium)">
-                  <span class="image fit" id="span_accessory<?= $accessory['internalid'] ?>">
-                    <img src="images/nendos/accessories/<?= $accessory['internalid'] ?>.jpg" alt="" />
+                  <span class="image fit" id="span_accessory<?= $accessory['accessory_internalid'] ?>">
+                    <img src="images/nendos/accessories/<?= $accessory['accessory_internalid'] ?>.jpg" alt="" />
                     <?php if(isset($_SESSION['userid'])){ ?>
-                      <i class="icon style2 fa-edit included editpic" id="editpic_accessory<?= $accessory['internalid'] ?>" title="Add/Change the picture" part="accessory" internalid="<?= $accessory['internalid'] ?>"></i>
+                      <i class="icon style2 fa-edit included editpic"
+                        id="editpic_accessory<?= $accessory['accessory_internalid'] ?>"
+                        title="Add/Change the picture"
+                        part="accessory"
+                        internalid="<?= $accessory['accessory_internalid'] ?>"></i>
                     <?php } ?>
                   </span>
-                  <fieldset class="dropzone image fit" id="drop_accessory<?= $accessory['internalid'] ?>" style="display:none;">
+                  <fieldset class="dropzone image fit"
+                            id="drop_accessory<?= $accessory['accessory_internalid'] ?>"
+                            style="display:none;">
                     <p>Drop a file here, <br/>or click to browse your computer...</p>
                   </fieldset>
                 </div>
@@ -19,27 +25,36 @@
                         <tbody>
                           <tr>
                             <th>Box</th>
-                            <td colspan="3"><a href="box/<?= $accessory['box_name'] ?>_<?= $accessory['box_id'] ?>/"><?= $accessory['box_type'] ?> #<?= $accessory['box_name'] ?></a></td>
+                            <td colspan="3">
+                              <a href="box/<?= $accessory['box_internalid'] ?>/<?= $accessory['box_url'] ?>/">
+                                <?= $accessory['box_category'] ?>
+                                <?php if( isset($accessory['box_number']) && strlen($accessory['box_number'])>0 ){ ?>
+                                  #<?= $accessory['box_number'] ?>
+                                <?php } ?>
+                                <br/>
+                                <?= $accessory['box_name'] ?>
+                              </a>
+                            </td>
                           </tr>
-<?php if($accessory['nendoroid_id']){ ?>
+<?php if( isset($accessory['nendoroid_name']) && strlen($accessory['nendoroid_name'])>0 ){ ?>
                           <tr>
                             <th>Nendoroid</th>
-                            <td colspan="3"><a href="nendoroid/<?= $accessory['nendoroid_url'] ?>_<?= $accessory['nendoroid_id'] ?>/"><?= $accessory['nendoroid_name'] ?><?php if(isset($accessory['nendoroid_version']) && strlen($accessory['nendoroid_version'])>0){ ?> - <?= $accessory['nendoroid_version'] ?><?php } ?></a></td>
+                            <td colspan="3"><a href="nendoroid/<?= $accessory['nendoroid_internalid'] ?>/<?= $accessory['nendoroid_url'] ?>/"><?= $accessory['nendoroid_name'] ?><?php if(isset($accessory['nendoroid_version']) && strlen($accessory['nendoroid_version'])>0){ ?> - <?= $accessory['nendoroid_version'] ?><?php } ?></a></td>
                           </tr>
 <?php } ?>
                           <tr>
                             <th>Type</th>
-                            <td colspan="3"><?= $accessory['type'] ?></td>
+                            <td colspan="3"><?= $accessory['accessory_type'] ?></td>
                           </tr>
                           <tr>
                             <th>Main color</th>
-                            <td><?= $accessory['main_color'] ?></td>
+                            <td><?= $accessory['accessory_main_color'] ?></td>
                             <th>Other color</th>
-                            <td><?= $accessory['other_color'] ?></td>
+                            <td><?= $accessory['accessory_other_color'] ?></td>
                           </tr>
                           <tr>
                             <th>Description</th>
-                            <td colspan="3"><?= $accessory['description'] ?></td>
+                            <td colspan="3"><?= $accessory['accessory_description'] ?></td>
                           </tr>
                         </tbody>
                       </table>
