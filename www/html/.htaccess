@@ -85,24 +85,24 @@ RewriteRule ^hairs/$                              index.php?action=hairs [L]
 #RewriteRule ^hairs/orderby/(color|frontback|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=hairs&order=$1&direction=$2 [L]
 
 # HANDS #
-#RewriteRule ^hands$                               index.php?action=hands [L]
-#RewriteRule ^hands/$                              index.php?action=hands [L]
+RewriteRule ^hands$                               index.php?action=hands [L]
+RewriteRule ^hands/$                              index.php?action=hands [L]
 #RewriteRule ^hands/orderby/(color|leftright|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                          index.php?action=hands&order=$1 [L]
 #RewriteRule ^hands/orderby/(color|leftright|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$                         index.php?action=hands&order=$1 [L]
 #RewriteRule ^hands/orderby/(color|leftright|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$               index.php?action=hands&order=$1&direction=$2 [L]
 #RewriteRule ^hands/orderby/(color|leftright|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=hands&order=$1&direction=$2 [L]
 
 # BODYPARTS #
-#RewriteRule ^bodyparts$                           index.php?action=bodyparts [L]
-#RewriteRule ^bodyparts/$                          index.php?action=bodyparts [L]
+RewriteRule ^bodyparts$                           index.php?action=bodyparts [L]
+RewriteRule ^bodyparts/$                          index.php?action=bodyparts [L]
 #RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                          index.php?action=bodyparts&order=$1 [L]
 #RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$                         index.php?action=bodyparts&order=$1 [L]
 #RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$               index.php?action=bodyparts&order=$1&direction=$2 [L]
 #RewriteRule ^bodyparts/orderby/(color|part|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)/$              index.php?action=bodyparts&order=$1&direction=$2 [L]
 
 # ACCESSORIES #
-#RewriteRule ^accessories$                         index.php?action=accessories [L]
-#RewriteRule ^accessories/$                        index.php?action=accessories [L]
+RewriteRule ^accessories$                         index.php?action=accessories [L]
+RewriteRule ^accessories/$                        index.php?action=accessories [L]
 #RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)$                          index.php?action=accessories&order=$1 [L]
 #RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)/$                         index.php?action=accessories&order=$1 [L]
 #RewriteRule ^accessories/orderby/(color|accessory|box|type|nendoroid|origin|version|company|creator|creation|editor|edition)_(asc|desc)$               index.php?action=accessories&order=$1&direction=$2 [L]
