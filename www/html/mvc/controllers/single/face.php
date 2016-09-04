@@ -1,26 +1,39 @@
 <?php
 
-if( isset($_GET['faceinternalid']) ){
-  $faceinternalid = $_GET['faceinternalid'];
+if( isset($_GET['face_internalid']) ){
+  $face_internalid = $_GET['face_internalid'];
 
-  include_once('mvc/models/faces.php');
-  $face = get_singleFace($faceinternalid);
-  if($face['nendoroid_id']){
-    $face['nendoroid_url'] = urlize($face['nendoroid_name']);
+  $resultInfo = get_singleFace($face_internalid);
+
+  if($resultInfo[0]=="00000"){
+
+    $face = $resultInfo[4];
+
+    $face['box_url'] = urlize($face['box_name']);
+
+    if( isset($face['nendoroid_name']) && strlen($face['nendoroid_name'])>0 ){
+      $face['nendoroid_url'] = urlize($face['nendoroid_name']);
+    }
+
+    $metadata = array('db_creatorid'    =>  $face['db_creatorid'],
+                      'db_creatorname'  =>  $face['db_creatorname'],
+                      'db_creationdate' =>  $face['db_creationdate'],
+                      'db_creationdiff' =>  ((new DateTime($face['now']))->diff(new DateTime($face['db_creationdate']))),
+                      'db_editorid'     =>  $face['db_editorid'],
+                      'db_editorname'   =>  $face['db_editorname'],
+                      'db_editiondate'  =>  $face['db_editiondate'],
+                      'db_editiondiff'  =>  ((new DateTime($face['now']))->diff(new DateTime($face['db_editiondate']))));
+
+    $page_title = "face";
+
+  } else {
+    $include_page = "error";
+    $page_title = "Error";
   }
-  $metadata = array('creator'=>$face['creator'],
-                    'creator_name'=>$face['creator_name'],
-                    'creation'=>$face['creation'],
-                    'creation_diff'=>((new DateTime($face['now']))->diff(new DateTime($face['creation']))),
-                    'editor'=>$face['editor'],
-                    'editor_name'=>$face['editor_name'],
-                    'edition'=>$face['edition'],
-                    'edition_diff'=>((new DateTime($face['now']))->diff(new DateTime($face['edition']))));
-
-  $page_title = "Face";
-
-  include_once('mvc/views/pages/skeleton.php');
 
 } else {
-
+  $include_page = "error";
+  $page_title = "Error";
 }
+
+include_once('mvc/views/pages/skeleton.php');
