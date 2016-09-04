@@ -30,7 +30,7 @@ if( isset($_GET['box_internalid']) ){
     $page_title = "Error";
   }
   $faces = $resultInfo[4];
-/*
+
   $resultInfo = get_boxHands($box_internalid);
   if($resultInfo[0]!="00000"){
     $include_page = "error";
@@ -58,7 +58,7 @@ if( isset($_GET['box_internalid']) ){
     $page_title = "Error";
   }
   $accessories = $resultInfo[4];
-*/
+
   $page_title = "Box - ".$box['box_category'];
   if($box['box_number']){
     $page_title .= " #".$box['box_number'];

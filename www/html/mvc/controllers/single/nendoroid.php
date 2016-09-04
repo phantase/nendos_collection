@@ -25,7 +25,7 @@ if( isset($_GET['nendoroid_internalid']) ){
       $page_title = "Error";
     }
     $faces = $resultInfo[4];
-  /*
+
     $resultInfo = get_nendoroidHands($nendoroid_internalid);
     if($resultInfo[0]!="00000"){
       $include_page = "error";
@@ -53,7 +53,6 @@ if( isset($_GET['nendoroid_internalid']) ){
       $page_title = "Error";
     }
     $accessories = $resultInfo[4];
-  */
 
     $page_title = $nendoroid['nendoroid_name'];
     if( isset($nendoroid['nendoroid_version']) && strlen($nendoroid['nendoroid_version'])>0){
