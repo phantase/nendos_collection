@@ -183,7 +183,7 @@ function get_singleBodypart($bodypart_internalid)
   $resultInfo = $req->errorInfo();
 
   if( $resultInfo[0]=="00000" ){
-    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+    $resultInfo[4] = $req->fetch();
   }
 
   return $resultInfo;

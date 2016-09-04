@@ -1,26 +1,39 @@
 <?php
 
-if( isset($_GET['bodypartinternalid']) ){
-  $bodypartinternalid = $_GET['bodypartinternalid'];
+if( isset($_GET['bodypart_internalid']) ){
+  $bodypart_internalid = $_GET['bodypart_internalid'];
 
-  include_once('mvc/models/bodyparts.php');
-  $bodypart = get_singleBodypart($bodypartinternalid);
-  if($bodypart['nendoroid_id']){
-    $bodypart['nendoroid_url'] = urlize($bodypart['nendoroid_name']);
+  $resultInfo = get_singleBodypart($bodypart_internalid);
+
+  if($resultInfo[0]=="00000"){
+
+    $bodypart = $resultInfo[4];
+
+    $bodypart['box_url'] = urlize($bodypart['box_name']);
+
+    if( isset($bodypart['nendoroid_name']) && strlen($bodypart['nendoroid_name'])>0 ){
+      $bodypart['nendoroid_url'] = urlize($bodypart['nendoroid_name']);
+    }
+
+    $metadata = array('db_creatorid'    =>  $bodypart['db_creatorid'],
+                      'db_creatorname'  =>  $bodypart['db_creatorname'],
+                      'db_creationdate' =>  $bodypart['db_creationdate'],
+                      'db_creationdiff' =>  ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['db_creationdate']))),
+                      'db_editorid'     =>  $bodypart['db_editorid'],
+                      'db_editorname'   =>  $bodypart['db_editorname'],
+                      'db_editiondate'  =>  $bodypart['db_editiondate'],
+                      'db_editiondiff'  =>  ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['db_editiondate']))));
+
+    $page_title = "bodypart";
+
+  } else {
+    $include_page = "error";
+    $page_title = "Error";
   }
-  $metadata = array('creator'=>$bodypart['creator'],
-                    'creator_name'=>$bodypart['creator_name'],
-                    'creation'=>$bodypart['creation'],
-                    'creation_diff'=>((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['creation']))),
-                    'editor'=>$bodypart['editor'],
-                    'editor_name'=>$bodypart['editor_name'],
-                    'edition'=>$bodypart['edition'],
-                    'edition_diff'=>((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['edition']))));
-
-  $page_title = "Bodypart";
-
-  include_once('mvc/views/pages/skeleton.php');
 
 } else {
-
+  $include_page = "error";
+  $page_title = "Error";
 }
+
+include_once('mvc/views/pages/skeleton.php');
