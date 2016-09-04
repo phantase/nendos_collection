@@ -24,7 +24,7 @@ if( isset($_GET['hand_internalid']) ){
                       'db_editiondate'  =>  $hand['db_editiondate'],
                       'db_editiondiff'  =>  ((new DateTime($hand['now']))->diff(new DateTime($hand['db_editiondate']))));
 
-    $page_title = "hand";
+    $page_title = "Hand";
 
   } else {
     $include_page = "error";

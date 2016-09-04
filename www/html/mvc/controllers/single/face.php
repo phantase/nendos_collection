@@ -24,7 +24,7 @@ if( isset($_GET['face_internalid']) ){
                       'db_editiondate'  =>  $face['db_editiondate'],
                       'db_editiondiff'  =>  ((new DateTime($face['now']))->diff(new DateTime($face['db_editiondate']))));
 
-    $page_title = "face";
+    $page_title = "Face";
 
   } else {
     $include_page = "error";

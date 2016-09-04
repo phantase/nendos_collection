@@ -24,7 +24,7 @@ if( isset($_GET['hair_internalid']) ){
                       'db_editiondate'  =>  $hair['db_editiondate'],
                       'db_editiondiff'  =>  ((new DateTime($hair['now']))->diff(new DateTime($hair['db_editiondate']))));
 
-    $page_title = "hair";
+    $page_title = "Hair";
 
   } else {
     $include_page = "error";

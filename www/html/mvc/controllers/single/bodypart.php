@@ -24,7 +24,7 @@ if( isset($_GET['bodypart_internalid']) ){
                       'db_editiondate'  =>  $bodypart['db_editiondate'],
                       'db_editiondiff'  =>  ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['db_editiondate']))));
 
-    $page_title = "bodypart";
+    $page_title = "Bodypart";
 
   } else {
     $include_page = "error";
