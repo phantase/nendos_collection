@@ -4,10 +4,15 @@
 ?>
                       <div class="2u 3u(small)">
                       <?php if($withlinks){ ?>
-                        <a href="bodypart/<?= $bodypart['internalid'] ?>/">
+                        <a href="bodypart/<?= $bodypart['bodypart_internalid'] ?>/">
                       <?php } ?>
-                        <span class="image fit" bodypart="<?= $bodypart['part'] ?>" description="<?= $bodypart['description'] ?>" >
-                          <img src="images/nendos/bodyparts/<?= $bodypart['internalid'] ?>.jpg" alt="" />
+                        <span class="image fit"
+                              bodypart=""
+                              part="<?= $bodypart['bodypart_part'] ?>"
+                              description="<?= $bodypart['bodypart_description'] ?>"
+                              sortingfield="<?= $sortingfield ?>"
+                              sortingvalue="<?= $bodypart[$sortingfield] ?>">
+                          <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>.jpg" alt="" />
                         </span>
                       <?php if($withlinks){ ?>
                         </a>

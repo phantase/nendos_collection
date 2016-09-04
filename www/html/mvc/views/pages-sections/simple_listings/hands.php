@@ -4,10 +4,15 @@
 ?>
                       <div class="2u 3u(small)">
                       <?php if($withlinks){ ?>
-                        <a href="hand/<?= $hand['internalid'] ?>/">
+                        <a href="hand/<?= $hand['hand_internalid'] ?>/">
                       <?php } ?>
-                        <span class="image fit" hand="" leftright="<?= $hand['leftright'] ?>" posture="<?= $hand['posture'] ?>" >
-                          <img src="images/nendos/hands/<?= $hand['internalid'] ?>.jpg" alt="" />
+                        <span class="image fit"
+                              hand=""
+                              leftright="<?= $hand['hand_leftright'] ?>"
+                              posture="<?= $hand['hand_posture'] ?>"
+                              sortingfield="<?= $sortingfield ?>"
+                              sortingvalue="<?= $hand[$sortingfield] ?>">
+                          <img src="images/nendos/hands/<?= $hand['hand_internalid'] ?>.jpg" alt="" />
                         </span>
                       <?php if($withlinks){ ?>
                         </a>

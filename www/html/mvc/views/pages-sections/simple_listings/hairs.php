@@ -4,10 +4,16 @@
 ?>
                       <div class="2u 3u(small)">
                       <?php if($withlinks){ ?>
-                        <a href="hair/<?= $hair['internalid'] ?>/">
+                        <a href="hair/<?= $hair['hair_internalid'] ?>/">
                       <?php } ?>
-                        <span class="image fit" hair="" frontback="<?= $hair['frontback'] ?>" haircut="<?= $hair['haircut'] ?>" description="<?= $hair['description'] ?>">
-                          <img src="images/nendos/hairs/<?= $hair['internalid'] ?>.jpg" alt="" />
+                        <span class="image fit"
+                              hair=""
+                              frontback="<?= $hair['hair_frontback'] ?>"
+                              haircut="<?= $hair['hair_haircut'] ?>"
+                              description="<?= $hair['hair_description'] ?>"
+                              sortingfield="<?= $sortingfield ?>"
+                              sortingvalue="<?= $hair[$sortingfield] ?>">
+                          <img src="images/nendos/hairs/<?= $hair['hair_internalid'] ?>.jpg" alt="" />
                         </span>
                       <?php if($withlinks){ ?>
                         </a>

@@ -101,7 +101,7 @@ $(function(){
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
-        return "<b style='color:#F57921;'>" + element.attr("bodypart") + "</b>" +
+        return "<b style='color:#F57921;'>" + element.attr("part") + "</b>" +
           "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description") +
           sorting_tooltip;
       }
@@ -111,7 +111,7 @@ $(function(){
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
-        return "<b style='color:#F57921;'>" + element.attr("accessory") + "</b>" +
+        return "<b style='color:#F57921;'>" + element.attr("type") + "</b>" +
           "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description") +
           sorting_tooltip;
       }

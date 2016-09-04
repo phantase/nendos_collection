@@ -4,10 +4,15 @@
 ?>
                       <div class="2u 3u(small)">
                       <?php if($withlinks){ ?>
-                        <a href="accessory/<?= $accessory['internalid'] ?>/">
+                        <a href="accessory/<?= $accessory['accessory_internalid'] ?>/">
                       <?php } ?>
-                        <span class="image fit" accessory="<?= $accessory['accessory'] ?>" description="<?= $accessory['description'] ?>" >
-                          <img src="images/nendos/accessories/<?= $accessory['internalid'] ?>.jpg" alt="" />
+                        <span class="image fit"
+                              accessory=""
+                              type="<?= $accessory['accessory_type'] ?>"
+                              description="<?= $accessory['accessory_description'] ?>"
+                              sortingfield="<?= $sortingfield ?>"
+                              sortingvalue="<?= $accessory[$sortingfield] ?>">
+                          <img src="images/nendos/accessories/<?= $accessory['accessory_internalid'] ?>.jpg" alt="" />
                         </span>
                       <?php if($withlinks){ ?>
                         </a>
