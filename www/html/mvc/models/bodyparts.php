@@ -5,7 +5,7 @@ function count_allBodyParts()
   global $bdd;
 
   $req = $bdd->prepare("SELECT count(*) AS count
-                        FROM body_parts AS bp");
+                        FROM bodyparts AS bp");
   $req->execute();
   $count = $req->fetch();
 
@@ -197,7 +197,7 @@ function add_singleBodypart($box_internalid,$nendoroid_internalid,
 {
   global $bdd;
 
-  $req = $bdd->prepare("INSERT INTO body_parts(boxid,nendoroidid,
+  $req = $bdd->prepare("INSERT INTO bodyparts(boxid,nendoroidid,
                                               main_color,main_color_hex,
                                               other_color,other_color_hex,
                                               part,description,
