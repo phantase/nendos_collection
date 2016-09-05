@@ -206,7 +206,7 @@ function add_singleFace($box_internalid,$nendoroid_internalid,
                               :eyes,:eyes_color,
                               :mouth,:skin_color,
                               :sex,
-                              :creatorid,NOW(),:editorid,NOW()");
+                              :creatorid,NOW(),:editorid,NOW())");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->bindParam(':eyes',$face_eyes);

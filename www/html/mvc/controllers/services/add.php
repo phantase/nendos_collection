@@ -5,6 +5,7 @@ if( isset($_GET['element']) && strlen($_GET['element'])>0 ){
   switch($element){
     case "box":
     case "nendoroid":
+    case "face":
       include_once('mvc/controllers/services/add/'.$element.'.php');
       break;
     default:

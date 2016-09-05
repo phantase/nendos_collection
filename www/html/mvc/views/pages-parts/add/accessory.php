@@ -4,7 +4,7 @@
               <div class="row uniform">
                   <div class="4u 12u$(medium)">
                     <div class="select-wrapper">
-                      <select name="new_accessory_box_id" id="new_accessory_box_id" class="select_box_id">
+                      <select name="new_accessory_box_internalid" id="new_accessory_box_internalid" class="select_box_internalid">
 <?php
   if(count($boxes)>1){
 ?>
@@ -15,7 +15,11 @@
 <?php
   foreach ($boxes as $box) {
 ?>
-                        <option value="<?= $box['internalid'] ?>" class="box"><?= $box['type'] ?> #<?= $box['name']; ?></option>
+                        <option value="<?= $box['box_internalid'] ?>" class="box">
+                          <?= $box['box_category'] ?>
+                          <?php if(isset($box['box_number']) && strlen($box['box_number'])>0){ ?> #<?= $box['box_number']; ?><?php } ?>
+                           - <?= $box['box_name'] ?>
+                        </option>
 <?php
   }
 ?>
@@ -24,9 +28,9 @@
                   </div>
                   <div class="4u$ 12u$(medium)">
                     <div class="select-wrapper">
-                      <select name="new_accessory_nendoroid_id" id="new_accessory_nendoroid_id" class="select_nendoroid_id">
+                      <select name="new_accessory_nendoroid_internalid" id="new_accessory_nendoroid_internalid" class="select_nendoroid_internalid">
 <?php
-  if( ! isset($_GET['nendoroid_id']) ){
+  if( ! isset($_GET['nendoroid_internalid']) ){
 ?>
                         <option value="0" class="nendoroid">- Nendoroid -</option>
 <?php
@@ -35,7 +39,10 @@
 <?php
   foreach ($nendoroids as $nendoroid) {
 ?>
-                        <option value="<?= $nendoroid['internalid'] ?>" box="<?= $nendoroid['box_id'] ?>" class="nendoroid"><?= $nendoroid['name'] ?><?php if(strlen($nendoroid['version'])>0){ ?> - <?= $nendoroid['version']; ?><?php } ?></option>
+                        <option value="<?= $nendoroid['nendoroid_internalid'] ?>" box="<?= $nendoroid['box_internalid'] ?>" class="nendoroid">
+                          <?= $nendoroid['nendoroid_name'] ?>
+                          <?php if(strlen($nendoroid['nendoroid_version'])>0){ ?> - <?= $nendoroid['nendoroid_version']; ?><?php } ?>
+                        </option>
 <?php
   }
 ?>

@@ -5,6 +5,11 @@ if( isset($_GET['element']) && strlen($_GET['element'])>0 ){
   switch($element){
     case "box":
     case "nendoroid":
+    case "face":
+    case "hair":
+    case "hand":
+    case "bodypart":
+    case "accessory":
       $include_page = "add/".$element;
       $page_title = "Add a ".$element;
       include_once('mvc/controllers/add/'.$element.'.php');

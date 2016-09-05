@@ -44,3 +44,11 @@ function canEdit(){
     return false;
   }
 }
+
+function getPOSTorNULL($index){
+  if( isset($_POST[$index]) && strlen($_POST[$index]) > 0 ) {
+    return $_POST[$index];
+  } else {
+    return null;
+  }
+}

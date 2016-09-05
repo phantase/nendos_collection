@@ -218,31 +218,27 @@ $(function(){
     $('#new_face_submit').prop('disabled',true);
     $('#new_face_submit').prop('value','Adding...');
 
-    if($('#new_face_box_id').val()!="0"){
-      var new_face_box_id = $('#new_face_box_id').val();
-      var new_face_nendoroid_id = $('#new_face_nendoroid_id').val();
+    if($('#new_face_box_internalid').val()!="0"){
+      var new_face_box_internalid = $('#new_face_box_internalid').val();
+      var new_face_nendoroid_internalid = $('#new_face_nendoroid_internalid').val();
       var new_face_eyes = $('#new_face_eyes').val();
       var new_face_eyes_color = $('#new_face_eyes_color').val();
-      var new_face_eyes_color_hex = $('#new_face_eyes_color_hex').val();
       var new_face_mouth = $('#new_face_mouth').val();
       var new_face_skin_color = $('#new_face_skin_color').val();
-      var new_face_skin_color_hex = $('#new_face_skin_color_hex').val();
       var new_face_sex = $('#new_face_sex').val();
       $.post("services/face/add",
         {
           action:"add_face",
-          new_face_box_id:new_face_box_id,
-          new_face_nendoroid_id:new_face_nendoroid_id,
+          new_face_box_internalid:new_face_box_internalid,
+          new_face_nendoroid_internalid:new_face_nendoroid_internalid,
           new_face_eyes:new_face_eyes,
           new_face_eyes_color:new_face_eyes_color,
-          new_face_eyes_color_hex:new_face_eyes_color_hex,
           new_face_mouth:new_face_mouth,
           new_face_skin_color:new_face_skin_color,
-          new_face_skin_color_hex:new_face_skin_color_hex,
           new_face_sex:new_face_sex
         },function(data){
           if(data.result && data.result == "success"){
-            window.location.assign("face/"+data.face_internalid+"/");
+            window.location.assign("face/"+data.new_face_internalid+"/");
           } else {
             $('#new_face_submit').prop('disabled',false);
             $('#new_face_submit').prop('value','Add Face');
@@ -464,7 +460,7 @@ $(function(){
     $(this).children().css('padding-top',($(this).height()-$(this).children().height())/2);
   });
 // New part form: react to change of Box
-  $('.select_box_id').change(function(){
+  $('.select_box_internalid').change(function(){
     $('option.nendoroid').show();
     if($(this).val()!="0"){
       $('option.nendoroid[box!='+$(this).val()+']').hide();
@@ -472,7 +468,7 @@ $(function(){
     }
   });
 // New part form: react to change of Nendoroid
-  $('.select_nendoroid_id').change(function(){
+  $('.select_nendoroid_internalid').change(function(){
     $('option.box').show();
     if($(this).val()!="0"){
       var correspbox = $('option.nendoroid[value='+$(this).val()+']').attr('box');

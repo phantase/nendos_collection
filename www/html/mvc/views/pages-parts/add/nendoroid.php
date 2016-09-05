@@ -15,7 +15,11 @@
 <?php
   foreach ($boxes as $box) {
 ?>
-                        <option value="<?= $box['box_internalid'] ?>"><?= $box['box_category'] ?><?php if(isset($box['box_number']) && strlen($box['box_number'])>0){ ?> #<?= $box['box_number']; ?><?php } ?> - <?= $box['box_name'] ?></option>
+                        <option value="<?= $box['box_internalid'] ?>">
+                          <?= $box['box_category'] ?>
+                          <?php if(isset($box['box_number']) && strlen($box['box_number'])>0){ ?> #<?= $box['box_number']; ?><?php } ?>
+                           - <?= $box['box_name'] ?>
+                        </option>
 <?php
   }
 ?>
