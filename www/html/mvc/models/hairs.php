@@ -29,8 +29,7 @@ function get_allHairs($order="db_creationdate",$direction="desc")
   global $bdd;
 
   $req = $bdd->prepare("SELECT h.internalid AS hair_internalid,
-                        h.main_color AS hair_main_color, h.main_color_hex AS hair_main_color_hex,
-                        h.other_color AS hair_other_color, h.other_color_hex AS hair_other_color_hex,
+                        h.main_color AS hair_main_color,h.other_color AS hair_other_color,
                         h.haircut AS hair_haircut, h.description AS hair_description, h.frontback AS hair_frontback,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -80,8 +79,7 @@ function get_nendoroidHairs($nendoroid_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT h.internalid AS hair_internalid,
-                        h.main_color AS hair_main_color, h.main_color_hex AS hair_main_color_hex,
-                        h.other_color AS hair_other_color, h.other_color_hex AS hair_other_color_hex,
+                        h.main_color AS hair_main_color, h.other_color AS hair_other_color,
                         h.haircut AS hair_haircut, h.description AS hair_description, h.frontback AS hair_frontback,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -118,8 +116,7 @@ function get_boxHairs($box_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT h.internalid AS hair_internalid,
-                        h.main_color AS hair_main_color, h.main_color_hex AS hair_main_color_hex,
-                        h.other_color AS hair_other_color, h.other_color_hex AS hair_other_color_hex,
+                        h.main_color AS hair_main_color, h.other_color AS hair_other_color,
                         h.haircut AS hair_haircut, h.description AS hair_description, h.frontback AS hair_frontback,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -156,8 +153,7 @@ function get_singleHair($hair_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT h.internalid AS hair_internalid,
-                        h.main_color AS hair_main_color, h.main_color_hex AS hair_main_color_hex,
-                        h.other_color AS hair_other_color, h.other_color_hex AS hair_other_color_hex,
+                        h.main_color AS hair_main_color, h.other_color AS hair_other_color,
                         h.haircut AS hair_haircut, h.description AS hair_description, h.frontback AS hair_frontback,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -190,30 +186,28 @@ function get_singleHair($hair_internalid)
 }
 /** Add a single hair in the DB */
 function add_singleHair($box_internalid,$nendoroid_internalid,
-                        $hair_main_color,$hair_main_color_hex,
-                        $hair_other_color,$hair_other_color_hex,
-                        $hair_haircut,$hair_description,$hair_frontback,
+                        $hair_haircut,
+                        $hair_main_color,$hair_other_color,
+                        $hair_description,$hair_frontback,
                         $userid)
 {
   global $bdd;
 
   $req = $bdd->prepare("INSERT INTO hairs(boxid,nendoroidid,
-                                          main_color,main_color_hex,
-                                          other_color,other_color_hex,
-                                          haircut,description,frontback,
+                                          haircut,
+                                          main_color,other_color,
+                                          description,frontback,
                                           creatorid,creationdate,editorid,editiondate)
                         VALUES(:box_internalid,:nendoroid_internalid,
-                                :main_color,:main_color_hex,
-                                :other_color,:other_color_hex,
-                                :haircut,:description,:frontback,
+                                :haircut,
+                                :main_color,:other_color,
+                                :description,:frontback,
                                 :creatorid,NOW(),:editorid,NOW())");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
-  $req->bindParam(':main_color',$hair_main_color);
-  $req->bindParam(':main_color_hex',$hair_main_color_hex);
-  $req->bindParam(':other_color',$hair_other_color);
-  $req->bindParam(':other_color_hex',$hair_other_color_hex);
   $req->bindParam(':haircut',$hair_haircut);
+  $req->bindParam(':main_color',$hair_main_color);
+  $req->bindParam(':other_color',$hair_other_color);
   $req->bindParam(':frontback',$hair_frontback);
   $req->bindParam(':description',$hair_description);
   $req->bindParam(':creatorid',$userid);

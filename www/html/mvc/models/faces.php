@@ -29,8 +29,8 @@ function get_allFaces($order="db_creationdate",$direction="desc")
   global $bdd;
 
   $req = $bdd->prepare("SELECT f.internalid AS face_internalid,
-                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color, f.eyes_color_hex AS face_eyes_color_hex,
-                        f.mouth AS face_mouth, f.skin_color AS face_skin_color, f.skin_color_hex AS face_skin_color_hex,
+                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color,
+                        f.mouth AS face_mouth, f.skin_color AS face_skin_color,
                         f.sex AS face_sex,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -80,8 +80,8 @@ function get_nendoroidFaces($nendoroid_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT f.internalid AS face_internalid,
-                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color, f.eyes_color_hex AS face_eyes_color_hex,
-                        f.mouth AS face_mouth, f.skin_color AS face_skin_color, f.skin_color_hex AS face_skin_color_hex,
+                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color,
+                        f.mouth AS face_mouth, f.skin_color AS face_skin_color,
                         f.sex AS face_sex,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -118,8 +118,8 @@ function get_boxFaces($box_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT f.internalid AS face_internalid,
-                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color, f.eyes_color_hex AS face_eyes_color_hex,
-                        f.mouth AS face_mouth, f.skin_color AS face_skin_color, f.skin_color_hex AS face_skin_color_hex,
+                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color,
+                        f.mouth AS face_mouth, f.skin_color AS face_skin_color,
                         f.sex AS face_sex,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -156,8 +156,8 @@ function get_singleFace($face_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT f.internalid AS face_internalid,
-                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color, f.eyes_color_hex AS face_eyes_color_hex,
-                        f.mouth AS face_mouth, f.skin_color AS face_skin_color, f.skin_color_hex AS face_skin_color_hex,
+                        f.eyes AS face_eyes, f.eyes_color AS face_eyes_color,
+                        f.mouth AS face_mouth, f.skin_color AS face_skin_color,
                         f.sex AS face_sex,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -190,31 +190,29 @@ function get_singleFace($face_internalid)
 }
 /** Add a single face in the DB */
 function add_singleFace($box_internalid,$nendoroid_internalid,
-                        $face_eyes,$face_eyes_color,$face_eyes_color_hex,
-                        $face_mouth,$face_skin_color,$face_skin_color_hex,
+                        $face_eyes,$face_eyes_color,
+                        $face_mouth,$face_skin_color,
                         $face_sex,
                         $userid)
 {
   global $bdd;
 
   $req = $bdd->prepare("INSERT INTO faces(boxid,nendoroidid,
-                                          eyes,eyes_color,eyes_color_hex,
-                                          mouth,skin_color,skin_color_hex,
+                                          eyes,eyes_color,
+                                          mouth,skin_color,
                                           sex,
                                           creatorid,creationdate,editorid,editiondate)
                         VALUES(:box_internalid,:nendoroid_internalid,
-                              :eyes,:eyes_color,:eyes_color_hex,
-                              :mouth,:skin_color,:skin_color_hex,
+                              :eyes,:eyes_color,
+                              :mouth,:skin_color,
                               :sex,
                               :creatorid,NOW(),:editorid,NOW()");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->bindParam(':eyes',$face_eyes);
   $req->bindParam(':eyes_color',$face_eyes_color);
-  $req->bindParam(':eyes_color_hex',$face_eyes_color_hex);
   $req->bindParam(':mouth',$face_mouth);
   $req->bindParam(':skin_color',$face_skin_color);
-  $req->bindParam(':skin_color_hex',$face_skin_color_hex);
   $req->bindParam(':sex',$face_sex);
   $req->bindParam(':creatorid',$userid);
   $req->bindParam(':editorid',$userid);

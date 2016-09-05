@@ -29,7 +29,7 @@ function get_allHands($order="db_creationdate",$direction="desc")
   global $bdd;
 
   $req = $bdd->prepare("SELECT h.internalid AS hand_internalid,
-                        h.skin_color AS hand_skin_color, h.skin_color_hex AS hand_skin_color_hex,
+                        h.skin_color AS hand_skin_color,
                         h.leftright AS hand_leftright, h.posture AS hand_posture,
                         h.description AS hand_description,
                         n.internalid AS nendoroid_internalid,
@@ -80,7 +80,7 @@ function get_nendoroidHands($nendoroid_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT h.internalid AS hand_internalid,
-                        h.skin_color AS hand_skin_color, h.skin_color_hex AS hand_skin_color_hex,
+                        h.skin_color AS hand_skin_color,
                         h.leftright AS hand_leftright, h.posture AS hand_posture,
                         h.description AS hand_description,
                         n.internalid AS nendoroid_internalid,
@@ -118,7 +118,7 @@ function get_boxHands($box_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT h.internalid AS hand_internalid,
-                        h.skin_color AS hand_skin_color, h.skin_color_hex AS hand_skin_color_hex,
+                        h.skin_color AS hand_skin_color,
                         h.leftright AS hand_leftright, h.posture AS hand_posture,
                         h.description AS hand_description,
                         n.internalid AS nendoroid_internalid,
@@ -156,7 +156,7 @@ function get_singleHand($hand_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT h.internalid AS hand_internalid,
-                        h.skin_color AS hand_skin_color, h.skin_color_hex AS hand_skin_color_hex,
+                        h.skin_color AS hand_skin_color,
                         h.leftright AS hand_leftright, h.posture AS hand_posture,
                         h.description AS hand_description,
                         n.internalid AS nendoroid_internalid,
@@ -190,7 +190,7 @@ function get_singleHand($hand_internalid)
 }
 /** Add a single hair in the DB */
 function add_singleHand($box_internalid,$nendoroid_internalid,
-                        $hand_skin_color,$hand_skin_color_hex,
+                        $hand_skin_color,
                         $hand_leftright,$hand_posture,
                         $hand_description,
                         $userid)
@@ -198,19 +198,18 @@ function add_singleHand($box_internalid,$nendoroid_internalid,
   global $bdd;
 
   $req = $bdd->prepare("INSERT INTO hands(boxid,nendoroidid,
-                                          skin_color,skin_color_hex,
+                                          skin_color,
                                           leftright,posture,
                                           description,
                                           creatorid,creationdate,editorid,editiondate)
                         VALUES(:box_internalid,:nendoroid_internalid,
-                              :skin_color,:skin_color_hex,
+                              :skin_color,
                               :leftright,:posture,
                               :description,
                               :creatorid,NOW(),:editorid,NOW())");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->bindParam(':skin_color',$hand_skin_color);
-  $req->bindParam(':skin_color_hex',$hand_skin_color_hex);
   $req->bindParam(':leftright',$hand_leftright);
   $req->bindParam(':posture',$hand_posture);
   $req->bindParam(':description',$hand_description);

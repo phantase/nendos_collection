@@ -29,8 +29,7 @@ function get_allAccessories($order="db_creationdate",$direction="desc")
   global $bdd;
 
   $req = $bdd->prepare("SELECT a.internalid AS accessory_internalid,
-                        a.main_color AS accessory_main_color, a.main_color_hex AS accessory_main_color_hex,
-                        a.other_color AS accessory_other_color, a.other_color_hex AS accessory_other_color_hex,
+                        a.main_color AS accessory_main_color, a.other_color AS accessory_other_color,
                         a.type AS accessory_type, a.description AS accessory_description,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -80,8 +79,7 @@ function get_nendoroidAccessories($nendoroid_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT a.internalid AS accessory_internalid,
-                        a.main_color AS accessory_main_color, a.main_color_hex AS accessory_main_color_hex,
-                        a.other_color AS accessory_other_color, a.other_color_hex AS accessory_other_color_hex,
+                        a.main_color AS accessory_main_color, a.other_color AS accessory_other_color,
                         a.type AS accessory_type, a.description AS accessory_description,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -118,8 +116,7 @@ function get_boxAccessories($box_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT a.internalid AS accessory_internalid,
-                        a.main_color AS accessory_main_color, a.main_color_hex AS accessory_main_color_hex,
-                        a.other_color AS accessory_other_color, a.other_color_hex AS accessory_other_color_hex,
+                        a.main_color AS accessory_main_color, a.other_color AS accessory_other_color,
                         a.type AS accessory_type, a.description AS accessory_description,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -156,8 +153,7 @@ function get_singleAccessory($accessory_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT a.internalid AS accessory_internalid,
-                        a.main_color AS accessory_main_color, a.main_color_hex AS accessory_main_color_hex,
-                        a.other_color AS accessory_other_color, a.other_color_hex AS accessory_other_color_hex,
+                        a.main_color AS accessory_main_color, a.other_color AS accessory_other_color,
                         a.type AS accessory_type, a.description AS accessory_description,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -190,30 +186,28 @@ function get_singleAccessory($accessory_internalid)
 }
 /** Add a single accessory in the DB */
 function add_singleAccessory($box_internalid,$nendoroid_internalid,
-                            $accessory_type,$accessory_main_color,$accessory_main_color_hex,
-                            $accessory_other_color,$accessory_other_color_hex,
+                            $accessory_type,
+                            $accessory_main_color,$accessory_other_color,
                             $accessory_description,
                             $userid)
 {
   global $bdd;
 
   $req = $bdd->prepare("INSERT INTO accessories(boxid,nendoroidid,
-                                                type,main_color,main_color_hex,
-                                                other_color,other_color_hex,
+                                                type,
+                                                main_color,other_color,
                                                 description,
                                                 creatorid,creationdate,editorid,editiondate)
                         VALUES(:box_internalid,:nendoroid_internalid,
-                              :type,:main_color,:main_color_hex,
-                              :other_color,:other_color_hex,
+                              :type,
+                              :main_color,:other_color,
                               :description,
                               :creatorid,NOW(),:editorid,NOW())");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->bindParam(':type',$accessory_type);
   $req->bindParam(':main_color',$accessory_main_color);
-  $req->bindParam(':main_color_hex',$accessory_main_color_hex);
   $req->bindParam(':other_color',$accessory_other_color);
-  $req->bindParam(':other_color_hex',$accessory_other_color_hex);
   $req->bindParam(':description',$accessory_description);
   $req->bindParam(':creatorid',$userid);
   $req->bindParam(':editorid',$userid);

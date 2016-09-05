@@ -29,8 +29,7 @@ function get_allBodyParts($order="db_creationdate",$direction="desc")
   global $bdd;
 
   $req = $bdd->prepare("SELECT bp.internalid AS bodypart_internalid,
-                        bp.main_color AS bodypart_main_color, bp.main_color_hex AS bodypart_main_color_hex,
-                        bp.other_color AS bodypart_other_color, bp.other_color_hex AS bodypart_other_color_hex,
+                        bp.main_color AS bodypart_main_color, bp.other_color AS bodypart_other_color,
                         bp.part AS bodypart_part, bp.description AS bodypart_description,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -80,8 +79,7 @@ function get_nendoroidBodyParts($nendoroid_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT bp.internalid AS bodypart_internalid,
-                        bp.main_color AS bodypart_main_color, bp.main_color_hex AS bodypart_main_color_hex,
-                        bp.other_color AS bodypart_other_color, bp.other_color_hex AS bodypart_other_color_hex,
+                        bp.main_color AS bodypart_main_color, bp.other_color AS bodypart_other_color,
                         bp.part AS bodypart_part, bp.description AS bodypart_description,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -118,8 +116,7 @@ function get_boxBodyParts($box_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT bp.internalid AS bodypart_internalid,
-                        bp.main_color AS bodypart_main_color, bp.main_color_hex AS bodypart_main_color_hex,
-                        bp.other_color AS bodypart_other_color, bp.other_color_hex AS bodypart_other_color_hex,
+                        bp.main_color AS bodypart_main_color, bp.other_color AS bodypart_other_color,
                         bp.part AS bodypart_part, bp.description AS bodypart_description,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -156,8 +153,7 @@ function get_singleBodypart($bodypart_internalid)
   global $bdd;
 
   $req = $bdd->prepare("SELECT bp.internalid AS bodypart_internalid,
-                        bp.main_color AS bodypart_main_color, bp.main_color_hex AS bodypart_main_color_hex,
-                        bp.other_color AS bodypart_other_color, bp.other_color_hex AS bodypart_other_color_hex,
+                        bp.main_color AS bodypart_main_color, bp.other_color AS bodypart_other_color,
                         bp.part AS bodypart_part, bp.description AS bodypart_description,
                         n.internalid AS nendoroid_internalid,
                         n.name AS nendoroid_name, n.version AS nendoroid_version,
@@ -190,30 +186,28 @@ function get_singleBodypart($bodypart_internalid)
 }
 /** Add a single bodypart in the DB */
 function add_singleBodypart($box_internalid,$nendoroid_internalid,
-                            $bodypart_main_color,$bodypart_main_color_hex,
-                            $bodypart_other_color,$bodypart_other_color_hex,
-                            $bodypart_part,$bodypart_description,
+                            $bodypart_part,
+                            $bodypart_main_color,$bodypart_other_color,
+                            $bodypart_description,
                             $userid)
 {
   global $bdd;
 
   $req = $bdd->prepare("INSERT INTO bodyparts(boxid,nendoroidid,
-                                              main_color,main_color_hex,
-                                              other_color,other_color_hex,
-                                              part,description,
+                                              part,
+                                              main_color,other_color,
+                                              description,
                                               creatorid,creationdate,editorid,editiondate)
                         VALUES(:box_internalid,:nendoroid_internalid,
-                              :main_color,:main_color_hex,
-                              :other_color,:other_color_hex,
-                              :part,:description,
+                              :part,
+                              :main_color,:other_color,
+                              :description,
                               :creatorid,NOW(),:editorid,NOW())");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
-  $req->bindParam(':main_color',$bodypart_main_color);
-  $req->bindParam(':main_color_hex',$bodypart_main_color_hex);
-  $req->bindParam(':other_color',$bodypart_other_color);
-  $req->bindParam(':other_color_hex',$bodypart_other_color_hex);
   $req->bindParam(':part',$bodypart_part);
+  $req->bindParam(':main_color',$bodypart_main_color);
+  $req->bindParam(':other_color',$bodypart_other_color);
   $req->bindParam(':description',$bodypart_description);
   $req->bindParam(':creatorid',$userid);
   $req->bindParam(':editorid',$userid);
