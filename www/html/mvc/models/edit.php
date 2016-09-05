@@ -16,7 +16,7 @@ function edit_singleElement($element,$internalid,$field,$value,$userid)
     "faces"       =>  array(null,"eyes","eyes_color","mouth","skin_color","sex"),
     "hairs"       =>  array(null,"haircut","frontback","main_color","other_color","description"),
     "hands"       =>  array(null,"posture","leftright","skin_color","description"),
-    "nendoroids"  =>  array(null,"name","version","sex"),
+    "nendoroids"  =>  array(null,"name","version","sex","dominant_color"),
     );
   $keyfield = array_search($field,$allowedField[$tablename]);
   $field = $allowedField[$tablename][$keyfield];

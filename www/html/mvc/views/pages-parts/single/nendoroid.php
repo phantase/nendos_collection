@@ -35,6 +35,7 @@
   tableField('name','Name',$nendoroid['nendoroid_name']);
   tableField('version','Version',$nendoroid['nendoroid_version']);
   tableField('sex','Sex',$nendoroid['nendoroid_sex']);
+  tableFieldWithColor('dominant_color','Dominant color',$nendoroid['nendoroid_dominant_color']);
 ?>
                         </tbody>
                       </table>

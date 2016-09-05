@@ -3679,3 +3679,8 @@ input[forwhat] {
 	height:inherit;
 }
 
+.color_field_box {
+	height: 20px;
+	width: 50px;
+	border: solid 1px #c9c9c9;
+}

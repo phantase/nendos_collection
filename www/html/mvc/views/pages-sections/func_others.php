@@ -6,6 +6,9 @@ function cellField($field,$label,$value){
 function tableField($field,$label,$value,$colspan=1){
   include('mvc/views/pages-sections/others/table_field.php');
 }
+function tableFieldWithColor($field,$label,$value,$colspan=1){
+  include('mvc/views/pages-sections/others/table_field_with_color.php');
+}
 function tableFieldWithLink($field,$label,$value,$link,$colspan=1){
   include('mvc/views/pages-sections/others/table_field_with_link.php');
 }

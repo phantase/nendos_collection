@@ -505,7 +505,11 @@ $(function(){
   });
 // Send edited field value to server
   $('.field_valid').click(function(){
-    var value = $('input[field='+$(this).attr('field')+']').val();
+    var input = $('input[field='+$(this).attr('field')+']');
+    var value = input.val();
+    if( input.attr('type') == 'color' ){
+      value = value.substring(1);
+    }
     var field = $(this).attr('field');
     var element = $('#info_table').attr('element');
     var internalid = $('#info_table').attr('internalid');
@@ -516,7 +520,10 @@ $(function(){
         value:value
       },function(data){
         if(data.result && data.result == "success"){
-          if(data.field != 'officialurl' ){
+          if(input.attr('type') == 'color' ) {
+            $('span[field='+data.field+']>.color_field_box').css('background-color','#'+data.value);
+            $('span[field='+data.field+']>.color_field_box').attr('title','Color: #'+data.value);
+          } else if(data.field != 'officialurl' ){
             $('span[field='+data.field+']').html(data.value);
           } else {
             $('span[field='+data.field+']a').attr('href',data.value);
