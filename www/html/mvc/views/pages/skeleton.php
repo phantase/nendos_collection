@@ -91,7 +91,6 @@ if( file_exists('mvc/views/pages-sections/sort/'.$include_page.'.php') ) {
       <script src="assets/js/filedrop-min.js"></script>
       <script src="assets/js/skel.min.js"></script>
       <script src="assets/js/util.js"></script>
-      <script src="assets/js/ntc.js"></script>
       <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
       <script src="assets/js/main.js"></script>
       <script src="assets/js/nendosdb.js"></script>

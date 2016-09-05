@@ -480,11 +480,6 @@ $(function(){
       $('option.box[value='+correspbox+']').prop('selected',true);
     }
   });
-// New part form: react to color change
-  $('.color_to_name').change(function(){
-    var id_name = $(this)[0].id.substring(0,$(this)[0].id.length-4);
-    $('#'+id_name).val(ntc.name($(this).val())[1]);
-  });
 
 // Button to open Sort Menu
   $('#menu_button').click(function(){
