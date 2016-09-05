@@ -40,9 +40,14 @@ function get_allBoxes($order="db_creationdate",$direction="DESC")
                         LEFT JOIN users AS ue ON b.editorid = ue.internalid
                         ORDER BY $order $direction");
   $req->execute();
-  $boxes = $req->fetchAll(PDO::FETCH_ASSOC);
 
-  return $boxes;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
 }
 /** Get a single box from its internalid */
 function get_singleBox($box_internalid)
@@ -64,9 +69,14 @@ function get_singleBox($box_internalid)
                         WHERE b.internalid = :box_internalid");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->execute();
-  $box = $req->fetch();
 
-  return $box;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetch();
+  }
+
+  return $resultInfo;
 }
 /** Add a single box in the DB */
 function add_singleBox($box_number,$box_name,$box_series,$box_manufacturer,$box_category,$box_price,

@@ -3,7 +3,12 @@
 if( isset($_GET['box_internalid']) ){
   $box_internalid = $_GET['box_internalid'];
 
-  $box = get_singleBox($box_internalid);
+  $resultInfo = get_singleBox($box_internalid);
+  if($resultInfo[0]!="00000"){
+    $include_page = "error";
+    $page_title = "Error";
+  }
+  $box = $resultInfo[4];
   $box['box_url'] = urlize($box['box_name']);
   $metadata = array('db_creatorid'    =>  $box['db_creatorid'],
                     'db_creatorname'  =>  $box['db_creatorname'],

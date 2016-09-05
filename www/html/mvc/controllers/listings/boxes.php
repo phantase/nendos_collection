@@ -8,11 +8,16 @@ if( isset($_GET['order']) && isset($_GET['direction']) ){
   $selected_direction = "desc";
 }
 
-$boxes = get_allBoxes($selected_order,$selected_direction);
-foreach ($boxes as $key => $box) {
-  $boxes[$key]['box_url'] = urlize($box['box_name']);
+$resultInfo = get_allBoxes($selected_order,$selected_direction);
+if( $resultInfo[0]=="00000" ){
+  $boxes = $resultInfo[4];
+  foreach ($boxes as $key => $box) {
+    $boxes[$key]['box_url'] = urlize($box['box_name']);
+  }
+
+  $page_title = "Boxes";
+} else {
+  $include_page = "error";
+  $page_title = "Error";
 }
-
-$page_title = "Boxes";
-
 include_once('mvc/views/pages/skeleton.php');
