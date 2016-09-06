@@ -49,33 +49,28 @@
                       </select>
                     </div>
                   </div>
-                  <div class="3u 8u(medium)">
-                    <input type="text" name="new_hair_main_color" id="new_hair_main_color" placeholder="Main color" disabled/>
+                  <div class="6u 12u(small)">
+                    <input type="text" name="new_hair_main_color" id="new_hair_main_color" placeholder="Main color"/>
                   </div>
-                  <div class="3u 4u$(medium)">
-                    <input type="color" name="new_hair_main_color_hex" id="new_hair_main_color_hex" placeholder="Main color code" class="color_to_name" />
+                  <div class="6u$ 12u(small)">
+                    <input type="text" name="new_hair_other_color" id="new_hair_other_color" placeholder="Other color"/>
                   </div>
-                  <div class="3u 8u(medium)">
-                    <input type="text" name="new_hair_other_color" id="new_hair_other_color" placeholder="Other color" disabled/>
-                  </div>
-                  <div class="3u$ 4u$(medium)">
-                    <input type="color" name="new_hair_other_color_hex" id="new_hair_other_color_hex" placeholder="Other color code" class="color_to_name" />
-                  </div>
-                  <div class="8u 12u$(medium)">
+                  <div class="8u 12u$(small)">
                     <input type="text" name="new_hair_haircut" id="new_hair_haircut" placeholder="Haircut" />
                   </div>
-                  <div class="4u$ 12u$(medium)">
+                  <div class="4u$ 12u$(small)">
                     <div class="select-wrapper">
                       <select name="new_hair_frontback" id="new_hair_frontback">
-                        <option value="front" class="frontback">Front</option>
-                        <option value="back" class="frontback">Back</option>
+                        <option value="Front" class="frontback">Front</option>
+                        <option value="Back" class="frontback">Back</option>
+                        <option value="Other" class="frontback">Other</option>
                       </select>
                     </div>
                   </div>
-                  <div class="12u$">
+                  <div class="8u 12u$(small)">
                     <input type="text" name="new_hair_description" id="new_hair_description" placeholder="Description" />
                   </div>
-                  <div class="4u$ 12u$(medium)">
+                  <div class="4u$ 12u$(small)">
                     <ul class="actions">
                       <li>
                         <input type="button" name="new_hair_submit" id="new_hair_submit" value="Add Hair" />

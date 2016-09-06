@@ -259,31 +259,27 @@ $(function(){
     $('#new_hair_submit').prop('disabled',true);
     $('#new_hair_submit').prop('value','Adding...');
 
-    if($('#new_hair_box_id').val()!="0"){
-      var new_hair_box_id = $('#new_hair_box_id').val();
-      var new_hair_nendoroid_id = $('#new_hair_nendoroid_id').val();
+    if($('#new_hair_box_internalid').val()!="0"){
+      var new_hair_box_internalid = $('#new_hair_box_internalid').val();
+      var new_hair_nendoroid_internalid = $('#new_hair_nendoroid_internalid').val();
       var new_hair_main_color = $('#new_hair_main_color').val();
-      var new_hair_main_color_hex = $('#new_hair_main_color_hex').val();
       var new_hair_other_color = $('#new_hair_other_color').val();
-      var new_hair_other_color_hex = $('#new_hair_other_color_hex').val();
       var new_hair_haircut = $('#new_hair_haircut').val();
       var new_hair_frontback = $('#new_hair_frontback').val();
       var new_hair_description = $('#new_hair_description').val();
       $.post("services/hair/add",
         {
           action:"add_hair",
-          new_hair_box_id:new_hair_box_id,
-          new_hair_nendoroid_id:new_hair_nendoroid_id,
+          new_hair_box_internalid:new_hair_box_internalid,
+          new_hair_nendoroid_internalid:new_hair_nendoroid_internalid,
           new_hair_main_color:new_hair_main_color,
-          new_hair_main_color_hex:new_hair_main_color_hex,
           new_hair_other_color:new_hair_other_color,
-          new_hair_other_color_hex:new_hair_other_color_hex,
           new_hair_haircut:new_hair_haircut,
           new_hair_frontback:new_hair_frontback,
           new_hair_description:new_hair_description
         },function(data){
           if(data.result && data.result == "success"){
-            window.location.assign("hair/"+data.hair_internalid+"/");
+            window.location.assign("hair/"+data.new_hair_internalid+"/");
           } else {
             $('#new_hair_submit').prop('disabled',false);
             $('#new_hair_submit').prop('value','Add Hair');
