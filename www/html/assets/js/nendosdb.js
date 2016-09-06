@@ -373,29 +373,24 @@ $(function(){
     $('#new_accessory_submit').prop('disabled',true);
     $('#new_accessory_submit').prop('value','Adding...');
 
-    if($('#new_accessory_box_id').val()!="0"){
-      var new_accessory_box_id = $('#new_accessory_box_id').val();
-      var new_accessory_nendoroid_id = $('#new_accessory_nendoroid_id').val();
+    if($('#new_accessory_box_internalid').val()!="0"){
+      var new_accessory_box_internalid = $('#new_accessory_box_internalid').val();
+      var new_accessory_nendoroid_internalid = $('#new_accessory_nendoroid_internalid').val();
       var new_accessory_type = $('#new_accessory_type').val();
       var new_accessory_main_color = $('#new_accessory_main_color').val();
-      var new_accessory_main_color_hex = $('#new_accessory_main_color_hex').val();
       var new_accessory_other_color = $('#new_accessory_other_color').val();
-      var new_accessory_other_color_hex = $('#new_accessory_other_color_hex').val();
       var new_accessory_description = $('#new_accessory_description').val();
       $.post("services/accessory/add",
         {
-          action:"add_accessory",
-          new_accessory_box_id:new_accessory_box_id,
-          new_accessory_nendoroid_id:new_accessory_nendoroid_id,
+          new_accessory_box_internalid:new_accessory_box_internalid,
+          new_accessory_nendoroid_internalid:new_accessory_nendoroid_internalid,
           new_accessory_type:new_accessory_type,
           new_accessory_main_color:new_accessory_main_color,
-          new_accessory_main_color_hex:new_accessory_main_color_hex,
           new_accessory_other_color:new_accessory_other_color,
-          new_accessory_other_color_hex:new_accessory_other_color_hex,
           new_accessory_description:new_accessory_description
         },function(data){
           if(data.result && data.result == "success"){
-            window.location.assign("accessory/"+data.accessory_internalid+"/");
+            window.location.assign("accessory/"+data.new_accessory_internalid+"/");
           } else {
             $('#new_accessory_submit').prop('disabled',false);
             $('#new_accessory_submit').prop('value','Add Accessory');

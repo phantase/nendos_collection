@@ -49,25 +49,19 @@
                       </select>
                     </div>
                   </div>
-                  <div class="3u 8u(medium)">
-                    <input type="text" name="new_accessory_main_color" id="new_accessory_main_color" placeholder="Main color" disabled/>
-                  </div>
-                  <div class="3u 4u$(medium)">
-                    <input type="color" name="new_accessory_main_color_hex" id="new_accessory_main_color_hex" placeholder="Main color code" class="color_to_name" />
-                  </div>
-                  <div class="3u 8u(medium)">
-                    <input type="text" name="new_accessory_other_color" id="new_accessory_other_color" placeholder="Other color" disabled/>
-                  </div>
-                  <div class="3u$ 4u$(medium)">
-                    <input type="color" name="new_accessory_other_color_hex" id="new_accessory_other_color_hex" placeholder="Other color code" class="color_to_name" />
-                  </div>
                   <div class="12u$ 12u$(medium)">
                     <input type="text" name="new_accessory_type" id="new_accessory_type" placeholder="Type" />
                   </div>
-                  <div class="12u$">
+                  <div class="6u 12u$(small)">
+                    <input type="text" name="new_accessory_main_color" id="new_accessory_main_color" placeholder="Main color"/>
+                  </div>
+                  <div class="6u$ 12u$(small)">
+                    <input type="text" name="new_accessory_other_color" id="new_accessory_other_color" placeholder="Other color"/>
+                  </div>
+                  <div class="8u 12u$(small)">
                     <input type="text" name="new_accessory_description" id="new_accessory_description" placeholder="Description" />
                   </div>
-                  <div class="4u$ 12u$(medium)">
+                  <div class="4u$ 12u$(small)">
                     <ul class="actions">
                       <li>
                         <input type="button" name="new_accessory_submit" id="new_accessory_submit" value="Add accessory" />
