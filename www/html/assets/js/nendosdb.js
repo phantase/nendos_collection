@@ -335,29 +335,24 @@ $(function(){
     $('#new_bodypart_submit').prop('disabled',true);
     $('#new_bodypart_submit').prop('value','Adding...');
 
-    if($('#new_bodypart_box_id').val()!="0"){
-      var new_bodypart_box_id = $('#new_bodypart_box_id').val();
-      var new_bodypart_nendoroid_id = $('#new_bodypart_nendoroid_id').val();
+    if($('#new_bodypart_box_internalid').val()!="0"){
+      var new_bodypart_box_internalid = $('#new_bodypart_box_internalid').val();
+      var new_bodypart_nendoroid_internalid = $('#new_bodypart_nendoroid_internalid').val();
       var new_bodypart_main_color = $('#new_bodypart_main_color').val();
-      var new_bodypart_main_color_hex = $('#new_bodypart_main_color_hex').val();
-      var new_bodypart_second_color = $('#new_bodypart_second_color').val();
-      var new_bodypart_second_color_hex = $('#new_bodypart_second_color_hex').val();
+      var new_bodypart_other_color = $('#new_bodypart_other_color').val();
       var new_bodypart_part = $('#new_bodypart_part').val();
       var new_bodypart_description = $('#new_bodypart_description').val();
       $.post("services/bodypart/add",
         {
-          action:"add_bodypart",
-          new_bodypart_box_id:new_bodypart_box_id,
-          new_bodypart_nendoroid_id:new_bodypart_nendoroid_id,
+          new_bodypart_box_internalid:new_bodypart_box_internalid,
+          new_bodypart_nendoroid_internalid:new_bodypart_nendoroid_internalid,
           new_bodypart_main_color:new_bodypart_main_color,
-          new_bodypart_main_color_hex:new_bodypart_main_color_hex,
-          new_bodypart_second_color:new_bodypart_second_color,
-          new_bodypart_second_color_hex:new_bodypart_second_color_hex,
+          new_bodypart_other_color:new_bodypart_other_color,
           new_bodypart_part:new_bodypart_part,
           new_bodypart_description:new_bodypart_description
         },function(data){
           if(data.result && data.result == "success"){
-            window.location.assign("bodypart/"+data.bodypart_internalid+"/");
+            window.location.assign("bodypart/"+data.new_bodypart_internalid+"/");
           } else {
             $('#new_bodypart_submit').prop('disabled',false);
             $('#new_bodypart_submit').prop('value','Add Bodypart');
