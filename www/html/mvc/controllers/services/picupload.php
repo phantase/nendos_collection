@@ -10,9 +10,9 @@ if( ! isset($_SESSION['userid']) ){
   exit;
 }
 
-if( isset($_GET['part']) && isset($_GET['internalid']) ){
-  $part = $_GET['part'];
-  switch($part){
+if( isset($_GET['element']) && isset($_GET['internalid']) ){
+  $element = $_GET['element'];
+  switch($element){
     case 'accessory':
       $destination_folder = 'images/nendos/accessories/';
       break;
@@ -35,7 +35,7 @@ if( isset($_GET['part']) && isset($_GET['internalid']) ){
       $destination_folder = 'images/nendos/nendoroids/';
       break;
     default:
-      echo json_encode(array('result'=>'failure','reason'=>'This part is not supported at the moment...'));
+      echo json_encode(array('result'=>'failure','reason'=>'This element is not supported at the moment...'));
       exit;
       break;
   }
@@ -87,7 +87,7 @@ if( isset($_GET['part']) && isset($_GET['internalid']) ){
 
   if($image_res){
     if(save_image($image_res, $destinationfull, $image_type, $quality)){
-      echo json_encode(array('result'=>'success','part'=>$part,'internalid'=>$internalid));
+      echo json_encode(array('result'=>'success','part'=>$element,'internalid'=>$internalid));
     }
   } else {
     echo json_encode(array('result'=>'failure','reason'=>'Image is not valid to save as jpeg'));
