@@ -188,7 +188,6 @@ $(function(){
       var new_nendoroid_color             = $('#new_nendoroid_color').val();
       $.post("services/nendoroid/add",
         {
-          action:"add_nendoroid",
           new_nendoroid_box_internalid:new_nendoroid_box_internalid,
           new_nendoroid_name:new_nendoroid_name,
           new_nendoroid_version:new_nendoroid_version,
@@ -228,7 +227,6 @@ $(function(){
       var new_face_sex = $('#new_face_sex').val();
       $.post("services/face/add",
         {
-          action:"add_face",
           new_face_box_internalid:new_face_box_internalid,
           new_face_nendoroid_internalid:new_face_nendoroid_internalid,
           new_face_eyes:new_face_eyes,
@@ -269,7 +267,6 @@ $(function(){
       var new_hair_description = $('#new_hair_description').val();
       $.post("services/hair/add",
         {
-          action:"add_hair",
           new_hair_box_internalid:new_hair_box_internalid,
           new_hair_nendoroid_internalid:new_hair_nendoroid_internalid,
           new_hair_main_color:new_hair_main_color,
@@ -300,27 +297,24 @@ $(function(){
     $('#new_hand_submit').prop('disabled',true);
     $('#new_hand_submit').prop('value','Adding...');
 
-    if($('#new_hand_box_id').val()!="0"){
-      var new_hand_box_id = $('#new_hand_box_id').val();
-      var new_hand_nendoroid_id = $('#new_hand_nendoroid_id').val();
+    if($('#new_hand_box_internalid').val()!="0"){
+      var new_hand_box_internalid = $('#new_hand_box_internalid').val();
+      var new_hand_nendoroid_internalid = $('#new_hand_nendoroid_internalid').val();
       var new_hand_skin_color = $('#new_hand_skin_color').val();
-      var new_hand_skin_color_hex = $('#new_hand_skin_color_hex').val();
       var new_hand_posture = $('#new_hand_posture').val();
       var new_hand_leftright = $('#new_hand_leftright').val();
       var new_hand_description = $('#new_hand_description').val();
       $.post("services/hand/add",
         {
-          action:"add_hand",
-          new_hand_box_id:new_hand_box_id,
-          new_hand_nendoroid_id:new_hand_nendoroid_id,
+          new_hand_box_internalid:new_hand_box_internalid,
+          new_hand_nendoroid_internalid:new_hand_nendoroid_internalid,
           new_hand_skin_color:new_hand_skin_color,
-          new_hand_skin_color_hex:new_hand_skin_color_hex,
           new_hand_posture:new_hand_posture,
           new_hand_leftright:new_hand_leftright,
           new_hand_description:new_hand_description
         },function(data){
           if(data.result && data.result == "success"){
-            window.location.assign("hand/"+data.hand_internalid+"/");
+            window.location.assign("hand/"+data.new_hand_internalid+"/");
           } else {
             $('#new_hand_submit').prop('disabled',false);
             $('#new_hand_submit').prop('value','Add Hand');
