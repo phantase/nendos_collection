@@ -64,6 +64,21 @@ if( isset($_GET['box_internalid']) ){
   }
   $accessories = $resultInfo[4];
 
+  $resultInfo = get_boxHistory($box_internalid);
+  if($resultInfo[0]!="00000"){
+    $include_page = "error";
+    $page_title = "Error";
+  }
+  $history = $resultInfo[4];
+  foreach ($history as $key => $histentry) {
+    $history[$key]['history_actioninterval'] = ((new DateTime($box['now']))->diff(new DateTime($box['history_actiondate'])));
+    switch($histentry['history_action']){
+      case "Creation":
+        $history[$key]['history_actionlabel'] = "Created by ";
+        break;
+    }
+  }
+
   $page_title = "Box - ".$box['box_category'];
   if($box['box_number']){
     $page_title .= " #".$box['box_number'];

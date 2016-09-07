@@ -17,6 +17,7 @@ include_once('mvc/models/faces.php');
 include_once('mvc/models/hairs.php');
 include_once('mvc/models/hands.php');
 include_once('mvc/models/nendoroids.php');
+include_once('mvc/models/history.php');
 include_once('mvc/models/users.php');
 
 include_once('mvc/models/edit.php');
