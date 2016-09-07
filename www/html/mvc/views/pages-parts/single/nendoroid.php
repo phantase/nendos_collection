@@ -44,26 +44,36 @@
                 </div>
 
                 <div class="row">
+<?php if(canEdit() || count($faces)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Faces</h4>
 <?php showFacesListing($faces,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
+<?php } ?>
+<?php if(canEdit() || count($hairs)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Hairs</h4>
 <?php showHairsListing($hairs,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
+<?php } ?>
+<?php if(canEdit() || count($hands)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Hands</h4>
 <?php showHandsListing($hands,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
+<?php } ?>
+<?php if(canEdit() || count($bodyparts)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Body parts</h4>
 <?php showBodyPartsListing($bodyparts,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
+<?php } ?>
+<?php if(canEdit() || count($accessories)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Accessories</h4>
 <?php showAccessoriesListing($accessories,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
+<?php } ?>
                 </div>
                 <hr/>
 <?php include('mvc/views/pages-sections/others/metadata.php'); ?>
