@@ -40,6 +40,9 @@ if( isset($_POST['new_accessory_box_internalid']) && strlen($_POST['new_accessor
                           'new_accessory_main_color'=>$new_accessory_main_color,
                           'new_accessory_other_color'=>$new_accessory_other_color,
                           'new_accessory_description'=>$new_accessory_description));
+    add_history($_SESSION['userid'],$new_accessory_box_internalid,$new_accessory_nendoroid_internalid,
+                $resultInfo[4],null,null,null,null,
+                "Creation","");
   } else {
     echo json_encode(array('result'=>'failure','reason'=>$resultInfo[4]));
   }

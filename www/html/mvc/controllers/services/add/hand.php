@@ -40,6 +40,9 @@ if( isset($_POST['new_hand_box_internalid']) && strlen($_POST['new_hand_box_inte
                           'new_hand_leftright'=>$new_hand_leftright,
                           'new_hand_posture'=>$new_hand_posture,
                           'new_hand_description'=>$new_hand_description));
+    add_history($_SESSION['userid'],$new_hand_box_internalid,$new_hand_nendoroid_internalid,
+                null,null,null,null,$resultInfo[4],
+                "Creation","");
   } else {
     echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
   }

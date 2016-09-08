@@ -40,6 +40,9 @@ if( isset($_POST['new_bodypart_box_internalid']) && strlen($_POST['new_bodypart_
                           'new_bodypart_main_color'=>$new_bodypart_main_color,
                           'new_bodypart_other_color'=>$new_bodypart_other_color,
                           'new_bodypart_description'=>$new_bodypart_description));
+    add_history($_SESSION['userid'],$new_bodypart_box_internalid,$new_bodypart_nendoroid_internalid,
+                null,$resultInfo[4],null,null,null,
+                "Creation","");
   } else {
     echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
   }

@@ -87,6 +87,7 @@ if( isset($_GET['element']) && isset($_GET['internalid']) ){
 
   if($image_res){
     if(save_image($image_res, $destinationfull, $image_type, $quality)){
+      add_specificHistory($_SESSION['userid'],$element,$internalid,"Update","Picture has been updated");
       echo json_encode(array('result'=>'success','part'=>$element,'internalid'=>$internalid));
     }
   } else {

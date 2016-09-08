@@ -53,6 +53,9 @@ if( isset($_POST['new_box_name']) && strlen($_POST['new_box_name'])>0
         'new_box_cooperation'     =>  $new_box_cooperation,
         'new_box_officialurl'     =>  $new_box_officialurl,
         'new_box_url'             =>  urlize($new_box_name)));
+      add_history($_SESSION['userid'],$new_box_internalid,null,
+                null,null,null,null,null,
+                "Creation","");
   } else {
     echo json_encode(array(
         'result'  =>  'failure',

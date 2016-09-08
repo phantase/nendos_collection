@@ -44,6 +44,9 @@ if( isset($_POST['new_face_box_internalid']) && strlen($_POST['new_face_box_inte
                           'new_face_mouth'=>$new_face_mouth,
                           'new_face_skin_color'=>$new_face_skin_color,
                           'new_face_sex'=>$new_face_sex));
+    add_history($_SESSION['userid'],$new_face_box_internalid,$new_face_nendoroid_internalid,
+                null,null,$resultInfo[4],null,null,
+                "Creation","");
   } else {
     echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
   }

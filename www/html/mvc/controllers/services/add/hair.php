@@ -44,6 +44,9 @@ if( isset($_POST['new_hair_box_internalid']) && strlen($_POST['new_hair_box_inte
                           'new_hair_haircut'=>$new_hair_haircut,
                           'new_hair_frontback'=>$new_hair_frontback,
                           'new_hair_description'=>$new_hair_description));
+    add_history($_SESSION['userid'],$new_hair_box_internalid,$new_hair_nendoroid_internalid,
+                null,null,null,$resultInfo[4],null,
+                "Creation","");
   } else {
     echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
   }

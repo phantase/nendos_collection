@@ -37,6 +37,9 @@ if( isset($_POST['new_nendoroid_box_internalid']) && strlen($_POST['new_nendoroi
                           'new_nendoroid_sex'=>$new_nendoroid_sex,
                           'new_nendoroid_color'=>$new_nendoroid_color,
                           'new_nendoroid_url'=>$new_nendoroid_url));
+    add_history($_SESSION['userid'],$new_nendoroid_box_internalid,$resultInfo[4],
+                null,null,null,null,null,
+                "Creation","");
   } else {
     echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
   }
