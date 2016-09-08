@@ -52,6 +52,7 @@ function get_history($filteron,$internalid)
                         h.handid AS hand_internalid,
                         h.action AS history_action,
                         h.actiondate AS history_actiondate,
+                        h.detail AS history_detail,
                         NOW() AS now
                         FROM history AS  h
                         LEFT JOIN users AS u ON h.userid = u.internalid
@@ -68,6 +69,102 @@ function get_history($filteron,$internalid)
 
   if( $resultInfo[0]=="00000" ){
     $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+
+/** Add an event only from its internalid and its type */
+function add_specificHistory($user_internalid,$element,$element_internalid,$action,$detail)
+{
+  switch($element)
+  {
+    case "accessory":
+      $rI = get_singleAccessory($element_internalid);
+      if($rI[0] == "000000"){
+        add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
+                    $element_internalid,null,null,null,null,
+                    $action,$detail);
+      }
+      break;
+    case "bodypart":
+      $rI = get_singleBodypart($element_internalid);
+      if($rI[0] == "000000"){
+        add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
+                    null,$element_internalid,null,null,null,
+                    $action,$detail);
+      }
+      break;
+    case "box":
+      add_history($user_internalid,$element_internalid,null,
+                  null,null,null,null,null,
+                  $action,$detail);
+      break;
+    case "face":
+      $rI = get_singleFace($element_internalid);
+      if($rI[0] == "000000"){
+        add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
+                    null,null,$element_internalid,null,null,
+                    $action,$detail);
+      }
+      break;
+    case "hair":
+      $rI = get_singleHair($element_internalid);
+      if($rI[0] == "000000"){
+        add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
+                    null,null,null,$element_internalid,null,
+                    $action,$detail);
+      }
+      break;
+    case "hand":
+      $rI = get_singleHand($element_internalid);
+      if($rI[0] == "000000"){
+        add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
+                    null,null,null,null,$element_internalid,
+                    $action,$detail);
+      }
+      break;
+    case "nendoroid":
+      $rI = get_singleNendoroid($element_internalid);
+      if($rI[0] == "000000"){
+        add_history($user_internalid,$rI[4]['box_internalid'],$element_internalid,
+                    null,null,null,null,null,
+                    $action,$detail);
+      }
+      break;
+  }
+}
+
+/** Add an event in the history */
+function add_history($user_internalid,$box_internalid,$nendoroid_internalid,
+                      $accessory_internalid,$bodypart_internalid,$face_internalid,$hair_internalid,$hand_internalid,
+                      $action,$detail)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("INSERT INTO history(userid,boxid,nendoroidid,
+                                            accessoryid,bodypartid,faceid,hairid,handid,
+                                            action,actiondate,detail)
+                        VALUES(:user_internalid,:box_internalid,:nendoroid_internalid,
+                              :accessory_internalid,:bodypart_internalid,:face_internalid,:hair_internalid,:hand_internalid,
+                              :action,NOW(),:detail)");
+
+  $req->bindParam(':user_internalid',$user_internalid);
+  $req->bindParam(':box_internalid',$box_internalid);
+  $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
+  $req->bindParam(':accessory_internalid',$accessory_internalid);
+  $req->bindParam(':bodypart_internalid',$bodypart_internalid);
+  $req->bindParam(':face_internalid',$face_internalid);
+  $req->bindParam(':hair_internalid',$hair_internalid);
+  $req->bindParam(':hand_internalid',$hand_internalid);
+  $req->bindParam(':action',$action);
+  $req->bindParam(':detail',$detail);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $bdd->lastInsertId();
   }
 
   return $resultInfo;

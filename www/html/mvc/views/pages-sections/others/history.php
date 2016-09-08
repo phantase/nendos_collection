@@ -62,6 +62,9 @@
 <?php } ?>
                           </td>
                           <td>
+                            <?= $histentry['history_detail'] ?>
+                          </td>
+                          <td>
                             by <i><?= $histentry['user_name'] ?></i>
                           </td>
                           <td>

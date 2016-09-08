@@ -35,6 +35,7 @@ function edit_singleElement($element,$internalid,$field,$value,$userid)
   $resultArray = $req->errorInfo();
   if($resultArray[0] == 0 ){
     $resultArray[4] = $bdd->lastInsertId();
+    add_specificHistory($userid,$element,$internalid,"Update","$field has been updated");
   }
 
   return $resultArray;
