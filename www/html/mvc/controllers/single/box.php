@@ -71,11 +71,10 @@ if( isset($_GET['box_internalid']) ){
   }
   $history = $resultInfo[4];
   foreach ($history as $key => $histentry) {
-    $history[$key]['history_actioninterval'] = ((new DateTime($box['now']))->diff(new DateTime($box['history_actiondate'])));
-    switch($histentry['history_action']){
-      case "Creation":
-        $history[$key]['history_actionlabel'] = "Created by ";
-        break;
+    $history[$key]['history_actioninterval'] = ((new DateTime($histentry['now']))->diff(new DateTime($histentry['history_actiondate'])));
+    $history[$key]['box_url'] = urlize($histentry['box_name']);
+    if( isset($histentry['nendoroid_name']) ){
+      $history[$key]['nendoroid_url'] = urlize($histentry['nendoroid_name']);
     }
   }
 

@@ -24,6 +24,20 @@ if( isset($_GET['hair_internalid']) ){
                       'db_editiondate'  =>  $hair['db_editiondate'],
                       'db_editiondiff'  =>  ((new DateTime($hair['now']))->diff(new DateTime($hair['db_editiondate']))));
 
+    $resultInfo = get_hairHistory($hair_internalid);
+    if($resultInfo[0]!="00000"){
+      $include_page = "error";
+      $page_title = "Error";
+    }
+    $history = $resultInfo[4];
+    foreach ($history as $key => $histentry) {
+      $history[$key]['history_actioninterval'] = ((new DateTime($histentry['now']))->diff(new DateTime($histentry['history_actiondate'])));
+      $history[$key]['box_url'] = urlize($histentry['box_name']);
+      if( isset($histentry['nendoroid_name']) ){
+        $history[$key]['nendoroid_url'] = urlize($histentry['nendoroid_name']);
+      }
+    }
+
     $page_title = "Hair";
 
   } else {

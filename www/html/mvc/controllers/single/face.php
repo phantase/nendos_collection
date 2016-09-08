@@ -24,6 +24,20 @@ if( isset($_GET['face_internalid']) ){
                       'db_editiondate'  =>  $face['db_editiondate'],
                       'db_editiondiff'  =>  ((new DateTime($face['now']))->diff(new DateTime($face['db_editiondate']))));
 
+    $resultInfo = get_faceHistory($face_internalid);
+    if($resultInfo[0]!="00000"){
+      $include_page = "error";
+      $page_title = "Error";
+    }
+    $history = $resultInfo[4];
+    foreach ($history as $key => $histentry) {
+      $history[$key]['history_actioninterval'] = ((new DateTime($histentry['now']))->diff(new DateTime($histentry['history_actiondate'])));
+      $history[$key]['box_url'] = urlize($histentry['box_name']);
+      if( isset($histentry['nendoroid_name']) ){
+        $history[$key]['nendoroid_url'] = urlize($histentry['nendoroid_name']);
+      }
+    }
+
     $page_title = "Face";
 
   } else {

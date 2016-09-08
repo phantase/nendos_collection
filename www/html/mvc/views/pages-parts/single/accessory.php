@@ -57,5 +57,6 @@
                 </div>
                 <hr/>
 <?php include('mvc/views/pages-sections/others/metadata.php'); ?>
+<?php include('mvc/views/pages-sections/others/history.php'); ?>
               </div>
             </div>

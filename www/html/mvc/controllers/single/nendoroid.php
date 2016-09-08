@@ -54,6 +54,20 @@ if( isset($_GET['nendoroid_internalid']) ){
     }
     $accessories = $resultInfo[4];
 
+    $resultInfo = get_nendoroidHistory($nendoroid_internalid);
+    if($resultInfo[0]!="00000"){
+      $include_page = "error";
+      $page_title = "Error";
+    }
+    $history = $resultInfo[4];
+    foreach ($history as $key => $histentry) {
+      $history[$key]['history_actioninterval'] = ((new DateTime($histentry['now']))->diff(new DateTime($histentry['history_actiondate'])));
+      $history[$key]['box_url'] = urlize($histentry['box_name']);
+      if( isset($histentry['nendoroid_name']) ){
+        $history[$key]['nendoroid_url'] = urlize($histentry['nendoroid_name']);
+      }
+    }
+
     $page_title = $nendoroid['nendoroid_name'];
     if( isset($nendoroid['nendoroid_version']) && strlen($nendoroid['nendoroid_version'])>0){
       $page_title .= " - ".$nendoroid['nendoroid_version'];

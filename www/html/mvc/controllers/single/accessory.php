@@ -24,6 +24,20 @@ if( isset($_GET['accessory_internalid']) ){
                       'db_editiondate'  =>  $accessory['db_editiondate'],
                       'db_editiondiff'  =>  ((new DateTime($accessory['now']))->diff(new DateTime($accessory['db_editiondate']))));
 
+    $resultInfo = get_accessoryHistory($accessory_internalid);
+    if($resultInfo[0]!="00000"){
+      $include_page = "error";
+      $page_title = "Error";
+    }
+    $history = $resultInfo[4];
+    foreach ($history as $key => $histentry) {
+      $history[$key]['history_actioninterval'] = ((new DateTime($histentry['now']))->diff(new DateTime($histentry['history_actiondate'])));
+      $history[$key]['box_url'] = urlize($histentry['box_name']);
+      if( isset($histentry['nendoroid_name']) ){
+        $history[$key]['nendoroid_url'] = urlize($histentry['nendoroid_name']);
+      }
+    }
+
     $page_title = "Accessory";
 
   } else {

@@ -42,12 +42,16 @@ $(function(){
           .appendTo( this );
       }
     },
-    items: "[title], [box], [face], [hair], [hand], [bodypart], [accessory], [nendoroid]",
+    items: "[title], [histentry], [box], [face], [hair], [hand], [bodypart], [accessory], [nendoroid]",
     content: function() {
       var element = $(this);
       // DEFAULT (title)
       if( element.is("[title]") ){
         return element.attr("title");
+      }
+      // HISTENTRY
+      if( element.is("[histentry]") ){
+        return "<img src='images/nendos/"+element.attr("histentry")+"/"+element.attr("internalid")+".jpg' class='tooltip_histentry'/>";
       }
       // BOX
       if( element.is("[box]") ){
@@ -508,5 +512,11 @@ $(function(){
       }
     );
   });
+// Show/Hide the History
+  $('#toggle_history,#toggle_metadata').click(function(){
+    $('#'+this.id+'~div').toggle();
+    $('#'+this.id+' span').toggle();
+    console.log(this.id);
+  })
 
 });
