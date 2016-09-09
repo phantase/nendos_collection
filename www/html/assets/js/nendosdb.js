@@ -142,17 +142,17 @@ $(function(){
   $('#new_box_submit').click(function(){
     $('#new_box_submit').prop('disabled',true);
     $('#new_box_submit').prop('value','Adding...');
-    var new_box_number          = $('#new_box_number').val();
-    var new_box_name            = $('#new_box_name').val();
-    var new_box_series          = $('#new_box_series').val();
-    var new_box_manufacturer    = $('#new_box_manufacturer').val();
-    var new_box_category        = $('#new_box_category').val();
-    var new_box_price           = $('#new_box_price').val();
-    var new_box_releasedate     = $('#new_box_releasedate').val();
-    var new_box_specifications  = $('#new_box_specifications').val();
-    var new_box_sculptor        = $('#new_box_sculptor').val();
-    var new_box_cooperation     = $('#new_box_cooperation').val();
-    var new_box_officialurl     = $('#new_box_officialurl').val();
+    var new_box_number          = $('#new_box_number').val().trim();
+    var new_box_name            = $('#new_box_name').val().trim();
+    var new_box_series          = $('#new_box_series').val().trim();
+    var new_box_manufacturer    = $('#new_box_manufacturer').val().trim();
+    var new_box_category        = $('#new_box_category').val().trim();
+    var new_box_price           = $('#new_box_price').val().trim();
+    var new_box_releasedate     = $('#new_box_releasedate').val().trim();
+    var new_box_specifications  = $('#new_box_specifications').val().trim();
+    var new_box_sculptor        = $('#new_box_sculptor').val().trim();
+    var new_box_cooperation     = $('#new_box_cooperation').val().trim();
+    var new_box_officialurl     = $('#new_box_officialurl').val().trim();
 
     $.post("services/box/add",
       {
@@ -185,11 +185,11 @@ $(function(){
     $('#new_nendoroid_submit').prop('value','Adding...');
 
     if($('#new_nendoroid_box_internalid').val()!=""){
-      var new_nendoroid_box_internalid    = $('#new_nendoroid_box_internalid').val();
-      var new_nendoroid_name              = $('#new_nendoroid_name').val();
-      var new_nendoroid_version           = $('#new_nendoroid_version').val();
-      var new_nendoroid_sex               = $('#new_nendoroid_sex').val();
-      var new_nendoroid_color             = $('#new_nendoroid_color').val();
+      var new_nendoroid_box_internalid    = $('#new_nendoroid_box_internalid').val().trim();
+      var new_nendoroid_name              = $('#new_nendoroid_name').val().trim();
+      var new_nendoroid_version           = $('#new_nendoroid_version').val().trim();
+      var new_nendoroid_sex               = $('#new_nendoroid_sex').val().trim();
+      var new_nendoroid_color             = $('#new_nendoroid_color').val().trim();
       $.post("services/nendoroid/add",
         {
           new_nendoroid_box_internalid:new_nendoroid_box_internalid,
@@ -222,13 +222,13 @@ $(function(){
     $('#new_face_submit').prop('value','Adding...');
 
     if($('#new_face_box_internalid').val()!="0"){
-      var new_face_box_internalid = $('#new_face_box_internalid').val();
-      var new_face_nendoroid_internalid = $('#new_face_nendoroid_internalid').val();
-      var new_face_eyes = $('#new_face_eyes').val();
-      var new_face_eyes_color = $('#new_face_eyes_color').val();
-      var new_face_mouth = $('#new_face_mouth').val();
-      var new_face_skin_color = $('#new_face_skin_color').val();
-      var new_face_sex = $('#new_face_sex').val();
+      var new_face_box_internalid = $('#new_face_box_internalid').val().trim();
+      var new_face_nendoroid_internalid = $('#new_face_nendoroid_internalid').val().trim();
+      var new_face_eyes = $('#new_face_eyes').val().trim();
+      var new_face_eyes_color = $('#new_face_eyes_color').val().trim();
+      var new_face_mouth = $('#new_face_mouth').val().trim();
+      var new_face_skin_color = $('#new_face_skin_color').val().trim();
+      var new_face_sex = $('#new_face_sex').val().trim();
       $.post("services/face/add",
         {
           new_face_box_internalid:new_face_box_internalid,
@@ -262,13 +262,13 @@ $(function(){
     $('#new_hair_submit').prop('value','Adding...');
 
     if($('#new_hair_box_internalid').val()!="0"){
-      var new_hair_box_internalid = $('#new_hair_box_internalid').val();
-      var new_hair_nendoroid_internalid = $('#new_hair_nendoroid_internalid').val();
-      var new_hair_main_color = $('#new_hair_main_color').val();
-      var new_hair_other_color = $('#new_hair_other_color').val();
-      var new_hair_haircut = $('#new_hair_haircut').val();
-      var new_hair_frontback = $('#new_hair_frontback').val();
-      var new_hair_description = $('#new_hair_description').val();
+      var new_hair_box_internalid = $('#new_hair_box_internalid').val().trim();
+      var new_hair_nendoroid_internalid = $('#new_hair_nendoroid_internalid').val().trim();
+      var new_hair_main_color = $('#new_hair_main_color').val().trim();
+      var new_hair_other_color = $('#new_hair_other_color').val().trim();
+      var new_hair_haircut = $('#new_hair_haircut').val().trim();
+      var new_hair_frontback = $('#new_hair_frontback').val().trim();
+      var new_hair_description = $('#new_hair_description').val().trim();
       $.post("services/hair/add",
         {
           new_hair_box_internalid:new_hair_box_internalid,
@@ -302,12 +302,12 @@ $(function(){
     $('#new_hand_submit').prop('value','Adding...');
 
     if($('#new_hand_box_internalid').val()!="0"){
-      var new_hand_box_internalid = $('#new_hand_box_internalid').val();
-      var new_hand_nendoroid_internalid = $('#new_hand_nendoroid_internalid').val();
-      var new_hand_skin_color = $('#new_hand_skin_color').val();
-      var new_hand_posture = $('#new_hand_posture').val();
-      var new_hand_leftright = $('#new_hand_leftright').val();
-      var new_hand_description = $('#new_hand_description').val();
+      var new_hand_box_internalid = $('#new_hand_box_internalid').val().trim();
+      var new_hand_nendoroid_internalid = $('#new_hand_nendoroid_internalid').val().trim();
+      var new_hand_skin_color = $('#new_hand_skin_color').val().trim();
+      var new_hand_posture = $('#new_hand_posture').val().trim();
+      var new_hand_leftright = $('#new_hand_leftright').val().trim();
+      var new_hand_description = $('#new_hand_description').val().trim();
       $.post("services/hand/add",
         {
           new_hand_box_internalid:new_hand_box_internalid,
@@ -340,12 +340,12 @@ $(function(){
     $('#new_bodypart_submit').prop('value','Adding...');
 
     if($('#new_bodypart_box_internalid').val()!="0"){
-      var new_bodypart_box_internalid = $('#new_bodypart_box_internalid').val();
-      var new_bodypart_nendoroid_internalid = $('#new_bodypart_nendoroid_internalid').val();
-      var new_bodypart_main_color = $('#new_bodypart_main_color').val();
-      var new_bodypart_other_color = $('#new_bodypart_other_color').val();
-      var new_bodypart_part = $('#new_bodypart_part').val();
-      var new_bodypart_description = $('#new_bodypart_description').val();
+      var new_bodypart_box_internalid = $('#new_bodypart_box_internalid').val().trim();
+      var new_bodypart_nendoroid_internalid = $('#new_bodypart_nendoroid_internalid').val().trim();
+      var new_bodypart_main_color = $('#new_bodypart_main_color').val().trim();
+      var new_bodypart_other_color = $('#new_bodypart_other_color').val().trim();
+      var new_bodypart_part = $('#new_bodypart_part').val().trim();
+      var new_bodypart_description = $('#new_bodypart_description').val().trim();
       $.post("services/bodypart/add",
         {
           new_bodypart_box_internalid:new_bodypart_box_internalid,
@@ -378,12 +378,12 @@ $(function(){
     $('#new_accessory_submit').prop('value','Adding...');
 
     if($('#new_accessory_box_internalid').val()!="0"){
-      var new_accessory_box_internalid = $('#new_accessory_box_internalid').val();
-      var new_accessory_nendoroid_internalid = $('#new_accessory_nendoroid_internalid').val();
-      var new_accessory_type = $('#new_accessory_type').val();
-      var new_accessory_main_color = $('#new_accessory_main_color').val();
-      var new_accessory_other_color = $('#new_accessory_other_color').val();
-      var new_accessory_description = $('#new_accessory_description').val();
+      var new_accessory_box_internalid = $('#new_accessory_box_internalid').val().trim();
+      var new_accessory_nendoroid_internalid = $('#new_accessory_nendoroid_internalid').val().trim();
+      var new_accessory_type = $('#new_accessory_type').val().trim();
+      var new_accessory_main_color = $('#new_accessory_main_color').val().trim();
+      var new_accessory_other_color = $('#new_accessory_other_color').val().trim();
+      var new_accessory_description = $('#new_accessory_description').val().trim();
       $.post("services/accessory/add",
         {
           new_accessory_box_internalid:new_accessory_box_internalid,
