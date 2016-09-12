@@ -52,3 +52,15 @@ function getPOSTorNULL($index){
     return null;
   }
 }
+
+function raiseError($errorMessage){
+
+  $errorMessage = $errorMessage;
+
+  $include_page = "error";
+  $page_title = "Error";
+
+  include_once('mvc/views/pages/skeleton.php');
+
+  exit;
+}

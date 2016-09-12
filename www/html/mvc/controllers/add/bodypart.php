@@ -7,16 +7,14 @@ if( isset($_GET['box_internalid']) ){
     $box = $resultInfo[4];
     $boxes = array($box);
   } else {
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
 } else {
   $resultInfo = get_allBoxes();
   if($resultInfo[0]=="00000"){
     $boxes = $resultInfo[4];
   } else {
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
 }
 if( isset($_GET['nendoroid_internalid']) ){
@@ -26,8 +24,7 @@ if( isset($_GET['nendoroid_internalid']) ){
     $nendoroid = $resultInfo[4];
     $nendoroids = array($nendoroid);
   } else {
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
 } else {
   if( isset($_GET['box_internalid']) ){
@@ -39,7 +36,6 @@ if( isset($_GET['nendoroid_internalid']) ){
   if($resultInfo[0]=="00000"){
     $nendoroids = $resultInfo[4];
   } else {
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
 }

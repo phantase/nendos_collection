@@ -3,7 +3,7 @@
               <div class="row uniform">
                 <div class="12u">
                   <p>
-                    <?= $resultInfo[2] ?>
+                    <?= $errorMessage ?>
                   </p>
                 </div>
               </div>
