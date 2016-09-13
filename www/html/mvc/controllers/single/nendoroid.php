@@ -21,43 +21,37 @@ if( isset($_GET['nendoroid_internalid']) ){
 
     $resultInfo = get_nendoroidFaces($nendoroid_internalid);
     if($resultInfo[0]!="00000"){
-      $include_page = "error";
-      $page_title = "Error";
+      raiseError($resultInfo[2]);
     }
     $faces = $resultInfo[4];
 
     $resultInfo = get_nendoroidHands($nendoroid_internalid);
     if($resultInfo[0]!="00000"){
-      $include_page = "error";
-      $page_title = "Error";
+      raiseError($resultInfo[2]);
     }
     $hands = $resultInfo[4];
 
     $resultInfo = get_nendoroidBodyParts($nendoroid_internalid);
     if($resultInfo[0]!="00000"){
-      $include_page = "error";
-      $page_title = "Error";
+      raiseError($resultInfo[2]);
     }
     $bodyparts = $resultInfo[4];
 
     $resultInfo = get_nendoroidHairs($nendoroid_internalid);
     if($resultInfo[0]!="00000"){
-      $include_page = "error";
-      $page_title = "Error";
+      raiseError($resultInfo[2]);
     }
     $hairs = $resultInfo[4];
 
     $resultInfo = get_nendoroidAccessories($nendoroid_internalid);
     if($resultInfo[0]!="00000"){
-      $include_page = "error";
-      $page_title = "Error";
+      raiseError($resultInfo[2]);
     }
     $accessories = $resultInfo[4];
 
     $resultInfo = get_nendoroidHistory($nendoroid_internalid);
     if($resultInfo[0]!="00000"){
-      $include_page = "error";
-      $page_title = "Error";
+      raiseError($resultInfo[2]);
     }
     $history = $resultInfo[4];
     foreach ($history as $key => $histentry) {
@@ -74,13 +68,11 @@ if( isset($_GET['nendoroid_internalid']) ){
     }
 
   } else {
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
 
 } else {
-  $include_page = "error";
-  $page_title = "Error";
+  raiseError("There is no nendoroid id provided.");
 }
 
 include_once('mvc/views/pages/skeleton.php');

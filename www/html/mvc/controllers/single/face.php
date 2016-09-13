@@ -26,8 +26,7 @@ if( isset($_GET['face_internalid']) ){
 
     $resultInfo = get_faceHistory($face_internalid);
     if($resultInfo[0]!="00000"){
-      $include_page = "error";
-      $page_title = "Error";
+      raiseError($resultInfo[2]);
     }
     $history = $resultInfo[4];
     foreach ($history as $key => $histentry) {
@@ -41,13 +40,11 @@ if( isset($_GET['face_internalid']) ){
     $page_title = "Face";
 
   } else {
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
 
 } else {
-  $include_page = "error";
-  $page_title = "Error";
+  raiseError("There is no face id provided.");
 }
 
 include_once('mvc/views/pages/skeleton.php');

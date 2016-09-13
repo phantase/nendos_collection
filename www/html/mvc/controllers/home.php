@@ -18,7 +18,6 @@ if($resultInfo[0] == "00000" ){
 
   $page_title = "Nendoroids DB";
 } else {
-  $page_title = "Error";
-  $include_page = "error";
+  raiseError($resultInfo[2]);
 }
 include_once('mvc/views/pages/skeleton.php');

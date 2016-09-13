@@ -44,7 +44,7 @@ if( isset($_POST['new_accessory_box_internalid']) && strlen($_POST['new_accessor
                 $resultInfo[4],null,null,null,null,
                 "Creation","");
   } else {
-    echo json_encode(array('result'=>'failure','reason'=>$resultInfo[4]));
+    echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
   }
 
 

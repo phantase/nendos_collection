@@ -13,8 +13,7 @@ if( $resultInfo[0] == "00000" ){
   $hairs = $resultInfo[4];
   $page_title = "Hairs";
 } else {
-  $include_page = "error";
-  $page_title = "Error";
+  raiseError($resultInfo[2]);
 }
 
 include_once('mvc/views/pages/skeleton.php');

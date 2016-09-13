@@ -13,8 +13,7 @@ if( $resultInfo[0] == "00000" ){
   $accessories = $resultInfo[4];
   $page_title = "Accessories";
 } else {
-  $include_page = "error";
-  $page_title = "Error";
+  raiseError($resultInfo[2]);
 }
 
 include_once('mvc/views/pages/skeleton.php');

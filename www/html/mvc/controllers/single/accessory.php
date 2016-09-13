@@ -41,13 +41,11 @@ if( isset($_GET['accessory_internalid']) ){
     $page_title = "Accessory";
 
   } else {
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
 
 } else {
-  $include_page = "error";
-  $page_title = "Error";
+  raiseError("There is no accessory id provided.");
 }
 
 include_once('mvc/views/pages/skeleton.php');

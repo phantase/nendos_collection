@@ -26,8 +26,7 @@ if( isset($_GET['hair_internalid']) ){
 
     $resultInfo = get_hairHistory($hair_internalid);
     if($resultInfo[0]!="00000"){
-      $include_page = "error";
-      $page_title = "Error";
+      raiseError($resultInfo[2]);
     }
     $history = $resultInfo[4];
     foreach ($history as $key => $histentry) {
@@ -41,13 +40,11 @@ if( isset($_GET['hair_internalid']) ){
     $page_title = "Hair";
 
   } else {
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
 
 } else {
-  $include_page = "error";
-  $page_title = "Error";
+  raiseError("There is no hair id provided.");
 }
 
 include_once('mvc/views/pages/skeleton.php');

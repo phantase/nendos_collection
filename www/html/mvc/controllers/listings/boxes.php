@@ -17,7 +17,6 @@ if( $resultInfo[0]=="00000" ){
 
   $page_title = "Boxes";
 } else {
-  $include_page = "error";
-  $page_title = "Error";
+  raiseError($resultInfo[2]);
 }
 include_once('mvc/views/pages/skeleton.php');

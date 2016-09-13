@@ -5,8 +5,7 @@ if( isset($_GET['box_internalid']) ){
 
   $resultInfo = get_singleBox($box_internalid);
   if($resultInfo[0]!="00000"){
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
   $box = $resultInfo[4];
   $box['box_url'] = urlize($box['box_name']);
@@ -21,8 +20,7 @@ if( isset($_GET['box_internalid']) ){
 
   $resultInfo = get_boxNendoroids($box_internalid);
   if($resultInfo[0]!="00000"){
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
   $nendoroids = $resultInfo[4];
   foreach ($nendoroids as $key => $nendoroid) {
@@ -31,43 +29,37 @@ if( isset($_GET['box_internalid']) ){
 
   $resultInfo = get_boxFaces($box_internalid);
   if($resultInfo[0]!="00000"){
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
   $faces = $resultInfo[4];
 
   $resultInfo = get_boxHands($box_internalid);
   if($resultInfo[0]!="00000"){
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
   $hands = $resultInfo[4];
 
   $resultInfo = get_boxBodyParts($box_internalid);
   if($resultInfo[0]!="00000"){
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
   $bodyparts = $resultInfo[4];
 
   $resultInfo = get_boxHairs($box_internalid);
   if($resultInfo[0]!="00000"){
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
   $hairs = $resultInfo[4];
 
   $resultInfo = get_boxAccessories($box_internalid);
   if($resultInfo[0]!="00000"){
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
   $accessories = $resultInfo[4];
 
   $resultInfo = get_boxHistory($box_internalid);
   if($resultInfo[0]!="00000"){
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
   $history = $resultInfo[4];
   foreach ($history as $key => $histentry) {
@@ -85,8 +77,7 @@ if( isset($_GET['box_internalid']) ){
   $page_title .= " ".$box['box_name'];
 
 } else {
-  $include_page = "error";
-  $page_title = "Error";
+  raiseError("There is no box id provided.");
 }
 
 include_once('mvc/views/pages/skeleton.php');

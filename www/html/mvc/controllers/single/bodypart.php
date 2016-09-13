@@ -26,8 +26,7 @@ if( isset($_GET['bodypart_internalid']) ){
 
     $resultInfo = get_bodypartHistory($bodypart_internalid);
     if($resultInfo[0]!="00000"){
-      $include_page = "error";
-      $page_title = "Error";
+      raiseError($resultInfo[2]);
     }
     $history = $resultInfo[4];
     foreach ($history as $key => $histentry) {
@@ -41,13 +40,11 @@ if( isset($_GET['bodypart_internalid']) ){
     $page_title = "Bodypart";
 
   } else {
-    $include_page = "error";
-    $page_title = "Error";
+    raiseError($resultInfo[2]);
   }
 
 } else {
-  $include_page = "error";
-  $page_title = "Error";
+  raiseError('There is no bodypart id provided.');
 }
 
 include_once('mvc/views/pages/skeleton.php');
