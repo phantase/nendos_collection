@@ -1,7 +1,9 @@
                       <div class="info-box">
-                        <span class="info-box-icon login_icon" id="login_button"></span>
+                        <span class="info-box-icon login_icon"></span>
                         <div class="info-box-content">
-                          <div class="info-box-text" id="username_holder"><input type="text" name="username" id="username" placeholder="Username" /></div>
-                          <div class="info-box-text" id="password_holder"><input type="password" name="password" id="password" placeholder="Password" /></div>
+                          <div>
+                            You are not connected.<br/>
+                            Please <a href="login">log in</a> or <a href="signup">sign up</a>
+                          </div>
                         </div>
                       </div>

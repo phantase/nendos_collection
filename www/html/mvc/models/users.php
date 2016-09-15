@@ -19,23 +19,54 @@ function get_allUsers()
   $req = $bdd->prepare("SELECT u.internalid, u.username
                         FROM users AS u");
   $req->execute();
-  $users = $req->fetchAll(PDO::FETCH_ASSOC);
 
-  return $users;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
 }
 /** Check and Get a single user */
 function checkAndGet_singleUser($username,$encpass)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT u.internalid, u.username
+  $req = $bdd->prepare("SELECT u.internalid, u.usermail, u.username
                         FROM users AS u
                         WHERE u.username = :username
                         AND u.encpass = :encpass");
   $req->bindParam(':username',$username);
   $req->bindParam(':encpass',$encpass);
   $req->execute();
-  $user = $req->fetch();
 
-  return $user;
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetch();
+  }
+
+  return $resultInfo;
+}
+
+function add_singleUser($usermail,$username,$encpass)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("INSERT INTO users(usermail, username, encpass)
+                                  VALUES(:usermail,:username,:encpass)");
+  $req->bindParam(':usermail',$usermail);
+  $req->bindParam(':username',$username);
+  $req->bindParam(':encpass',$encpass);
+  $req->execute();
+
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $bdd->lastInsertId();
+  }
+
+  return $resultInfo;
 }

@@ -3667,7 +3667,7 @@ blockquote.warning {
 	cursor: pointer;
 }
 
-.fa-edit:hover, .fa-check:hover {
+.fa-edit:hover, .fa-check:hover, #logout_submit:hover {
 	color: #F57921;
 }
 
@@ -3690,6 +3690,6 @@ input[forwhat] {
 	width: 100px;
 }
 
-#toggle_history, #toggle_metadata {
+#toggle_history, #toggle_metadata, #logout_submit {
 	cursor: pointer;
 }

@@ -1,14 +1,37 @@
 $(function(){
 
 // Login button
-  $('#login_button').click(function(){
+  $('#login_submit').click(function(){
+    $('#login_submit').prop('disabled',true);
+    $('#login_submit').prop('value','Verifying...');
     var username = $('#username').val();
     var password = $('#password').val();
     var encpass = btoa(btoa(btoa(password)));
-    $.post("services/loginandout",{action:"login",username:username,password:encpass},function(data){
+    $.post("services/login",{username:username,password:encpass},function(data){
+      if( data.result == "success"){
+        // SUCCESS
+        window.location.assign("/");
+      } else {
+        // FAIL
+        $('#login_submit').prop('disabled',false);
+        $('#login_submit').prop('value','Log in...');
+        $('#password').val('');
+        $('#warning_message').html('<strong>Faillure:</strong> '+data.errorInfo);
+        $('#warning_message').fadeIn();
+      }
+    });
+  });
+// Signup button
+  $('#signup_submit').click(function(){
+    var usermail = $('#usermail').val();
+    var username = $('#username').val();
+    var password = $('#password').val();
+    var repassword = $('#repassword').val();
+    var encpass = btoa(btoa(btoa(password)));
+    $.post("services/signup",{usermail:usermail,username:username,password:encpass},function(data){
       if( data == "1"){
         // SUCCESS
-        window.location.reload(true);
+        window.location.assign("/");
       } else {
         // FAIL
         $('#username').val('');
@@ -17,8 +40,8 @@ $(function(){
     });
   });
 // Logout button
-  $('#logout_button').click(function(){
-    $.post("services/loginandout",{action:"logout"},function(data){
+  $('#logout_submit').click(function(){
+    $.post("services/logout",{},function(data){
       if( data == "1"){
         // SUCCESS
         window.location.reload(true);

@@ -28,8 +28,10 @@
   $action = isset($_GET['action']) ? $_GET['action'] : "home";
 
   switch($action) {
-    // LOGIN
-    case "loginandout":
+    // LOGIN, LOGOUT, SIGNUP
+    case "login":
+    case "logout":
+    case "signup":
     // ADD
     case "add_box":
     case "add_nendoroid":

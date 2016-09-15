@@ -36,7 +36,16 @@ function intervalFormater($interval){
   return "Right now";
 }
 
-/** Used to know if the current user can edit the DB */
+/** Used to know if the current user is logged */
+function isLogged(){
+  if(isset($_SESSION['userid'])){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/** Used to know if the current user can edit the DB (TODO: change it, because atm there is no permission to edit ) */
 function canEdit(){
   if(isset($_SESSION['userid'])){
     return true;

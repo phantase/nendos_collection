@@ -64,6 +64,8 @@
       break;
     // OTHER
     case "credits":
+    case "login":
+    case "signup":
       $include_page = $action;
       break;
     // HOME
