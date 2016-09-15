@@ -5,13 +5,16 @@ RewriteEngine On
 ## IMAGES ##
 ############
 RewriteCond %{DOCUMENT_ROOT}/images/nendos/$1/$2.jpg -f
-RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         images/nendos/$1/$2.jpg [L]
+RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         hidden.php [L]
+#RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         images/nendos/$1/$2.jpg [L]
 RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         unknown.php [L]
 
 ###########
 ## LOGIN ##
 ###########
-RewriteRule ^services/loginandout$                                    services.php?action=loginandout [L]
+RewriteRule ^services/login$                                          services.php?action=login [L]
+RewriteRule ^services/logout$                                         services.php?action=logout [L]
+RewriteRule ^services/signup$                                         services.php?action=signup [L]
 
 ##############
 ## SERVICES ##
@@ -55,11 +58,13 @@ RewriteRule ^box/([0-9]+)/(.*)/nendoroid/([0-9]+)/(.*)/addaccessory$  index.php?
 RewriteRule ^box/([0-9]+)/(.*)/addaccessory$                          index.php?action=add&element=accessory&box_internalid=$1 [L]
 RewriteRule ^addaccessory$                                            index.php?action=add&element=accessory [L]
 
-####################
-## HOME & CREDITS ##
-####################
+#####################################
+## HOME & CREDITS & LOGIN & SIGNUP ##
+#####################################
 RewriteRule ^home$                                                    index.php?action=home [L]
 RewriteRule ^credits$                                                 index.php?action=credits [L]
+RewriteRule ^login$                                                   index.php?action=login [L]
+RewriteRule ^signup$                                                  index.php?action=signup [L]
 
 ##############
 ## LISTINGS ##
