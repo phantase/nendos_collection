@@ -126,6 +126,10 @@ RewriteRule ^accessories/orderby/(accessory_type|accessory_main_color|accessory_
 RewriteRule ^accessories/orderby/(accessory_type|accessory_main_color|accessory_other_color|nendoroid_name|nendoroid_version|nendoroid_sex|box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)_(asc|desc)$               index.php?action=accessories&order=$1&direction=$2 [L]
 RewriteRule ^accessories/orderby/(accessory_type|accessory_main_color|accessory_other_color|nendoroid_name|nendoroid_version|nendoroid_sex|box_number|box_name|box_series|box_manufacturer|box_category|box_price|box_releasedate|box_sculptor|box_cooperation|db_creatorname|db_creationdate|db_editorname|db_editiondate)_(asc|desc)/$              index.php?action=accessories&order=$1&direction=$2 [L]
 
+# USERS #
+RewriteRule ^users$                               index.php?action=users [L]
+RewriteRule ^users/$                              index.php?action=users [L]
+
 ##################
 ## SINGLE PAGES ##
 ##################

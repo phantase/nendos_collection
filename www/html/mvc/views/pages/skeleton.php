@@ -66,7 +66,10 @@ if( file_exists('mvc/views/pages-sections/sort/'.$include_page.'.php') ) {
               <li><a href="./bodyparts">Body Parts</a></li>
               <li><a href="./accessories">Accessories</a></li>
               <li><a href="./credits">Credits</a></li>
+<?php if(isAdministrator()){ ?>
+              <li><a href="./users">Users</a></li>
               <li><a href="elements.html">Elements</a></li>
+<?php } ?>
             </ul>
           </nav>
 

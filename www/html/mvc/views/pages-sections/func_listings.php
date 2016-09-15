@@ -31,3 +31,7 @@ function showNendoroidsListing($nendoroids,$sortingfield=null,$withlinks=false,$
 function showNendoroidsArticle($nendoroids){
   include('mvc/views/pages-sections/article_listings/nendoroids.php');
 }
+
+function showUsersListing($users,$sortingfield=null,$withlinks=false){
+  include('mvc/views/pages-sections/simple_listings/users.php');
+}

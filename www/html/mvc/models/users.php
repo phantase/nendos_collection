@@ -12,12 +12,13 @@ function count_allUsers()
   return $count['count'];
 }
 /** Get all the users available in the DB */
-function get_allUsers()
+function get_allUsers($order="user_signupdate",$direction="desc")
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT u.internalid, u.username,
-                              u.administrator, u.validator, u.editor
+  $req = $bdd->prepare("SELECT u.internalid, u.username, u.usermail,
+                              u.administrator, u.validator, u.editor,
+                              u.signupdate, u.lastviewdate
                         FROM users AS u");
   $req->execute();
 
@@ -35,7 +36,8 @@ function checkAndGet_singleUser($username,$encpass)
   global $bdd;
 
   $req = $bdd->prepare("SELECT u.internalid, u.usermail, u.username,
-                              u.administrator, u.validator, u.editor
+                              u.administrator, u.validator, u.editor,
+                              u.signupdate, u.lastviewdate
                         FROM users AS u
                         WHERE u.username = :username
                         AND u.encpass = :encpass");

@@ -50,6 +50,7 @@
     case "hands":
     case "bodyparts":
     case "accessories":
+    case "users":
       $include_page = 'listings/'.$action;
       break;
     // SINGLE PAGES
