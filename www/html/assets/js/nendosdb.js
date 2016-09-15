@@ -8,7 +8,7 @@ $(function(){
     var password = $('#password').val();
     var encpass = btoa(btoa(btoa(password)));
     $.post("services/login",{username:username,password:encpass},function(data){
-      if( data.result == "success"){
+      if( data.result == "success" ){
         // SUCCESS
         window.location.assign("/");
       } else {
@@ -31,7 +31,7 @@ $(function(){
     var repassword = $('#repassword').val();
     var encpass = btoa(btoa(btoa(password)));
     $.post("services/signup",{usermail:usermail,username:username,password:encpass},function(data){
-      if( data.result == "success"){
+      if( data.result == "success" ){
         // SUCCESS
         window.location.assign("/");
       } else {
@@ -46,7 +46,7 @@ $(function(){
 // Logout button
   $('#logout_submit').click(function(){
     $.post("services/logout",{},function(data){
-      if( data == "1"){
+      if( data.result == "success" ){
         // SUCCESS
         window.location.reload(true);
       } else {
