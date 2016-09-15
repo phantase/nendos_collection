@@ -35,7 +35,7 @@
                   </div>
                 </div>
               </div>
-<?php if(canEdit() || count($nendoroids)>0){ ?>
+<?php if(isEditor() || count($nendoroids)>0){ ?>
               <div class="row">
                 <div  class="12u">
                   <h4>Nendoroids</h4>
@@ -44,31 +44,31 @@
               </div>
 <?php } ?>
               <div class="row">
-<?php if(canEdit() || count($faces)>0){ ?>
+<?php if(isEditor() || count($faces)>0){ ?>
                 <div class="6u 12u(medium)">
               <h4>Faces</h4>
 <?php showFacesListing($faces,null,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
 <?php } ?>
-<?php if(canEdit() || count($hairs)>0){ ?>
+<?php if(isEditor() || count($hairs)>0){ ?>
                 <div class="6u 12u(medium)">
               <h4>Hairs</h4>
 <?php showHairsListing($hairs,null,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
 <?php } ?>
-<?php if(canEdit() || count($hands)>0){ ?>
+<?php if(isEditor() || count($hands)>0){ ?>
                 <div class="6u 12u(medium)">
               <h4>Hands</h4>
 <?php showHandsListing($hands,null,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
 <?php } ?>
-<?php if(canEdit() || count($bodyparts)>0){ ?>
+<?php if(isEditor() || count($bodyparts)>0){ ?>
                 <div class="6u 12u(medium)">
               <h4>Body Parts</h4>
 <?php showBodyPartsListing($bodyparts,null,true,true,$box['box_url'],$box['box_internalid']); ?>
                 </div>
 <?php } ?>
-<?php if(canEdit() || count($accessories)>0){ ?>
+<?php if(isEditor() || count($accessories)>0){ ?>
                 <div class="6u 12u(medium)">
               <h4>Accessories</h4>
 <?php showAccessoriesListing($accessories,null,true,true,$box['box_url'],$box['box_internalid']); ?>

@@ -1,7 +1,9 @@
 <?php
 
+header('Content-Type: application/json');
+
 if( session_destroy() ){
-  echo 1;
+  echo json_encode(array('result'=>'success'));
 } else {
-  echo 0;
+  echo json_encode(array('result'=>'faillure'));
 }

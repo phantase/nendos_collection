@@ -1,6 +1,6 @@
 <?php
 
-if( canEdit() ){
+if( isEditor() ){
 
   if( isset($_GET['element']) && strlen($_GET['element'])>0 ){
     $element = $_GET['element'];

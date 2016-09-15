@@ -29,6 +29,9 @@ if( $resultInfo[0] == "00000" ){
     $_SESSION['userid'] = $user['internalid'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['password'] = $password;
+    $_SESSION['administrator'] = $user['administrator'];
+    $_SESSION['validator'] = $user['validator'];
+    $_SESSION['editor'] = $user['editor'];
 
     echo json_encode(array('result'=>'success','userid'=>$user['internalid'],'username'=>$user['username']));
 

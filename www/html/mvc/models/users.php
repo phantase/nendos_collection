@@ -16,7 +16,8 @@ function get_allUsers()
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT u.internalid, u.username
+  $req = $bdd->prepare("SELECT u.internalid, u.username,
+                              u.administrator, u.validator, u.editor
                         FROM users AS u");
   $req->execute();
 
@@ -33,7 +34,8 @@ function checkAndGet_singleUser($username,$encpass)
 {
   global $bdd;
 
-  $req = $bdd->prepare("SELECT u.internalid, u.usermail, u.username
+  $req = $bdd->prepare("SELECT u.internalid, u.usermail, u.username,
+                              u.administrator, u.validator, u.editor
                         FROM users AS u
                         WHERE u.username = :username
                         AND u.encpass = :encpass");

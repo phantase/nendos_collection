@@ -38,20 +38,22 @@ function intervalFormater($interval){
 
 /** Used to know if the current user is logged */
 function isLogged(){
-  if(isset($_SESSION['userid'])){
-    return true;
-  } else {
-    return false;
-  }
+  return isset($_SESSION['userid']);
 }
 
-/** Used to know if the current user can edit the DB (TODO: change it, because atm there is no permission to edit ) */
-function canEdit(){
-  if(isset($_SESSION['userid'])){
-    return true;
-  } else {
-    return false;
-  }
+/** Used to know if the current user have administrator rights */
+function isAdministrator(){
+  return isset($_SESSION['userid']) && isset($_SESSION['administrator']) && $_SESSION['administrator'];
+}
+
+/** Used to know if the current user have validator rights */
+function isValidator(){
+  return isset($_SESSION['userid']) && isset($_SESSION['validator']) && $_SESSION['validator'];
+}
+
+/** Used to know if the current user have editor rights */
+function isEditor(){
+  return isset($_SESSION['userid']) && isset($_SESSION['editor']) && $_SESSION['editor'];
 }
 
 function getPOSTorNULL($index){

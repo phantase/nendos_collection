@@ -2,7 +2,7 @@
 
 header('Content-Type: application/json');
 
-if(canEdit()){
+if( isEditor() ){
   if(isset($_GET['element']) && strlen($_GET['element'])>0
     && isset($_POST['field']) && strlen($_POST['field'])>0
     && isset($_POST['value']) && strlen($_POST['value'])>0){
