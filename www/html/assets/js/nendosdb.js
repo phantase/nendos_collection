@@ -14,7 +14,7 @@ $(function(){
       } else {
         // FAIL
         $('#login_submit').prop('disabled',false);
-        $('#login_submit').prop('value','Log in...');
+        $('#login_submit').prop('value','Log in');
         $('#password').val('');
         $('#warning_message').html('<strong>Faillure:</strong> '+data.errorInfo);
         $('#warning_message').fadeIn();
@@ -23,19 +23,23 @@ $(function(){
   });
 // Signup button
   $('#signup_submit').click(function(){
+    $('#signup_submit').prop('disabled',true);
+    $('#signup_submit').prop('value','Signing up...');
     var usermail = $('#usermail').val();
     var username = $('#username').val();
     var password = $('#password').val();
     var repassword = $('#repassword').val();
     var encpass = btoa(btoa(btoa(password)));
     $.post("services/signup",{usermail:usermail,username:username,password:encpass},function(data){
-      if( data == "1"){
+      if( data.result == "success"){
         // SUCCESS
         window.location.assign("/");
       } else {
         // FAIL
-        $('#username').val('');
-        $('#password').val('');
+        $('#signup_submit').prop('disabled',false);
+        $('#signup_submit').prop('value','Sign up');
+        $('#warning_message').html('<strong>Faillure:</strong> '+data.errorInfo);
+        $('#warning_message').fadeIn();
       }
     });
   });

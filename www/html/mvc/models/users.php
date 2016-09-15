@@ -49,7 +49,7 @@ function checkAndGet_singleUser($username,$encpass)
 
   return $resultInfo;
 }
-
+/** Add a single user (or at least try to) */
 function add_singleUser($usermail,$username,$encpass)
 {
   global $bdd;

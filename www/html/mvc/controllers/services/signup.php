@@ -12,7 +12,9 @@ function decrypt($string){
 
 $A_SALT = "Sel de Guérande";
 
-$usermail = htmlentities($_POST['usermail']);
+if( !$usermail = filter_var(htmlentities($_POST['usermail']), FILTER_VALIDATE_EMAIL) ) {
+  die(json_encode(array('result'=>'faillure','errorInfo'=>'This is not a valid email...')));
+}
 $username = htmlentities($_POST['username']);
 $password = htmlentities($_POST['password']);
 
@@ -28,7 +30,7 @@ if( $resultInfo[0] == "00000" ){
   $_SESSION['username'] = $username;
   $_SESSION['password'] = $password;
 
-  echo 1;
+  echo json_encode(array('result'=>'success','userid'=>$resultInfo[4],'username'=>$username));
 } else {
-  echo 0;
+  echo json_encode(array('result'=>'failure','errorInfo'=>$resultInfo[2]));
 }
