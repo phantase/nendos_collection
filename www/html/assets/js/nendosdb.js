@@ -570,6 +570,27 @@ $(function(){
       });
   });
 
+// Validate an element
+  $('#validate').click(function(){
+    var element = $('#info_table').attr('element');
+    var internalid = $('#info_table').attr('internalid');
+    $.getJSON("./services/"+element+"/"+internalid+"/validate",function(data){
+      if( data.result == "success" ){
+        $('#validation').toggleClass("validated notvalidated");
+      }
+    });
+  });
+// Unvalidate an element
+  $('#unvalidate').click(function(){
+    var element = $('#info_table').attr('element');
+    var internalid = $('#info_table').attr('internalid');
+    $.getJSON("./services/"+element+"/"+internalid+"/unvalidate",function(data){
+      if( data.result == "success" ){
+        $('#validation').toggleClass("validated notvalidated");
+      }
+    });
+  });
+
 // If new Box form, just load Box vocabularies
 if( $('#new_box_submit').length > 0 ){
   $.getJSON("./services/box/vocabularies",function(data){

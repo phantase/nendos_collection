@@ -3730,3 +3730,15 @@ th .edit {
 	background-color: #ece0e0;
 	color: #9c0000;
 }
+.validated .validatedstatus       { display:inline; }
+.validated .notvalidatedstatus    { display:none; }
+.notvalidated .validatedstatus    { display:none; }
+.notvalidated .notvalidatedstatus { display:inline; }
+.validated #unvalidate            { display:inline; }
+.validated #validate              { display:none; }
+.notvalidated #unvalidate		      { display:none; }
+.notvalidated #validate           { display:inline; }
+
+a {
+  cursor:pointer;
+}

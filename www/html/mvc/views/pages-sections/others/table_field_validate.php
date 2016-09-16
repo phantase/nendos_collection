@@ -1,19 +1,22 @@
 <?php if( isAdministrator() || isValidator() || isEditor() ){ ?>
                         <tr>
+                          <td colspan="<?= ($colspan+1) ?>"
 <?php if($validated){ ?>
-                          <td colspan="<?= ($colspan+1) ?>" class="validated">
-                            Validated
-<?php if( isValidator() ){ ?>
-                            (unvalidate)
-<?php } ?>
-                          </td>
+                              class="validated"
 <?php } else { ?>
-                          <td colspan="<?= ($colspan+1) ?>" class="notvalidated">
-                            Not validated
+                              class="notvalidated"
+<?php } ?>
+                              id="validation">
+                            <span class="validatedstatus">
+                              Validated
+                            </span>
+                            <span class="notvalidatedstatus">
+                              Not validated
+                            </span>
 <?php if( isValidator() ){ ?>
-                            (validate)
+                            <a id="unvalidate">(unvalidate)</a>
+                            <a id="validate">(validate)</a>
 <?php } ?>
                           </td>
-<?php } ?>
                         </tr>
 <?php } ?>
