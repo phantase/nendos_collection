@@ -30,6 +30,27 @@ function get_allUsers($order="user_signupdate",$direction="desc")
 
   return $resultInfo;
 }
+/** Get a single user from its userid */
+function get_singleUser($userid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT u.internalid, u.usermail, u.username,
+                              u.administrator, u.validator, u.editor,
+                              u.signupdate, u.lastviewdate
+                        FROM users AS u
+                        WHERE u.internalid = :userid");
+  $req->bindParam(':userid',$userid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetch();
+  }
+
+  return $resultInfo;
+}
 /** Check and Get a single user */
 function checkAndGet_singleUser($username,$encpass)
 {
@@ -73,4 +94,35 @@ function add_singleUser($usermail,$username,$encpass)
   }
 
   return $resultInfo;
+}
+
+function edit_singleUser($userid,$field,$value)
+{
+  global $bdd;
+
+  $allowedField = array("administrator"  ,"validator" ,"editor" );
+  $fieldsType   = array("boolean"        ,"boolean"   ,"boolean" );
+  $keyfield = array_search($field,$allowedField);
+  $field = $allowedField[$keyfield];
+
+  if( $fieldsType[$keyfield] == "boolean" ){
+    if( $value == "true" ){
+      $value = 1;
+    } else {
+      $value = 0;
+    }
+  }
+
+  $req = $bdd->prepare("UPDATE users SET $field = :value WHERE internalid = :userid");
+  $req->bindParam(':userid',$userid);
+  $req->bindParam(':value',$value);
+  $req->execute();
+
+  $resultArray = $req->errorInfo();
+  if($resultArray[0] == 0 ){
+    $resultArray[4] = $bdd->lastInsertId();
+  }
+
+  return $resultArray;
+
 }

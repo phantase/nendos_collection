@@ -44,6 +44,8 @@
     case "add":
     case "edit":
     case "picupload":
+    // USER EDIT
+    case "useredit":
       $include_page = 'services/'.$action;
       break;
   }

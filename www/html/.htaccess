@@ -21,6 +21,7 @@ RewriteRule ^services/signup$                                         services.p
 ##############
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/([0-9]+)/(edit|picupload)$    services.php?action=$3&element=$1&internalid=$2 [L]
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/add$                          services.php?action=add&element=$1 [L]
+RewriteRule ^services/user/([0-9]+)/edit$                             services.php?action=useredit&userid=$1 [L]
 
 #########
 ## ADD ##
@@ -142,3 +143,4 @@ RewriteRule ^hair/([0-9]+)/$                      index.php?action=hair&hair_int
 RewriteRule ^hand/([0-9]+)/$                      index.php?action=hand&hand_internalid=$1 [L]
 RewriteRule ^bodypart/([0-9]+)/$                  index.php?action=bodypart&bodypart_internalid=$1 [L]
 RewriteRule ^accessory/([0-9]+)/$                 index.php?action=accessory&accessory_internalid=$1 [L]
+RewriteRule ^user/([0-9]+)/$                      index.php?action=user&userid=$1 [L]

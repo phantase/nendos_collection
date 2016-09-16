@@ -3715,3 +3715,9 @@ input[forwhat] {
 .user .righticons {
 	float:right;
 }
+
+th .edit {
+	float:right;
+	font-weight: normal;
+	cursor: pointer;
+}

@@ -61,6 +61,7 @@
     case "hand":
     case "bodypart":
     case "accessory":
+    case "user":
       $include_page = 'single/'.$action;
       break;
     // OTHER

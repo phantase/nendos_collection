@@ -2,7 +2,9 @@
                         <span class="info-box-icon login_icon"></span>
                         <div class="info-box-content">
                           <div class="info-box-text" id="username_holder">
-                            <?= $_SESSION['username'];?>
+                            <a href="user/<?= $_SESSION['userid'] ?>/">
+                              <?= $_SESSION['username'];?>
+                            </a>
                             <a id="logout_submit">(Log out)</a>
                             <span style="float:right;">
 <?php if( isAdministrator() ) { ?>
@@ -14,6 +16,7 @@
 <?php if( isEditor() ) { ?>
                               <i class="icon fa-pencil-square-o" title="Editor"></i>
 <?php } ?>
+                              <i class="icon fa-user" title="User"></i>
                             </span>
                           </div>
                         </div>

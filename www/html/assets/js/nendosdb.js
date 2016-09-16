@@ -546,4 +546,28 @@ $(function(){
     console.log(this.id);
   })
 
+// Show/Hide the Edit of rights for Single User
+  $('#edit_user_rights').click(function(){
+    $('#edit_user_rights span').toggle();
+    $('#user_rights_noedit').toggle();
+    $('#user_rights_edit').toggle();
+  });
+// Send change to server when the checkbox is ticked
+  $('#user_rights_edit input').change(function(){
+    var userid =  $('#info_table').attr('internalid');
+    var right = this.id;
+    var value = $(this).prop('checked');
+    $.post("services/user/"+userid+"/edit",
+      {
+        field:right,
+        value:value
+      },function(data){
+        if( data.result && data.result == "success"){
+          $('#'+data.field+'_view').toggle();
+        } else {
+          alert("Something was wrong, please reload the page...")
+        }
+      });
+  });
+
 });
