@@ -24,7 +24,7 @@
   }
 ?>
 <?php
-  if( $withadd && isset($_SESSION['userid']) ){
+  if( $withadd && isEditor() ){
 ?>
                       <div class="3u 4u(medium) 6u(small)">
                         <a href="<?php if(isset($box_id)){ ?>box/<?= $box_id ?>/<?= $box_url ?>/<?php } ?>addnendoroid">

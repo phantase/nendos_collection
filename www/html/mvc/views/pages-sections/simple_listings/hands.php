@@ -22,7 +22,7 @@
   }
 ?>
 <?php
-  if( $withadd && isset($_SESSION['userid']) ){
+  if( $withadd && isEditor() ){
 ?>
                       <div class="2u 3u(small)">
                         <a href="<?php if(isset($box_id)){ ?>box/<?= $box_id ?>/<?= $box_url ?>/<?php } ?><?php if(isset($nendoroid_id)){ ?>nendoroid/<?= $nendoroid_id ?>/<?= $nendoroid_url ?>/<?php } ?>addhand">

@@ -5,7 +5,7 @@
                 <div  class="4u 12u(small)">
                   <span class="image fit" id="span_box<?= $box['box_internalid'] ?>">
                     <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>.jpg" alt="" />
-                    <?php if(isset($_SESSION['userid'])){ ?>
+                    <?php if( isEditor() ){ ?>
                       <i class="icon style2 fa-edit included editpic" id="editpic_box<?= $box['box_internalid'] ?>" title="Add/Change the picture" part="box" internalid="<?= $box['box_internalid'] ?>"></i>
                     <?php } ?>
                   </span>
