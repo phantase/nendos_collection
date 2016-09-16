@@ -221,3 +221,31 @@ function add_singleBodypart($box_internalid,$nendoroid_internalid,
 
   return $resultInfo;
 }
+/** Retrieve the vocabularies of a field of the bodyparts */
+function getBodypartsVocabulary($field,$order="alphabetical",$direction="ASC",$withnull=false)
+{
+  $fields = array("main_color","other_color","part");
+  $key = array_search($field, $fields);
+  $field = $fields[$key];
+
+  if(!$withnull){
+    $where = "WHERE $field IS NOT NULL ";
+  }
+
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT $field AS field, count(*) AS count
+                        FROM bodyparts
+                        $where
+                        GROUP BY field
+                        ORDER BY field $direction");
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}

@@ -591,10 +591,112 @@ if( $('#new_box_submit').length > 0 ){
       items.sculptor = [];
       $.each( data.vocabularies.sculptor, function(key, val){ items.sculptor.push(val.field); });
       $('#new_box_sculptor').autocomplete({ source: items.sculptor, minLength: 0 });
-      // CATEGORY
+      // COOPERATION
       items.cooperation = [];
       $.each( data.vocabularies.cooperation, function(key, val){ items.cooperation.push(val.field); });
       $('#new_box_cooperation').autocomplete({ source: items.cooperation, minLength: 0 });
+    } else {
+      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+    }
+  });
+}
+// If new Face form, just load Face vocabularies
+if( $('#new_face_submit').length > 0 ){
+  $.getJSON("./services/face/vocabularies",function(data){
+    if( data.result == "success" ){
+      var items = [];
+      // EYES_COLOR
+      items.eyes_color = [];
+      $.each( data.vocabularies.eyes_color, function(key, val){ items.eyes_color.push(val.field); });
+      $('#new_face_eyes_color').autocomplete({ source: items.eyes_color, minLength: 0 });
+      // SKIN_COLOR
+      items.skin_color = [];
+      $.each( data.vocabularies.skin_color, function(key, val){ items.skin_color.push(val.field); });
+      $('#new_face_skin_color').autocomplete({ source: items.skin_color, minLength: 0 });
+    } else {
+      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+    }
+  });
+}
+// If new Hair form, just load Hair vocabularies
+if( $('#new_hair_submit').length > 0 ){
+  $.getJSON("./services/hair/vocabularies",function(data){
+    if( data.result == "success" ){
+      var items = [];
+      // MAIN_COLOR
+      items.main_color = [];
+      $.each( data.vocabularies.main_color, function(key, val){ items.main_color.push(val.field); });
+      $('#new_hair_main_color').autocomplete({ source: items.main_color, minLength: 0 });
+      // OTHER_COLOR
+      items.other_color = [];
+      $.each( data.vocabularies.other_color, function(key, val){ items.other_color.push(val.field); });
+      $('#new_hair_other_color').autocomplete({ source: items.other_color, minLength: 0 });
+      // HAIRCUT
+      items.haircut = [];
+      $.each( data.vocabularies.haircut, function(key, val){ items.haircut.push(val.field); });
+      $('#new_hair_haircut').autocomplete({ source: items.haircut, minLength: 0 });
+    } else {
+      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+    }
+  });
+}
+// If new Hand form, just load Hand vocabularies
+if( $('#new_hand_submit').length > 0 ){
+  $.getJSON("./services/hand/vocabularies",function(data){
+    if( data.result == "success" ){
+      var items = [];
+      // SKIN_COLOR
+      items.skin_color = [];
+      $.each( data.vocabularies.skin_color, function(key, val){ items.skin_color.push(val.field); });
+      $('#new_hand_skin_color').autocomplete({ source: items.skin_color, minLength: 0 });
+      // POSTURE
+      items.posture = [];
+      $.each( data.vocabularies.posture, function(key, val){ items.posture.push(val.field); });
+      $('#new_hand_posture').autocomplete({ source: items.posture, minLength: 0 });
+    } else {
+      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+    }
+  });
+}
+// If new Bodypart form, just load Bodypart vocabularies
+if( $('#new_bodypart_submit').length > 0 ){
+  $.getJSON("./services/bodypart/vocabularies",function(data){
+    if( data.result == "success" ){
+      var items = [];
+      // MAIN_COLOR
+      items.main_color = [];
+      $.each( data.vocabularies.main_color, function(key, val){ items.main_color.push(val.field); });
+      $('#new_bodypart_main_color').autocomplete({ source: items.main_color, minLength: 0 });
+      // OTHER_COLOR
+      items.other_color = [];
+      $.each( data.vocabularies.other_color, function(key, val){ items.other_color.push(val.field); });
+      $('#new_bodypart_other_color').autocomplete({ source: items.other_color, minLength: 0 });
+      // PART
+      items.part = [];
+      $.each( data.vocabularies.part, function(key, val){ items.part.push(val.field); });
+      $('#new_bodypart_part').autocomplete({ source: items.part, minLength: 0 });
+    } else {
+      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+    }
+  });
+}
+// If new Accessory form, just load Hair vocabularies
+if( $('#new_accessory_submit').length > 0 ){
+  $.getJSON("./services/accessory/vocabularies",function(data){
+    if( data.result == "success" ){
+      var items = [];
+      // MAIN_COLOR
+      items.main_color = [];
+      $.each( data.vocabularies.main_color, function(key, val){ items.main_color.push(val.field); });
+      $('#new_accessory_main_color').autocomplete({ source: items.main_color, minLength: 0 });
+      // OTHER_COLOR
+      items.other_color = [];
+      $.each( data.vocabularies.other_color, function(key, val){ items.other_color.push(val.field); });
+      $('#new_accessory_other_color').autocomplete({ source: items.other_color, minLength: 0 });
+      // TYPE
+      items.type = [];
+      $.each( data.vocabularies.type, function(key, val){ items.type.push(val.field); });
+      $('#new_accessory_type').autocomplete({ source: items.type, minLength: 0 });
     } else {
       alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
     }
