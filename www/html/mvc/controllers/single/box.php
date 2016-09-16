@@ -16,7 +16,11 @@ if( isset($_GET['box_internalid']) ){
                     'db_editorid'     =>  $box['db_editorid'],
                     'db_editorname'   =>  $box['db_editorname'],
                     'db_editiondate'  =>  $box['db_editiondate'],
-                    'db_editiondiff'  =>  ((new DateTime($box['now']))->diff(new DateTime($box['db_editiondate']))));
+                    'db_editiondiff'  =>  ((new DateTime($box['now']))->diff(new DateTime($box['db_editiondate']))),
+                    'db_validatorid'     =>  $box['db_validatorid'],
+                    'db_validatorname'   =>  $box['db_validatorname'],
+                    'db_validationdate'  =>  $box['db_validationdate'],
+                    'db_validationdiff'  =>  ((new DateTime($box['now']))->diff(new DateTime($box['db_validationdate']))));
 
   $resultInfo = get_boxNendoroids($box_internalid);
   if($resultInfo[0]!="00000"){

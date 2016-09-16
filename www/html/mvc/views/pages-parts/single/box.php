@@ -18,6 +18,7 @@
                     <table id="info_table" element="box" internalid="<?= $box['box_internalid'] ?>">
                       <tbody>
 <?php
+  tableFieldValidate($box['db_validatorid']);
   tableField('number','Number',$box['box_number']);
   tableField('name','Name',$box['box_name']);
   tableField('series','Series',$box['box_series']);

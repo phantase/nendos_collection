@@ -44,6 +44,8 @@
     case "add":
     case "edit":
     case "picupload":
+    case "validate":
+    case "unvalidate":
     // USER EDIT
     case "useredit":
     // VOCABULARY

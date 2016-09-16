@@ -17,7 +17,7 @@ function get_allBoxes($order="db_creationdate",$direction="DESC")
   $orders = array("box_number","box_name","box_series",
                   "box_manufacturer","box_category","box_price",
                   "box_releasedate","box_sculptor","box_cooperation",
-                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate","db_validatorname","db_validationdate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -34,10 +34,12 @@ function get_allBoxes($order="db_creationdate",$direction="DESC")
                         b.officialurl AS box_officialurl,
                         b.creatorid AS db_creatorid, uc.username AS db_creatorname, b.creationdate AS db_creationdate,
                         b.editorid AS db_editorid, ue.username AS db_editorname, b.editiondate AS db_editiondate,
+                        b.validatorid AS db_validatorid, uv.username AS db_validatorname, b.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM boxes AS b
                         LEFT JOIN users AS uc ON b.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON b.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON b.validatorid = uv.internalid
                         ORDER BY $order $direction");
   $req->execute();
 
@@ -62,10 +64,12 @@ function get_singleBox($box_internalid)
                         b.officialurl AS box_officialurl,
                         b.creatorid AS db_creatorid, uc.username AS db_creatorname, b.creationdate AS db_creationdate,
                         b.editorid AS db_editorid, ue.username AS db_editorname, b.editiondate AS db_editiondate,
+                        b.validatorid AS db_validatorid, uv.username AS db_validatorname, b.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM boxes AS b
                         LEFT JOIN users AS uc ON b.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON b.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON b.validatorid = uv.internalid
                         WHERE b.internalid = :box_internalid");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->execute();

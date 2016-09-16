@@ -21,5 +21,6 @@ include_once('mvc/models/history.php');
 include_once('mvc/models/users.php');
 
 include_once('mvc/models/edit.php');
+include_once('mvc/models/validate.php');
 
 ?>

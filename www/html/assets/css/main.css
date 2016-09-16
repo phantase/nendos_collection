@@ -3721,3 +3721,12 @@ th .edit {
 	font-weight: normal;
 	cursor: pointer;
 }
+
+.validated {
+	background-color: #e0ece0;
+	color: #009c00;
+}
+.notvalidated {
+	background-color: #ece0e0;
+	color: #9c0000;
+}
