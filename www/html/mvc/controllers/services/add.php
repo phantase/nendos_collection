@@ -1,5 +1,12 @@
 <?php
 
+header('Content-Type: application/json');
+
+if( ! isEditor() ){
+  echo json_encode(array('result'=>'failure','reason'=>'Not authorized'));
+  exit;
+}
+
 if( isset($_GET['element']) && strlen($_GET['element'])>0 ){
   $element = $_GET['element'];
   switch($element){

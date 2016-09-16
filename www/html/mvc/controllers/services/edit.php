@@ -2,7 +2,11 @@
 
 header('Content-Type: application/json');
 
-if( isEditor() ){
+if( ! isEditor() ){
+  echo json_encode(array('result'=>'failure','reason'=>'Not authorized'));
+  exit;
+}
+
   if(isset($_GET['element']) && strlen($_GET['element'])>0
     && isset($_POST['field']) && strlen($_POST['field'])>0
     && isset($_POST['value']) && strlen($_POST['value'])>0){
@@ -23,7 +27,3 @@ if( isEditor() ){
     echo json_encode(array('result'=>'failure','reason'=>'Missing parameters'));
       exit;
   }
-} else {
-  echo json_encode(array('result'=>'failure','reason'=>'Not authorized'));
-    exit;
-}

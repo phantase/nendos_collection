@@ -2,7 +2,11 @@
 
 header('Content-Type: application/json');
 
-if( isAdministrator() ){
+if( ! isAdministrator() ){
+  echo json_encode(array('result'=>'failure','reason'=>'Not authorized'));
+  exit;
+}
+
   if(isset($_GET['userid']) && strlen($_GET['userid'])>0){
 
     $userid = $_GET['userid'];
@@ -19,7 +23,3 @@ if( isAdministrator() ){
     echo json_encode(array('result'=>'failure','reason'=>'Missing parameters'));
       exit;
   }
-} else {
-  echo json_encode(array('result'=>'failure','reason'=>'Not authorized'));
-    exit;
-}

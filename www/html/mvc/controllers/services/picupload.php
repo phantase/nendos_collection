@@ -5,7 +5,7 @@ $max_size = 500;
 
 header('Content-Type: application/json');
 
-if( ! isset($_SESSION['userid']) ){
+if( ! isEditor() ){
   echo json_encode(array('result'=>'failure','reason'=>'Not authorized'));
   exit;
 }
