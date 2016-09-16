@@ -14,6 +14,9 @@
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $box[$sortingfield] ?>">
                           <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>.jpg" alt="" />
+<?php if( (isAdministrator() || isValidator() || isEditor() ) && $box['db_validatorid'] ){ ?>
+                          <i class="icon fa-check-square-o validationicon" title="Validated by <?= $box['db_validatorname'] ?>"></i>
+<?php } ?>
                         </span>
                       <?php if($withlinks){ ?>
                         </a>

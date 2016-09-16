@@ -3742,3 +3742,10 @@ th .edit {
 a {
   cursor:pointer;
 }
+
+.validationicon {
+	position:absolute;
+	top:0px;
+	left:5px;
+	color: #009c00;
+}
