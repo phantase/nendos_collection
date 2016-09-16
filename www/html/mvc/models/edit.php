@@ -1,6 +1,6 @@
 <?php
 
-/** edit and element with a single value */
+/** edit an element with a single value */
 function edit_singleElement($element,$internalid,$field,$value,$userid)
 {
   global $bdd;
