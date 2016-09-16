@@ -17,7 +17,7 @@ if( ! isAdministrator() ){
     if($resultInfo[0] == "00000"){
       echo json_encode(array('result'=>'success','userid'=>$userid,'field'=>$field,'value'=>$value));
     } else {
-      echo json_encode(array('result'=>'failure','errorInfo'=>$resultInfo[2]));
+      echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
     }
   } else {
     echo json_encode(array('result'=>'failure','reason'=>'Missing parameters'));

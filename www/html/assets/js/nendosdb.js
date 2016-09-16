@@ -570,4 +570,35 @@ $(function(){
       });
   });
 
+// If new Box form, just load Box vocabularies
+if( $('#new_box_submit').length > 0 ){
+  $.getJSON("./services/box/vocabularies",function(data){
+    if( data.result == "success" ){
+      var items = [];
+      // SERIES
+      items.series = [];
+      $.each( data.vocabularies.series, function(key, val){ items.series.push(val.field); });
+      $('#new_box_series').autocomplete({ source: items.series, minLength: 0 });
+      // MANUFACTURER
+      items.manufacturer = [];
+      $.each( data.vocabularies.manufacturer, function(key, val){ items.manufacturer.push(val.field); });
+      $('#new_box_manufacturer').autocomplete({ source: items.manufacturer, minLength: 0 });
+      // CATEGORY
+      items.category = [];
+      $.each( data.vocabularies.category, function(key, val){ items.category.push(val.field); });
+      $('#new_box_category').autocomplete({ source: items.category, minLength: 0 });
+      // SCULPTOR
+      items.sculptor = [];
+      $.each( data.vocabularies.sculptor, function(key, val){ items.sculptor.push(val.field); });
+      $('#new_box_sculptor').autocomplete({ source: items.sculptor, minLength: 0 });
+      // CATEGORY
+      items.cooperation = [];
+      $.each( data.vocabularies.cooperation, function(key, val){ items.cooperation.push(val.field); });
+      $('#new_box_cooperation').autocomplete({ source: items.cooperation, minLength: 0 });
+    } else {
+      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+    }
+  });
+}
+
 });

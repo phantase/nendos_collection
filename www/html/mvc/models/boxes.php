@@ -112,3 +112,30 @@ function add_singleBox($box_number,$box_name,$box_series,$box_manufacturer,$box_
 
   return $resultArray;
 }
+/** Retrieve the vocabularies of a field of the boxes */
+function getBoxesVocabulary($field,$order="alphabetical",$direction="ASC",$withnull=false){
+  $fields = array("series","manufacturer","category","sculptor","cooperation");
+  $key = array_search($field, $fields);
+  $field = $fields[$key];
+
+  if(!$withnull){
+    $where = "WHERE b.$field IS NOT NULL ";
+  }
+
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT b.$field AS field, count(*) AS count
+                        FROM boxes AS b
+                        $where
+                        GROUP BY field
+                        ORDER BY field $direction");
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
