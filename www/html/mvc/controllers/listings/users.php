@@ -8,7 +8,7 @@ if( isset($_GET['order']) && isset($_GET['direction']) ){
   $selected_order = $_GET['order'];
   $selected_direction = $_GET['direction'];
 } else {
-  $selected_order = "user_signupdate";
+  $selected_order = "signupdate";
   $selected_direction = "desc";
 }
 

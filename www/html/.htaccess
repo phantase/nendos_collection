@@ -130,6 +130,10 @@ RewriteRule ^accessories/orderby/(accessory_type|accessory_main_color|accessory_
 # USERS #
 RewriteRule ^users$                               index.php?action=users [L]
 RewriteRule ^users/$                              index.php?action=users [L]
+RewriteRule ^users/orderby/(username|usermail|administrator|validator|editor|signupdate|lastviewdate)$                    index.php?action=users&order=$1  [L]
+RewriteRule ^users/orderby/(username|usermail|administrator|validator|editor|signupdate|lastviewdate)/$                   index.php?action=users&order=$1  [L]
+RewriteRule ^users/orderby/(username|usermail|administrator|validator|editor|signupdate|lastviewdate)_(asc|desc)$         index.php?action=users&order=$1&direction=$2  [L]
+RewriteRule ^users/orderby/(username|usermail|administrator|validator|editor|signupdate|lastviewdate)_(asc|desc)/$        index.php?action=users&order=$1&direction=$2  [L]
 
 ##################
 ## SINGLE PAGES ##

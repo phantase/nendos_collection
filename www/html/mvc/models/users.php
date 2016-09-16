@@ -12,14 +12,24 @@ function count_allUsers()
   return $count['count'];
 }
 /** Get all the users available in the DB */
-function get_allUsers($order="user_signupdate",$direction="desc")
+function get_allUsers($order="signupdate",$direction="desc")
 {
+  $orders = array("username","usermail",
+                  "administrator","validator","editor",
+                  "signupdate","lastviewdate");
+  $key = array_search($order, $orders);
+  $order = $orders[$key];
+  $directions = array("asc","desc");
+  $key = array_search($direction, $directions);
+  $direction = $directions[$key];
+
   global $bdd;
 
   $req = $bdd->prepare("SELECT u.internalid, u.username, u.usermail,
                               u.administrator, u.validator, u.editor,
                               u.signupdate, u.lastviewdate
-                        FROM users AS u");
+                        FROM users AS u
+                        ORDER BY $order $direction;");
   $req->execute();
 
   $resultInfo = $req->errorInfo();
