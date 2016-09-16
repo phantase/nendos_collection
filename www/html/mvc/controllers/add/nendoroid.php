@@ -1,5 +1,8 @@
 <?php
 
+if( ! isEditor() ){
+  raiseError("You must be logged in with right credentials to add an element.");
+}
 
   if( isset($_GET['box_internalid']) ){
     $box_internalid = $_GET['box_internalid'];

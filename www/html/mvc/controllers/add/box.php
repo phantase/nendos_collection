@@ -1,3 +1,5 @@
 <?php
 
-// Do nothing... It's good to be lazy
+if( ! isEditor() ){
+  raiseError("You must be logged in with right credentials to add an element.");
+}

@@ -1,6 +1,8 @@
 <?php
 
-if( isEditor() ){
+if( ! isEditor() ){
+  raiseError("You must be logged in with right credentials to add an element.");
+}
 
   if( isset($_GET['element']) && strlen($_GET['element'])>0 ){
     $element = $_GET['element'];
@@ -22,9 +24,5 @@ if( isEditor() ){
   } else {
     raiseError("There is no element provided.");
   }
-
-} else {
-  raiseError("You must be logged in with right credentials to add an element.");
-}
 
 include_once('mvc/views/pages/skeleton.php');
