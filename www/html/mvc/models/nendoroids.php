@@ -18,7 +18,7 @@ function get_allNendoroids($order="db_creationdate",$direction="DESC")
                   "box_number","box_name","box_series",
                   "box_manufacturer","box_category","box_price",
                   "box_releasedate","box_sculptor","box_cooperation",
-                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate","db_validatorname","db_validationdate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -38,11 +38,13 @@ function get_allNendoroids($order="db_creationdate",$direction="DESC")
                         b.officialurl AS box_officialurl,
                         n.creatorid AS db_creatorid, uc.username AS db_creatorname, n.creationdate AS db_creationdate,
                         n.editorid AS db_editorid, ue.username AS db_editorname, n.editiondate AS db_editiondate,
+                        n.validatorid AS db_validatorid, uv.username AS db_validatorname, n.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM nendoroids AS n
                         LEFT JOIN boxes AS b ON n.boxid = b.internalid
                         LEFT JOIN users AS uc ON n.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON n.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON n.validatorid = uv.internalid
                         ORDER BY $order $direction;");
   $req->execute();
 
@@ -70,11 +72,13 @@ function get_singleNendoroid($nendoroid_internalid)
                         b.officialurl AS box_officialurl,
                         n.creatorid AS db_creatorid, uc.username AS db_creatorname, n.creationdate AS db_creationdate,
                         n.editorid AS db_editorid, ue.username AS db_editorname, n.editiondate AS db_editiondate,
+                        n.validatorid AS db_validatorid, uv.username AS db_validatorname, n.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM nendoroids AS n
                         LEFT JOIN boxes AS b ON n.boxid = b.internalid
                         LEFT JOIN users AS uc ON n.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON n.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON n.validatorid = uv.internalid
                         WHERE n.internalid = :nendoroid_internalid");
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
@@ -103,11 +107,13 @@ function get_boxNendoroids($box_internalid)
                         b.officialurl AS box_officialurl,
                         n.creatorid AS db_creatorid, uc.username AS db_creatorname, n.creationdate AS db_creationdate,
                         n.editorid AS db_editorid, ue.username AS db_editorname, n.editiondate AS db_editiondate,
+                        n.validatorid AS db_validatorid, uv.username AS db_validatorname, n.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM nendoroids AS n
                         LEFT JOIN boxes AS b ON n.boxid = b.internalid
                         LEFT JOIN users AS uc ON n.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON n.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON n.validatorid = uv.internalid
                         WHERE n.boxid = :boxid
                         ORDER BY nendoroid_name ASC");
   $req->bindParam(':boxid',$box_internalid);

@@ -17,7 +17,11 @@ if( isset($_GET['nendoroid_internalid']) ){
                       'db_editorid'     =>  $nendoroid['db_editorid'],
                       'db_editorname'   =>  $nendoroid['db_editorname'],
                       'db_editiondate'  =>  $nendoroid['db_editiondate'],
-                      'db_editiondiff'  =>  ((new DateTime($nendoroid['now']))->diff(new DateTime($nendoroid['db_editiondate']))));
+                      'db_editiondiff'  =>  ((new DateTime($nendoroid['now']))->diff(new DateTime($nendoroid['db_editiondate']))),
+                      'db_validatorid'     =>  $nendoroid['db_validatorid'],
+                      'db_validatorname'   =>  $nendoroid['db_validatorname'],
+                      'db_validationdate'  =>  $nendoroid['db_validationdate'],
+                      'db_validationdiff'  =>  ((new DateTime($nendoroid['now']))->diff(new DateTime($nendoroid['db_validationdate']))));
 
     $resultInfo = get_nendoroidFaces($nendoroid_internalid);
     if($resultInfo[0]!="00000"){

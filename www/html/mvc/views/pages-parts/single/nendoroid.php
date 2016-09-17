@@ -18,6 +18,9 @@
                     <div class="table-wrapper">
                       <table id="info_table" element="nendoroid" internalid="<?= $nendoroid['nendoroid_internalid'] ?>">
                         <tbody>
+<?php
+  tableFieldValidate($nendoroid['db_validatorid']);
+?>
                           <tr>
                             <th>Box</th>
                             <td>
