@@ -19,7 +19,7 @@ function get_allBodyParts($order="db_creationdate",$direction="desc")
                   "box_number","box_name","box_series",
                   "box_manufacturer","box_category","box_price",
                   "box_releasedate","box_sculptor","box_cooperation",
-                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate","db_validatorname","db_validationdate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -42,12 +42,14 @@ function get_allBodyParts($order="db_creationdate",$direction="desc")
                         b.officialurl AS box_officialurl,
                         bp.creatorid AS db_creatorid, uc.username AS db_creatorname, bp.creationdate AS db_creationdate,
                         bp.editorid AS db_editorid, ue.username AS db_editorname, bp.editiondate AS db_editiondate,
+                        bp.validatorid AS db_validatorid, uv.username AS db_validatorname, bp.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM bodyparts AS bp
                         LEFT JOIN nendoroids AS n ON bp.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON bp.boxid = b.internalid
                         LEFT JOIN users AS uc ON bp.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON bp.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON bp.validatorid = uv.internalid
                         ORDER BY $order $direction;");
   $req->execute();
 
@@ -92,12 +94,14 @@ function get_nendoroidBodyParts($nendoroid_internalid)
                         b.officialurl AS box_officialurl,
                         bp.creatorid AS db_creatorid, uc.username AS db_creatorname, bp.creationdate AS db_creationdate,
                         bp.editorid AS db_editorid, ue.username AS db_editorname, bp.editiondate AS db_editiondate,
+                        bp.validatorid AS db_validatorid, uv.username AS db_validatorname, bp.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM bodyparts AS bp
                         LEFT JOIN nendoroids AS n ON bp.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON bp.boxid = b.internalid
                         LEFT JOIN users AS uc ON bp.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON bp.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON bp.validatorid = uv.internalid
                         WHERE bp.nendoroidid = :nendoroid_internalid");
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
@@ -129,12 +133,14 @@ function get_boxBodyParts($box_internalid)
                         b.officialurl AS box_officialurl,
                         bp.creatorid AS db_creatorid, uc.username AS db_creatorname, bp.creationdate AS db_creationdate,
                         bp.editorid AS db_editorid, ue.username AS db_editorname, bp.editiondate AS db_editiondate,
+                        bp.validatorid AS db_validatorid, uv.username AS db_validatorname, bp.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM bodyparts AS bp
                         LEFT JOIN nendoroids AS n ON bp.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON bp.boxid = b.internalid
                         LEFT JOIN users AS uc ON bp.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON bp.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON bp.validatorid = uv.internalid
                         WHERE bp.boxid = :box_internalid");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->execute();
@@ -166,12 +172,14 @@ function get_singleBodypart($bodypart_internalid)
                         b.officialurl AS box_officialurl,
                         bp.creatorid AS db_creatorid, uc.username AS db_creatorname, bp.creationdate AS db_creationdate,
                         bp.editorid AS db_editorid, ue.username AS db_editorname, bp.editiondate AS db_editiondate,
+                        bp.validatorid AS db_validatorid, uv.username AS db_validatorname, bp.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM bodyparts AS bp
                         LEFT JOIN nendoroids AS n ON bp.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON bp.boxid = b.internalid
                         LEFT JOIN users AS uc ON bp.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON bp.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON bp.validatorid = uv.internalid
                         WHERE bp.internalid = :bodypart_internalid");
   $req->bindParam(':bodypart_internalid',$bodypart_internalid);
   $req->execute();

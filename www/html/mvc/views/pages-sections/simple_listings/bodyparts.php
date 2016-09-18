@@ -13,6 +13,9 @@
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $bodypart[$sortingfield] ?>">
                           <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>.jpg" alt="" />
+<?php if( (isAdministrator() || isValidator() || isEditor() ) && $bodypart['db_validatorid'] ){ ?>
+                          <i class="icon fa-check-square-o validationicon" title="Validated by <?= $bodypart['db_validatorname'] ?>"></i>
+<?php } ?>
                         </span>
                       <?php if($withlinks){ ?>
                         </a>

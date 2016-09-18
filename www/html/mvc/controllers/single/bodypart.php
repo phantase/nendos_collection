@@ -22,7 +22,11 @@ if( isset($_GET['bodypart_internalid']) ){
                       'db_editorid'     =>  $bodypart['db_editorid'],
                       'db_editorname'   =>  $bodypart['db_editorname'],
                       'db_editiondate'  =>  $bodypart['db_editiondate'],
-                      'db_editiondiff'  =>  ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['db_editiondate']))));
+                      'db_editiondiff'  =>  ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['db_editiondate']))),
+                      'db_validatorid'     =>  $bodypart['db_validatorid'],
+                      'db_validatorname'   =>  $bodypart['db_validatorname'],
+                      'db_validationdate'  =>  $bodypart['db_validationdate'],
+                      'db_validationdiff'  =>  ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['db_validationdate']))));
 
     $resultInfo = get_bodypartHistory($bodypart_internalid);
     if($resultInfo[0]!="00000"){

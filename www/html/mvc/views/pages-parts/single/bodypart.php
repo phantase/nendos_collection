@@ -23,6 +23,9 @@
                     <div class="table-wrapper">
                       <table id="info_table" element="bodypart" internalid="<?= $bodypart['bodypart_internalid'] ?>">
                         <tbody>
+<?php
+  tableFieldValidate($bodypart['db_validatorid']);
+?>
                           <tr>
                             <th>Box</th>
                             <td colspan="3">
