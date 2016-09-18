@@ -23,6 +23,9 @@
                     <div class="table-wrapper">
                       <table id="info_table" element="hair" internalid="<?= $hair['hair_internalid'] ?>">
                         <tbody>
+<?php
+  tableFieldValidate($hair['db_validatorid']);
+?>
                           <tr>
                             <th>Box</th>
                             <td>

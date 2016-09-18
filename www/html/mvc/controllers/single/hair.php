@@ -22,7 +22,11 @@ if( isset($_GET['hair_internalid']) ){
                       'db_editorid'     =>  $hair['db_editorid'],
                       'db_editorname'   =>  $hair['db_editorname'],
                       'db_editiondate'  =>  $hair['db_editiondate'],
-                      'db_editiondiff'  =>  ((new DateTime($hair['now']))->diff(new DateTime($hair['db_editiondate']))));
+                      'db_editiondiff'  =>  ((new DateTime($hair['now']))->diff(new DateTime($hair['db_editiondate']))),
+                      'db_validatorid'     =>  $hair['db_validatorid'],
+                      'db_validatorname'   =>  $hair['db_validatorname'],
+                      'db_validationdate'  =>  $hair['db_validationdate'],
+                      'db_validationdiff'  =>  ((new DateTime($hair['now']))->diff(new DateTime($hair['db_validationdate']))));
 
     $resultInfo = get_hairHistory($hair_internalid);
     if($resultInfo[0]!="00000"){

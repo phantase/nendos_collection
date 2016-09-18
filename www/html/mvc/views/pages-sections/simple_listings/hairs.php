@@ -14,6 +14,9 @@
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $hair[$sortingfield] ?>">
                           <img src="images/nendos/hairs/<?= $hair['hair_internalid'] ?>.jpg" alt="" />
+<?php if( (isAdministrator() || isValidator() || isEditor() ) && $hair['db_validatorid'] ){ ?>
+                          <i class="icon fa-check-square-o validationicon" title="Validated by <?= $hair['db_validatorname'] ?>"></i>
+<?php } ?>
                         </span>
                       <?php if($withlinks){ ?>
                         </a>
