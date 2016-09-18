@@ -5,7 +5,7 @@
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_face<?= $face['face_internalid'] ?>">
                     <img src="images/nendos/faces/<?= $face['face_internalid'] ?>.jpg" alt="" />
-                    <?php if(isset($_SESSION['userid'])){ ?>
+                    <?php if( isEditor() && ! $face['db_validatorid'] ){ ?>
                       <i class="icon style2 fa-edit included editpic"
                         id="editpic_face<?= $face['face_internalid'] ?>"
                         title="Add/Change the picture"
@@ -46,11 +46,11 @@
                           </tr>
 <?php } ?>
 <?php
-  tableField('eyes','Eyes',$face['face_eyes']);
-  tableField('eyes_color','Eyes color',$face['face_eyes_color']);
-  tableField('mouth','Mouth',$face['face_mouth']);
-  tableField('skin_color','Skin color',$face['face_skin_color']);
-  tableField('sex','Sex',$face['face_sex']);
+  tableField('eyes','Eyes',$face['face_eyes'],!$face['db_validatorid']);
+  tableField('eyes_color','Eyes color',$face['face_eyes_color'],!$face['db_validatorid']);
+  tableField('mouth','Mouth',$face['face_mouth'],!$face['db_validatorid']);
+  tableField('skin_color','Skin color',$face['face_skin_color'],!$face['db_validatorid']);
+  tableField('sex','Sex',$face['face_sex'],!$face['db_validatorid']);
 ?>
                         </tbody>
                       </table>
