@@ -5,7 +5,7 @@
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_bodypart<?= $bodypart['bodypart_internalid'] ?>">
                     <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>.jpg" alt="" />
-                    <?php if(isset($_SESSION['userid'])){ ?>
+                    <?php if( isEditor() && ! $bodypart['db_validatorid'] ){ ?>
                       <i class="icon style2 fa-edit included editpic"
                         id="editpic_bodypart<?= $bodypart['bodypart_internalid'] ?>"
                         title="Add/Change the picture"
@@ -46,10 +46,10 @@
                           </tr>
 <?php } ?>
 <?php
-  tableField('part','Part',$bodypart['bodypart_part']);
-  tableField('main_color','Main color',$bodypart['bodypart_main_color']);
-  tableField('other_color','Other color',$bodypart['bodypart_other_color']);
-  tableField('description','Description',$bodypart['bodypart_description']);
+  tableField('part','Part',$bodypart['bodypart_part'],!$bodypart['db_validatorid']);
+  tableField('main_color','Main color',$bodypart['bodypart_main_color'],!$bodypart['db_validatorid']);
+  tableField('other_color','Other color',$bodypart['bodypart_other_color'],!$bodypart['db_validatorid']);
+  tableField('description','Description',$bodypart['bodypart_description'],!$bodypart['db_validatorid']);
 ?>
                         </tbody>
                       </table>
