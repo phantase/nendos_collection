@@ -5,7 +5,7 @@
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_hair<?= $hair['hair_internalid'] ?>">
                     <img src="images/nendos/hairs/<?= $hair['hair_internalid'] ?>.jpg" alt="" />
-                    <?php if(isset($_SESSION['userid'])){ ?>
+                    <?php if( isEditor() && ! $hair['db_validatorid'] ){ ?>
                       <i class="icon style2 fa-edit included editpic"
                         id="editpic_hair<?= $hair['hair_internalid'] ?>"
                         title="Add/Change the picture"
@@ -46,11 +46,11 @@
                           </tr>
 <?php } ?>
 <?php
-  tableField('haircut','Haircut',$hair['hair_haircut']);
-  tableField('frontback','Front/Back',$hair['hair_frontback']);
-  tableField('main_color','Main color',$hair['hair_main_color']);
-  tableField('other_color','Other color',$hair['hair_other_color']);
-  tableField('description','Description',$hair['hair_description']);
+  tableField('haircut','Haircut',$hair['hair_haircut'],!$hair['db_validatorid']);
+  tableField('frontback','Front/Back',$hair['hair_frontback'],!$hair['db_validatorid']);
+  tableField('main_color','Main color',$hair['hair_main_color'],!$hair['db_validatorid']);
+  tableField('other_color','Other color',$hair['hair_other_color'],!$hair['db_validatorid']);
+  tableField('description','Description',$hair['hair_description'],!$hair['db_validatorid']);
 ?>
                         </tbody>
                       </table>
