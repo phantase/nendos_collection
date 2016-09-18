@@ -22,7 +22,11 @@ if( isset($_GET['face_internalid']) ){
                       'db_editorid'     =>  $face['db_editorid'],
                       'db_editorname'   =>  $face['db_editorname'],
                       'db_editiondate'  =>  $face['db_editiondate'],
-                      'db_editiondiff'  =>  ((new DateTime($face['now']))->diff(new DateTime($face['db_editiondate']))));
+                      'db_editiondiff'  =>  ((new DateTime($face['now']))->diff(new DateTime($face['db_editiondate']))),
+                      'db_validatorid'     =>  $face['db_validatorid'],
+                      'db_validatorname'   =>  $face['db_validatorname'],
+                      'db_validationdate'  =>  $face['db_validationdate'],
+                      'db_validationdiff'  =>  ((new DateTime($face['now']))->diff(new DateTime($face['db_validationdate']))));
 
     $resultInfo = get_faceHistory($face_internalid);
     if($resultInfo[0]!="00000"){

@@ -19,7 +19,7 @@ function get_allFaces($order="db_creationdate",$direction="desc")
                   "box_number","box_name","box_series",
                   "box_manufacturer","box_category","box_price",
                   "box_releasedate","box_sculptor","box_cooperation",
-                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate","db_validatorname","db_validationdate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -43,12 +43,14 @@ function get_allFaces($order="db_creationdate",$direction="desc")
                         b.officialurl AS box_officialurl,
                         f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
                         f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
+                        f.validatorid AS db_validatorid, uv.username AS db_validatorname, f.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM faces AS f
                         LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON f.boxid = b.internalid
                         LEFT JOIN users AS uc ON f.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON f.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON f.validatorid = uv.internalid
                         ORDER BY $order $direction;");
   $req->execute();
 
@@ -94,12 +96,14 @@ function get_nendoroidFaces($nendoroid_internalid)
                         b.officialurl AS box_officialurl,
                         f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
                         f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
+                        f.validatorid AS db_validatorid, uv.username AS db_validatorname, f.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM faces AS f
                         LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON f.boxid = b.internalid
                         LEFT JOIN users AS uc ON f.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON f.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON f.validatorid = uv.internalid
                         WHERE f.nendoroidid = :nendoroid_internalid");
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
@@ -132,12 +136,14 @@ function get_boxFaces($box_internalid)
                         b.officialurl AS box_officialurl,
                         f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
                         f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
+                        f.validatorid AS db_validatorid, uv.username AS db_validatorname, f.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM faces AS f
                         LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON f.boxid = b.internalid
                         LEFT JOIN users AS uc ON f.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON f.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON f.validatorid = uv.internalid
                         WHERE f.boxid = :box_internalid");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->execute();
@@ -170,12 +176,14 @@ function get_singleFace($face_internalid)
                         b.officialurl AS box_officialurl,
                         f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
                         f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
+                        f.validatorid AS db_validatorid, uv.username AS db_validatorname, f.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM faces AS f
                         LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON f.boxid = b.internalid
                         LEFT JOIN users AS uc ON f.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON f.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON f.validatorid = uv.internalid
                         WHERE f.internalid = :face_internalid");
   $req->bindParam(':face_internalid',$face_internalid);
   $req->execute();
