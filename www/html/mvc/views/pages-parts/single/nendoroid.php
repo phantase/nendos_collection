@@ -6,7 +6,7 @@
                   <div class="4u 12u$(medium)">
                     <span class="image fit" id="span_nendoroid<?= $nendoroid['nendoroid_internalid'] ?>">
                       <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>.jpg" alt="" />
-                      <?php if( isEditor() ){ ?>
+                      <?php if( isEditor() && ! $nendoroid['db_validatorid'] ){ ?>
                         <i class="icon style2 fa-edit included editpic" id="editpic_nendoroid<?= $nendoroid['nendoroid_internalid'] ?>" title="Add/Change the picture" part="nendoroid" internalid="<?= $nendoroid['nendoroid_internalid'] ?>"></i>
                       <?php } ?>
                     </span>
@@ -35,10 +35,10 @@
                             </td>
                           </tr>
 <?php
-  tableField('name','Name',$nendoroid['nendoroid_name']);
-  tableField('version','Version',$nendoroid['nendoroid_version']);
-  tableField('sex','Sex',$nendoroid['nendoroid_sex']);
-  tableFieldWithColor('dominant_color','Dominant color',$nendoroid['nendoroid_dominant_color']);
+  tableField('name','Name',$nendoroid['nendoroid_name'],!$nendoroid['db_validatorid']);
+  tableField('version','Version',$nendoroid['nendoroid_version'],!$nendoroid['db_validatorid']);
+  tableField('sex','Sex',$nendoroid['nendoroid_sex'],!$nendoroid['db_validatorid']);
+  tableFieldWithColor('dominant_color','Dominant color',$nendoroid['nendoroid_dominant_color'],!$nendoroid['db_validatorid']);
 ?>
                         </tbody>
                       </table>
@@ -50,31 +50,31 @@
 <?php if(isEditor() || count($faces)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Faces</h4>
-<?php showFacesListing($faces,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showFacesListing($faces,null,true,!$nendoroid['db_validatorid'],$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
 <?php } ?>
 <?php if(isEditor() || count($hairs)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Hairs</h4>
-<?php showHairsListing($hairs,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showHairsListing($hairs,null,true,!$nendoroid['db_validatorid'],$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
 <?php } ?>
 <?php if(isEditor() || count($hands)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Hands</h4>
-<?php showHandsListing($hands,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showHandsListing($hands,null,true,!$nendoroid['db_validatorid'],$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
 <?php } ?>
 <?php if(isEditor() || count($bodyparts)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Body parts</h4>
-<?php showBodyPartsListing($bodyparts,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showBodyPartsListing($bodyparts,null,true,!$nendoroid['db_validatorid'],$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
 <?php } ?>
 <?php if(isEditor() || count($accessories)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Accessories</h4>
-<?php showAccessoriesListing($accessories,null,true,true,$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showAccessoriesListing($accessories,null,true,!$nendoroid['db_validatorid'],$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
                   </div>
 <?php } ?>
                 </div>
