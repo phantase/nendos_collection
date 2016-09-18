@@ -19,7 +19,7 @@ function get_allAccessories($order="db_creationdate",$direction="desc")
                   "box_number","box_name","box_series",
                   "box_manufacturer","box_category","box_price",
                   "box_releasedate","box_sculptor","box_cooperation",
-                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate","db_validatorname","db_validationdate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -42,12 +42,14 @@ function get_allAccessories($order="db_creationdate",$direction="desc")
                         b.officialurl AS box_officialurl,
                         a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
                         a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
+                        a.validatorid AS db_validatorid, uv.username AS db_validatorname, a.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM accessories AS a
                         LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON a.boxid = b.internalid
                         LEFT JOIN users AS uc ON a.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON a.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON a.validatorid = uv.internalid
                         ORDER BY $order $direction;");
   $req->execute();
 
@@ -92,12 +94,14 @@ function get_nendoroidAccessories($nendoroid_internalid)
                         b.officialurl AS box_officialurl,
                         a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
                         a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
+                        a.validatorid AS db_validatorid, uv.username AS db_validatorname, a.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM accessories AS a
                         LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON a.boxid = b.internalid
                         LEFT JOIN users AS uc ON a.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON a.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON a.validatorid = uv.internalid
                         WHERE a.nendoroidid = :nendoroid_internalid");
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
@@ -129,12 +133,14 @@ function get_boxAccessories($box_internalid)
                         b.officialurl AS box_officialurl,
                         a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
                         a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
+                        a.validatorid AS db_validatorid, uv.username AS db_validatorname, a.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM accessories AS a
                         LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON a.boxid = b.internalid
                         LEFT JOIN users AS uc ON a.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON a.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON a.validatorid = uv.internalid
                         WHERE a.boxid = :box_internalid");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->execute();
@@ -166,12 +172,14 @@ function get_singleAccessory($accessory_internalid)
                         b.officialurl AS box_officialurl,
                         a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
                         a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
+                        a.validatorid AS db_validatorid, uv.username AS db_validatorname, a.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM accessories AS a
                         LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON a.boxid = b.internalid
                         LEFT JOIN users AS uc ON a.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON a.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON a.validatorid = uv.internalid
                         WHERE a.internalid = :accessory_internalid");
   $req->bindParam(':accessory_internalid',$accessory_internalid);
   $req->execute();

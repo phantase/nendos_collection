@@ -22,7 +22,11 @@ if( isset($_GET['accessory_internalid']) ){
                       'db_editorid'     =>  $accessory['db_editorid'],
                       'db_editorname'   =>  $accessory['db_editorname'],
                       'db_editiondate'  =>  $accessory['db_editiondate'],
-                      'db_editiondiff'  =>  ((new DateTime($accessory['now']))->diff(new DateTime($accessory['db_editiondate']))));
+                      'db_editiondiff'  =>  ((new DateTime($accessory['now']))->diff(new DateTime($accessory['db_editiondate']))),
+                      'db_validatorid'     =>  $accessory['db_validatorid'],
+                      'db_validatorname'   =>  $accessory['db_validatorname'],
+                      'db_validationdate'  =>  $accessory['db_validationdate'],
+                      'db_validationdiff'  =>  ((new DateTime($accessory['now']))->diff(new DateTime($accessory['db_validationdate']))));
 
     $resultInfo = get_accessoryHistory($accessory_internalid);
     if($resultInfo[0]!="00000"){

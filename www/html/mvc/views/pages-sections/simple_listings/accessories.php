@@ -13,6 +13,9 @@
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $accessory[$sortingfield] ?>">
                           <img src="images/nendos/accessories/<?= $accessory['accessory_internalid'] ?>.jpg" alt="" />
+<?php if( (isAdministrator() || isValidator() || isEditor() ) && $accessory['db_validatorid'] ){ ?>
+                          <i class="icon fa-check-square-o validationicon" title="Validated by <?= $accessory['db_validatorname'] ?>"></i>
+<?php } ?>
                         </span>
                       <?php if($withlinks){ ?>
                         </a>

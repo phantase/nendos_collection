@@ -23,6 +23,9 @@
                     <div class="table-wrapper">
                       <table id="info_table" element="accessory" internalid="<?= $accessory['accessory_internalid'] ?>">
                         <tbody>
+<?php
+  tableFieldValidate($accessory['db_validatorid']);
+?>
                           <tr>
                             <th>Box</th>
                             <td>
