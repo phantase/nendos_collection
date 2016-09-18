@@ -22,7 +22,11 @@ if( isset($_GET['hand_internalid']) ){
                       'db_editorid'     =>  $hand['db_editorid'],
                       'db_editorname'   =>  $hand['db_editorname'],
                       'db_editiondate'  =>  $hand['db_editiondate'],
-                      'db_editiondiff'  =>  ((new DateTime($hand['now']))->diff(new DateTime($hand['db_editiondate']))));
+                      'db_editiondiff'  =>  ((new DateTime($hand['now']))->diff(new DateTime($hand['db_editiondate']))),
+                      'db_validatorid'     =>  $hand['db_validatorid'],
+                      'db_validatorname'   =>  $hand['db_validatorname'],
+                      'db_validationdate'  =>  $hand['db_validationdate'],
+                      'db_validationdiff'  =>  ((new DateTime($hand['now']))->diff(new DateTime($hand['db_validationdate']))));
 
     $resultInfo = get_handHistory($hand_internalid);
     if($resultInfo[0]!="00000"){

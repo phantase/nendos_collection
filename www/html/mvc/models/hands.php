@@ -19,7 +19,7 @@ function get_allHands($order="db_creationdate",$direction="desc")
                   "box_number","box_name","box_series",
                   "box_manufacturer","box_category","box_price",
                   "box_releasedate","box_sculptor","box_cooperation",
-                  "db_creatorname","db_creationdate","db_editorname","db_editiondate");
+                  "db_creatorname","db_creationdate","db_editorname","db_editiondate","db_validatorname","db_validationdate");
   $key = array_search($order, $orders);
   $order = $orders[$key];
   $directions = array("asc","desc");
@@ -43,12 +43,14 @@ function get_allHands($order="db_creationdate",$direction="desc")
                         b.officialurl AS box_officialurl,
                         h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
                         h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
+                        h.validatorid AS db_validatorid, uv.username AS db_validatorname, h.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM hands AS h
                         LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON h.boxid = b.internalid
                         LEFT JOIN users AS uc ON h.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON h.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON h.validatorid = uv.internalid
                         ORDER BY $order $direction;");
   $req->execute();
 
@@ -94,12 +96,14 @@ function get_nendoroidHands($nendoroid_internalid)
                         b.officialurl AS box_officialurl,
                         h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
                         h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
+                        h.validatorid AS db_validatorid, uv.username AS db_validatorname, h.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM hands AS h
                         LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON h.boxid = b.internalid
                         LEFT JOIN users AS uc ON h.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON h.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON h.validatorid = uv.internalid
                         WHERE h.nendoroidid = :nendoroid_internalid");
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
@@ -132,12 +136,14 @@ function get_boxHands($box_internalid)
                         b.officialurl AS box_officialurl,
                         h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
                         h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
+                        h.validatorid AS db_validatorid, uv.username AS db_validatorname, h.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM hands AS h
                         LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON h.boxid = b.internalid
                         LEFT JOIN users AS uc ON h.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON h.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON h.validatorid = uv.internalid
                         WHERE h.boxid = :box_internalid");
   $req->bindParam(':box_internalid',$box_internalid);
   $req->execute();
@@ -170,12 +176,14 @@ function get_singleHand($hand_internalid)
                         b.officialurl AS box_officialurl,
                         h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
                         h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
+                        h.validatorid AS db_validatorid, uv.username AS db_validatorname, h.validationdate AS db_validationdate,
                         NOW() AS now
                         FROM hands AS h
                         LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
                         LEFT JOIN boxes AS b ON h.boxid = b.internalid
                         LEFT JOIN users AS uc ON h.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON h.editorid = ue.internalid
+                        LEFT JOIN users AS uv ON h.validatorid = uv.internalid
                         WHERE h.internalid = :hand_internalid");
   $req->bindParam(':hand_internalid',$hand_internalid);
   $req->execute();
