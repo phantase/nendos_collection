@@ -5,7 +5,7 @@
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_accessory<?= $accessory['accessory_internalid'] ?>">
                     <img src="images/nendos/accessories/<?= $accessory['accessory_internalid'] ?>.jpg" alt="" />
-                    <?php if(isset($_SESSION['userid'])){ ?>
+                    <?php if( isEditor() && ! $accessory['db_validatorid'] ){ ?>
                       <i class="icon style2 fa-edit included editpic"
                         id="editpic_accessory<?= $accessory['accessory_internalid'] ?>"
                         title="Add/Change the picture"
@@ -48,10 +48,10 @@
                           </tr>
 <?php } ?>
 <?php
-  tableField('type','Type',$accessory['accessory_type']);
-  tableField('main_color','Main color',$accessory['accessory_main_color']);
-  tableField('other_color','Other color',$accessory['accessory_other_color']);
-  tableField('description','Description',$accessory['accessory_description']);
+  tableField('type','Type',$accessory['accessory_type'],!$accessory['db_validatorid']);
+  tableField('main_color','Main color',$accessory['accessory_main_color'],!$accessory['db_validatorid']);
+  tableField('other_color','Other color',$accessory['accessory_other_color'],!$accessory['db_validatorid']);
+  tableField('description','Description',$accessory['accessory_description'],!$accessory['db_validatorid']);
 ?>
                         </tbody>
                       </table>
