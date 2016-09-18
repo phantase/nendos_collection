@@ -5,7 +5,7 @@
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_hand<?= $hand['hand_internalid'] ?>">
                     <img src="images/nendos/hands/<?= $hand['hand_internalid'] ?>.jpg" alt="" />
-                    <?php if(isset($_SESSION['userid'])){ ?>
+                    <?php if( isEditor() && ! $hand['db_validatorid'] ){ ?>
                       <i class="icon style2 fa-edit included editpic"
                         id="editpic_hand<?= $hand['hand_internalid'] ?>"
                         title="Add/Change the picture"
@@ -46,10 +46,10 @@
                           </tr>
 <?php } ?>
 <?php
-  tableField('posture','Posture',$hand['hand_posture']);
-  tableField('leftright','Left/right',$hand['hand_leftright']);
-  tableField('skin_color','Skin color',$hand['hand_skin_color']);
-  tableField('description','Description',$hand['hand_description']);
+  tableField('posture','Posture',$hand['hand_posture'],!$hand['db_validatorid']);
+  tableField('leftright','Left/right',$hand['hand_leftright'],!$hand['db_validatorid']);
+  tableField('skin_color','Skin color',$hand['hand_skin_color'],!$hand['db_validatorid']);
+  tableField('description','Description',$hand['hand_description'],!$hand['db_validatorid']);
 ?>
                         </tbody>
                       </table>
