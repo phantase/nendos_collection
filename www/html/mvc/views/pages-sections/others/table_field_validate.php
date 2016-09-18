@@ -1,6 +1,6 @@
 <?php if( isAdministrator() || isValidator() || isEditor() ){ ?>
                         <tr>
-                          <td colspan="<?= ($colspan+1) ?>"
+                          <td colspan="2"
 <?php if($validated){ ?>
                               class="validated"
 <?php } else { ?>
