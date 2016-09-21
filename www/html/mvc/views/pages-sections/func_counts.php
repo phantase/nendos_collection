@@ -1,6 +1,6 @@
 <?php
 
-function showBoxesCounter($count_boxes) {
+function showBoxesCounter($count_boxes,$count_userboxes=null) {
   include('mvc/views/pages-sections/counters/boxes.php');
 }
 function showNendoroidsCounter($count_nendoroids) {
