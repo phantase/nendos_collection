@@ -141,12 +141,13 @@ th .edit {
 
 .info-box-text {
     text-transform: uppercase;
+    font-size:1em;
 }
 
 .info-box-number {
     display: block;
     font-weight: bold;
-    font-size: 26px;
+    font-size: 1.4em;
     text-align: center;
 }
 
