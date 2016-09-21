@@ -23,4 +23,6 @@ include_once('mvc/models/users.php');
 include_once('mvc/models/edit.php');
 include_once('mvc/models/validate.php');
 
+include_once('mvc/models/collection.php');
+
 ?>
