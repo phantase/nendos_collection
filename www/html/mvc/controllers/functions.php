@@ -75,3 +75,11 @@ function raiseError($errorMessage){
 
   exit;
 }
+
+function getValueOrRaiseError($resultInfo){
+  if($resultInfo[0]=="00000"){
+    return $resultInfo[4];
+  } else {
+    raiseError($resultInfo[2]);
+  }
+}
