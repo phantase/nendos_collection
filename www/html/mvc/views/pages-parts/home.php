@@ -42,9 +42,6 @@
               </header>
               <p/>
 <?php showNendoroidsArticle($nendoroids); ?>
-              <div class="pager">
-                <ul class="pagination"></ul>
-              </div>
 
             </div>
           </div>

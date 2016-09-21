@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="assets/css/jquery-ui.theme.min.css" />
     <link rel="stylesheet" href="assets/css/filedrop.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/nendosdb.css" />
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
   </head>
