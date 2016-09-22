@@ -15,9 +15,14 @@
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $nendoroid[$sortingfield] ?>">
                           <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>.jpg" alt="" />
+                          <span class="info_icons">
 <?php if( (isAdministrator() || isValidator() || isEditor() ) && $nendoroid['db_validatorid'] ){ ?>
-                          <i class="icon fa-check-square-o validationicon" title="Validated by <?= $nendoroid['db_validatorname'] ?>"></i>
+                            <span class="fa-stackb fa-green" title="Validated by <?= $nendoroid['db_validatorname'] ?>">
+                              <i class="fa fa-stackb-2x fa-square-o"></i>
+                              <i class="fa fa-stackb-1x fa-check"></i>
+                            </span>
 <?php } ?>
+                          </span>
                         </span>
                       <?php if($withlinks){ ?>
                         </a>

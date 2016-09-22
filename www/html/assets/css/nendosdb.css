@@ -20,11 +20,40 @@ a {
 .notvalidated #unvalidate         { display:none; }
 .notvalidated #validate           { display:inline; }
 
-.validationicon {
+.fa-green {
+  color: #009c00;
+}
+
+.fa-orange {
+  color: #F57921;
+}
+
+.fa-stackb {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1em;
+    vertical-align: middle;
+}
+.fa-stackb-1x, .fa-stackb-2x {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.fa-stackb-2x {
+  font-size: 1em;
+}
+.fa-stackb-1x {
+  line-height: inherit;
+  font-size: 0.5em;
+}
+
+.info_icons {
   position:absolute;
   top:0px;
-  left:5px;
-  color: #009c00;
+  left:0.5em;
 }
 
 /** PAGE USERS */

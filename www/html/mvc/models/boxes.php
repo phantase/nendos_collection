@@ -12,7 +12,7 @@ function count_allBoxes()
   return $count['count'];
 }
 /** Get all the boxes available in the DB */
-function get_allBoxes($order="db_creationdate",$direction="DESC")
+function get_allBoxes($order="db_creationdate",$direction="DESC",$userid=null)
 {
   $orders = array("box_number","box_name","box_series",
                   "box_manufacturer","box_category","box_price",
@@ -35,12 +35,19 @@ function get_allBoxes($order="db_creationdate",$direction="DESC")
                         b.creatorid AS db_creatorid, uc.username AS db_creatorname, b.creationdate AS db_creationdate,
                         b.editorid AS db_editorid, ue.username AS db_editorname, b.editiondate AS db_editiondate,
                         b.validatorid AS db_validatorid, uv.username AS db_validatorname, b.validationdate AS db_validationdate,
+                        ubc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM boxes AS b
                         LEFT JOIN users AS uc ON b.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON b.editorid = ue.internalid
                         LEFT JOIN users AS uv ON b.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, boxid, additiondate
+                          FROM users_boxes_collection
+                          WHERE userid = :userid
+                          ) AS ubc ON b.internalid = ubc.boxid
                         ORDER BY $order $direction");
+  $req->bindParam(":userid",$userid);
   $req->execute();
 
   $resultInfo = $req->errorInfo();
