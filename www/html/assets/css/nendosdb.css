@@ -382,3 +382,10 @@ input[forwhat] {
 #logout_submit {
   font-size:0.8em;
 }
+
+.owned_infos {
+  background-color: #F9DBC7;
+}
+.owned_infos span>span {
+  color: #F57921;
+}

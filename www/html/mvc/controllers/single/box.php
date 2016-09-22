@@ -3,12 +3,15 @@
 if( isset($_GET['box_internalid']) ){
   $box_internalid = $_GET['box_internalid'];
 
-  $resultInfo = get_singleBox($box_internalid);
+  $resultInfo = get_singleBox($box_internalid,$_SESSION['userid']);
   if($resultInfo[0]!="00000"){
     raiseError($resultInfo[2]);
   }
   $box = $resultInfo[4];
   $box['box_url'] = urlize($box['box_name']);
+  if( $box['coll_additiondate'] ) {
+    $box['coll_additionsince'] = ((new DateTime($box['now']))->diff(new DateTime($box['coll_additiondate'])));
+  }
   $metadata = array('db_creatorid'    =>  $box['db_creatorid'],
                     'db_creatorname'  =>  $box['db_creatorname'],
                     'db_creationdate' =>  $box['db_creationdate'],
