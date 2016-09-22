@@ -3,11 +3,13 @@
 if( isset($_GET['face_internalid']) ){
   $face_internalid = $_GET['face_internalid'];
 
-  $resultInfo = get_singleFace($face_internalid);
+  $resultInfo = get_singleFace($face_internalid,$_SESSION['userid']);
 
   if($resultInfo[0]=="00000"){
 
     $face = $resultInfo[4];
+
+    $face['coll_additionsince'] = ((new DateTime($face['now']))->diff(new DateTime($face['coll_additiondate'])));
 
     $face['box_url'] = urlize($face['box_name']);
 
