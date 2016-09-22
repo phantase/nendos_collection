@@ -6,7 +6,7 @@ function showBoxesCounter($count_boxes,$count_userboxes=null) {
 function showNendoroidsCounter($count_nendoroids,$count_usernendoroids=null) {
   include('mvc/views/pages-sections/counters/nendoroids.php');
 }
-function showFacesCounter($count_faces) {
+function showFacesCounter($count_faces,$count_userfaces=null) {
   include('mvc/views/pages-sections/counters/faces.php');
 }
 function showHairsCounter($count_hairs) {

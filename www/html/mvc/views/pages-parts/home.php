@@ -18,7 +18,7 @@
 <?php } // End isLogged ?>
                   <div class="3u 4u(medium) 6u(small)"><?php showBoxesCounter($count_boxes,$count_userboxes); ?></div>
                   <div class="3u 4u(medium) 6u(small)"><?php showNendoroidsCounter($count_nendoroids,$count_usernendoroids); ?></div>
-                  <div class="3u 4u(medium) 6u(small)"><?php showFacesCounter($count_faces); ?></div>
+                  <div class="3u 4u(medium) 6u(small)"><?php showFacesCounter($count_faces,$count_userfaces); ?></div>
                   <div class="3u 4u(medium) 6u(small)"><?php showHairsCounter($count_hairs); ?></div>
                   <div class="3u 4u(medium) 6u(small)"><?php showHandsCounter($count_hands); ?></div>
                   <div class="3u 4u(medium) 6u(small)"><?php showBodyPartsCounter($count_bodyparts); ?></div>

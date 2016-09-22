@@ -21,6 +21,7 @@ if($resultInfo[0] == "00000" ){
   if( isset($_SESSION['userid']) ){
     $count_userboxes = getValueOrRaiseError(count_userBoxes($_SESSION['userid']));
     $count_usernendoroids = getValueOrRaiseError(count_userNendoroids($_SESSION['userid']));
+    $count_userfaces = getValueOrRaiseError(count_userFaces($_SESSION['userid']));
   }
 
   $page_title = "Nendoroids DB";
