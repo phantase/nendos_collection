@@ -20,6 +20,7 @@
                         <tbody>
 <?php
   tableFieldValidate($nendoroid['db_validatorid']);
+  tableFieldOwned($nendoroid['coll_additiondate'],$nendoroid['coll_additionsince']);
 ?>
                           <tr>
                             <th>Box</th>

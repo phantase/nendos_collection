@@ -3,12 +3,15 @@
 if( isset($_GET['nendoroid_internalid']) ){
   $nendoroid_internalid = $_GET['nendoroid_internalid'];
 
-  $resultInfo = get_singleNendoroid($nendoroid_internalid);
+  $resultInfo = get_singleNendoroid($nendoroid_internalid,$_SESSION['userid']);
   if( $resultInfo[0]=="00000" ){
     $nendoroid = $resultInfo[4];
 
     $nendoroid['nendoroid_url'] = urlize($nendoroid['nendoroid_name']);
     $nendoroid['box_url'] = urlize($nendoroid['box_name']);
+    if( $nendoroid['coll_additiondate'] ) {
+      $nendoroid['coll_additionsince'] = ((new DateTime($nendoroid['now']))->diff(new DateTime($nendoroid['coll_additiondate'])));
+    }
 
     $metadata = array('db_creatorid'    =>  $nendoroid['db_creatorid'],
                       'db_creatorname'  =>  $nendoroid['db_creatorname'],
