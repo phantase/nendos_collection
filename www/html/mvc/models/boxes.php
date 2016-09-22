@@ -35,7 +35,7 @@ function get_allBoxes($order="db_creationdate",$direction="DESC",$userid=null)
                         b.creatorid AS db_creatorid, uc.username AS db_creatorname, b.creationdate AS db_creationdate,
                         b.editorid AS db_editorid, ue.username AS db_editorname, b.editiondate AS db_editiondate,
                         b.validatorid AS db_validatorid, uv.username AS db_validatorname, b.validationdate AS db_validationdate,
-                        ubc.additiondate AS coll_additiondate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM boxes AS b
                         LEFT JOIN users AS uc ON b.creatorid = uc.internalid
@@ -45,7 +45,7 @@ function get_allBoxes($order="db_creationdate",$direction="DESC",$userid=null)
                           SELECT internalid, userid, boxid, additiondate
                           FROM users_boxes_collection
                           WHERE userid = :userid
-                          ) AS ubc ON b.internalid = ubc.boxid
+                          ) AS uc ON b.internalid = uc.boxid
                         ORDER BY $order $direction");
   $req->bindParam(":userid",$userid);
   $req->execute();
