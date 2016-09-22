@@ -12,7 +12,7 @@ function count_allFaces()
   return $count['count'];
 }
 /** Get all the faces available in the DB */
-function get_allFaces($order="db_creationdate",$direction="desc")
+function get_allFaces($order="db_creationdate",$direction="desc",$userid=null)
 {
   $orders = array("face_eyes_color","face_skin_color","face_sex",
                   "nendoroid_name","nendoroid_version","nendoroid_sex",
@@ -44,6 +44,7 @@ function get_allFaces($order="db_creationdate",$direction="desc")
                         f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
                         f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
                         f.validatorid AS db_validatorid, uv.username AS db_validatorname, f.validationdate AS db_validationdate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM faces AS f
                         LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
@@ -51,7 +52,13 @@ function get_allFaces($order="db_creationdate",$direction="desc")
                         LEFT JOIN users AS uc ON f.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON f.editorid = ue.internalid
                         LEFT JOIN users AS uv ON f.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, faceid, additiondate
+                          FROM users_faces_collection
+                          WHERE userid = :userid
+                          ) AS uc ON f.internalid = uc.faceid
                         ORDER BY $order $direction;");
+  $req->bindParam(":userid",$userid);
   $req->execute();
 
   $resultInfo = $req->errorInfo();
