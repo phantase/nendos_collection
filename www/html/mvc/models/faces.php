@@ -124,7 +124,7 @@ function get_nendoroidFaces($nendoroid_internalid)
   return $resultInfo;
 }
 /** Get all the faces available for a specific Box */
-function get_boxFaces($box_internalid)
+function get_boxFaces($box_internalid,$userid)
 {
   global $bdd;
 
@@ -144,6 +144,7 @@ function get_boxFaces($box_internalid)
                         f.creatorid AS db_creatorid, uc.username AS db_creatorname, f.creationdate AS db_creationdate,
                         f.editorid AS db_editorid, ue.username AS db_editorname, f.editiondate AS db_editiondate,
                         f.validatorid AS db_validatorid, uv.username AS db_validatorname, f.validationdate AS db_validationdate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM faces AS f
                         LEFT JOIN nendoroids AS n ON f.nendoroidid = n.internalid
@@ -151,7 +152,13 @@ function get_boxFaces($box_internalid)
                         LEFT JOIN users AS uc ON f.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON f.editorid = ue.internalid
                         LEFT JOIN users AS uv ON f.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, faceid, additiondate
+                          FROM users_faces_collection
+                          WHERE userid = :userid
+                          ) AS uc ON f.internalid = uc.faceid
                         WHERE f.boxid = :box_internalid");
+  $req->bindParam(':userid',$userid);
   $req->bindParam(':box_internalid',$box_internalid);
   $req->execute();
 

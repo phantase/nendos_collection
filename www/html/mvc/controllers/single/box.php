@@ -37,11 +37,16 @@ if( isset($_GET['box_internalid']) ){
     }
 }
 
-  $resultInfo = get_boxFaces($box_internalid);
+  $resultInfo = get_boxFaces($box_internalid,$_SESSION['userid']);
   if($resultInfo[0]!="00000"){
     raiseError($resultInfo[2]);
   }
   $faces = $resultInfo[4];
+  foreach ($faces as $key => $face) {
+    if( $face['coll_additiondate'] ) {
+      $faces[$key]['coll_additionsince'] = ((new DateTime($face['now']))->diff(new DateTime($face['coll_additiondate'])));
+    }
+  }
 
   $resultInfo = get_boxHands($box_internalid);
   if($resultInfo[0]!="00000"){
