@@ -25,6 +25,7 @@
                         <tbody>
 <?php
   tableFieldValidate($hair['db_validatorid']);
+  tableFieldOwned($hair['coll_additiondate'],$hair['coll_additionsince']);
 ?>
                           <tr>
                             <th>Box</th>

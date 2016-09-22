@@ -3,11 +3,13 @@
 if( isset($_GET['hair_internalid']) ){
   $hair_internalid = $_GET['hair_internalid'];
 
-  $resultInfo = get_singleHair($hair_internalid);
+  $resultInfo = get_singleHair($hair_internalid,$_SESSION['userid']);
 
   if($resultInfo[0]=="00000"){
 
     $hair = $resultInfo[4];
+
+    $hair['coll_additionsince'] = ((new DateTime($hair['now']))->diff(new DateTime($hair['coll_additiondate'])));
 
     $hair['box_url'] = urlize($hair['box_name']);
 
