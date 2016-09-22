@@ -25,14 +25,17 @@ if( isset($_GET['box_internalid']) ){
                     'db_validationdate'  =>  $box['db_validationdate'],
                     'db_validationdiff'  =>  ((new DateTime($box['now']))->diff(new DateTime($box['db_validationdate']))));
 
-  $resultInfo = get_boxNendoroids($box_internalid);
+  $resultInfo = get_boxNendoroids($box_internalid,$_SESSION['userid']);
   if($resultInfo[0]!="00000"){
     raiseError($resultInfo[2]);
   }
   $nendoroids = $resultInfo[4];
   foreach ($nendoroids as $key => $nendoroid) {
     $nendoroids[$key]['nendoroid_url'] = urlize($nendoroid['nendoroid_name']);
-  }
+    if( $nendoroid['coll_additiondate'] ) {
+      $nendoroids[$key]['coll_additionsince'] = ((new DateTime($nendoroid['now']))->diff(new DateTime($nendoroid['coll_additiondate'])));
+    }
+}
 
   $resultInfo = get_boxFaces($box_internalid);
   if($resultInfo[0]!="00000"){
