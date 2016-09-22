@@ -56,3 +56,22 @@ function count_userFaces($userid)
 
   return $resultInfo;
 }
+/** Count hairs in a user collection */
+function count_userHairs($userid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT count(*) AS count
+                        FROM users_hairs_collection
+                        WHERE userid=:userid");
+  $req->bindParam(':userid',$userid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetch()['count'];
+  }
+
+  return $resultInfo;
+}
