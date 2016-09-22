@@ -18,3 +18,22 @@ function count_userBoxes($userid)
 
   return $resultInfo;
 }
+/** Count nendoroids in a user collection */
+function count_userNendoroids($userid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT count(*) AS count
+                        FROM users_nendoroids_collection
+                        WHERE userid=:userid");
+  $req->bindParam(':userid',$userid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetch()['count'];
+  }
+
+  return $resultInfo;
+}

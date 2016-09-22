@@ -20,6 +20,7 @@ if($resultInfo[0] == "00000" ){
 // User counts - if user is logged in
   if( isset($_SESSION['userid']) ){
     $count_userboxes = getValueOrRaiseError(count_userBoxes($_SESSION['userid']));
+    $count_usernendoroids = getValueOrRaiseError(count_userNendoroids($_SESSION['userid']));
   }
 
   $page_title = "Nendoroids DB";

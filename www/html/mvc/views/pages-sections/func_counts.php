@@ -3,7 +3,7 @@
 function showBoxesCounter($count_boxes,$count_userboxes=null) {
   include('mvc/views/pages-sections/counters/boxes.php');
 }
-function showNendoroidsCounter($count_nendoroids) {
+function showNendoroidsCounter($count_nendoroids,$count_usernendoroids=null) {
   include('mvc/views/pages-sections/counters/nendoroids.php');
 }
 function showFacesCounter($count_faces) {
