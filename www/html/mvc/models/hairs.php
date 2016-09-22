@@ -12,7 +12,7 @@ function count_allHairs()
   return $count['count'];
 }
 /** Get all the Hairs available in the DB */
-function get_allHairs($order="db_creationdate",$direction="desc")
+function get_allHairs($order="db_creationdate",$direction="desc",$userid=null)
 {
   $orders = array("hair_haircut","hair_main_color","hair_other_color","hair_frontback",
                   "nendoroid_name","nendoroid_version","nendoroid_sex",
@@ -43,6 +43,7 @@ function get_allHairs($order="db_creationdate",$direction="desc")
                         h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
                         h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
                         h.validatorid AS db_validatorid, uv.username AS db_validatorname, h.validationdate AS db_validationdate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM hairs AS h
                         LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
@@ -50,7 +51,13 @@ function get_allHairs($order="db_creationdate",$direction="desc")
                         LEFT JOIN users AS uc ON h.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON h.editorid = ue.internalid
                         LEFT JOIN users AS uv ON h.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, hairid, additiondate
+                          FROM users_hairs_collection
+                          WHERE userid = :userid
+                          ) AS uc ON h.internalid = uc.hairid
                         ORDER BY $order $direction;");
+  $req->bindParam(":userid",$userid);
   $req->execute();
 
   $resultInfo = $req->errorInfo();
