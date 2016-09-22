@@ -22,6 +22,12 @@
                               <i class="fa fa-stackb-1x fa-check"></i>
                             </span>
 <?php } ?>
+<?php if( $nendoroid['coll_additiondate'] ){ ?>
+                            <span class="fa-stackb fa-orange" title="Owned (added <?= intervalFormater($nendoroid['coll_additionsince']) ?>)">
+                              <i class="fa fa-square-o fa-stackb-2x"></i>
+                              <i class="fa fa-suitcase fa-stackb-1x"></i>
+                            </span>
+<?php } ?>
                           </span>
                         </span>
                       <?php if($withlinks){ ?>

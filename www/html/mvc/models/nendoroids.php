@@ -12,7 +12,7 @@ function count_allNendoroids()
   return $count['count'];
 }
 /** Get all Nendoroids available in the DB */
-function get_allNendoroids($order="db_creationdate",$direction="DESC")
+function get_allNendoroids($order="db_creationdate",$direction="DESC",$userid=null)
 {
   $orders = array("nendoroid_name","nendoroid_version","nendoroid_sex",
                   "box_number","box_name","box_series",
@@ -39,13 +39,20 @@ function get_allNendoroids($order="db_creationdate",$direction="DESC")
                         n.creatorid AS db_creatorid, uc.username AS db_creatorname, n.creationdate AS db_creationdate,
                         n.editorid AS db_editorid, ue.username AS db_editorname, n.editiondate AS db_editiondate,
                         n.validatorid AS db_validatorid, uv.username AS db_validatorname, n.validationdate AS db_validationdate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM nendoroids AS n
                         LEFT JOIN boxes AS b ON n.boxid = b.internalid
                         LEFT JOIN users AS uc ON n.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON n.editorid = ue.internalid
                         LEFT JOIN users AS uv ON n.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, nendoroidid, additiondate
+                          FROM users_nendoroids_collection
+                          WHERE userid = :userid
+                          ) AS uc ON b.internalid = uc.nendoroidid
                         ORDER BY $order $direction;");
+  $req->bindParam(":userid",$userid);
   $req->execute();
 
   $resultInfo = $req->errorInfo();
