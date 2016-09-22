@@ -26,11 +26,16 @@ if( isset($_GET['nendoroid_internalid']) ){
                       'db_validationdate'  =>  $nendoroid['db_validationdate'],
                       'db_validationdiff'  =>  ((new DateTime($nendoroid['now']))->diff(new DateTime($nendoroid['db_validationdate']))));
 
-    $resultInfo = get_nendoroidFaces($nendoroid_internalid);
+    $resultInfo = get_nendoroidFaces($nendoroid_internalid,$_SESSION['userid']);
     if($resultInfo[0]!="00000"){
       raiseError($resultInfo[2]);
     }
     $faces = $resultInfo[4];
+    foreach ($faces as $key => $face) {
+      if( $face['coll_additiondate'] ) {
+        $faces[$key]['coll_additionsince'] = ((new DateTime($face['now']))->diff(new DateTime($face['coll_additiondate'])));
+      }
+    }
 
     $resultInfo = get_nendoroidHands($nendoroid_internalid);
     if($resultInfo[0]!="00000"){
