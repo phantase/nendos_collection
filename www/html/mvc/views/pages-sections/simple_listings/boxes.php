@@ -22,7 +22,7 @@
                             </span>
 <?php } ?>
 <?php if( $box['coll_additiondate'] ){ ?>
-                            <span class="fa-stackb fa-orange" title="In collection (<?= intervalFormater($box['coll_additionsince']) ?>)">
+                            <span class="fa-stackb fa-orange" title="Owned (added <?= intervalFormater($box['coll_additionsince']) ?>)">
                               <i class="fa fa-square-o fa-stackb-2x"></i>
                               <i class="fa fa-suitcase fa-stackb-1x"></i>
                             </span>
