@@ -12,7 +12,7 @@ function count_allAccessories()
   return $count['count'];
 }
 /** Get all the accessories available in the DB */
-function get_allAccessories($order="db_creationdate",$direction="desc")
+function get_allAccessories($order="db_creationdate",$direction="desc",$userid=null)
 {
   $orders = array("accessory_type","accessory_main_color","accessory_other_color",
                   "nendoroid_name","nendoroid_version","nendoroid_sex",
@@ -43,6 +43,7 @@ function get_allAccessories($order="db_creationdate",$direction="desc")
                         a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
                         a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
                         a.validatorid AS db_validatorid, uv.username AS db_validatorname, a.validationdate AS db_validationdate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM accessories AS a
                         LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
@@ -50,7 +51,13 @@ function get_allAccessories($order="db_creationdate",$direction="desc")
                         LEFT JOIN users AS uc ON a.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON a.editorid = ue.internalid
                         LEFT JOIN users AS uv ON a.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, accessoryid, additiondate
+                          FROM users_accessories_collection
+                          WHERE userid = :userid
+                          ) AS uc ON a.internalid = uc.accessoryid
                         ORDER BY $order $direction;");
+  $req->bindParam(":userid",$userid);
   $req->execute();
 
   $resultInfo = $req->errorInfo();
