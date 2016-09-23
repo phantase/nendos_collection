@@ -48,11 +48,16 @@ if( isset($_GET['nendoroid_internalid']) ){
       }
     }
 
-    $resultInfo = get_nendoroidBodyParts($nendoroid_internalid);
+    $resultInfo = get_nendoroidBodyParts($nendoroid_internalid,$_SESSION['userid']);
     if($resultInfo[0]!="00000"){
       raiseError($resultInfo[2]);
     }
     $bodyparts = $resultInfo[4];
+    foreach ($bodyparts as $key => $bodypart) {
+      if( $bodypart['coll_additiondate'] ) {
+        $bodyparts[$key]['coll_additionsince'] = ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['coll_additiondate'])));
+      }
+    }
 
     $resultInfo = get_nendoroidHairs($nendoroid_internalid,$_SESSION['userid']);
     if($resultInfo[0]!="00000"){
