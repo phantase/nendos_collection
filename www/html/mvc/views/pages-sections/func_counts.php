@@ -18,6 +18,6 @@ function showHandsCounter($count_hands,$count_userhands=null) {
 function showBodyPartsCounter($count_bodyparts,$count_userbodyparts=null) {
   include('mvc/views/pages-sections/counters/bodyparts.php');
 }
-function showAccessoriesCounter($count_accessories) {
+function showAccessoriesCounter($count_accessories,$count_useraccessories=null) {
   include('mvc/views/pages-sections/counters/accessories.php');
 }

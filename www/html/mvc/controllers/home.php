@@ -25,6 +25,7 @@ if($resultInfo[0] == "00000" ){
     $count_userhairs = getValueOrRaiseError(count_userHairs($_SESSION['userid']));
     $count_userhands = getValueOrRaiseError(count_userHands($_SESSION['userid']));
     $count_userbodyparts = getValueOrRaiseError(count_userBodyparts($_SESSION['userid']));
+    $count_useraccessories = getValueOrRaiseError(count_userAccessories($_SESSION['userid']));
   }
 
   $page_title = "Nendoroids DB";
