@@ -8,9 +8,14 @@ if( isset($_GET['order']) && isset($_GET['direction']) ){
   $selected_direction = "desc";
 }
 
-$resultInfo = get_allBodyParts($selected_order,$selected_direction);
+$resultInfo = get_allBodyParts($selected_order,$selected_direction,$_SESSION['userid']);
 if( $resultInfo[0] == "00000" ){
   $bodyparts = $resultInfo[4];
+  foreach ($bodyparts as $key => $bodypart) {
+    if( $bodypart['coll_additiondate'] ) {
+      $bodyparts[$key]['coll_additionsince'] = ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['coll_additiondate'])));
+    }
+  }
   $page_title = "Bodyparts";
 } else {
   raiseError($resultInfo[2]);

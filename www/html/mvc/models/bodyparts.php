@@ -12,7 +12,7 @@ function count_allBodyParts()
   return $count['count'];
 }
 /** Get all the body parts available in the DB */
-function get_allBodyParts($order="db_creationdate",$direction="desc")
+function get_allBodyParts($order="db_creationdate",$direction="desc",$userid=null)
 {
   $orders = array("bodypart_part","bodypart_main_color","bodypart_other_color",
                   "nendoroid_name","nendoroid_version","nendoroid_sex",
@@ -43,6 +43,7 @@ function get_allBodyParts($order="db_creationdate",$direction="desc")
                         bp.creatorid AS db_creatorid, uc.username AS db_creatorname, bp.creationdate AS db_creationdate,
                         bp.editorid AS db_editorid, ue.username AS db_editorname, bp.editiondate AS db_editiondate,
                         bp.validatorid AS db_validatorid, uv.username AS db_validatorname, bp.validationdate AS db_validationdate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM bodyparts AS bp
                         LEFT JOIN nendoroids AS n ON bp.nendoroidid = n.internalid
@@ -50,7 +51,13 @@ function get_allBodyParts($order="db_creationdate",$direction="desc")
                         LEFT JOIN users AS uc ON bp.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON bp.editorid = ue.internalid
                         LEFT JOIN users AS uv ON bp.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, bodypartid, additiondate
+                          FROM users_bodyparts_collection
+                          WHERE userid = :userid
+                          ) AS uc ON bp.internalid = uc.bodypartid
                         ORDER BY $order $direction;");
+  $req->bindParam(":userid",$userid);
   $req->execute();
 
   $resultInfo = $req->errorInfo();
