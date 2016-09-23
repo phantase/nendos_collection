@@ -3,11 +3,13 @@
 if( isset($_GET['hand_internalid']) ){
   $hand_internalid = $_GET['hand_internalid'];
 
-  $resultInfo = get_singleHand($hand_internalid);
+  $resultInfo = get_singleHand($hand_internalid,$_SESSION['userid']);
 
   if($resultInfo[0]=="00000"){
 
     $hand = $resultInfo[4];
+
+    $hand['coll_additionsince'] = ((new DateTime($hand['now']))->diff(new DateTime($hand['coll_additiondate'])));
 
     $hand['box_url'] = urlize($hand['box_name']);
 
