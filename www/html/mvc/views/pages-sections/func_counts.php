@@ -15,7 +15,7 @@ function showHairsCounter($count_hairs,$count_userhairs=null) {
 function showHandsCounter($count_hands,$count_userhands=null) {
   include('mvc/views/pages-sections/counters/hands.php');
 }
-function showBodyPartsCounter($count_bodyparts) {
+function showBodyPartsCounter($count_bodyparts,$count_userbodyparts=null) {
   include('mvc/views/pages-sections/counters/bodyparts.php');
 }
 function showAccessoriesCounter($count_accessories) {
