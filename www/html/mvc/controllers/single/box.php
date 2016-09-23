@@ -59,11 +59,16 @@ if( isset($_GET['box_internalid']) ){
     }
   }
 
-  $resultInfo = get_boxBodyParts($box_internalid);
+  $resultInfo = get_boxBodyParts($box_internalid,$_SESSION['userid']);
   if($resultInfo[0]!="00000"){
     raiseError($resultInfo[2]);
   }
   $bodyparts = $resultInfo[4];
+  foreach ($bodyparts as $key => $bodypart) {
+    if( $bodypart['coll_additiondate'] ) {
+      $bodyparts[$key]['coll_additionsince'] = ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['coll_additiondate'])));
+    }
+  }
 
   $resultInfo = get_boxHairs($box_internalid,$_SESSION['userid']);
   if($resultInfo[0]!="00000"){
