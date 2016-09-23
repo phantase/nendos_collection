@@ -3,11 +3,13 @@
 if( isset($_GET['accessory_internalid']) ){
   $accessory_internalid = $_GET['accessory_internalid'];
 
-  $resultInfo = get_singleAccessory($accessory_internalid);
+  $resultInfo = get_singleAccessory($accessory_internalid,$_SESSION['userid']);
 
   if($resultInfo[0]=="00000"){
 
     $accessory = $resultInfo[4];
+
+    $accessory['coll_additionsince'] = ((new DateTime($accessory['now']))->diff(new DateTime($accessory['coll_additiondate'])));
 
     $accessory['box_url'] = urlize($accessory['box_name']);
 
