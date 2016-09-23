@@ -25,6 +25,7 @@
                         <tbody>
 <?php
   tableFieldValidate($bodypart['db_validatorid']);
+  tableFieldOwned($bodypart['coll_additiondate'],$bodypart['coll_additionsince']);
 ?>
                           <tr>
                             <th>Box</th>

@@ -3,11 +3,13 @@
 if( isset($_GET['bodypart_internalid']) ){
   $bodypart_internalid = $_GET['bodypart_internalid'];
 
-  $resultInfo = get_singleBodypart($bodypart_internalid);
+  $resultInfo = get_singleBodypart($bodypart_internalid,$_SESSION['userid']);
 
   if($resultInfo[0]=="00000"){
 
     $bodypart = $resultInfo[4];
+
+    $bodypart['coll_additionsince'] = ((new DateTime($bodypart['now']))->diff(new DateTime($bodypart['coll_additiondate'])));
 
     $bodypart['box_url'] = urlize($bodypart['box_name']);
 
