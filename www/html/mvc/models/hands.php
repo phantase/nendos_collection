@@ -12,7 +12,7 @@ function count_allHands()
   return $count['count'];
 }
 /** Get all the Hands available in the DB */
-function get_allHands($order="db_creationdate",$direction="desc")
+function get_allHands($order="db_creationdate",$direction="desc",$userid=null)
 {
   $orders = array("hand_posture","hand_skin_color","hand_leftright",
                   "nendoroid_name","nendoroid_version","nendoroid_sex",
@@ -44,6 +44,7 @@ function get_allHands($order="db_creationdate",$direction="desc")
                         h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
                         h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
                         h.validatorid AS db_validatorid, uv.username AS db_validatorname, h.validationdate AS db_validationdate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM hands AS h
                         LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
@@ -51,7 +52,13 @@ function get_allHands($order="db_creationdate",$direction="desc")
                         LEFT JOIN users AS uc ON h.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON h.editorid = ue.internalid
                         LEFT JOIN users AS uv ON h.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, handid, additiondate
+                          FROM users_hands_collection
+                          WHERE userid = :userid
+                          ) AS uc ON h.internalid = uc.handid
                         ORDER BY $order $direction;");
+  $req->bindParam(":userid",$userid);
   $req->execute();
 
   $resultInfo = $req->errorInfo();
