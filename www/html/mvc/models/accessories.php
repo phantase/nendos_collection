@@ -83,7 +83,7 @@ function count_nendoroidAccessories($nendoroid_internalid)
   return $count['count'];
 }
 /** Get all the accessories available for a specific Nendoroid */
-function get_nendoroidAccessories($nendoroid_internalid)
+function get_nendoroidAccessories($nendoroid_internalid,$userid=null)
 {
   global $bdd;
 
@@ -102,6 +102,7 @@ function get_nendoroidAccessories($nendoroid_internalid)
                         a.creatorid AS db_creatorid, uc.username AS db_creatorname, a.creationdate AS db_creationdate,
                         a.editorid AS db_editorid, ue.username AS db_editorname, a.editiondate AS db_editiondate,
                         a.validatorid AS db_validatorid, uv.username AS db_validatorname, a.validationdate AS db_validationdate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM accessories AS a
                         LEFT JOIN nendoroids AS n ON a.nendoroidid = n.internalid
@@ -109,7 +110,13 @@ function get_nendoroidAccessories($nendoroid_internalid)
                         LEFT JOIN users AS uc ON a.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON a.editorid = ue.internalid
                         LEFT JOIN users AS uv ON a.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, accessoryid, additiondate
+                          FROM users_accessories_collection
+                          WHERE userid = :userid
+                          ) AS uc ON a.internalid = uc.accessoryid
                         WHERE a.nendoroidid = :nendoroid_internalid");
+  $req->bindParam(":userid",$userid);
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
 

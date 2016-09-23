@@ -70,11 +70,16 @@ if( isset($_GET['nendoroid_internalid']) ){
       }
     }
 
-    $resultInfo = get_nendoroidAccessories($nendoroid_internalid);
+    $resultInfo = get_nendoroidAccessories($nendoroid_internalid,$_SESSION['userid']);
     if($resultInfo[0]!="00000"){
       raiseError($resultInfo[2]);
     }
     $accessories = $resultInfo[4];
+    foreach ($accessories as $key => $accessory) {
+      if( $accessory['coll_additiondate'] ) {
+        $accessories[$key]['coll_additionsince'] = ((new DateTime($accessory['now']))->diff(new DateTime($accessory['coll_additiondate'])));
+      }
+    }
 
     $resultInfo = get_nendoroidHistory($nendoroid_internalid);
     if($resultInfo[0]!="00000"){
