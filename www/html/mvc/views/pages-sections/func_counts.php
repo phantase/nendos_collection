@@ -12,7 +12,7 @@ function showFacesCounter($count_faces,$count_userfaces=null) {
 function showHairsCounter($count_hairs,$count_userhairs=null) {
   include('mvc/views/pages-sections/counters/hairs.php');
 }
-function showHandsCounter($count_hands) {
+function showHandsCounter($count_hands,$count_userhands=null) {
   include('mvc/views/pages-sections/counters/hands.php');
 }
 function showBodyPartsCounter($count_bodyparts) {
