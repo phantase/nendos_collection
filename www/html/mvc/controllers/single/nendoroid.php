@@ -37,11 +37,16 @@ if( isset($_GET['nendoroid_internalid']) ){
       }
     }
 
-    $resultInfo = get_nendoroidHands($nendoroid_internalid);
+    $resultInfo = get_nendoroidHands($nendoroid_internalid,$_SESSION['userid']);
     if($resultInfo[0]!="00000"){
       raiseError($resultInfo[2]);
     }
     $hands = $resultInfo[4];
+    foreach ($hands as $key => $hand) {
+      if( $hand['coll_additiondate'] ) {
+        $hands[$key]['coll_additionsince'] = ((new DateTime($hand['now']))->diff(new DateTime($hand['coll_additiondate'])));
+      }
+    }
 
     $resultInfo = get_nendoroidBodyParts($nendoroid_internalid);
     if($resultInfo[0]!="00000"){

@@ -84,7 +84,7 @@ function count_nendoroidHands($nendoroid_internalid)
   return $count['count'];
 }
 /** Get all the Hands available for a specific Nendoroid */
-function get_nendoroidHands($nendoroid_internalid)
+function get_nendoroidHands($nendoroid_internalid,$userid=null)
 {
   global $bdd;
 
@@ -104,6 +104,7 @@ function get_nendoroidHands($nendoroid_internalid)
                         h.creatorid AS db_creatorid, uc.username AS db_creatorname, h.creationdate AS db_creationdate,
                         h.editorid AS db_editorid, ue.username AS db_editorname, h.editiondate AS db_editiondate,
                         h.validatorid AS db_validatorid, uv.username AS db_validatorname, h.validationdate AS db_validationdate,
+                        uc.additiondate AS coll_additiondate,
                         NOW() AS now
                         FROM hands AS h
                         LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
@@ -111,7 +112,13 @@ function get_nendoroidHands($nendoroid_internalid)
                         LEFT JOIN users AS uc ON h.creatorid = uc.internalid
                         LEFT JOIN users AS ue ON h.editorid = ue.internalid
                         LEFT JOIN users AS uv ON h.validatorid = uv.internalid
+                        LEFT JOIN (
+                          SELECT internalid, userid, handid, additiondate
+                          FROM users_hands_collection
+                          WHERE userid = :userid
+                          ) AS uc ON h.internalid = uc.handid
                         WHERE h.nendoroidid = :nendoroid_internalid");
+  $req->bindParam(":userid",$userid);
   $req->bindParam(':nendoroid_internalid',$nendoroid_internalid);
   $req->execute();
 
