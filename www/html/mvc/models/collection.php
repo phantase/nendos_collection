@@ -132,3 +132,111 @@ function count_userAccessories($userid)
 
   return $resultInfo;
 }
+
+/** collect a single element */
+function collect_singleElement($element,$internalid,$userid)
+{
+  global $bdd;
+
+  $allowedElement = array("accessory"  ,"bodypart" ,"box"  ,"face" ,"hair" ,"hand" ,"nendoroid" );
+  $allowedField = array("accessoryid"  ,"bodypartid" ,"boxid"  ,"faceid" ,"hairid" ,"handid" ,"nendoroidid" );
+  $allowedTable   = array("accessories","bodyparts","boxes","faces","hairs","hands","nendoroids");
+  $key = array_search($element, $allowedElement);
+  $fieldname = $allowedField[$key];
+  $tablename = "users_".$allowedTable[$key]."_collection";
+
+  // Check if the element is already in collection
+  $req = $bdd->prepare("SELECT quantity FROM $tablename WHERE userid=:userid AND $fieldname=:internalid");
+  $req->bindParam(':internalid',$internalid);
+  $req->bindParam(':userid',$userid);
+  $req->execute();
+  $resultArray = $req->errorInfo();
+  if($resultArray[0] != 0 ){
+    return $resultArray;
+  }
+
+  if($record = $req->fetch()){
+  // if yes, raise its quantity by one
+    $quantity = $record['quantity'] + 1;
+    $req = $bdd->prepare("UPDATE $tablename
+                          SET quantity = :quantity
+                          WHERE userid = :userid
+                          AND $fieldname = :internalid;");
+    $req->bindParam(':internalid',$internalid);
+    $req->bindParam(':userid',$userid);
+    $req->bindParam(':quantity',$quantity);
+    $req->execute();
+  } else {
+  // if no, add it to collection
+    $req = $bdd->prepare("INSERT INTO $tablename(userid,$fieldname)
+                          VALUES(:userid,:internalid);");
+    $req->bindParam(':internalid',$internalid);
+    $req->bindParam(':userid',$userid);
+    $req->execute();
+  }
+
+  $resultArray = $req->errorInfo();
+  if($resultArray[0] == 0 ){
+    $resultArray[4] = $bdd->lastInsertId();
+  }
+
+  return $resultArray;
+}
+
+/** uncollect a single element (i.e. remove it from user collection) */
+function uncollect_singleElement($element,$internalid,$userid)
+{
+  global $bdd;
+
+  $allowedElement = array("accessory"  ,"bodypart" ,"box"  ,"face" ,"hair" ,"hand" ,"nendoroid" );
+  $allowedField = array("accessoryid"  ,"bodypartid" ,"boxid"  ,"faceid" ,"hairid" ,"handid" ,"nendoroidid" );
+  $allowedTable   = array("accessories","bodyparts","boxes","faces","hairs","hands","nendoroids");
+  $key = array_search($element, $allowedElement);
+  $fieldname = $allowedField[$key];
+  $tablename = "users_".$allowedTable[$key]."_collection";
+
+  // the element is in collection, check its quantity
+  $req = $bdd->prepare("SELECT quantity FROM $tablename WHERE userid=:userid AND $fieldname=:internalid");
+  $req->bindParam(':internalid',$internalid);
+  $req->bindParam(':userid',$userid);
+  $req->execute();
+  $resultArray = $req->errorInfo();
+  if($resultArray[0] != 0 ){
+    return $resultArray;
+  }
+
+  if($record = $req->fetch()){
+    $quantity = $record['quantity'];
+    if($quantity>1){
+      // if its quantity is more than one, just decrease by one
+      $quantity --;
+      $req = $bdd->prepare("UPDATE $tablename
+                            SET quantity = :quantity
+                            WHERE userid = :userid
+                            AND $fieldname = :internalid;");
+      $req->bindParam(':internalid',$internalid);
+      $req->bindParam(':userid',$userid);
+      $req->bindParam(':quantity',$quantity);
+      $req->execute();
+    } else {
+    // if no, remove it totally from collection
+      $req = $bdd->prepare("DELETE FROM  $tablename
+                            WHERE userid = :userid
+                            AND $fieldname = :internalid;");
+      $req->bindParam(':internalid',$internalid);
+      $req->bindParam(':userid',$userid);
+      $req->execute();
+    }
+
+    $resultArray = $req->errorInfo();
+    if($resultArray[0] == 0 ){
+      $resultArray[4] = $bdd->lastInsertId();
+    }
+
+  } else {
+    $resultArray[0] = 666;
+    $resultArray[2] = "Error, the element is not in the user collection.";
+  }
+
+  return $resultArray;
+}
