@@ -15,7 +15,10 @@ if( ! isLogged() ){
 
     $resultInfo = uncollect_singleElement($element,$internalid,$userid);
     if($resultInfo[0] == "00000"){
-      echo json_encode(array('result'=>'success','element'=>$element,'internalid'=>$internalid));
+      echo json_encode(array('result'=>'success',
+                            'element'=>$element,
+                            'internalid'=>$internalid,
+                            'quantity'=>$resultInfo[4]));
     } else {
       echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
     }

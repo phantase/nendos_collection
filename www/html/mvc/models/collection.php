@@ -168,6 +168,7 @@ function collect_singleElement($element,$internalid,$userid)
     $req->execute();
   } else {
   // if no, add it to collection
+    $quantity = 1;
     $req = $bdd->prepare("INSERT INTO $tablename(userid,$fieldname)
                           VALUES(:userid,:internalid);");
     $req->bindParam(':internalid',$internalid);
@@ -177,7 +178,7 @@ function collect_singleElement($element,$internalid,$userid)
 
   $resultArray = $req->errorInfo();
   if($resultArray[0] == 0 ){
-    $resultArray[4] = $bdd->lastInsertId();
+    $resultArray[4] = $quantity;
   }
 
   return $resultArray;
@@ -220,6 +221,7 @@ function uncollect_singleElement($element,$internalid,$userid)
       $req->execute();
     } else {
     // if no, remove it totally from collection
+      $quantity = 0;
       $req = $bdd->prepare("DELETE FROM  $tablename
                             WHERE userid = :userid
                             AND $fieldname = :internalid;");
@@ -230,7 +232,7 @@ function uncollect_singleElement($element,$internalid,$userid)
 
     $resultArray = $req->errorInfo();
     if($resultArray[0] == 0 ){
-      $resultArray[4] = $bdd->lastInsertId();
+      $resultArray[4] = $quantity;
     }
 
   } else {
