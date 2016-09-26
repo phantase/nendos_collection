@@ -3,7 +3,8 @@ CREATE TABLE `users_boxes_collection` (
   `internalid` bigint(20) UNSIGNED NOT NULL,
   `userid` bigint(20) UNSIGNED NOT NULL,
   `boxid` bigint(20) UNSIGNED NOT NULL,
-  `additiondate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `additiondate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `quantity` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- Add the indexes
 ALTER TABLE `users_boxes_collection`
