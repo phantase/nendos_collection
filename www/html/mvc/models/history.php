@@ -80,7 +80,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
   switch($element)
   {
     case "accessory":
-      $rI = get_singleAccessory($element_internalid);
+      $rI = get_singleAccessory($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
                     $element_internalid,null,null,null,null,
@@ -88,7 +88,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       }
       break;
     case "bodypart":
-      $rI = get_singleBodypart($element_internalid);
+      $rI = get_singleBodypart($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
                     null,$element_internalid,null,null,null,
@@ -101,7 +101,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
                   $action,$detail);
       break;
     case "face":
-      $rI = get_singleFace($element_internalid);
+      $rI = get_singleFace($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
                     null,null,$element_internalid,null,null,
@@ -109,7 +109,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       }
       break;
     case "hair":
-      $rI = get_singleHair($element_internalid);
+      $rI = get_singleHair($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
                     null,null,null,$element_internalid,null,
@@ -117,7 +117,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       }
       break;
     case "hand":
-      $rI = get_singleHand($element_internalid);
+      $rI = get_singleHand($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
                     null,null,null,null,$element_internalid,
@@ -125,7 +125,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       }
       break;
     case "nendoroid":
-      $rI = get_singleNendoroid($element_internalid);
+      $rI = get_singleNendoroid($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$element_internalid,
                     null,null,null,null,null,
