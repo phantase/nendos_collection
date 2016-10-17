@@ -19,7 +19,7 @@
                       <tbody>
 <?php
   tableFieldValidate($box['db_validatorid']);
-  tableFieldOwned($box['coll_additiondate'],$box['coll_additionsince']);
+  tableFieldOwned($box['coll_additiondate'],$box['coll_additionsince'],true,$box['box_internalid'],$box['box_url']);
   tableField('number','Number',$box['box_number'],!$box['db_validatorid']);
   tableField('name','Name',$box['box_name'],!$box['db_validatorid']);
   tableField('series','Series',$box['box_series'],!$box['db_validatorid']);

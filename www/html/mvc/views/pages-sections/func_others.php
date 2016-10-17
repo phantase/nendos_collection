@@ -12,6 +12,6 @@ function tableFieldWithLink($field,$label,$value,$link,$editable=true){
 function tableFieldValidate($validated,$editable=true){
   include('mvc/views/pages-sections/others/table_field_validate.php');
 }
-function tableFieldOwned($additiondate,$additionsince){
+function tableFieldOwned($additiondate,$additionsince,$boxcoll=false,$box_internalid=null,$box_url=null){
   include('mvc/views/pages-sections/others/table_field_owned.php');
 }

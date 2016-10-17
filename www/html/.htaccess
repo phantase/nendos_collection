@@ -25,6 +25,13 @@ RewriteRule ^services/user/([0-9]+)/edit$                             services.p
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/vocabularies$                 services.php?action=vocabularies&element=$1 [L]
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/vocabularies/$                services.php?action=vocabularies&element=$1 [L]
 
+#############
+## COLLECT ##
+#############
+
+# BOX #
+RewriteRule ^box/([0-9]+)/(.*)/collect$                               index.php?action=collect&element=box&box_internalid=$1 [L]
+
 #########
 ## ADD ##
 #########

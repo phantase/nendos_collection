@@ -16,7 +16,13 @@
                               <a id="uncollect">Remove from my collection</a>
                             </span>
                             <span class="notownedstatus">
-                              <a id="collect">Add to my collection</a>
+                              <a
+<?php if($boxcoll) { ?>
+                                href="box/<?= $box_internalid ?>/<?= $box_url ?>/collect"
+<?php } else { ?>
+                                id="collect"
+<?php } ?>
+                                >Add to my collection</a>
                             </span>
                           </td>
                         </tr>
