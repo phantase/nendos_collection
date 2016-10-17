@@ -1,15 +1,23 @@
 <?php if(isLogged()){ ?>
                         <tr>
-                          <td colspan="2" class="owned_infos">
+                          <td colspan="2"
 <?php if(isset($additiondate)){ ?>
-                            <span>
-                              <span>Owned</span> (added <?= intervalFormater($additionsince) ?>)
-                            </span>
+                          class="owned_infos owned"
 <?php } else { ?>
-                            <span>
-                              <a>Add to my collection</a>
-                            </span>
+                          class="owned_infos notowned"
 <?php } ?>
+                            id="collection">
+                            <span class="ownedstatus">
+<?php if(isset($additiondate)){ ?>
+                              <span>Owned</span> (added <?= intervalFormater($additionsince) ?>)
+<?php } else { ?>
+                              <span>Owned</span> (added right now)
+<?php } ?>
+                              <a id="uncollect">Remove from my collection</a>
+                            </span>
+                            <span class="notownedstatus">
+                              <a id="collect">Add to my collection</a>
+                            </span>
                           </td>
                         </tr>
 <?php } ?>

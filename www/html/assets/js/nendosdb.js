@@ -575,7 +575,7 @@ $(function(){
     var element = $('#info_table').attr('element');
     var internalid = $('#info_table').attr('internalid');
     $.getJSON("./services/"+element+"/"+internalid+"/validate",function(data){
-      if( data.result == "success" ){
+      if( data.result == "success" ){console.log("validate success");
         $('#validation').toggleClass("validated notvalidated");
       }
     });
@@ -585,8 +585,29 @@ $(function(){
     var element = $('#info_table').attr('element');
     var internalid = $('#info_table').attr('internalid');
     $.getJSON("./services/"+element+"/"+internalid+"/unvalidate",function(data){
-      if( data.result == "success" ){
+      if( data.result == "success" ){console.log("unvalidate success");
         $('#validation').toggleClass("validated notvalidated");
+      }
+    });
+  });
+
+// Collect an element (i.e. add it to user collection)
+  $('#collect').click(function(){
+    var element = $('#info_table').attr('element');
+    var internalid = $('#info_table').attr('internalid');
+    $.getJSON("./services/"+element+"/"+internalid+"/collect",function(data){
+      if( data.result == "success" ){console.log("collect success");
+        $('#collection').toggleClass("owned notowned");
+      }
+    });
+  });
+// Uncollect and element (i.e. remove a unit if more than one element is owned, or remove everything is only one is owned)
+  $('#uncollect').click(function(){
+    var element = $('#info_table').attr('element');
+    var internalid = $('#info_table').attr('internalid');
+    $.getJSON("./services/"+element+"/"+internalid+"/uncollect",function(data){
+      if( data.result == "success" ){console.log("uncollect success");
+        $('#collection').toggleClass("owned notowned");
       }
     });
   });

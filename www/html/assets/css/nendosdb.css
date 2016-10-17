@@ -383,9 +383,26 @@ input[forwhat] {
   font-size:0.8em;
 }
 
+/** COLLECTION */
 .owned_infos {
   background-color: #F9DBC7;
 }
 .owned_infos span>span {
   color: #F57921;
 }
+.owned {
+  background-color: #F9DBC7;
+  color: #009c00;
+}
+.notowned {
+  background-color: #ece0e0;
+  color: #9c0000;
+}
+.owned .ownedstatus       { display:inline; }
+.owned .notownedstatus    { display:none; }
+.notowned .ownedstatus    { display:none; }
+.notowned .notownedstatus { display:inline; }
+.owned #uncollect            { display:inline; }
+.owned #collect              { display:none; }
+.notowned #uncollect         { display:none; }
+.notowned #collect           { display:inline; }
