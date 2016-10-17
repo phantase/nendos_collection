@@ -4,7 +4,6 @@ services:
     image: mysql:5.7
     volumes:
       - "./.data/db:/var/lib/mysql"
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: arootpassword
       MYSQL_DATABASE: nendos
@@ -17,7 +16,6 @@ services:
     image: phpmyadmin/phpmyadmin
     links:
       - db
-    restart: always
     ports:
       - "8080:80"
     volumes:
@@ -29,7 +27,6 @@ services:
     image: ftertre/damp
     links:
       - db
-    restart: always
     ports:
       - "80:80"
     volumes:
