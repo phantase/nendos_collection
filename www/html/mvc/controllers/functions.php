@@ -64,6 +64,14 @@ function getPOSTorNULL($index){
   }
 }
 
+function getGETorNULL($index){
+  if( isset($_GET[$index]) && strlen($_GET[$index]) > 0 ) {
+    return $_GET[$index];
+  } else {
+    return null;
+  }
+}
+
 function raiseError($errorMessage){
 
   $errorMessage = $errorMessage;
