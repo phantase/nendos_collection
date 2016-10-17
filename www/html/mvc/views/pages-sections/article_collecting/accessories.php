@@ -5,7 +5,8 @@
                               <input type="checkbox" checked
                                       name="collect_accessory_<?= $accessory['accessory_internalid'] ?>"
                                       id="collect_accessory_<?= $accessory['accessory_internalid'] ?>" />
-                              <label for="collect_accessory_<?= $accessory['accessory_internalid'] ?>">
+                              <label for="collect_accessory_<?= $accessory['accessory_internalid'] ?>"
+                                      histentry="accessories" internalid="<?= $accessory['accessory_internalid'] ?>">
                                 accessory (<?= $accessory['accessory_internalid'] ?>)
                               </label>
                             </td></tr>
