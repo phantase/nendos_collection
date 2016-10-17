@@ -20,6 +20,7 @@
   // Stuff for the access to the DB
   include_once('mvc/models/sql_connection.php');
   // Stuff to have the different renderers for the parts
+  include_once('mvc/views/pages-sections/func_collecting.php');
   include_once('mvc/views/pages-sections/func_listings.php');
   include_once('mvc/views/pages-sections/func_counts.php');
   include_once('mvc/views/pages-sections/func_others.php');
@@ -28,8 +29,9 @@
   $action = isset($_GET['action']) ? $_GET['action'] : "home";
 
   switch($action) {
-    // ADD
+    // ADD & COLLECT
     case "add":
+    case "collect":
       $include_page = $action;
       break;
     // EDIT
