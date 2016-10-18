@@ -6,7 +6,8 @@
                                       name="collect_hand_<?= $hand['hand_internalid'] ?>"
                                       id="collect_hand_<?= $hand['hand_internalid'] ?>" />
                               <label for="collect_hand_<?= $hand['hand_internalid'] ?>"
-                                      histentry="hands" internalid="<?= $hand['hand_internalid'] ?>">
+                                      collectentry="hands"
+                                      internalid="<?= $hand['hand_internalid'] ?>">
                                 hand (<?= $hand['hand_internalid'] ?>)
                               </label>
                             </td></tr>

@@ -6,7 +6,8 @@
                                       name="collect_nendoroid_<?= $nendoroid['nendoroid_internalid'] ?>"
                                       id="collect_nendoroid_<?= $nendoroid['nendoroid_internalid'] ?>" />
                               <label for="collect_nendoroid_<?= $nendoroid['nendoroid_internalid'] ?>"
-                                      histentry="nendoroids" internalid="<?= $nendoroid['nendoroid_internalid'] ?>">
+                                      collectentry="nendoroids"
+                                      internalid="<?= $nendoroid['nendoroid_internalid'] ?>">
                                 <?= $nendoroid['nendoroid_name'] ?>
                               </label>
                             </td></tr>

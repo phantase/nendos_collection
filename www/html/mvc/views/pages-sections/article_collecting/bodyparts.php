@@ -6,7 +6,8 @@
                                       name="collect_bodypart_<?= $bodypart['bodypart_internalid'] ?>"
                                       id="collect_bodypart_<?= $bodypart['bodypart_internalid'] ?>" />
                               <label for="collect_bodypart_<?= $bodypart['bodypart_internalid'] ?>"
-                                      histentry="bodyparts" internalid="<?= $bodypart['bodypart_internalid'] ?>">
+                                      collectentry="bodyparts"
+                                      internalid="<?= $bodypart['bodypart_internalid'] ?>">
                                 bodypart (<?= $bodypart['bodypart_internalid'] ?>)
                               </label>
                             </td></tr>

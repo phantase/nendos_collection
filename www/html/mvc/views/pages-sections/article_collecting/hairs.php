@@ -6,7 +6,8 @@
                                       name="collect_hair_<?= $hair['hair_internalid'] ?>"
                                       id="collect_hair_<?= $hair['hair_internalid'] ?>" />
                               <label for="collect_hair_<?= $hair['hair_internalid'] ?>"
-                                      histentry="hairs" internalid="<?= $hair['hair_internalid'] ?>">
+                                      collectentry="hairs"
+                                      internalid="<?= $hair['hair_internalid'] ?>">
                                 hair (<?= $hair['hair_internalid'] ?>)
                               </label>
                             </td></tr>

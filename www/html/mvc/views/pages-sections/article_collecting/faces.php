@@ -6,7 +6,8 @@
                                       name="collect_face_<?= $face['face_internalid'] ?>"
                                       id="collect_face_<?= $face['face_internalid'] ?>" />
                               <label for="collect_face_<?= $face['face_internalid'] ?>"
-                                      histentry="faces" internalid="<?= $face['face_internalid'] ?>">
+                                      collectentry="faces"
+                                      internalid="<?= $face['face_internalid'] ?>">
                                 Face (<?= $face['face_internalid'] ?>)
                               </label>
                             </td></tr>
