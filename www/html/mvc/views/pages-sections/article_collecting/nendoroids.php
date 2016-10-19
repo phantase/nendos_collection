@@ -1,15 +1,16 @@
 <?php if(count($nendoroids)>0){ ?>
-                            <tr><th>Nendoroids</th></tr>
 <?php foreach ($nendoroids as $nendoroid) { ?>
-                            <tr><td>
-                              <input type="checkbox" checked
-                                      name="collect_nendoroid_<?= $nendoroid['nendoroid_internalid'] ?>"
-                                      id="collect_nendoroid_<?= $nendoroid['nendoroid_internalid'] ?>" />
-                              <label for="collect_nendoroid_<?= $nendoroid['nendoroid_internalid'] ?>"
-                                      collectentry="nendoroids"
-                                      internalid="<?= $nendoroid['nendoroid_internalid'] ?>">
-                                <?= $nendoroid['nendoroid_name'] ?>
-                              </label>
-                            </td></tr>
+                              <div class="1u 2u(medium) 3u(small)">
+                                  <span class="image fit checked"
+                                        nendoroid=""
+                                        nendoroid_name="<?= $nendoroid['nendoroid_name'] ?>"
+                                        nendoroid_version="<?= $nendoroid['nendoroid_version'] ?>"
+                                        box_number="<?= $nendoroid['box_number'] ?>"
+                                        box_category="<?= $nendoroid['box_category'] ?>"
+                                        sortingfield="<?= $sortingfield ?>"
+                                        sortingvalue="<?= $nendoroid[$sortingfield] ?>">
+                                    <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>.jpg" alt="" />
+                                  </span>
+                              </div>
 <?php } // foreach ?>
 <?php } // if(count( ?>

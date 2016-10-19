@@ -1,15 +1,14 @@
 <?php if(count($bodyparts)>0){ ?>
-                            <tr><th>Bodyparts</th></tr>
 <?php foreach ($bodyparts as $bodypart) { ?>
-                            <tr><td>
-                              <input type="checkbox" checked
-                                      name="collect_bodypart_<?= $bodypart['bodypart_internalid'] ?>"
-                                      id="collect_bodypart_<?= $bodypart['bodypart_internalid'] ?>" />
-                              <label for="collect_bodypart_<?= $bodypart['bodypart_internalid'] ?>"
-                                      collectentry="bodyparts"
-                                      internalid="<?= $bodypart['bodypart_internalid'] ?>">
-                                bodypart (<?= $bodypart['bodypart_internalid'] ?>)
-                              </label>
-                            </td></tr>
+                              <div class="1u 2u(medium) 3u(small)">
+                                  <span class="image fit checked"
+                                        bodypart=""
+                                        part="<?= $bodypart['bodypart_part'] ?>"
+                                        description="<?= $bodypart['bodypart_description'] ?>"
+                                        sortingfield="<?= $sortingfield ?>"
+                                        sortingvalue="<?= $bodypart[$sortingfield] ?>">
+                                    <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>.jpg" alt="" />
+                                  </span>
+                              </div>
 <?php } // foreach ?>
 <?php } // if(count( ?>

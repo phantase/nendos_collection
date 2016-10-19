@@ -86,6 +86,13 @@ $(function(){
       }
       // BOX
       if( element.is("[box]") ){
+        var box_collection_status_tooltip = "";
+        if( element.attr("class").indexOf("checked")>0 ){
+          box_collection_status_tooltip = "[Box (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          if( element.attr("class").indexOf("unchecked")>0 ){
+            box_collection_status_tooltip = "[Box (<span style='color:#801515;'>uncollect</span>)]<br/>";
+          }
+        }
         var box_number_tooltip = "";
         if( element.attr("box_number").length > 0 ){
           box_number_tooltip = " #" + element.attr("box_number");
@@ -94,64 +101,106 @@ $(function(){
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
-        return "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
+        return box_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
           box_number_tooltip +
           "<br/>" + element.attr("box_name") +
           sorting_tooltip;
       }
       // FACE
       if( element.is("[face]") ){
+        var face_collection_status_tooltip = "";
+        if( element.attr("class").indexOf("checked")>0 ){
+          face_collection_status_tooltip = "[Face (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          if( element.attr("class").indexOf("unchecked")>0 ){
+            face_collection_status_tooltip = "[Face (<span style='color:#801515;'>uncollect</span>)]<br/>";
+          }
+        }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
-        return "<b style='color:#F57921;'>Eyes: </b>" + element.attr("eyes") +
+        return face_collection_status_tooltip + "<b style='color:#F57921;'>Eyes: </b>" + element.attr("eyes") +
           "<br/><b style='color:#F57921;'>"+"Mouth: </b>" + element.attr("mouth") +
           sorting_tooltip;
       }
       // HAIR
       if( element.is("[hair]") ){
+        var hair_collection_status_tooltip = "";
+        if( element.attr("class").indexOf("checked")>0 ){
+          hair_collection_status_tooltip = "[Hair (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          if( element.attr("class").indexOf("unchecked")>0 ){
+            hair_collection_status_tooltip = "[Hair (<span style='color:#801515;'>uncollect</span>)]<br/>";
+          }
+        }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
-        return "<b style='color:#F57921;'>" + element.attr("frontback") + "</b>" +
+        return hair_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("frontback") + "</b>" +
           "<br/><b style='color:#F57921;'>Haircut: </b>" + element.attr("haircut") +
           "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description") +
           sorting_tooltip;
       }
       // HAND
       if( element.is("[hand]") ){
+        var hand_collection_status_tooltip = "";
+        if( element.attr("class").indexOf("checked")>0 ){
+          hand_collection_status_tooltip = "[Hand (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          if( element.attr("class").indexOf("unchecked")>0 ){
+            hand_collection_status_tooltip = "[Hand (<span style='color:#801515;'>uncollect</span>)]<br/>";
+          }
+        }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
-        return "<b style='color:#F57921;'>" + element.attr("leftright") + "</b>" +
+        return hand_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("leftright") + "</b>" +
           "<br/><b style='color:#F57921;'>Posture: </b>" + element.attr("posture") +
           sorting_tooltip;
       }
       // BODYPART
       if( element.is("[bodypart]") ){
+        var bodypart_collection_status_tooltip = "";
+        if( element.attr("class").indexOf("checked")>0 ){
+          bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          if( element.attr("class").indexOf("unchecked")>0 ){
+            bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#801515;'>uncollect</span>)]<br/>";
+          }
+        }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
-        return "<b style='color:#F57921;'>" + element.attr("part") + "</b>" +
+        return bodypart_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("part") + "</b>" +
           "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description") +
           sorting_tooltip;
       }
       // ACCESSORY
       if( element.is("[accessory]") ){
+        var accessory_collection_status_tooltip = "";
+        if( element.attr("class").indexOf("checked")>0 ){
+          accessory_collection_status_tooltip = "[Accessory (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          if( element.attr("class").indexOf("unchecked")>0 ){
+            accessory_collection_status_tooltip = "[Accessory (<span style='color:#801515;'>uncollect</span>)]<br/>";
+          }
+        }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
-        return "<b style='color:#F57921;'>" + element.attr("type") + "</b>" +
+        return accessory_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("type") + "</b>" +
           "<br/><b style='color:#F57921;'>Description: </b>" + element.attr("description") +
           sorting_tooltip;
       }
       // NENDOROID
       if( element.is("[nendoroid]") ){
+        var nendoroid_collection_status_tooltip = "";
+        if( element.attr("class").indexOf("checked")>0 ){
+          nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          if( element.attr("class").indexOf("unchecked")>0 ){
+            nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#801515;'>uncollect</span>)]<br/>";
+          }
+        }
         var box_number_tooltip = "";
         if( element.attr("box_number").length > 0 ){
           box_number_tooltip = " #" + element.attr("box_number");
@@ -160,7 +209,7 @@ $(function(){
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
-        return "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
+        return nendoroid_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
           box_number_tooltip +
           "<br/>" + element.attr("nendoroid_name") +
           "<br/>" + element.attr("nendoroid_version") +
@@ -615,6 +664,14 @@ $(function(){
       }
     });
   });
+// Box Collection page, add the event on click on element
+$('.collect_section .image').click(function(){
+  $(this).toggleClass('checked unchecked');
+});
+// Box Collection page, add the event on the collect buttons
+$('.collect_section a').click(function(){
+  console.log("Do something");
+});
 
 // If new Box form, just load Box vocabularies
 if( $('#new_box_submit').length > 0 ){

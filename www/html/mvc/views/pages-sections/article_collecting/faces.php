@@ -1,15 +1,14 @@
 <?php if(count($faces)>0){ ?>
-                            <tr><th>Faces</th></tr>
 <?php foreach ($faces as $face) { ?>
-                            <tr><td>
-                              <input type="checkbox" checked
-                                      name="collect_face_<?= $face['face_internalid'] ?>"
-                                      id="collect_face_<?= $face['face_internalid'] ?>" />
-                              <label for="collect_face_<?= $face['face_internalid'] ?>"
-                                      collectentry="faces"
-                                      internalid="<?= $face['face_internalid'] ?>">
-                                Face (<?= $face['face_internalid'] ?>)
-                              </label>
-                            </td></tr>
+                              <div class="1u 2u(medium) 3u(small)">
+                                  <span class="image fit checked"
+                                        face=""
+                                        eyes="<?= $face['face_eyes'] ?>"
+                                        mouth="<?= $face['face_mouth'] ?>"
+                                        sortingfield="<?= $sortingfield ?>"
+                                        sortingvalue="<?= $face[$sortingfield] ?>">
+                                    <img src="images/nendos/faces/<?= $face['face_internalid'] ?>.jpg" alt="" />
+                                  </span>
+                              </div>
 <?php } // foreach ?>
 <?php } // if(count( ?>

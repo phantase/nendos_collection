@@ -1,11 +1,11 @@
-                            <tr><th>Box</th></tr>
-                            <tr><td>
-                              <input type="checkbox" checked
-                                      name="collect_box_<?= $box['box_internalid'] ?>"
-                                      id="collect_box_<?= $box['box_internalid'] ?>" />
-                              <label for="collect_box_<?= $box['box_internalid'] ?>"
-                                      collectentry="boxes"
-                                      internalid="<?= $box['box_internalid'] ?>">
-                                <?= $box['box_name'] ?>
-                              </label>
-                            </td></tr>
+                              <div class="1u 2u(medium) 3u(small)">
+                                <span class="image fit checked"
+                                      box=""
+                                      box_number="<?= $box['box_number'] ?>"
+                                      box_name="<?= $box['box_name'] ?>"
+                                      box_category="<?= $box['box_category'] ?>"
+                                      sortingfield="<?= $sortingfield ?>"
+                                      sortingvalue="<?= $box[$sortingfield] ?>">
+                                  <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>.jpg" alt="" />
+                                </span>
+                              </div>

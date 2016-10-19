@@ -1,15 +1,14 @@
 <?php if(count($accessories)>0){ ?>
-                            <tr><th>Accessories</th></tr>
 <?php foreach ($accessories as $accessory) { ?>
-                            <tr><td>
-                              <input type="checkbox" checked
-                                      name="collect_accessory_<?= $accessory['accessory_internalid'] ?>"
-                                      id="collect_accessory_<?= $accessory['accessory_internalid'] ?>" />
-                              <label for="collect_accessory_<?= $accessory['accessory_internalid'] ?>"
-                                      collectentry="accessories"
-                                      internalid="<?= $accessory['accessory_internalid'] ?>">
-                                accessory (<?= $accessory['accessory_internalid'] ?>)
-                              </label>
-                            </td></tr>
+                              <div class="1u 2u(medium) 3u(small)">
+                                  <span class="image fit checked"
+                                        accessory=""
+                                        type="<?= $accessory['accessory_type'] ?>"
+                                        description="<?= $accessory['accessory_description'] ?>"
+                                        sortingfield="<?= $sortingfield ?>"
+                                        sortingvalue="<?= $accessory[$sortingfield] ?>">
+                                    <img src="images/nendos/accessories/<?= $accessory['accessory_internalid'] ?>.jpg" alt="" />
+                                  </span>
+                              </div>
 <?php } // foreach ?>
 <?php } // if(count( ?>

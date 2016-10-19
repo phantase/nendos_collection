@@ -411,3 +411,11 @@ input[forwhat] {
 .owned #collect              { display:none; }
 .notowned #uncollect         { display:none; }
 .notowned #collect           { display:inline; }
+
+.collect_section .checked {
+  border: solid 4px #1E6912;
+}
+
+.collect_section .unchecked {
+  border: 0px;
+}

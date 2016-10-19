@@ -1,15 +1,14 @@
 <?php if(count($hands)>0){ ?>
-                            <tr><th>Hands</th></tr>
 <?php foreach ($hands as $hand) { ?>
-                            <tr><td>
-                              <input type="checkbox" checked
-                                      name="collect_hand_<?= $hand['hand_internalid'] ?>"
-                                      id="collect_hand_<?= $hand['hand_internalid'] ?>" />
-                              <label for="collect_hand_<?= $hand['hand_internalid'] ?>"
-                                      collectentry="hands"
-                                      internalid="<?= $hand['hand_internalid'] ?>">
-                                hand (<?= $hand['hand_internalid'] ?>)
-                              </label>
-                            </td></tr>
+                              <div class="1u 2u(medium) 3u(small)">
+                                  <span class="image fit checked"
+                                        hand=""
+                                        leftright="<?= $hand['hand_leftright'] ?>"
+                                        posture="<?= $hand['hand_posture'] ?>"
+                                        sortingfield="<?= $sortingfield ?>"
+                                        sortingvalue="<?= $hand[$sortingfield] ?>">
+                                    <img src="images/nendos/hands/<?= $hand['hand_internalid'] ?>.jpg" alt="" />
+                                  </span>
+                              </div>
 <?php } // foreach ?>
 <?php } // if(count( ?>
