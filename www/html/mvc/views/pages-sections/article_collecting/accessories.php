@@ -1,7 +1,11 @@
 <?php if(count($accessories)>0){ ?>
 <?php foreach ($accessories as $accessory) { ?>
                               <div class="1u 2u(medium) 3u(small)">
-                                  <span class="image fit checked"
+<?php if( $accessory['coll_additiondate'] ){ ?>
+                                <span class="image fit owned"
+<?php } else { ?>
+                                <span class="image fit checked"
+<?php } ?>
                                         internalid="<?= $accessory['accessory_internalid'] ?>"
                                         element="accessory"
                                         accessory=""

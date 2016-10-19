@@ -420,6 +420,10 @@ input[forwhat] {
   border: 0px;
 }
 
+.collect_section .owned {
+  border: solid 4px #1A1A59;
+}
+
 .collect_section .checked.pending {
   border: dashed 4px #F57921;
 }

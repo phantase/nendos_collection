@@ -1,7 +1,11 @@
 <?php if(count($hairs)>0){ ?>
 <?php foreach ($hairs as $hair) { ?>
                               <div class="1u 2u(medium) 3u(small)">
-                                  <span class="image fit checked"
+<?php if( $hair['coll_additiondate'] ){ ?>
+                                <span class="image fit owned"
+<?php } else { ?>
+                                <span class="image fit checked"
+<?php } ?>
                                         internalid="<?= $hair['hair_internalid'] ?>"
                                         element="hair"
                                         hair=""

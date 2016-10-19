@@ -1,7 +1,11 @@
 <?php if(count($hands)>0){ ?>
 <?php foreach ($hands as $hand) { ?>
                               <div class="1u 2u(medium) 3u(small)">
-                                  <span class="image fit checked"
+<?php if( $hand['coll_additiondate'] ){ ?>
+                                <span class="image fit owned"
+<?php } else { ?>
+                                <span class="image fit checked"
+<?php } ?>
                                         internalid="<?= $hand['hand_internalid'] ?>"
                                         element="hand"
                                         hand=""

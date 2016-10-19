@@ -93,6 +93,9 @@ $(function(){
             box_collection_status_tooltip = "[Box (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
+        if( element.attr("class").indexOf("owned")>0 ){
+          box_collection_status_tooltip = "[Box (<span style='color:#8080B3;'>owned</span>)]<br/>";
+        }
         var box_number_tooltip = "";
         if( element.attr("box_number").length > 0 ){
           box_number_tooltip = " #" + element.attr("box_number");
@@ -115,6 +118,9 @@ $(function(){
             face_collection_status_tooltip = "[Face (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
+        if( element.attr("class").indexOf("owned")>0 ){
+          face_collection_status_tooltip = "[Face (<span style='color:#8080B3;'>owned</span>)]<br/>";
+        }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
@@ -131,6 +137,9 @@ $(function(){
           if( element.attr("class").indexOf("unchecked")>0 ){
             hair_collection_status_tooltip = "[Hair (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
+        }
+        if( element.attr("class").indexOf("owned")>0 ){
+          hair_collection_status_tooltip = "[Hair (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
@@ -150,6 +159,9 @@ $(function(){
             hand_collection_status_tooltip = "[Hand (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
+        if( element.attr("class").indexOf("owned")>0 ){
+          hand_collection_status_tooltip = "[Hand (<span style='color:#8080B3;'>owned</span>)]<br/>";
+        }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
@@ -166,6 +178,9 @@ $(function(){
           if( element.attr("class").indexOf("unchecked")>0 ){
             bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
+        }
+        if( element.attr("class").indexOf("owned")>0 ){
+          bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
@@ -184,6 +199,9 @@ $(function(){
             accessory_collection_status_tooltip = "[Accessory (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
+        if( element.attr("class").indexOf("owned")>0 ){
+          accessory_collection_status_tooltip = "[Accessory (<span style='color:#8080B3;'>owned</span>)]<br/>";
+        }
         var sorting_tooltip = "";
         if( element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
@@ -200,6 +218,9 @@ $(function(){
           if( element.attr("class").indexOf("unchecked")>0 ){
             nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
+        }
+        if( element.attr("class").indexOf("owned")>0 ){
+          nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
         var box_number_tooltip = "";
         if( element.attr("box_number").length > 0 ){

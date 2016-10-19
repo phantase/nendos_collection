@@ -1,7 +1,11 @@
 <?php if(count($bodyparts)>0){ ?>
 <?php foreach ($bodyparts as $bodypart) { ?>
                               <div class="1u 2u(medium) 3u(small)">
-                                  <span class="image fit checked"
+<?php if( $bodypart['coll_additiondate'] ){ ?>
+                                <span class="image fit owned"
+<?php } else { ?>
+                                <span class="image fit checked"
+<?php } ?>
                                         internalid="<?= $bodypart['bodypart_internalid'] ?>"
                                         element="bodypart"
                                         bodypart=""
