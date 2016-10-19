@@ -2,6 +2,8 @@
 <?php foreach ($hands as $hand) { ?>
                               <div class="1u 2u(medium) 3u(small)">
                                   <span class="image fit checked"
+                                        internalid="<?= $hand['hand_internalid'] ?>"
+                                        element="hand"
                                         hand=""
                                         leftright="<?= $hand['hand_leftright'] ?>"
                                         posture="<?= $hand['hand_posture'] ?>"

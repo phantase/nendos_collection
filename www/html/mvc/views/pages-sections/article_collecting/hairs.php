@@ -2,6 +2,8 @@
 <?php foreach ($hairs as $hair) { ?>
                               <div class="1u 2u(medium) 3u(small)">
                                   <span class="image fit checked"
+                                        internalid="<?= $hair['hair_internalid'] ?>"
+                                        element="hair"
                                         hair=""
                                         frontback="<?= $hair['hair_frontback'] ?>"
                                         haircut="<?= $hair['hair_haircut'] ?>"

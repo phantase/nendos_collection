@@ -2,6 +2,8 @@
 <?php foreach ($bodyparts as $bodypart) { ?>
                               <div class="1u 2u(medium) 3u(small)">
                                   <span class="image fit checked"
+                                        internalid="<?= $bodypart['bodypart_internalid'] ?>"
+                                        element="bodypart"
                                         bodypart=""
                                         part="<?= $bodypart['bodypart_part'] ?>"
                                         description="<?= $bodypart['bodypart_description'] ?>"

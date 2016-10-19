@@ -413,9 +413,20 @@ input[forwhat] {
 .notowned #collect           { display:inline; }
 
 .collect_section .checked {
-  border: solid 4px #1E6912;
+  border: solid 4px #F57921;
 }
 
 .collect_section .unchecked {
   border: 0px;
+}
+
+.collect_section .checked.pending {
+  border: dashed 4px #F57921;
+}
+
+.collect_section .checked.success {
+  border: solid 4px #1E6912;
+}
+.collect_section .checked.faillure {
+  border: solid 4px #801515;
 }

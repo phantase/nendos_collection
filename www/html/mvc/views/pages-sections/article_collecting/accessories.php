@@ -2,6 +2,8 @@
 <?php foreach ($accessories as $accessory) { ?>
                               <div class="1u 2u(medium) 3u(small)">
                                   <span class="image fit checked"
+                                        internalid="<?= $accessory['accessory_internalid'] ?>"
+                                        element="accessory"
                                         accessory=""
                                         type="<?= $accessory['accessory_type'] ?>"
                                         description="<?= $accessory['accessory_description'] ?>"

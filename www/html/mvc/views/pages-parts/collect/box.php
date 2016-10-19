@@ -2,7 +2,7 @@
           <div id="main">
             <div class="inner">
               <div class="row">
-                <div class="12u">
+                <div class="12u" id="collect_message">
                   Choose the parts you want to add to your collection
                   (by default, all of them are selected, so just click on <b>Collect</b> button to add the whole box).
                 </div>

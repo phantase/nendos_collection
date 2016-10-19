@@ -1,5 +1,7 @@
                               <div class="1u 2u(medium) 3u(small)">
                                 <span class="image fit checked"
+                                      internalid="<?= $box['box_internalid'] ?>"
+                                      element="box"
                                       box=""
                                       box_number="<?= $box['box_number'] ?>"
                                       box_name="<?= $box['box_name'] ?>"

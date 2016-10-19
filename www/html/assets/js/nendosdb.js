@@ -88,9 +88,9 @@ $(function(){
       if( element.is("[box]") ){
         var box_collection_status_tooltip = "";
         if( element.attr("class").indexOf("checked")>0 ){
-          box_collection_status_tooltip = "[Box (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          box_collection_status_tooltip = "[Box (<span style='color:#F57921;'>collect</span>)]<br/>";
           if( element.attr("class").indexOf("unchecked")>0 ){
-            box_collection_status_tooltip = "[Box (<span style='color:#801515;'>uncollect</span>)]<br/>";
+            box_collection_status_tooltip = "[Box (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
         var box_number_tooltip = "";
@@ -110,9 +110,9 @@ $(function(){
       if( element.is("[face]") ){
         var face_collection_status_tooltip = "";
         if( element.attr("class").indexOf("checked")>0 ){
-          face_collection_status_tooltip = "[Face (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          face_collection_status_tooltip = "[Face (<span style='color:#F57921;'>collect</span>)]<br/>";
           if( element.attr("class").indexOf("unchecked")>0 ){
-            face_collection_status_tooltip = "[Face (<span style='color:#801515;'>uncollect</span>)]<br/>";
+            face_collection_status_tooltip = "[Face (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
         var sorting_tooltip = "";
@@ -127,9 +127,9 @@ $(function(){
       if( element.is("[hair]") ){
         var hair_collection_status_tooltip = "";
         if( element.attr("class").indexOf("checked")>0 ){
-          hair_collection_status_tooltip = "[Hair (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          hair_collection_status_tooltip = "[Hair (<span style='color:#F57921;'>collect</span>)]<br/>";
           if( element.attr("class").indexOf("unchecked")>0 ){
-            hair_collection_status_tooltip = "[Hair (<span style='color:#801515;'>uncollect</span>)]<br/>";
+            hair_collection_status_tooltip = "[Hair (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
         var sorting_tooltip = "";
@@ -145,9 +145,9 @@ $(function(){
       if( element.is("[hand]") ){
         var hand_collection_status_tooltip = "";
         if( element.attr("class").indexOf("checked")>0 ){
-          hand_collection_status_tooltip = "[Hand (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          hand_collection_status_tooltip = "[Hand (<span style='color:#F57921;'>collect</span>)]<br/>";
           if( element.attr("class").indexOf("unchecked")>0 ){
-            hand_collection_status_tooltip = "[Hand (<span style='color:#801515;'>uncollect</span>)]<br/>";
+            hand_collection_status_tooltip = "[Hand (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
         var sorting_tooltip = "";
@@ -162,9 +162,9 @@ $(function(){
       if( element.is("[bodypart]") ){
         var bodypart_collection_status_tooltip = "";
         if( element.attr("class").indexOf("checked")>0 ){
-          bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#F57921;'>collect</span>)]<br/>";
           if( element.attr("class").indexOf("unchecked")>0 ){
-            bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#801515;'>uncollect</span>)]<br/>";
+            bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
         var sorting_tooltip = "";
@@ -179,9 +179,9 @@ $(function(){
       if( element.is("[accessory]") ){
         var accessory_collection_status_tooltip = "";
         if( element.attr("class").indexOf("checked")>0 ){
-          accessory_collection_status_tooltip = "[Accessory (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          accessory_collection_status_tooltip = "[Accessory (<span style='color:#F57921;'>collect</span>)]<br/>";
           if( element.attr("class").indexOf("unchecked")>0 ){
-            accessory_collection_status_tooltip = "[Accessory (<span style='color:#801515;'>uncollect</span>)]<br/>";
+            accessory_collection_status_tooltip = "[Accessory (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
         var sorting_tooltip = "";
@@ -196,9 +196,9 @@ $(function(){
       if( element.is("[nendoroid]") ){
         var nendoroid_collection_status_tooltip = "";
         if( element.attr("class").indexOf("checked")>0 ){
-          nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#1E6912;'>collect</span>)]<br/>";
+          nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#F57921;'>collect</span>)]<br/>";
           if( element.attr("class").indexOf("unchecked")>0 ){
-            nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#801515;'>uncollect</span>)]<br/>";
+            nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
         var box_number_tooltip = "";
@@ -670,7 +670,38 @@ $('.collect_section .image').click(function(){
 });
 // Box Collection page, add the event on the collect buttons
 $('.collect_section a').click(function(){
-  console.log("Do something");
+  var collectable = $('span.checked').length;
+  $('#collect_message').html("Collection in progress... [" +
+                              "<span id='collectedcount'>0</span>+"+
+                              "<span id='failledcount'>0</span>/"+
+                              "<span id='collectablecount'>"+collectable+"</span>]");
+  $('.collect_section a').addClass('disabled');
+  $('.collect_section .image').unbind("click");
+
+  $('span.checked').each(function(){
+    var internalid = $(this).attr("internalid");
+    var element = $(this).attr("element");
+    $(this).addClass('pending');
+    $.getJSON("./services/"+element+"/"+internalid+"/collect",function(data){
+      var collectedcount = $('#collectedcount').text() * 1;
+      var failledcount = $('#failledcount').text() * 1;
+      var collectablecount = $('#collectablecount').text() * 1;
+      if( data.result == "success" ){
+        collectedcount ++;
+        $('#collectedcount').text( collectedcount );
+        $('[internalid='+data.internalid+'][element='+data.element+']').toggleClass('pending success');
+      } else {
+        failledcount ++;
+        $('#failledcount').text( failledcount );
+        $('[internalid='+data.internalid+'][element='+data.element+']').toggleClass('pending faillure');
+      }
+      if( collectedcount + failledcount == collectablecount ){
+        $('#collect_message').html("Collection finished ("+collectedcount+" successed and "+failledcount+" failled)");
+        var box_internalid = $('[element=box').attr('internalid');
+        window.location.assign("box/"+box_internalid+"/");
+      }
+    });
+  });
 });
 
 // If new Box form, just load Box vocabularies

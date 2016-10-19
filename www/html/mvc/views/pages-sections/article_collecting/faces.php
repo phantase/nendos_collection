@@ -2,6 +2,8 @@
 <?php foreach ($faces as $face) { ?>
                               <div class="1u 2u(medium) 3u(small)">
                                   <span class="image fit checked"
+                                        internalid="<?= $face['face_internalid'] ?>"
+                                        element="face"
                                         face=""
                                         eyes="<?= $face['face_eyes'] ?>"
                                         mouth="<?= $face['face_mouth'] ?>"
