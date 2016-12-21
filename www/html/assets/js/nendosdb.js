@@ -858,4 +858,93 @@ if( $('#new_accessory_submit').length > 0 ){
   });
 }
 
+// If new Photo form, activate FileDrop, and 'accept guidelines' checkbox
+if( $('#new_photo_submit').length > 0 ){
+
+  $('#accept-guidelines').change(function(){
+    if( this.checked ){
+      $('.accept-requested').show();
+    } else {
+      $('.accept-requested').hide();
+    }
+  });
+
+  var zone = new FileDrop('upload_zone');
+  zone.multiple(true);
+
+  var filesQueue = [];
+
+  zone.event('send', function (files) {
+    files.images().each(function (file) {
+      filesQueue.push(file);
+
+      var filePosition = filesQueue.length - 1;
+
+      if( filePosition > 4 ){ // we have already 5 pictures in queue
+        $('#image2add_'+(filePosition-5)+'_cbox').prop('checked',false);
+      }
+
+      var currentFileID = "image2add_"+(filePosition);
+      var fsize = file.size;
+      var tsize = '';
+      if( fsize > 1024*1024) {
+        tsize = Math.round( 10 * ( fsize / (1024*1024) ) ) / 10 + 'MB';
+      } else if( fsize > 1024) {
+        tsize = Math.round( ( fsize / 1024 ) ) + 'kB';
+      }
+      var html2append = '<div class="3u 4u(medium) 12u(small)">'
+                      + ' <div class="picture-tile" id="'+currentFileID+'">'
+                      + '  <div class="top-of-tile">'
+                      + '   <span>'
+                      + '    <input type="checkbox" name="'+currentFileID+'_cbox" id="'+currentFileID+'_cbox" checked />'
+                      + '    <label for="'+currentFileID+'_cbox" title="Select this picture"></label>'
+                      + '   </span>'
+                      + '   <span id="'+currentFileID+'_wxh"></span>'
+                      + '   <span id="'+currentFileID+'_size">(' + tsize + ')</span>'
+                      + '  </div>'
+                      + '  <div id="'+currentFileID+'_img"></div>'
+                      + '  <div class="bottom-of-tile">'
+                      + '   <span>' + file.name
+                      + '   </span>'
+                      + '  </div>'
+                      + ' </div>'
+                      + '</div>';
+      $('#picture-thumbnails').append(html2append);
+
+      file.readData(
+        function (uri) {
+          var img = new Image
+          img.onload = function(evt){
+            $('#'+currentFileID+'_wxh').append(this.width+'x'+this.height);
+            var divwidth = $('#'+currentFileID).css('width').replace(/[^-\d\.]/g, '');
+            var divheight = $('#'+currentFileID+' div').css('height').replace(/[^-\d\.]/g, '');
+            if(this.width>this.height){
+              $(this).css('width','100%');
+              var margin = ( divwidth - ( this.height * divwidth / this.width ) ) / 2;
+              $(this).css('margin-top',margin+'px');
+            } else {
+              $(this).css('height',divwidth+'px');
+              var margin = ( divwidth - ( this.width * divwidth / this.height ) ) / 2;
+              $(this).css('margin-left',margin+'px');
+            }
+            $('#'+currentFileID+'_img').css('height',divwidth+'px');
+          }
+          img.src = uri
+          $('#'+currentFileID+'_img').append(img);
+        },
+        function (error) {
+          console.log('Ph, noes! Cannot read your image.')
+        },
+        'uri'
+      )
+    })
+  })
+
+  $('#new_photo_submit').click(function(){
+    console.log(filesQueue);
+    filesQueue[0].sendTo('photoupload');
+  });
+
+}
+
 });

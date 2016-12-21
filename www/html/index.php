@@ -66,6 +66,10 @@
     case "user":
       $include_page = 'single/'.$action;
       break;
+    // PHOTOS
+    case "addphoto":
+      $include_page = 'photos/add';
+      break;
     // OTHER
     case "credits":
     case "login":

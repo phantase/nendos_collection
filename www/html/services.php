@@ -52,6 +52,8 @@
     case "useredit":
     // VOCABULARY
     case "vocabularies":
+    // PHOTO UPLOAD
+    case "photoupload":
       $include_page = 'services/'.$action;
       break;
   }

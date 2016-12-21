@@ -434,3 +434,45 @@ input[forwhat] {
 .collect_section .checked.faillure {
   border: solid 4px #801515;
 }
+
+.guidelines {
+  font-size: 0.8em;
+  display: none; /* Temporary not displayed because in DEV it's annoying to scroll... */
+}
+.accept-requested {
+/*  display: none; */ /* Temporary disabled because in DEV it's annoying to always need to check the  checkbox */
+}
+
+#upload_zone {
+  border: dashed 2px #F57921;
+  padding: 5px;
+  min-height: 128px;
+  background-image: url(../../images/folder.png);
+  background-repeat: no-repeat;
+}
+
+#upload_zone > span {
+  margin-left: 150px;
+}
+
+.picture-tile {
+  margin: 2px;
+  border: 1px solid silver;
+  padding: 1px;
+}
+.picture-tile .top-of-tile {
+  border-bottom: 1px solid silver;
+  font-size: 0.8em;
+  padding: 6px 5px;
+}
+.picture-tile .top-of-tile input[type="checkbox"] + label:before {
+  top: -3px; /* Magic number... */
+}
+.picture-tile .bottom-of-tile {
+  border-top: 1px solid silver;
+  font-size: 0.8em;
+  padding: 0px 5px;
+}
+.picture-tile div>img {
+  text-align: center;
+}

@@ -68,6 +68,10 @@ RewriteRule ^box/([0-9]+)/(.*)/nendoroid/([0-9]+)/(.*)/addaccessory$  index.php?
 RewriteRule ^box/([0-9]+)/(.*)/addaccessory$                          index.php?action=add&element=accessory&box_internalid=$1 [L]
 RewriteRule ^addaccessory$                                            index.php?action=add&element=accessory [L]
 
+# PHOTO #
+RewriteRule ^addphoto$                                                index.php?action=addphoto [L]
+RewriteRule ^photoupload$                                             services.php?action=photoupload [L]
+
 #####################################
 ## HOME & CREDITS & LOGIN & SIGNUP ##
 #####################################
