@@ -17,7 +17,7 @@ function add_singlePhoto($userid,$title)
   global $bdd;
 
   $req = $bdd->prepare("INSERT INTO photos(userid,title,uploaded,updated)
-                        VALUES(:userid,:title,NOW(),NOW()");
+                        VALUES(:userid,:title,NOW(),NOW())");
   $req->bindParam(':userid',$userid);
   $req->bindParam(':title',$title);
   $req->execute();

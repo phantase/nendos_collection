@@ -1,5 +1,4 @@
 <?php
-
 // Upload data can be POST'ed as raw form data or uploaded via <iframe> and <form>
 // using regular multipart/form-data enctype (which is handled by PHP $_FILES).
 if (!empty($_FILES['fd-file']) and is_uploaded_file($_FILES['fd-file']['tmp_name'])) {
@@ -23,9 +22,6 @@ if( $inputdata ) {
 
   $destination_temp = $destination_folder_temp . $name;
 
-  $destination_thumb = $destination_folder . 'thumb_' . $name;
-  $destination_full = $destination_folder . 'full_' . $name;
-
   // Copy the input file from the entry to a file in temp directory
   $fp = fopen($destination_temp,"w");
   while($data=fread($inputdata, 1024))
@@ -39,11 +35,40 @@ if( $inputdata ) {
     $image_width      = $image_size_info[0]; //image width
     $image_height     = $image_size_info[1]; //image height
     $image_type       = $image_size_info['mime']; //image type
+    switch(strtolower($image_type)){//determine file extension
+      case 'image/png':
+        $image_ext = '.png';
+        break;
+      case 'image/gif':
+        $image_ext = '.gif';
+        break;
+      case 'image/jpeg': case 'image/pjpeg':
+        $image_ext = '.jpg';
+        break;
+      default:
+        unlink($destination_temp); // We remove the written file as it's not a recognized picture.
+        echo json_encode(array('result'=>'failure','reason'=>'Image is not valid'));
+        exit;
+    }
   }else{
     unlink($destination_temp); // We remove the written file if it's not a picture.
     echo json_encode(array('result'=>'failure','reason'=>'Image is not valid'));
     exit;
   }
+
+  $userid = $_SESSION['userid'];
+
+  // File must be an image, so we can add its info in the DB
+  $resultInfo = add_singlePhoto($userid,$_GET['title']);
+  if($resultInfo[0] == "00000"){
+    $internalid = $resultInfo[4];
+  } else {
+    echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
+    exit;
+  }
+
+  $destination_thumb = $destination_folder . $internalid . '_thumb' . $image_ext;
+  $destination_full = $destination_folder . $internalid . '_full' . $image_ext;
 
   if( ! rename($destination_temp,$destination_full) ){
     echo json_encode(array('result'=>'failure','reason'=>'Unable to process image (mv)'));

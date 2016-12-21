@@ -897,14 +897,15 @@ if( $('#new_photo_submit').length > 0 ){
                       + '  <div class="top-of-tile">'
                       + '   <span>'
                       + '    <input type="checkbox" name="'+currentFileID+'_cbox" id="'+currentFileID+'_cbox" checked />'
-                      + '    <label for="'+currentFileID+'_cbox" title="Select this picture"></label>'
+                      + '    <label for="'+currentFileID+'_cbox" title="Select this photo"></label>'
                       + '   </span>'
                       + '   <span id="'+currentFileID+'_wxh"></span>'
                       + '   <span id="'+currentFileID+'_size">(' + tsize + ')</span>'
                       + '  </div>'
                       + '  <div id="'+currentFileID+'_img"></div>'
                       + '  <div class="bottom-of-tile">'
-                      + '   <span>' + file.name
+                      + '   <span>'
+                      + '    <input type="text" id="'+currentFileID+'_title" name="'+currentFileID+'_title" value="'+file.name+'" title="Enter here the title of the photo"/>'
                       + '   </span>'
                       + '  </div>'
                       + ' </div>'
@@ -941,8 +942,20 @@ if( $('#new_photo_submit').length > 0 ){
   })
 
   $('#new_photo_submit').click(function(){
-    console.log(filesQueue);
-    filesQueue[0].sendTo('photoupload');
+    //console.log(filesQueue);
+    if($('input:checked').length>5){
+      alert("Error, you have too much photos selected...");
+    } else {
+      filesQueue.forEach(function(element, index){
+        //console.log(element);
+        if($('input[name=image2add_'+index+'_cbox]').is(':checked')){
+          var title = $('#image2add_'+index+'_title').val();
+          $('#image2add_'+index).css('background-color','lightgrey');
+          element.sendTo(encodeURI('photoupload?title='+title));
+        }
+      });
+    }
+    //filesQueue[0].sendTo('photoupload');
   });
 
 }

@@ -70,7 +70,7 @@ RewriteRule ^addaccessory$                                            index.php?
 
 # PHOTO #
 RewriteRule ^addphoto$                                                index.php?action=addphoto [L]
-RewriteRule ^photoupload$                                             services.php?action=photoupload [L]
+RewriteRule ^photoupload$                                             services.php?action=photoupload [QSA,L]
 
 #####################################
 ## HOME & CREDITS & LOGIN & SIGNUP ##
