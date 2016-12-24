@@ -74,6 +74,9 @@ if( file_exists('mvc/views/pages-sections/sort/'.$include_page.'.php') ) {
     <!-- Scripts -->
       <script src="assets/js/jquery.min.js"></script>
       <script src="assets/js/jquery-ui.min.js"></script>
+      <script type="text/javascript">
+        window.fd = {logging: false};
+      </script>
       <script src="assets/js/filedrop-min.js"></script>
       <script src="assets/js/skel.min.js"></script>
       <script src="assets/js/util.js"></script>
