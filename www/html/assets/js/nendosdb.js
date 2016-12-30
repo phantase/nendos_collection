@@ -101,7 +101,7 @@ $(function(){
           box_number_tooltip = " #" + element.attr("box_number");
         }
         var sorting_tooltip = "";
-        if( element.attr("sortingfield").length > 0 ){
+        if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
         return box_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
@@ -122,7 +122,7 @@ $(function(){
           face_collection_status_tooltip = "[Face (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
         var sorting_tooltip = "";
-        if( element.attr("sortingfield").length > 0 ){
+        if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
         return face_collection_status_tooltip + "<b style='color:#F57921;'>Eyes: </b>" + element.attr("eyes") +
@@ -142,7 +142,7 @@ $(function(){
           hair_collection_status_tooltip = "[Hair (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
         var sorting_tooltip = "";
-        if( element.attr("sortingfield").length > 0 ){
+        if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
         return hair_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("frontback") + "</b>" +
@@ -163,7 +163,7 @@ $(function(){
           hand_collection_status_tooltip = "[Hand (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
         var sorting_tooltip = "";
-        if( element.attr("sortingfield").length > 0 ){
+        if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
         return hand_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("leftright") + "</b>" +
@@ -183,7 +183,7 @@ $(function(){
           bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
         var sorting_tooltip = "";
-        if( element.attr("sortingfield").length > 0 ){
+        if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
         return bodypart_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("part") + "</b>" +
@@ -203,7 +203,7 @@ $(function(){
           accessory_collection_status_tooltip = "[Accessory (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
         var sorting_tooltip = "";
-        if( element.attr("sortingfield").length > 0 ){
+        if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
         return accessory_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("type") + "</b>" +
@@ -227,7 +227,7 @@ $(function(){
           box_number_tooltip = " #" + element.attr("box_number");
         }
         var sorting_tooltip = "";
-        if( element.attr("sortingfield").length > 0 ){
+        if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
         return nendoroid_collection_status_tooltip + "<b style='color:#F57921;'>" + element.attr("box_category") + "</b>" +
