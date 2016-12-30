@@ -2,7 +2,11 @@
 CREATE TABLE `photos_hairs` (
   `internalid` bigint(20) UNSIGNED NOT NULL,
   `photoid` bigint(20) UNSIGNED NOT NULL,
-  `hairid` bigint(20) UNSIGNED NOT NULL
+  `hairid` bigint(20) UNSIGNED NOT NULL,
+  `xmin` int(11) DEFAULT NULL,
+  `ymin` int(11) DEFAULT NULL,
+  `xmax` int(11) DEFAULT NULL,
+  `ymax` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- Add the indexes
 ALTER TABLE `photos_hairs`
