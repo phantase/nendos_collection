@@ -2,6 +2,13 @@ Options +FollowSymlinks
 RewriteEngine On
 
 ############
+## PHOTOS ##
+############
+RewriteCond %{DOCUMENT_ROOT}/images/nendos/photos/$1_$2.jpg -f
+RewriteRule ^images/nendos/photos/([0-9]+)_(full|thumb)$              images/nendos/photos/$1_$2.jpg [L]
+RewriteRule ^images/nendos/photos/([0-9]+)_(full|thumb)$              images/nendos/photos/$1_$2.png [L]
+
+############
 ## IMAGES ##
 ############
 RewriteCond %{DOCUMENT_ROOT}/images/nendos/$1/$2.jpg -f
@@ -161,3 +168,4 @@ RewriteRule ^hand/([0-9]+)/$                      index.php?action=hand&hand_int
 RewriteRule ^bodypart/([0-9]+)/$                  index.php?action=bodypart&bodypart_internalid=$1 [L]
 RewriteRule ^accessory/([0-9]+)/$                 index.php?action=accessory&accessory_internalid=$1 [L]
 RewriteRule ^user/([0-9]+)/$                      index.php?action=user&userid=$1 [L]
+RewriteRule ^photo/([0-9]+)/$                     index.php?action=photo&photo_internalid=$1 [L]
