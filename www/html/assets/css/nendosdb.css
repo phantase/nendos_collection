@@ -497,3 +497,41 @@ td.photo_cell {
   height: 100%;
   display: block;
 }
+.image-annotation-link:hover {
+  border: dashed 1px #F57921;
+}
+.image-annotation-link > div {
+  background-repeat: no-repeat;
+  background-position: 2px 2px;
+  background-size:21px;
+  background-color: #F57921;
+  width:25px;
+  height:25px;
+  opacity: 0.7;
+  border-right: dashed 1px white;
+  border-bottom: dashed 1px white;
+}
+.image-annotation-link:hover > div {
+  opacity: 1;
+}
+.image-annotation-nendoroid {
+  background-image: url('../../images/icon_nendo_nendo.png');
+}
+.image-annotation-face {
+    background-image: url('../../images/icon_nendo_face.png');
+}
+.image-annotation-hair {
+    background-image: url('../../images/icon_nendo_hair.png');
+}
+.image-annotation-hand {
+    background-image: url('../../images/icon_nendo_hand.png');
+}
+.image-annotation-bodypart {
+    background-image: url('../../images/icon_nendo_body.png');
+}
+.image-annotation-accessory {
+    background-image: url('../../images/icon_nendo_accessories.png');
+}
+.image-annotation-box {
+    background-image: url('../../images/icon_nendo_boxes.png');
+}
