@@ -59,7 +59,7 @@ if( $inputdata ) {
   $userid = $_SESSION['userid'];
 
   // File must be an image, so we can add its info in the DB
-  $resultInfo = add_singlePhoto($userid,$_GET['title']);
+  $resultInfo = add_singlePhoto($userid,$_GET['title'],$image_width,$image_height);
   if($resultInfo[0] == "00000"){
     $internalid = $resultInfo[4];
   } else {
@@ -81,7 +81,7 @@ if( $inputdata ) {
     exit;
   }
 
-  echo json_encode(array('result'=>'success','blabla'=>'That was cool...'));
+  echo json_encode(array('result'=>'success','internalid'=>$internalid));
 
 } else {
   echo json_encode(array('result'=>'failure','reason'=>'No input data'));

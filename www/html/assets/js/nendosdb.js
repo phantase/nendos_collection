@@ -860,7 +860,6 @@ if( $('#new_accessory_submit').length > 0 ){
 
 // If new Photo form, activate FileDrop, and 'accept guidelines' checkbox
 if( $('#new_photo_submit').length > 0 ){
-
   $('#accept-guidelines').change(function(){
     if( this.checked ){
       $('.accept-requested').show();
@@ -879,6 +878,7 @@ if( $('#new_photo_submit').length > 0 ){
       filesQueue.push(file);
 
       var filePosition = filesQueue.length - 1;
+      file.filePosition = filePosition;
 
       if( filePosition > 4 ){ // we have already 5 pictures in queue
         $('#image2add_'+(filePosition-5)+'_cbox').prop('checked',false);
@@ -942,22 +942,48 @@ if( $('#new_photo_submit').length > 0 ){
   })
 
   $('#new_photo_submit').click(function(){
-    //console.log(filesQueue);
-    if($('input:checked').length>5){
-      alert("Error, you have too much photos selected...");
-    } else {
-      filesQueue.forEach(function(element, index){
-        //console.log(element);
-        if($('input[name=image2add_'+index+'_cbox]').is(':checked')){
-          var title = $('#image2add_'+index+'_title').val();
-          $('#image2add_'+index).css('background-color','lightgrey');
-          element.sendTo(encodeURI('photoupload?title='+title));
-        }
-      });
+    if( ! $('#new_photo_submit').prop('disabled') ){
+      $('#new_photo_submit').prop('disabled',true);
+      if($('input:checked').length>5){
+        alert("Error, you have too much photos selected...");
+      } else {
+        filesQueue.forEach(function(element, index){
+          if($('input[name=image2add_'+index+'_cbox]').is(':checked')){
+            var title = $('#image2add_'+index+'_title').val();
+            element.event('done',function(xhr){
+              var response = JSON.parse(xhr.responseText);
+              if( response.result === "success" ){
+                $('#image2add_'+this.filePosition).css('background-color','#DDFFDD');
+              } else {
+                $('#image2add_'+this.filePosition).css('background-color','#FFDDDD');
+              }
+            })
+            element.sendTo(encodeURI('photoupload?title='+title));
+          }
+        });
+      }
     }
-    //filesQueue[0].sendTo('photoupload');
   });
+}
 
+// If photo_cell, then do the job of the photo page
+if( $('.photo_cell').length > 0 ){
+//  console.log($('.photo_cell').width());
+  var original_width = $('.annotated-image').attr('original_width');
+  var original_height = $('.annotated-image').attr('original_height');
+  console.log('Original image size: ' + original_width + 'x' + original_height);
+  $('.annotated-image').width($('.photo_cell').width());
+  var displayed_width = $('.annotated-image').width();
+  var displayed_height = $('.annotated-image').height();
+  console.log('Displayed image size: ' + displayed_width + 'x' + displayed_height);
+  var ratio = displayed_width / original_width;
+  console.log('Raio: ' + ratio);
+  $('.image-annotation').each(function(){
+    $(this).css('left',($(this).attr('xmin')*ratio)+'px');
+    $(this).css('top',($(this).attr('ymin')*ratio)+'px');
+    $(this).css('width',(($(this).attr('xmax')-$(this).attr('xmin'))*ratio)+'px');
+    $(this).css('height',(($(this).attr('ymax')-$(this).attr('ymin'))*ratio)+'px');
+  });
 }
 
 });

@@ -64,6 +64,7 @@
     case "bodypart":
     case "accessory":
     case "user":
+    case "photo":
       $include_page = 'single/'.$action;
       break;
     // PHOTOS
