@@ -80,13 +80,17 @@
 <?php } ?>
 <?php foreach ($boxes as $key => $box) { ?>
                               <div class="image-annotation"
-                                   box="<?= $box['box_internalid'] ?>"
                                    xmin="<?= $box['pb_xmin'] ?>"
                                    ymin="<?= $box['pb_ymin'] ?>"
                                    xmax="<?= $box['pb_xmax'] ?>"
                                    ymax="<?= $box['pb_ymax'] ?>"
-                                   title="<?= $box['box_category'] ?>">
-                                <a class="image-annotation-link"></a>
+                                    box=""
+                                    box_number="<?= $box['box_number'] ?>"
+                                    box_name="<?= $box['box_name'] ?>"
+                                    box_category="<?= $box['box_category'] ?>">
+                                <a class="image-annotation-link">
+                                  <div class="image-annotation-box"></div>
+                                </a>
                               </div>
 <?php } ?>
                             </div>
