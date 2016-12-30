@@ -36,35 +36,46 @@
                                    style="width:10%;" />
 <?php foreach ($nendoroids as $key => $nendoroid) { ?>
                               <div class="image-annotation"
-                                   nendoroid="<?= $nendoroid['nendoroid_internalid'] ?>"
                                    xmin="<?= $nendoroid['pn_xmin'] ?>"
                                    ymin="<?= $nendoroid['pn_ymin'] ?>"
                                    xmax="<?= $nendoroid['pn_xmax'] ?>"
                                    ymax="<?= $nendoroid['pn_ymax'] ?>"
-                                   title="<?= $nendoroid['nendoroid_name'] ?>">
-                                <a class="image-annotation-link"></a>
+                                    nendoroid=""
+                                    nendoroid_name="<?= $nendoroid['nendoroid_name'] ?>"
+                                    nendoroid_version="<?= $nendoroid['nendoroid_version'] ?>"
+                                    box_number="<?= $nendoroid['box_number'] ?>"
+                                    box_category="<?= $nendoroid['box_category'] ?>">
+                                <a class="image-annotation-link">
+                                  <div class="image-annotation-nendoroid"></div>
+                                </a>
                               </div>
 <?php } ?>
 <?php foreach ($accessories as $key => $accessory) { ?>
                               <div class="image-annotation"
-                                   accessory="<?= $accessory['accessory_internalid'] ?>"
                                    xmin="<?= $accessory['pa_xmin'] ?>"
                                    ymin="<?= $accessory['pa_ymin'] ?>"
                                    xmax="<?= $accessory['pa_xmax'] ?>"
                                    ymax="<?= $accessory['pa_ymax'] ?>"
-                                   title="<?= $accessory['accessory_type'] ?>">
-                                <a class="image-annotation-link"></a>
+                                    accessory=""
+                                    type="<?= $accessory['accessory_type'] ?>"
+                                    description="<?= $accessory['accessory_description'] ?>">
+                                <a class="image-annotation-link">
+                                  <div class="image-annotation-accessory"></div>
+                                </a>
                               </div>
 <?php } ?>
 <?php foreach ($bodyparts as $key => $bodypart) { ?>
                               <div class="image-annotation"
-                                   bodypart="<?= $bodypart['bodypart_internalid'] ?>"
                                    xmin="<?= $bodypart['pbp_xmin'] ?>"
                                    ymin="<?= $bodypart['pbp_ymin'] ?>"
                                    xmax="<?= $bodypart['pbp_xmax'] ?>"
                                    ymax="<?= $bodypart['pbp_ymax'] ?>"
-                                   title="<?= $bodypart['bodypart_part'] ?>">
-                                <a class="image-annotation-link"></a>
+                                    bodypart=""
+                                    part="<?= $bodypart['bodypart_part'] ?>"
+                                    description="<?= $bodypart['bodypart_description'] ?>">
+                                <a class="image-annotation-link">
+                                  <div class="image-annotation-bodypart"></div>
+                                </a>
                               </div>
 <?php } ?>
 <?php foreach ($boxes as $key => $box) { ?>

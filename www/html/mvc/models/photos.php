@@ -63,9 +63,11 @@ function get_nendoroidsPhoto($photo_internalid)
 
   $req = $bdd->prepare("SELECT pn.internalid AS pn_internalid, pn.photoid AS photo_internalid, pn.nendoroidid AS nendoroid_internalid,
                         pn.xmin AS pn_xmin, pn.ymin AS pn_ymin, pn.xmax AS pn_xmax, pn.ymax AS pn_ymax,
-                        n.name AS nendoroid_name, n.version AS nendoroid_version
+                        n.name AS nendoroid_name, n.version AS nendoroid_version,
+                        b.number AS box_number, b.category AS box_category
                         FROM photos_nendoroids AS pn
-                        LEFT JOIN nendoroids AS n on pn.nendoroidid = n.internalid
+                        LEFT JOIN nendoroids AS n ON pn.nendoroidid = n.internalid
+                        LEFT JOIN boxes AS b ON n.boxid = b.internalid
                         WHERE pn.photoid = :photo_internalid");
   $req->bindParam(':photo_internalid',$photo_internalid);
   $req->execute();
@@ -85,7 +87,7 @@ function get_accessoriesPhoto($photo_internalid)
 
   $req = $bdd->prepare("SELECT pa.internalid AS pa_internalid, pa.photoid AS photo_internalid, pa.accessoryid AS accessory_internalid,
                         pa.xmin AS pa_xmin, pa.ymin AS pa_ymin, pa.xmax AS pa_xmax, pa.ymax AS pa_ymax,
-                        a.type AS accessory_type
+                        a.type AS accessory_type, a.Description AS accessory_description
                         FROM photos_accessories AS pa
                         LEFT JOIN accessories AS a on pa.accessoryid = a.internalid
                         WHERE pa.photoid = :photo_internalid");
@@ -107,7 +109,7 @@ function get_bodypartsPhoto($photo_internalid)
 
   $req = $bdd->prepare("SELECT pbp.internalid AS pbp_internalid, pbp.photoid AS photo_internalid, pbp.bodypartid AS bodypart_internalid,
                         pbp.xmin AS pbp_xmin, pbp.ymin AS pbp_ymin, pbp.xmax AS pbp_xmax, pbp.ymax AS pbp_ymax,
-                        bp.part AS bodypart_part
+                        bp.part AS bodypart_part, bp.description AS bodypart_description
                         FROM photos_bodyparts AS pbp
                         LEFT JOIN bodyparts AS bp on pbp.bodypartid = bp.internalid
                         WHERE pbp.photoid = :photo_internalid");
