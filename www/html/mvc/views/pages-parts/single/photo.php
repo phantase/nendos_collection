@@ -93,6 +93,20 @@
                                 </a>
                               </div>
 <?php } ?>
+<?php foreach ($faces as $key => $face) { ?>
+                              <div class="image-annotation"
+                                   xmin="<?= $face['pf_xmin'] ?>"
+                                   ymin="<?= $face['pf_ymin'] ?>"
+                                   xmax="<?= $face['pf_xmax'] ?>"
+                                   ymax="<?= $face['pf_ymax'] ?>"
+                                    face=""
+                                    eyes="<?= $face['face_eyes'] ?>"
+                                    mouth="<?= $face['face_mouth'] ?>">
+                                <a class="image-annotation-link">
+                                  <div class="image-annotation-face"></div>
+                                </a>
+                              </div>
+<?php } ?>
                             </div>
                           </td>
                         </tr>
