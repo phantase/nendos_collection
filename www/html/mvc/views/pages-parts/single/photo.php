@@ -107,6 +107,21 @@
                                 </a>
                               </div>
 <?php } ?>
+<?php foreach ($hairs as $key => $hair) { ?>
+                              <div class="image-annotation"
+                                   xmin="<?= $hair['ph_xmin'] ?>"
+                                   ymin="<?= $hair['ph_ymin'] ?>"
+                                   xmax="<?= $hair['ph_xmax'] ?>"
+                                   ymax="<?= $hair['ph_ymax'] ?>"
+                                    hair=""
+                                    frontback="<?= $hair['hair_frontback'] ?>"
+                                    haircut="<?= $hair['hair_haircut'] ?>"
+                                    description="<?= $hair['hair_description'] ?>">
+                                <a class="image-annotation-link">
+                                  <div class="image-annotation-face"></div>
+                                </a>
+                              </div>
+<?php } ?>
                             </div>
                           </td>
                         </tr>
