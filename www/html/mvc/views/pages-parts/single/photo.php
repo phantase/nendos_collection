@@ -122,6 +122,20 @@
                                 </a>
                               </div>
 <?php } ?>
+<?php foreach ($hands as $key => $hand) { ?>
+                              <div class="image-annotation"
+                                   xmin="<?= $hand['ph_xmin'] ?>"
+                                   ymin="<?= $hand['ph_ymin'] ?>"
+                                   xmax="<?= $hand['ph_xmax'] ?>"
+                                   ymax="<?= $hand['ph_ymax'] ?>"
+                                    hand=""
+                                    leftright="<?= $hand['hand_leftright'] ?>"
+                                    posture="<?= $hand['hand_posture'] ?>">
+                                <a class="image-annotation-link">
+                                  <div class="image-annotation-face"></div>
+                                </a>
+                              </div>
+<?php } ?>
                             </div>
                           </td>
                         </tr>
