@@ -56,6 +56,28 @@
                                 <a class="image-annotation-link"></a>
                               </div>
 <?php } ?>
+<?php foreach ($bodyparts as $key => $bodypart) { ?>
+                              <div class="image-annotation"
+                                   bodypart="<?= $bodypart['bodypart_internalid'] ?>"
+                                   xmin="<?= $bodypart['pbp_xmin'] ?>"
+                                   ymin="<?= $bodypart['pbp_ymin'] ?>"
+                                   xmax="<?= $bodypart['pbp_xmax'] ?>"
+                                   ymax="<?= $bodypart['pbp_ymax'] ?>"
+                                   title="<?= $bodypart['bodypart_part'] ?>">
+                                <a class="image-annotation-link"></a>
+                              </div>
+<?php } ?>
+<?php foreach ($boxes as $key => $box) { ?>
+                              <div class="image-annotation"
+                                   box="<?= $box['box_internalid'] ?>"
+                                   xmin="<?= $box['pb_xmin'] ?>"
+                                   ymin="<?= $box['pb_ymin'] ?>"
+                                   xmax="<?= $box['pb_xmax'] ?>"
+                                   ymax="<?= $box['pb_ymax'] ?>"
+                                   title="<?= $box['box_category'] ?>">
+                                <a class="image-annotation-link"></a>
+                              </div>
+<?php } ?>
                             </div>
                           </td>
                         </tr>

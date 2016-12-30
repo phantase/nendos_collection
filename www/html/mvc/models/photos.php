@@ -100,3 +100,113 @@ function get_accessoriesPhoto($photo_internalid)
 
   return $resultInfo;
 }
+/** Retrieve bodyparts attached to a photo */
+function get_bodypartsPhoto($photo_internalid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT pbp.internalid AS pbp_internalid, pbp.photoid AS photo_internalid, pbp.bodypartid AS bodypart_internalid,
+                        pbp.xmin AS pbp_xmin, pbp.ymin AS pbp_ymin, pbp.xmax AS pbp_xmax, pbp.ymax AS pbp_ymax,
+                        bp.part AS bodypart_part
+                        FROM photos_bodyparts AS pbp
+                        LEFT JOIN bodyparts AS bp on pbp.bodypartid = bp.internalid
+                        WHERE pbp.photoid = :photo_internalid");
+  $req->bindParam(':photo_internalid',$photo_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+/** Retrieve boxes attached to a photo */
+function get_boxesPhoto($photo_internalid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT pb.internalid AS pb_internalid, pb.photoid AS photo_internalid, pb.boxid AS box_internalid,
+                        pb.xmin AS pb_xmin, pb.ymin AS pb_ymin, pb.xmax AS pb_xmax, pb.ymax AS pb_ymax,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series, b.category AS box_category
+                        FROM photos_boxes AS pb
+                        LEFT JOIN boxes AS b on pb.boxid = b.internalid
+                        WHERE pb.photoid = :photo_internalid");
+  $req->bindParam(':photo_internalid',$photo_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+/** Retrieve faces attached to a photo */
+function get_facesPhoto($photo_internalid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT pf.internalid AS pf_internalid, pf.photoid AS photo_internalid, pf.faceid AS face_internalid,
+                        pf.xmin AS pf_xmin, pf.ymin AS pf_ymin, pf.xmax AS pf_xmax, pf.ymax AS pf_ymax,
+                        f.eyes AS face_eyes, f.mouth AS face_mouth
+                        FROM photos_faces AS pf
+                        LEFT JOIN faces AS f on pf.faceid = f.internalid
+                        WHERE pf.photoid = :photo_internalid");
+  $req->bindParam(':photo_internalid',$photo_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+/** Retrieve hairs attached to a photo */
+function get_hairsPhoto($photo_internalid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT ph.internalid AS ph_internalid, ph.photoid AS photo_internalid, ph.hairid AS hair_internalid,
+                        ph.xmin AS ph_xmin, ph.ymin AS ph_ymin, ph.xmax AS ph_xmax, ph.ymax AS ph_ymax,
+                        h.haircut AS hair_haircut
+                        FROM photos_hairs AS ph
+                        LEFT JOIN hairs AS h on ph.hairid = h.internalid
+                        WHERE ph.photoid = :photo_internalid");
+  $req->bindParam(':photo_internalid',$photo_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
+/** Retrieve hands attached to a photo */
+function get_handsPhoto($photo_internalid)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT ph.internalid AS ph_internalid, ph.photoid AS photo_internalid, ph.handid AS hand_internalid,
+                        ph.xmin AS ph_xmin, ph.ymin AS ph_ymin, ph.xmax AS ph_xmax, ph.ymax AS ph_ymax,
+                        h.leftright AS hand_leftright, h.posture AS hand_posture
+                        FROM photos_hands AS ph
+                        LEFT JOIN hands AS h on ph.handid = h.internalid
+                        WHERE ph.photoid = :photo_internalid");
+  $req->bindParam(':photo_internalid',$photo_internalid);
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}
