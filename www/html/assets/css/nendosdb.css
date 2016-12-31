@@ -484,8 +484,11 @@ td.photo_cell {
 .image-and-annotations {
   position: relative;
 }
-.annotated-image {
-
+.image-and-annotations > div {
+  visibility: hidden;
+}
+.image-and-annotations:hover > div {
+  visibility: visible;
 }
 .image-annotation {
   border: dashed 1px black;

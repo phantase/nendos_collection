@@ -614,7 +614,7 @@ $(function(){
     );
   });
 // Show/Hide the History
-  $('#toggle_history,#toggle_metadata').click(function(){
+  $('#toggle_history,#toggle_metadata,#toggle_parts').click(function(){
     $('#'+this.id+'~div').toggle();
     $('#'+this.id+' span').toggle();
     console.log(this.id);
@@ -966,13 +966,12 @@ if( $('#new_photo_submit').length > 0 ){
   });
 }
 
-// If photo_cell, then do the job of the photo page
-if( $('.photo_cell').length > 0 ){
-//  console.log($('.photo_cell').width());
+// If image-and-annotations, then do the job of the photo page
+if( $('.image-and-annotations').length > 0 ){
   var original_width = $('.annotated-image').attr('original_width');
   var original_height = $('.annotated-image').attr('original_height');
   console.log('Original image size: ' + original_width + 'x' + original_height);
-  $('.annotated-image').width($('.photo_cell').width());
+  $('.annotated-image').width($('.image-and-annotations').width());
   var displayed_width = $('.annotated-image').width();
   var displayed_height = $('.annotated-image').height();
   console.log('Displayed image size: ' + displayed_width + 'x' + displayed_height);
