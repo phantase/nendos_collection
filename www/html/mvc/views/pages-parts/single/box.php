@@ -79,7 +79,10 @@
 <?php if(isEditor() || count($accessories)>0){ ?>
                 <div class="6u 12u(medium)">
               <h4>Accessories</h4>
-<?php showAccessoriesListing($accessories,null,true,!$box['db_validatorid'],$box['box_url'],$box['box_internalid']); ?>
+<?php showAccessoriesListing($accessories,array('withlinks'=>true,
+                                                 'withadd'=>!$box['db_validatorid'],
+                                                 'box_url'=>$box['box_url'],
+                                                 'box_id'=>$box['box_internalid'])); ?>
                 </div>
 <?php } ?>
               </div>
