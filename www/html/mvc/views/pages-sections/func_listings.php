@@ -1,7 +1,10 @@
 <?php
 
-function showBoxesListing($boxes,$sortingfield=null,$withlinks=false,$withadd=false){
-    include('mvc/views/pages-sections/simple_listings/boxes.php');
+function showBoxesListing($boxes,$options=null){
+  $sortingfield   = $options['sortingfield'];
+  $withlinks      = $options['withlinks'];
+  $withadd        = $options['withadd'];
+  include('mvc/views/pages-sections/simple_listings/boxes.php');
 }
 
 function showNendoroidsListing($nendoroids,$options=null){
