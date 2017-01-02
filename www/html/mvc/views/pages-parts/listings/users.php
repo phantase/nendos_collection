@@ -1,6 +1,7 @@
         <!-- Main -->
           <div id="main">
             <div class="inner">
-<?php showUsersListing($users,$selected_order,true); ?>
+<?php showUsersListing($users,array('sortingfield' => $selected_order,
+                                    'withlinks' => true)); ?>
             </div>
           </div>

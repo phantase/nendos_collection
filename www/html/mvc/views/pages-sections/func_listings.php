@@ -32,6 +32,8 @@ function showNendoroidsArticle($nendoroids){
   include('mvc/views/pages-sections/article_listings/nendoroids.php');
 }
 
-function showUsersListing($users,$sortingfield=null,$withlinks=false){
+function showUsersListing($users,$options=null){
+  $sortingfield = $options['sortingfield'];
+  $withlinks = $options['withlinks'];
   include('mvc/views/pages-sections/simple_listings/users.php');
 }
