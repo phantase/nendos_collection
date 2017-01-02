@@ -61,7 +61,10 @@
 <?php if(isEditor() || count($hairs)>0){ ?>
                 <div class="6u 12u(medium)">
               <h4>Hairs</h4>
-<?php showHairsListing($hairs,null,true,!$box['db_validatorid'],$box['box_url'],$box['box_internalid']); ?>
+<?php showHairsListing($hairs,array('withlinks'=>true,
+                                    'withadd'=>!$box['db_validatorid'],
+                                    'box_url'=>$box['box_url'],
+                                    'box_id'=>$box['box_internalid'])); ?>
                 </div>
 <?php } ?>
 <?php if(isEditor() || count($hands)>0){ ?>
