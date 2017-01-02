@@ -14,9 +14,18 @@ if($resultInfo[0]=="00000"){
   raiseError($resultInfo[2]);
 }
 
+$resultInfo = get_boxesPhoto($photo_internalid);
+if($resultInfo[0]=="00000"){
+  $boxes = $resultInfo[4];
+} else {
+  raiseError($resultInfo[2]);
+}
 $resultInfo = get_nendoroidsPhoto($photo_internalid);
 if($resultInfo[0]=="00000"){
   $nendoroids = $resultInfo[4];
+  foreach ($nendoroids as $key => $nendoroid) {
+    $nendoroids[$key]['nendoroid_url'] = urlize($nendoroid['nendoroid_name']);
+  }
 } else {
   raiseError($resultInfo[2]);
 }
@@ -29,12 +38,6 @@ if($resultInfo[0]=="00000"){
 $resultInfo = get_bodypartsPhoto($photo_internalid);
 if($resultInfo[0]=="00000"){
   $bodyparts = $resultInfo[4];
-} else {
-  raiseError($resultInfo[2]);
-}
-$resultInfo = get_boxesPhoto($photo_internalid);
-if($resultInfo[0]=="00000"){
-  $boxes = $resultInfo[4];
 } else {
   raiseError($resultInfo[2]);
 }
