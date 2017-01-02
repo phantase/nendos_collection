@@ -1,4 +1,6 @@
+<?php if(!$shareddiv){ ?>
                     <div class="row">
+<?php } ?>
 <?php
   foreach ($hairs as $hair) {
 ?>
@@ -49,4 +51,6 @@
 <?php
   }
 ?>
+<?php if(!$shareddiv){ ?>
                     </div>
+<?php } ?>

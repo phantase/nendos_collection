@@ -1,4 +1,6 @@
+<?php if(!$shareddiv){ ?>
                     <div class="row">
+<?php } ?>
 <?php
   foreach ($hands as $hand) {
 ?>
@@ -48,4 +50,6 @@
 <?php
   }
 ?>
+<?php if(!$shareddiv){ ?>
                     </div>
+<?php } ?>

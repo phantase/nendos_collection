@@ -1,4 +1,6 @@
+<?php if(!$shareddiv){ ?>
                     <div class="row">
+<?php } ?>
 <?php
   foreach ($bodyparts as $bodypart) {
 ?>
@@ -48,5 +50,6 @@
 <?php
   }
 ?>
+<?php if(!$shareddiv){ ?>
                     </div>
-
+<?php } ?>

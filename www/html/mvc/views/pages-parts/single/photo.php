@@ -148,15 +148,15 @@
               <div class="row">
                 <div class="12u$">
                   <h4 id="toggle_parts"><a>Parts (<span>show</span><span style="display:none;">hide</span>)</a></h4>
-                  <div style="display:none;">
+                  <div class="row" style="display:none;">
 <?php
-  showBoxesListing($boxes,array('withlinks'=>true));
-  showNendoroidsListing($nendoroids,array('withlinks'=>true));
-  showFacesListing($faces,array('withlinks'=>true));
-  showHairsListing($hairs,array('withlinks'=>true));
-  showHandsListing($hands,array('withlinks'=>true));
-  showBodypartsListing($bodyparts,array('withlinks'=>true));
-  showAccessoriesListing($accessories,array('withlinks'=>true));
+  showBoxesListing(       $boxes,       array('withlinks'=>true,'shareddiv'=>true));
+  showNendoroidsListing(  $nendoroids,  array('withlinks'=>true,'shareddiv'=>true));
+  showFacesListing(       $faces,       array('withlinks'=>true,'shareddiv'=>true));
+  showHairsListing(       $hairs,       array('withlinks'=>true,'shareddiv'=>true));
+  showHandsListing(       $hands,       array('withlinks'=>true,'shareddiv'=>true));
+  showBodypartsListing(   $bodyparts,   array('withlinks'=>true,'shareddiv'=>true));
+  showAccessoriesListing( $accessories, array('withlinks'=>true,'shareddiv'=>true));
 ?>
                   </div>
                 </div>
