@@ -51,7 +51,12 @@
 <?php if(isEditor() || count($faces)>0){ ?>
                   <div class="6u 12u$(medium)">
                     <h4>Faces</h4>
-<?php showFacesListing($faces,null,true,!$nendoroid['db_validatorid'],$nendoroid['box_url'],$nendoroid['box_internalid'],$nendoroid['nendoroid_url'],$nendoroid['nendoroid_internalid']); ?>
+<?php showFacesListing($faces,array('withlinks'=>true,
+                                    'withadd'=>!$nendoroid['db_validatorid'],
+                                    'box_url'=>$nendoroid['box_url'],
+                                    'box_id'=>$nendoroid['box_internalid'],
+                                    'nendoroid_url'=>$nendoroid['nendoroid_url'],
+                                    'nendoroid_id'=>$nendoroid['nendoroid_internalid'])); ?>
                   </div>
 <?php } ?>
 <?php if(isEditor() || count($hairs)>0){ ?>
