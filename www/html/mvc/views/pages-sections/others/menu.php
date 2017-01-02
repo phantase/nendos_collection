@@ -9,6 +9,7 @@
 <?php if(isLogged()){ ?>
               <li><a href="./addphoto">Add a Photo</a></li>
 <?php } ?>
+              <li><a href="./photos">Photos</a></li>
               <li><a href="./boxes">Boxes</a></li>
               <li><a href="./nendoroids">Nendoroids</a></li>
               <li><a href="./faces">Faces</a></li>

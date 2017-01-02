@@ -77,6 +77,13 @@ function showUsersListing($users,$options=null){
   include('mvc/views/pages-sections/simple_listings/users.php');
 }
 
+function showPhotosListing($photos,$options=null){
+  $sortingfield   = $options['sortingfield'];
+  $withlinks      = $options['withlinks'];
+  $withadd        = $options['withadd'];
+  include('mvc/views/pages-sections/simple_listings/photos.php');
+}
+
 function showNendoroidsArticle($nendoroids){
   include('mvc/views/pages-sections/article_listings/nendoroids.php');
 }

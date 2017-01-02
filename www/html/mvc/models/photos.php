@@ -11,6 +11,37 @@ function count_allPhotos()
 
   return $count['count'];
 }
+/** Retrieve all photos within the DB */
+function get_allPhotos($order="photo_uploaded",$direction="DESC",$userid=null)
+{
+  $orders = array("photo_title","photo_username","photo_uploaded");
+  $key = array_search($order, $orders);
+  $order = $orders[$key];
+  $directions = array("asc","desc");
+  $key = array_search($direction, $directions);
+  $direction = $directions[$key];
+
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT p.internalid AS photo_internalid,
+                        p.title AS photo_title, p.width AS photo_width, p.height AS photo_height,
+                        p.uploaded AS photo_uploaded, p.updated AS photo_updated,
+                        p.userid AS photo_userid, u.username AS photo_username,
+                        NOW() AS now
+                        FROM photos AS p
+                        LEFT JOIN users AS u ON p.userid = u.internalid
+                        ORDER BY $order $direction;");
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+
+}
 /** Add a photo to the DB */
 function add_singlePhoto($userid,$title,$width,$height)
 {

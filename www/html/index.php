@@ -53,6 +53,7 @@
     case "bodyparts":
     case "accessories":
     case "users":
+    case "photos":
       $include_page = 'listings/'.$action;
       break;
     // SINGLE PAGES
