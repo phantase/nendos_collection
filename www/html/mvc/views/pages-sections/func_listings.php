@@ -27,7 +27,14 @@ function showAccessoriesListing($accessories,$options=null){
   include('mvc/views/pages-sections/simple_listings/accessories.php');
 }
 
-function showBodyPartsListing($bodyparts,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showBodyPartsListing($bodyparts,$options=null){
+  $sortingfield   = $options['sortingfield'];
+  $withlinks      = $options['withlinks'];
+  $withadd        = $options['withadd'];
+  $box_url        = $options['box_url'];
+  $box_id         = $options['box_id'];
+  $nendoroid_url  = $options['nendoroid_url'];
+  $nendoroid_id   = $options['nendoroid_id'];
   include('mvc/views/pages-sections/simple_listings/bodyparts.php');
 }
 

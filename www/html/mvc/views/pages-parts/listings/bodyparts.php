@@ -1,6 +1,7 @@
         <!-- Main -->
           <div id="main">
             <div class="inner">
-<?php showBodyPartsListing($bodyparts,$selected_order,true); ?>
+<?php showBodyPartsListing($bodyparts,array('sortingfield'=>$selected_order,
+                                            'withlinks'=>true)); ?>
             </div>
           </div>

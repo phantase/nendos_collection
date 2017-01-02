@@ -73,7 +73,10 @@
 <?php if(isEditor() || count($bodyparts)>0){ ?>
                 <div class="6u 12u(medium)">
               <h4>Body Parts</h4>
-<?php showBodyPartsListing($bodyparts,null,true,!$box['db_validatorid'],$box['box_url'],$box['box_internalid']); ?>
+<?php showBodyPartsListing($bodyparts,array('withlinks'=>true,
+                                            'withadd'=>!$box['db_validatorid'],
+                                            'box_url'=>$box['box_url'],
+                                            'box_id'=>$box['box_internalid'])); ?>
                 </div>
 <?php } ?>
 <?php if(isEditor() || count($accessories)>0){ ?>
