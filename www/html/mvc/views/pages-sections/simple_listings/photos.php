@@ -11,7 +11,7 @@
                               photo_title="<?= $photo['photo_title'] ?>"
                               photo_username="<?= $photo['photo_username'] ?>"
                               sortingfield="<?= $sortingfield ?>"
-                              sortingvalue="<?= $nendoroid[$sortingfield] ?>">
+                              sortingvalue="<?= $photo[$sortingfield] ?>">
                           <img src="images/nendos/photos/<?= $photo['photo_internalid'] ?>_thumb" alt="" />
                         </span>
                       <?php if($withlinks){ ?>

@@ -69,7 +69,7 @@ $(function(){
           .appendTo( this );
       }
     },
-    items: "[title], [histentry], [collectentry], [box], [face], [hair], [hand], [bodypart], [accessory], [nendoroid]",
+    items: "[title], [histentry], [collectentry], [box], [face], [hair], [hand], [bodypart], [accessory], [nendoroid], [photo]",
     content: function() {
       var element = $(this);
       // DEFAULT (title)
@@ -235,6 +235,16 @@ $(function(){
           "<br/>" + element.attr("nendoroid_name") +
           "<br/>" + element.attr("nendoroid_version") +
           sorting_tooltip;
+      }
+      // PHOTO
+      if( element.is("[photo]") ){
+        var sorting_tooltip = "";
+        if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
+          sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
+        }
+        return "<b style='color:#F57921;'>" + element.attr("photo_title") + "</b><br/>" +
+                "<i>by " + element.attr("photo_username") + "</i>" +
+                sorting_tooltip;
       }
     }
   });
