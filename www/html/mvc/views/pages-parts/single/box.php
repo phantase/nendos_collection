@@ -64,7 +64,10 @@
 <?php if(isEditor() || count($hands)>0){ ?>
                 <div class="6u 12u(medium)">
               <h4>Hands</h4>
-<?php showHandsListing($hands,null,true,!$box['db_validatorid'],$box['box_url'],$box['box_internalid']); ?>
+<?php showHandsListing($hands,array('withlinks'=>true,
+                                    'withadd'=>!$box['db_validatorid'],
+                                    'box_url'=>$box['box_url'],
+                                    'box_id'=>$box['box_internalid'])); ?>
                 </div>
 <?php } ?>
 <?php if(isEditor() || count($bodyparts)>0){ ?>

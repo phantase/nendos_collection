@@ -20,16 +20,23 @@ function showHairsListing($hairs,$sortingfield=null,$withlinks=false,$withadd=fa
   include('mvc/views/pages-sections/simple_listings/hairs.php');
 }
 
-function showHandsListing($hands,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null,$nendoroid_url=null,$nendoroid_id=null){
+function showHandsListing($hands,$options=null){
+  $sortingfield   = $options['sortingfield'];
+  $withlinks      = $options['withlinks'];
+  $withadd        = $options['withadd'];
+  $box_url        = $options['box_url'];
+  $box_id         = $options['box_id'];
+  $nendoroid_url  = $options['nendoroid_url'];
+  $nendoroid_id   = $options['nendoroid_id'];
   include('mvc/views/pages-sections/simple_listings/hands.php');
 }
 
 function showNendoroidsListing($nendoroids,$options=null){
-  $sortingfield = $options['sortingfield'];
-  $withlinks    = $options['withlinks'];
-  $withadd      = $options['withadd'];
-  $box_url      = $options['box_url'];
-  $box_id       = $options['box_id'];
+  $sortingfield   = $options['sortingfield'];
+  $withlinks      = $options['withlinks'];
+  $withadd        = $options['withadd'];
+  $box_url        = $options['box_url'];
+  $box_id         = $options['box_id'];
   include('mvc/views/pages-sections/simple_listings/nendoroids.php');
 }
 
@@ -38,7 +45,7 @@ function showNendoroidsArticle($nendoroids){
 }
 
 function showUsersListing($users,$options=null){
-  $sortingfield = $options['sortingfield'];
-  $withlinks    = $options['withlinks'];
+  $sortingfield   = $options['sortingfield'];
+  $withlinks      = $options['withlinks'];
   include('mvc/views/pages-sections/simple_listings/users.php');
 }
