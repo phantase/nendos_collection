@@ -150,13 +150,13 @@
                   <h4 id="toggle_parts"><a>Parts (<span>show</span><span style="display:none;">hide</span>)</a></h4>
                   <div style="display:none;">
 <?php
-  showBoxesListing($boxes,null,true);
-  showNendoroidsListing($nendoroids,null,true);
-  showFacesListing($faces,null,true);
-  showHairsListing($hairs,null,true);
-  showHandsListing($hands,null,true);
-  showBodypartsListing($bodyparts,null,true);
-  showAccessoriesListing($accessories,null,true);
+  showBoxesListing($boxes,array('withlinks'=>true));
+  showNendoroidsListing($nendoroids,array('withlinks'=>true));
+  showFacesListing($faces,array('withlinks'=>true));
+  showHairsListing($hairs,array('withlinks'=>true));
+  showHandsListing($hands,array('withlinks'=>true));
+  showBodypartsListing($bodyparts,array('withlinks'=>true));
+  showAccessoriesListing($accessories,array('withlinks'=>true));
 ?>
                   </div>
                 </div>

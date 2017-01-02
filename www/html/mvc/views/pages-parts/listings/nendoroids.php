@@ -1,6 +1,6 @@
         <!-- Main -->
           <div id="main">
             <div class="inner">
-<?php showNendoroidsListing($nendoroids,$selected_order,true); ?>
+<?php showNendoroidsListing($nendoroids,array('sortingfield'=>$selected_order,'withlinks'=>true)); ?>
             </div>
           </div>

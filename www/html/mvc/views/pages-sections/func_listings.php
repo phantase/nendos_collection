@@ -24,7 +24,12 @@ function showHandsListing($hands,$sortingfield=null,$withlinks=false,$withadd=fa
   include('mvc/views/pages-sections/simple_listings/hands.php');
 }
 
-function showNendoroidsListing($nendoroids,$sortingfield=null,$withlinks=false,$withadd=false,$box_url=null,$box_id=null){
+function showNendoroidsListing($nendoroids,$options=null){
+  $sortingfield = $options['sortingfield'];
+  $withlinks    = $options['withlinks'];
+  $withadd      = $options['withadd'];
+  $box_url      = $options['box_url'];
+  $box_id       = $options['box_id'];
   include('mvc/views/pages-sections/simple_listings/nendoroids.php');
 }
 
@@ -34,6 +39,6 @@ function showNendoroidsArticle($nendoroids){
 
 function showUsersListing($users,$options=null){
   $sortingfield = $options['sortingfield'];
-  $withlinks = $options['withlinks'];
+  $withlinks    = $options['withlinks'];
   include('mvc/views/pages-sections/simple_listings/users.php');
 }

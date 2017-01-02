@@ -41,7 +41,10 @@
               <div class="row">
                 <div  class="12u">
                   <h4>Nendoroids</h4>
-<?php showNendoroidsListing($nendoroids,null,true,!$box['db_validatorid'],$box['box_url'],$box['box_internalid']); ?>
+<?php showNendoroidsListing($nendoroids,array('withlinks'=>true,
+                                              'withadd'=>!$box['db_validatorid'],
+                                              'box_url'=>$box['box_url'],
+                                              'box_id'=>$box['box_internalid'])); ?>
                 </div>
               </div>
 <?php } ?>
