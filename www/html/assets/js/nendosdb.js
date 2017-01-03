@@ -627,7 +627,6 @@ $(function(){
   $('#toggle_history,#toggle_metadata,#toggle_parts').click(function(){
     $('#'+this.id+'~div').toggle();
     $('#'+this.id+' span').toggle();
-    console.log(this.id);
   })
 
 // Show/Hide the Edit of rights for Single User
@@ -986,7 +985,7 @@ if( $('.image-and-annotations').length > 0 ){
   var displayed_height = $('.annotated-image').height();
   console.log('Displayed image size: ' + displayed_width + 'x' + displayed_height);
   var ratio = displayed_width / original_width;
-  console.log('Raio: ' + ratio);
+  console.log('Ratio: ' + ratio);
   $('.image-annotation').each(function(){
     $(this).css('left',($(this).attr('xmin')*ratio)+'px');
     $(this).css('top',($(this).attr('ymin')*ratio)+'px');
