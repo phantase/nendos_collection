@@ -206,7 +206,7 @@ function get_hairsPhoto($photo_internalid)
 
   $req = $bdd->prepare("SELECT ph.internalid AS ph_internalid, ph.photoid AS photo_internalid, ph.hairid AS hair_internalid,
                         ph.xmin AS ph_xmin, ph.ymin AS ph_ymin, ph.xmax AS ph_xmax, ph.ymax AS ph_ymax,
-                        h.haircut AS hair_haircut
+                        h.haircut AS hair_haircut, h.frontback AS hair_frontback
                         FROM photos_hairs AS ph
                         LEFT JOIN hairs AS h on ph.hairid = h.internalid
                         WHERE ph.photoid = :photo_internalid");
