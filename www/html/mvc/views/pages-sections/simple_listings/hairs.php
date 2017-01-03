@@ -4,7 +4,7 @@
 <?php
   foreach ($hairs as $hair) {
 ?>
-                      <div class="2u 3u(small)">
+                      <div class="<?= $cellsize ?>">
                       <?php if($withlinks){ ?>
                         <a href="hair/<?= $hair['hair_internalid'] ?>/">
                       <?php } ?>
@@ -41,7 +41,7 @@
 <?php
   if( $withadd && isEditor() ){
 ?>
-                      <div class="2u 3u(small)">
+                      <div class="<?= $cellsize ?>">
                         <a href="<?php if(isset($box_id)){ ?>box/<?= $box_id ?>/<?= $box_url ?>/<?php } ?><?php if(isset($nendoroid_id)){ ?>nendoroid/<?= $nendoroid_id ?>/<?= $nendoroid_url ?>/<?php } ?>addhair">
                           <span class="image fit withadd" id="withid" title="Add Hair">
                             <p><i class="icon fa-plus"></i></p>

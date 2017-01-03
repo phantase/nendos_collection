@@ -4,7 +4,7 @@
 <?php
   foreach ($accessories as $accessory) {
 ?>
-                      <div class="2u 3u(small)">
+                      <div class="<?= $cellsize ?>">
                       <?php if($withlinks){ ?>
                         <a href="accessory/<?= $accessory['accessory_internalid'] ?>/">
                       <?php } ?>
@@ -40,7 +40,7 @@
 <?php
   if( $withadd && isEditor() ){
 ?>
-                      <div class="2u 3u(small)">
+                      <div class="<?= $cellsize ?>">
                         <a href="<?php if(isset($box_id)){ ?>box/<?= $box_id ?>/<?= $box_url ?>/<?php } ?><?php if(isset($nendoroid_id)){ ?>nendoroid/<?= $nendoroid_id ?>/<?= $nendoroid_url ?>/<?php } ?>addaccessory">
                           <span class="image fit withadd" id="withid" title="Add Accessory">
                             <p><i class="icon fa-plus"></i></p>

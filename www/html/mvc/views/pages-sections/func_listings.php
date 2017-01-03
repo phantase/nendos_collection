@@ -5,6 +5,7 @@ function showBoxesListing($boxes,$options=null){
   $withlinks      = $options['withlinks'];
   $withadd        = $options['withadd'];
   $shareddiv      = $options['shareddiv'];
+  $cellsize       = ($options['cellsize'])?$options['cellsize']:"2u 3u(medium) 4u(small)";
   include('mvc/views/pages-sections/simple_listings/boxes.php');
 }
 
@@ -15,6 +16,7 @@ function showNendoroidsListing($nendoroids,$options=null){
   $box_url        = $options['box_url'];
   $box_id         = $options['box_id'];
   $shareddiv      = $options['shareddiv'];
+  $cellsize       = ($options['cellsize'])?$options['cellsize']:"3u 4u(medium) 6u(small)";
   include('mvc/views/pages-sections/simple_listings/nendoroids.php');
 }
 
@@ -27,6 +29,7 @@ function showAccessoriesListing($accessories,$options=null){
   $nendoroid_url  = $options['nendoroid_url'];
   $nendoroid_id   = $options['nendoroid_id'];
   $shareddiv      = $options['shareddiv'];
+  $cellsize       = ($options['cellsize'])?$options['cellsize']:"2u 3u(small)";
   include('mvc/views/pages-sections/simple_listings/accessories.php');
 }
 
@@ -39,6 +42,7 @@ function showBodyPartsListing($bodyparts,$options=null){
   $nendoroid_url  = $options['nendoroid_url'];
   $nendoroid_id   = $options['nendoroid_id'];
   $shareddiv      = $options['shareddiv'];
+  $cellsize       = ($options['cellsize'])?$options['cellsize']:"2u 3u(small)";
   include('mvc/views/pages-sections/simple_listings/bodyparts.php');
 }
 
@@ -51,6 +55,7 @@ function showFacesListing($faces,$options=null){
   $nendoroid_url  = $options['nendoroid_url'];
   $nendoroid_id   = $options['nendoroid_id'];
   $shareddiv      = $options['shareddiv'];
+  $cellsize       = ($options['cellsize'])?$options['cellsize']:"2u 3u(small)";
   include('mvc/views/pages-sections/simple_listings/faces.php');
 }
 
@@ -63,6 +68,7 @@ function showHairsListing($hairs,$options=null){
   $nendoroid_url  = $options['nendoroid_url'];
   $nendoroid_id   = $options['nendoroid_id'];
   $shareddiv      = $options['shareddiv'];
+  $cellsize       = ($options['cellsize'])?$options['cellsize']:"2u 3u(small)";
   include('mvc/views/pages-sections/simple_listings/hairs.php');
 }
 
@@ -75,6 +81,7 @@ function showHandsListing($hands,$options=null){
   $nendoroid_url  = $options['nendoroid_url'];
   $nendoroid_id   = $options['nendoroid_id'];
   $shareddiv      = $options['shareddiv'];
+  $cellsize       = ($options['cellsize'])?$options['cellsize']:"2u 3u(small)";
   include('mvc/views/pages-sections/simple_listings/hands.php');
 }
 

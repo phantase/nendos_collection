@@ -150,13 +150,14 @@
                   <h4 id="toggle_parts"><a>Parts (<span>show</span><span style="display:none;">hide</span>)</a></h4>
                   <div class="row" style="display:none;">
 <?php
-  showBoxesListing(       $boxes,       array('withlinks'=>true,'shareddiv'=>true));
-  showNendoroidsListing(  $nendoroids,  array('withlinks'=>true,'shareddiv'=>true));
-  showFacesListing(       $faces,       array('withlinks'=>true,'shareddiv'=>true));
-  showHairsListing(       $hairs,       array('withlinks'=>true,'shareddiv'=>true));
-  showHandsListing(       $hands,       array('withlinks'=>true,'shareddiv'=>true));
-  showBodypartsListing(   $bodyparts,   array('withlinks'=>true,'shareddiv'=>true));
-  showAccessoriesListing( $accessories, array('withlinks'=>true,'shareddiv'=>true));
+  $cellsize = "1u 2u(medium) 3u(small)";
+  showBoxesListing(       $boxes,       array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
+  showNendoroidsListing(  $nendoroids,  array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
+  showFacesListing(       $faces,       array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
+  showHairsListing(       $hairs,       array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
+  showHandsListing(       $hands,       array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
+  showBodypartsListing(   $bodyparts,   array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
+  showAccessoriesListing( $accessories, array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
 ?>
                   </div>
                 </div>

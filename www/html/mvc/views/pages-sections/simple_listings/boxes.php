@@ -4,7 +4,7 @@
 <?php
   foreach ($boxes as $box) {
 ?>
-                      <div class="2u 3u(medium) 4u(small)">
+                      <div class="<?= $cellsize ?>">
                       <?php if($withlinks){ ?>
                         <a href="box/<?= $box['box_internalid'] ?>/<?= $box['box_url'] ?>/">
                       <?php } ?>
