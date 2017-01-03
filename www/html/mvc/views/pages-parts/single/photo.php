@@ -147,8 +147,8 @@
               <hr/>
               <div class="row">
                 <div class="12u$">
-                  <h4 id="toggle_parts"><a>Parts (<span>show</span><span style="display:none;">hide</span>)</a></h4>
-                  <div class="row" style="display:none;">
+                  <h4 id="toggle_parts"><a>Parts (<span style="display:none;">show</span><span>hide</span>)</a></h4>
+                  <div class="row">
 <?php
   $cellsize = "1u 2u(medium) 3u(small)";
   showBoxesListing(       $boxes,       array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
@@ -159,6 +159,15 @@
   showBodypartsListing(   $bodyparts,   array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
   showAccessoriesListing( $accessories, array('withlinks'=>true,'shareddiv'=>true,'cellsize'=>$cellsize));
 ?>
+<?php if(isEditor()){ ?>
+                      <div class="<?= $cellsize ?>">
+                        <a>
+                          <span class="image fit withadd" id="withadd_part" title="Add a Part to this photo">
+                            <p><i class="icon fa-plus"></i></p>
+                          </span>
+                        </a>
+                      </div>
+<?php } ?>
                   </div>
                 </div>
               </div>
