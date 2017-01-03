@@ -78,6 +78,7 @@ RewriteRule ^addaccessory$                                            index.php?
 # PHOTO #
 RewriteRule ^addphoto$                                                index.php?action=addphoto [L]
 RewriteRule ^photoupload$                                             services.php?action=photoupload [QSA,L]
+RewriteRule ^photo/([0-9]+)/addpart$                                  index.php?action=addphotopart&photo_internalid=$1 [L]
 
 #####################################
 ## HOME & CREDITS & LOGIN & SIGNUP ##

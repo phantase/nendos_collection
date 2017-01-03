@@ -72,6 +72,10 @@
     case "addphoto":
       $include_page = 'photos/add';
       break;
+    // PHOTOPART
+    case "addphotopart":
+      $include_page = 'photos/addpart';
+      break;
     // OTHER
     case "credits":
     case "login":

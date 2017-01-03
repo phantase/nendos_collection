@@ -994,4 +994,13 @@ if( $('.image-and-annotations').length > 0 ){
   });
 }
 
+// If there is a SELECT with #part ID, then we are in the add part to photo
+if( $('select#part').length > 0 ){
+  $('#category').change(function(){
+    $('#part>optgroup').hide();
+    $('optgroup[label=\''+$('#category').val()+'\']').show();
+    $('optgroup[label=\''+$('#category').val()+'\']>option').first().prop('selected',true);
+  })
+}
+
 });

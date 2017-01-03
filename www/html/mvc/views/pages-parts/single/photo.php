@@ -161,7 +161,7 @@
 ?>
 <?php if(isEditor()){ ?>
                       <div class="<?= $cellsize ?>">
-                        <a>
+                        <a href="photo/<?= $photo['photo_internalid'] ?>/addpart">
                           <span class="image fit withadd" id="withadd_part" title="Add a Part to this photo">
                             <p><i class="icon fa-plus"></i></p>
                           </span>
