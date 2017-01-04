@@ -28,9 +28,10 @@ RewriteRule ^services/signup$                                         services.p
 ##############
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/([0-9]+)/(edit|picupload|validate|unvalidate|collect|uncollect)$    services.php?action=$3&element=$1&internalid=$2 [L]
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/add$                          services.php?action=add&element=$1 [L]
-RewriteRule ^services/user/([0-9]+)/edit$                             services.php?action=useredit&userid=$1 [L]
+RewriteRule ^services/user/([0-9]+)/edit$                                                             services.php?action=useredit&userid=$1 [L]
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/vocabularies$                 services.php?action=vocabularies&element=$1 [L]
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/vocabularies/$                services.php?action=vocabularies&element=$1 [L]
+RewriteRule ^services/search/box$                                                                     services.php?action=search_box [QSA,L]
 
 #############
 ## COLLECT ##

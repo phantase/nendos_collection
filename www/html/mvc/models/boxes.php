@@ -158,3 +158,30 @@ function getBoxesVocabulary($field,$order="alphabetical",$direction="ASC",$withn
 
   return $resultInfo;
 }
+/** Get all the boxes for selected term */
+function search_allBoxes($term)
+{
+  global $bdd;
+
+  $req = $bdd->prepare("SELECT b.internalid AS box_internalid,
+                        b.number AS box_number, b.name AS box_name, b.series AS box_series,
+                        b.manufacturer AS box_manufacturer, b.category AS box_category, b.price AS box_price,
+                        b.releasedate AS box_releasedate, b.specifications AS box_specifications,
+                        b.sculptor AS box_sculptor, b.cooperation AS box_cooperation,
+                        b.officialurl AS box_officialurl,
+                        NOW() AS now
+                        FROM boxes AS b
+                        WHERE b.name LIKE :term
+                        ORDER BY box_number ASC");
+  //$req->bindParam(":term",'%'.$term.'%');
+  $req->execute(array(':term'=>'%'.$term.'%'));
+  $req->execute();
+
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $resultInfo;
+}

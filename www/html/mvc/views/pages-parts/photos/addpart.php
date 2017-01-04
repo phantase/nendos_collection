@@ -13,7 +13,15 @@
                           </td>
                         </tr>
                         <tr>
-                          <th>Part</th>
+                          <th>Box</th>
+                          <td colspan="5">
+                            <div class="ui-widget">
+                              <input type="text" id="box_chooser" name="box_chooser" />
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th></th>
                           <td>
                             <div class="select-wrapper">
                               <select id="category" name="category">

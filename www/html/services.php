@@ -54,6 +54,8 @@
     case "vocabularies":
     // PHOTO UPLOAD
     case "photoupload":
+    // SEARCH
+    case "search_box":
       $include_page = 'services/'.$action;
       break;
   }

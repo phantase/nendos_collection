@@ -995,12 +995,32 @@ if( $('.image-and-annotations').length > 0 ){
 }
 
 // If there is a SELECT with #part ID, then we are in the add part to photo
-if( $('select#part').length > 0 ){
-  $('#category').change(function(){
+if( $('#box_chooser').length > 0 ){
+  /*$('#category').change(function(){
     $('#part>optgroup').hide();
     $('optgroup[label=\''+$('#category').val()+'\']').show();
     $('optgroup[label=\''+$('#category').val()+'\']>option').first().prop('selected',true);
-  })
+  });*/
+  $('#box_chooser').autocomplete({
+    source: "services/search/box",
+    minLength: 2,
+    select: function( event, ui){
+      $('#box_chooser').val(ui.item.box_name);
+      //console.log("Selected: " + ui.item.box_internalid + " aka " + ui.item.box_name );
+      return false;
+    }
+  }).autocomplete("instance")._renderItem = function( ul, item) {
+    var instance_content = "";
+    instance_content += "<img src='images/nendos/boxes/" + item.box_internalid + ".jpg' style='width:50px; height:50px; margin-right:10px;' />";
+    instance_content += "<b>" + item.box_category + "</b>";
+    if( item.box_number ) {
+      instance_content += " #" + item.box_number;
+    }
+    instance_content += " - " + item.box_name;
+    return $("<li>")
+      .append("<div>" + instance_content + "</div>")
+      .appendTo(ul);
+  };
 }
 
 });
