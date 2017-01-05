@@ -695,332 +695,332 @@ $(function(){
     });
   });
 // Box Collection page, add the event on click on element
-$('.collect_section .image').click(function(){
-  $(this).toggleClass('checked unchecked');
-});
+  $('.collect_section .image').click(function(){
+    $(this).toggleClass('checked unchecked');
+  });
 // Box Collection page, add the event on the collect buttons
-$('.collect_section a').click(function(){
-  var collectable = $('span.checked').length;
-  $('#collect_message').html("Collection in progress... [" +
-                              "<span id='collectedcount'>0</span>+"+
-                              "<span id='failledcount'>0</span>/"+
-                              "<span id='collectablecount'>"+collectable+"</span>]");
-  $('.collect_section a').addClass('disabled');
-  $('.collect_section .image').unbind("click");
+  $('.collect_section a').click(function(){
+    var collectable = $('span.checked').length;
+    $('#collect_message').html("Collection in progress... [" +
+                                "<span id='collectedcount'>0</span>+"+
+                                "<span id='failledcount'>0</span>/"+
+                                "<span id='collectablecount'>"+collectable+"</span>]");
+    $('.collect_section a').addClass('disabled');
+    $('.collect_section .image').unbind("click");
 
-  $('span.checked').each(function(){
-    var internalid = $(this).attr("internalid");
-    var element = $(this).attr("element");
-    $(this).addClass('pending');
-    $.getJSON("./services/"+element+"/"+internalid+"/collect",function(data){
-      var collectedcount = $('#collectedcount').text() * 1;
-      var failledcount = $('#failledcount').text() * 1;
-      var collectablecount = $('#collectablecount').text() * 1;
-      if( data.result == "success" ){
-        collectedcount ++;
-        $('#collectedcount').text( collectedcount );
-        $('[internalid='+data.internalid+'][element='+data.element+']').toggleClass('pending success');
-      } else {
-        failledcount ++;
-        $('#failledcount').text( failledcount );
-        $('[internalid='+data.internalid+'][element='+data.element+']').toggleClass('pending faillure');
-      }
-      if( collectedcount + failledcount == collectablecount ){
-        $('#collect_message').html("Collection finished ("+collectedcount+" successed and "+failledcount+" failled)");
-        var box_internalid = $('[element=box').attr('internalid');
-        window.location.assign("box/"+box_internalid+"/");
-      }
+    $('span.checked').each(function(){
+      var internalid = $(this).attr("internalid");
+      var element = $(this).attr("element");
+      $(this).addClass('pending');
+      $.getJSON("./services/"+element+"/"+internalid+"/collect",function(data){
+        var collectedcount = $('#collectedcount').text() * 1;
+        var failledcount = $('#failledcount').text() * 1;
+        var collectablecount = $('#collectablecount').text() * 1;
+        if( data.result == "success" ){
+          collectedcount ++;
+          $('#collectedcount').text( collectedcount );
+          $('[internalid='+data.internalid+'][element='+data.element+']').toggleClass('pending success');
+        } else {
+          failledcount ++;
+          $('#failledcount').text( failledcount );
+          $('[internalid='+data.internalid+'][element='+data.element+']').toggleClass('pending faillure');
+        }
+        if( collectedcount + failledcount == collectablecount ){
+          $('#collect_message').html("Collection finished ("+collectedcount+" successed and "+failledcount+" failled)");
+          var box_internalid = $('[element=box').attr('internalid');
+          window.location.assign("box/"+box_internalid+"/");
+        }
+      });
     });
   });
-});
 
 // If new Box form, just load Box vocabularies
-if( $('#new_box_submit').length > 0 ){
-  $.getJSON("./services/box/vocabularies",function(data){
-    if( data.result == "success" ){
-      var items = [];
-      // SERIES
-      items.series = [];
-      $.each( data.vocabularies.series, function(key, val){ items.series.push(val.field); });
-      $('#new_box_series').autocomplete({ source: items.series, minLength: 0 });
-      // MANUFACTURER
-      items.manufacturer = [];
-      $.each( data.vocabularies.manufacturer, function(key, val){ items.manufacturer.push(val.field); });
-      $('#new_box_manufacturer').autocomplete({ source: items.manufacturer, minLength: 0 });
-      // CATEGORY
-      items.category = [];
-      $.each( data.vocabularies.category, function(key, val){ items.category.push(val.field); });
-      $('#new_box_category').autocomplete({ source: items.category, minLength: 0 });
-      // SCULPTOR
-      items.sculptor = [];
-      $.each( data.vocabularies.sculptor, function(key, val){ items.sculptor.push(val.field); });
-      $('#new_box_sculptor').autocomplete({ source: items.sculptor, minLength: 0 });
-      // COOPERATION
-      items.cooperation = [];
-      $.each( data.vocabularies.cooperation, function(key, val){ items.cooperation.push(val.field); });
-      $('#new_box_cooperation').autocomplete({ source: items.cooperation, minLength: 0 });
-    } else {
-      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
-    }
-  });
-}
+  if( $('#new_box_submit').length > 0 ){
+    $.getJSON("./services/box/vocabularies",function(data){
+      if( data.result == "success" ){
+        var items = [];
+        // SERIES
+        items.series = [];
+        $.each( data.vocabularies.series, function(key, val){ items.series.push(val.field); });
+        $('#new_box_series').autocomplete({ source: items.series, minLength: 0 });
+        // MANUFACTURER
+        items.manufacturer = [];
+        $.each( data.vocabularies.manufacturer, function(key, val){ items.manufacturer.push(val.field); });
+        $('#new_box_manufacturer').autocomplete({ source: items.manufacturer, minLength: 0 });
+        // CATEGORY
+        items.category = [];
+        $.each( data.vocabularies.category, function(key, val){ items.category.push(val.field); });
+        $('#new_box_category').autocomplete({ source: items.category, minLength: 0 });
+        // SCULPTOR
+        items.sculptor = [];
+        $.each( data.vocabularies.sculptor, function(key, val){ items.sculptor.push(val.field); });
+        $('#new_box_sculptor').autocomplete({ source: items.sculptor, minLength: 0 });
+        // COOPERATION
+        items.cooperation = [];
+        $.each( data.vocabularies.cooperation, function(key, val){ items.cooperation.push(val.field); });
+        $('#new_box_cooperation').autocomplete({ source: items.cooperation, minLength: 0 });
+      } else {
+        alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+      }
+    });
+  }
 // If new Face form, just load Face vocabularies
-if( $('#new_face_submit').length > 0 ){
-  $.getJSON("./services/face/vocabularies",function(data){
-    if( data.result == "success" ){
-      var items = [];
-      // EYES_COLOR
-      items.eyes_color = [];
-      $.each( data.vocabularies.eyes_color, function(key, val){ items.eyes_color.push(val.field); });
-      $('#new_face_eyes_color').autocomplete({ source: items.eyes_color, minLength: 0 });
-      // SKIN_COLOR
-      items.skin_color = [];
-      $.each( data.vocabularies.skin_color, function(key, val){ items.skin_color.push(val.field); });
-      $('#new_face_skin_color').autocomplete({ source: items.skin_color, minLength: 0 });
-    } else {
-      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
-    }
-  });
-}
+  if( $('#new_face_submit').length > 0 ){
+    $.getJSON("./services/face/vocabularies",function(data){
+      if( data.result == "success" ){
+        var items = [];
+        // EYES_COLOR
+        items.eyes_color = [];
+        $.each( data.vocabularies.eyes_color, function(key, val){ items.eyes_color.push(val.field); });
+        $('#new_face_eyes_color').autocomplete({ source: items.eyes_color, minLength: 0 });
+        // SKIN_COLOR
+        items.skin_color = [];
+        $.each( data.vocabularies.skin_color, function(key, val){ items.skin_color.push(val.field); });
+        $('#new_face_skin_color').autocomplete({ source: items.skin_color, minLength: 0 });
+      } else {
+        alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+      }
+    });
+  }
 // If new Hair form, just load Hair vocabularies
-if( $('#new_hair_submit').length > 0 ){
-  $.getJSON("./services/hair/vocabularies",function(data){
-    if( data.result == "success" ){
-      var items = [];
-      // MAIN_COLOR
-      items.main_color = [];
-      $.each( data.vocabularies.main_color, function(key, val){ items.main_color.push(val.field); });
-      $('#new_hair_main_color').autocomplete({ source: items.main_color, minLength: 0 });
-      // OTHER_COLOR
-      items.other_color = [];
-      $.each( data.vocabularies.other_color, function(key, val){ items.other_color.push(val.field); });
-      $('#new_hair_other_color').autocomplete({ source: items.other_color, minLength: 0 });
-      // HAIRCUT
-      items.haircut = [];
-      $.each( data.vocabularies.haircut, function(key, val){ items.haircut.push(val.field); });
-      $('#new_hair_haircut').autocomplete({ source: items.haircut, minLength: 0 });
-    } else {
-      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
-    }
-  });
-}
+  if( $('#new_hair_submit').length > 0 ){
+    $.getJSON("./services/hair/vocabularies",function(data){
+      if( data.result == "success" ){
+        var items = [];
+        // MAIN_COLOR
+        items.main_color = [];
+        $.each( data.vocabularies.main_color, function(key, val){ items.main_color.push(val.field); });
+        $('#new_hair_main_color').autocomplete({ source: items.main_color, minLength: 0 });
+        // OTHER_COLOR
+        items.other_color = [];
+        $.each( data.vocabularies.other_color, function(key, val){ items.other_color.push(val.field); });
+        $('#new_hair_other_color').autocomplete({ source: items.other_color, minLength: 0 });
+        // HAIRCUT
+        items.haircut = [];
+        $.each( data.vocabularies.haircut, function(key, val){ items.haircut.push(val.field); });
+        $('#new_hair_haircut').autocomplete({ source: items.haircut, minLength: 0 });
+      } else {
+        alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+      }
+    });
+  }
 // If new Hand form, just load Hand vocabularies
-if( $('#new_hand_submit').length > 0 ){
-  $.getJSON("./services/hand/vocabularies",function(data){
-    if( data.result == "success" ){
-      var items = [];
-      // SKIN_COLOR
-      items.skin_color = [];
-      $.each( data.vocabularies.skin_color, function(key, val){ items.skin_color.push(val.field); });
-      $('#new_hand_skin_color').autocomplete({ source: items.skin_color, minLength: 0 });
-      // POSTURE
-      items.posture = [];
-      $.each( data.vocabularies.posture, function(key, val){ items.posture.push(val.field); });
-      $('#new_hand_posture').autocomplete({ source: items.posture, minLength: 0 });
-    } else {
-      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
-    }
-  });
-}
+  if( $('#new_hand_submit').length > 0 ){
+    $.getJSON("./services/hand/vocabularies",function(data){
+      if( data.result == "success" ){
+        var items = [];
+        // SKIN_COLOR
+        items.skin_color = [];
+        $.each( data.vocabularies.skin_color, function(key, val){ items.skin_color.push(val.field); });
+        $('#new_hand_skin_color').autocomplete({ source: items.skin_color, minLength: 0 });
+        // POSTURE
+        items.posture = [];
+        $.each( data.vocabularies.posture, function(key, val){ items.posture.push(val.field); });
+        $('#new_hand_posture').autocomplete({ source: items.posture, minLength: 0 });
+      } else {
+        alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+      }
+    });
+  }
 // If new Bodypart form, just load Bodypart vocabularies
-if( $('#new_bodypart_submit').length > 0 ){
-  $.getJSON("./services/bodypart/vocabularies",function(data){
-    if( data.result == "success" ){
-      var items = [];
-      // MAIN_COLOR
-      items.main_color = [];
-      $.each( data.vocabularies.main_color, function(key, val){ items.main_color.push(val.field); });
-      $('#new_bodypart_main_color').autocomplete({ source: items.main_color, minLength: 0 });
-      // OTHER_COLOR
-      items.other_color = [];
-      $.each( data.vocabularies.other_color, function(key, val){ items.other_color.push(val.field); });
-      $('#new_bodypart_other_color').autocomplete({ source: items.other_color, minLength: 0 });
-      // PART
-      items.part = [];
-      $.each( data.vocabularies.part, function(key, val){ items.part.push(val.field); });
-      $('#new_bodypart_part').autocomplete({ source: items.part, minLength: 0 });
-    } else {
-      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
-    }
-  });
-}
+  if( $('#new_bodypart_submit').length > 0 ){
+    $.getJSON("./services/bodypart/vocabularies",function(data){
+      if( data.result == "success" ){
+        var items = [];
+        // MAIN_COLOR
+        items.main_color = [];
+        $.each( data.vocabularies.main_color, function(key, val){ items.main_color.push(val.field); });
+        $('#new_bodypart_main_color').autocomplete({ source: items.main_color, minLength: 0 });
+        // OTHER_COLOR
+        items.other_color = [];
+        $.each( data.vocabularies.other_color, function(key, val){ items.other_color.push(val.field); });
+        $('#new_bodypart_other_color').autocomplete({ source: items.other_color, minLength: 0 });
+        // PART
+        items.part = [];
+        $.each( data.vocabularies.part, function(key, val){ items.part.push(val.field); });
+        $('#new_bodypart_part').autocomplete({ source: items.part, minLength: 0 });
+      } else {
+        alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+      }
+    });
+  }
 // If new Accessory form, just load Hair vocabularies
-if( $('#new_accessory_submit').length > 0 ){
-  $.getJSON("./services/accessory/vocabularies",function(data){
-    if( data.result == "success" ){
-      var items = [];
-      // MAIN_COLOR
-      items.main_color = [];
-      $.each( data.vocabularies.main_color, function(key, val){ items.main_color.push(val.field); });
-      $('#new_accessory_main_color').autocomplete({ source: items.main_color, minLength: 0 });
-      // OTHER_COLOR
-      items.other_color = [];
-      $.each( data.vocabularies.other_color, function(key, val){ items.other_color.push(val.field); });
-      $('#new_accessory_other_color').autocomplete({ source: items.other_color, minLength: 0 });
-      // TYPE
-      items.type = [];
-      $.each( data.vocabularies.type, function(key, val){ items.type.push(val.field); });
-      $('#new_accessory_type').autocomplete({ source: items.type, minLength: 0 });
-    } else {
-      alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
-    }
-  });
-}
+  if( $('#new_accessory_submit').length > 0 ){
+    $.getJSON("./services/accessory/vocabularies",function(data){
+      if( data.result == "success" ){
+        var items = [];
+        // MAIN_COLOR
+        items.main_color = [];
+        $.each( data.vocabularies.main_color, function(key, val){ items.main_color.push(val.field); });
+        $('#new_accessory_main_color').autocomplete({ source: items.main_color, minLength: 0 });
+        // OTHER_COLOR
+        items.other_color = [];
+        $.each( data.vocabularies.other_color, function(key, val){ items.other_color.push(val.field); });
+        $('#new_accessory_other_color').autocomplete({ source: items.other_color, minLength: 0 });
+        // TYPE
+        items.type = [];
+        $.each( data.vocabularies.type, function(key, val){ items.type.push(val.field); });
+        $('#new_accessory_type').autocomplete({ source: items.type, minLength: 0 });
+      } else {
+        alert("An error occurred, please reload the page if you want have autocompletion in the fields...");
+      }
+    });
+  }
 
 // If new Photo form, activate FileDrop, and 'accept guidelines' checkbox
-if( $('#new_photo_submit').length > 0 ){
-  $('#accept-guidelines').change(function(){
-    if( this.checked ){
-      $('.accept-requested').show();
-    } else {
-      $('.accept-requested').hide();
-    }
-  });
-
-  var zone = new FileDrop('upload_zone');
-  zone.multiple(true);
-
-  var filesQueue = [];
-
-  zone.event('send', function (files) {
-    files.images().each(function (file) {
-      filesQueue.push(file);
-
-      var filePosition = filesQueue.length - 1;
-      file.filePosition = filePosition;
-
-      if( filePosition > 4 ){ // we have already 5 pictures in queue
-        $('#image2add_'+(filePosition-5)+'_cbox').prop('checked',false);
-      }
-
-      var currentFileID = "image2add_"+(filePosition);
-      var fsize = file.size;
-      var tsize = '';
-      if( fsize > 1024*1024) {
-        tsize = Math.round( 10 * ( fsize / (1024*1024) ) ) / 10 + 'MB';
-      } else if( fsize > 1024) {
-        tsize = Math.round( ( fsize / 1024 ) ) + 'kB';
-      }
-      var html2append = '<div class="3u 4u(medium) 12u(small)">'
-                      + ' <div class="picture-tile" id="'+currentFileID+'">'
-                      + '  <div class="top-of-tile">'
-                      + '   <span>'
-                      + '    <input type="checkbox" name="'+currentFileID+'_cbox" id="'+currentFileID+'_cbox" checked />'
-                      + '    <label for="'+currentFileID+'_cbox" title="Select this photo"></label>'
-                      + '   </span>'
-                      + '   <span id="'+currentFileID+'_wxh"></span>'
-                      + '   <span id="'+currentFileID+'_size">(' + tsize + ')</span>'
-                      + '  </div>'
-                      + '  <div id="'+currentFileID+'_img"></div>'
-                      + '  <div class="bottom-of-tile">'
-                      + '   <span>'
-                      + '    <input type="text" id="'+currentFileID+'_title" name="'+currentFileID+'_title" value="'+file.name+'" title="Enter here the title of the photo"/>'
-                      + '   </span>'
-                      + '  </div>'
-                      + ' </div>'
-                      + '</div>';
-      $('#picture-thumbnails').append(html2append);
-
-      file.readData(
-        function (uri) {
-          var img = new Image
-          img.onload = function(evt){
-            $('#'+currentFileID+'_wxh').append(this.width+'x'+this.height);
-            var divwidth = $('#'+currentFileID).css('width').replace(/[^-\d\.]/g, '');
-            var divheight = $('#'+currentFileID+' div').css('height').replace(/[^-\d\.]/g, '');
-            if(this.width>this.height){
-              $(this).css('width','100%');
-              var margin = ( divwidth - ( this.height * divwidth / this.width ) ) / 2;
-              $(this).css('margin-top',margin+'px');
-            } else {
-              $(this).css('height',divwidth+'px');
-              var margin = ( divwidth - ( this.width * divwidth / this.height ) ) / 2;
-              $(this).css('margin-left',margin+'px');
-            }
-            $('#'+currentFileID+'_img').css('height',divwidth+'px');
-          }
-          img.src = uri
-          $('#'+currentFileID+'_img').append(img);
-        },
-        function (error) {
-          console.log('Ph, noes! Cannot read your image.')
-        },
-        'uri'
-      )
-    })
-  })
-
-  $('#new_photo_submit').click(function(){
-    if( ! $('#new_photo_submit').prop('disabled') ){
-      $('#new_photo_submit').prop('disabled',true);
-      if($('input:checked').length>5){
-        alert("Error, you have too much photos selected...");
+  if( $('#new_photo_submit').length > 0 ){
+    $('#accept-guidelines').change(function(){
+      if( this.checked ){
+        $('.accept-requested').show();
       } else {
-        filesQueue.forEach(function(element, index){
-          if($('input[name=image2add_'+index+'_cbox]').is(':checked')){
-            var title = $('#image2add_'+index+'_title').val();
-            element.event('done',function(xhr){
-              var response = JSON.parse(xhr.responseText);
-              if( response.result === "success" ){
-                $('#image2add_'+this.filePosition).css('background-color','#DDFFDD');
-              } else {
-                $('#image2add_'+this.filePosition).css('background-color','#FFDDDD');
-              }
-            })
-            element.sendTo(encodeURI('photoupload?title='+title));
-          }
-        });
+        $('.accept-requested').hide();
       }
-    }
-  });
-}
+    });
+
+    var zone = new FileDrop('upload_zone');
+    zone.multiple(true);
+
+    var filesQueue = [];
+
+    zone.event('send', function (files) {
+      files.images().each(function (file) {
+        filesQueue.push(file);
+
+        var filePosition = filesQueue.length - 1;
+        file.filePosition = filePosition;
+
+        if( filePosition > 4 ){ // we have already 5 pictures in queue
+          $('#image2add_'+(filePosition-5)+'_cbox').prop('checked',false);
+        }
+
+        var currentFileID = "image2add_"+(filePosition);
+        var fsize = file.size;
+        var tsize = '';
+        if( fsize > 1024*1024) {
+          tsize = Math.round( 10 * ( fsize / (1024*1024) ) ) / 10 + 'MB';
+        } else if( fsize > 1024) {
+          tsize = Math.round( ( fsize / 1024 ) ) + 'kB';
+        }
+        var html2append = '<div class="3u 4u(medium) 12u(small)">'
+                        + ' <div class="picture-tile" id="'+currentFileID+'">'
+                        + '  <div class="top-of-tile">'
+                        + '   <span>'
+                        + '    <input type="checkbox" name="'+currentFileID+'_cbox" id="'+currentFileID+'_cbox" checked />'
+                        + '    <label for="'+currentFileID+'_cbox" title="Select this photo"></label>'
+                        + '   </span>'
+                        + '   <span id="'+currentFileID+'_wxh"></span>'
+                        + '   <span id="'+currentFileID+'_size">(' + tsize + ')</span>'
+                        + '  </div>'
+                        + '  <div id="'+currentFileID+'_img"></div>'
+                        + '  <div class="bottom-of-tile">'
+                        + '   <span>'
+                        + '    <input type="text" id="'+currentFileID+'_title" name="'+currentFileID+'_title" value="'+file.name+'" title="Enter here the title of the photo"/>'
+                        + '   </span>'
+                        + '  </div>'
+                        + ' </div>'
+                        + '</div>';
+        $('#picture-thumbnails').append(html2append);
+
+        file.readData(
+          function (uri) {
+            var img = new Image
+            img.onload = function(evt){
+              $('#'+currentFileID+'_wxh').append(this.width+'x'+this.height);
+              var divwidth = $('#'+currentFileID).css('width').replace(/[^-\d\.]/g, '');
+              var divheight = $('#'+currentFileID+' div').css('height').replace(/[^-\d\.]/g, '');
+              if(this.width>this.height){
+                $(this).css('width','100%');
+                var margin = ( divwidth - ( this.height * divwidth / this.width ) ) / 2;
+                $(this).css('margin-top',margin+'px');
+              } else {
+                $(this).css('height',divwidth+'px');
+                var margin = ( divwidth - ( this.width * divwidth / this.height ) ) / 2;
+                $(this).css('margin-left',margin+'px');
+              }
+              $('#'+currentFileID+'_img').css('height',divwidth+'px');
+            }
+            img.src = uri
+            $('#'+currentFileID+'_img').append(img);
+          },
+          function (error) {
+            console.log('Ph, noes! Cannot read your image.')
+          },
+          'uri'
+        )
+      })
+    })
+
+    $('#new_photo_submit').click(function(){
+      if( ! $('#new_photo_submit').prop('disabled') ){
+        $('#new_photo_submit').prop('disabled',true);
+        if($('input:checked').length>5){
+          alert("Error, you have too much photos selected...");
+        } else {
+          filesQueue.forEach(function(element, index){
+            if($('input[name=image2add_'+index+'_cbox]').is(':checked')){
+              var title = $('#image2add_'+index+'_title').val();
+              element.event('done',function(xhr){
+                var response = JSON.parse(xhr.responseText);
+                if( response.result === "success" ){
+                  $('#image2add_'+this.filePosition).css('background-color','#DDFFDD');
+                } else {
+                  $('#image2add_'+this.filePosition).css('background-color','#FFDDDD');
+                }
+              })
+              element.sendTo(encodeURI('photoupload?title='+title));
+            }
+          });
+        }
+      }
+    });
+  }
 
 // If image-and-annotations, then do the job of the photo page
-if( $('.image-and-annotations').length > 0 ){
-  var original_width = $('.annotated-image').attr('original_width');
-  var original_height = $('.annotated-image').attr('original_height');
-  console.log('Original image size: ' + original_width + 'x' + original_height);
-  $('.annotated-image').width($('.image-and-annotations').width());
-  var displayed_width = $('.annotated-image').width();
-  var displayed_height = $('.annotated-image').height();
-  console.log('Displayed image size: ' + displayed_width + 'x' + displayed_height);
-  var ratio = displayed_width / original_width;
-  console.log('Ratio: ' + ratio);
-  $('.image-annotation').each(function(){
-    $(this).css('left',($(this).attr('xmin')*ratio)+'px');
-    $(this).css('top',($(this).attr('ymin')*ratio)+'px');
-    $(this).css('width',(($(this).attr('xmax')-$(this).attr('xmin'))*ratio)+'px');
-    $(this).css('height',(($(this).attr('ymax')-$(this).attr('ymin'))*ratio)+'px');
-  });
-}
+  if( $('.image-and-annotations').length > 0 ){
+    var original_width = $('.annotated-image').attr('original_width');
+    var original_height = $('.annotated-image').attr('original_height');
+    console.log('Original image size: ' + original_width + 'x' + original_height);
+    $('.annotated-image').width($('.image-and-annotations').width());
+    var displayed_width = $('.annotated-image').width();
+    var displayed_height = $('.annotated-image').height();
+    console.log('Displayed image size: ' + displayed_width + 'x' + displayed_height);
+    var ratio = displayed_width / original_width;
+    console.log('Ratio: ' + ratio);
+    $('.image-annotation').each(function(){
+      $(this).css('left',($(this).attr('xmin')*ratio)+'px');
+      $(this).css('top',($(this).attr('ymin')*ratio)+'px');
+      $(this).css('width',(($(this).attr('xmax')-$(this).attr('xmin'))*ratio)+'px');
+      $(this).css('height',(($(this).attr('ymax')-$(this).attr('ymin'))*ratio)+'px');
+    });
+  }
 
 // If there is a SELECT with #part ID, then we are in the add part to photo
-if( $('#box_chooser').length > 0 ){
-  /*$('#category').change(function(){
-    $('#part>optgroup').hide();
-    $('optgroup[label=\''+$('#category').val()+'\']').show();
-    $('optgroup[label=\''+$('#category').val()+'\']>option').first().prop('selected',true);
-  });*/
-  $('#box_chooser').autocomplete({
-    source: "services/search/box",
-    minLength: 2,
-    select: function( event, ui){
-      $('#box_chooser').val(ui.item.box_name);
-      //console.log("Selected: " + ui.item.box_internalid + " aka " + ui.item.box_name );
-      return false;
-    }
-  }).autocomplete("instance")._renderItem = function( ul, item) {
-    var instance_content = "";
-    instance_content += "<img src='images/nendos/boxes/" + item.box_internalid + ".jpg' style='width:50px; height:50px; margin-right:10px;' />";
-    instance_content += "<b>" + item.box_category + "</b>";
-    if( item.box_number ) {
-      instance_content += " #" + item.box_number;
-    }
-    instance_content += " - " + item.box_name;
-    return $("<li>")
-      .append("<div>" + instance_content + "</div>")
-      .appendTo(ul);
-  };
-}
+  if( $('#box_chooser').length > 0 ){
+    /*$('#category').change(function(){
+      $('#part>optgroup').hide();
+      $('optgroup[label=\''+$('#category').val()+'\']').show();
+      $('optgroup[label=\''+$('#category').val()+'\']>option').first().prop('selected',true);
+    });*/
+    $('#box_chooser').autocomplete({
+      source: "services/search/box",
+      minLength: 2,
+      select: function( event, ui){
+        $('#box_chooser').val(ui.item.box_name);
+        //console.log("Selected: " + ui.item.box_internalid + " aka " + ui.item.box_name );
+        return false;
+      }
+    }).autocomplete("instance")._renderItem = function( ul, item) {
+      var instance_content = "";
+      instance_content += "<img src='images/nendos/boxes/" + item.box_internalid + ".jpg' style='width:50px; height:50px; margin-right:10px;' />";
+      instance_content += "<b>" + item.box_category + "</b>";
+      if( item.box_number ) {
+        instance_content += " #" + item.box_number;
+      }
+      instance_content += " - " + item.box_name;
+      return $("<li>")
+        .append("<div>" + instance_content + "</div>")
+        .appendTo(ul);
+    };
+  }
 
 });
