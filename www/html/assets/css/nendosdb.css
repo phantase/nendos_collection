@@ -538,3 +538,19 @@ td.photo_cell {
 .image-annotation-box {
     background-image: url('../../images/icon_nendo_boxes.png');
 }
+
+#box_cancel {
+  text-align: right;
+}
+#parttype_chooser > img {
+  border: solid 1px black;
+  background-color: lightgrey;
+}
+#parttype_chooser > img:hover {
+  background-color: #FAB483;
+}
+#parttype_chooser > img.choosen {
+  background-color: #F57921;
+}
+#parttype_chooser.enabled > img {
+}

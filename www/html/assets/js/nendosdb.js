@@ -1005,7 +1005,18 @@ $(function(){
       source: "services/search/box",
       minLength: 2,
       select: function( event, ui){
-        $('#box_chooser').val(ui.item.box_name);
+        $('#box_chooser').val(ui.item.box_name).hide();
+        var instance_content = "";
+        instance_content += "<img src='images/nendos/boxes/" + ui.item.box_internalid + ".jpg' style='width:50px; height:50px; margin-right:10px;' />";
+        instance_content += "<b>" + ui.item.box_category + "</b>";
+        if( ui.item.box_number ) {
+          instance_content += " #" + ui.item.box_number;
+        }
+        instance_content += " - " + ui.item.box_name;
+        $('#box_choosen').html(instance_content).show();
+        $('#box_cancel').show();
+        $('#parttype_chooser > img').removeClass('choosen');
+        $('#parttype_chooser_tr').show();
         //console.log("Selected: " + ui.item.box_internalid + " aka " + ui.item.box_name );
         return false;
       }
@@ -1021,6 +1032,16 @@ $(function(){
         .append("<div>" + instance_content + "</div>")
         .appendTo(ul);
     };
+    $('#box_cancel').click(function(){
+      $('#box_chooser').val("").show();
+      $('#box_choosen').html("").hide();
+      $('#box_cancel').hide();
+      $('#parttype_chooser_tr').hide();
+    });
+    $('#parttype_chooser > img').click(function(){
+      $('#parttype_chooser > img').removeClass('choosen');
+      $(this).addClass('choosen');
+    });
   }
 
 });
