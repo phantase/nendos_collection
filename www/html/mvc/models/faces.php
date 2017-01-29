@@ -131,7 +131,7 @@ function get_nendoroidFaces($nendoroid_internalid,$userid)
   return $resultInfo;
 }
 /** Get all the faces available for a specific Box */
-function get_boxFaces($box_internalid,$userid)
+function get_boxFaces($box_internalid,$userid=null)
 {
   global $bdd;
 

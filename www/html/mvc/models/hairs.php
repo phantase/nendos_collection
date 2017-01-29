@@ -129,7 +129,7 @@ function get_nendoroidHairs($nendoroid_internalid,$userid)
   return $resultInfo;
 }
 /** Get all the Hairs available for a specific Box */
-function get_boxHairs($box_internalid,$userid)
+function get_boxHairs($box_internalid,$userid=null)
 {
   global $bdd;
 

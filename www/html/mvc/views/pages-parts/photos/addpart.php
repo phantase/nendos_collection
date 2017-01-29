@@ -19,6 +19,7 @@
                               <input type="text" id="box_chooser" name="box_chooser" />
                               <div id="box_choosen" style="display:none;"></div>
                               <div id="box_cancel" style="display:none;"><a>Reset box selection</a></div>
+                              <input type="hidden" id="box_choosen_id" />
                             </div>
                           </td>
                         </tr>
@@ -26,20 +27,20 @@
                           <th>Part type</th>
                           <td colspan="5">
                             <div class="ui-widget" id="parttype_chooser">
-                              <img src="images/icon_nendo_boxes.png" alt="Box" title="Box" />
-                              <img src="images/icon_nendo_nendo.png" alt="Nendoroid" title="Nendoroid" />
-                              <img src="images/icon_nendo_face.png" alt="Face" title="Face" />
-                              <img src="images/icon_nendo_hair.png" alt="Hair" title="Hair" />
-                              <img src="images/icon_nendo_hand.png" alt="Hand" title="Hand" />
-                              <img src="images/icon_nendo_body.png" alt="Bodypart" title="Bodypart" />
-                              <img src="images/icon_nendo_accessories.png" alt="Accessory" title="Accessory" />
+                              <img src="images/icon_nendo_boxes.png" alt="boxes" title="Box" />
+                              <img src="images/icon_nendo_nendo.png" alt="nendoroids" title="Nendoroid" />
+                              <img src="images/icon_nendo_face.png" alt="faces" title="Face" />
+                              <img src="images/icon_nendo_hair.png" alt="hairs" title="Hair" />
+                              <img src="images/icon_nendo_hand.png" alt="hands" title="Hand" />
+                              <img src="images/icon_nendo_body.png" alt="bodyparts" title="Bodypart" />
+                              <img src="images/icon_nendo_accessories.png" alt="accessories" title="Accessory" />
                             </div>
                           </td>
                         </tr>
                         <tr id="part_chooser_tr" style="display:none;">
                           <th>Part</th>
                           <td colspan="5">
-                            <div class="ui-widget" id="part_chooser">
+                            <div class="row" id="part_chooser">
                             </div>
                           </td>
                         </tr>

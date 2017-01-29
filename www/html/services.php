@@ -48,6 +48,7 @@
     case "unvalidate":
     case "collect":
     case "uncollect":
+    case "get":
     // USER EDIT
     case "useredit":
     // VOCABULARY
