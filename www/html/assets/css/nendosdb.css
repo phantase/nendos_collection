@@ -540,19 +540,18 @@ td.photo_cell {
 }
 
 #box_cancel {
-  text-align: right;
+  float: right;
 }
-#parttype_chooser > img {
+#parttype_chooser > div > img {
   border: solid 1px black;
   background-color: lightgrey;
+  width: 100%;
 }
-#parttype_chooser > img:hover {
+#parttype_chooser > div > img:hover {
   background-color: #FAB483;
 }
-#parttype_chooser > img.choosen {
+#parttype_chooser > div > img.choosen {
   background-color: #F57921;
-}
-#parttype_chooser.enabled > img {
 }
 
 .single_part:hover > span {
@@ -561,4 +560,8 @@ td.photo_cell {
 
 .single_part_choosen > span {
   border: solid 5px #F57921;
+}
+
+#image_container {
+  margin-top:10px;
 }

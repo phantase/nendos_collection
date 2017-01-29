@@ -1017,7 +1017,7 @@ $(function(){
         $('#box_choosen_id').val(ui.item.box_internalid);
         $('#box_cancel').show();
         $('#parttype_chooser > img').removeClass('choosen');
-        $('#parttype_chooser_tr').show();
+        $('#parttype_chooser_row').show();
         //console.log("Selected: " + ui.item.box_internalid + " aka " + ui.item.box_name );
         return false;
       }
@@ -1037,17 +1037,21 @@ $(function(){
       $('#box_chooser').val("").show();
       $('#box_choosen').html("").hide();
       $('#box_cancel').hide();
-      $('#parttype_chooser_tr').hide();
+      $('#parttype_chooser_row').hide();
       $('#part_chooser').html("");
-      $('#part_chooser_tr').hide();
+      $('#part_chooser_row').hide();
+      $('#step_4_container').hide();
+      $('#button_container').hide();
     });
-    $('#parttype_chooser > img').click(function(){
-      $('#parttype_chooser > img').removeClass('choosen');
+    $('#parttype_chooser > div > img').click(function(){
+      $('#parttype_chooser > div > img').removeClass('choosen');
       $(this).addClass('choosen');
       $('#part_chooser').html("");
-      $('#part_chooser_tr').hide();
+      $('#part_chooser_row').hide();
+      $('#step_4_container').hide();
+      $('#button_container').hide();
       var choosen_box_internalid = $('#box_choosen_id').val();
-      var choosen_parttype = $('#parttype_chooser > img.choosen').attr('alt');
+      var choosen_parttype = $('#parttype_chooser > div > img.choosen').attr('alt');
       $.ajax({url:"services/box/"+choosen_box_internalid+"/get/"+choosen_parttype}).done(function(data){
         var part_chooser_content = "";
         $.each(data,function(index,value){
@@ -1099,10 +1103,12 @@ $(function(){
           }
         });
         $('#part_chooser').html(part_chooser_content);
-        $('#part_chooser_tr').show();
+        $('#part_chooser_row').show();
         $('.single_part').click(function(){
           $('.single_part').removeClass('single_part_choosen');
           $(this).addClass('single_part_choosen');
+          $('#step_4_container').show();
+          $('#button_container').show();
         });
       });
     });
