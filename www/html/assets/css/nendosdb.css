@@ -554,3 +554,11 @@ td.photo_cell {
 }
 #parttype_chooser.enabled > img {
 }
+
+.single_part:hover > span {
+  border: solid 5px #FAB483;
+}
+
+.single_part_choosen > span {
+  border: solid 5px #F57921;
+}

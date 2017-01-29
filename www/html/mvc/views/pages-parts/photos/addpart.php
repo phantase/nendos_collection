@@ -16,7 +16,7 @@
                           <th>From box</th>
                           <td colspan="5">
                             <div class="ui-widget">
-                              <input type="text" id="box_chooser" name="box_chooser" />
+                              <input type="text" id="box_chooser" name="box_chooser" placeholder="Enter the name of the box/nendoroid..." />
                               <div id="box_choosen" style="display:none;"></div>
                               <div id="box_cancel" style="display:none;"><a>Reset box selection</a></div>
                               <input type="hidden" id="box_choosen_id" />
@@ -44,7 +44,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr>
+                        <tr style="display:none;">
                           <th></th>
                           <td>
                             <div class="select-wrapper">
