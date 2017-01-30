@@ -59,7 +59,8 @@
               <div class="row" id="image_container">
                 <div class="12u$" id="step_4_container" style="display:none;">
                   <b id="step_4">(4) Draw a rectangle to select the part on the image (optional)</b><br/>
-                  <i>First click on image start the rectangle, second click stop the rectangle, going outside the image cancel the rectangle...</i>
+                  <i>First click on image start the rectangle, second click stop the rectangle, going outside the image cancel the rectangle...</i><br/>
+                  <i>Once the rectangle is drawn, click on it if you want to remove it...</i>
                 </div>
                 <div class="12u$">
                   <div class="image-and-annotations">
@@ -68,6 +69,10 @@
                          alt="<?= $photo['photo_title'] ?>"
                          class="annotated-image"
                          style="width:10%;" />
+                    <div class="image-annotation-drawer" id="drawn_annotation">
+                      <a class="image-annotation-link">
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

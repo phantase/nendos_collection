@@ -484,13 +484,13 @@ td.photo_cell {
 .image-and-annotations {
   position: relative;
 }
-.image-and-annotations > div {
+.image-and-annotations > div.image-annotation {
   visibility: hidden;
 }
-.image-and-annotations:hover > div {
+.image-and-annotations:hover > div.image-annotation {
   visibility: visible;
 }
-.image-annotation {
+.image-annotation, .image-annotation-drawer {
   border: dashed 1px black;
   position: absolute;
 }

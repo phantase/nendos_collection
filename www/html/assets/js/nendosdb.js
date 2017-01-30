@@ -996,11 +996,7 @@ $(function(){
 
 // If there is a SELECT with #part ID, then we are in the add part to photo
   if( $('#box_chooser').length > 0 ){
-    /*$('#category').change(function(){
-      $('#part>optgroup').hide();
-      $('optgroup[label=\''+$('#category').val()+'\']').show();
-      $('optgroup[label=\''+$('#category').val()+'\']>option').first().prop('selected',true);
-    });*/
+
     $('#box_chooser').autocomplete({
       source: "services/search/box",
       minLength: 2,
@@ -1033,6 +1029,7 @@ $(function(){
         .append("<div>" + instance_content + "</div>")
         .appendTo(ul);
     };
+
     $('#box_cancel').click(function(){
       $('#box_chooser').val("").show();
       $('#box_choosen').html("").hide();
@@ -1043,6 +1040,7 @@ $(function(){
       $('#step_4_container').hide();
       $('#button_container').hide();
     });
+
     $('#parttype_chooser > div > img').click(function(){
       $('#parttype_chooser > div > img').removeClass('choosen');
       $(this).addClass('choosen');
@@ -1112,6 +1110,71 @@ $(function(){
         });
       });
     });
+
+    /* Part for drawing the annotation on the image */
+    var p1 = [ -1 , -1 ];
+    var p2 = [ -1 , -1 ];
+    $('.image-and-annotations').click(function(e){
+      if($('#step_4_container').is(':visible')){
+        var parentOffset = $(this).offset();
+        var relX = e.pageX - parentOffset.left;
+        var relY = e.pageY - parentOffset.top;
+        if(p1[0] < 0 && p1[1] < 0){
+          p1[0] = relX;
+          p1[1] = relY;
+        } else if(p2[0] < 0 && p2[1] < 0){
+          p2[0] = relX;
+          p2[1] = relY;
+        }
+      }
+    });
+    $('.image-and-annotations').mousemove(function(e){
+      if($('#step_4_container').is(':visible')){
+        var parentOffset = $(this).offset();
+        var relX = e.pageX - parentOffset.left;
+        var relY = e.pageY - parentOffset.top;
+        if(p1[0] >= 0 && p1[1] >= 0 && p2[0] < 0 && p2[1] < 0){
+          var diffX = Math.abs(relX - p1[0]);
+          var diffY = Math.abs(relY - p1[1]);
+          if( p1[0] > relX ){
+            $('#drawn_annotation').css('left',relX);
+          } else {
+            $('#drawn_annotation').css('left',p1[0]);
+          }
+          if( p1[1] > relY ){
+            $('#drawn_annotation').css('top',relY);
+          } else {
+            $('#drawn_annotation').css('top',p1[1]);
+          }
+          $('#drawn_annotation').css('width',diffX);
+          $('#drawn_annotation').css('height',diffY);
+        }
+      }
+    });
+    $('.image-and-annotations').mouseleave(function(e){
+      if($('#step_4_container').is(':visible')){
+        if( p2[0] < 0 && p2[1] < 0 ){
+          p1 = [ -1 , -1 ];
+          p2 = [ -1 , -1 ];
+          $('#drawn_annotation').css('left',0);
+          $('#drawn_annotation').css('top',0);
+          $('#drawn_annotation').css('width',0);
+          $('#drawn_annotation').css('height',0);
+        }
+      }
+    });
+    $('.image-annotation-link').click(function(e){
+      if($('#step_4_container').is(':visible')){
+        p1 = [ -1 , -1 ];
+        p2 = [ -1 , -1 ];
+        $('#drawn_annotation').css('left',0);
+        $('#drawn_annotation').css('top',0);
+        $('#drawn_annotation').css('width',0);
+        $('#drawn_annotation').css('height',0);
+        e.stopPropagation();
+      }
+    });
+    /* End of Part for drawing the annotation on the image */
 
   }
 
