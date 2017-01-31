@@ -243,3 +243,32 @@ function get_handsPhoto($photo_internalid)
 
   return $resultInfo;
 }
+/** Add a part to a photo */
+function add_partPhoto($photo_internalid,$part_type,$part_internalid,$xmin,$ymin,$xmax,$ymax)
+{
+  global $bdd;
+
+  $allowedTable   = array("accessories","bodyparts","boxes","faces","hairs","hands","nendoroids");
+  $allowedElement = array("accessoryid"  ,"bodypartid" ,"boxid"  ,"faceid" ,"hairid" ,"handid" ,"nendoroidid" );
+  $key = array_search($part_type, $allowedTable);
+  $tablename = $allowedTable[$key];
+  $fieldname = $allowedElement[$key];
+
+  $req = $bdd->prepare("INSERT INTO photos_$tablename(photoid,$fieldname,xmin,ymin,xmax,ymax) "
+                                      ."VALUES(:photoid,:partid,:xmin,:ymin,:xmax,:ymax)");
+  $req->bindParam(':photoid',$photo_internalid);
+  $req->bindParam(':partid',$part_internalid);
+  $req->bindParam(':xmin',$xmin);
+  $req->bindParam(':ymin',$ymin);
+  $req->bindParam(':xmax',$xmax);
+  $req->bindParam(':ymax',$ymax);
+  $req->execute();
+
+  $resultArray = $req->errorInfo();
+  if($resultArray[0] == 0 ){
+    $resultArray[4] = $bdd->lastInsertId();
+  }
+
+  return $resultArray;
+
+}

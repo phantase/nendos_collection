@@ -55,6 +55,7 @@
     case "vocabularies":
     // PHOTO UPLOAD
     case "photoupload":
+    case "addphotopart":
     // SEARCH
     case "search_box":
       $include_page = 'services/'.$action;

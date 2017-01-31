@@ -4,6 +4,7 @@
               <div class="row">
                 <div class="12u$">
                   <b>Photo: </b><?= $photo['photo_title'] ?> <i>(by <?= $photo['photo_username'] ?>)</i>
+                  <input type="hidden" id="photoid" name="photoid" value="<?= $photo['photo_internalid'] ?>" />
                 </div>
               </div>
               <div class="row">

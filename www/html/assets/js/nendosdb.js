@@ -1176,6 +1176,39 @@ $(function(){
     });
     /* End of Part for drawing the annotation on the image */
 
+    $('#submit_choices').click(function(e){
+          var photoid = $('#photoid').val();
+          var parttype = $('#parttype_chooser > div > img.choosen').attr('alt');
+          var partid = $('.single_part_choosen').attr('internalid');
+          var xmin, xmax, ymin, ymax;
+          if( p1[0] >= 0 && p1[1] >= 0 && p2[0] >= 0 && p2[1] >= 0 ){
+            xmin = Math.floor(Math.min(p1[0],p2[0]) / ratio);
+            xmax = Math.floor(Math.max(p1[0],p2[0]) / ratio);
+            ymin = Math.floor(Math.min(p1[1],p2[1]) / ratio);
+            ymax = Math.floor(Math.max(p1[1],p2[1]) / ratio);
+          }
+          console.log("PhotoID:"+photoid);
+          console.log("PartType:"+parttype);
+          console.log("PartID:"+partid);
+          console.log("Coordinates: "+xmin+" "+ymin+" , "+xmax+" "+ymax);
+          $.post("services/photo/"+photoid+"/add/"+parttype,
+            {
+              partid:partid,
+              xmin:xmin,
+              ymin:ymin,
+              xmax:xmax,
+              ymax:ymax
+            },function(data){
+              if( data.result && data.result == "success"){
+                window.location.assign("photo/"+data.photo_internalid+"/");
+              } else if( data.result && data.result == "faillure"){
+                alert("Something was wrong, this is the reason: " + data.reason);
+              } else {
+                alert("Something was wrong, but we don't know what, please reload the page and try again...");
+              }
+          });
+    });
+
   }
 
 });
