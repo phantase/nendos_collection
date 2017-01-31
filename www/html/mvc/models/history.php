@@ -40,6 +40,7 @@ function get_handHistory($hand_internalid)
 function get_history($filteron,$internalid)
 {
   global $bdd;
+  // TODO: add security check on $filteron (with an allowed values table)
 
   $req = $bdd->prepare("SELECT h.internalid AS history_internalid,
                         h.userid AS user_internalid, u.username AS user_name,
