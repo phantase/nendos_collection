@@ -83,7 +83,7 @@ function get_history($filteron,$internalid)
 }
 
 /** Add an event only from its internalid and its type */
-function add_specificHistory($user_internalid,$element,$element_internalid,$action,$detail="")
+function add_specificHistory($user_internalid,$element,$element_internalid,$action,$detail="",$photo_internalid=null)
 {
   switch($element)
   {
@@ -91,7 +91,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       $rI = get_singleAccessory($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
-                    $element_internalid,null,null,null,null,
+                    $element_internalid,null,null,null,null,$photo_internalid,
                     $action,$detail);
       }
       break;
@@ -99,20 +99,20 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       $rI = get_singleBodypart($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
-                    null,$element_internalid,null,null,null,
+                    null,$element_internalid,null,null,null,$photo_internalid,
                     $action,$detail);
       }
       break;
     case "box":
       return add_history($user_internalid,$element_internalid,null,
-                  null,null,null,null,null,
+                  null,null,null,null,null,$photo_internalid,
                   $action,$detail);
       break;
     case "face":
       $rI = get_singleFace($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
-                    null,null,$element_internalid,null,null,
+                    null,null,$element_internalid,null,null,$photo_internalid,
                     $action,$detail);
       }
       break;
@@ -120,7 +120,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       $rI = get_singleHair($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
-                    null,null,null,$element_internalid,null,
+                    null,null,null,$element_internalid,null,$photo_internalid,
                     $action,$detail);
       }
       break;
@@ -128,7 +128,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       $rI = get_singleHand($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$rI[4]['nendoroid_internalid'],
-                    null,null,null,null,$element_internalid,
+                    null,null,null,null,$element_internalid,$photo_internalid,
                     $action,$detail);
       }
       break;
@@ -136,7 +136,7 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       $rI = get_singleNendoroid($element_internalid,null);
       if($rI[0] == "000000"){
         return add_history($user_internalid,$rI[4]['box_internalid'],$element_internalid,
-                    null,null,null,null,null,
+                    null,null,null,null,null,$photo_internalid,
                     $action,$detail);
       }
       break;
@@ -146,16 +146,16 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
 /** Add an event in the history */
 function add_history($user_internalid,$box_internalid,$nendoroid_internalid,
                       $accessory_internalid,$bodypart_internalid,$face_internalid,$hair_internalid,$hand_internalid,
-                      $action,$detail)
+                      $photo_internalid,$action,$detail)
 {
   global $bdd;
 
   $req = $bdd->prepare("INSERT INTO history(userid,boxid,nendoroidid,
                                             accessoryid,bodypartid,faceid,hairid,handid,
-                                            action,actiondate,detail)
+                                            photoid,action,actiondate,detail)
                         VALUES(:user_internalid,:box_internalid,:nendoroid_internalid,
                               :accessory_internalid,:bodypart_internalid,:face_internalid,:hair_internalid,:hand_internalid,
-                              :action,NOW(),:detail)");
+                              :photo_internalid,:action,NOW(),:detail)");
 
   $req->bindParam(':user_internalid',$user_internalid);
   $req->bindParam(':box_internalid',$box_internalid);
@@ -165,6 +165,7 @@ function add_history($user_internalid,$box_internalid,$nendoroid_internalid,
   $req->bindParam(':face_internalid',$face_internalid);
   $req->bindParam(':hair_internalid',$hair_internalid);
   $req->bindParam(':hand_internalid',$hand_internalid);
+  $req->bindParam(':photo_internalid',$photo_internalid);
   $req->bindParam(':action',$action);
   $req->bindParam(':detail',$detail);
   $req->execute();

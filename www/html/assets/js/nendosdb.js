@@ -1049,7 +1049,7 @@ $(function(){
       $('#step_4_container').hide();
       $('#button_container').hide();
       var choosen_box_internalid = $('#box_choosen_id').val();
-      var choosen_parttype = $('#parttype_chooser > div > img.choosen').attr('alt');
+      var choosen_parttype = $('#parttype_chooser > div > img.choosen').attr('parttype');
       $.ajax({url:"services/box/"+choosen_box_internalid+"/get/"+choosen_parttype}).done(function(data){
         var part_chooser_content = "";
         $.each(data,function(index,value){
@@ -1178,7 +1178,7 @@ $(function(){
 
     $('#submit_choices').click(function(e){
           var photoid = $('#photoid').val();
-          var parttype = $('#parttype_chooser > div > img.choosen').attr('alt');
+          var parttype = $('#parttype_chooser > div > img.choosen').attr('parttypesg');
           var partid = $('.single_part_choosen').attr('internalid');
           var xmin, xmax, ymin, ymax;
           if( p1[0] >= 0 && p1[1] >= 0 && p2[0] >= 0 && p2[1] >= 0 ){

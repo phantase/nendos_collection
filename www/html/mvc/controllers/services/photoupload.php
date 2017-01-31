@@ -85,6 +85,11 @@ if( $inputdata ) {
   }
 
   echo json_encode(array('result'=>'success','internalid'=>$internalid));
+  add_history($_SESSION['userid'],
+              null,null,null,null,null,null,null,
+              $internalid,
+              "Upload",""
+              );
 
 } else {
   echo json_encode(array('result'=>'failure','reason'=>'No input data'));

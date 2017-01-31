@@ -33,7 +33,7 @@ RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/vocabula
 RewriteRule ^services/(box|nendoroid|face|hair|hand|bodypart|accessory)/vocabularies/$                services.php?action=vocabularies&element=$1 [L]
 RewriteRule ^services/search/box$                                                                     services.php?action=search_box [QSA,L]
 RewriteRule ^services/box/([0-9]+)/get/(nendoroids|faces|hairs|hands|bodyparts|accessories)$          services.php?action=get&parttype=$2&internalid=$1 [L]
-RewriteRule ^services/photo/([0-9]+)/add/(boxes|nendoroids|faces|hairs|hands|bodyparts|accessories)$  services.php?action=addphotopart&parttype=$2&photoid=$1 [L]
+RewriteRule ^services/photo/([0-9]+)/add/(box|nendoroid|face|hair|hand|bodypart|accessory)$           services.php?action=addphotopart&parttype=$2&photoid=$1 [L]
 
 #############
 ## COLLECT ##

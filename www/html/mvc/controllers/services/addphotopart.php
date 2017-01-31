@@ -34,6 +34,10 @@ if( isset($_GET['photoid']) && strlen($_GET['photoid'])>0 ){
                               'part_type'=>$parttype,
                               'part_internalid'=>$partid,
                               'annotation_internalid'=>$resultInfo[4]));
+        add_specificHistory($_SESSION['userid'],
+                            $parttype,$partid,
+                            "Addition",
+                            $parttype." (".$partid.") has been added to photo (".$photoid.")",$photoid);
       } else {
         echo json_encode(array('result'=>'failure','reason'=>$resultInfo[2]));
       }

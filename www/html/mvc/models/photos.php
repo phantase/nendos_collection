@@ -248,11 +248,12 @@ function add_partPhoto($photo_internalid,$part_type,$part_internalid,$xmin,$ymin
 {
   global $bdd;
 
-  $allowedTable   = array("accessories","bodyparts","boxes","faces","hairs","hands","nendoroids");
-  $allowedElement = array("accessoryid"  ,"bodypartid" ,"boxid"  ,"faceid" ,"hairid" ,"handid" ,"nendoroidid" );
-  $key = array_search($part_type, $allowedTable);
+  $allowedElement = array("accessory"   ,"bodypart"   ,"box"    ,"face"   ,"hair"   ,"hand"   ,"nendoroid"  );
+  $allowedTable   = array("accessories" ,"bodyparts"  ,"boxes"  ,"faces"  ,"hairs"  ,"hands"  ,"nendoroids" );
+  $allowedField   = array("accessoryid" ,"bodypartid" ,"boxid"  ,"faceid" ,"hairid" ,"handid" ,"nendoroidid");
+  $key = array_search($part_type, $allowedElement);
   $tablename = $allowedTable[$key];
-  $fieldname = $allowedElement[$key];
+  $fieldname = $allowedField[$key];
 
   $req = $bdd->prepare("INSERT INTO photos_$tablename(photoid,$fieldname,xmin,ymin,xmax,ymax) "
                                       ."VALUES(:photoid,:partid,:xmin,:ymin,:xmax,:ymax)");

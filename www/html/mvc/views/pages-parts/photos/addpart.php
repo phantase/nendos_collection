@@ -25,25 +25,25 @@
                 <div class="12u$">
                   <div class="row" id="parttype_chooser">
                     <div class="1u 2u(medium) 3u(small)">
-                      <img src="images/icon_nendo_boxes.png" alt="boxes" title="Box" />
+                      <img src="images/icon_nendo_boxes.png" parttype="boxes" parttypesg="box" alt="Boxes" title="Box" />
                     </div>
                     <div class="1u 2u(medium) 3u(small)">
-                      <img src="images/icon_nendo_nendo.png" alt="nendoroids" title="Nendoroid" />
+                      <img src="images/icon_nendo_nendo.png" parttype="nendoroids" parttypesg="nendoroid" alt="Nendoroids" title="Nendoroid" />
                     </div>
                     <div class="1u 2u(medium) 3u(small)">
-                      <img src="images/icon_nendo_face.png" alt="faces" title="Face" />
+                      <img src="images/icon_nendo_face.png" parttype="faces" parttypesg="face" alt="Faces" title="Face" />
                     </div>
                     <div class="1u 2u(medium) 3u(small)">
-                      <img src="images/icon_nendo_hair.png" alt="hairs" title="Hair" />
+                      <img src="images/icon_nendo_hair.png" parttype="hairs" parttypesg="hair" alt="Hairs" title="Hair" />
                     </div>
                     <div class="1u 2u(medium) 3u(small)">
-                      <img src="images/icon_nendo_hand.png" alt="hands" title="Hand" />
+                      <img src="images/icon_nendo_hand.png" parttype="hands" parttypesg="hand" alt="Hands" title="Hand" />
                     </div>
                     <div class="1u 2u(medium) 3u(small)">
-                      <img src="images/icon_nendo_body.png" alt="bodyparts" title="Bodypart" />
+                      <img src="images/icon_nendo_body.png" parttype="bodyparts" parttypesg="bodypart" alt="Bodyparts" title="Bodypart" />
                     </div>
                     <div class="1u 2u(medium) 3u(small)">
-                      <img src="images/icon_nendo_accessories.png" alt="accessories" title="Accessory" />
+                      <img src="images/icon_nendo_accessories.png" parttype="accessories" parttypesg="accessory" alt="Accessories" title="Accessory" />
                     </div>
                   </div>
                 </div>
