@@ -4,7 +4,7 @@
 <?php
   foreach ($hands as $hand) {
 ?>
-                      <div class="2u 3u(small)">
+                      <div class="<?= $cellsize ?>">
                       <?php if($withlinks){ ?>
                         <a href="hand/<?= $hand['hand_internalid'] ?>/">
                       <?php } ?>
