@@ -2,7 +2,7 @@
 CREATE TABLE `history` (
   `internalid` bigint(20) UNSIGNED NOT NULL,
   `userid` bigint(20) UNSIGNED NOT NULL,
-  `boxid` bigint(20) UNSIGNED NOT NULL,
+  `boxid` bigint(20) UNSIGNED DEFAULT NULL,
   `nendoroidid` bigint(20) UNSIGNED DEFAULT NULL,
   `accessoryid` bigint(20) UNSIGNED DEFAULT NULL,
   `bodypartid` bigint(20) UNSIGNED DEFAULT NULL,
