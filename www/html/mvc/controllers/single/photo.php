@@ -60,4 +60,18 @@ if($resultInfo[0]=="00000"){
   raiseError($resultInfo[2]);
 }
 
+$resultInfo = get_photoHistory($photo_internalid);
+if($resultInfo[0]!="00000"){
+  raiseError($resultInfo[2]);
+}
+$history = $resultInfo[4];
+foreach ($history as $key => $histentry) {
+  $history[$key]['history_actioninterval'] = ((new DateTime($histentry['now']))->diff(new DateTime($histentry['history_actiondate'])));
+  $history[$key]['box_url'] = urlize($histentry['box_name']);
+  if( isset($histentry['nendoroid_name']) ){
+    $history[$key]['nendoroid_url'] = urlize($histentry['nendoroid_name']);
+  }
+}
+
+
 include_once('mvc/views/pages/skeleton.php');

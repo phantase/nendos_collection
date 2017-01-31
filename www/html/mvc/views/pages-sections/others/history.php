@@ -48,7 +48,7 @@
                                 <?php if(isset($histentry['nendoroid_version']) && strlen($histentry['nendoroid_version'])>0){ ?> - <?= $histentry['nendoroid_version'] ?><?php } ?>
                               </a>
                             )
-<?php } else { ?>
+<?php } else if($histentry['box_internalid']) { ?>
                             Box (
                               <a href="box/<?= $histentry['box_internalid'] ?>/<?= $histentry['box_url'] ?>/" histentry="boxes" internalid="<?= $histentry['box_internalid'] ?>">
                                 <?= $histentry['box_category'] ?>
@@ -57,6 +57,12 @@
                                 <?php } ?>
                                 <br/>
                                 <?= $histentry['box_name'] ?>
+                              </a>
+                            )
+<?php } else if($histentry['photo_internalid']) { ?>
+                            Photo (
+                              <a href="photo/<?= $histentry['photo_internalid'] ?>/" histentry="photos" internalid="<?= $histentry['photo_internalid'] ?>">
+                                <?= $histentry['photo_internalid'] ?> - <?= $histentry['photo_title'] ?>
                               </a>
                             )
 <?php } ?>

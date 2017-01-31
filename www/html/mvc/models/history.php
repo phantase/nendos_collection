@@ -35,6 +35,11 @@ function get_handHistory($hand_internalid)
 {
   return get_history('handid',$hand_internalid);
 }
+/** Get the history for a photo */
+function get_photoHistory($photo_internalid)
+{
+  return get_history('photoid',$photo_internalid);
+}
 
 /** Get the history of an element determined by the $filteron criteria */
 function get_history($filteron,$internalid)
@@ -51,6 +56,7 @@ function get_history($filteron,$internalid)
                         h.faceid AS face_internalid,
                         h.hairid AS hair_internalid,
                         h.handid AS hand_internalid,
+                        h.photoid AS photo_internalid, p.title AS photo_title,
                         h.action AS history_action,
                         h.actiondate AS history_actiondate,
                         h.detail AS history_detail,
@@ -61,6 +67,7 @@ function get_history($filteron,$internalid)
                         LEFT JOIN nendoroids AS n ON h.nendoroidid = n.internalid
                         LEFT JOIN accessories AS a ON h.accessoryid = a.internalid
                         LEFT JOIN bodyparts AS bp ON h.bodypartid = bp.internalid
+                        LEFT JOIN photos AS p ON h.photoid = p.internalid
                         WHERE h.$filteron = :internalid
                         ORDER BY history_actiondate DESC");
   $req->bindParam(':internalid',$internalid);

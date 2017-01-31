@@ -171,5 +171,6 @@
                   </div>
                 </div>
               </div>
+<?php include('mvc/views/pages-sections/others/history.php'); ?>
             </div>
           </div>
