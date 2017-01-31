@@ -9,6 +9,7 @@ CREATE TABLE `history` (
   `faceid` bigint(20) UNSIGNED DEFAULT NULL,
   `hairid` bigint(20) UNSIGNED DEFAULT NULL,
   `handid` bigint(20) UNSIGNED DEFAULT NULL,
+  `photoid` bigint(20) UNSIGNED DEFAULT NULL,
   `action` varchar(20) NOT NULL,
   `actiondate` datetime NOT NULL,
   `detail` varchar(50) NOT NULL
@@ -24,6 +25,7 @@ ALTER TABLE `history`
   ADD KEY `faceid` (`faceid`),
   ADD KEY `hairid` (`hairid`),
   ADD KEY `handid` (`handid`),
+  ADD KEY `photoid` (`photoid`),
   ADD KEY `userid` (`userid`);
 -- Add the auto increment
 ALTER TABLE `history`
@@ -38,3 +40,4 @@ ALTER TABLE `history`
   ADD CONSTRAINT `history_ibfk_6` FOREIGN KEY (`hairid`) REFERENCES `hairs` (`internalid`),
   ADD CONSTRAINT `history_ibfk_7` FOREIGN KEY (`handid`) REFERENCES `hands` (`internalid`),
   ADD CONSTRAINT `history_ibfk_8` FOREIGN KEY (`userid`) REFERENCES `users` (`internalid`);
+  ADD CONSTRAINT `history_ibfk_9` FOREIGN KEY (`photoid`) REFERENCES `photos` (`internalid`);
