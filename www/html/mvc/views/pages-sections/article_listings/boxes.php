@@ -12,7 +12,7 @@ foreach ($boxes as $box) {
   }
 ?>
                   <span class="image fit">
-                    <img src="images/nendos/boxes/<?= $box['internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/boxes/<?= $box['internalid'] ?>_thumb" alt="" />
                   </span>
                   <a href="box/<?= $box['name'] ?>_<?= $box['internalid'] ?>/">
                     <div class="content">

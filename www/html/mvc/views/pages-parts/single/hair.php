@@ -4,7 +4,7 @@
               <div class="row">
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_hair<?= $hair['hair_internalid'] ?>">
-                    <img src="images/nendos/hairs/<?= $hair['hair_internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/hairs/<?= $hair['hair_internalid'] ?>_thumb" alt="" />
                     <?php if( isEditor() && ! $hair['db_validatorid'] ){ ?>
                       <i class="icon style2 fa-edit included editpic"
                         id="editpic_hair<?= $hair['hair_internalid'] ?>"

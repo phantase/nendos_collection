@@ -14,7 +14,7 @@
                                         description="<?= $hair['hair_description'] ?>"
                                         sortingfield="<?= $sortingfield ?>"
                                         sortingvalue="<?= $hair[$sortingfield] ?>">
-                                    <img src="images/nendos/hairs/<?= $hair['hair_internalid'] ?>.jpg" alt="" />
+                                    <img src="images/nendos/hairs/<?= $hair['hair_internalid'] ?>_thumb" alt="" />
                                   </span>
                               </div>
 <?php } // foreach ?>

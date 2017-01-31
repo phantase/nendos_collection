@@ -14,7 +14,7 @@
                               description="<?= $bodypart['bodypart_description'] ?>"
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $bodypart[$sortingfield] ?>">
-                          <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>_thumb" alt="" />
                           <span class="info_icons">
 <?php if( (isAdministrator() || isValidator() || isEditor() ) && $bodypart['db_validatorid'] ){ ?>
                             <span class="fa-stackb fa-green" title="Validated by <?= $bodypart['db_validatorname'] ?>">

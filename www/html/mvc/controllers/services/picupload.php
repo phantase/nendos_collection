@@ -71,7 +71,7 @@ if( isset($_GET['element']) && isset($_GET['internalid']) ){
 
   $internalid = $_GET['internalid'];
 
-  $destination = $destination_folder . $internalid . '.jpg';
+  $destination = $destination_folder . $internalid . '_thumb.jpg';
   $destinationfull = $destination_folder . $internalid . '_full.jpg';
 
   //switch statement below checks allowed image type

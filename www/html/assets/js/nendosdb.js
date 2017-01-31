@@ -78,11 +78,11 @@ $(function(){
       }
       // HISTENTRY
       if( element.is("[histentry]") ){
-        return "<img src='images/nendos/"+element.attr("histentry")+"/"+element.attr("internalid")+".jpg' class='tooltip_histentry'/>";
+        return "<img src='images/nendos/"+element.attr("histentry")+"/"+element.attr("internalid")+"_thumb' class='tooltip_histentry'/>";
       }
       // COLLECTENTRY
       if( element.is("[collectentry]") ){
-        return "<img src='images/nendos/"+element.attr("collectentry")+"/"+element.attr("internalid")+".jpg' class='tooltip_collectentry'/>";
+        return "<img src='images/nendos/"+element.attr("collectentry")+"/"+element.attr("internalid")+"_thumb' class='tooltip_collectentry'/>";
       }
       // BOX
       if( element.is("[box]") ){
@@ -1003,7 +1003,7 @@ $(function(){
       select: function( event, ui){
         $('#box_chooser').val(ui.item.box_name).hide();
         var instance_content = "";
-        instance_content += "<img src='images/nendos/boxes/" + ui.item.box_internalid + ".jpg' style='width:50px; height:50px; margin-right:10px;' />";
+        instance_content += "<img src='images/nendos/boxes/" + ui.item.box_internalid + "_thumb' style='width:50px; height:50px; margin-right:10px;' />";
         instance_content += "<b>" + ui.item.box_category + "</b>";
         if( ui.item.box_number ) {
           instance_content += " #" + ui.item.box_number;
@@ -1019,7 +1019,7 @@ $(function(){
       }
     }).autocomplete("instance")._renderItem = function( ul, item) {
       var instance_content = "";
-      instance_content += "<img src='images/nendos/boxes/" + item.box_internalid + ".jpg' style='width:50px; height:50px; margin-right:10px;' />";
+      instance_content += "<img src='images/nendos/boxes/" + item.box_internalid + "_thumb' style='width:50px; height:50px; margin-right:10px;' />";
       instance_content += "<b>" + item.box_category + "</b>";
       if( item.box_number ) {
         instance_content += " #" + item.box_number;
@@ -1057,42 +1057,42 @@ $(function(){
             case 'nendoroid':
               part_chooser_content += '<div class="2u 3u(small) single_part" internalid="'+value.nendoroid_internalid+'">';
               part_chooser_content += '  <span class="image fit" nendoroid="" nendoroid_name="'+value.nendoroid_name+'" nendoroid_version="'+(value.nendoroid_version===null?'':value.nendoroid_version)+'" box_number="'+value.box_number+'" box_category="'+value.box_category+'" sortingfield="" sortingvalue="">';
-              part_chooser_content += '    <img src="images/nendos/nendoroids/'+value.nendoroid_internalid+'.jpg" alt="">';
+              part_chooser_content += '    <img src="images/nendos/nendoroids/'+value.nendoroid_internalid+'_thumb" alt="">';
               part_chooser_content += '  </span>';
               part_chooser_content += '</div>';
               break;
             case 'face':
               part_chooser_content += '<div class="2u 3u(small) single_part" internalid="'+value.face_internalid+'">';
               part_chooser_content += '  <span class="image fit" face="" eyes="'+value.face_eyes+'" mouth="'+value.face_mouth+'" sortingfield="" sortingvalue="">';
-              part_chooser_content += '    <img src="images/nendos/faces/'+value.face_internalid+'.jpg" alt="">';
+              part_chooser_content += '    <img src="images/nendos/faces/'+value.face_internalid+'_thumb" alt="">';
               part_chooser_content += '  </span>';
               part_chooser_content += '</div>';
               break;
             case 'hair':
               part_chooser_content += '<div class="2u 3u(small) single_part" internalid="'+value.hair_internalid+'">';
               part_chooser_content += '  <span class="image fit" hair="" frontback="'+value.hair_frontback+'" haircut="'+value.hair_haircut+'" description="'+value.hair_description+'" sortingfield="" sortingvalue="">';
-              part_chooser_content += '    <img src="images/nendos/hairs/'+value.hair_internalid+'.jpg" alt="">';
+              part_chooser_content += '    <img src="images/nendos/hairs/'+value.hair_internalid+'_thumb" alt="">';
               part_chooser_content += '  </span>';
               part_chooser_content += '</div>';
               break;
             case 'hand':
               part_chooser_content += '<div class="2u 3u(small) single_part" internalid="'+value.hand_internalid+'">';
               part_chooser_content += '  <span class="image fit" hand="" leftright="'+value.hand_leftright+'" posture="'+value.hand_posture+'" sortingfield="" sortingvalue="">';
-              part_chooser_content += '    <img src="images/nendos/hands/'+value.hand_internalid+'.jpg" alt="">';
+              part_chooser_content += '    <img src="images/nendos/hands/'+value.hand_internalid+'_thumb" alt="">';
               part_chooser_content += '  </span>';
               part_chooser_content += '</div>';
               break;
             case 'bodypart':
               part_chooser_content += '<div class="2u 3u(small) single_part" internalid="'+value.bodypart_internalid+'">';
               part_chooser_content += '  <span class="image fit" bodypart="" part="'+value.bodypart_part+'" description="'+value.bodypart_description+'" sortingfield="" sortingvalue="">';
-              part_chooser_content += '    <img src="images/nendos/bodyparts/'+value.bodypart_internalid+'.jpg" alt="">';
+              part_chooser_content += '    <img src="images/nendos/bodyparts/'+value.bodypart_internalid+'_thumb" alt="">';
               part_chooser_content += '  </span>';
               part_chooser_content += '</div>';
               break;
             case 'accessory':
               part_chooser_content += '<div class="2u 3u(small) single_part" internalid="'+value.accessory_internalid+'">';
               part_chooser_content += '  <span class="image fit" accessory="" type="'+value.accessory_type+'" description="'+value.accessory_description+'" sortingfield="" sortingvalue="">';
-              part_chooser_content += '    <img src="images/nendos/accessories/'+value.accessory_internalid+'.jpg" alt="">';
+              part_chooser_content += '    <img src="images/nendos/accessories/'+value.accessory_internalid+'_thumb" alt="">';
               part_chooser_content += '  </span>';
               part_chooser_content += '</div>';
               break;

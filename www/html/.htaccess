@@ -9,12 +9,12 @@ RewriteRule ^images/nendos/photos/([0-9]+)_(full|thumb)$              images/nen
 RewriteRule ^images/nendos/photos/([0-9]+)_(full|thumb)$              images/nendos/photos/$1_$2.png [L]
 
 ############
-## IMAGES ##
+## IMAGES ## w/o extension
 ############
-RewriteCond %{DOCUMENT_ROOT}/images/nendos/$1/$2.jpg -f
-#RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         hidden.php [L]
-RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         images/nendos/$1/$2.jpg [L]
-RewriteRule ^images/nendos/(.*)/([0-9]+).jpg$                         unknown.php [L]
+RewriteCond %{DOCUMENT_ROOT}/images/nendos/$1/$2_$3.jpg -f
+#RewriteRule ^images/nendos/(.*)/([0-9]+)_(full|thumb)$                hidden.php [L]
+RewriteRule ^images/nendos/(.*)/([0-9]+)_(full|thumb)$                images/nendos/$1/$2_$3.jpg [L]
+RewriteRule ^images/nendos/(.*)/([0-9]+)_(full|thumb)$                unknown.php [L]
 
 ###########
 ## LOGIN ##

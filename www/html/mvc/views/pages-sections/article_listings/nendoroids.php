@@ -9,7 +9,7 @@ foreach ($nendoroids as $nendoroid) {
                 </style>
                 <article id="nendo_<?= $nendoroid['nendoroid_internalid'] ?>">
                   <span class="image fit">
-                    <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>_thumb" alt="" />
                   </span>
                   <a href="nendoroid/<?= $nendoroid['nendoroid_internalid'] ?>/<?= $nendoroid['nendoroid_url'] ?>/">
                     <h2>

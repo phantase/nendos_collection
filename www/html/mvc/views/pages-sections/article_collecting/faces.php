@@ -13,7 +13,7 @@
                                         mouth="<?= $face['face_mouth'] ?>"
                                         sortingfield="<?= $sortingfield ?>"
                                         sortingvalue="<?= $face[$sortingfield] ?>">
-                                    <img src="images/nendos/faces/<?= $face['face_internalid'] ?>.jpg" alt="" />
+                                    <img src="images/nendos/faces/<?= $face['face_internalid'] ?>_thumb" alt="" />
                                   </span>
                               </div>
 <?php } // foreach ?>

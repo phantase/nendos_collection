@@ -4,7 +4,7 @@
               <div class="row">
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_bodypart<?= $bodypart['bodypart_internalid'] ?>">
-                    <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>_thumb" alt="" />
                     <?php if( isEditor() && ! $bodypart['db_validatorid'] ){ ?>
                       <i class="icon style2 fa-edit included editpic"
                         id="editpic_bodypart<?= $bodypart['bodypart_internalid'] ?>"

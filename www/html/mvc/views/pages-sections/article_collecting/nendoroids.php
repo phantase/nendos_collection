@@ -15,7 +15,7 @@
                                         box_category="<?= $nendoroid['box_category'] ?>"
                                         sortingfield="<?= $sortingfield ?>"
                                         sortingvalue="<?= $nendoroid[$sortingfield] ?>">
-                                    <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>.jpg" alt="" />
+                                    <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>_thumb" alt="" />
                                   </span>
                               </div>
 <?php } // foreach ?>

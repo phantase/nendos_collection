@@ -15,7 +15,7 @@
                               box_category="<?= $box['box_category'] ?>"
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $box[$sortingfield] ?>">
-                          <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>_thumb" alt="" />
                           <span class="info_icons">
 <?php if( (isAdministrator() || isValidator() || isEditor() ) && $box['db_validatorid'] ){ ?>
                             <span class="fa-stackb fa-green" title="Validated by <?= $box['db_validatorname'] ?>">

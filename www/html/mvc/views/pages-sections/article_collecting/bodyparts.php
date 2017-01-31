@@ -13,7 +13,7 @@
                                         description="<?= $bodypart['bodypart_description'] ?>"
                                         sortingfield="<?= $sortingfield ?>"
                                         sortingvalue="<?= $bodypart[$sortingfield] ?>">
-                                    <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>.jpg" alt="" />
+                                    <img src="images/nendos/bodyparts/<?= $bodypart['bodypart_internalid'] ?>_thumb" alt="" />
                                   </span>
                               </div>
 <?php } // foreach ?>

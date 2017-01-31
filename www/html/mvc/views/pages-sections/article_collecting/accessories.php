@@ -13,7 +13,7 @@
                                         description="<?= $accessory['accessory_description'] ?>"
                                         sortingfield="<?= $sortingfield ?>"
                                         sortingvalue="<?= $accessory[$sortingfield] ?>">
-                                    <img src="images/nendos/accessories/<?= $accessory['accessory_internalid'] ?>.jpg" alt="" />
+                                    <img src="images/nendos/accessories/<?= $accessory['accessory_internalid'] ?>_thumb" alt="" />
                                   </span>
                               </div>
 <?php } // foreach ?>

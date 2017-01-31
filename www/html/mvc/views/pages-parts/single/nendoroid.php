@@ -5,7 +5,7 @@
                 <div class="row">
                   <div class="4u 12u$(medium)">
                     <span class="image fit" id="span_nendoroid<?= $nendoroid['nendoroid_internalid'] ?>">
-                      <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>.jpg" alt="" />
+                      <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>_thumb" alt="" />
                       <?php if( isEditor() && ! $nendoroid['db_validatorid'] ){ ?>
                         <i class="icon style2 fa-edit included editpic" id="editpic_nendoroid<?= $nendoroid['nendoroid_internalid'] ?>" title="Add/Change the picture" part="nendoroid" internalid="<?= $nendoroid['nendoroid_internalid'] ?>"></i>
                       <?php } ?>

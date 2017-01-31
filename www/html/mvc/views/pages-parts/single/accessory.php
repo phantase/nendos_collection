@@ -4,7 +4,7 @@
               <div class="row">
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_accessory<?= $accessory['accessory_internalid'] ?>">
-                    <img src="images/nendos/accessories/<?= $accessory['accessory_internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/accessories/<?= $accessory['accessory_internalid'] ?>_thumb" alt="" />
                     <?php if( isEditor() && ! $accessory['db_validatorid'] ){ ?>
                       <i class="icon style2 fa-edit included editpic"
                         id="editpic_accessory<?= $accessory['accessory_internalid'] ?>"

@@ -15,7 +15,7 @@
                               description="<?= $hair['hair_description'] ?>"
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $hair[$sortingfield] ?>">
-                          <img src="images/nendos/hairs/<?= $hair['hair_internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/hairs/<?= $hair['hair_internalid'] ?>_thumb" alt="" />
                           <span class="info_icons">
 <?php if( (isAdministrator() || isValidator() || isEditor() ) && $hair['db_validatorid'] ){ ?>
                             <span class="fa-stackb fa-green" title="Validated by <?= $hair['db_validatorname'] ?>">

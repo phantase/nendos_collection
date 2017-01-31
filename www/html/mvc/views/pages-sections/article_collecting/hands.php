@@ -13,7 +13,7 @@
                                         posture="<?= $hand['hand_posture'] ?>"
                                         sortingfield="<?= $sortingfield ?>"
                                         sortingvalue="<?= $hand[$sortingfield] ?>">
-                                    <img src="images/nendos/hands/<?= $hand['hand_internalid'] ?>.jpg" alt="" />
+                                    <img src="images/nendos/hands/<?= $hand['hand_internalid'] ?>_thumb" alt="" />
                                   </span>
                               </div>
 <?php } // foreach ?>

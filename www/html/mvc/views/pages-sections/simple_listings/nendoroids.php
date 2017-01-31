@@ -16,7 +16,7 @@
                               box_category="<?= $nendoroid['box_category'] ?>"
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $nendoroid[$sortingfield] ?>">
-                          <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/nendoroids/<?= $nendoroid['nendoroid_internalid'] ?>_thumb" alt="" />
                           <span class="info_icons">
 <?php if( (isAdministrator() || isValidator() || isEditor() ) && $nendoroid['db_validatorid'] ){ ?>
                             <span class="fa-stackb fa-green" title="Validated by <?= $nendoroid['db_validatorname'] ?>">

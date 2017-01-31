@@ -4,7 +4,7 @@
               <div class="row">
                 <div  class="4u 12u(medium)">
                   <span class="image fit" id="span_hand<?= $hand['hand_internalid'] ?>">
-                    <img src="images/nendos/hands/<?= $hand['hand_internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/hands/<?= $hand['hand_internalid'] ?>_thumb" alt="" />
                     <?php if( isEditor() && ! $hand['db_validatorid'] ){ ?>
                       <i class="icon style2 fa-edit included editpic"
                         id="editpic_hand<?= $hand['hand_internalid'] ?>"

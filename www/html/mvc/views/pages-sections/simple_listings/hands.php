@@ -14,7 +14,7 @@
                               posture="<?= $hand['hand_posture'] ?>"
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $hand[$sortingfield] ?>">
-                          <img src="images/nendos/hands/<?= $hand['hand_internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/hands/<?= $hand['hand_internalid'] ?>_thumb" alt="" />
                           <span class="info_icons">
 <?php if( (isAdministrator() || isValidator() || isEditor() ) && $hand['db_validatorid'] ){ ?>
                             <span class="fa-stackb fa-green" title="Validated by <?= $hand['db_validatorname'] ?>">

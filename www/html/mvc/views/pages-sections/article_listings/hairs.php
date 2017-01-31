@@ -12,7 +12,7 @@ foreach ($hairs as $hair) {
   }
 ?>
                   <span class="image fit">
-                    <img src="images/nendos/hairs/<?= $hair['internalid'] ?>.jpg" alt="" />
+                    <img src="images/nendos/hairs/<?= $hair['internalid'] ?>_thumb" alt="" />
                   </span>
                   <a href="hair/<?= $hair['internalid'] ?>/">
                   </a>

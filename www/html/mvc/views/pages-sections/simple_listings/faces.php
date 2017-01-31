@@ -14,7 +14,7 @@
                               mouth="<?= $face['face_mouth'] ?>"
                               sortingfield="<?= $sortingfield ?>"
                               sortingvalue="<?= $face[$sortingfield] ?>">
-                          <img src="images/nendos/faces/<?= $face['face_internalid'] ?>.jpg" alt="" />
+                          <img src="images/nendos/faces/<?= $face['face_internalid'] ?>_thumb" alt="" />
                           <span class="info_icons">
 <?php if( (isAdministrator() || isValidator() || isEditor() ) && $face['db_validatorid'] ){ ?>
                             <span class="fa-stackb fa-green" title="Validated by <?= $face['db_validatorname'] ?>">

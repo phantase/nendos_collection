@@ -12,6 +12,6 @@
                                       box_category="<?= $box['box_category'] ?>"
                                       sortingfield="<?= $sortingfield ?>"
                                       sortingvalue="<?= $box[$sortingfield] ?>">
-                                  <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>.jpg" alt="" />
+                                  <img src="images/nendos/boxes/<?= $box['box_internalid'] ?>_thumb" alt="" />
                                 </span>
                               </div>
