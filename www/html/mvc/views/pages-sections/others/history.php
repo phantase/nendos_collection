@@ -59,7 +59,11 @@
                                 <?= $histentry['box_name'] ?>
                               </a>
                             )
-<?php } else if($histentry['photo_internalid']) { ?>
+<?php } ?>
+<?php if($histentry['photo_internalid']) { ?>
+<?php if($histentry['box_internalid']){ ?>
+                            <br/>
+<?php } ?>
                             Photo (
                               <a href="photo/<?= $histentry['photo_internalid'] ?>/" histentry="photos" internalid="<?= $histentry['photo_internalid'] ?>">
                                 <?= $histentry['photo_internalid'] ?> - <?= $histentry['photo_title'] ?>
