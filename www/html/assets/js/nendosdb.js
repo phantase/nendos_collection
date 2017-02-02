@@ -963,6 +963,8 @@ $(function(){
                 var response = JSON.parse(xhr.responseText);
                 if( response.result === "success" ){
                   $('#image2add_'+this.filePosition).css('background-color','#DDFFDD');
+                  // external-link
+                  $('#image2add_'+this.filePosition+'_size').append('<a style="float:right;" href="photo/'+response.internalid+'/" title="Go to picture (will not open a new window)"><i class="fa fa-external-link"></i></a>');
                 } else {
                   $('#image2add_'+this.filePosition).css('background-color','#FFDDDD');
                 }
