@@ -437,10 +437,9 @@ input[forwhat] {
 
 .guidelines {
   font-size: 0.8em;
-  display: none; /* Temporary not displayed because in DEV it's annoying to scroll... */
 }
 .accept-requested {
-/*  display: none; */ /* Temporary disabled because in DEV it's annoying to always need to check the  checkbox */
+  display: none;
 }
 
 #upload_zone {
