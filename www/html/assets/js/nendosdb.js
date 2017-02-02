@@ -623,11 +623,11 @@ $(function(){
       }
     );
   });
-// Show/Hide the History
+// Show/Hide the History, Metadata, Parts
   $('#toggle_history,#toggle_metadata,#toggle_parts').click(function(){
     $('#'+this.id+'~div').toggle();
     $('#'+this.id+' span').toggle();
-  })
+  });
 
 // Show/Hide the Edit of rights for Single User
   $('#edit_user_rights').click(function(){
