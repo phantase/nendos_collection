@@ -40,7 +40,6 @@ function get_allPhotos($order="photo_uploaded",$direction="DESC",$userid=null)
   }
 
   return $resultInfo;
-
 }
 /** Add a photo to the DB */
 function add_singlePhoto($userid,$title,$width,$height)
@@ -271,5 +270,4 @@ function add_partPhoto($photo_internalid,$part_type,$part_internalid,$xmin,$ymin
   }
 
   return $resultArray;
-
 }
