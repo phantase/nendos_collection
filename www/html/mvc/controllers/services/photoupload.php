@@ -1,7 +1,12 @@
 <?php
-// TODO: add a security check to know is user is logged in or not (using if(isLogged()))
 
 header('Content-Type: application/json');
+
+if( ! isLogged() ){
+  echo json_encode(array('result'=>'failure','reason'=>'Must be logged in to upload a photo'));
+  exit;
+}
+
 
 // Upload data can be POST'ed as raw form data or uploaded via <iframe> and <form>
 // using regular multipart/form-data enctype (which is handled by PHP $_FILES).
