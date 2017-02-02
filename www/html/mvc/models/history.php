@@ -45,7 +45,10 @@ function get_photoHistory($photo_internalid)
 function get_history($filteron,$internalid)
 {
   global $bdd;
-  // TODO: add security check on $filteron (with an allowed values table)
+
+  $allowedFilter = array("internalid", "userid", "boxid", "nendoroidid", "accessoryid", "faceid", "hairid", "handid", "photoid");
+  $key = array_search($filteron, $allowedFilter);
+  $filteron = $allowedFilter[$key];
 
   $req = $bdd->prepare("SELECT h.internalid AS history_internalid,
                         h.userid AS user_internalid, u.username AS user_name,
