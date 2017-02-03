@@ -92,6 +92,12 @@ if( isset($_GET['box_internalid']) ){
     }
   }
 
+  $resultInfo = get_photos4Box($box_internalid);
+  if($resultInfo[0]!="00000"){
+    raiseError($resultInfo[2]);
+  }
+  $photos = $resultInfo[4];
+
   $resultInfo = get_boxHistory($box_internalid);
   if($resultInfo[0]!="00000"){
     raiseError($resultInfo[2]);

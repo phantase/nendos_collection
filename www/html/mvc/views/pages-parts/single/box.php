@@ -98,5 +98,13 @@
               <hr/>
 <?php include('mvc/views/pages-sections/others/metadata.php'); ?>
 <?php include('mvc/views/pages-sections/others/history.php'); ?>
+              <div class="row">
+                <div class="12u$">
+                  <h4 id="toggle_photo"><a>Associated photos (<span>show</span><span style="display:none;">hide</span>)</a></h4>
+<?php showPhotosListing($photos,array('withlinks'=>true,
+                                       'withadd'=>false,
+                                       'hidden'=>true)); ?>
+                </div>
+              </div>
             </div>
           </div>

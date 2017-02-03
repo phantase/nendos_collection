@@ -95,6 +95,7 @@ function showPhotosListing($photos,$options=null){
   $sortingfield   = $options['sortingfield'];
   $withlinks      = $options['withlinks'];
   $withadd        = $options['withadd'];
+  $hidden         = $options['hidden'];
   include('mvc/views/pages-sections/simple_listings/photos.php');
 }
 

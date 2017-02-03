@@ -1,4 +1,8 @@
+<?php if( $hidden ){ ?>
+                    <div class="row" style="display:none;">
+<?php } else { ?>
                     <div class="row">
+<?php } ?>
 <?php
   foreach ($photos as $photo) {
 ?>

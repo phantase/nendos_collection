@@ -628,6 +628,10 @@ $(function(){
     $('#'+this.id+'~div').toggle();
     $('#'+this.id+' span').toggle();
   });
+// Show/Hide Associated Photos
+  $('#toggle_photo').click(function(){
+    $(this).next().toggle();
+  }),
 
 // Show/Hide the Edit of rights for Single User
   $('#edit_user_rights').click(function(){

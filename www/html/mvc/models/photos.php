@@ -86,6 +86,41 @@ function get_singlePhoto($photo_internalid)
 
   return $resultInfo;
 }
+
+/************************
+/** PARTS for a PHOTO **/
+/************************
+
+/** Add a part to a photo */
+function add_partPhoto($photo_internalid,$part_type,$part_internalid,$xmin,$ymin,$xmax,$ymax)
+{
+  global $bdd;
+
+  $allowedElement = array("accessory"   ,"bodypart"   ,"box"    ,"face"   ,"hair"   ,"hand"   ,"nendoroid"  );
+  $allowedTable   = array("accessories" ,"bodyparts"  ,"boxes"  ,"faces"  ,"hairs"  ,"hands"  ,"nendoroids" );
+  $allowedField   = array("accessoryid" ,"bodypartid" ,"boxid"  ,"faceid" ,"hairid" ,"handid" ,"nendoroidid");
+  $key = array_search($part_type, $allowedElement);
+  $tablename = $allowedTable[$key];
+  $fieldname = $allowedField[$key];
+
+  $req = $bdd->prepare("INSERT INTO photos_$tablename(photoid,$fieldname,xmin,ymin,xmax,ymax) "
+                                      ."VALUES(:photoid,:partid,:xmin,:ymin,:xmax,:ymax)");
+  $req->bindParam(':photoid',$photo_internalid);
+  $req->bindParam(':partid',$part_internalid);
+  $req->bindParam(':xmin',$xmin);
+  $req->bindParam(':ymin',$ymin);
+  $req->bindParam(':xmax',$xmax);
+  $req->bindParam(':ymax',$ymax);
+  $req->execute();
+
+  $resultArray = $req->errorInfo();
+  if($resultArray[0] == 0 ){
+    $resultArray[4] = $bdd->lastInsertId();
+  }
+
+  return $resultArray;
+}
+
 /** Retrieve nendoroids attached to a photo */
 function get_nendoroidsPhoto($photo_internalid)
 {
@@ -242,32 +277,41 @@ function get_handsPhoto($photo_internalid)
 
   return $resultInfo;
 }
-/** Add a part to a photo */
-function add_partPhoto($photo_internalid,$part_type,$part_internalid,$xmin,$ymin,$xmax,$ymax)
+
+/***********************/
+/** PHOTOS for a PART **/
+/***********************/
+
+/** Retrieve photos containing the specified box */
+function get_photos4Box($box_internalid,$order="photo_uploaded",$direction="DESC")
 {
+  $orders = array("photo_title","photo_username","photo_uploaded");
+  $key = array_search($order, $orders);
+  $order = $orders[$key];
+  $directions = array("asc","desc");
+  $key = array_search($direction, $directions);
+  $direction = $directions[$key];
+
   global $bdd;
 
-  $allowedElement = array("accessory"   ,"bodypart"   ,"box"    ,"face"   ,"hair"   ,"hand"   ,"nendoroid"  );
-  $allowedTable   = array("accessories" ,"bodyparts"  ,"boxes"  ,"faces"  ,"hairs"  ,"hands"  ,"nendoroids" );
-  $allowedField   = array("accessoryid" ,"bodypartid" ,"boxid"  ,"faceid" ,"hairid" ,"handid" ,"nendoroidid");
-  $key = array_search($part_type, $allowedElement);
-  $tablename = $allowedTable[$key];
-  $fieldname = $allowedField[$key];
-
-  $req = $bdd->prepare("INSERT INTO photos_$tablename(photoid,$fieldname,xmin,ymin,xmax,ymax) "
-                                      ."VALUES(:photoid,:partid,:xmin,:ymin,:xmax,:ymax)");
-  $req->bindParam(':photoid',$photo_internalid);
-  $req->bindParam(':partid',$part_internalid);
-  $req->bindParam(':xmin',$xmin);
-  $req->bindParam(':ymin',$ymin);
-  $req->bindParam(':xmax',$xmax);
-  $req->bindParam(':ymax',$ymax);
+  $req = $bdd->prepare("SELECT p.internalid AS photo_internalid,
+                        p.title AS photo_title, p.width AS photo_width, p.height AS photo_height,
+                        p.uploaded AS photo_uploaded, p.updated AS photo_updated,
+                        p.userid AS photo_userid, u.username AS photo_username,
+                        NOW() AS now
+                        FROM photos AS p
+                        LEFT JOIN photos_boxes AS pb ON pb.photoid = p.internalid
+                        LEFT JOIN users AS u ON p.userid = u.internalid
+                        WHERE pb.boxid = :box_internalid
+                        ORDER BY $order $direction;");
+  $req->bindParam(':box_internalid',$box_internalid);
   $req->execute();
 
-  $resultArray = $req->errorInfo();
-  if($resultArray[0] == 0 ){
-    $resultArray[4] = $bdd->lastInsertId();
+  $resultInfo = $req->errorInfo();
+
+  if( $resultInfo[0]=="00000" ){
+    $resultInfo[4] = $req->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  return $resultArray;
+  return $resultInfo;
 }
