@@ -1,6 +1,6 @@
 <?php
 
-class BoxEntity
+class BoxEntity implements JsonSerializable
 {
   protected $internalid;
   protected $number;
@@ -17,7 +17,7 @@ class BoxEntity
   public function __construct(array $data) {
     // no internalid if we're creating
     if(isset($data['internalid'])) {
-      $this->id = $data['internalid'];
+      $this->internalid = $data['internalid'];
     }
 
     $this->number = $data['number'];
@@ -49,6 +49,19 @@ class BoxEntity
 
   public function getCategory() {
     return $this->category;
+  }
+
+  public function jsonSerialize() {
+    return [
+      'box' => [
+        'internalid' => $this->internalid,
+        'number' => $this->number,
+        'name' => $this->name,
+        'series' => $this->series,
+        'manufacturer' => $this->manufacturer,
+        'category' => $this->category
+      ]
+    ];
   }
 
 }

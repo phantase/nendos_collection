@@ -44,9 +44,8 @@ $app->get('/boxes', function(Request $request, Response $response) {
     $mapper = new BoxMapper($this->db);
     $boxes = $mapper->getBoxes();
 
-    //$response = $this->view->render($response, "")
-    $response->getBody()->write(var_export($boxes, true));
-    return $response;
+    $newresponse = $response->withJson($boxes);
+    return $newresponse;
 });
 
 $app->get('/box/{internalid}', function (Request $request, Response $response, $args) {
@@ -54,8 +53,8 @@ $app->get('/box/{internalid}', function (Request $request, Response $response, $
     $mapper = new BoxMapper($this->db);
     $box = $mapper->getBoxByInternalid($box_internalid);
 
-    $response->getBody()->write(var_export($box, true));
-    return $response;
+    $newresponse = $response->withJson($box);
+    return $newresponse;
 });
 
 $app->run();
