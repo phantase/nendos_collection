@@ -13,10 +13,11 @@ spl_autoload_register(function ($classname) {
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
-$config['db']['host']   = "db";
-$config['db']['user']   = "nendos";
-$config['db']['pass']   = "nendospass";
-$config['db']['dbname'] = "nendos";
+$config['db']['host']    = "db";
+$config['db']['user']    = "nendos";
+$config['db']['pass']    = "nendospass";
+$config['db']['dbname']  = "nendos";
+$config['db']['charset'] = "utf8";
 
 $app = new \Slim\App(["settings" => $config]);
 $container = $app->getContainer();
@@ -32,7 +33,7 @@ $container['logger'] = function($c) {
 
 $container['db'] = function ($c) {
     $db = $c['settings']['db'];
-    $pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbname'],
+    $pdo = new PDO("mysql:host=" . $db['host'] . ";dbname=" . $db['dbname'] . ";charset=" . $db['charset'],
         $db['user'], $db['pass']);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -106,6 +107,30 @@ $app->get('/accessory/{internalid}', function (Request $request, Response $respo
         $newresponse = $response->withJson(null,404);
     } else {
         $newresponse = $response->withJson($accessory);
+    }
+
+    return $newresponse;
+});
+
+$app->get('/bodyparts', function(Request $request, Response $response) {
+    $this->logger->addInfo("Bodyparts list");
+    $mapper = new BodypartMapper($this->db);
+    $bodyparts = $mapper->getBodyparts();
+
+    $newresponse = $response->withJson($bodyparts);
+    return $newresponse;
+});
+
+$app->get('/bodypart/{internalid}', function (Request $request, Response $response, $args) {
+    $bodypart_internalid = (int)$args['internalid'];
+    $this->logger->addInfo("Bodypart single ".$bodypart_internalid);
+    $mapper = new BodypartMapper($this->db);
+    $bodypart = $mapper->getBodypartByInternalid($bodypart_internalid);
+
+    if( is_null($bodypart) ){
+        $newresponse = $response->withJson(null,404);
+    } else {
+        $newresponse = $response->withJson($bodypart);
     }
 
     return $newresponse;
