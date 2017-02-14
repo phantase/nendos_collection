@@ -184,4 +184,28 @@ $app->get('/hair/{internalid}', function (Request $request, Response $response, 
     return $newresponse;
 });
 
+$app->get('/hands', function(Request $request, Response $response) {
+    $this->logger->addInfo("Hands list");
+    $mapper = new HandMapper($this->db);
+    $hands = $mapper->getHands();
+
+    $newresponse = $response->withJson($hands);
+    return $newresponse;
+});
+
+$app->get('/hand/{internalid}', function (Request $request, Response $response, $args) {
+    $hand_internalid = (int)$args['internalid'];
+    $this->logger->addInfo("Hand single ".$hand_internalid);
+    $mapper = new HandMapper($this->db);
+    $hand = $mapper->getHandByInternalid($hand_internalid);
+
+    if( is_null($hand) ){
+        $newresponse = $response->withJson(null,404);
+    } else {
+        $newresponse = $response->withJson($hand);
+    }
+
+    return $newresponse;
+});
+
 $app->run();
