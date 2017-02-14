@@ -136,4 +136,28 @@ $app->get('/bodypart/{internalid}', function (Request $request, Response $respon
     return $newresponse;
 });
 
+$app->get('/faces', function(Request $request, Response $response) {
+    $this->logger->addInfo("Faces list");
+    $mapper = new FaceMapper($this->db);
+    $faces = $mapper->getFaces();
+
+    $newresponse = $response->withJson($faces);
+    return $newresponse;
+});
+
+$app->get('/face/{internalid}', function (Request $request, Response $response, $args) {
+    $face_internalid = (int)$args['internalid'];
+    $this->logger->addInfo("Face single ".$face_internalid);
+    $mapper = new FaceMapper($this->db);
+    $face = $mapper->getFaceByInternalid($face_internalid);
+
+    if( is_null($face) ){
+        $newresponse = $response->withJson(null,404);
+    } else {
+        $newresponse = $response->withJson($face);
+    }
+
+    return $newresponse;
+});
+
 $app->run();
