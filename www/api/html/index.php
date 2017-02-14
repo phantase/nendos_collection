@@ -50,10 +50,16 @@ $app->get('/boxes', function(Request $request, Response $response) {
 
 $app->get('/box/{internalid}', function (Request $request, Response $response, $args) {
     $box_internalid = (int)$args['internalid'];
+    $this->logger->addInfo("Box single ".$box_internalid);
     $mapper = new BoxMapper($this->db);
     $box = $mapper->getBoxByInternalid($box_internalid);
 
-    $newresponse = $response->withJson($box);
+    if( is_null($box) ){
+        $newresponse = $response->withJson(null,404);
+    } else {
+        $newresponse = $response->withJson($box);
+    }
+
     return $newresponse;
 });
 

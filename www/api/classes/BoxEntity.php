@@ -8,6 +8,22 @@ class BoxEntity implements JsonSerializable
   protected $series;
   protected $manufacturer;
   protected $category;
+  protected $price;
+  protected $releasedate;
+  protected $specifications;
+  protected $sculptor;
+  protected $cooperation;
+  protected $officialurl;
+  // Complementary information
+  protected $creatorid;
+  protected $creatorname;
+  protected $creationdate;
+  protected $editorid;
+  protected $editorname;
+  protected $editiondate;
+  protected $validatorid;
+  protected $validatorname;
+  protected $validationdate;
 
   /**
    *
@@ -25,6 +41,21 @@ class BoxEntity implements JsonSerializable
     $this->series = $data['series'];
     $this->manufacturer = $data['manufacturer'];
     $this->category = $data['category'];
+    $this->price = $data['price'];
+    $this->releasedate = $data['releasedate'];
+    $this->specifications = $data['specifications'];
+    $this->sculptor = $data['sculptor'];
+    $this->cooperation = $data['cooperation'];
+    $this->officialurl = $data['officialurl'];
+    $this->creatorid = $data['creatorid'];
+    $this->creatorname = $data['creatorname'];
+    $this->creationdate = $data['creationdate'];
+    $this->editorid = $data['editorid'];
+    $this->editorname = $data['editorname'];
+    $this->editiondate = $data['editiondate'];
+    $this->validatorid = $data['validatorid'];
+    $this->validatorname = $data['validatorname'];
+    $this->validationdate = $data['validationdate'];
   }
 
   public function getInternalid() {
@@ -51,6 +82,66 @@ class BoxEntity implements JsonSerializable
     return $this->category;
   }
 
+  public function getPrice() {
+    return $this->price;
+  }
+
+  public function getReleasedate() {
+    return $this->releasedate;
+  }
+
+  public function getSpecifications() {
+    return $this->specifications;
+  }
+
+  public function getSculptor() {
+    return $this->sculptor;
+  }
+
+  public function getCooperation() {
+    return $this->cooperation;
+  }
+
+  public function getOfficialURL() {
+    return $this->officialurl;
+  }
+
+  public function getCreatorId() {
+    return $this->creatorid;
+  }
+
+  public function getCreatorName() {
+    return $this->creatorname;
+  }
+
+  public function getCreationDate() {
+    return $this->creationdate;
+  }
+
+  public function getEditorId() {
+    return $this->editorid;
+  }
+
+  public function getEditorName() {
+    return $this->editorname;
+  }
+
+  public function getEditionDate() {
+    return $this->editiondate;
+  }
+
+  public function getValidatorId() {
+    return $this->validatorid;
+  }
+
+  public function getValidatorName() {
+    return $this->validatorname;
+  }
+
+  public function getValidationDate() {
+    return $this->validationdate;
+  }
+
   public function jsonSerialize() {
     return [
       'box' => [
@@ -59,7 +150,22 @@ class BoxEntity implements JsonSerializable
         'name' => $this->name,
         'series' => $this->series,
         'manufacturer' => $this->manufacturer,
-        'category' => $this->category
+        'category' => $this->category,
+        'price' => $this->price,
+        'releasedate' => $this->releasedate,
+        'specifications' => $this->specifications,
+        'sculptor' => $this->sculptor,
+        'cooperation' => $this->cooperation,
+        'officialurl' => $this->officialurl,
+        'creatorid' => $this->creatorid,
+        'creatorname' => $this->creatorname,
+        'creationdate' => $this->creationdate,
+        'editorid' => $this->editorid,
+        'editorname' => $this->editorname,
+        'editiondate' => $this->editiondate,
+        'validatorid' => $this->validatorid,
+        'validatorname' => $this->validatorname,
+        'validationdate' => $this->validationdate
       ]
     ];
   }
