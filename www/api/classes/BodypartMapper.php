@@ -2,7 +2,7 @@
 
 class BodypartMapper extends Mapper
 {
-  protected $tablename = "boxes";
+  protected $tablename = "bodyparts";
 
   public function getBodyparts() {
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,

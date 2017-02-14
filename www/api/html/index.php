@@ -88,7 +88,7 @@ $app->get('/nendoroid/{internalid}', function (Request $request, Response $respo
     return $newresponse;
 });
 
-$app->get('/{element}/count', function(Request $request, Response $response) {
+$app->get('/{element}/count', function(Request $request, Response $response, $args) {
     $element = $args['element'];
     $this->logger->addInfo($element." count");
     try {
