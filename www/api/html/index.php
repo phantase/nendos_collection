@@ -63,4 +63,28 @@ $app->get('/box/{internalid}', function (Request $request, Response $response, $
     return $newresponse;
 });
 
+$app->get('/nendoroids', function(Request $request, Response $response) {
+    $this->logger->addInfo("Nendoroids list");
+    $mapper = new NendoroidMapper($this->db);
+    $nendoroids = $mapper->getNendoroids();
+
+    $newresponse = $response->withJson($nendoroids);
+    return $newresponse;
+});
+
+$app->get('/nendoroid/{internalid}', function (Request $request, Response $response, $args) {
+    $nendoroid_internalid = (int)$args['internalid'];
+    $this->logger->addInfo("Nendoroid single ".$nendoroid_internalid);
+    $mapper = new NendoroidMapper($this->db);
+    $nendoroid = $mapper->getNendoroidByInternalid($nendoroid_internalid);
+
+    if( is_null($nendoroid) ){
+        $newresponse = $response->withJson(null,404);
+    } else {
+        $newresponse = $response->withJson($nendoroid);
+    }
+
+    return $newresponse;
+});
+
 $app->run();
