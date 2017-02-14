@@ -25,6 +25,9 @@ class MapperFactory {
       case 'nendoroid':
       case 'nendoroids':
         return new NendoroidMapper($db);
+      case 'photo':
+      case 'photos':
+        return new PhotoMapper($db);
       default:
         throw new Exception('Element not supported');
     }
