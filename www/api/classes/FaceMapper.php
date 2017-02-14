@@ -2,6 +2,7 @@
 
 class FaceMapper extends Mapper
 {
+  protected $tablename = "faces";
 
   public function getFaces() {
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,

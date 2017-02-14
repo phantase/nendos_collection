@@ -2,6 +2,7 @@
 
 class BoxMapper extends Mapper
 {
+  protected $tablename = "boxes";
 
   public function getBoxes() {
     $sql = "SELECT b.internalid, b.number, b.name, b.series, b.manufacturer, b.category,

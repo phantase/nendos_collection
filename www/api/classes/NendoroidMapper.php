@@ -2,6 +2,7 @@
 
 class NendoroidMapper extends Mapper
 {
+  protected $tablename = "nendoroids";
 
   public function getNendoroids() {
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,

@@ -2,6 +2,7 @@
 
 class HandMapper extends Mapper
 {
+  protected $tablename = "hands";
 
   public function getHands() {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,

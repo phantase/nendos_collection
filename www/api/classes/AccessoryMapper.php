@@ -2,6 +2,7 @@
 
 class AccessoryMapper extends Mapper
 {
+  protected $tablename = "accessories";
 
   public function getAccessories() {
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,

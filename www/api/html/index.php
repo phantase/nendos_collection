@@ -88,6 +88,22 @@ $app->get('/nendoroid/{internalid}', function (Request $request, Response $respo
     return $newresponse;
 });
 
+$app->get('/{element}/count', function(Request $request, Response $response) {
+    $element = $args['element'];
+    $this->logger->addInfo($element." count");
+    try {
+        $mapper = MapperFactory::getMapper($this->db,$element);
+        $count = $mapper->count();
+        $count['count'] *= 1;
+
+        $newresponse = $response->withJson($count);
+
+    } catch (Exception $e){
+        $newresponse = $response->withJson(null,400);
+    }
+    return $newresponse;
+});
+
 $app->get('/accessories', function(Request $request, Response $response) {
     $this->logger->addInfo("Accessories list");
     $mapper = new AccessoryMapper($this->db);

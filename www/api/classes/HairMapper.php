@@ -2,6 +2,7 @@
 
 class HairMapper extends Mapper
 {
+  protected $tablename = "hairs";
 
   public function getHairs() {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
