@@ -40,6 +40,20 @@ $container['db'] = function ($c) {
     return $pdo;
 };
 
+// To enable CORS
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response;
+});
+
+$app->add(function ($req, $res, $next) {
+    $response = $next($req, $res);
+    return $response
+            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+});
+// End To enable CORS
+
 $app->get('/{element}', function(Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $this->logger->addInfo($param_element." list");
