@@ -54,6 +54,17 @@ $app->add(function ($req, $res, $next) {
 });
 // End To enable CORS
 
+$app->get('/count', function(Request $request, Response $response) {
+    $this->logger->addInfo("Count");
+
+    $mapper = new CountMapper($this->db);
+    $counts = $mapper->get();
+
+    $newresponse = $response->withJson($counts);
+
+    return $newresponse;
+});
+
 $app->get('/{element}', function(Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $this->logger->addInfo($param_element." list");
