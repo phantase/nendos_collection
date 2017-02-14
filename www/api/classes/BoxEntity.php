@@ -144,29 +144,27 @@ class BoxEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'box' => [
-        'internalid' => $this->internalid,
-        'number' => $this->number,
-        'name' => $this->name,
-        'series' => $this->series,
-        'manufacturer' => $this->manufacturer,
-        'category' => $this->category,
-        'price' => $this->price,
-        'releasedate' => $this->releasedate,
-        'specifications' => $this->specifications,
-        'sculptor' => $this->sculptor,
-        'cooperation' => $this->cooperation,
-        'officialurl' => $this->officialurl,
-        'creatorid' => $this->creatorid,
-        'creatorname' => $this->creatorname,
-        'creationdate' => $this->creationdate,
-        'editorid' => $this->editorid,
-        'editorname' => $this->editorname,
-        'editiondate' => $this->editiondate,
-        'validatorid' => $this->validatorid,
-        'validatorname' => $this->validatorname,
-        'validationdate' => $this->validationdate
-      ]
+      'internalid' => $this->internalid,
+      'number' => $this->number,
+      'name' => $this->name,
+      'series' => $this->series,
+      'manufacturer' => $this->manufacturer,
+      'category' => $this->category,
+      'price' => $this->price,
+      'releasedate' => $this->releasedate,
+      'specifications' => $this->specifications,
+      'sculptor' => $this->sculptor,
+      'cooperation' => $this->cooperation,
+      'officialurl' => $this->officialurl,
+      'creatorid' => $this->creatorid,
+      'creatorname' => $this->creatorname,
+      'creationdate' => $this->creationdate,
+      'editorid' => $this->editorid,
+      'editorname' => $this->editorname,
+      'editiondate' => $this->editiondate,
+      'validatorid' => $this->validatorid,
+      'validatorname' => $this->validatorname,
+      'validationdate' => $this->validationdate
     ];
   }
 

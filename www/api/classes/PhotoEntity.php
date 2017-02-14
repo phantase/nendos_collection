@@ -65,16 +65,14 @@ class PhotoEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'photo' => [
-        'internalid' => $this->internalid,
-        'userid' => $this->userid,
-        'username' => $this->username,
-        'title' => $this->title,
-        'width' => $this->width,
-        'height' => $this->height,
-        'uploaded' => $this->uploaded,
-        'updated' => $this->updated,
-      ]
+      'internalid' => $this->internalid,
+      'userid' => $this->userid,
+      'username' => $this->username,
+      'title' => $this->title,
+      'width' => $this->width,
+      'height' => $this->height,
+      'uploaded' => $this->uploaded,
+      'updated' => $this->updated,
     ];
   }
 

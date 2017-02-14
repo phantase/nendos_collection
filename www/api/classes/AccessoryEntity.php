@@ -114,24 +114,22 @@ class AccessoryEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'accessory' => [
-        'internalid' => $this->internalid,
-        'boxid' => $this->boxid,
-        'nendoroidid' => $this->nendoroidid,
-        'type' => $this->type,
-        'main_color' => $this->main_color,
-        'other_color' => $this->other_color,
-        'description' => $this->description,
-        'creatorid' => $this->creatorid,
-        'creatorname' => $this->creatorname,
-        'creationdate' => $this->creationdate,
-        'editorid' => $this->editorid,
-        'editorname' => $this->editorname,
-        'editiondate' => $this->editiondate,
-        'validatorid' => $this->validatorid,
-        'validatorname' => $this->validatorname,
-        'validationdate' => $this->validationdate
-      ]
+      'internalid' => $this->internalid,
+      'boxid' => $this->boxid,
+      'nendoroidid' => $this->nendoroidid,
+      'type' => $this->type,
+      'main_color' => $this->main_color,
+      'other_color' => $this->other_color,
+      'description' => $this->description,
+      'creatorid' => $this->creatorid,
+      'creatorname' => $this->creatorname,
+      'creationdate' => $this->creationdate,
+      'editorid' => $this->editorid,
+      'editorname' => $this->editorname,
+      'editiondate' => $this->editiondate,
+      'validatorid' => $this->validatorid,
+      'validatorname' => $this->validatorname,
+      'validationdate' => $this->validationdate
     ];
   }
 

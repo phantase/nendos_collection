@@ -114,24 +114,22 @@ class BodypartEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'bodypart' => [
-        'internalid' => $this->internalid,
-        'boxid' => $this->boxid,
-        'nendoroidid' => $this->nendoroidid,
-        'part' => $this->part,
-        'main_color' => $this->main_color,
-        'other_color' => $this->other_color,
-        'description' => $this->description,
-        'creatorid' => $this->creatorid,
-        'creatorname' => $this->creatorname,
-        'creationdate' => $this->creationdate,
-        'editorid' => $this->editorid,
-        'editorname' => $this->editorname,
-        'editiondate' => $this->editiondate,
-        'validatorid' => $this->validatorid,
-        'validatorname' => $this->validatorname,
-        'validationdate' => $this->validationdate
-      ]
+      'internalid' => $this->internalid,
+      'boxid' => $this->boxid,
+      'nendoroidid' => $this->nendoroidid,
+      'part' => $this->part,
+      'main_color' => $this->main_color,
+      'other_color' => $this->other_color,
+      'description' => $this->description,
+      'creatorid' => $this->creatorid,
+      'creatorname' => $this->creatorname,
+      'creationdate' => $this->creationdate,
+      'editorid' => $this->editorid,
+      'editorname' => $this->editorname,
+      'editiondate' => $this->editiondate,
+      'validatorid' => $this->validatorid,
+      'validatorname' => $this->validatorname,
+      'validationdate' => $this->validationdate
     ];
   }
 

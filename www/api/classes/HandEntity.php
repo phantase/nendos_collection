@@ -114,24 +114,22 @@ class HandEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'hand' => [
-        'internalid' => $this->internalid,
-        'boxid' => $this->boxid,
-        'nendoroidid' => $this->nendoroidid,
-        'skin_color' => $this->skin_color,
-        'leftright' => $this->leftright,
-        'posture' => $this->posture,
-        'description' => $this->description,
-        'creatorid' => $this->creatorid,
-        'creatorname' => $this->creatorname,
-        'creationdate' => $this->creationdate,
-        'editorid' => $this->editorid,
-        'editorname' => $this->editorname,
-        'editiondate' => $this->editiondate,
-        'validatorid' => $this->validatorid,
-        'validatorname' => $this->validatorname,
-        'validationdate' => $this->validationdate
-      ]
+      'internalid' => $this->internalid,
+      'boxid' => $this->boxid,
+      'nendoroidid' => $this->nendoroidid,
+      'skin_color' => $this->skin_color,
+      'leftright' => $this->leftright,
+      'posture' => $this->posture,
+      'description' => $this->description,
+      'creatorid' => $this->creatorid,
+      'creatorname' => $this->creatorname,
+      'creationdate' => $this->creationdate,
+      'editorid' => $this->editorid,
+      'editorname' => $this->editorname,
+      'editiondate' => $this->editiondate,
+      'validatorid' => $this->validatorid,
+      'validatorname' => $this->validatorname,
+      'validationdate' => $this->validationdate
     ];
   }
 

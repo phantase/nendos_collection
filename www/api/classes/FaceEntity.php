@@ -120,25 +120,23 @@ class FaceEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'face' => [
-        'internalid' => $this->internalid,
-        'boxid' => $this->boxid,
-        'nendoroidid' => $this->nendoroidid,
-        'eyes' => $this->eyes,
-        'eyes_color' => $this->eyes_color,
-        'mouth' => $this->mouth,
-        'skin_color' => $this->skin_color,
-        'sex' => $this->sex,
-        'creatorid' => $this->creatorid,
-        'creatorname' => $this->creatorname,
-        'creationdate' => $this->creationdate,
-        'editorid' => $this->editorid,
-        'editorname' => $this->editorname,
-        'editiondate' => $this->editiondate,
-        'validatorid' => $this->validatorid,
-        'validatorname' => $this->validatorname,
-        'validationdate' => $this->validationdate
-      ]
+      'internalid' => $this->internalid,
+      'boxid' => $this->boxid,
+      'nendoroidid' => $this->nendoroidid,
+      'eyes' => $this->eyes,
+      'eyes_color' => $this->eyes_color,
+      'mouth' => $this->mouth,
+      'skin_color' => $this->skin_color,
+      'sex' => $this->sex,
+      'creatorid' => $this->creatorid,
+      'creatorname' => $this->creatorname,
+      'creationdate' => $this->creationdate,
+      'editorid' => $this->editorid,
+      'editorname' => $this->editorname,
+      'editiondate' => $this->editiondate,
+      'validatorid' => $this->validatorid,
+      'validatorname' => $this->validatorname,
+      'validationdate' => $this->validationdate
     ];
   }
 

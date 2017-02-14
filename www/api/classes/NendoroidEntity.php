@@ -108,23 +108,21 @@ class NendoroidEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'nendoroid' => [
-        'internalid' => $this->internalid,
-        'boxid' => $this->boxid,
-        'name' => $this->name,
-        'version' => $this->version,
-        'sex' => $this->sex,
-        'dominant_color' => $this->dominant_color,
-        'creatorid' => $this->creatorid,
-        'creatorname' => $this->creatorname,
-        'creationdate' => $this->creationdate,
-        'editorid' => $this->editorid,
-        'editorname' => $this->editorname,
-        'editiondate' => $this->editiondate,
-        'validatorid' => $this->validatorid,
-        'validatorname' => $this->validatorname,
-        'validationdate' => $this->validationdate
-      ]
+      'internalid' => $this->internalid,
+      'boxid' => $this->boxid,
+      'name' => $this->name,
+      'version' => $this->version,
+      'sex' => $this->sex,
+      'dominant_color' => $this->dominant_color,
+      'creatorid' => $this->creatorid,
+      'creatorname' => $this->creatorname,
+      'creationdate' => $this->creationdate,
+      'editorid' => $this->editorid,
+      'editorname' => $this->editorname,
+      'editiondate' => $this->editiondate,
+      'validatorid' => $this->validatorid,
+      'validatorname' => $this->validatorname,
+      'validationdate' => $this->validationdate
     ];
   }
 

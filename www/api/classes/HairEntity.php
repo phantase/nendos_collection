@@ -120,25 +120,23 @@ class HairEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'hair' => [
-        'internalid' => $this->internalid,
-        'boxid' => $this->boxid,
-        'nendoroidid' => $this->nendoroidid,
-        'main_color' => $this->main_color,
-        'other_color' => $this->other_color,
-        'haircut' => $this->haircut,
-        'description' => $this->description,
-        'frontback' => $this->frontback,
-        'creatorid' => $this->creatorid,
-        'creatorname' => $this->creatorname,
-        'creationdate' => $this->creationdate,
-        'editorid' => $this->editorid,
-        'editorname' => $this->editorname,
-        'editiondate' => $this->editiondate,
-        'validatorid' => $this->validatorid,
-        'validatorname' => $this->validatorname,
-        'validationdate' => $this->validationdate
-      ]
+      'internalid' => $this->internalid,
+      'boxid' => $this->boxid,
+      'nendoroidid' => $this->nendoroidid,
+      'main_color' => $this->main_color,
+      'other_color' => $this->other_color,
+      'haircut' => $this->haircut,
+      'description' => $this->description,
+      'frontback' => $this->frontback,
+      'creatorid' => $this->creatorid,
+      'creatorname' => $this->creatorname,
+      'creationdate' => $this->creationdate,
+      'editorid' => $this->editorid,
+      'editorname' => $this->editorname,
+      'editiondate' => $this->editiondate,
+      'validatorid' => $this->validatorid,
+      'validatorname' => $this->validatorname,
+      'validationdate' => $this->validationdate
     ];
   }
 
