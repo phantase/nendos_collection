@@ -160,4 +160,28 @@ $app->get('/face/{internalid}', function (Request $request, Response $response, 
     return $newresponse;
 });
 
+$app->get('/hairs', function(Request $request, Response $response) {
+    $this->logger->addInfo("Hairs list");
+    $mapper = new HairMapper($this->db);
+    $hairs = $mapper->getHairs();
+
+    $newresponse = $response->withJson($hairs);
+    return $newresponse;
+});
+
+$app->get('/hair/{internalid}', function (Request $request, Response $response, $args) {
+    $hair_internalid = (int)$args['internalid'];
+    $this->logger->addInfo("Hair single ".$hair_internalid);
+    $mapper = new HairMapper($this->db);
+    $hair = $mapper->getHairByInternalid($hair_internalid);
+
+    if( is_null($hair) ){
+        $newresponse = $response->withJson(null,404);
+    } else {
+        $newresponse = $response->withJson($hair);
+    }
+
+    return $newresponse;
+});
+
 $app->run();
