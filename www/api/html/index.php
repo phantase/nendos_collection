@@ -40,51 +40,18 @@ $container['db'] = function ($c) {
     return $pdo;
 };
 
-$app->get('/boxes', function(Request $request, Response $response) {
-    $this->logger->addInfo("Boxes list");
-    $mapper = new BoxMapper($this->db);
-    $boxes = $mapper->getBoxes();
+$app->get('/{element}', function(Request $request, Response $response, $args) {
+    $param_element = $args['element'];
+    $this->logger->addInfo($param_element." list");
+    try {
+        $mapper = MapperFactory::getMapper($this->db,$param_element);
+        $elements = $mapper->get();
 
-    $newresponse = $response->withJson($boxes);
-    return $newresponse;
-});
+        $newresponse = $response->withJson($elements);
 
-$app->get('/box/{internalid}', function (Request $request, Response $response, $args) {
-    $box_internalid = (int)$args['internalid'];
-    $this->logger->addInfo("Box single ".$box_internalid);
-    $mapper = new BoxMapper($this->db);
-    $box = $mapper->getBoxByInternalid($box_internalid);
-
-    if( is_null($box) ){
-        $newresponse = $response->withJson(null,404);
-    } else {
-        $newresponse = $response->withJson($box);
+    } catch (Exception $e){
+        $newresponse = $response->withJson(null,400);
     }
-
-    return $newresponse;
-});
-
-$app->get('/nendoroids', function(Request $request, Response $response) {
-    $this->logger->addInfo("Nendoroids list");
-    $mapper = new NendoroidMapper($this->db);
-    $nendoroids = $mapper->getNendoroids();
-
-    $newresponse = $response->withJson($nendoroids);
-    return $newresponse;
-});
-
-$app->get('/nendoroid/{internalid}', function (Request $request, Response $response, $args) {
-    $nendoroid_internalid = (int)$args['internalid'];
-    $this->logger->addInfo("Nendoroid single ".$nendoroid_internalid);
-    $mapper = new NendoroidMapper($this->db);
-    $nendoroid = $mapper->getNendoroidByInternalid($nendoroid_internalid);
-
-    if( is_null($nendoroid) ){
-        $newresponse = $response->withJson(null,404);
-    } else {
-        $newresponse = $response->withJson($nendoroid);
-    }
-
     return $newresponse;
 });
 
@@ -104,123 +71,23 @@ $app->get('/{element}/count', function(Request $request, Response $response, $ar
     return $newresponse;
 });
 
-$app->get('/accessories', function(Request $request, Response $response) {
-    $this->logger->addInfo("Accessories list");
-    $mapper = new AccessoryMapper($this->db);
-    $accessories = $mapper->getAccessories();
+$app->get('/{element}/{internalid}', function (Request $request, Response $response, $args) {
+    $param_element = $args['element'];
+    $internalid = (int)$args['internalid'];
+    $this->logger->addInfo($param_element." single ".$internalid);
+    try {
+        $mapper = MapperFactory::getMapper($this->db,$param_element);
+        $element = $mapper->getByInternalid($internalid);
 
-    $newresponse = $response->withJson($accessories);
-    return $newresponse;
-});
+        if( is_null($element) ){
+            $newresponse = $response->withJson(null,404);
+        } else {
+            $newresponse = $response->withJson($element);
+        }
 
-$app->get('/accessory/{internalid}', function (Request $request, Response $response, $args) {
-    $accessory_internalid = (int)$args['internalid'];
-    $this->logger->addInfo("Accessory single ".$accessory_internalid);
-    $mapper = new AccessoryMapper($this->db);
-    $accessory = $mapper->getAccessoryByInternalid($accessory_internalid);
-
-    if( is_null($accessory) ){
-        $newresponse = $response->withJson(null,404);
-    } else {
-        $newresponse = $response->withJson($accessory);
+    } catch (Exception $e){
+        $newresponse = $response->withJson(null,400);
     }
-
-    return $newresponse;
-});
-
-$app->get('/bodyparts', function(Request $request, Response $response) {
-    $this->logger->addInfo("Bodyparts list");
-    $mapper = new BodypartMapper($this->db);
-    $bodyparts = $mapper->getBodyparts();
-
-    $newresponse = $response->withJson($bodyparts);
-    return $newresponse;
-});
-
-$app->get('/bodypart/{internalid}', function (Request $request, Response $response, $args) {
-    $bodypart_internalid = (int)$args['internalid'];
-    $this->logger->addInfo("Bodypart single ".$bodypart_internalid);
-    $mapper = new BodypartMapper($this->db);
-    $bodypart = $mapper->getBodypartByInternalid($bodypart_internalid);
-
-    if( is_null($bodypart) ){
-        $newresponse = $response->withJson(null,404);
-    } else {
-        $newresponse = $response->withJson($bodypart);
-    }
-
-    return $newresponse;
-});
-
-$app->get('/faces', function(Request $request, Response $response) {
-    $this->logger->addInfo("Faces list");
-    $mapper = new FaceMapper($this->db);
-    $faces = $mapper->getFaces();
-
-    $newresponse = $response->withJson($faces);
-    return $newresponse;
-});
-
-$app->get('/face/{internalid}', function (Request $request, Response $response, $args) {
-    $face_internalid = (int)$args['internalid'];
-    $this->logger->addInfo("Face single ".$face_internalid);
-    $mapper = new FaceMapper($this->db);
-    $face = $mapper->getFaceByInternalid($face_internalid);
-
-    if( is_null($face) ){
-        $newresponse = $response->withJson(null,404);
-    } else {
-        $newresponse = $response->withJson($face);
-    }
-
-    return $newresponse;
-});
-
-$app->get('/hairs', function(Request $request, Response $response) {
-    $this->logger->addInfo("Hairs list");
-    $mapper = new HairMapper($this->db);
-    $hairs = $mapper->getHairs();
-
-    $newresponse = $response->withJson($hairs);
-    return $newresponse;
-});
-
-$app->get('/hair/{internalid}', function (Request $request, Response $response, $args) {
-    $hair_internalid = (int)$args['internalid'];
-    $this->logger->addInfo("Hair single ".$hair_internalid);
-    $mapper = new HairMapper($this->db);
-    $hair = $mapper->getHairByInternalid($hair_internalid);
-
-    if( is_null($hair) ){
-        $newresponse = $response->withJson(null,404);
-    } else {
-        $newresponse = $response->withJson($hair);
-    }
-
-    return $newresponse;
-});
-
-$app->get('/hands', function(Request $request, Response $response) {
-    $this->logger->addInfo("Hands list");
-    $mapper = new HandMapper($this->db);
-    $hands = $mapper->getHands();
-
-    $newresponse = $response->withJson($hands);
-    return $newresponse;
-});
-
-$app->get('/hand/{internalid}', function (Request $request, Response $response, $args) {
-    $hand_internalid = (int)$args['internalid'];
-    $this->logger->addInfo("Hand single ".$hand_internalid);
-    $mapper = new HandMapper($this->db);
-    $hand = $mapper->getHandByInternalid($hand_internalid);
-
-    if( is_null($hand) ){
-        $newresponse = $response->withJson(null,404);
-    } else {
-        $newresponse = $response->withJson($hand);
-    }
-
     return $newresponse;
 });
 

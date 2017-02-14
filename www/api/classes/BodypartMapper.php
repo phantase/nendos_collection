@@ -4,7 +4,7 @@ class BodypartMapper extends Mapper
 {
   protected $tablename = "bodyparts";
 
-  public function getBodyparts() {
+  public function get() {
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
@@ -22,7 +22,7 @@ class BodypartMapper extends Mapper
     return $results;
   }
 
-  public function getBodypartByInternalid($bodypart_internalid) {
+  public function getByInternalid($bodypart_internalid) {
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,

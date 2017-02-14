@@ -120,7 +120,7 @@ class FaceEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'box' => [
+      'face' => [
         'internalid' => $this->internalid,
         'boxid' => $this->boxid,
         'nendoroidid' => $this->nendoroidid,

@@ -120,7 +120,7 @@ class HairEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'box' => [
+      'hair' => [
         'internalid' => $this->internalid,
         'boxid' => $this->boxid,
         'nendoroidid' => $this->nendoroidid,

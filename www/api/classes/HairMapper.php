@@ -4,7 +4,7 @@ class HairMapper extends Mapper
 {
   protected $tablename = "hairs";
 
-  public function getHairs() {
+  public function get() {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
@@ -22,7 +22,7 @@ class HairMapper extends Mapper
     return $results;
   }
 
-  public function getHairByInternalid($hair_internalid) {
+  public function getByInternalid($hair_internalid) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,

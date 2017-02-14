@@ -4,7 +4,7 @@ class HandMapper extends Mapper
 {
   protected $tablename = "hands";
 
-  public function getHands() {
+  public function get() {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
@@ -22,7 +22,7 @@ class HandMapper extends Mapper
     return $results;
   }
 
-  public function getHandByInternalid($hand_internalid) {
+  public function getByInternalid($hand_internalid) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,

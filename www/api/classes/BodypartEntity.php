@@ -114,7 +114,7 @@ class BodypartEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'box' => [
+      'bodypart' => [
         'internalid' => $this->internalid,
         'boxid' => $this->boxid,
         'nendoroidid' => $this->nendoroidid,

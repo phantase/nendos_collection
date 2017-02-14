@@ -114,7 +114,7 @@ class AccessoryEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'box' => [
+      'accessory' => [
         'internalid' => $this->internalid,
         'boxid' => $this->boxid,
         'nendoroidid' => $this->nendoroidid,

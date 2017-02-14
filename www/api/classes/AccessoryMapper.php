@@ -4,7 +4,7 @@ class AccessoryMapper extends Mapper
 {
   protected $tablename = "accessories";
 
-  public function getAccessories() {
+  public function get() {
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
@@ -22,7 +22,7 @@ class AccessoryMapper extends Mapper
     return $results;
   }
 
-  public function getAccessoryByInternalid($accessory_internalid) {
+  public function getByInternalid($accessory_internalid) {
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,

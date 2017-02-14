@@ -4,7 +4,7 @@ class BoxMapper extends Mapper
 {
   protected $tablename = "boxes";
 
-  public function getBoxes() {
+  public function get() {
     $sql = "SELECT b.internalid, b.number, b.name, b.series, b.manufacturer, b.category,
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
@@ -23,7 +23,7 @@ class BoxMapper extends Mapper
     return $results;
   }
 
-  public function getBoxByInternalid($box_internalid) {
+  public function getByInternalid($box_internalid) {
     $sql = "SELECT b.internalid, b.number, b.name, b.series, b.manufacturer, b.category,
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,

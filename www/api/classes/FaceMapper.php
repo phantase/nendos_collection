@@ -4,7 +4,7 @@ class FaceMapper extends Mapper
 {
   protected $tablename = "faces";
 
-  public function getFaces() {
+  public function get() {
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
@@ -22,7 +22,7 @@ class FaceMapper extends Mapper
     return $results;
   }
 
-  public function getFaceByInternalid($face_internalid) {
+  public function getByInternalid($face_internalid) {
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,

@@ -114,7 +114,7 @@ class HandEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'box' => [
+      'hand' => [
         'internalid' => $this->internalid,
         'boxid' => $this->boxid,
         'nendoroidid' => $this->nendoroidid,
