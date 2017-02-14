@@ -41,7 +41,7 @@ class BoxEntity implements JsonSerializable
     $this->series = $data['series'];
     $this->manufacturer = $data['manufacturer'];
     $this->category = $data['category'];
-    $this->price = $data['price'];
+    $this->price = $data['price'] * 1;
     $this->releasedate = $data['releasedate'];
     $this->specifications = $data['specifications'];
     $this->sculptor = $data['sculptor'];
