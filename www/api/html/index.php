@@ -87,4 +87,28 @@ $app->get('/nendoroid/{internalid}', function (Request $request, Response $respo
     return $newresponse;
 });
 
+$app->get('/accessories', function(Request $request, Response $response) {
+    $this->logger->addInfo("Accessories list");
+    $mapper = new AccessoryMapper($this->db);
+    $accessories = $mapper->getAccessories();
+
+    $newresponse = $response->withJson($accessories);
+    return $newresponse;
+});
+
+$app->get('/accessory/{internalid}', function (Request $request, Response $response, $args) {
+    $accessory_internalid = (int)$args['internalid'];
+    $this->logger->addInfo("Accessory single ".$accessory_internalid);
+    $mapper = new AccessoryMapper($this->db);
+    $accessory = $mapper->getAccessoryByInternalid($accessory_internalid);
+
+    if( is_null($accessory) ){
+        $newresponse = $response->withJson(null,404);
+    } else {
+        $newresponse = $response->withJson($accessory);
+    }
+
+    return $newresponse;
+});
+
 $app->run();
