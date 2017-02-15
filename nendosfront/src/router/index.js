@@ -43,7 +43,13 @@ export default new Router({
       path: '/box/:id',
       name: 'Box',
       meta: {
-        description: 'A single box'
+        description: 'A single box',
+        breadcrumb: [
+          {
+            title: 'Boxes',
+            link: '/boxes'
+          }
+        ]
       },
       component: Box
     },

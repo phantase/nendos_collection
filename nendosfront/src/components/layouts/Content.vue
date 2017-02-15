@@ -2,7 +2,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-    <app-content-header :pageheader="pageheader" :pagedescription="pagedescription"></app-content-header>
+    <app-content-header :pageheader="pageheader" :pagedescription="pagedescription" :breadcrumb="breadcrumb"></app-content-header>
 
     <!-- Main content -->
     <section class="content">
@@ -34,6 +34,9 @@
       },
       pagedescription () {
         return this.$route.meta.description
+      },
+      breadcrumb () {
+        return this.$route.meta.breadcrumb
       }
     }
   }

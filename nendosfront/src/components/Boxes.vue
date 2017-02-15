@@ -11,7 +11,7 @@
                 <span v-if="box.number">#{{ box.number}}</span>
               </div>
               <div class="box-name">{{ box.name }}</div>
-              <div class="box-series">{{ box.series }}</div>
+              <div class="box-series">{{ box.series ? box.series : '&nbsp;' }}</div>
             </h3>
           </div>
           <div class="box-body">
