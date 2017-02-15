@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Hello from 'components/Home'
 import Accessories from 'components/Accessories'
 import Bodyparts from 'components/Bodyparts'
+import Box from 'components/Box'
 import Boxes from 'components/Boxes'
 import Faces from 'components/Faces'
 import Hairs from 'components/Hairs'
@@ -37,6 +38,14 @@ export default new Router({
         description: 'List of all bodyparts'
       },
       component: Bodyparts
+    },
+    {
+      path: '/box/:id',
+      name: 'Box',
+      meta: {
+        description: 'A single box'
+      },
+      component: Box
     },
     {
       path: '/boxes',
