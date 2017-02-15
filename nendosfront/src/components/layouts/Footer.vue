@@ -3,7 +3,7 @@
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      Manage your Nendoroids collection
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2017 <a href="#">Nendoroids db</a>.</strong> All rights reserved.
