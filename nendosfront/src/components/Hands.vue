@@ -10,7 +10,7 @@
             </h3>
           </div>
           <div class="box-body">
-            <img :src="'http://localhost/images/nendos/hands/'+hand.internalid+'_thumb'" />
+            <img :src="resources.imagesurl+'/images/nendos/hands/'+hand.internalid+'_thumb'" />
           </div>
         </div>
       </div>
@@ -20,10 +20,13 @@
 </template>
 
 <script>
+import Resources from './../config/resources'
+
 export default {
   name: 'Hands',
   data () {
     return {
+      resources: Resources,
       hands: []
     }
   },

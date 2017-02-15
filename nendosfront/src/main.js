@@ -4,9 +4,10 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
+import resources from './config/resources'
 
 Vue.use(VueResource)
-Vue.http.options.root = 'http://localhost:81/'
+Vue.http.options.root = resources.apiurl
 
 /* eslint-disable no-new */
 new Vue({

@@ -18,7 +18,7 @@ import AppContent from './components/layouts/Content'
 import AppFooter from './components/layouts/Footer'
 import AppControlSidebar from './components/layouts/ControlSidebar'
 
-import Menus from './../config/menus'
+import Menus from './config/menus'
 
 export default {
   name: 'app',
