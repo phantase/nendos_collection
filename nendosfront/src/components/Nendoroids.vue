@@ -11,7 +11,7 @@
             </h3>
           </div>
           <div class="box-body">
-            <img :src="'http://localhost/images/nendos/nendoroids/'+nendoroid.internalid+'_thumb'" />
+            <img :src="resources.imagesurl+'/images/nendos/nendoroids/'+nendoroid.internalid+'_thumb'" />
           </div>
         </div>
       </div>
@@ -22,10 +22,13 @@
 </template>
 
 <script>
+import Resources from './../config/resources'
+
 export default {
   name: 'Nendoroids',
   data () {
     return {
+      resources: Resources,
       nendoroids: []
     }
   },
