@@ -7,7 +7,7 @@
           <div class="box-header with-border">
             <h3 class="box-title">
               <div class="nendoroid-name">{{ nendoroid.name }}</div>
-              <div class="nendoroid-version">{{ nendoroid.version }}</div>
+              <div class="nendoroid-version">{{ nendoroid.version ? nendoroid.version : '&nbsp;' }}</div>
             </h3>
           </div>
           <div class="box-body">
