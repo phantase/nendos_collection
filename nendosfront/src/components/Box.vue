@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="box">
-          <box-header title="Informations" collapsable="true" icon="fa-info"></box-header>
+          <app-box-header title="Informations" collapsable="true" icon="fa-info"></app-box-header>
           <div class="box-body">
             <ul class="list-group list-group-unbordered">
               <li class="list-group-item" v-if="box.number">
@@ -74,7 +74,7 @@
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
-          <box-header title="Photo" collapsable="true" icon="fa-photo"></box-header>
+          <app-box-header title="Photo" collapsable="true" icon="fa-photo"></app-box-header>
           <div class="box-body">
             <img :src="resources.imagesurl+'/images/nendos/boxes/'+box.internalid+'_thumb'" />
           </div>
@@ -87,12 +87,12 @@
 
 <script>
 import Resources from './../config/resources'
-import BoxHeader from './layouts/BoxHeader'
+import AppBoxHeader from './layouts/BoxHeader'
 
 export default {
   name: 'Box',
   components: {
-    BoxHeader
+    AppBoxHeader
   },
   data () {
     return {
