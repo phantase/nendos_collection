@@ -3,28 +3,44 @@
 
     <div class="row">
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-info-box :info="info_boxes"></app-info-box>
+        <router-link to="/boxes">
+          <app-info-box :info="info_boxes"></app-info-box>
+        </router-link>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-info-box :info="info_nendoroids"></app-info-box>
+        <router-link to="/nendoroids">
+          <app-info-box :info="info_nendoroids"></app-info-box>
+        </router-link>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-info-box :info="info_faces"></app-info-box>
+        <router-link to="/faces">
+          <app-info-box :info="info_faces"></app-info-box>
+        </router-link>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-info-box :info="info_hairs"></app-info-box>
+        <router-link to="/hairs">
+          <app-info-box :info="info_hairs"></app-info-box>
+        </router-link>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-info-box :info="info_hands"></app-info-box>
+        <router-link to="/hands">
+          <app-info-box :info="info_hands"></app-info-box>
+        </router-link>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-info-box :info="info_bodyparts"></app-info-box>
+        <router-link to="/bodyparts">
+          <app-info-box :info="info_bodyparts"></app-info-box>
+        </router-link>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-info-box :info="info_accessories"></app-info-box>
+        <router-link to="/accessories">
+          <app-info-box :info="info_accessories"></app-info-box>
+        </router-link>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-info-box :info="info_photos"></app-info-box>
+        <router-link to="/photos">
+          <app-info-box :info="info_photos"></app-info-box>
+        </router-link>
       </div>
     </div>
 
