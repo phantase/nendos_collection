@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?dmm36n');
+  src:  url('fonts/icomoon.eot?dmm36n#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?dmm36n') format('truetype'),
+    url('fonts/icomoon.woff?dmm36n') format('woff'),
+    url('fonts/icomoon.svg?dmm36n#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-logo:before {
+  content: "\e901";
+}
+.icon-icon_nendo_accessories:before {
+  content: "\e902";
+}
+.icon-icon_nendo_body:before {
+  content: "\e903";
+}
+.icon-icon_nendo_hair:before {
+  content: "\e904";
+}
+.icon-icon_nendo_face:before {
+  content: "\e905";
+}
+.icon-icon_nendo_hand:before {
+  content: "\e906";
+}
+.icon-icon_nendo_nendo:before {
+  content: "\e907";
+}
+.icon-icon_nendo_boxes:before {
+  content: "\e900";
+}
+
