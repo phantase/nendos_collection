@@ -40,4 +40,24 @@ class HairMapper extends Mapper
     }
   }
 
+  public function getByBoxid($boxid) {
+    $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
+                  h.creatorid, uc.username AS creatorname, h.creationdate,
+                  h.editorid, ue.username AS editorname, h.editiondate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate
+            FROM hairs h
+            LEFT JOIN users uc ON h.creatorid = uc.internalid
+            LEFT JOIN users ue ON h.editorid = ue.internalid
+            LEFT JOIN users uv ON h.validatorid = uv.internalid
+            WHERE h.boxid = :boxid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["boxid" => $boxid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new HairEntity($row);
+    }
+    return $results;
+  }
+
 }

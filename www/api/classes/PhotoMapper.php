@@ -30,4 +30,20 @@ class PhotoMapper extends Mapper
     }
   }
 
+  public function getByBoxid($boxid) {
+    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated
+            FROM photos p
+            LEFT JOIN users u ON p.userid = u.internalid
+            LEFT JOIN photos_boxes pb ON p.internalid = pb.photoid
+            WHERE pb.boxid = :boxid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["boxid" => $boxid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new PhotoEntity($row);
+    }
+    return $results;
+  }
+
 }
