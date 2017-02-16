@@ -90,6 +90,54 @@
           </div>
         </div>
       </div>
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="faces.length > 0">
+        <div class="box">
+          <app-box-header title="Faces" collapsable="true" icon="icon-icon_nendo_face"></app-box-header>
+          <div class="box-body">
+            <faces-tiles :faces="faces"></faces-tiles>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hairs.length > 0">
+        <div class="box">
+          <app-box-header title="Hairs" collapsable="true" icon="icon-icon_nendo_hair"></app-box-header>
+          <div class="box-body">
+            <hairs-tiles :hairs="hairs"></hairs-tiles>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hands.length > 0">
+        <div class="box">
+          <app-box-header title="Hands" collapsable="true" icon="icon-icon_nendo_hand"></app-box-header>
+          <div class="box-body">
+            <hands-tiles :hands="hands"></faces-tiles>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="bodyparts.length > 0">
+        <div class="box">
+          <app-box-header title="Bodyparts" collapsable="true" icon="icon-icon_nendo_body"></app-box-header>
+          <div class="box-body">
+            <bodyparts-tiles :bodyparts="bodyparts"></bodyparts-tiles>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="accessories.length > 0">
+        <div class="box">
+          <app-box-header title="Accessories" collapsable="true" icon="icon-icon_nendo_accessories"></app-box-header>
+          <div class="box-body">
+            <accessories-tiles :accessories="accessories"></accessories-tiles>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="photos.length > 0">
+        <div class="box">
+          <app-box-header title="Photos" collapsable="true" icon="fa-photo"></app-box-header>
+          <div class="box-body">
+            <photos-tiles :photos="photos"></photos-tiles>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -99,32 +147,85 @@
 import Resources from './../config/resources'
 import AppBoxHeader from './layouts/BoxHeader'
 import NendoroidsTiles from './dblayouts/NendoroidsTiles'
+import FacesTiles from './dblayouts/FacesTiles'
+import HairsTiles from './dblayouts/HairsTiles'
+import HandsTiles from './dblayouts/HandsTiles'
+import BodypartsTiles from './dblayouts/BodypartsTiles'
+import AccessoriesTiles from './dblayouts/AccessoriesTiles'
+import PhotosTiles from './dblayouts/PhotosTiles'
 
 export default {
   name: 'Box',
   components: {
     AppBoxHeader,
-    NendoroidsTiles
+    NendoroidsTiles,
+    FacesTiles,
+    HairsTiles,
+    HandsTiles,
+    BodypartsTiles,
+    AccessoriesTiles,
+    PhotosTiles
   },
   data () {
     return {
       resources: Resources,
       box: [],
-      nendoroids: []
+      nendoroids: [],
+      faces: [],
+      hairs: [],
+      hands: [],
+      bodyparts: [],
+      accessories: [],
+      photos: []
     }
   },
   mounted () {
     this.$boxes = this.$resource('boxes{/id}')
     this.$nendoroids = this.$resource('boxes{/id}/nendoroids')
+    this.$faces = this.$resource('boxes{/id}/faces')
+    this.$hairs = this.$resource('boxes{/id}/hairs')
+    this.$hands = this.$resource('boxes{/id}/hands')
+    this.$bodyparts = this.$resource('boxes{/id}/bodyparts')
+    this.$accessories = this.$resource('boxes{/id}/accessories')
+    this.$photos = this.$resource('boxes{/id}/photos')
 
     this.$boxes.query({id: this.$route.params.id}).then((response) => {
       this.box = response.data
     }, (response) => {
       console.log('Error', response)
     })
-
     this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
       this.nendoroids = response.data
+    }, (response) => {
+      console.log('Error', response)
+    })
+    this.$faces.query({id: this.$route.params.id}).then((response) => {
+      this.faces = response.data
+    }, (response) => {
+      console.log('Error', response)
+    })
+    this.$hairs.query({id: this.$route.params.id}).then((response) => {
+      this.hairs = response.data
+    }, (response) => {
+      console.log('Error', response)
+    })
+    this.$hands.query({id: this.$route.params.id}).then((response) => {
+      this.hands = response.data
+    }, (response) => {
+      console.log('Error', response)
+    })
+    this.$bodyparts.query({id: this.$route.params.id}).then((response) => {
+      this.bodyparts = response.data
+    }, (response) => {
+      console.log('Error', response)
+    })
+    this.$accessories.query({id: this.$route.params.id}).then((response) => {
+      this.accessories = response.data
+    }, (response) => {
+      console.log('Error', response)
+    })
+    this.$photos.query({id: this.$route.params.id}).then((response) => {
+      this.photos = response.data
     }, (response) => {
       console.log('Error', response)
     })
