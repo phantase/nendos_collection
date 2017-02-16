@@ -1,29 +1,18 @@
 <template>
   <div class="db-hairs">
-
-    <div class="row">
-      <div class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairs">
-        <div class="box box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title">
-              <div class="db-hair-internalid">{{ hair.internalid }}</div>
-            </h3>
-          </div>
-          <div class="box-body db-image">
-            <img :src="resources.imagesurl+'/images/nendos/hairs/'+hair.internalid+'_thumb'" />
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <hairs-tiles :hairs="hairs"></hairs-tiles>
   </div>
 </template>
 
 <script>
 import Resources from './../config/resources'
+import HairsTiles from './dblayouts/HairsTiles'
 
 export default {
   name: 'Hairs',
+  components: {
+    HairsTiles
+  },
   data () {
     return {
       resources: Resources,
