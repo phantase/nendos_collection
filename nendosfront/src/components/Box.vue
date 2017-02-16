@@ -86,7 +86,7 @@
         <div class="box">
           <app-box-header title="Nendoroids" collapsable="true" icon="icon-icon_nendo_nendo"></app-box-header>
           <div class="box-body">
-            <nendoroids-tiles :nendoroids="nendoroids"></nendoroids-tiles>
+            <nendoroids-tiles :nendoroids="nendoroids" tilessize="big"></nendoroids-tiles>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@
         <div class="box">
           <app-box-header title="Faces" collapsable="true" icon="icon-icon_nendo_face"></app-box-header>
           <div class="box-body">
-            <faces-tiles :faces="faces"></faces-tiles>
+            <faces-tiles :faces="faces" tilessize="big"></faces-tiles>
           </div>
         </div>
       </div>
@@ -102,7 +102,7 @@
         <div class="box">
           <app-box-header title="Hairs" collapsable="true" icon="icon-icon_nendo_hair"></app-box-header>
           <div class="box-body">
-            <hairs-tiles :hairs="hairs"></hairs-tiles>
+            <hairs-tiles :hairs="hairs" tilessize="big"></hairs-tiles>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@
         <div class="box">
           <app-box-header title="Hands" collapsable="true" icon="icon-icon_nendo_hand"></app-box-header>
           <div class="box-body">
-            <hands-tiles :hands="hands"></faces-tiles>
+            <hands-tiles :hands="hands" tilessize="big"></faces-tiles>
           </div>
         </div>
       </div>
@@ -118,7 +118,7 @@
         <div class="box">
           <app-box-header title="Bodyparts" collapsable="true" icon="icon-icon_nendo_body"></app-box-header>
           <div class="box-body">
-            <bodyparts-tiles :bodyparts="bodyparts"></bodyparts-tiles>
+            <bodyparts-tiles :bodyparts="bodyparts" tilessize="big"></bodyparts-tiles>
           </div>
         </div>
       </div>
@@ -126,11 +126,11 @@
         <div class="box">
           <app-box-header title="Accessories" collapsable="true" icon="icon-icon_nendo_accessories"></app-box-header>
           <div class="box-body">
-            <accessories-tiles :accessories="accessories"></accessories-tiles>
+            <accessories-tiles :accessories="accessories" tilessize="big"></accessories-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="photos.length > 0">
+      <div class="col-md-12 col-sm-12 col-xs-12" v-if="photos.length > 0">
         <div class="box">
           <app-box-header title="Photos" collapsable="true" icon="fa-photo"></app-box-header>
           <div class="box-body">

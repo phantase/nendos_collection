@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessories">
+    <div :class="classtiles" v-for="accessory in accessories">
       <div class="box box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">
@@ -20,10 +20,19 @@ import Resources from './../../config/resources'
 
 export default {
   name: 'AccessoriesTiles',
-  props: ['accessories'],
+  props: ['accessories', 'tilessize'],
   data () {
     return {
       resources: Resources
+    }
+  },
+  computed: {
+    classtiles () {
+      if (typeof this.tilessize !== 'undefined' && this.tilessize === 'big') {
+        return 'col-md-4 col-sm-6 col-xs-6'
+      } else {
+        return 'col-md-2 col-sm-4 col-xs-6'
+      }
     }
   }
 }
