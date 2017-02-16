@@ -54,6 +54,7 @@ $app->add(function ($req, $res, $next) {
 });
 // End To enable CORS
 
+// General count (count all object in DB)
 $app->get('/count', function(Request $request, Response $response) {
     $this->logger->addInfo("Count");
 
@@ -65,6 +66,7 @@ $app->get('/count', function(Request $request, Response $response) {
     return $newresponse;
 });
 
+//  Retrieve all objects of type {element}
 $app->get('/{element}', function(Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $this->logger->addInfo($param_element." list");
@@ -80,6 +82,7 @@ $app->get('/{element}', function(Request $request, Response $response, $args) {
     return $newresponse;
 });
 
+// Retrieve the count of all objects of type {element}
 $app->get('/{element}/count', function(Request $request, Response $response, $args) {
     $element = $args['element'];
     $this->logger->addInfo($element." count");
@@ -96,6 +99,7 @@ $app->get('/{element}/count', function(Request $request, Response $response, $ar
     return $newresponse;
 });
 
+// Retrieve a single {element} using its {internalid}
 $app->get('/{element}/{internalid}', function (Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
@@ -103,6 +107,27 @@ $app->get('/{element}/{internalid}', function (Request $request, Response $respo
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         $element = $mapper->getByInternalid($internalid);
+
+        if( is_null($element) ){
+            $newresponse = $response->withJson(null,404);
+        } else {
+            $newresponse = $response->withJson($element);
+        }
+
+    } catch (Exception $e){
+        $newresponse = $response->withJson(null,400);
+    }
+    return $newresponse;
+});
+
+// Retrieve all object of type {element} from a box using the {boxid}
+$app->get('/{box:box|boxes}/{boxid}/{element}', function (Request $request, Response $response, $args) {
+    $param_element = $args['element'];
+    $boxid = (int)$args['boxid'];
+    $this->logger->addInfo($param_element." list in box ".$boxid);
+    try {
+        $mapper = MapperFactory::getMapper($this->db,$param_element);
+        $element = $mapper->getByBoxid($boxid);
 
         if( is_null($element) ){
             $newresponse = $response->withJson(null,404);
