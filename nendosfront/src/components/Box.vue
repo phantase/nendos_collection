@@ -1,17 +1,17 @@
 <template>
-  <div class="app-box" v-if="box.internalid">
+  <div class="db-box" v-if="box.internalid">
 
     <div class="row">
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <div class="box-category text-yellow">
+              <div class="db-box-category text-yellow">
                 <span>{{ box.category}}</span>
                 <span v-if="box.number">#{{ box.number}}</span>
               </div>
-              <div class="box-name">{{ box.name }}</div>
-              <div class="box-series">{{ box.series }}</div>
+              <div class="db-box-name">{{ box.name }}</div>
+              <div class="db-box-series">{{ box.series }}</div>
             </h3>
           </div>
         </div>
@@ -75,7 +75,7 @@
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
           <app-box-header title="Photo" collapsable="true" icon="fa-photo"></app-box-header>
-          <div class="box-body">
+          <div class="box-body db-image">
             <img :src="resources.imagesurl+'/images/nendos/boxes/'+box.internalid+'_thumb'" />
           </div>
         </div>

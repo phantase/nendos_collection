@@ -1,16 +1,16 @@
 <template>
-  <div class="nendoroids">
+  <div class="db-nendoroids">
 
     <div class="row">
       <div class="col-md-3 col-sm-6 col-xs-12" v-for="nendoroid in nendoroids">
         <div class="box box-solid">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <div class="nendoroid-name">{{ nendoroid.name }}</div>
-              <div class="nendoroid-version">{{ nendoroid.version ? nendoroid.version : '&nbsp;' }}</div>
+              <div class="db-nendoroid-name">{{ nendoroid.name }}</div>
+              <div class="db-nendoroid-version">{{ nendoroid.version ? nendoroid.version : '&nbsp;' }}</div>
             </h3>
           </div>
-          <div class="box-body">
+          <div class="box-body db-image">
             <img :src="resources.imagesurl+'/images/nendos/nendoroids/'+nendoroid.internalid+'_thumb'" />
           </div>
         </div>
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style>
-  .nendoroid-version {
+  .db-nendoroid-version {
     font-style: italic;
   }
 </style>

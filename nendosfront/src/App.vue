@@ -104,7 +104,7 @@ export default {
 <style src="../static/icomoon/style.css"></style>
 
 <style>
-  .box-body img {
+  .db-image img {
     width: 100%;
   }
 </style>
