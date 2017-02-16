@@ -1,29 +1,18 @@
 <template>
   <div class="db-hands">
-
-    <div class="row">
-      <div class="col-md-2 col-sm-4 col-xs-6" v-for="hand in hands">
-        <div class="box box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title">
-              <div class="db-hand-internalid">{{ hand.internalid }}</div>
-            </h3>
-          </div>
-          <div class="box-body db-image">
-            <img :src="resources.imagesurl+'/images/nendos/hands/'+hand.internalid+'_thumb'" />
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <hands-tiles :hands="hands"></hands-tiles>
   </div>
 </template>
 
 <script>
 import Resources from './../config/resources'
+import HandsTiles from './dblayouts/HandsTiles'
 
 export default {
   name: 'Hands',
+  components: {
+    HandsTiles
+  },
   data () {
     return {
       resources: Resources,
