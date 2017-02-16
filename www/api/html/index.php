@@ -141,4 +141,25 @@ $app->get('/{box:box|boxes}/{boxid}/{element}', function (Request $request, Resp
     return $newresponse;
 });
 
+// Retrieve all object of type {element} from a nendoroid using the {nendoroidid}
+$app->get('/{nendoroid:nendoroid|nendoroids}/{nendoroidid}/{element}', function (Request $request, Response $response, $args) {
+    $param_element = $args['element'];
+    $nendoroidid = (int)$args['nendoroidid'];
+    $this->logger->addInfo($param_element." list in nendoroid ".$nendoroidid);
+    try {
+        $mapper = MapperFactory::getMapper($this->db,$param_element);
+        $element = $mapper->getByNendoroidid($nendoroidid);
+
+        if( is_null($element) ){
+            $newresponse = $response->withJson(null,404);
+        } else {
+            $newresponse = $response->withJson($element);
+        }
+
+    } catch (Exception $e){
+        $newresponse = $response->withJson(null,400);
+    }
+    return $newresponse;
+});
+
 $app->run();

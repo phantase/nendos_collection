@@ -60,4 +60,24 @@ class HandMapper extends Mapper
     return $results;
   }
 
+  public function getByNendoroidid($nendoroidid) {
+    $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
+                  h.creatorid, uc.username AS creatorname, h.creationdate,
+                  h.editorid, ue.username AS editorname, h.editiondate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate
+            FROM hands h
+            LEFT JOIN users uc ON h.creatorid = uc.internalid
+            LEFT JOIN users ue ON h.editorid = ue.internalid
+            LEFT JOIN users uv ON h.validatorid = uv.internalid
+            WHERE h.nendoroidid = :nendoroidid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["nendoroidid" => $nendoroidid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new HandEntity($row);
+    }
+    return $results;
+  }
+
 }

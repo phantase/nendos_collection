@@ -60,4 +60,24 @@ class FaceMapper extends Mapper
     return $results;
   }
 
+  public function getByNendoroidid($nendoroidid) {
+    $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
+                  f.creatorid, uc.username AS creatorname, f.creationdate,
+                  f.editorid, ue.username AS editorname, f.editiondate,
+                  f.validatorid, uv.username AS validatorname, f.validationdate
+            FROM faces f
+            LEFT JOIN users uc ON f.creatorid = uc.internalid
+            LEFT JOIN users ue ON f.editorid = ue.internalid
+            LEFT JOIN users uv ON f.validatorid = uv.internalid
+            WHERE f.nendoroidid = :nendoroidid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["nendoroidid" => $nendoroidid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new FaceEntity($row);
+    }
+    return $results;
+  }
+
 }

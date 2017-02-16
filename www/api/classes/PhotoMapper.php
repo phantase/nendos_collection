@@ -46,4 +46,20 @@ class PhotoMapper extends Mapper
     return $results;
   }
 
+  public function getByNendoroidid($nendoroidid) {
+    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated
+            FROM photos p
+            LEFT JOIN users u ON p.userid = u.internalid
+            LEFT JOIN photos_nendoroids pn ON p.internalid = pn.photoid
+            WHERE pn.nendoroidid = :nendoroidid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["nendoroidid" => $nendoroidid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new PhotoEntity($row);
+    }
+    return $results;
+  }
+
 }
