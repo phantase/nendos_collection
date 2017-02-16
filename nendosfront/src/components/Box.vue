@@ -81,6 +81,16 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="nendoroids.length > 0">
+        <div class="box">
+          <app-box-header title="Nendoroids" collapsable="true" icon="icon-icon_nendo_nendo"></app-box-header>
+          <div class="box-body">
+            <nendoroids-tiles :nendoroids="nendoroids"></nendoroids-tiles>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -88,22 +98,33 @@
 <script>
 import Resources from './../config/resources'
 import AppBoxHeader from './layouts/BoxHeader'
+import NendoroidsTiles from './dblayouts/NendoroidsTiles'
 
 export default {
   name: 'Box',
   components: {
-    AppBoxHeader
+    AppBoxHeader,
+    NendoroidsTiles
   },
   data () {
     return {
       resources: Resources,
-      box: []
+      box: [],
+      nendoroids: []
     }
   },
   mounted () {
     this.$boxes = this.$resource('boxes{/id}')
+    this.$nendoroids = this.$resource('boxes{/id}/nendoroids')
+
     this.$boxes.query({id: this.$route.params.id}).then((response) => {
       this.box = response.data
+    }, (response) => {
+      console.log('Error', response)
+    })
+
+    this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
+      this.nendoroids = response.data
     }, (response) => {
       console.log('Error', response)
     })
