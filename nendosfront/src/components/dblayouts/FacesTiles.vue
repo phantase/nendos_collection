@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div :class="classtiles" v-for="face in faces">
+    <router-link tag="div" :to="'/face/'+face.internalid" :class="classtiles" v-for="face in faces">
       <div class="box box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">
@@ -11,7 +11,7 @@
           <img :src="resources.imagesurl+'/images/nendos/faces/'+face.internalid+'_thumb'" />
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 

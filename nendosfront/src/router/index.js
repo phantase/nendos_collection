@@ -5,6 +5,7 @@ import Accessories from 'components/Accessories'
 import Bodyparts from 'components/Bodyparts'
 import Box from 'components/Box'
 import Boxes from 'components/Boxes'
+import Face from 'components/Face'
 import Faces from 'components/Faces'
 import Hairs from 'components/Hairs'
 import Hands from 'components/Hands'
@@ -61,6 +62,20 @@ export default new Router({
         description: 'List of all boxes'
       },
       component: Boxes
+    },
+    {
+      path: '/face/:id',
+      name: 'Face',
+      meta: {
+        description: 'A single face',
+        breadcrumb: [
+          {
+            title: 'Faces',
+            link: '/faces'
+          }
+        ]
+      },
+      component: Face
     },
     {
       path: '/faces',
