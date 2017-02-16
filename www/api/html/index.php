@@ -67,7 +67,7 @@ $app->get('/count', function(Request $request, Response $response) {
 });
 
 //  Retrieve all objects of type {element}
-$app->get('/{element}', function(Request $request, Response $response, $args) {
+$app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}', function(Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $this->logger->addInfo($param_element." list");
     try {
@@ -83,7 +83,7 @@ $app->get('/{element}', function(Request $request, Response $response, $args) {
 });
 
 // Retrieve the count of all objects of type {element}
-$app->get('/{element}/count', function(Request $request, Response $response, $args) {
+$app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/count', function(Request $request, Response $response, $args) {
     $element = $args['element'];
     $this->logger->addInfo($element." count");
     try {
@@ -100,7 +100,7 @@ $app->get('/{element}/count', function(Request $request, Response $response, $ar
 });
 
 // Retrieve a single {element} using its {internalid}
-$app->get('/{element}/{internalid}', function (Request $request, Response $response, $args) {
+$app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{internalid:[0-9]+}', function (Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
     $this->logger->addInfo($param_element." single ".$internalid);
@@ -120,35 +120,50 @@ $app->get('/{element}/{internalid}', function (Request $request, Response $respo
     return $newresponse;
 });
 
-// Retrieve all object of type {element} from a box using the {boxid}
-$app->get('/{box:box|boxes}/{boxid}/{element}', function (Request $request, Response $response, $args) {
+// Retrieve all object of type {element} from a {elementfrom} using the {id}
+$app->get('/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{id:[0-9]+}/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}', function (Request $request, Response $response, $args) {
+    $param_elementfrom = $args['elementfrom'];
     $param_element = $args['element'];
-    $boxid = (int)$args['boxid'];
-    $this->logger->addInfo($param_element." list in box ".$boxid);
+    $param_id = (int)$args['id'];
+    $this->logger->addInfo($param_element." list in ".$param_elementfrom." ".$param_id);
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
-        $element = $mapper->getByBoxid($boxid);
-
-        if( is_null($element) ){
-            $newresponse = $response->withJson(null,404);
-        } else {
-            $newresponse = $response->withJson($element);
+        switch($param_elementfrom){
+            case "box":
+            case "boxes":
+                $element = $mapper->getByBoxid($param_id);
+                break;
+            case "nendoroid":
+            case "nendoroids":
+                $element = $mapper->getByNendoroidid($param_id);
+                break;
+            case "accessory":
+            case "accessories":
+                $element = $mapper->getByAccessoryid($param_id);
+                break;
+            case "bodypart":
+            case "bodyparts":
+                $element = $mapper->getByBodypartid($param_id);
+                break;
+            case "face":
+            case "faces":
+                $element = $mapper->getByFaceid($param_id);
+                break;
+            case "hair":
+            case "hairs":
+                $element = $mapper->getByHairid($param_id);
+                break;
+            case "hand":
+            case "hands":
+                $element = $mapper->getByHandid($param_id);
+                break;
+            case "photo":
+            case "photos":
+                $element = $mapper->getByPhotoid($param_id);
+                break;
+            default:
+                throw new Exception("Error Processing Request", 1);
         }
-
-    } catch (Exception $e){
-        $newresponse = $response->withJson(null,400);
-    }
-    return $newresponse;
-});
-
-// Retrieve all object of type {element} from a nendoroid using the {nendoroidid}
-$app->get('/{nendoroid:nendoroid|nendoroids}/{nendoroidid}/{element}', function (Request $request, Response $response, $args) {
-    $param_element = $args['element'];
-    $nendoroidid = (int)$args['nendoroidid'];
-    $this->logger->addInfo($param_element." list in nendoroid ".$nendoroidid);
-    try {
-        $mapper = MapperFactory::getMapper($this->db,$param_element);
-        $element = $mapper->getByNendoroidid($nendoroidid);
 
         if( is_null($element) ){
             $newresponse = $response->withJson(null,404);

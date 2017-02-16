@@ -62,4 +62,99 @@ class PhotoMapper extends Mapper
     return $results;
   }
 
+  public function getByAccessoryid($accessoryid) {
+    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated
+            FROM photos p
+            LEFT JOIN users u ON p.userid = u.internalid
+            LEFT JOIN photos_accessories pa ON p.internalid = pa.photoid
+            WHERE pa.accessoryid = :accessoryid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["accessoryid" => $accessoryid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new PhotoEntity($row);
+    }
+    return $results;
+  }
+
+  public function getByBodypartid($bodypartid) {
+    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated
+            FROM photos p
+            LEFT JOIN users u ON p.userid = u.internalid
+            LEFT JOIN photos_bodyparts pb ON p.internalid = pb.photoid
+            WHERE pb.bodypartid = :bodypartid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["bodypartid" => $bodypartid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new PhotoEntity($row);
+    }
+    return $results;
+  }
+
+  public function getByFaceid($faceid) {
+    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated
+            FROM photos p
+            LEFT JOIN users u ON p.userid = u.internalid
+            LEFT JOIN photos_faces pf ON p.internalid = pf.photoid
+            WHERE pf.faceid = :faceid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["faceid" => $faceid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new PhotoEntity($row);
+    }
+    return $results;
+  }
+
+  public function getByHairid($hairid) {
+    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated
+            FROM photos p
+            LEFT JOIN users u ON p.userid = u.internalid
+            LEFT JOIN photos_hairs ph ON p.internalid = ph.photoid
+            WHERE ph.hairid = :hairid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["hairid" => $hairid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new PhotoEntity($row);
+    }
+    return $results;
+  }
+
+  public function getByHandid($handid) {
+    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated
+            FROM photos p
+            LEFT JOIN users u ON p.userid = u.internalid
+            LEFT JOIN photos_hands ph ON p.internalid = ph.photoid
+            WHERE ph.handid = :handid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["handid" => $handid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new PhotoEntity($row);
+    }
+    return $results;
+  }
+
+  public function getByPhotoid($photoid) {
+    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated
+            FROM photos p
+            LEFT JOIN users u ON p.userid = u.internalid
+            WHERE p.internalid = :photoid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["photoid" => $photoid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new PhotoEntity($row);
+    }
+    return $results;
+  }
+
 }

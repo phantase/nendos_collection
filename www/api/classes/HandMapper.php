@@ -80,4 +80,60 @@ class HandMapper extends Mapper
     return $results;
   }
 
+  public function getByAccessoryid($accessoryid) {
+    return null;
+  }
+
+  public function getByBodypartid($bodypartid) {
+    return null;
+  }
+
+  public function getByFaceid($faceid) {
+    return null;
+  }
+
+  public function getByHairid($hairid) {
+    return null;
+  }
+
+  public function getByHandid($handid) {
+    $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
+                  h.creatorid, uc.username AS creatorname, h.creationdate,
+                  h.editorid, ue.username AS editorname, h.editiondate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate
+            FROM hands h
+            LEFT JOIN users uc ON h.creatorid = uc.internalid
+            LEFT JOIN users ue ON h.editorid = ue.internalid
+            LEFT JOIN users uv ON h.validatorid = uv.internalid
+            WHERE h.internalid = :handid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["handid" => $handid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new HandEntity($row);
+    }
+    return $results;
+  }
+
+  public function getByPhotoid($photoid) {
+    $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
+                  h.creatorid, uc.username AS creatorname, h.creationdate,
+                  h.editorid, ue.username AS editorname, h.editiondate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate
+            FROM hands h
+            LEFT JOIN users uc ON h.creatorid = uc.internalid
+            LEFT JOIN users ue ON h.editorid = ue.internalid
+            LEFT JOIN users uv ON h.validatorid = uv.internalid
+            LEFT JOIN photos_hands ph ON h.internalid = ph.handid
+            WHERE ph.photoid = :photoid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["photoid" => $photoid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new HandEntity($row);
+    }
+    return $results;
+  }
 }

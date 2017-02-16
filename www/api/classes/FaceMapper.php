@@ -80,4 +80,60 @@ class FaceMapper extends Mapper
     return $results;
   }
 
+  public function getByAccessoryid($accessoryid) {
+    return null;
+  }
+
+  public function getByBodypartid($bodypartid) {
+    return null;
+  }
+
+  public function getByFaceid($faceid) {
+    $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
+                  f.creatorid, uc.username AS creatorname, f.creationdate,
+                  f.editorid, ue.username AS editorname, f.editiondate,
+                  f.validatorid, uv.username AS validatorname, f.validationdate
+            FROM faces f
+            LEFT JOIN users uc ON f.creatorid = uc.internalid
+            LEFT JOIN users ue ON f.editorid = ue.internalid
+            LEFT JOIN users uv ON f.validatorid = uv.internalid
+            WHERE f.internalid = :faceid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["faceid" => $faceid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new FaceEntity($row);
+    }
+    return $results;
+  }
+
+  public function getByHairid($hairid) {
+    return null;
+  }
+
+  public function getByHandid($handid) {
+    return null;
+  }
+
+  public function getByPhotoid($photoid) {
+    $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
+                  f.creatorid, uc.username AS creatorname, f.creationdate,
+                  f.editorid, ue.username AS editorname, f.editiondate,
+                  f.validatorid, uv.username AS validatorname, f.validationdate
+            FROM faces f
+            LEFT JOIN users uc ON f.creatorid = uc.internalid
+            LEFT JOIN users ue ON f.editorid = ue.internalid
+            LEFT JOIN users uv ON f.validatorid = uv.internalid
+            LEFT JOIN photos_faces pf ON f.internalid = pf.faceid
+            WHERE pf.photoid = :photoid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["photoid" => $photoid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new FaceEntity($row);
+    }
+    return $results;
+  }
 }
