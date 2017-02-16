@@ -42,4 +42,47 @@ class BoxMapper extends Mapper
     }
   }
 
+  public function getByBoxid($boxid) {
+    $sql = "SELECT b.internalid, b.number, b.name, b.series, b.manufacturer, b.category,
+                  b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
+                  b.creatorid, uc.username AS creatorname, b.creationdate,
+                  b.editorid, ue.username AS editorname, b.editiondate,
+                  b.validatorid, uv.username AS validatorname, b.validationdate
+            FROM boxes b
+            LEFT JOIN users uc ON b.creatorid = uc.internalid
+            LEFT JOIN users ue ON b.editorid = ue.internalid
+            LEFT JOIN users uv ON b.validatorid = uv.internalid
+            WHERE b.internalid = :boxid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["boxid" => $boxid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new BoxEntity($row);
+    }
+    return $results;
+  }
+
+  public function getByNendoroidid($nendoroidid) {
+    $sql = "SELECT b.internalid, b.number, b.name, b.series, b.manufacturer, b.category,
+                  b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
+                  b.creatorid, uc.username AS creatorname, b.creationdate,
+                  b.editorid, ue.username AS editorname, b.editiondate,
+                  b.validatorid, uv.username AS validatorname, b.validationdate
+            FROM boxes b
+            LEFT JOIN users uc ON b.creatorid = uc.internalid
+            LEFT JOIN users ue ON b.editorid = ue.internalid
+            LEFT JOIN users uv ON b.validatorid = uv.internalid
+            LEFT JOIN nendoroids n ON b.internalid = n.boxid
+            WHERE n.internalid = :nendoroidid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["nendoroidid" => $nendoroidid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new BoxEntity($row);
+    }
+    return $results;
+  }
+
 }
