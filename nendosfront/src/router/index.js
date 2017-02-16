@@ -8,6 +8,7 @@ import Boxes from 'components/Boxes'
 import Faces from 'components/Faces'
 import Hairs from 'components/Hairs'
 import Hands from 'components/Hands'
+import Nendoroid from 'components/Nendoroid'
 import Nendoroids from 'components/Nendoroids'
 import Photos from 'components/Photos'
 
@@ -84,6 +85,20 @@ export default new Router({
         description: 'List of all hands'
       },
       component: Hands
+    },
+    {
+      path: '/nendoroid/:id',
+      name: 'Nendoroid',
+      meta: {
+        description: 'A single nendoroid',
+        breadcrumb: [
+          {
+            title: 'Nendoroids',
+            link: '/nendoroids'
+          }
+        ]
+      },
+      component: Nendoroid
     },
     {
       path: '/nendoroids',

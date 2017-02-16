@@ -2,7 +2,7 @@
   <div class="db-nendoroids">
 
     <div class="row">
-      <div class="col-md-3 col-sm-6 col-xs-12" v-for="nendoroid in nendoroids">
+      <router-link tag="div" :to="'/nendoroid/'+nendoroid.internalid" class="col-md-3 col-sm-6 col-xs-12" v-for="nendoroid in nendoroids">
         <div class="box box-solid">
           <div class="box-header with-border">
             <h3 class="box-title">
@@ -14,7 +14,7 @@
             <img :src="resources.imagesurl+'/images/nendos/nendoroids/'+nendoroid.internalid+'_thumb'" />
           </div>
         </div>
-      </div>
+      </router-link>
     </div>
 
   </div>
