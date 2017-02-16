@@ -1,29 +1,18 @@
 <template>
   <div class="db-bodyparts">
-
-    <div class="row">
-      <div class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodyparts">
-        <div class="box box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title">
-              <div class="db-bodypart-internalid">{{ bodypart.internalid }}</div>
-            </h3>
-          </div>
-          <div class="box-body db-image">
-            <img :src="resources.imagesurl+'/images/nendos/bodyparts/'+bodypart.internalid+'_thumb'" />
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <bodyparts-tiles :bodyparts="bodyparts"></bodyparts-tiles>
   </div>
 </template>
 
 <script>
 import Resources from './../config/resources'
+import BodypartsTiles from './dblayouts/BodypartsTiles'
 
 export default {
   name: 'Bodyparts',
+  components: {
+    BodypartsTiles
+  },
   data () {
     return {
       resources: Resources,
