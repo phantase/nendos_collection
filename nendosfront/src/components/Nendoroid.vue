@@ -20,9 +20,16 @@
           <app-box-header title="Informations" collapsable="true" icon="fa-info"></app-box-header>
           <div class="box-body">
             <ul class="list-group list-group-unbordered">
-              <li class="list-group-item" v-if="nendoroid.boxid">
+              <li class="list-group-item" v-if="box.internalid">
                 <b>From box</b>
-                <router-link :to="'/box/'+nendoroid.boxid" class="pull-right">{{ nendoroid.boxid }}</a><br>
+                <router-link :to="'/box/'+box.internalid" class="pull-right">
+                  <div class="db-box-category text-yellow">
+                    <span>{{ box.category}}</span>
+                    <span v-if="box.number">#{{ box.number}}</span>
+                  </div>
+                  <div class="db-box-name">{{ box.name }}</div>
+                  <div class="db-box-series">{{ box.series }}</div>
+                </router-link><br>
               </li>
               <li class="list-group-item" v-if="nendoroid.name">
                 <b>Name</b>
@@ -65,13 +72,21 @@ export default {
   data () {
     return {
       resources: Resources,
+      box: [],
       nendoroid: []
     }
   },
   mounted () {
     this.$nendoroids = this.$resource('nendoroids{/id}')
+    this.$boxes = this.$resource('boxes{/id}')
+
     this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
       this.nendoroid = response.data
+      this.$boxes.query({id: this.nendoroid.boxid}).then((response) => {
+        this.box = response.data
+      }, (response) => {
+        console.log('Error', response)
+      })
     }, (response) => {
       console.log('Error', response)
     })
