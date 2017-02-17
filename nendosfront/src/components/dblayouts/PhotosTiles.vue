@@ -1,19 +1,19 @@
 <template>
-    <div class="row">
-      <div :class="classtiles" v-for="photo in photos">
-        <div class="box box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title">
-              <div class="db(photo-title">{{ photo.title }}</div>
-              <div class="db-photo-username">by {{ photo.username }}</div>
-            </h3>
-          </div>
-          <div class="box-body db-image">
-            <img :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_thumb'" />
-          </div>
+  <div class="row">
+    <router-link :to="'/photo/'+photo.internalid" :class="classtiles" v-for="photo in photos">
+      <div class="box box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <div class="db-photo-title">{{ photo.title }}</div>
+            <div class="db-photo-username">by {{ photo.username }}</div>
+          </h3>
+        </div>
+        <div class="box-body db-image">
+          <img :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_thumb'" />
         </div>
       </div>
-    </div>
+    </router-link>
+  </div>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <router-link tag="div" :to="'/box/'+box.internalid" class="col-md-3 col-sm-6 col-xs-12" v-for="box in boxes">
+    <router-link :to="'/box/'+box.internalid" :class="classtiles" v-for="box in boxes">
       <div class="box box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">
@@ -25,10 +25,19 @@ import Resources from './../../config/resources'
 
 export default {
   name: 'BoxesTiles',
-  props: ['boxes'],
+  props: ['boxes', 'tilessize'],
   data () {
     return {
       resources: Resources
+    }
+  },
+  computed: {
+    classtiles () {
+      if (typeof this.tilessize !== 'undefined' && this.tilessize === 'big') {
+        return 'col-md-4 col-sm-6 col-xs-6'
+      } else {
+        return 'col-md-2 col-sm-4 col-xs-6'
+      }
     }
   }
 }

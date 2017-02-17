@@ -15,6 +15,7 @@ import Hand from 'components/Hand'
 import Hands from 'components/Hands'
 import Nendoroid from 'components/Nendoroid'
 import Nendoroids from 'components/Nendoroids'
+import Photo from 'components/Photo'
 import Photos from 'components/Photos'
 
 Vue.use(Router)
@@ -182,6 +183,20 @@ export default new Router({
         description: 'List of all nendoroids'
       },
       component: Nendoroids
+    },
+    {
+      path: '/photo/:id',
+      name: 'Photo',
+      meta: {
+        description: 'A single photo',
+        breadcrumb: [
+          {
+            title: 'Photos',
+            link: '/photos'
+          }
+        ]
+      },
+      component: Photo
     },
     {
       path: '/photos',
