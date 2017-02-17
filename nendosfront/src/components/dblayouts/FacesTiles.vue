@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <router-link tag="div" :to="'/face/'+face.internalid" :class="classtiles" v-for="face in faces">
+    <router-link :to="'/face/'+face.internalid" :class="classtiles" v-for="face in faces">
       <div class="box box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">
