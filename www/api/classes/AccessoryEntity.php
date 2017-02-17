@@ -1,6 +1,6 @@
 <?php
 
-class AccessoryEntity implements JsonSerializable
+class AccessoryEntity extends Entity implements JsonSerializable
 {
   protected $internalid;
   protected $boxid;
@@ -19,7 +19,6 @@ class AccessoryEntity implements JsonSerializable
   protected $validatorid;
   protected $validatorname;
   protected $validationdate;
-
   /**
    *
    *
@@ -46,6 +45,10 @@ class AccessoryEntity implements JsonSerializable
     $this->validatorid = $data['validatorid'];
     $this->validatorname = $data['validatorname'];
     $this->validationdate = $data['validationdate'];
+    $this->xmin = $data['xmin'];
+    $this->xmax = $data['xmax'];
+    $this->ymin = $data['ymin'];
+    $this->ymax = $data['ymax'];
   }
 
   public function getInternalid() {
@@ -129,7 +132,11 @@ class AccessoryEntity implements JsonSerializable
       'editiondate' => $this->editiondate,
       'validatorid' => $this->validatorid,
       'validatorname' => $this->validatorname,
-      'validationdate' => $this->validationdate
+      'validationdate' => $this->validationdate,
+      'xmin' => $this->xmin,
+      'xmax' => $this->xmax,
+      'ymin' => $this->ymin,
+      'ymax' => $this->ymax
     ];
   }
 

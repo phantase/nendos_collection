@@ -1,0 +1,27 @@
+<?php
+
+class Entity
+{
+  // Information about location in photo
+  protected $xmin;
+  protected $xmax;
+  protected $ymin;
+  protected $ymax;
+
+  public function getXMin() {
+    return $this->xmin;
+  }
+
+  public function getXMax() {
+    return $this->xmax;
+  }
+
+  public function getYMin() {
+    return $this->ymin;
+  }
+
+  public function getYMax() {
+    return $this->ymax;
+  }
+
+}

@@ -189,7 +189,8 @@ class NendoroidMapper extends Mapper
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
-                  n.validatorid, uv.username AS validatorname, n.validationdate
+                  n.validatorid, uv.username AS validatorname, n.validationdate,
+                  pn.xmin, pn.xmax, pn.ymin, pn.ymax
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid

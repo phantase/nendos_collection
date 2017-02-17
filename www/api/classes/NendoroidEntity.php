@@ -1,6 +1,6 @@
 <?php
 
-class NendoroidEntity implements JsonSerializable
+class NendoroidEntity extends Entity implements JsonSerializable
 {
   protected $internalid;
   protected $boxid;
@@ -44,6 +44,10 @@ class NendoroidEntity implements JsonSerializable
     $this->validatorid = $data['validatorid'];
     $this->validatorname = $data['validatorname'];
     $this->validationdate = $data['validationdate'];
+    $this->xmin = $data['xmin'];
+    $this->xmax = $data['xmax'];
+    $this->ymin = $data['ymin'];
+    $this->ymax = $data['ymax'];
   }
 
   public function getInternalid() {
@@ -122,7 +126,11 @@ class NendoroidEntity implements JsonSerializable
       'editiondate' => $this->editiondate,
       'validatorid' => $this->validatorid,
       'validatorname' => $this->validatorname,
-      'validationdate' => $this->validationdate
+      'validationdate' => $this->validationdate,
+      'xmin' => $this->xmin,
+      'xmax' => $this->xmax,
+      'ymin' => $this->ymin,
+      'ymax' => $this->ymax
     ];
   }
 

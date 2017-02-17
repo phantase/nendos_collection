@@ -100,27 +100,12 @@ class AccessoryMapper extends Mapper
     return $results;
   }
 
-  public function getByBodypartid($bodypartid) {
-    return null;
-  }
-
-  public function getByFaceid($faceid) {
-    return null;
-  }
-
-  public function getByHairid($hairid) {
-    return null;
-  }
-
-  public function getByHandid($handid) {
-    return null;
-  }
-
   public function getByPhotoid($photoid) {
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate
+                  a.validatorid, uv.username AS validatorname, a.validationdate,
+                  pa.xmin, pa.xmax, pa.ymin, pa.ymax
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid

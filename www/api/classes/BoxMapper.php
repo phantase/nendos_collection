@@ -200,7 +200,8 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate
+                  b.validatorid, uv.username AS validatorname, b.validationdate,
+                  pb.xmin, pb.xmax, pb.ymin, pb.ymax
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid

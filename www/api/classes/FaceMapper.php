@@ -80,14 +80,6 @@ class FaceMapper extends Mapper
     return $results;
   }
 
-  public function getByAccessoryid($accessoryid) {
-    return null;
-  }
-
-  public function getByBodypartid($bodypartid) {
-    return null;
-  }
-
   public function getByFaceid($faceid) {
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
@@ -108,19 +100,12 @@ class FaceMapper extends Mapper
     return $results;
   }
 
-  public function getByHairid($hairid) {
-    return null;
-  }
-
-  public function getByHandid($handid) {
-    return null;
-  }
-
   public function getByPhotoid($photoid) {
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate
+                  f.validatorid, uv.username AS validatorname, f.validationdate,
+                  pf.xmin, pf.xmax, pf.ymin, pf.ymax
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
             LEFT JOIN users ue ON f.editorid = ue.internalid

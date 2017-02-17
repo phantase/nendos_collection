@@ -80,18 +80,6 @@ class HairMapper extends Mapper
     return $results;
   }
 
-  public function getByAccessoryid($accessoryid) {
-    return null;
-  }
-
-  public function getByBodypartid($bodypartid) {
-    return null;
-  }
-
-  public function getByFaceid($faceid) {
-    return null;
-  }
-
   public function getByHairid($hairid) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
@@ -112,15 +100,12 @@ class HairMapper extends Mapper
     return $results;
   }
 
-  public function getByHandid($handid) {
-    return null;
-  }
-
   public function getByPhotoid($photoid) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate
+                  h.validatorid, uv.username AS validatorname, h.validationdate,
+                  ph.xmin, ph.xmax, ph.ymin, ph.ymax
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid

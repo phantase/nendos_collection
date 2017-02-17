@@ -80,10 +80,6 @@ class BodypartMapper extends Mapper
     return $results;
   }
 
-  public function getByAccessoryid($accessoryid) {
-    return null;
-  }
-
   public function getByBodypartid($bodypartid) {
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
@@ -102,18 +98,6 @@ class BodypartMapper extends Mapper
       $results[] = new BodypartEntity($row);
     }
     return $results;
-  }
-
-  public function getByFaceid($faceid) {
-    return null;
-  }
-
-  public function getByHairid($hairid) {
-    return null;
-  }
-
-  public function getByHandid($handid) {
-    return null;
   }
 
   public function getByPhotoid($photoid) {

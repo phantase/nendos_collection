@@ -16,4 +16,23 @@ abstract class Mapper {
     return $stmt->fetch();
   }
 
+  public function getByAccessoryid($accessoryid) {
+    return null;
+  }
+  public function getByBodypartid($bodypartid) {
+    return null;
+  }
+  public function getByFaceid($faceid) {
+    return null;
+  }
+  public function getByHairid($hairid) {
+    return null;
+  }
+  public function getByHandid($handid) {
+    return null;
+  }
+  public function getByPhotoid($photoid) {
+    return null;
+  }
+
 }

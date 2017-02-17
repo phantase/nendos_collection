@@ -80,22 +80,6 @@ class HandMapper extends Mapper
     return $results;
   }
 
-  public function getByAccessoryid($accessoryid) {
-    return null;
-  }
-
-  public function getByBodypartid($bodypartid) {
-    return null;
-  }
-
-  public function getByFaceid($faceid) {
-    return null;
-  }
-
-  public function getByHairid($hairid) {
-    return null;
-  }
-
   public function getByHandid($handid) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
@@ -120,7 +104,8 @@ class HandMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate
+                  h.validatorid, uv.username AS validatorname, h.validationdate,
+                  ph.xmin, ph.xmax, ph.ymin, ph.ymax
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
