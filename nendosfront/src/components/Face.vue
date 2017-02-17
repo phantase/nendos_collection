@@ -90,7 +90,7 @@ import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
 
 export default {
-  name: 'Nendoroid',
+  name: 'Face',
   components: {
     AppBoxHeader,
     PhotosTiles
