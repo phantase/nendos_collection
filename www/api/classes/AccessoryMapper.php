@@ -105,7 +105,7 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate,
-                  pa.xmin, pa.xmax, pa.ymin, pa.ymax
+                  pa.xmin, pa.xmax, pa.ymin, pa.ymax, pa.internalid AS photoannotationid
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid

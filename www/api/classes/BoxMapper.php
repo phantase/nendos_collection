@@ -201,7 +201,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
-                  pb.xmin, pb.xmax, pb.ymin, pb.ymax
+                  pb.xmin, pb.xmax, pb.ymin, pb.ymax, pb.internalid AS photoannotationid
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid

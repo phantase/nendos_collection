@@ -190,7 +190,7 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate,
-                  pn.xmin, pn.xmax, pn.ymin, pn.ymax
+                  pn.xmin, pn.xmax, pn.ymin, pn.ymax, pn.internalid AS photoannotationid
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid

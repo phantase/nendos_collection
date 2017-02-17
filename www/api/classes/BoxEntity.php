@@ -60,6 +60,7 @@ class BoxEntity extends Entity implements JsonSerializable
     $this->xmax = $data['xmax'];
     $this->ymin = $data['ymin'];
     $this->ymax = $data['ymax'];
+    $this->photoannotationid = $data['photoannotationid'];
   }
 
   public function getInternalid() {
@@ -172,7 +173,8 @@ class BoxEntity extends Entity implements JsonSerializable
       'xmin' => $this->xmin,
       'xmax' => $this->xmax,
       'ymin' => $this->ymin,
-      'ymax' => $this->ymax
+      'ymax' => $this->ymax,
+      'photoannotationid' => $this->photoannotationid
     ];
   }
 

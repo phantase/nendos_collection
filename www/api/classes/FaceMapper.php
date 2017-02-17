@@ -105,7 +105,7 @@ class FaceMapper extends Mapper
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
                   f.validatorid, uv.username AS validatorname, f.validationdate,
-                  pf.xmin, pf.xmax, pf.ymin, pf.ymax
+                  pf.xmin, pf.xmax, pf.ymin, pf.ymax, pf.internalid AS photoannotationid
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
             LEFT JOIN users ue ON f.editorid = ue.internalid

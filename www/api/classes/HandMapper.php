@@ -105,7 +105,7 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate,
-                  ph.xmin, ph.xmax, ph.ymin, ph.ymax
+                  ph.xmin, ph.xmax, ph.ymin, ph.ymax, ph.internalid AS photoannotationid
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid

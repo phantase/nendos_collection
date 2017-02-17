@@ -7,6 +7,7 @@ class Entity
   protected $xmax;
   protected $ymin;
   protected $ymax;
+  protected $photoannotationid;
 
   public function getXMin() {
     return $this->xmin;
@@ -22,6 +23,10 @@ class Entity
 
   public function getYMax() {
     return $this->ymax;
+  }
+
+  public function getPhotoAnnotationId() {
+    return $this->photoannotationid;
   }
 
 }
