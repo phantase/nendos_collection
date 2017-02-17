@@ -17,9 +17,16 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="box">
-          <app-box-header title="Photo" collapsable="true" icon="fa-photo"></app-box-header>
-          <div class="box-body db-image">
-            <img :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_full'" />
+          <app-box-header title="Photo" icon="fa-photo"></app-box-header>
+          <div class="box-body db-image db-photo-annotation-container">
+            <img id="db-photo" :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_full'" :orig-width="photo.width" :orig-height="photo.height" />
+            <div :id="'db-photo-box-annotation-'+box.photoannotationid" class="db-photo-annotation" v-for="box in boxes"><a><i class="icon-icon_nendo_box bg-orange"></i></a></div>
+            <div :id="'db-photo-nendoroid-annotation-'+nendoroid.photoannotationid" class="db-photo-annotation" v-for="nendoroid in nendoroids"><a><i class="icon-icon_nendo_nendo bg-orange"></i></a></div>
+            <div :id="'db-photo-hair-annotation-'+hair.photoannotationid" class="db-photo-annotation" v-for="hair in hairs"><a><i class="icon-icon_nendo_hair bg-orange"></i></a></div>
+            <div :id="'db-photo-accessory-annotation-'+accessory.photoannotationid" class="db-photo-annotation" v-for="accessory in accessories"><a><i class="icon-icon_nendo_accessories bg-orange"></i></a></div>
+            <div :id="'db-photo-bodypart-annotation-'+bodypart.photoannotationid" class="db-photo-annotation" v-for="bodypart in bodyparts"><a><i class="icon-icon_nendo_body bg-orange"></i></a></div>
+            <div :id="'db-photo-face-annotation-'+face.photoannotationid" class="db-photo-annotation" v-for="face in faces"><a><i class="icon-icon_nendo_face bg-orange"></i></a></div>
+            <div :id="'db-photo-hand-annotation-'+hand.photoannotationid" class="db-photo-annotation" v-for="hand in hands"><a><i class="icon-icon_nendo_hand bg-orange"></i></a></div>
           </div>
         </div>
       </div>
@@ -172,6 +179,67 @@ export default {
     }, (response) => {
       console.log('Error', response)
     })
+    window.addEventListener('resize', this.handleResize)
+  },
+  updated () {
+    this.handleResize()
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.handleResize)
+  },
+  methods: {
+    handleResize (event) {
+      let ratio = document.getElementById('db-photo').offsetWidth / this.photo.width
+      for (let i = this.accessories.length - 1; i >= 0; i--) {
+        let accessory = this.accessories[i]
+        document.getElementById('db-photo-accessory-annotation-' + accessory.photoannotationid).style.left = Math.floor(accessory.xmin * ratio) + 'px'
+        document.getElementById('db-photo-accessory-annotation-' + accessory.photoannotationid).style.top = Math.floor(accessory.ymin * ratio) + 'px'
+        document.getElementById('db-photo-accessory-annotation-' + accessory.photoannotationid).style.width = Math.floor((accessory.xmax - accessory.xmin) * ratio) + 'px'
+        document.getElementById('db-photo-accessory-annotation-' + accessory.photoannotationid).style.height = Math.floor((accessory.ymax - accessory.ymin) * ratio) + 'px'
+      }
+      for (let i = this.bodyparts.length - 1; i >= 0; i--) {
+        let bodypart = this.bodyparts[i]
+        document.getElementById('db-photo-bodypart-annotation-' + bodypart.photoannotationid).style.left = Math.floor(bodypart.xmin * ratio) + 'px'
+        document.getElementById('db-photo-bodypart-annotation-' + bodypart.photoannotationid).style.top = Math.floor(bodypart.ymin * ratio) + 'px'
+        document.getElementById('db-photo-bodypart-annotation-' + bodypart.photoannotationid).style.width = Math.floor((bodypart.xmax - bodypart.xmin) * ratio) + 'px'
+        document.getElementById('db-photo-bodypart-annotation-' + bodypart.photoannotationid).style.height = Math.floor((bodypart.ymax - bodypart.ymin) * ratio) + 'px'
+      }
+      for (let i = this.faces.length - 1; i >= 0; i--) {
+        let face = this.faces[i]
+        document.getElementById('db-photo-face-annotation-' + face.photoannotationid).style.left = Math.floor(face.xmin * ratio) + 'px'
+        document.getElementById('db-photo-face-annotation-' + face.photoannotationid).style.top = Math.floor(face.ymin * ratio) + 'px'
+        document.getElementById('db-photo-face-annotation-' + face.photoannotationid).style.width = Math.floor((face.xmax - face.xmin) * ratio) + 'px'
+        document.getElementById('db-photo-face-annotation-' + face.photoannotationid).style.height = Math.floor((face.ymax - face.ymin) * ratio) + 'px'
+      }
+      for (let i = this.hairs.length - 1; i >= 0; i--) {
+        let hair = this.hairs[i]
+        document.getElementById('db-photo-hair-annotation-' + hair.photoannotationid).style.left = Math.floor(hair.xmin * ratio) + 'px'
+        document.getElementById('db-photo-hair-annotation-' + hair.photoannotationid).style.top = Math.floor(hair.ymin * ratio) + 'px'
+        document.getElementById('db-photo-hair-annotation-' + hair.photoannotationid).style.width = Math.floor((hair.xmax - hair.xmin) * ratio) + 'px'
+        document.getElementById('db-photo-hair-annotation-' + hair.photoannotationid).style.height = Math.floor((hair.ymax - hair.ymin) * ratio) + 'px'
+      }
+      for (let i = this.hands.length - 1; i >= 0; i--) {
+        let hand = this.hands[i]
+        document.getElementById('db-photo-hand-annotation-' + hand.photoannotationid).style.left = Math.floor(hand.xmin * ratio) + 'px'
+        document.getElementById('db-photo-hand-annotation-' + hand.photoannotationid).style.top = Math.floor(hand.ymin * ratio) + 'px'
+        document.getElementById('db-photo-hand-annotation-' + hand.photoannotationid).style.width = Math.floor((hand.xmax - hand.xmin) * ratio) + 'px'
+        document.getElementById('db-photo-hand-annotation-' + hand.photoannotationid).style.height = Math.floor((hand.ymax - hand.ymin) * ratio) + 'px'
+      }
+      for (let i = this.nendoroids.length - 1; i >= 0; i--) {
+        let nendoroid = this.nendoroids[i]
+        document.getElementById('db-photo-nendoroid-annotation-' + nendoroid.photoannotationid).style.left = Math.floor(nendoroid.xmin * ratio) + 'px'
+        document.getElementById('db-photo-nendoroid-annotation-' + nendoroid.photoannotationid).style.top = Math.floor(nendoroid.ymin * ratio) + 'px'
+        document.getElementById('db-photo-nendoroid-annotation-' + nendoroid.photoannotationid).style.width = Math.floor((nendoroid.xmax - nendoroid.xmin) * ratio) + 'px'
+        document.getElementById('db-photo-nendoroid-annotation-' + nendoroid.photoannotationid).style.height = Math.floor((nendoroid.ymax - nendoroid.ymin) * ratio) + 'px'
+      }
+      for (let i = this.boxes.length - 1; i >= 0; i--) {
+        let box = this.boxes[i]
+        document.getElementById('db-photo-box-annotation-' + box.photoannotationid).style.left = Math.floor(box.xmin * ratio) + 'px'
+        document.getElementById('db-photo-box-annotation-' + box.photoannotationid).style.top = Math.floor(box.ymin * ratio) + 'px'
+        document.getElementById('db-photo-box-annotation-' + box.photoannotationid).style.width = Math.floor((box.xmax - box.xmin) * ratio) + 'px'
+        document.getElementById('db-photo-box-annotation-' + box.photoannotationid).style.height = Math.floor((box.ymax - box.ymin) * ratio) + 'px'
+      }
+    }
   }
 }
 </script>
@@ -183,5 +251,35 @@ export default {
   }
   .pull-right+br {
     clear: both;
+  }
+  .db-photo-annotation-container {
+    position: relative;
+  }
+  .db-photo-annotation {
+    position: absolute;
+    border: dashed 1px black;
+    background-color: rgba(255,255,255,0.2);
+    visibility: hidden;
+  }
+  .db-photo-annotation a {
+      border: dashed 1px white;
+      display: block;
+      width: 100%;
+      height: 100%;
+  }
+  .db-photo-annotation-container:hover .db-photo-annotation {
+    visibility: visible;
+  }
+  .db-photo-annotation i {
+    border-right: dashed 1px white;
+    border-bottom: dashed 1px white;
+    font-size: 2em;
+    opacity: 0.7;
+  }
+  .db-photo-annotation:hover a {
+    border: dashed 1px #ff851b;
+  }
+  .db-photo-annotation:hover i {
+    opacity: 1;
   }
 </style>
