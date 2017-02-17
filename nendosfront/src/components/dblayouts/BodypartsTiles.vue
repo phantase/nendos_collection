@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div :class="classtiles" v-for="bodypart in bodyparts">
+    <router-link :to="'/bodypart/'+bodypart.internalid" :class="classtiles" v-for="bodypart in bodyparts">
       <div class="box box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">
@@ -11,7 +11,7 @@
           <img :src="resources.imagesurl+'/images/nendos/bodyparts/'+bodypart.internalid+'_thumb'" />
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 

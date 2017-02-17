@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div :class="classtiles" v-for="hair in hairs">
+    <router-link :to="'/hair/'+hair.internalid" :class="classtiles" v-for="hair in hairs">
       <div class="box box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">
@@ -11,7 +11,7 @@
           <img :src="resources.imagesurl+'/images/nendos/hairs/'+hair.internalid+'_thumb'" />
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 

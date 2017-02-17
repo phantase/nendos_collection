@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from 'components/Home'
+import Accessory from 'components/Accessory'
 import Accessories from 'components/Accessories'
+import Bodypart from 'components/Bodypart'
 import Bodyparts from 'components/Bodyparts'
 import Box from 'components/Box'
 import Boxes from 'components/Boxes'
 import Face from 'components/Face'
 import Faces from 'components/Faces'
+import Hair from 'components/Hair'
 import Hairs from 'components/Hairs'
+import Hand from 'components/Hand'
 import Hands from 'components/Hands'
 import Nendoroid from 'components/Nendoroid'
 import Nendoroids from 'components/Nendoroids'
@@ -26,12 +30,40 @@ export default new Router({
       component: Hello
     },
     {
+      path: '/accessory/:id',
+      name: 'Accessory',
+      meta: {
+        description: 'A single accessory',
+        breadcrumb: [
+          {
+            title: 'Accessories',
+            link: '/accessories'
+          }
+        ]
+      },
+      component: Accessory
+    },
+    {
       path: '/accessories',
       name: 'Accessories',
       meta: {
         description: 'List of all accessories'
       },
       component: Accessories
+    },
+    {
+      path: '/bodypart/:id',
+      name: 'Bodypart',
+      meta: {
+        description: 'A single bodypart',
+        breadcrumb: [
+          {
+            title: 'Bodyparts',
+            link: '/bodyparts'
+          }
+        ]
+      },
+      component: Bodypart
     },
     {
       path: '/bodyparts',
@@ -86,12 +118,40 @@ export default new Router({
       component: Faces
     },
     {
+      path: '/hair/:id',
+      name: 'Hair',
+      meta: {
+        description: 'A single hair',
+        breadcrumb: [
+          {
+            title: 'Hairs',
+            link: '/hairs'
+          }
+        ]
+      },
+      component: Hair
+    },
+    {
       path: '/hairs',
       name: 'Hairs',
       meta: {
         description: 'List of all hairs'
       },
       component: Hairs
+    },
+    {
+      path: '/hand/:id',
+      name: 'Hand',
+      meta: {
+        description: 'A single hand',
+        breadcrumb: [
+          {
+            title: 'Hands',
+            link: '/hands'
+          }
+        ]
+      },
+      component: Hand
     },
     {
       path: '/hands',

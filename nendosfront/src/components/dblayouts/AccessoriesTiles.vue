@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div :class="classtiles" v-for="accessory in accessories">
+    <router-link :to="'/accessory/'+accessory.internalid" :class="classtiles" v-for="accessory in accessories">
       <div class="box box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">
@@ -11,7 +11,7 @@
           <img :src="resources.imagesurl+'/images/nendos/accessories/'+accessory.internalid+'_thumb'" />
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
