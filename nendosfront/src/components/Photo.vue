@@ -217,6 +217,9 @@ export default {
   beforeDestroy () {
     window.removeEventListener('resize', this.handleResize)
   },
+  destroyed () {
+    $('[role="tooltip"]').remove()
+  },
   methods: {
     handleResize (event) {
       let ratio = document.getElementById('db-photo').offsetWidth / this.photo.width

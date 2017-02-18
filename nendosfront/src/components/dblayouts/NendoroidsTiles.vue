@@ -38,6 +38,9 @@ export default {
         return 'col-md-3 col-sm-6 col-xs-12'
       }
     }
+  },
+  destroyed () {
+    $('[role="tooltip"]').remove()
   }
 }
 
