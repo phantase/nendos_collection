@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <router-link :to="'/photo/'+photo.internalid" :class="classtiles" v-for="photo in photos">
-      <div class="box box-solid">
+      <div class="box box-solid" :id="'db-photo-'+photo.internalid">
         <div class="box-header with-border">
           <h3 class="box-title">
             <div class="db-photo-title">{{ photo.title }}</div>
@@ -42,3 +42,9 @@ export default {
 }
 
 </script>
+
+<style scoped>
+  .db-image img{
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+  }
+</style>

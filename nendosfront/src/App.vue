@@ -112,7 +112,18 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .db-image img {
-    width: 100%;
+  .db-image {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 100%;
+  }
+  .db-image img{
+    position: absolute;
+    max-width: calc(100% - 20px);
+    max-height: calc(100% - 20px);
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.3);
   }
 </style>

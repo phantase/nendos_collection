@@ -18,7 +18,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="box">
           <app-box-header title="Photo" icon="fa-photo"></app-box-header>
-          <div class="box-body db-image db-photo-annotation-container">
+          <div class="box-body db-photo db-photo-annotation-container">
             <img id="db-photo" :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_full'" :orig-width="photo.width" :orig-height="photo.height" />
             <div :id="'db-photo-box-annotation-'+box.photoannotationid" class="db-photo-annotation"
                   data-toggle="tooltip" data-html="true"
@@ -321,5 +321,13 @@ export default {
   }
   .db-box-series {
     font-style: italic;
+  }
+  .db-photo {
+    text-align: center;
+  }
+  .db-photo img{
+    max-width: 100%;
+    max-height: 100%;
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
   }
 </style>
