@@ -104,6 +104,9 @@ export default {
 <style src="../static/icomoon/style.css"></style>
 
 <style>
+  .box:hover, .info-box:hover {
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.3);
+  }
   .box-title {
     width: calc(100%);
   }
