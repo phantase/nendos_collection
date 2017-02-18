@@ -4,12 +4,12 @@
       <div class="box box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">
-            <div class="db-box-category text-yellow">
+            <div class="db-box-category text-yellow" data-toggle="tooltip" :title="box.category+(box.number?' #'+box.number:'')">
               <span>{{ box.category}}</span>
               <span v-if="box.number">#{{ box.number}}</span>
             </div>
-            <div class="db-box-name">{{ box.name }}</div>
-            <div class="db-box-series">{{ box.series ? box.series : '&nbsp;' }}</div>
+            <div class="db-box-name" data-toggle="tooltip" :title="box.name">{{ box.name }}</div>
+            <div class="db-box-series" data-toggle="tooltip" :title="box.series">{{ box.series ? box.series : '&nbsp;' }}</div>
           </h3>
         </div>
         <div class="box-body db-image"

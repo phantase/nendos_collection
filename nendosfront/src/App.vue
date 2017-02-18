@@ -104,6 +104,14 @@ export default {
 <style src="../static/icomoon/style.css"></style>
 
 <style>
+  .box-title {
+    width: calc(100%);
+  }
+  .box-title div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .db-image img {
     width: 100%;
   }
