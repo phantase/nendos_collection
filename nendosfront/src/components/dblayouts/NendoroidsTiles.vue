@@ -8,7 +8,10 @@
             <div class="db-nendoroid-version">{{ nendoroid.version ? nendoroid.version : '&nbsp;' }}</div>
           </h3>
         </div>
-        <div class="box-body db-image">
+        <div class="box-body db-image"
+              data-toggle="tooltip" data-html="true"
+              :title="`<div class='db-nendoroid-name'>`+nendoroid.name+`</div>
+                        <div class='db-nendoroid-version'>`+(nendoroid.version ? nendoroid.version : '')+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/nendoroids/'+nendoroid.internalid+'_thumb'" />
         </div>
       </div>

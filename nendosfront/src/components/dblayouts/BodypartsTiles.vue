@@ -7,7 +7,10 @@
             <div class="db-bodypart-internalid">{{ bodypart.internalid }}</div>
           </h3>
         </div>
-        <div class="box-body db-image">
+        <div class="box-body db-image"
+              data-toggle="tooltip" data-html="true"
+              :title="`<div class='db-bodypart-part text-yellow'>`+bodypart.part+`</div>
+                        <div class='db-bodypart-description'><span class='text-yellow'>Description:</span> `+bodypart.description+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/bodyparts/'+bodypart.internalid+'_thumb'" />
         </div>
       </div>

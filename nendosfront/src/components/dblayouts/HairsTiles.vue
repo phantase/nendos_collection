@@ -7,7 +7,11 @@
             <div class="db-hair-internalid">{{ hair.internalid }}</div>
           </h3>
         </div>
-        <div class="box-body db-image">
+        <div class="box-body db-image"
+              data-toggle="tooltip" data-html="true"
+              :title="`<div class='db-hair-frontback text-yellow'>`+hair.frontback+`</div>
+                        <div class='db-hair-haircut'><span class='text-yellow'>Haircut:</span> `+hair.haircut+`</div>
+                        <div class='db-hair-description'><span class='text-yellow'>Description:</span> `+hair.description+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/hairs/'+hair.internalid+'_thumb'" />
         </div>
       </div>

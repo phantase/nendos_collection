@@ -12,7 +12,11 @@
             <div class="db-box-series">{{ box.series ? box.series : '&nbsp;' }}</div>
           </h3>
         </div>
-        <div class="box-body db-image">
+        <div class="box-body db-image"
+              data-toggle="tooltip" data-html="true"
+              :title="`<div class='db-box-category text-yellow'>`+box.category+(box.number ? ' #'+box.number:'')+`</div>
+                            <div class='db-box-name'>`+box.name+`</div>
+                            <div class='db-box-series'>`+box.series+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/boxes/'+box.internalid+'_thumb'" />
         </div>
       </div>

@@ -7,7 +7,10 @@
             <div class="db-accessory-internalid">{{ accessory.internalid }}</div>
           </h3>
         </div>
-        <div class="box-body db-image">
+        <div class="box-body db-image"
+              data-toggle="tooltip" data-html="true"
+              :title="`<div class='db-accessory-type text-yellow'>`+accessory.type+`</div>
+                        <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/accessories/'+accessory.internalid+'_thumb'" />
         </div>
       </div>

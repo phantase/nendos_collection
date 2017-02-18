@@ -7,7 +7,10 @@
             <div class="db-hand-internalid">{{ hand.internalid }}</div>
           </h3>
         </div>
-        <div class="box-body db-image">
+        <div class="box-body db-image"
+              data-toggle="tooltip" data-html="true"
+              :title="`<div class='db-hand-leftright text-yellow'>`+hand.leftright+`</div>
+                        <div class='db-hand-posture'><span class='text-yellow'>Posture:</span> `+hand.posture+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/hands/'+hand.internalid+'_thumb'" />
         </div>
       </div>

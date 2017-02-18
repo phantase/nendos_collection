@@ -20,13 +20,43 @@
           <app-box-header title="Photo" icon="fa-photo"></app-box-header>
           <div class="box-body db-image db-photo-annotation-container">
             <img id="db-photo" :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_full'" :orig-width="photo.width" :orig-height="photo.height" />
-            <div :id="'db-photo-box-annotation-'+box.photoannotationid" class="db-photo-annotation" v-for="box in boxes"><a><i class="icon-icon_nendo_box bg-orange"></i></a></div>
-            <div :id="'db-photo-nendoroid-annotation-'+nendoroid.photoannotationid" class="db-photo-annotation" v-for="nendoroid in nendoroids"><a><i class="icon-icon_nendo_nendo bg-orange"></i></a></div>
-            <div :id="'db-photo-hair-annotation-'+hair.photoannotationid" class="db-photo-annotation" v-for="hair in hairs"><a><i class="icon-icon_nendo_hair bg-orange"></i></a></div>
-            <div :id="'db-photo-accessory-annotation-'+accessory.photoannotationid" class="db-photo-annotation" v-for="accessory in accessories"><a><i class="icon-icon_nendo_accessories bg-orange"></i></a></div>
-            <div :id="'db-photo-bodypart-annotation-'+bodypart.photoannotationid" class="db-photo-annotation" v-for="bodypart in bodyparts"><a><i class="icon-icon_nendo_body bg-orange"></i></a></div>
-            <div :id="'db-photo-face-annotation-'+face.photoannotationid" class="db-photo-annotation" v-for="face in faces"><a><i class="icon-icon_nendo_face bg-orange"></i></a></div>
-            <div :id="'db-photo-hand-annotation-'+hand.photoannotationid" class="db-photo-annotation" v-for="hand in hands"><a><i class="icon-icon_nendo_hand bg-orange"></i></a></div>
+            <div :id="'db-photo-box-annotation-'+box.photoannotationid" class="db-photo-annotation"
+                  data-toggle="tooltip" data-html="true"
+                  :title="`<div class='db-box-category text-yellow'>`+box.category+(box.number ? ' #'+box.number:'')+`</div>
+                            <div class='db-box-name'>`+box.name+`</div>
+                            <div class='db-box-series'>`+box.series+`</div>`"
+                  v-for="box in boxes"><a><i class="icon-icon_nendo_boxes bg-orange"></i></a></div>
+            <div :id="'db-photo-nendoroid-annotation-'+nendoroid.photoannotationid" class="db-photo-annotation"
+                  data-toggle="tooltip" data-html="true"
+                  :title="`<div class='db-nendoroid-name'>`+nendoroid.name+`</div>
+                            <div class='db-nendoroid-version'>`+(nendoroid.version ? nendoroid.version : '')+`</div>`"
+                  v-for="nendoroid in nendoroids"><a><i class="icon-icon_nendo_nendo bg-orange"></i></a></div>
+            <div :id="'db-photo-hair-annotation-'+hair.photoannotationid" class="db-photo-annotation"
+                  data-toggle="tooltip" data-html="true"
+                  :title="`<div class='db-hair-frontback text-yellow'>`+hair.frontback+`</div>
+                            <div class='db-hair-haircut'><span class='text-yellow'>Haircut:</span> `+hair.haircut+`</div>
+                            <div class='db-hair-description'><span class='text-yellow'>Description:</span> `+hair.description+`</div>`"
+                  v-for="hair in hairs"><a><i class="icon-icon_nendo_hair bg-orange"></i></a></div>
+            <div :id="'db-photo-accessory-annotation-'+accessory.photoannotationid" class="db-photo-annotation"
+                  data-toggle="tooltip" data-html="true"
+                  :title="`<div class='db-accessory-type text-yellow'>`+accessory.type+`</div>
+                            <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`"
+                  v-for="accessory in accessories"><a><i class="icon-icon_nendo_accessories bg-orange"></i></a></div>
+            <div :id="'db-photo-bodypart-annotation-'+bodypart.photoannotationid" class="db-photo-annotation"
+                  data-toggle="tooltip" data-html="true"
+                  :title="`<div class='db-bodypart-part text-yellow'>`+bodypart.part+`</div>
+                            <div class='db-bodypart-description'><span class='text-yellow'>Description:</span> `+bodypart.description+`</div>`"
+                  v-for="bodypart in bodyparts"><a><i class="icon-icon_nendo_body bg-orange"></i></a></div>
+            <div :id="'db-photo-face-annotation-'+face.photoannotationid" class="db-photo-annotation"
+                  data-toggle="tooltip" data-html="true"
+                  :title="`<div class='db-face-eyes'><span class='text-yellow'>Eyes:</span> `+face.eyes+`</div>
+                            <div class='db-face-mouth'><span class='text-yellow'>Mouth:</span> `+face.mouth+`</div>`"
+                  v-for="face in faces"><a><i class="icon-icon_nendo_face bg-orange"></i></a></div>
+            <div :id="'db-photo-hand-annotation-'+hand.photoannotationid" class="db-photo-annotation"
+                  data-toggle="tooltip" data-html="true"
+                  :title="`<div class='db-hand-leftright text-yellow'>`+hand.leftright+`</div>
+                            <div class='db-hand-posture'><span class='text-yellow'>Posture:</span> `+hand.posture+`</div>`"
+                  v-for="hand in hands"><a><i class="icon-icon_nendo_hand bg-orange"></i></a></div>
           </div>
         </div>
       </div>
@@ -281,5 +311,12 @@ export default {
   }
   .db-photo-annotation:hover i {
     opacity: 1;
+  }
+  .db-box-category {
+    font-weight: bold;
+    font-size: 2em;
+  }
+  .db-box-series {
+    font-style: italic;
   }
 </style>

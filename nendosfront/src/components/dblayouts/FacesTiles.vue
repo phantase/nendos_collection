@@ -7,7 +7,10 @@
             <div class="db-face-internalid">{{ face.internalid }}</div>
           </h3>
         </div>
-        <div class="box-body db-image">
+        <div class="box-body db-image"
+              data-toggle="tooltip" data-html="true"
+              :title="`<div class='db-face-eyes'><span class='text-yellow'>Eyes:</span> `+face.eyes+`</div>
+                        <div class='db-face-mouth'><span class='text-yellow'>Mouth:</span> `+face.mouth+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/faces/'+face.internalid+'_thumb'" />
         </div>
       </div>
