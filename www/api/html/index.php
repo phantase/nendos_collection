@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
@@ -175,6 +178,46 @@ $app->get('/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessories|bo
         $newresponse = $response->withJson(null,400);
     }
     return $newresponse;
+});
+
+// Login
+$app->post('/login', function(Request $request, Response $response) {
+
+    $A_SALT = "Sel de Guérande";
+
+    $data = $request->getParsedBody();
+    $usermail = filter_var($data['usermail'], FILTER_SANITIZE_STRING);
+    $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
+    $encpass = base64_encode(base64_encode(base64_encode($usermail.$password.$A_SALT)));
+    $data['encpass'] = $encpass;
+    $this->logger->addInfo('User ' + $usermail + ' try to connect...');
+
+    $mapper = new UserMapper($this->db);
+    $user = $mapper->checkUser($usermail,$encpass);
+
+    if($user){
+        $_SESSION['user'] = $user;
+        $newresponse = $response->withJson($user);
+    } else {
+        $newresponse = $response->withJson(null,401);
+    }
+
+    return $newresponse;
+});
+
+$app->get('/logout', function(Request $request, Response $response) {
+    if(session_destroy()){
+        $newresponse = $response->withJson(null,204);
+    } else {
+        $newresponse = $response->withJson(null,500);
+    }
+
+    return $newresponse;
+});
+
+// Check log status
+$app->get('/check', function(Request $request, Response $response) {
+    $newresponse = $response->withJson($_SESSION['user']);
 });
 
 $app->run();
