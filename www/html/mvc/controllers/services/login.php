@@ -12,14 +12,14 @@ function decrypt($string){
 
 $A_SALT = "Sel de Guérande";
 
-$username = htmlentities($_POST['username']);
+$usermail = htmlentities($_POST['usermail']);
 $password = htmlentities($_POST['password']);
 
-$encpass = encrypt($username.$password.$A_SALT);
+$encpass = encrypt($usermail.$password.$A_SALT);
 
 include_once('mvc/models/users.php');
 
-$resultInfo = checkAndGet_singleUser($username,$encpass);
+$resultInfo = checkAndGet_singleUser($usermail,$encpass);
 
 if( $resultInfo[0] == "00000" ){
   $user = $resultInfo[4];
@@ -27,6 +27,7 @@ if( $resultInfo[0] == "00000" ){
   if( $user ) {
 
     $_SESSION['userid'] = $user['internalid'];
+    $_SESSION['usermail'] = $user['usermail'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['password'] = $password;
     $_SESSION['administrator'] = $user['administrator'];
@@ -36,7 +37,7 @@ if( $resultInfo[0] == "00000" ){
     echo json_encode(array('result'=>'success','userid'=>$user['internalid'],'username'=>$user['username']));
 
   } else {
-    echo json_encode(array('result'=>'failure','errorInfo'=>'No matching username/password in the Database...'));
+    echo json_encode(array('result'=>'failure','errorInfo'=>'No matching usermail/password in the Database...'));
   }
 } else {
   echo json_encode(array('result'=>'failure','errorInfo'=>$resultInfo[2]));

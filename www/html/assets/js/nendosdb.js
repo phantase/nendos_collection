@@ -4,10 +4,10 @@ $(function(){
   $('#login_submit').click(function(){
     $('#login_submit').prop('disabled',true);
     $('#login_submit').prop('value','Verifying...');
-    var username = $('#username').val();
+    var usermail = $('#username').val();
     var password = $('#password').val();
-    var encpass = btoa(btoa(btoa(password)));
-    $.post("services/login",{username:username,password:encpass},function(data){
+    //var encpass = btoa(btoa(btoa(password)));
+    $.post("services/login",{usermail:usermail,password:password},function(data){
       if( data.result == "success" ){
         // SUCCESS
         window.location.assign("/");
@@ -29,8 +29,7 @@ $(function(){
     var username = $('#username').val();
     var password = $('#password').val();
     var repassword = $('#repassword').val();
-    var encpass = btoa(btoa(btoa(password)));
-    $.post("services/signup",{usermail:usermail,username:username,password:encpass},function(data){
+    $.post("services/signup",{usermail:usermail,username:username,password:password},function(data){
       if( data.result == "success" ){
         // SUCCESS
         window.location.assign("/");

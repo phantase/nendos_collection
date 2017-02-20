@@ -62,7 +62,7 @@ function get_singleUser($userid)
   return $resultInfo;
 }
 /** Check and Get a single user */
-function checkAndGet_singleUser($username,$encpass)
+function checkAndGet_singleUser($usermail,$encpass)
 {
   global $bdd;
 
@@ -70,9 +70,9 @@ function checkAndGet_singleUser($username,$encpass)
                               u.administrator, u.validator, u.editor,
                               u.signupdate, u.lastviewdate
                         FROM users AS u
-                        WHERE u.username = :username
+                        WHERE u.usermail = :usermail
                         AND u.encpass = :encpass");
-  $req->bindParam(':username',$username);
+  $req->bindParam(':usermail',$usermail);
   $req->bindParam(':encpass',$encpass);
   $req->execute();
 
