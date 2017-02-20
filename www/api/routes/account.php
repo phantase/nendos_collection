@@ -13,7 +13,7 @@ $app->post('/auth/login', function(Request $request, Response $response) {
     $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
     $encpass = base64_encode(base64_encode(base64_encode($usermail.$password.$A_SALT)));
     $data['encpass'] = $encpass;
-    $this->applogger->addInfo('User ' + $usermail + ' try to connect...');
+    $this->applogger->addInfo("User $usermail try to connect...");
 
     $mapper = new UserMapper($this->db);
     $user = $mapper->checkUser($usermail,$encpass);
@@ -30,15 +30,21 @@ $app->post('/auth/login', function(Request $request, Response $response) {
           "user" => $user
         ];
 
-        $secret = $container["settings"]["jwt"]["secret"];
+        $secret = $this["settings"]["jwt"]["secret"];
         $token = Firebase\JWT\JWT::encode($payload, $secret, "HS256");
         $repdata["status"] = "ok";
         $repdata["token"] = $token;
 
         $newresponse = $response->withJson($repdata);
     } else {
-        $newresponse = $response->withJson(null,403);
+        $newresponse = $response->withJson(null,401);
     }
 
+    return $newresponse;
+});
+
+// WhoIam
+$app->get('/auth/whoiam', function(Request $request, Response $response) {
+    $newresponse = $response->withJson($request->getAttribute("token")->user);
     return $newresponse;
 });
