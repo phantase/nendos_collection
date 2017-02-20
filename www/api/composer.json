@@ -2,6 +2,9 @@
     "require": {
         "slim/slim": "^3.7",
         "monolog/monolog": "^1.22",
-        "slim/php-view": "^2.2"
+        "slim/php-view": "^2.2",
+        "tuupola/slim-jwt-auth": "^2.3",
+        "tuupola/base62": "^0.7.0",
+        "paragonie/random_compat": "^2.0"
     }
 }
