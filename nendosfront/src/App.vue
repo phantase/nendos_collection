@@ -32,68 +32,20 @@ export default {
   data () {
     return {
       menus: Menus,
-      messages: [
-        {
-          id: '1',
-          from: {
-            id: '2',
-            name: 'Support Team'
-          },
-          title: 'Why not buy a new awesome theme?',
-          datetime: '5 mins'
-        },
-        {
-          id: '42',
-          from: {
-            id: '42',
-            name: 'Marvin'
-          },
-          title: 'Read the Hitchhiker\'s Guide to the Galaxy!',
-          datetime: '42 mins'
-        }
-      ],
-      notifications: [
-        {
-          id: '12',
-          message: 'Today, it\'s snowy',
-          icon: 'snowflake-o',
-          color: 'text-aqua'
-        },
-        {
-          id: '13',
-          message: 'Tomorrow, it will be sunny',
-          icon: 'fa-sun-o',
-          color: 'text-yellow'
-        },
-        {
-          id: '14',
-          message: 'Yesterday, it was cloudy',
-          icon: 'fa-cloud'
-        }
-      ],
-      tasks: [
-        {
-          id: '99',
-          title: 'Read some books',
-          percent: 70
-        },
-        {
-          id: '100',
-          title: 'Listen some musics',
-          percent: 90
-        },
-        {
-          id: '101',
-          title: 'Watch some movies',
-          percent: 10
-        },
-        {
-          id: '102',
-          title: 'Play some video games',
-          percent: 0
-        }
-      ]
+      messages: [],
+      notifications: [],
+      tasks: [],
+      user: []
     }
+  },
+  mounted () {
+    this.$http.get('check').then((response) => {
+      console.log('success')
+      console.log(response.data)
+    }, (response) => {
+      console.log('faillure')
+      console.log(response)
+    })
   }
 }
 </script>

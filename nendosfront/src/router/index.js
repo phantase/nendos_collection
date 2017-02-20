@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from 'components/Home'
+import Home from 'components/Home'
+import Login from 'components/Login'
 import Accessory from 'components/Accessory'
 import Accessories from 'components/Accessories'
 import Bodypart from 'components/Bodypart'
@@ -28,7 +29,15 @@ export default new Router({
       meta: {
         description: 'Homepage of the database'
       },
-      component: Hello
+      component: Home
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      meta: {
+        description: 'Login'
+      },
+      component: Login
     },
     {
       path: '/accessory/:id',
