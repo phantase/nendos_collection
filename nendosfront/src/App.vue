@@ -20,6 +20,8 @@ import AppControlSidebar from './components/layouts/ControlSidebar'
 
 import Menus from './config/menus'
 
+import auth from './auth'
+
 export default {
   name: 'app',
   components: {
@@ -35,17 +37,8 @@ export default {
       messages: [],
       notifications: [],
       tasks: [],
-      user: []
+      user: auth.user
     }
-  },
-  mounted () {
-    this.$http.get('check').then((response) => {
-      console.log('success')
-      console.log(response.data)
-    }, (response) => {
-      console.log('faillure')
-      console.log(response)
-    })
   }
 }
 </script>

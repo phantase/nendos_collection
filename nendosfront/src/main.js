@@ -6,8 +6,16 @@ import App from './App'
 import router from './router'
 import resources from './config/resources'
 
+import auth from './auth'
+
 Vue.use(VueResource)
 Vue.http.options.root = resources.apiurl
+Vue.http.interceptors.push(function (request, next) {
+  if (auth.user.authenticated) {
+    request.headers.set('Authorization', 'Bearer ' + auth.getToken())
+  }
+  next()
+})
 
 /* eslint-disable no-new */
 new Vue({

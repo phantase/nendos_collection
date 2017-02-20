@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import auth from './../auth'
+
 export default {
   name: 'Login',
   data () {
@@ -62,13 +64,7 @@ export default {
                     Mail: ` + this.usermail + `
                     Pass: ` + this.password + `
                     Remm: ` + this.rememberme + ``)
-      this.$http.post('auth/login', {usermail: this.usermail, password: this.password, rememberme: this.rememberme}).then((response) => {
-        console.log('success')
-        console.log(response.data)
-      }, (response) => {
-        console.log('faillure')
-        console.log(response)
-      })
+      auth.login(this, {usermail: this.usermail, password: this.password, rememberme: this.rememberme})
     }
   }
 }
