@@ -18,10 +18,14 @@ import AppContent from './components/layouts/Content'
 import AppFooter from './components/layouts/Footer'
 import AppControlSidebar from './components/layouts/ControlSidebar'
 
+import store from './store'
+import Vuex from 'vuex'
+
 import Menus from './config/menus'
 
 export default {
   name: 'app',
+  store: store,
   components: {
     AppHeader,
     AppSidebar,
@@ -36,6 +40,21 @@ export default {
       notifications: [],
       tasks: []
     }
+  },
+  computed: {
+    ...Vuex.mapGetters(['authenticated'])
+  },
+  methods: {
+    ...Vuex.mapActions(['relogin'])
+  },
+  mounted () {
+    this.relogin({
+      'context': this
+    }).then(() => {
+      console.log('Successfully reconnected')
+    }, () => {
+      console.log('Not connected')
+    })
   }
 }
 </script>

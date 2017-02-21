@@ -51,6 +51,28 @@ export default new Vuex.Store({
       localStorage.setItem('token', token)
       store.commit('SET_TOKEN', token)
     },
+    relogin (store, payload) {
+      let context = payload.context
+      let token = localStorage.getItem('token')
+      return new Promise((resolve, reject) => {
+        if (token) {
+          console.log('Token found')
+          context.$http.get('auth/relogin', {headers: {'Authorization': 'Bearer ' + token}}).then((response) => {
+            store.dispatch('setAuthenticated', true)
+            store.dispatch('setToken', response.data.token)
+            store.dispatch('setUser', response.data.user)
+
+            resolve()
+          }, (response) => {
+            // localStorage.removeItem('token')
+            reject()
+          })
+        } else {
+          console.log('Token not found')
+          reject()
+        }
+      })
+    },
     login (store, payload) {
       let credentials = payload.credentials
       let context = payload.context
@@ -58,7 +80,7 @@ export default new Vuex.Store({
         context.$http.post('auth/login', credentials).then((response) => {
           store.dispatch('setAuthenticated', true)
           store.dispatch('setToken', response.data.token)
-          store.dispatch('retrieveUser', {'context': context})
+          store.dispatch('setUser', response.data.user)
 
           resolve()
         }, (response) => {

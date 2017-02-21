@@ -55,8 +55,8 @@ export default {
   store: store,
   data () {
     return {
-      usermail: '',
-      password: '',
+      usermail: 'phantase@phantase.com',
+      password: 'phantase',
       rememberme: false,
       loginerror: false
     }
@@ -65,7 +65,7 @@ export default {
     ...Vuex.mapGetters(['authenticated', 'user'])
   },
   methods: {
-    ...Vuex.mapActions(['login', 'retrieveUser']),
+    ...Vuex.mapActions(['login']),
     onSubmit () {
       this.loginerror = false
 
