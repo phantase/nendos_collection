@@ -46,10 +46,13 @@
 </template>
 
 <script>
-import auth from './../auth'
+import router from './../router'
+import store from './../store'
+import Vuex from 'vuex'
 
 export default {
   name: 'Login',
+  store: store,
   data () {
     return {
       usermail: '',
@@ -58,13 +61,35 @@ export default {
       loginerror: false
     }
   },
+  computed: {
+    ...Vuex.mapGetters(['authenticated', 'user'])
+  },
   methods: {
+    ...Vuex.mapActions(['login', 'retrieveUser']),
     onSubmit () {
-      console.log(`Sumbit
-                    Mail: ` + this.usermail + `
-                    Pass: ` + this.password + `
-                    Remm: ` + this.rememberme + ``)
-      auth.login(this, {usermail: this.usermail, password: this.password, rememberme: this.rememberme})
+      this.loginerror = false
+
+      let credentials = {usermail: this.usermail, password: this.password, rememberme: this.rememberme}
+
+      this.login({
+        'credentials': credentials,
+        'context': this
+      }).then(() => {
+        router.replace('/')
+      }, () => {
+        this.loginerror = true
+      })
+
+      // this.$http.post('auth/login', credentials).then((response) => {
+      //   this.setAuthenticated(true)
+      //   this.setToken(response.data.token)
+
+      //   this.retrieveUser()
+
+      //   // router.replace('/')
+      // }, (response) => {
+      //   this.loginerror = true
+      // })
     }
   }
 }

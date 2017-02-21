@@ -1,18 +1,20 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import Vuex from 'vuex'
 import VueResource from 'vue-resource'
-import App from './App'
 import router from './router'
 import resources from './config/resources'
+import App from './App'
 
-import auth from './auth'
+import store from './store'
 
+Vue.use(Vuex)
 Vue.use(VueResource)
 Vue.http.options.root = resources.apiurl
 Vue.http.interceptors.push(function (request, next) {
-  if (auth.user.authenticated) {
-    request.headers.set('Authorization', 'Bearer ' + auth.getToken())
+  if (store.getters.authenticated) {
+    request.headers.set('Authorization', 'Bearer ' + store.getters.token)
   }
   next()
 })
@@ -21,6 +23,7 @@ Vue.http.interceptors.push(function (request, next) {
 new Vue({
   el: '#app',
   router,
+  // render: h => h(require('./App'))
   template: '<App/>',
   components: { App }
 })

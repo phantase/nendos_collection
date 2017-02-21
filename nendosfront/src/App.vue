@@ -20,8 +20,6 @@ import AppControlSidebar from './components/layouts/ControlSidebar'
 
 import Menus from './config/menus'
 
-import auth from './auth'
-
 export default {
   name: 'app',
   components: {
@@ -36,8 +34,7 @@ export default {
       menus: Menus,
       messages: [],
       notifications: [],
-      tasks: [],
-      user: auth.user
+      tasks: []
     }
   }
 }
