@@ -41,4 +41,14 @@ class UserMapper extends Mapper
     }
   }
 
+  public function updateUserLastViewDate($user_internalid) {
+    $sql = "UPDATE users SET lastviewdate = NOW() WHERE internalid = :user_internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["user_internalid" => $user_internalid]);
+
+    if(!$result) {
+      throw new Exception("Could not update date");
+    }
+  }
+
 }
