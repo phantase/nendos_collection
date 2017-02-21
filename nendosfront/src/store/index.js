@@ -38,7 +38,7 @@ export default new Vuex.Store({
     retrieveUser (store, payload) {
       let context = payload.context
       context.$http.get('auth/whoami').then((response) => {
-        this.setUser(response.data)
+        store.dispatch('setUser', response.data)
       }, (response) => {
         console.log('DEBUG <faillure of whoami>')
         console.log(response)
@@ -56,9 +56,9 @@ export default new Vuex.Store({
       let context = payload.context
       return new Promise((resolve, reject) => {
         context.$http.post('auth/login', credentials).then((response) => {
-          store.displatch('setAuthenticated', true)
-          // setToken(response.data.token)
-          // retrieveUser({'context': context})
+          store.dispatch('setAuthenticated', true)
+          store.dispatch('setToken', response.data.token)
+          store.dispatch('retrieveUser', {'context': context})
 
           resolve()
         }, (response) => {

@@ -79,17 +79,6 @@ export default {
       }, () => {
         this.loginerror = true
       })
-
-      // this.$http.post('auth/login', credentials).then((response) => {
-      //   this.setAuthenticated(true)
-      //   this.setToken(response.data.token)
-
-      //   this.retrieveUser()
-
-      //   // router.replace('/')
-      // }, (response) => {
-      //   this.loginerror = true
-      // })
     }
   }
 }
