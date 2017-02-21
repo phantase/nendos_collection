@@ -43,8 +43,8 @@ $app->post('/auth/login', function(Request $request, Response $response) {
     return $newresponse;
 });
 
-// WhoIam
-$app->get('/auth/whoiam', function(Request $request, Response $response) {
+// Whoami
+$app->get('/auth/whoami', function(Request $request, Response $response) {
     $newresponse = $response->withJson($request->getAttribute("token")->user);
     return $newresponse;
 });
