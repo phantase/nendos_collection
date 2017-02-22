@@ -57,51 +57,71 @@
     },
     data () {
       return {
-        info_boxes: {
+        counts: [],
+        usercounts: []
+      }
+    },
+    computed: {
+      info_boxes () {
+        return {
           title: 'Boxes',
-          message: '0',
+          message: this.counts ? this.counts.boxes : '',
           icon: 'icon-icon_nendo_boxes',
           color: 'bg-yellow'
-        },
-        info_nendoroids: {
+        }
+      },
+      info_nendoroids () {
+        return {
           title: 'Nendoroids',
-          message: '0',
+          message: this.counts ? this.counts.nendoroids : '',
           icon: 'icon-icon_nendo_nendo',
           color: 'bg-yellow'
-        },
-        info_faces: {
+        }
+      },
+      info_faces () {
+        return {
           title: 'Faces',
-          message: '0',
+          message: this.counts ? this.counts.faces : '',
           icon: 'icon-icon_nendo_face',
           color: 'bg-yellow'
-        },
-        info_hairs: {
+        }
+      },
+      info_hairs () {
+        return {
           title: 'Hairs',
-          message: '0',
+          message: this.counts ? this.counts.hairs : '',
           icon: 'icon-icon_nendo_hair',
           color: 'bg-yellow'
-        },
-        info_hands: {
+        }
+      },
+      info_hands () {
+        return {
           title: 'Hands',
-          message: '0',
+          message: this.counts ? this.counts.hands : '',
           icon: 'icon-icon_nendo_hand',
           color: 'bg-yellow'
-        },
-        info_bodyparts: {
+        }
+      },
+      info_bodyparts () {
+        return {
           title: 'Bodyparts',
-          message: '0',
+          message: this.counts ? this.counts.bodyparts : '',
           icon: 'icon-icon_nendo_body',
           color: 'bg-yellow'
-        },
-        info_accessories: {
+        }
+      },
+      info_accessories () {
+        return {
           title: 'Accessories',
-          message: '0',
+          message: this.counts ? this.counts.accessories : '',
           icon: 'icon-icon_nendo_accessories',
           color: 'bg-yellow'
-        },
-        info_photos: {
+        }
+      },
+      info_photos () {
+        return {
           title: 'Photos',
-          message: '0',
+          message: this.counts ? this.counts.photos : '',
           icon: 'fa-photo',
           color: 'bg-yellow'
         }
@@ -110,14 +130,7 @@
     mounted () {
       this.$counts = this.$resource('count')
       this.$counts.query().then((response) => {
-        this.info_boxes.message = response.data.boxes
-        this.info_nendoroids.message = response.data.nendoroids
-        this.info_faces.message = response.data.faces
-        this.info_hairs.message = response.data.hairs
-        this.info_hands.message = response.data.hands
-        this.info_bodyparts.message = response.data.bodyparts
-        this.info_accessories.message = response.data.accessories
-        this.info_photos.message = response.data.photos
+        this.counts = response.data.counts
       }, (response) => {
         console.log('Error', response)
       })

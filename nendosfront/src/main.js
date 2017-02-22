@@ -15,6 +15,9 @@ Vue.http.options.root = resources.apiurl
 Vue.http.interceptors.push(function (request, next) {
   if (store.getters.authenticated) {
     request.headers.set('Authorization', 'Bearer ' + store.getters.token)
+    if (request.url.indexOf('auth') === -1) {
+      request.url = 'auth/' + request.url
+    }
   }
   next()
 })
