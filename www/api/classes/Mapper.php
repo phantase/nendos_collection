@@ -16,6 +16,13 @@ abstract class Mapper {
     return $stmt->fetch();
   }
 
+  public function countForUser($userid) {
+    $sql = "SELECT count(*) AS count FROM users_".$this->tablename."_collection WHERE userid = :userid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["userid" => $userid]);
+    return $stmt->fetch();
+  }
+
   public function getByAccessoryid($accessoryid) {
     return null;
   }

@@ -5,10 +5,11 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 // General count (count all object in DB)
 $app->get('/auth/count', function(Request $request, Response $response) {
-    $this->applogger->addInfo("Count");
+    $userid = $request->getAttribute("token")->user->internalid;
+    $this->applogger->addInfo("Auth Count for $userid");
 
     $mapper = new CountMapper($this->db);
-    $counts = $mapper->get();
+    $counts = $mapper->getForUser($userid);
 
     $newresponse = $response->withJson($counts);
 
