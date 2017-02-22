@@ -64,7 +64,7 @@ export default new Vuex.Store({
 
             resolve()
           }, (response) => {
-            // localStorage.removeItem('token')
+            localStorage.removeItem('token')
             reject()
           })
         } else {
