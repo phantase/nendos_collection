@@ -64,7 +64,7 @@
     <div class="row">
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="boxes.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Boxes" collapsable="true" collapsed="true" icon="icon-icon_nendo_box"></app-box-header>
+          <app-box-header title="Boxes" collapsable="true" collapsed="true" icon="icon-icon_nendo_boxes"></app-box-header>
           <div class="box-body">
             <boxes-tiles :boxes="boxes" tilessize="big"></boxes-tiles>
           </div>
