@@ -53,6 +53,8 @@ class FaceEntity extends Entity implements JsonSerializable
     $this->ymin = $data['ymin'];
     $this->ymax = $data['ymax'];
     $this->photoannotationid = $data['photoannotationid'];
+    $this->colladdeddate = $data['colladdeddate'];
+    $this->collquantity = $data['collquantity'];
   }
 
   public function getInternalid() {
@@ -146,7 +148,9 @@ class FaceEntity extends Entity implements JsonSerializable
       'xmax' => $this->xmax,
       'ymin' => $this->ymin,
       'ymax' => $this->ymax,
-      'photoannotationid' => $this->photoannotationid
+      'photoannotationid' => $this->photoannotationid,
+      'colladdeddate' => $this->colladdeddate,
+      'collquantity' => $this->collquantity
     ];
   }
 
