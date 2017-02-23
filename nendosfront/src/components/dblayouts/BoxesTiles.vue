@@ -18,6 +18,7 @@
                             <div class='db-box-name'>`+box.name+`</div>
                             <div class='db-box-series'>`+(box.series?box.series:``)+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/boxes/'+box.internalid+'_thumb'" />
+          <span class="badge bg-blue incollection" v-if="box.colladdeddate">{{ box.collquantity }}</span>
         </div>
       </div>
     </router-link>

@@ -90,4 +90,9 @@ export default {
     transform: translateX(-50%) translateY(-50%);
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.3);
   }
+  .incollection {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
 </style>
