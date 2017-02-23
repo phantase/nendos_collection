@@ -35,11 +35,12 @@ $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
 
 // Retrieve the count of all objects of type {element}
 $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/count', function(Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
     $element = $args['element'];
-    $this->applogger->addInfo($element." count");
+    $this->applogger->addInfo("$element count for $userid");
     try {
         $mapper = MapperFactory::getMapper($this->db,$element);
-        $count = $mapper->count();
+        $count = $mapper->countForUser($userid);
         $count['count'] *= 1;
 
         $newresponse = $response->withJson($count);
@@ -52,12 +53,13 @@ $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
 
 // Retrieve a single {element} using its {internalid}
 $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{internalid:[0-9]+}', function (Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
-    $this->applogger->addInfo($param_element." single ".$internalid);
+    $this->applogger->addInfo("$param_element $internalid single for $userid");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
-        $element = $mapper->getByInternalid($internalid);
+        $element = $mapper->getByInternalid($internalid, $userid);
 
         if( is_null($element) ){
             $newresponse = $response->withJson(null,404);
@@ -73,44 +75,45 @@ $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
 
 // Retrieve all object of type {element} from a {elementfrom} using the {id}
 $app->get('/auth/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{id:[0-9]+}/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}', function (Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
     $param_elementfrom = $args['elementfrom'];
     $param_element = $args['element'];
     $param_id = (int)$args['id'];
-    $this->applogger->addInfo($param_element." list in ".$param_elementfrom." ".$param_id);
+    $this->applogger->addInfo("$param_element list in $param_elementfrom $param_id for $userid");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         switch($param_elementfrom){
             case "box":
             case "boxes":
-                $element = $mapper->getByBoxid($param_id);
+                $element = $mapper->getByBoxid($param_id, $userid);
                 break;
             case "nendoroid":
             case "nendoroids":
-                $element = $mapper->getByNendoroidid($param_id);
+                $element = $mapper->getByNendoroidid($param_id, $userid);
                 break;
             case "accessory":
             case "accessories":
-                $element = $mapper->getByAccessoryid($param_id);
+                $element = $mapper->getByAccessoryid($param_id, $userid);
                 break;
             case "bodypart":
             case "bodyparts":
-                $element = $mapper->getByBodypartid($param_id);
+                $element = $mapper->getByBodypartid($param_id, $userid);
                 break;
             case "face":
             case "faces":
-                $element = $mapper->getByFaceid($param_id);
+                $element = $mapper->getByFaceid($param_id, $userid);
                 break;
             case "hair":
             case "hairs":
-                $element = $mapper->getByHairid($param_id);
+                $element = $mapper->getByHairid($param_id, $userid);
                 break;
             case "hand":
             case "hands":
-                $element = $mapper->getByHandid($param_id);
+                $element = $mapper->getByHandid($param_id, $userid);
                 break;
             case "photo":
             case "photos":
-                $element = $mapper->getByPhotoid($param_id);
+                $element = $mapper->getByPhotoid($param_id, $userid);
                 break;
             default:
                 throw new Exception("Error Processing Request", 1);

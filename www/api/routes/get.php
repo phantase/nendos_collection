@@ -18,7 +18,7 @@ $app->get('/count', function(Request $request, Response $response) {
 //  Retrieve all objects of type {element}
 $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}', function(Request $request, Response $response, $args) {
     $param_element = $args['element'];
-    $this->applogger->addInfo($param_element." list");
+    $this->applogger->addInfo("$param_element list");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         $elements = $mapper->get();
@@ -34,7 +34,7 @@ $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypa
 // Retrieve the count of all objects of type {element}
 $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/count', function(Request $request, Response $response, $args) {
     $element = $args['element'];
-    $this->applogger->addInfo($element." count");
+    $this->applogger->addInfo("$element count");
     try {
         $mapper = MapperFactory::getMapper($this->db,$element);
         $count = $mapper->count();
@@ -52,7 +52,7 @@ $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypa
 $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{internalid:[0-9]+}', function (Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
-    $this->applogger->addInfo($param_element." single ".$internalid);
+    $this->applogger->addInfo("$param_element $internalid single");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         $element = $mapper->getByInternalid($internalid);
@@ -74,7 +74,7 @@ $app->get('/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessories|bo
     $param_elementfrom = $args['elementfrom'];
     $param_element = $args['element'];
     $param_id = (int)$args['id'];
-    $this->applogger->addInfo($param_element." list in ".$param_elementfrom." ".$param_id);
+    $this->applogger->addInfo("$param_element list in $param_elementfrom $param_id");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         switch($param_elementfrom){

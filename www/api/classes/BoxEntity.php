@@ -63,6 +63,7 @@ class BoxEntity extends Entity implements JsonSerializable
     $this->xmax = $data['xmax'];
     $this->ymin = $data['ymin'];
     $this->ymax = $data['ymax'];
+    $this->photoannotationid = $data['photoannotationid'];
     $this->colladdeddate = $data['colladdeddate'];
     $this->collquantity = $data['collquantity'];
   }
@@ -186,6 +187,7 @@ class BoxEntity extends Entity implements JsonSerializable
       'xmax' => $this->xmax,
       'ymin' => $this->ymin,
       'ymax' => $this->ymax,
+      'photoannotationid' => $this->photoannotationid,
       'colladdeddate' => $this->colladdeddate,
       'collquantity' => $this->collquantity
     ];
