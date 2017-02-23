@@ -12,6 +12,7 @@
               :title="`<div class='db-bodypart-part text-yellow'>`+bodypart.part+`</div>
                         <div class='db-bodypart-description'><span class='text-yellow'>Description:</span> `+bodypart.description+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/bodyparts/'+bodypart.internalid+'_thumb'" />
+          <span class="badge bg-blue incollection" v-if="bodypart.colladdeddate">{{ bodypart.collquantity }}</span>
         </div>
       </div>
     </router-link>

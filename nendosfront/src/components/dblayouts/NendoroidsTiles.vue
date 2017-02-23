@@ -13,6 +13,7 @@
               :title="`<div class='db-nendoroid-name'>`+nendoroid.name+`</div>
                         <div class='db-nendoroid-version'>`+(nendoroid.version ? nendoroid.version : '')+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/nendoroids/'+nendoroid.internalid+'_thumb'" />
+          <span class="badge bg-blue incollection" v-if="nendoroid.colladdeddate">{{ nendoroid.collquantity }}</span>
         </div>
       </div>
     </router-link>

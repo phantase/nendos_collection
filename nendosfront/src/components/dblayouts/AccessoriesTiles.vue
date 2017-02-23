@@ -12,6 +12,7 @@
               :title="`<div class='db-accessory-type text-yellow'>`+accessory.type+`</div>
                         <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/accessories/'+accessory.internalid+'_thumb'" />
+          <span class="badge bg-blue incollection" v-if="accessory.colladdeddate">{{ accessory.collquantity }}</span>
         </div>
       </div>
     </router-link>

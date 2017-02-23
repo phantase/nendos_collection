@@ -13,6 +13,7 @@
                         <div class='db-hair-haircut'><span class='text-yellow'>Haircut:</span> `+hair.haircut+`</div>
                         <div class='db-hair-description'><span class='text-yellow'>Description:</span> `+hair.description+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/hairs/'+hair.internalid+'_thumb'" />
+          <span class="badge bg-blue incollection" v-if="hair.colladdeddate">{{ hair.collquantity }}</span>
         </div>
       </div>
     </router-link>
