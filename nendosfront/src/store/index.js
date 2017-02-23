@@ -87,6 +87,12 @@ export default new Vuex.Store({
           reject()
         })
       })
+    },
+    logout (store) {
+      store.commit('SET_USER', [])
+      store.commit('SET_AUTHENTICATED', null)
+      store.commit('SET_TOKEN', null)
+      localStorage.removeItem('token')
     }
   },
   strict: true

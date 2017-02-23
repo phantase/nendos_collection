@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from 'components/Home'
 import Login from 'components/Login'
+import Logout from 'components/Logout'
 import Accessory from 'components/Accessory'
 import Accessories from 'components/Accessories'
 import Bodypart from 'components/Bodypart'
@@ -38,6 +39,14 @@ export default new Router({
         description: 'Login'
       },
       component: Login
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      meta: {
+        description: 'Logout'
+      },
+      component: Logout
     },
     {
       path: '/accessory/:id',

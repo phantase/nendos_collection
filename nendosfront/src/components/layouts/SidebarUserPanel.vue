@@ -5,7 +5,7 @@
         <img :src="resources.imagesurl+'/images/nendos/users/'+(user.internalid?user.internalid:'0')+'_thumb'" class="img-circle" alt="User Image" />
         </div>
         <div class="pull-left info">
-          <p>{{ user.username ? user.username : 'Unknow user' }}</p>
+          <p>{{ user.internalid ? user.username : 'Unknow user' }}</p>
           <!-- Status -->
           <a v-if="user.internalid"><i class="fa fa-circle text-success"></i> Online</a>
           <router-link to="/login" v-else><i class="fa fa-circle text-success"></i> Log me in</router-link>
