@@ -4,17 +4,24 @@ class BoxMapper extends Mapper
 {
   protected $tablename = "boxes";
 
-  public function get() {
+  public function get($userid=null) {
     $sql = "SELECT b.internalid, b.number, b.name, b.series, b.manufacturer, b.category,
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate
+                  b.validatorid, uv.username AS validatorname, b.validationdate,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
-            LEFT JOIN users uv ON b.validatorid = uv.internalid";
-    $stmt = $this->db->query($sql);
+            LEFT JOIN users uv ON b.validatorid = uv.internalid
+            LEFT JOIN (
+                  SELECT boxid, additiondate, quantity
+                  FROM users_boxes_collection
+                  WHERE userid = :userid
+                  ) AS ucol ON b.internalid = ucol.boxid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["userid" => $userid]);
 
     $results = [];
     while ($row = $stmt->fetch()) {

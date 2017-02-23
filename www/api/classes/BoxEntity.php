@@ -24,6 +24,9 @@ class BoxEntity extends Entity implements JsonSerializable
   protected $validatorid;
   protected $validatorname;
   protected $validationdate;
+  // For user collection
+  protected $colladdeddate;
+  protected $collquantity;
 
   /**
    *
@@ -60,7 +63,8 @@ class BoxEntity extends Entity implements JsonSerializable
     $this->xmax = $data['xmax'];
     $this->ymin = $data['ymin'];
     $this->ymax = $data['ymax'];
-    $this->photoannotationid = $data['photoannotationid'];
+    $this->colladdeddate = $data['colladdeddate'];
+    $this->collquantity = $data['collquantity'];
   }
 
   public function getInternalid() {
@@ -147,6 +151,14 @@ class BoxEntity extends Entity implements JsonSerializable
     return $this->validationdate;
   }
 
+  public function getCollAddedDate() {
+    return $this->colladdeddate;
+  }
+
+  public function getCollQuantity() {
+    return $this->collquantity;
+  }
+
   public function jsonSerialize() {
     return [
       'internalid' => $this->internalid,
@@ -174,7 +186,8 @@ class BoxEntity extends Entity implements JsonSerializable
       'xmax' => $this->xmax,
       'ymin' => $this->ymin,
       'ymax' => $this->ymax,
-      'photoannotationid' => $this->photoannotationid
+      'colladdeddate' => $this->colladdeddate,
+      'collquantity' => $this->collquantity
     ];
   }
 

@@ -18,11 +18,12 @@ $app->get('/auth/count', function(Request $request, Response $response) {
 
 //  Retrieve all objects of type {element}
 $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}', function(Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
     $param_element = $args['element'];
-    $this->applogger->addInfo($param_element." list");
+    $this->applogger->addInfo("$param_element list for $userid");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
-        $elements = $mapper->get();
+        $elements = $mapper->get($userid);
 
         $newresponse = $response->withJson($elements);
 
