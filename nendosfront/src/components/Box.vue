@@ -154,7 +154,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import AppBoxHeader from './layouts/BoxHeader'
 import NendoroidsTiles from './dblayouts/NendoroidsTiles'
 import FacesTiles from './dblayouts/FacesTiles'
@@ -176,10 +180,10 @@ export default {
     AccessoriesTiles,
     PhotosTiles
   },
+  store: store,
   data () {
     return {
       resources: Resources,
-      box: [],
       nendoroids: [],
       faces: [],
       hairs: [],
@@ -189,8 +193,18 @@ export default {
       photos: []
     }
   },
+  computed: {
+    ...Vuex.mapGetters(['boxes']),
+    box () {
+      console.log(this.boxes.filter(box => box.internalid === this.$route.params.id))
+      return this.boxes.filter(box => box.internalid === this.$route.params.id)[0]
+    }
+  },
+  methods: {
+    ...Vuex.mapActions(['retrieveBox'])
+  },
   mounted () {
-    this.$boxes = this.$resource('boxes{/id}')
+    // this.$boxes = this.$resource('boxes{/id}')
     this.$nendoroids = this.$resource('boxes{/id}/nendoroids')
     this.$faces = this.$resource('boxes{/id}/faces')
     this.$hairs = this.$resource('boxes{/id}/hairs')
@@ -199,11 +213,11 @@ export default {
     this.$accessories = this.$resource('boxes{/id}/accessories')
     this.$photos = this.$resource('boxes{/id}/photos')
 
-    this.$boxes.query({id: this.$route.params.id}).then((response) => {
-      this.box = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+    // this.$boxes.query({id: this.$route.params.id}).then((response) => {
+    //   this.box = response.data
+    // }, (response) => {
+    //   console.log('Error', response)
+    // })
     this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
       this.nendoroids = response.data
     }, (response) => {

@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import BoxesTiles from './dblayouts/BoxesTiles'
 
 export default {
@@ -13,19 +17,20 @@ export default {
   components: {
     BoxesTiles
   },
+  store: store,
   data () {
     return {
-      resources: Resources,
-      boxes: []
+      resources: Resources
     }
   },
+  computed: {
+    ...Vuex.mapGetters(['boxes'])
+  },
+  methods: {
+    ...Vuex.mapActions(['retrieveBoxes'])
+  },
   mounted () {
-    this.$boxes = this.$resource('boxes{/id}')
-    this.$boxes.query().then((response) => {
-      this.boxes = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+    this.retrieveBoxes({'context': this})
   }
 }
 </script>
