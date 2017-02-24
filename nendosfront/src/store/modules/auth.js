@@ -32,7 +32,7 @@ const mutations = {
 
 const actions = {
   setUser (store, user) {
-    store.commit('SET_USER', user)
+    store.commit(types.SET_USER, user)
   },
   retrieveUser (store, payload) {
     let context = payload.context
@@ -44,11 +44,11 @@ const actions = {
     })
   },
   setAuthenticated (store, authenticated) {
-    store.commit('SET_AUTHENTICATED', authenticated)
+    store.commit(types.SET_AUTHENTICATED, authenticated)
   },
   setToken (store, token) {
     localStorage.setItem('token', token)
-    store.commit('SET_TOKEN', token)
+    store.commit(types.SET_TOKEN, token)
   },
   relogin (store, payload) {
     let context = payload.context
@@ -88,9 +88,9 @@ const actions = {
     })
   },
   logout (store) {
-    store.commit('SET_USER', [])
-    store.commit('SET_AUTHENTICATED', null)
-    store.commit('SET_TOKEN', null)
+    store.commit(types.SET_USER, [])
+    store.commit(types.SET_AUTHENTICATED, null)
+    store.commit(types.SET_TOKEN, null)
     localStorage.removeItem('token')
   }
 }
