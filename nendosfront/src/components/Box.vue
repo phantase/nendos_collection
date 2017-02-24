@@ -18,6 +18,16 @@
       </div>
     </div>
 
+    <div class="row" v-if="box.colladdeddate">
+      <div class="col-md-12">
+        <div class="box">
+          <div class="box-body">
+            You own this box in {{ box.collquantity }} cop{{ box.collquantity > 1 ? 'ies' : 'y' }}
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="box">
