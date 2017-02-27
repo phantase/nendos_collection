@@ -48,49 +48,29 @@
 </template>
 
 <script>
+  import store from './../store'
+  import Vuex from 'vuex'
+
   import AppInfoBox from './dblayouts/InfoBox'
-  import AppInfoBox1 from './layouts/InfoBox'
 
   export default {
     name: 'Home',
     components: {
-      AppInfoBox,
-      AppInfoBox1
+      AppInfoBox
     },
+    store: store,
     data () {
       return {
-        counts: {
-          boxes: null,
-          nendoroids: null,
-          faces: null,
-          hairs: null,
-          hands: null,
-          bodyparts: null,
-          accessories: null,
-          photos: null
-        },
-        usercounts: {
-          boxes: null,
-          nendoroids: null,
-          faces: null,
-          hairs: null,
-          hands: null,
-          bodyparts: null,
-          accessories: null,
-          photos: null
-        }
       }
     },
+    computed: {
+      ...Vuex.mapGetters(['counts', 'usercounts'])
+    },
+    methods: {
+      ...Vuex.mapActions(['retrieveCounts'])
+    },
     mounted () {
-      this.$counts = this.$resource('count')
-      this.$counts.query().then((response) => {
-        this.counts = response.data.counts
-        if (response.data.usercounts) {
-          this.usercounts = response.data.usercounts
-        }
-      }, (response) => {
-        console.log('Error', response)
-      })
+      this.retrieveCounts({'context': this})
     }
   }
 </script>
