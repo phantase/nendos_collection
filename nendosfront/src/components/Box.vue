@@ -200,9 +200,6 @@ export default {
       return this.boxes.filter(box => box.internalid === this.$route.params.id)[0]
     }
   },
-  methods: {
-    ...Vuex.mapActions(['retrieveBox'])
-  },
   mounted () {
     // this.$boxes = this.$resource('boxes{/id}')
     this.$nendoroids = this.$resource('boxes{/id}/nendoroids')

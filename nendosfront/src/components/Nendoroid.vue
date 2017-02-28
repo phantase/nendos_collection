@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box" v-if="nendoroid.internalid">
+  <div class="db-box" v-if="nendoroid">
 
     <div class="row">
       <div class="col-md-12">
@@ -121,7 +121,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import AppBoxHeader from './layouts/BoxHeader'
 import FacesTiles from './dblayouts/FacesTiles'
 import HairsTiles from './dblayouts/HairsTiles'
@@ -141,11 +145,11 @@ export default {
     AccessoriesTiles,
     PhotosTiles
   },
+  store: store,
   data () {
     return {
       resources: Resources,
       box: [],
-      nendoroid: [],
       faces: [],
       hairs: [],
       hands: [],
@@ -154,8 +158,14 @@ export default {
       photos: []
     }
   },
+  computed: {
+    ...Vuex.mapGetters(['nendoroids']),
+    nendoroid () {
+      console.log(this.nendoroids.filter(nendoroid => nendoroid.internalid === this.$route.params.id))
+      return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.$route.params.id)[0]
+    }
+  },
   mounted () {
-    this.$nendoroids = this.$resource('nendoroids{/id}')
     this.$boxes = this.$resource('nendoroids{/id}/boxes')
     this.$faces = this.$resource('nendoroids{/id}/faces')
     this.$hairs = this.$resource('nendoroids{/id}/hairs')
@@ -164,11 +174,6 @@ export default {
     this.$accessories = this.$resource('nendoroids{/id}/accessories')
     this.$photos = this.$resource('nendoroids{/id}/photos')
 
-    this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
-      this.nendoroid = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
     this.$boxes.query({id: this.$route.params.id}).then((response) => {
       this.box = response.data[0]
     }, (response) => {

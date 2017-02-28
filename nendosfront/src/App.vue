@@ -45,11 +45,12 @@ export default {
     ...Vuex.mapGetters(['authenticated'])
   },
   methods: {
-    ...Vuex.mapActions(['relogin', 'retrieveCounts', 'retrieveBoxes'])
+    ...Vuex.mapActions(['relogin', 'retrieveCounts', 'retrieveBoxes', 'retrieveNendoroids'])
   },
   mounted () {
     this.retrieveCounts({'context': this})
     this.retrieveBoxes({'context': this})
+    this.retrieveNendoroids({'context': this})
 
     this.relogin({
       'context': this
@@ -57,6 +58,7 @@ export default {
       console.log('Successfully reconnected')
       this.retrieveCounts({'context': this})
       this.retrieveBoxes({'context': this})
+      this.retrieveNendoroids({'context': this})
     }, () => {
       console.log('Not connected')
     })

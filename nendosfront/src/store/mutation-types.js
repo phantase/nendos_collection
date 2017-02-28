@@ -7,3 +7,5 @@ export const SET_COUNTS = 'SET_COUNTS'
 export const SET_USERCOUNTS = 'SET_USERCOUNTS'
 // boxes
 export const SET_BOXES = 'SET_BOXES'
+// nendoroids
+export const SET_NENDOROIDS = 'SET_NENDOROIDS'

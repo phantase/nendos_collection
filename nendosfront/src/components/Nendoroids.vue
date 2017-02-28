@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import NendoroidsTiles from './dblayouts/NendoroidsTiles'
 
 export default {
@@ -13,19 +17,14 @@ export default {
   components: {
     NendoroidsTiles
   },
+  store: store,
   data () {
     return {
-      resources: Resources,
-      nendoroids: []
+      resources: Resources
     }
   },
-  mounted () {
-    this.$nendoroids = this.$resource('nendoroids{/id}')
-    this.$nendoroids.query().then((response) => {
-      this.nendoroids = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  computed: {
+    ...Vuex.mapGetters(['nendoroids'])
   }
 }
 </script>
