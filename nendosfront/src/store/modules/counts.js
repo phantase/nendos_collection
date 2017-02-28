@@ -38,6 +38,30 @@ const mutations = {
   },
   [types.SET_USERCOUNTS] (state, usercounts) {
     state.usercounts = usercounts
+  },
+  [types.RESET_COUNTS] (state) {
+    state.counts = {
+      boxes: null,
+      nendoroids: null,
+      faces: null,
+      hairs: null,
+      hands: null,
+      bodyparts: null,
+      accessories: null,
+      photos: null
+    }
+  },
+  [types.RESET_USERCOUNTS] (state) {
+    state.usercounts = {
+      boxes: null,
+      nendoroids: null,
+      faces: null,
+      hairs: null,
+      hands: null,
+      bodyparts: null,
+      accessories: null,
+      photos: null
+    }
   }
 }
 
@@ -47,6 +71,12 @@ const actions = {
   },
   setUserCounts (store, usercounts) {
     store.commit(types.SET_USERCOUNTS, usercounts)
+  },
+  resetCounts (store) {
+    store.commit(types.RESET_COUNTS)
+  },
+  resetUserCounts (store) {
+    store.commit(types.RESET_USERCOUNTS)
   },
   retrieveCounts (store, payload) {
     let context = payload.context

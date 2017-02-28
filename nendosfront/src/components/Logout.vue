@@ -50,10 +50,13 @@ export default {
     ...Vuex.mapGetters(['authenticated', 'user'])
   },
   methods: {
-    ...Vuex.mapActions(['logout']),
+    ...Vuex.mapActions(['logout', 'resetUserCounts', 'retrieveData']),
     doLogout () {
-      this.logout()
-      router.replace('/')
+      this.logout().then(() => {
+        this.resetUserCounts({'context': this})
+        this.retrieveData({'context': this})
+        router.replace('/')
+      })
     }
   }
 }

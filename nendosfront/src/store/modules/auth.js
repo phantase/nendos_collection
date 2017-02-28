@@ -88,10 +88,13 @@ const actions = {
     })
   },
   logout (store) {
-    store.commit(types.SET_USER, [])
-    store.commit(types.SET_AUTHENTICATED, null)
-    store.commit(types.SET_TOKEN, null)
-    localStorage.removeItem('token')
+    return new Promise((resolve, reject) => {
+      store.commit(types.SET_USER, [])
+      store.commit(types.SET_AUTHENTICATED, null)
+      store.commit(types.SET_TOKEN, null)
+      localStorage.removeItem('token')
+      resolve()
+    })
   }
 }
 

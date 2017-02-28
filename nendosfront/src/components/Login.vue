@@ -65,7 +65,7 @@ export default {
     ...Vuex.mapGetters(['authenticated', 'user'])
   },
   methods: {
-    ...Vuex.mapActions(['login']),
+    ...Vuex.mapActions(['login', 'retrieveData']),
     onSubmit () {
       this.loginerror = false
 
@@ -75,6 +75,7 @@ export default {
         'credentials': credentials,
         'context': this
       }).then(() => {
+        this.retrieveData({'context': this})
         router.replace('/')
       }, () => {
         this.loginerror = true
