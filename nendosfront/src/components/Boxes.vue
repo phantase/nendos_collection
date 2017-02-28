@@ -25,12 +25,6 @@ export default {
   },
   computed: {
     ...Vuex.mapGetters(['boxes'])
-  },
-  methods: {
-    ...Vuex.mapActions(['retrieveBoxes'])
-  },
-  mounted () {
-    this.retrieveBoxes({'context': this})
   }
 }
 </script>

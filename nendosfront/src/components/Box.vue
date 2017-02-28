@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box" v-if="box.internalid">
+  <div class="db-box" v-if="box">
 
     <div class="row">
       <div class="col-md-12">

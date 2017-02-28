@@ -65,12 +65,6 @@
     },
     computed: {
       ...Vuex.mapGetters(['counts', 'usercounts'])
-    },
-    methods: {
-      ...Vuex.mapActions(['retrieveCounts'])
-    },
-    mounted () {
-      this.retrieveCounts({'context': this})
     }
   }
 </script>

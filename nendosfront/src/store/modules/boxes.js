@@ -23,7 +23,14 @@ const actions = {
   retrieveBoxes (store, payload) {
     let context = payload.context
     return new Promise((resolve, reject) => {
-      context.$http.get('boxes').then((response) => {
+      context.$http.get('boxes', {
+        before (request) {
+          if (this.previousBoxesRequest) {
+            this.previousBoxesRequest.abort()
+          }
+          this.previousBoxesRequest = request
+        }
+      }).then((response) => {
         store.dispatch('setBoxes', response.data)
         resolve()
       }, (response) => {

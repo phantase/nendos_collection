@@ -51,7 +51,14 @@ const actions = {
   retrieveCounts (store, payload) {
     let context = payload.context
     return new Promise((resolve, reject) => {
-      context.$http.get('count').then((response) => {
+      context.$http.get('count', {
+        before (request) {
+          if (this.previousCountRequest) {
+            this.previousCountRequest.abort()
+          }
+          this.previousCountRequest = request
+        }
+      }).then((response) => {
         store.dispatch('setCounts', response.data.counts)
         if (response.data.usercounts) {
           store.dispatch('setUserCounts', response.data.usercounts)
