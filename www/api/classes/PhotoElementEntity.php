@@ -59,7 +59,7 @@ class PhotoElementEntity implements JsonSerializable
 
   public function jsonSerialize() {
     return [
-      'internalid' => $this->internalid,
+      'photoannotationid' => $this->internalid,
       'photoid' => $this->photoid,
       'elementid' => $this->elementid,
       'xmin' => $this->xmin,
