@@ -28,6 +28,20 @@ class MapperFactory {
       case 'photo':
       case 'photos':
         return new PhotoMapper($db);
+      case 'photoaccessories':
+        return new PhotoAccessoryMapper($db);
+      case 'photobodyparts':
+        return new PhotoBodypartMapper($db);
+      case 'photoboxes':
+        return new PhotoBoxMapper($db);
+      case 'photofaces':
+        return new PhotoFaceMapper($db);
+      case 'photohairs':
+        return new PhotoHairMapper($db);
+      case 'photohands':
+        return new PhotoHandMapper($db);
+      case 'photonendoroids':
+        return new PhotoNendoroidMapper($db);
       default:
         throw new Exception('Element not supported');
     }
