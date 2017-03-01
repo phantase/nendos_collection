@@ -17,7 +17,7 @@ $app->get('/auth/count', function(Request $request, Response $response) {
 });
 
 //  Retrieve all objects of type {element}
-$app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}', function(Request $request, Response $response, $args) {
+$app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|photoaccessories|photobodyparts|photoboxes|photofaces|photohairs|photohands|photonendoroids}', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     $param_element = $args['element'];
     $this->applogger->addInfo("$param_element list for $userid");
