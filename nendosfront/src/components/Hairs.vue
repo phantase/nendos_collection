@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import HairsTiles from './dblayouts/HairsTiles'
 
 export default {
@@ -13,19 +17,14 @@ export default {
   components: {
     HairsTiles
   },
+  store: store,
   data () {
     return {
-      resources: Resources,
-      hairs: []
+      resources: Resources
     }
   },
-  mounted () {
-    this.$hairs = this.$resource('hairs{/id}')
-    this.$hairs.query().then((response) => {
-      this.hairs = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  computed: {
+    ...Vuex.mapGetters(['hairs'])
   }
 }
 </script>

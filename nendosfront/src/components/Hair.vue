@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box" v-if="hair.internalid">
+  <div class="db-box" v-if="hair">
 
     <div class="row">
       <div class="col-md-12">
@@ -95,7 +95,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
 
@@ -105,17 +109,23 @@ export default {
     AppBoxHeader,
     PhotosTiles
   },
+  store: store,
   data () {
     return {
       resources: Resources,
       box: [],
       nendoroid: [],
-      hair: [],
       photos: []
     }
   },
+  computed: {
+    ...Vuex.mapGetters(['hairs']),
+    hair () {
+      console.log(this.hairs.filter(hair => hair.internalid === this.$route.params.id))
+      return this.hairs.filter(hair => hair.internalid === this.$route.params.id)[0]
+    }
+  },
   mounted () {
-    this.$hairs = this.$resource('hairs{/id}')
     this.$nendoroids = this.$resource('hairs{/id}/nendoroids')
     this.$boxes = this.$resource('hairs{/id}/boxes')
     this.$photos = this.$resource('hairs{/id}/photos')
@@ -127,11 +137,6 @@ export default {
     })
     this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
       this.nendoroid = response.data[0]
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$hairs.query({id: this.$route.params.id}).then((response) => {
-      this.hair = response.data
     }, (response) => {
       console.log('Error', response)
     })

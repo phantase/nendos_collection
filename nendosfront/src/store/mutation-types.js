@@ -16,3 +16,6 @@ export const RESET_NENDOROIDS = 'RESET_NENDOROIDS'
 // faces
 export const SET_FACES = 'SET_FACES'
 export const RESET_FACES = 'RESET_FACES'
+// hairs
+export const SET_HAIRS = 'SET_HAIRS'
+export const RESET_HAIRS = 'RESET_HAIRS'
