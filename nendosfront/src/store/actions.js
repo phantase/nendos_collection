@@ -4,4 +4,5 @@ export const retrieveData = (store, payload) => {
   store.dispatch('retrieveNendoroids', payload)
   store.dispatch('retrieveFaces', payload)
   store.dispatch('retrieveHairs', payload)
+  store.dispatch('retrieveHands', payload)
 }

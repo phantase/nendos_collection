@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box" v-if="hand.internalid">
+  <div class="db-box" v-if="hand">
 
     <div class="row">
       <div class="col-md-12">
@@ -91,7 +91,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
 
@@ -101,13 +105,20 @@ export default {
     AppBoxHeader,
     PhotosTiles
   },
+  store: store,
   data () {
     return {
       resources: Resources,
       box: [],
       nendoroid: [],
-      hand: [],
       photos: []
+    }
+  },
+  computed: {
+    ...Vuex.mapGetters(['hands']),
+    hand () {
+      console.log(this.hands.filter(hand => hand.internalid === this.$route.params.id))
+      return this.hands.filter(hand => hand.internalid === this.$route.params.id)[0]
     }
   },
   mounted () {

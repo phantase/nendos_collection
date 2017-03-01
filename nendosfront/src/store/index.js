@@ -7,6 +7,7 @@ import boxes from './modules/boxes'
 import nendoroids from './modules/nendoroids'
 import faces from './modules/faces'
 import hairs from './modules/hairs'
+import hands from './modules/hands'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ export default new Vuex.Store({
     boxes,
     nendoroids,
     faces,
-    hairs
+    hairs,
+    hands
   },
   strict: debug
 })

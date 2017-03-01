@@ -19,3 +19,6 @@ export const RESET_FACES = 'RESET_FACES'
 // hairs
 export const SET_HAIRS = 'SET_HAIRS'
 export const RESET_HAIRS = 'RESET_HAIRS'
+// hands
+export const SET_HANDS = 'SET_HANDS'
+export const RESET_HANDS = 'RESET_HANDS'
