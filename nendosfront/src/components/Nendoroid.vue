@@ -107,11 +107,11 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12 col-sm-12 col-xs-12" v-if="photos.length > 0">
+      <div class="col-md-12 col-sm-12 col-xs-12" v-if="photo4nendoroid.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Photos" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
           <div class="box-body">
-            <photos-tiles :photos="photos"></photos-tiles>
+            <photos-tiles :photos="photo4nendoroid"></photos-tiles>
           </div>
         </div>
       </div>
@@ -148,12 +148,11 @@ export default {
   store: store,
   data () {
     return {
-      resources: Resources,
-      photos: []
+      resources: Resources
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photonendoroids']),
     nendoroid () {
       return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.$route.params.id)[0]
     },
@@ -174,22 +173,15 @@ export default {
     },
     accessories4nendoroid () {
       return this.accessories.filter(accessory => accessory.nendoroidid === this.$route.params.id)
+    },
+    photo4nendoroid () {
+      return this.photos.filter(this.filterPhoto)
     }
   },
-  mounted () {
-    this.$boxes = this.$resource('nendoroids{/id}/boxes')
-    this.$photos = this.$resource('nendoroids{/id}/photos')
-
-    this.$boxes.query({id: this.$route.params.id}).then((response) => {
-      this.box = response.data[0]
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$photos.query({id: this.$route.params.id}).then((response) => {
-      this.photos = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  methods: {
+    filterPhoto (photoObj) {
+      return this.photonendoroids.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
+    }
   }
 }
 </script>

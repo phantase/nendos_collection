@@ -77,11 +77,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12" v-if="photos.length > 0">
+      <div class="col-md-12 col-sm-12 col-xs-12" v-if="photo4hand.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Photos" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
           <div class="box-body">
-            <photos-tiles :photos="photos"></photos-tiles>
+            <photos-tiles :photos="photo4hand"></photos-tiles>
           </div>
         </div>
       </div>
@@ -108,12 +108,11 @@ export default {
   store: store,
   data () {
     return {
-      resources: Resources,
-      photos: []
+      resources: Resources
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hands']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hands', 'photos', 'photohands']),
     hand () {
       return this.hands.filter(hand => hand.internalid === this.$route.params.id)[0]
     },
@@ -122,34 +121,15 @@ export default {
     },
     nendoroid () {
       return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.hand.nendoroidid)[0]
+    },
+    photo4hand () {
+      return this.photos.filter(this.filterPhoto)
     }
   },
-  mounted () {
-    this.$hands = this.$resource('hands{/id}')
-    this.$nendoroids = this.$resource('hands{/id}/nendoroids')
-    this.$boxes = this.$resource('hands{/id}/boxes')
-    this.$photos = this.$resource('hands{/id}/photos')
-
-    this.$boxes.query({id: this.$route.params.id}).then((response) => {
-      this.box = response.data[0]
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
-      this.nendoroid = response.data[0]
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$hands.query({id: this.$route.params.id}).then((response) => {
-      this.hand = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$photos.query({id: this.$route.params.id}).then((response) => {
-      this.photos = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  methods: {
+    filterPhoto (photoObj) {
+      return this.photohands.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
+    }
   }
 }
 </script>

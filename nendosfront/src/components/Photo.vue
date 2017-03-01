@@ -19,102 +19,102 @@
         <div class="box">
           <app-box-header title="Photo" icon="fa-photo"></app-box-header>
           <div class="box-body db-photo db-photo-annotation-container">
-            <img id="db-photo" :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_full'" :orig-width="photo.width" :orig-height="photo.height" />
+            <img id="db-photo" :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_full'" :orig-width="photo.width" :orig-height="photo.height" @load="handleResize" />
             <div :id="'db-photo-box-annotation-'+box.photoannotationid" class="db-photo-annotation"
                   data-toggle="tooltip" data-html="true"
                   :title="`<div class='db-box-category text-yellow'>`+box.category+(box.number ? ' #'+box.number:'')+`</div>
                             <div class='db-box-name'>`+box.name+`</div>
                             <div class='db-box-series'>`+box.series+`</div>`"
-                  v-for="box in boxes"><a><i class="icon-icon_nendo_boxes bg-orange"></i></a></div>
+                  v-for="box in boxes4photo"><a><i class="icon-icon_nendo_boxes bg-orange"></i></a></div>
             <div :id="'db-photo-nendoroid-annotation-'+nendoroid.photoannotationid" class="db-photo-annotation"
                   data-toggle="tooltip" data-html="true"
                   :title="`<div class='db-nendoroid-name'>`+nendoroid.name+`</div>
                             <div class='db-nendoroid-version'>`+(nendoroid.version ? nendoroid.version : '')+`</div>`"
-                  v-for="nendoroid in nendoroids"><a><i class="icon-icon_nendo_nendo bg-orange"></i></a></div>
+                  v-for="nendoroid in nendoroids4photo"><a><i class="icon-icon_nendo_nendo bg-orange"></i></a></div>
             <div :id="'db-photo-hair-annotation-'+hair.photoannotationid" class="db-photo-annotation"
                   data-toggle="tooltip" data-html="true"
                   :title="`<div class='db-hair-frontback text-yellow'>`+hair.frontback+`</div>
                             <div class='db-hair-haircut'><span class='text-yellow'>Haircut:</span> `+hair.haircut+`</div>
                             <div class='db-hair-description'><span class='text-yellow'>Description:</span> `+hair.description+`</div>`"
-                  v-for="hair in hairs"><a><i class="icon-icon_nendo_hair bg-orange"></i></a></div>
+                  v-for="hair in hairs4photo"><a><i class="icon-icon_nendo_hair bg-orange"></i></a></div>
             <div :id="'db-photo-accessory-annotation-'+accessory.photoannotationid" class="db-photo-annotation"
                   data-toggle="tooltip" data-html="true"
                   :title="`<div class='db-accessory-type text-yellow'>`+accessory.type+`</div>
                             <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`"
-                  v-for="accessory in accessories"><a><i class="icon-icon_nendo_accessories bg-orange"></i></a></div>
+                  v-for="accessory in accessories4photo"><a><i class="icon-icon_nendo_accessories bg-orange"></i></a></div>
             <div :id="'db-photo-bodypart-annotation-'+bodypart.photoannotationid" class="db-photo-annotation"
                   data-toggle="tooltip" data-html="true"
                   :title="`<div class='db-bodypart-part text-yellow'>`+bodypart.part+`</div>
                             <div class='db-bodypart-description'><span class='text-yellow'>Description:</span> `+bodypart.description+`</div>`"
-                  v-for="bodypart in bodyparts"><a><i class="icon-icon_nendo_body bg-orange"></i></a></div>
+                  v-for="bodypart in bodyparts4photo"><a><i class="icon-icon_nendo_body bg-orange"></i></a></div>
             <div :id="'db-photo-face-annotation-'+face.photoannotationid" class="db-photo-annotation"
                   data-toggle="tooltip" data-html="true"
                   :title="`<div class='db-face-eyes'><span class='text-yellow'>Eyes:</span> `+face.eyes+`</div>
                             <div class='db-face-mouth'><span class='text-yellow'>Mouth:</span> `+face.mouth+`</div>`"
-                  v-for="face in faces"><a><i class="icon-icon_nendo_face bg-orange"></i></a></div>
+                  v-for="face in faces4photo"><a><i class="icon-icon_nendo_face bg-orange"></i></a></div>
             <div :id="'db-photo-hand-annotation-'+hand.photoannotationid" class="db-photo-annotation"
                   data-toggle="tooltip" data-html="true"
                   :title="`<div class='db-hand-leftright text-yellow'>`+hand.leftright+`</div>
                             <div class='db-hand-posture'><span class='text-yellow'>Posture:</span> `+hand.posture+`</div>`"
-                  v-for="hand in hands"><a><i class="icon-icon_nendo_hand bg-orange"></i></a></div>
+                  v-for="hand in hands4photo"><a><i class="icon-icon_nendo_hand bg-orange"></i></a></div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="boxes.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="boxes4photo.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Boxes" collapsable="true" collapsed="true" icon="icon-icon_nendo_boxes"></app-box-header>
           <div class="box-body">
-            <boxes-tiles :boxes="boxes" tilessize="big"></boxes-tiles>
+            <boxes-tiles :boxes="boxes4photo" tilessize="big"></boxes-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="nendoroids.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="nendoroids4photo.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Nendoroids" collapsable="true" collapsed="true" icon="icon-icon_nendo_nendo"></app-box-header>
           <div class="box-body">
-            <nendoroids-tiles :nendoroids="nendoroids" tilessize="big"></nendoroids-tiles>
+            <nendoroids-tiles :nendoroids="nendoroids4photo" tilessize="big"></nendoroids-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="faces.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="faces4photo.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Faces" collapsable="true" collapsed="true" icon="icon-icon_nendo_face"></app-box-header>
           <div class="box-body">
-            <faces-tiles :faces="faces" tilessize="big"></faces-tiles>
+            <faces-tiles :faces="faces4photo" tilessize="big"></faces-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hairs.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hairs4photo.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Hairs" collapsable="true" collapsed="true" icon="icon-icon_nendo_hair"></app-box-header>
           <div class="box-body">
-            <hairs-tiles :hairs="hairs" tilessize="big"></hairs-tiles>
+            <hairs-tiles :hairs="hairs4photo" tilessize="big"></hairs-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hands.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hands4photo.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Hands" collapsable="true" collapsed="true" icon="icon-icon_nendo_hand"></app-box-header>
           <div class="box-body">
-            <hands-tiles :hands="hands" tilessize="big"></faces-tiles>
+            <hands-tiles :hands="hands4photo" tilessize="big"></faces-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="bodyparts.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="bodyparts4photo.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Bodyparts" collapsable="true" collapsed="true" icon="icon-icon_nendo_body"></app-box-header>
           <div class="box-body">
-            <bodyparts-tiles :bodyparts="bodyparts" tilessize="big"></bodyparts-tiles>
+            <bodyparts-tiles :bodyparts="bodyparts4photo" tilessize="big"></bodyparts-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="accessories.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="accessories4photo.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Accessories" collapsable="true" collapsed="true" icon="icon-icon_nendo_accessories"></app-box-header>
           <div class="box-body">
-            <accessories-tiles :accessories="accessories" tilessize="big"></accessories-tiles>
+            <accessories-tiles :accessories="accessories4photo" tilessize="big"></accessories-tiles>
           </div>
         </div>
       </div>
@@ -153,67 +153,74 @@ export default {
   store: store,
   data () {
     return {
-      resources: Resources,
-      boxes: [],
-      nendoroids: [],
-      faces: [],
-      hairs: [],
-      hands: [],
-      bodyparts: [],
-      accessories: []
+      resources: Resources
     }
   },
   computed: {
-    ...Vuex.mapGetters(['photos']),
+    ...Vuex.mapGetters(['photos', 'accessories', 'photoaccessories', 'bodyparts', 'photobodyparts', 'boxes', 'photoboxes', 'faces', 'photofaces', 'hairs', 'photohairs', 'hands', 'photohands', 'nendoroids', 'photonendoroids']),
     photo () {
       return this.photos.filter(photo => photo.internalid === this.$route.params.id)[0]
+    },
+    accessories4photo () {
+      let e4p = []
+      this.photoaccessories.filter(pe => pe.photoid === this.$route.params.id).forEach((element) => {
+        e4p.push(Object.assign({}, element, this.accessories.filter(e => e.internalid === element.elementid)[0], element))
+      })
+      return e4p
+    },
+    bodyparts4photo () {
+      let e4p = []
+      this.photobodyparts.filter(pe => pe.photoid === this.$route.params.id).forEach((element) => {
+        e4p.push(Object.assign({}, element, this.bodyparts.filter(e => e.internalid === element.elementid)[0], element))
+      })
+      return e4p
+    },
+    boxes4photo () {
+      let e4p = []
+      this.photoboxes.filter(pe => pe.photoid === this.$route.params.id).forEach((element) => {
+        e4p.push(Object.assign({}, element, this.boxes.filter(e => e.internalid === element.elementid)[0], element))
+      })
+      return e4p
+    },
+    faces4photo () {
+      let e4p = []
+      this.photofaces.filter(pe => pe.photoid === this.$route.params.id).forEach((element) => {
+        e4p.push(Object.assign({}, element, this.faces.filter(e => e.internalid === element.elementid)[0], element))
+      })
+      return e4p
+    },
+    hairs4photo () {
+      let e4p = []
+      this.photohairs.filter(pe => pe.photoid === this.$route.params.id).forEach((element) => {
+        e4p.push(Object.assign({}, element, this.hairs.filter(e => e.internalid === element.elementid)[0], element))
+      })
+      return e4p
+    },
+    hands4photo () {
+      let e4p = []
+      this.photohands.filter(pe => pe.photoid === this.$route.params.id).forEach((element) => {
+        e4p.push(Object.assign({}, element, this.hands.filter(e => e.internalid === element.elementid)[0], element))
+      })
+      return e4p
+    },
+    nendoroids4photo () {
+      let e4p = []
+      this.photonendoroids.filter(pe => pe.photoid === this.$route.params.id).forEach((element) => {
+        e4p.push(Object.assign({}, element, this.nendoroids.filter(e => e.internalid === element.elementid)[0], element))
+      })
+      return e4p
     }
   },
   mounted () {
-    this.$boxes = this.$resource('photos{/id}/boxes')
-    this.$nendoroids = this.$resource('photos{/id}/nendoroids')
-    this.$faces = this.$resource('photos{/id}/faces')
-    this.$hairs = this.$resource('photos{/id}/hairs')
-    this.$hands = this.$resource('photos{/id}/hands')
-    this.$bodyparts = this.$resource('photos{/id}/bodyparts')
-    this.$accessories = this.$resource('photos{/id}/accessories')
-
-    this.$boxes.query({id: this.$route.params.id}).then((response) => {
-      this.boxes = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
-      this.nendoroids = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$faces.query({id: this.$route.params.id}).then((response) => {
-      this.faces = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$hairs.query({id: this.$route.params.id}).then((response) => {
-      this.hairs = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$hands.query({id: this.$route.params.id}).then((response) => {
-      this.hands = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$bodyparts.query({id: this.$route.params.id}).then((response) => {
-      this.bodyparts = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$accessories.query({id: this.$route.params.id}).then((response) => {
-      this.accessories = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
     window.addEventListener('resize', this.handleResize)
+    if (document.getElementById('db-photo')) {
+      this.handleResize()
+    }
+  },
+  updated () {
+    if (document.getElementById('db-photo')) {
+      this.handleResize()
+    }
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.handleResize)
@@ -224,50 +231,50 @@ export default {
   methods: {
     handleResize (event) {
       let ratio = document.getElementById('db-photo').offsetWidth / this.photo.width
-      for (let i = this.accessories.length - 1; i >= 0; i--) {
-        let accessory = this.accessories[i]
+      for (let i = this.accessories4photo.length - 1; i >= 0; i--) {
+        let accessory = this.accessories4photo[i]
         document.getElementById('db-photo-accessory-annotation-' + accessory.photoannotationid).style.left = Math.floor(accessory.xmin * ratio) + 'px'
         document.getElementById('db-photo-accessory-annotation-' + accessory.photoannotationid).style.top = Math.floor(accessory.ymin * ratio) + 'px'
         document.getElementById('db-photo-accessory-annotation-' + accessory.photoannotationid).style.width = Math.floor((accessory.xmax - accessory.xmin) * ratio) + 'px'
         document.getElementById('db-photo-accessory-annotation-' + accessory.photoannotationid).style.height = Math.floor((accessory.ymax - accessory.ymin) * ratio) + 'px'
       }
-      for (let i = this.bodyparts.length - 1; i >= 0; i--) {
-        let bodypart = this.bodyparts[i]
+      for (let i = this.bodyparts4photo.length - 1; i >= 0; i--) {
+        let bodypart = this.bodyparts4photo[i]
         document.getElementById('db-photo-bodypart-annotation-' + bodypart.photoannotationid).style.left = Math.floor(bodypart.xmin * ratio) + 'px'
         document.getElementById('db-photo-bodypart-annotation-' + bodypart.photoannotationid).style.top = Math.floor(bodypart.ymin * ratio) + 'px'
         document.getElementById('db-photo-bodypart-annotation-' + bodypart.photoannotationid).style.width = Math.floor((bodypart.xmax - bodypart.xmin) * ratio) + 'px'
         document.getElementById('db-photo-bodypart-annotation-' + bodypart.photoannotationid).style.height = Math.floor((bodypart.ymax - bodypart.ymin) * ratio) + 'px'
       }
-      for (let i = this.faces.length - 1; i >= 0; i--) {
-        let face = this.faces[i]
+      for (let i = this.faces4photo.length - 1; i >= 0; i--) {
+        let face = this.faces4photo[i]
         document.getElementById('db-photo-face-annotation-' + face.photoannotationid).style.left = Math.floor(face.xmin * ratio) + 'px'
         document.getElementById('db-photo-face-annotation-' + face.photoannotationid).style.top = Math.floor(face.ymin * ratio) + 'px'
         document.getElementById('db-photo-face-annotation-' + face.photoannotationid).style.width = Math.floor((face.xmax - face.xmin) * ratio) + 'px'
         document.getElementById('db-photo-face-annotation-' + face.photoannotationid).style.height = Math.floor((face.ymax - face.ymin) * ratio) + 'px'
       }
-      for (let i = this.hairs.length - 1; i >= 0; i--) {
-        let hair = this.hairs[i]
+      for (let i = this.hairs4photo.length - 1; i >= 0; i--) {
+        let hair = this.hairs4photo[i]
         document.getElementById('db-photo-hair-annotation-' + hair.photoannotationid).style.left = Math.floor(hair.xmin * ratio) + 'px'
         document.getElementById('db-photo-hair-annotation-' + hair.photoannotationid).style.top = Math.floor(hair.ymin * ratio) + 'px'
         document.getElementById('db-photo-hair-annotation-' + hair.photoannotationid).style.width = Math.floor((hair.xmax - hair.xmin) * ratio) + 'px'
         document.getElementById('db-photo-hair-annotation-' + hair.photoannotationid).style.height = Math.floor((hair.ymax - hair.ymin) * ratio) + 'px'
       }
-      for (let i = this.hands.length - 1; i >= 0; i--) {
-        let hand = this.hands[i]
+      for (let i = this.hands4photo.length - 1; i >= 0; i--) {
+        let hand = this.hands4photo[i]
         document.getElementById('db-photo-hand-annotation-' + hand.photoannotationid).style.left = Math.floor(hand.xmin * ratio) + 'px'
         document.getElementById('db-photo-hand-annotation-' + hand.photoannotationid).style.top = Math.floor(hand.ymin * ratio) + 'px'
         document.getElementById('db-photo-hand-annotation-' + hand.photoannotationid).style.width = Math.floor((hand.xmax - hand.xmin) * ratio) + 'px'
         document.getElementById('db-photo-hand-annotation-' + hand.photoannotationid).style.height = Math.floor((hand.ymax - hand.ymin) * ratio) + 'px'
       }
-      for (let i = this.nendoroids.length - 1; i >= 0; i--) {
-        let nendoroid = this.nendoroids[i]
+      for (let i = this.nendoroids4photo.length - 1; i >= 0; i--) {
+        let nendoroid = this.nendoroids4photo[i]
         document.getElementById('db-photo-nendoroid-annotation-' + nendoroid.photoannotationid).style.left = Math.floor(nendoroid.xmin * ratio) + 'px'
         document.getElementById('db-photo-nendoroid-annotation-' + nendoroid.photoannotationid).style.top = Math.floor(nendoroid.ymin * ratio) + 'px'
         document.getElementById('db-photo-nendoroid-annotation-' + nendoroid.photoannotationid).style.width = Math.floor((nendoroid.xmax - nendoroid.xmin) * ratio) + 'px'
         document.getElementById('db-photo-nendoroid-annotation-' + nendoroid.photoannotationid).style.height = Math.floor((nendoroid.ymax - nendoroid.ymin) * ratio) + 'px'
       }
-      for (let i = this.boxes.length - 1; i >= 0; i--) {
-        let box = this.boxes[i]
+      for (let i = this.boxes4photo.length - 1; i >= 0; i--) {
+        let box = this.boxes4photo[i]
         document.getElementById('db-photo-box-annotation-' + box.photoannotationid).style.left = Math.floor(box.xmin * ratio) + 'px'
         document.getElementById('db-photo-box-annotation-' + box.photoannotationid).style.top = Math.floor(box.ymin * ratio) + 'px'
         document.getElementById('db-photo-box-annotation-' + box.photoannotationid).style.width = Math.floor((box.xmax - box.xmin) * ratio) + 'px'

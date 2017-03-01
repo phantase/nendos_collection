@@ -81,11 +81,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12" v-if="photos.length > 0">
+      <div class="col-md-12 col-sm-12 col-xs-12" v-if="photo4hair.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Photos" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
           <div class="box-body">
-            <photos-tiles :photos="photos"></photos-tiles>
+            <photos-tiles :photos="photo4hair"></photos-tiles>
           </div>
         </div>
       </div>
@@ -112,12 +112,11 @@ export default {
   store: store,
   data () {
     return {
-      resources: Resources,
-      photos: []
+      resources: Resources
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hairs']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hairs', 'photos', 'photohairs']),
     hair () {
       return this.hairs.filter(hair => hair.internalid === this.$route.params.id)[0]
     },
@@ -126,28 +125,15 @@ export default {
     },
     nendoroid () {
       return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.hair.nendoroidid)[0]
+    },
+    photo4hair () {
+      return this.photos.filter(this.filterPhoto)
     }
   },
-  mounted () {
-    this.$nendoroids = this.$resource('hairs{/id}/nendoroids')
-    this.$boxes = this.$resource('hairs{/id}/boxes')
-    this.$photos = this.$resource('hairs{/id}/photos')
-
-    this.$boxes.query({id: this.$route.params.id}).then((response) => {
-      this.box = response.data[0]
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
-      this.nendoroid = response.data[0]
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$photos.query({id: this.$route.params.id}).then((response) => {
-      this.photos = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  methods: {
+    filterPhoto (photoObj) {
+      return this.photohairs.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
+    }
   }
 }
 </script>

@@ -140,11 +140,11 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12 col-sm-12 col-xs-12" v-if="photos.length > 0">
+      <div class="col-md-12 col-sm-12 col-xs-12" v-if="photo4box.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Photos" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
           <div class="box-body">
-            <photos-tiles :photos="photos"></photos-tiles>
+            <photos-tiles :photos="photo4box"></photos-tiles>
           </div>
         </div>
       </div>
@@ -183,12 +183,11 @@ export default {
   store: store,
   data () {
     return {
-      resources: Resources,
-      photos: []
+      resources: Resources
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photoboxes']),
     box () {
       return this.boxes.filter(box => box.internalid === this.$route.params.id)[0]
     },
@@ -209,16 +208,15 @@ export default {
     },
     accessories4box () {
       return this.accessories.filter(accessory => accessory.boxid === this.$route.params.id)
+    },
+    photo4box () {
+      return this.photos.filter(this.filterPhoto)
     }
   },
-  mounted () {
-    this.$photos = this.$resource('boxes{/id}/photos')
-
-    this.$photos.query({id: this.$route.params.id}).then((response) => {
-      this.photos = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  methods: {
+    filterPhoto (photoObj) {
+      return this.photoboxes.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
+    }
   }
 }
 </script>
