@@ -5,6 +5,7 @@ import auth from './modules/auth'
 import counts from './modules/counts'
 import boxes from './modules/boxes'
 import nendoroids from './modules/nendoroids'
+import faces from './modules/faces'
 
 Vue.use(Vuex)
 
@@ -16,7 +17,8 @@ export default new Vuex.Store({
     auth,
     counts,
     boxes,
-    nendoroids
+    nendoroids,
+    faces
   },
   strict: debug
 })

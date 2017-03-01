@@ -13,3 +13,6 @@ export const RESET_BOXES = 'RESET_BOXES'
 // nendoroids
 export const SET_NENDOROIDS = 'SET_NENDOROIDS'
 export const RESET_NENDOROIDS = 'RESET_NENDOROIDS'
+// faces
+export const SET_FACES = 'SET_FACES'
+export const RESET_FACES = 'RESET_FACES'

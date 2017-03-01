@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import FacesTiles from './dblayouts/FacesTiles'
 
 export default {
@@ -13,19 +17,14 @@ export default {
   components: {
     FacesTiles
   },
+  store: store,
   data () {
     return {
-      resources: Resources,
-      faces: []
+      resources: Resources
     }
   },
-  mounted () {
-    this.$faces = this.$resource('faces{/id}')
-    this.$faces.query().then((response) => {
-      this.faces = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  computed: {
+    ...Vuex.mapGetters(['faces'])
   }
 }
 </script>
