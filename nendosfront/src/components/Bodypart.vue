@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box" v-if="bodypart.internalid">
+  <div class="db-box" v-if="bodypart">
 
     <div class="row">
       <div class="col-md-12">
@@ -91,7 +91,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
 
@@ -101,17 +105,23 @@ export default {
     AppBoxHeader,
     PhotosTiles
   },
+  store: store,
   data () {
     return {
       resources: Resources,
       box: [],
       nendoroid: [],
-      bodypart: [],
       photos: []
     }
   },
+  computed: {
+    ...Vuex.mapGetters(['bodyparts']),
+    bodypart () {
+      console.log(this.bodyparts.filter(bodypart => bodypart.internalid === this.$route.params.id))
+      return this.bodyparts.filter(bodypart => bodypart.internalid === this.$route.params.id)[0]
+    }
+  },
   mounted () {
-    this.$bodyparts = this.$resource('bodyparts{/id}')
     this.$nendoroids = this.$resource('bodyparts{/id}/nendoroids')
     this.$boxes = this.$resource('bodyparts{/id}/boxes')
     this.$photos = this.$resource('bodyparts{/id}/photos')
@@ -123,11 +133,6 @@ export default {
     })
     this.$nendoroids.query({id: this.$route.params.id}).then((response) => {
       this.nendoroid = response.data[0]
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$bodyparts.query({id: this.$route.params.id}).then((response) => {
-      this.bodypart = response.data
     }, (response) => {
       console.log('Error', response)
     })

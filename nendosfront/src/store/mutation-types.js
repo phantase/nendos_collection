@@ -22,3 +22,9 @@ export const RESET_HAIRS = 'RESET_HAIRS'
 // hands
 export const SET_HANDS = 'SET_HANDS'
 export const RESET_HANDS = 'RESET_HANDS'
+// bodyparts
+export const SET_BODYPARTS = 'SET_BODYPARTS'
+export const RESET_BODYPARTS = 'RESET_BODYPARTS'
+// accessories
+export const SET_ACCESSORIES = 'SET_ACCESSORIES'
+export const RESET_ACCESSORIES = 'RESET_ACCESSORIES'

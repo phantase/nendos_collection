@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import BodypartsTiles from './dblayouts/BodypartsTiles'
 
 export default {
@@ -13,19 +17,14 @@ export default {
   components: {
     BodypartsTiles
   },
+  store: store,
   data () {
     return {
-      resources: Resources,
-      bodyparts: []
+      resources: Resources
     }
   },
-  mounted () {
-    this.$bodyparts = this.$resource('bodyparts{/id}')
-    this.$bodyparts.query().then((response) => {
-      this.bodyparts = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  computed: {
+    ...Vuex.mapGetters(['bodyparts'])
   }
 }
 </script>

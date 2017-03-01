@@ -8,6 +8,8 @@ import nendoroids from './modules/nendoroids'
 import faces from './modules/faces'
 import hairs from './modules/hairs'
 import hands from './modules/hands'
+import bodyparts from './modules/bodyparts'
+import accessories from './modules/accessories'
 
 Vue.use(Vuex)
 
@@ -22,7 +24,9 @@ export default new Vuex.Store({
     nendoroids,
     faces,
     hairs,
-    hands
+    hands,
+    bodyparts,
+    accessories
   },
   strict: debug
 })

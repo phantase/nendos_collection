@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import AccessoriesTiles from './dblayouts/AccessoriesTiles'
 
 export default {
@@ -13,19 +17,14 @@ export default {
   components: {
     AccessoriesTiles
   },
+  store: store,
   data () {
     return {
-      resources: Resources,
-      accessories: []
+      resources: Resources
     }
   },
-  mounted () {
-    this.$accessories = this.$resource('accessories{/id}')
-    this.$accessories.query().then((response) => {
-      this.accessories = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  computed: {
+    ...Vuex.mapGetters(['accessories'])
   }
 }
 </script>
