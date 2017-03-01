@@ -113,16 +113,19 @@ export default {
   data () {
     return {
       resources: Resources,
-      box: [],
-      nendoroid: [],
       photos: []
     }
   },
   computed: {
-    ...Vuex.mapGetters(['hairs']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hairs']),
     hair () {
-      console.log(this.hairs.filter(hair => hair.internalid === this.$route.params.id))
       return this.hairs.filter(hair => hair.internalid === this.$route.params.id)[0]
+    },
+    box () {
+      return this.boxes.filter(box => box.internalid === this.hair.boxid)[0]
+    },
+    nendoroid () {
+      return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.hair.nendoroidid)[0]
     }
   },
   mounted () {

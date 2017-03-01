@@ -30,7 +30,7 @@
           <app-box-header title="Informations" collapsable="true" icon="fa-info"></app-box-header>
           <div class="box-body">
             <ul class="list-group list-group-unbordered">
-              <li class="list-group-item" v-if="box.internalid">
+              <li class="list-group-item" v-if="box">
                 <b>From box</b>
                 <router-link :to="'/box/'+box.internalid" class="pull-right">
                   <div class="db-box-category text-yellow">
@@ -67,43 +67,43 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="faces.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="faces4nendoroid.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Faces" collapsable="true" collapsed="true" icon="icon-icon_nendo_face"></app-box-header>
           <div class="box-body">
-            <faces-tiles :faces="faces" tilessize="big"></faces-tiles>
+            <faces-tiles :faces="faces4nendoroid" tilessize="big"></faces-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hairs.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hairs4nendoroid.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Hairs" collapsable="true" collapsed="true" icon="icon-icon_nendo_hair"></app-box-header>
           <div class="box-body">
-            <hairs-tiles :hairs="hairs" tilessize="big"></hairs-tiles>
+            <hairs-tiles :hairs="hairs4nendoroid" tilessize="big"></hairs-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hands.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="hands4nendoroid.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Hands" collapsable="true" collapsed="true" icon="icon-icon_nendo_hand"></app-box-header>
           <div class="box-body">
-            <hands-tiles :hands="hands" tilessize="big"></faces-tiles>
+            <hands-tiles :hands="hands4nendoroid" tilessize="big"></faces-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="bodyparts.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="bodyparts4nendoroid.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Bodyparts" collapsable="true" collapsed="true" icon="icon-icon_nendo_body"></app-box-header>
           <div class="box-body">
-            <bodyparts-tiles :bodyparts="bodyparts" tilessize="big"></bodyparts-tiles>
+            <bodyparts-tiles :bodyparts="bodyparts4nendoroid" tilessize="big"></bodyparts-tiles>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12" v-if="accessories.length > 0">
+      <div class="col-md-6 col-sm-12 col-xs-12" v-if="accessories4nendoroid.length > 0">
         <div class="box collapsed-box">
           <app-box-header title="Accessories" collapsable="true" collapsed="true" icon="icon-icon_nendo_accessories"></app-box-header>
           <div class="box-body">
-            <accessories-tiles :accessories="accessories" tilessize="big"></accessories-tiles>
+            <accessories-tiles :accessories="accessories4nendoroid" tilessize="big"></accessories-tiles>
           </div>
         </div>
       </div>
@@ -149,58 +149,39 @@ export default {
   data () {
     return {
       resources: Resources,
-      box: [],
-      faces: [],
-      hairs: [],
-      hands: [],
-      bodyparts: [],
-      accessories: [],
       photos: []
     }
   },
   computed: {
-    ...Vuex.mapGetters(['nendoroids']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories']),
     nendoroid () {
-      console.log(this.nendoroids.filter(nendoroid => nendoroid.internalid === this.$route.params.id))
       return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.$route.params.id)[0]
+    },
+    box () {
+      return this.boxes.filter(box => box.internalid === this.nendoroid.boxid)[0]
+    },
+    faces4nendoroid () {
+      return this.faces.filter(face => face.nendoroidid === this.$route.params.id)
+    },
+    hairs4nendoroid () {
+      return this.hairs.filter(hair => hair.nendoroidid === this.$route.params.id)
+    },
+    hands4nendoroid () {
+      return this.hands.filter(hand => hand.nendoroidid === this.$route.params.id)
+    },
+    bodyparts4nendoroid () {
+      return this.bodyparts.filter(bodypart => bodypart.nendoroidid === this.$route.params.id)
+    },
+    accessories4nendoroid () {
+      return this.accessories.filter(accessory => accessory.nendoroidid === this.$route.params.id)
     }
   },
   mounted () {
     this.$boxes = this.$resource('nendoroids{/id}/boxes')
-    this.$faces = this.$resource('nendoroids{/id}/faces')
-    this.$hairs = this.$resource('nendoroids{/id}/hairs')
-    this.$hands = this.$resource('nendoroids{/id}/hands')
-    this.$bodyparts = this.$resource('nendoroids{/id}/bodyparts')
-    this.$accessories = this.$resource('nendoroids{/id}/accessories')
     this.$photos = this.$resource('nendoroids{/id}/photos')
 
     this.$boxes.query({id: this.$route.params.id}).then((response) => {
       this.box = response.data[0]
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$faces.query({id: this.$route.params.id}).then((response) => {
-      this.faces = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$hairs.query({id: this.$route.params.id}).then((response) => {
-      this.hairs = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$hands.query({id: this.$route.params.id}).then((response) => {
-      this.hands = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$bodyparts.query({id: this.$route.params.id}).then((response) => {
-      this.bodyparts = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
-    this.$accessories.query({id: this.$route.params.id}).then((response) => {
-      this.accessories = response.data
     }, (response) => {
       console.log('Error', response)
     })
