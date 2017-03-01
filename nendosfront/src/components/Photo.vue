@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box" v-if="photo.internalid">
+  <div class="db-box" v-if="photo">
 
     <div class="row">
       <div class="col-md-12">
@@ -124,7 +124,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import AppBoxHeader from './layouts/BoxHeader'
 import BoxesTiles from './dblayouts/BoxesTiles'
 import NendoroidsTiles from './dblayouts/NendoroidsTiles'
@@ -146,10 +150,10 @@ export default {
     BodypartsTiles,
     AccessoriesTiles
   },
+  store: store,
   data () {
     return {
       resources: Resources,
-      photo: [],
       boxes: [],
       nendoroids: [],
       faces: [],
@@ -159,8 +163,13 @@ export default {
       accessories: []
     }
   },
+  computed: {
+    ...Vuex.mapGetters(['photos']),
+    photo () {
+      return this.photos.filter(photo => photo.internalid === this.$route.params.id)[0]
+    }
+  },
   mounted () {
-    this.$photos = this.$resource('photos{/id}')
     this.$boxes = this.$resource('photos{/id}/boxes')
     this.$nendoroids = this.$resource('photos{/id}/nendoroids')
     this.$faces = this.$resource('photos{/id}/faces')
@@ -169,11 +178,6 @@ export default {
     this.$bodyparts = this.$resource('photos{/id}/bodyparts')
     this.$accessories = this.$resource('photos{/id}/accessories')
 
-    this.$photos.query({id: this.$route.params.id}).then((response) => {
-      this.photo = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
     this.$boxes.query({id: this.$route.params.id}).then((response) => {
       this.boxes = response.data
     }, (response) => {
@@ -210,9 +214,6 @@ export default {
       console.log('Error', response)
     })
     window.addEventListener('resize', this.handleResize)
-  },
-  updated () {
-    this.handleResize()
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.handleResize)

@@ -7,4 +7,5 @@ export const retrieveData = (store, payload) => {
   store.dispatch('retrieveHands', payload)
   store.dispatch('retrieveBodyparts', payload)
   store.dispatch('retrieveAccessories', payload)
+  store.dispatch('retrievePhotos', payload)
 }

@@ -28,3 +28,6 @@ export const RESET_BODYPARTS = 'RESET_BODYPARTS'
 // accessories
 export const SET_ACCESSORIES = 'SET_ACCESSORIES'
 export const RESET_ACCESSORIES = 'RESET_ACCESSORIES'
+// photos
+export const SET_PHOTOS = 'SET_PHOTOS'
+export const RESET_PHOTOS = 'RESET_PHOTOS'

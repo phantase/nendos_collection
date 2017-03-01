@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import store from './../store'
+import Vuex from 'vuex'
+
 import Resources from './../config/resources'
+
 import PhotosTiles from './dblayouts/PhotosTiles'
 
 export default {
@@ -13,19 +17,14 @@ export default {
   components: {
     PhotosTiles
   },
+  store: store,
   data () {
     return {
-      resources: Resources,
-      photos: []
+      resources: Resources
     }
   },
-  mounted () {
-    this.$photos = this.$resource('photos{/id}')
-    this.$photos.query().then((response) => {
-      this.photos = response.data
-    }, (response) => {
-      console.log('Error', response)
-    })
+  computed: {
+    ...Vuex.mapGetters(['photos'])
   }
 }
 </script>
