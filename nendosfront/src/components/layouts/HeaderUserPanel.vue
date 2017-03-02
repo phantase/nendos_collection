@@ -37,7 +37,7 @@
       <li class="user-footer">
         <div class="pull-left">
           <router-link to="/profile"  v-if="user.internalid" class="btn btn-default btn-flat">Profile</router-link>
-          <router-link to="/signin"  v-else class="btn btn-default btn-flat">Sign in</router-link>
+          <router-link to="/register"  v-else class="btn btn-default btn-flat">Register</router-link>
         </div>
         <div class="pull-right">
           <router-link to="/logout" v-if="user.internalid" class="btn btn-default btn-flat">Log out</router-link>
