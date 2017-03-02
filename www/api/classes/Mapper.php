@@ -9,6 +9,8 @@ abstract class Mapper {
   }
 
   protected $tablename;
+  protected $collectiontablename;
+  protected $collectioncolumn;
 
   public function count() {
     $sql = "SELECT count(*) AS count FROM ".$this->tablename;
@@ -40,6 +42,32 @@ abstract class Mapper {
   }
   public function getByPhotoid($photoid) {
     return null;
+  }
+
+  public function collectForUser($elementid, $userid) {
+    $sql = "SELECT quantity
+            FROM ".$this->collectiontablename."
+            WHERE userid = :userid AND ".$this->collectioncolumn." = :elementid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
+
+    if( $result = $stmt->fetch() ) {
+      $quantity = $result['quantity'] + 1;
+      $sql = "UPDATE ".$this->collectiontablename."
+              SET quantity = :quantity
+              WHERE userid = :userid
+              AND ".$this->collectioncolumn." = :elementid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid, "quantity" => $quantity]);
+    } else {
+      $quantity = 1;
+      $sql = "INSERT INTO ".$this->collectiontablename."(userid,".$this->collectioncolumn.")
+              VALUES(:userid,:elementid)";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
+    }
+
+    return $quantity;
   }
 
 }

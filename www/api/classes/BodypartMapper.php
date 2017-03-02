@@ -3,6 +3,8 @@
 class BodypartMapper extends Mapper
 {
   protected $tablename = "bodyparts";
+  protected $collectiontablename = "users_bodyparts_collection";
+  protected $collectioncolumn = "bodypartid";
 
   public function get($userid=null) {
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,

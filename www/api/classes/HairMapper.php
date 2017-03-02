@@ -3,6 +3,8 @@
 class HairMapper extends Mapper
 {
   protected $tablename = "hairs";
+  protected $collectiontablename = "users_hairs_collection";
+  protected $collectioncolumn = "hairid";
 
   public function get($userid=null) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,

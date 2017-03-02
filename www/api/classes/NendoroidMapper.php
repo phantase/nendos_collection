@@ -3,6 +3,8 @@
 class NendoroidMapper extends Mapper
 {
   protected $tablename = "nendoroids";
+  protected $collectiontablename = "users_nendoroids_collection";
+  protected $collectioncolumn = "nendoroidid";
 
   public function get($userid=null) {
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,

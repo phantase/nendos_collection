@@ -3,6 +3,8 @@
 class HandMapper extends Mapper
 {
   protected $tablename = "hands";
+  protected $collectiontablename = "users_hands_collection";
+  protected $collectioncolumn = "handid";
 
   public function get($userid=null) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,

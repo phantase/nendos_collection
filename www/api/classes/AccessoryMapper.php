@@ -3,6 +3,8 @@
 class AccessoryMapper extends Mapper
 {
   protected $tablename = "accessories";
+  protected $collectiontablename = "users_accessories_collection";
+  protected $collectioncolumn = "accessoryid";
 
   public function get($userid=null) {
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,

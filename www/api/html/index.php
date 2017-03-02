@@ -33,5 +33,6 @@ require '../config/cors.php';
 require '../routes/get.php';
 require '../routes/account.php';
 require '../routes/get_auth.php';
+require '../routes/collection.php';
 
 $app->run();
