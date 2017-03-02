@@ -3,13 +3,17 @@
     <div :class="viewvalidation?'col-md-6':'col-md-12'">
       <div class="box">
         <div class="box-body">
-          <span v-if="colladdeddate">
-            <span class="badge pull-right bg-blue">{{ collquantity }}</span>
+          <span v-if="collquantity">
+            <span class="btn btn-xs pull-right bg-green" @click="collect"><i class="fa fa-plus"></i></span>
+            <span class="badge pull-right bg-blue givemespace">{{ collquantity }}</span>
+            <span class="btn btn-xs pull-right bg-red" @click="uncollect"><i class="fa fa-minus"></i></span>
             You own {{ collquantity }} cop{{ collquantity > 1 ? 'ies' : 'y' }}
           </span>
           <span v-else>
-            <span class="badge pull-right bg-blue">0</span>
-            <a href="#">Add to collection</a>
+            <span class="btn btn-xs pull-right bg-green" @click="collect"><i class="fa fa-plus"></i></span>
+            <span class="badge pull-right bg-blue givemespace">0</span>
+            <span class="btn btn-xs pull-right bg-red disabled"><i class="fa fa-minus"></i></span>
+            You don't own this
           </span>
         </div>
       </div>
@@ -45,7 +49,22 @@ export default {
   },
   computed: {
     ...Vuex.mapGetters(['authenticated', 'viewvalidation'])
+  },
+  methods: {
+    collect () {
+      this.$emit('collect')
+    },
+    uncollect () {
+      this.$emit('uncollect')
+    }
   }
 }
 
 </script>
+
+<style scoped>
+  .givemespace {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+</style>
