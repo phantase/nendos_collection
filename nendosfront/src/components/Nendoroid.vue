@@ -14,11 +14,24 @@
       </div>
     </div>
 
-    <div class="row" v-if="nendoroid.colladdeddate">
-      <div class="col-md-12">
+    <div class="row" v-if="authenticated || viewvalidation">
+      <div :class="viewvalidation?'col-md-6':'col-md-12'">
         <div class="box">
           <div class="box-body">
-            You own this nendoroid in {{ nendoroid.collquantity }} cop{{ nendoroid.collquantity > 1 ? 'ies' : 'y' }}
+            <span v-if="nendoroid.colladdeddate">
+              You own this nendoroid in {{ nendoroid.collquantity }} cop{{ nendoroid.collquantity > 1 ? 'ies' : 'y' }}
+            </span>
+            <span v-else>
+              <a href="#">Add nendoroid to collection</a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" v-if="viewvalidation">
+        <div class="box">
+          <div class="box-body">
+            <span v-if="nendoroid.validatorname">Validated by <i>{{nendoroid.validatorname}}</i></span>
+            <span v-else>Not validated</span>
           </div>
         </div>
       </div>
@@ -152,7 +165,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photonendoroids']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photonendoroids', 'authenticated', 'viewvalidation']),
     nendoroid () {
       return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.$route.params.id)[0]
     },

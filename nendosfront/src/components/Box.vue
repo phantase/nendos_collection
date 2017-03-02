@@ -18,11 +18,24 @@
       </div>
     </div>
 
-    <div class="row" v-if="box.colladdeddate">
-      <div class="col-md-12">
+    <div class="row" v-if="authenticated || viewvalidation">
+      <div :class="viewvalidation?'col-md-6':'col-md-12'">
         <div class="box">
           <div class="box-body">
-            You own this box in {{ box.collquantity }} cop{{ box.collquantity > 1 ? 'ies' : 'y' }}
+            <span v-if="box.colladdeddate">
+              You own this box in {{ box.collquantity }} cop{{ box.collquantity > 1 ? 'ies' : 'y' }}
+            </span>
+            <span v-else>
+              <a href="#">Add box to collection</a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" v-if="viewvalidation">
+        <div class="box">
+          <div class="box-body">
+            <span v-if="box.validatorname">Validated by <i>{{box.validatorname}}</i></span>
+            <span v-else>Not validated</span>
           </div>
         </div>
       </div>
@@ -187,7 +200,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photoboxes']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photoboxes', 'authenticated', 'viewvalidation']),
     box () {
       return this.boxes.filter(box => box.internalid === this.$route.params.id)[0]
     },

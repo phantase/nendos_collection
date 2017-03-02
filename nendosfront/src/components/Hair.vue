@@ -13,11 +13,24 @@
       </div>
     </div>
 
-    <div class="row" v-if="hair.colladdeddate">
-      <div class="col-md-12">
+    <div class="row" v-if="authenticated || viewvalidation">
+      <div :class="viewvalidation?'col-md-6':'col-md-12'">
         <div class="box">
           <div class="box-body">
-            You own this hair in {{ hair.collquantity }} cop{{ hair.collquantity > 1 ? 'ies' : 'y' }}
+            <span v-if="hair.colladdeddate">
+              You own this hair in {{ hair.collquantity }} cop{{ hair.collquantity > 1 ? 'ies' : 'y' }}
+            </span>
+            <span v-else>
+              <a href="#">Add hair to collection</a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" v-if="viewvalidation">
+        <div class="box">
+          <div class="box-body">
+            <span v-if="hair.validatorname">Validated by <i>{{hair.validatorname}}</i></span>
+            <span v-else>Not validated</span>
           </div>
         </div>
       </div>
@@ -116,7 +129,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hairs', 'photos', 'photohairs']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hairs', 'photos', 'photohairs', 'authenticated', 'viewvalidation']),
     hair () {
       return this.hairs.filter(hair => hair.internalid === this.$route.params.id)[0]
     },

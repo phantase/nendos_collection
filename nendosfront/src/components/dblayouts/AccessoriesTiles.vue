@@ -13,6 +13,10 @@
                         <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/accessories/'+accessory.internalid+'_thumb'" />
           <span class="badge bg-blue incollection" v-if="accessory.colladdeddate">{{ accessory.collquantity }}</span>
+          <span v-if="viewvalidation">
+            <span class="badge pull-right bg-green validationbadge" v-if="accessory.validatorname">V</span>
+            <span class="badge pull-right bg-red validationbadge" v-else>NV</span>
+          </span>
         </div>
       </div>
     </router-link>
@@ -20,17 +24,22 @@
 </template>
 
 <script>
+import store from './../../store'
+import Vuex from 'vuex'
+
 import Resources from './../../config/resources'
 
 export default {
   name: 'AccessoriesTiles',
   props: ['accessories', 'tilessize'],
+  store: store,
   data () {
     return {
       resources: Resources
     }
   },
   computed: {
+    ...Vuex.mapGetters(['viewvalidation']),
     classtiles () {
       if (typeof this.tilessize !== 'undefined' && this.tilessize === 'big') {
         return 'col-md-4 col-sm-6 col-xs-6'

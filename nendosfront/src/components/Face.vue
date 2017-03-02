@@ -13,11 +13,24 @@
       </div>
     </div>
 
-    <div class="row" v-if="face.colladdeddate">
-      <div class="col-md-12">
+    <div class="row" v-if="authenticated || viewvalidation">
+      <div :class="viewvalidation?'col-md-6':'col-md-12'">
         <div class="box">
           <div class="box-body">
-            You own this face in {{ face.collquantity }} cop{{ face.collquantity > 1 ? 'ies' : 'y' }}
+            <span v-if="face.colladdeddate">
+              You own this face in {{ face.collquantity }} cop{{ face.collquantity > 1 ? 'ies' : 'y' }}
+            </span>
+            <span v-else>
+              <a href="#">Add face to collection</a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" v-if="viewvalidation">
+        <div class="box">
+          <div class="box-body">
+            <span v-if="face.validatorname">Validated by <i>{{face.validatorname}}</i></span>
+            <span v-else>Not validated</span>
           </div>
         </div>
       </div>
@@ -116,7 +129,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'photos', 'photofaces']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'photos', 'photofaces', 'authenticated', 'viewvalidation']),
     face () {
       return this.faces.filter(face => face.internalid === this.$route.params.id)[0]
     },

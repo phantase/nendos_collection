@@ -15,6 +15,9 @@ const getters = {
   },
   token (state) {
     return state.token
+  },
+  viewvalidation (state) {
+    return state.user.administrator === '1' || state.user.validator === '1' || state.user.editor === '1'
   }
 }
 

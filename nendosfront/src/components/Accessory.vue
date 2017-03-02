@@ -13,11 +13,24 @@
       </div>
     </div>
 
-    <div class="row" v-if="accessory.colladdeddate">
-      <div class="col-md-12">
+    <div class="row" v-if="authenticated || viewvalidation">
+      <div :class="viewvalidation?'col-md-6':'col-md-12'">
         <div class="box">
           <div class="box-body">
-            You own this accessory in {{ accessory.collquantity }} cop{{ accessory.collquantity > 1 ? 'ies' : 'y' }}
+            <span v-if="accessory.colladdeddate">
+              You own this accessory in {{ accessory.collquantity }} cop{{ accessory.collquantity > 1 ? 'ies' : 'y' }}
+            </span>
+            <span v-else>
+              <a href="#">Add accessory to collection</a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" v-if="viewvalidation">
+        <div class="box">
+          <div class="box-body">
+            <span v-if="accessory.validatorname">Validated by <i>{{accessory.validatorname}}</i></span>
+            <span v-else>Not validated</span>
           </div>
         </div>
       </div>
@@ -112,7 +125,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'photos', 'photoaccessories']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'photos', 'photoaccessories', 'authenticated', 'viewvalidation']),
     accessory () {
       return this.accessories.filter(accessory => accessory.internalid === this.$route.params.id)[0]
     },

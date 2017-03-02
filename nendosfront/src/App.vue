@@ -98,4 +98,9 @@ export default {
     top: 5px;
     left: 5px;
   }
+  .validationbadge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
 </style>
