@@ -69,5 +69,33 @@ abstract class Mapper {
 
     return $quantity;
   }
+  public function uncollectForUser($elementid, $userid) {
+    $sql = "SELECT quantity
+            FROM ".$this->collectiontablename."
+            WHERE userid = :userid AND ".$this->collectioncolumn." = :elementid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
+
+    if( $result = $stmt->fetch() ) {
+      $quantity = $result['quantity'];
+      if($quantity > 1) {
+        $quantity --;
+        $sql = "UPDATE ".$this->collectiontablename."
+                SET quantity = :quantity
+                WHERE userid = :userid
+                AND ".$this->collectioncolumn." = :elementid";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid, "quantity" => $quantity]);
+      } else {
+        $quantity = 0;
+        $sql = "DELETE FROM ".$this->collectiontablename."
+                WHERE userid = :userid AND ".$this->collectioncolumn." = :elementid";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
+      }
+    }
+
+    return $quantity;
+  }
 
 }
