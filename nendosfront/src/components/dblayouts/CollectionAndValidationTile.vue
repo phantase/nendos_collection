@@ -9,7 +9,7 @@
           </span>
           <span v-else>
             <span class="badge pull-right bg-blue">0</span>
-            <a href="#">Add box to collection</a>
+            <a href="#">Add to collection</a>
           </span>
         </div>
       </div>
