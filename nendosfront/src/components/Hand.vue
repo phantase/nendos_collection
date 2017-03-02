@@ -13,28 +13,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="authenticated || viewvalidation">
-      <div :class="viewvalidation?'col-md-6':'col-md-12'">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="hand.colladdeddate">
-              You own this hand in {{ hand.collquantity }} cop{{ hand.collquantity > 1 ? 'ies' : 'y' }}
-            </span>
-            <span v-else>
-              <a href="#">Add hand to collection</a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6" v-if="viewvalidation">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="hand.validatorname">Validated by <i>{{hand.validatorname}}</i></span>
-            <span v-else>Not validated</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <collection-and-validation-tile :colladdeddate="hand.colladdeddate" :collquantity="hand.collquantity" :validatorname="hand.validatorname"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -111,12 +90,14 @@ import Resources from './../config/resources'
 
 import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
+import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile'
 
 export default {
   name: 'Hand',
   components: {
     AppBoxHeader,
-    PhotosTiles
+    PhotosTiles,
+    CollectionAndValidationTile
   },
   store: store,
   data () {

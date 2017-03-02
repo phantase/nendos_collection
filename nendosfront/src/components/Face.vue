@@ -13,28 +13,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="authenticated || viewvalidation">
-      <div :class="viewvalidation?'col-md-6':'col-md-12'">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="face.colladdeddate">
-              You own this face in {{ face.collquantity }} cop{{ face.collquantity > 1 ? 'ies' : 'y' }}
-            </span>
-            <span v-else>
-              <a href="#">Add face to collection</a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6" v-if="viewvalidation">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="face.validatorname">Validated by <i>{{face.validatorname}}</i></span>
-            <span v-else>Not validated</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <collection-and-validation-tile :colladdeddate="face.colladdeddate" :collquantity="face.collquantity" :validatorname="face.validatorname"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -115,12 +94,14 @@ import Resources from './../config/resources'
 
 import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
+import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile'
 
 export default {
   name: 'Face',
   components: {
     AppBoxHeader,
-    PhotosTiles
+    PhotosTiles,
+    CollectionAndValidationTile
   },
   store: store,
   data () {

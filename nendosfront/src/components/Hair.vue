@@ -13,28 +13,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="authenticated || viewvalidation">
-      <div :class="viewvalidation?'col-md-6':'col-md-12'">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="hair.colladdeddate">
-              You own this hair in {{ hair.collquantity }} cop{{ hair.collquantity > 1 ? 'ies' : 'y' }}
-            </span>
-            <span v-else>
-              <a href="#">Add hair to collection</a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6" v-if="viewvalidation">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="hair.validatorname">Validated by <i>{{hair.validatorname}}</i></span>
-            <span v-else>Not validated</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <collection-and-validation-tile :colladdeddate="hair.colladdeddate" :collquantity="hair.collquantity" :validatorname="hair.validatorname"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -115,12 +94,14 @@ import Resources from './../config/resources'
 
 import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
+import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile'
 
 export default {
   name: 'Hair',
   components: {
     AppBoxHeader,
-    PhotosTiles
+    PhotosTiles,
+    CollectionAndValidationTile
   },
   store: store,
   data () {

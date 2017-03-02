@@ -13,28 +13,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="authenticated || viewvalidation">
-      <div :class="viewvalidation?'col-md-6':'col-md-12'">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="bodypart.colladdeddate">
-              You own this bodypart in {{ bodypart.collquantity }} cop{{ bodypart.collquantity > 1 ? 'ies' : 'y' }}
-            </span>
-            <span v-else>
-              <a href="#">Add bodypart to collection</a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6" v-if="viewvalidation">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="bodypart.validatorname">Validated by <i>{{bodypart.validatorname}}</i></span>
-            <span v-else>Not validated</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <collection-and-validation-tile :colladdeddate="bodypart.colladdeddate" :collquantity="bodypart.collquantity" :validatorname="bodypart.validatorname"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -111,12 +90,14 @@ import Resources from './../config/resources'
 
 import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
+import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile'
 
 export default {
   name: 'Bodypart',
   components: {
     AppBoxHeader,
-    PhotosTiles
+    PhotosTiles,
+    CollectionAndValidationTile
   },
   store: store,
   data () {

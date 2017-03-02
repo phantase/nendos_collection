@@ -14,28 +14,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="authenticated || viewvalidation">
-      <div :class="viewvalidation?'col-md-6':'col-md-12'">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="nendoroid.colladdeddate">
-              You own this nendoroid in {{ nendoroid.collquantity }} cop{{ nendoroid.collquantity > 1 ? 'ies' : 'y' }}
-            </span>
-            <span v-else>
-              <a href="#">Add nendoroid to collection</a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6" v-if="viewvalidation">
-        <div class="box">
-          <div class="box-body">
-            <span v-if="nendoroid.validatorname">Validated by <i>{{nendoroid.validatorname}}</i></span>
-            <span v-else>Not validated</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <collection-and-validation-tile :colladdeddate="nendoroid.colladdeddate" :collquantity="nendoroid.collquantity" :validatorname="nendoroid.validatorname"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -146,6 +125,7 @@ import HandsTiles from './dblayouts/HandsTiles'
 import BodypartsTiles from './dblayouts/BodypartsTiles'
 import AccessoriesTiles from './dblayouts/AccessoriesTiles'
 import PhotosTiles from './dblayouts/PhotosTiles'
+import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile'
 
 export default {
   name: 'Nendoroid',
@@ -156,7 +136,8 @@ export default {
     HandsTiles,
     BodypartsTiles,
     AccessoriesTiles,
-    PhotosTiles
+    PhotosTiles,
+    CollectionAndValidationTile
   },
   store: store,
   data () {
