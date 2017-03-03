@@ -98,4 +98,37 @@ abstract class Mapper {
     return $quantity;
   }
 
+  public function validateByUser($elementid, $userid) {
+    $sql = "UPDATE ".$this->tablename."
+            SET validatorid = :userid, validationdate = NOW()
+            WHERE internalid = :elementid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
+
+    $resultArray = $stmt->errorInfo();
+    if($resultArray[0] == 0 ){
+      $this->addHistory($userid,$elementid,"Validation");
+    }
+
+    return $result;
+  }
+  public function unvalidateByUser($elementid, $userid) {
+    $sql = "UPDATE ".$this->tablename."
+            SET validatorid = NULL, validationdate = NULL
+            WHERE internalid = :elementid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["elementid" => $elementid]);
+
+    $resultArray = $stmt->errorInfo();
+    if($resultArray[0] == 0 ){
+      $this->addHistory($userid,$elementid,"Unvalidation");
+    }
+
+    return $result;
+  }
+
+  public function addHistory($userid, $elementid, $action) {
+    return null;
+  }
+
 }

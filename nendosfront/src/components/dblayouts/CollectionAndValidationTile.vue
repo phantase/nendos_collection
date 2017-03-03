@@ -24,10 +24,12 @@
           <span v-if="validatorname">
             <span class="badge pull-right bg-green">V</span>
             Validated by <i>{{validatorname}}</i>
+            <span class="btn btn-xs bg-red" @click="unvalidate"v-if="canvalidate">Unvalidate</span>
           </span>
           <span v-else>
             <span class="badge pull-right bg-red">NV</span>
             Not validated
+            <span class="btn btn-xs bg-green" @click="validate" v-if="canvalidate">Validate</span>
           </span>
         </div>
       </div>
@@ -48,7 +50,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'viewvalidation'])
+    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'canvalidate'])
   },
   methods: {
     collect () {
@@ -56,6 +58,12 @@ export default {
     },
     uncollect () {
       this.$emit('uncollect')
+    },
+    validate () {
+      this.$emit('validate')
+    },
+    unvalidate () {
+      this.$emit('unvalidate')
     }
   }
 }
