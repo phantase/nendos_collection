@@ -12,7 +12,7 @@
               :title="`<div class='db-face-eyes'><span class='text-yellow'>Eyes:</span> `+face.eyes+`</div>
                         <div class='db-face-mouth'><span class='text-yellow'>Mouth:</span> `+face.mouth+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/faces/'+face.internalid+'_thumb'" />
-          <span class="badge bg-blue incollection" v-if="face.colladdeddate">{{ face.collquantity }}</span>
+          <span class="badge bg-blue incollection" v-if="face.collquantity">{{ face.collquantity }}</span>
           <span v-if="viewvalidation">
             <span class="badge pull-right bg-green validationbadge" v-if="face.validatorname">V</span>
             <span class="badge pull-right bg-red validationbadge" v-else>NV</span>

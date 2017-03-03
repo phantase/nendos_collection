@@ -12,7 +12,7 @@
               :title="`<div class='db-accessory-type text-yellow'>`+accessory.type+`</div>
                         <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/accessories/'+accessory.internalid+'_thumb'" />
-          <span class="badge bg-blue incollection" v-if="accessory.colladdeddate">{{ accessory.collquantity }}</span>
+          <span class="badge bg-blue incollection" v-if="accessory.collquantity">{{ accessory.collquantity }}</span>
           <span v-if="viewvalidation">
             <span class="badge pull-right bg-green validationbadge" v-if="accessory.validatorname">V</span>
             <span class="badge pull-right bg-red validationbadge" v-else>NV</span>

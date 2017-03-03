@@ -12,7 +12,7 @@
               :title="`<div class='db-bodypart-part text-yellow'>`+bodypart.part+`</div>
                         <div class='db-bodypart-description'><span class='text-yellow'>Description:</span> `+bodypart.description+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/bodyparts/'+bodypart.internalid+'_thumb'" />
-          <span class="badge bg-blue incollection" v-if="bodypart.colladdeddate">{{ bodypart.collquantity }}</span>
+          <span class="badge bg-blue incollection" v-if="bodypart.collquantity">{{ bodypart.collquantity }}</span>
           <span v-if="viewvalidation">
             <span class="badge pull-right bg-green validationbadge" v-if="bodypart.validatorname">V</span>
             <span class="badge pull-right bg-red validationbadge" v-else>NV</span>

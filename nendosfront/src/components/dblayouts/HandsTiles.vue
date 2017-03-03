@@ -12,7 +12,7 @@
               :title="`<div class='db-hand-leftright text-yellow'>`+hand.leftright+`</div>
                         <div class='db-hand-posture'><span class='text-yellow'>Posture:</span> `+hand.posture+`</div>`">
           <img :src="resources.imagesurl+'/images/nendos/hands/'+hand.internalid+'_thumb'" />
-          <span class="badge bg-blue incollection" v-if="hand.colladdeddate">{{ hand.collquantity }}</span>
+          <span class="badge bg-blue incollection" v-if="hand.collquantity">{{ hand.collquantity }}</span>
           <span v-if="viewvalidation">
             <span class="badge pull-right bg-green validationbadge" v-if="hand.validatorname">V</span>
             <span class="badge pull-right bg-red validationbadge" v-else>NV</span>
