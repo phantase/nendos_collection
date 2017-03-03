@@ -13,6 +13,14 @@ const getters = {
 const mutations = {
   [types.SET_BODYPARTS] (state, bodyparts) {
     state.bodyparts = bodyparts
+  },
+  [types.COLLECT_BODYPART] (state, bodypartid) {
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].collquantity++
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].colladdeddate = 'NOW'
+  },
+  [types.UNCOLLECT_BODYPART] (state, bodypartid) {
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].collquantity--
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].colladdeddate = 'NOW'
   }
 }
 
@@ -34,6 +42,30 @@ const actions = {
         store.dispatch('setBodyparts', response.data)
         resolve()
       }, (response) => {
+        reject()
+      })
+    })
+  },
+  collectBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('bodyparts/' + bodypartid + '/collect').then(response => {
+        store.commit(types.COLLECT_BODYPART, bodypartid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  uncollectBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('bodyparts/' + bodypartid + '/uncollect').then(response => {
+        store.commit(types.UNCOLLECT_BODYPART, bodypartid)
+        resolve()
+      }, response => {
         reject()
       })
     })

@@ -10,21 +10,33 @@ export const RESET_USERCOUNTS = 'RESET_USERCOUNTS'
 // boxes
 export const SET_BOXES = 'SET_BOXES'
 export const RESET_BOXES = 'RESET_BOXES'
+export const COLLECT_BOX = 'COLLECT_BOX'
+export const UNCOLLECT_BOX = 'UNCOLLECT_BOX'
 // nendoroids
 export const SET_NENDOROIDS = 'SET_NENDOROIDS'
 export const RESET_NENDOROIDS = 'RESET_NENDOROIDS'
+export const COLLECT_NENDOROID = 'COLLECT_NENDOROID'
+export const UNCOLLECT_NENDOROID = 'UNCOLLECT_NENDOROID'
 // faces
 export const SET_FACES = 'SET_FACES'
 export const RESET_FACES = 'RESET_FACES'
+export const COLLECT_FACE = 'COLLECT_FACE'
+export const UNCOLLECT_FACE = 'UNCOLLECT_FACE'
 // hairs
 export const SET_HAIRS = 'SET_HAIRS'
 export const RESET_HAIRS = 'RESET_HAIRS'
+export const COLLECT_HAIR = 'COLLECT_HAIR'
+export const UNCOLLECT_HAIR = 'UNCOLLECT_HAIS'
 // hands
 export const SET_HANDS = 'SET_HANDS'
 export const RESET_HANDS = 'RESET_HANDS'
+export const COLLECT_HAND = 'COLLECT_HAND'
+export const UNCOLLECT_HAND = 'UNCOLLECT_HAND'
 // bodyparts
 export const SET_BODYPARTS = 'SET_BODYPARTS'
 export const RESET_BODYPARTS = 'RESET_BODYPARTS'
+export const COLLECT_BODYPART = 'COLLECT_BODYPART'
+export const UNCOLLECT_BODYPART = 'UNCOLLECT_BODYPART'
 // accessories
 export const SET_ACCESSORIES = 'SET_ACCESSORIES'
 export const RESET_ACCESSORIES = 'RESET_ACCESSORIES'

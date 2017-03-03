@@ -13,7 +13,11 @@
       </div>
     </div>
 
-    <collection-and-validation-tile :colladdeddate="hand.colladdeddate" :collquantity="hand.collquantity" :validatorname="hand.validatorname"></collection-and-validation-tile>
+    <collection-and-validation-tile :colladdeddate="hand.colladdeddate"
+                                    :collquantity="hand.collquantity"
+                                    :validatorname="hand.validatorname"
+                                    v-on:collect="collect"
+                                    v-on:uncollect="uncollect"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -121,8 +125,31 @@ export default {
     }
   },
   methods: {
+    ...Vuex.mapActions(['collectHand', 'uncollectHand']),
     filterPhoto (photoObj) {
       return this.photohands.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
+    },
+    collect () {
+      console.log('COLLECT...')
+      this.collectHand({
+        'context': this,
+        'handid': this.hand.internalid
+      }).then(() => {
+        console.log('Collection successful')
+      }, () => {
+        console.log('Collection failed')
+      })
+    },
+    uncollect () {
+      console.log('UNCOLLECT...')
+      this.uncollectHand({
+        'context': this,
+        'handid': this.hand.internalid
+      }).then(() => {
+        console.log('UNCollection successful')
+      }, () => {
+        console.log('UNCollection failed')
+      })
     }
   }
 }

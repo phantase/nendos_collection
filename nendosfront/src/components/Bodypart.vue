@@ -13,7 +13,11 @@
       </div>
     </div>
 
-    <collection-and-validation-tile :colladdeddate="bodypart.colladdeddate" :collquantity="bodypart.collquantity" :validatorname="bodypart.validatorname"></collection-and-validation-tile>
+    <collection-and-validation-tile :colladdeddate="bodypart.colladdeddate"
+                                    :collquantity="bodypart.collquantity"
+                                    :validatorname="bodypart.validatorname"
+                                    v-on:collect="collect"
+                                    v-on:uncollect="uncollect"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -121,8 +125,31 @@ export default {
     }
   },
   methods: {
+    ...Vuex.mapActions(['collectBodypart', 'uncollectBodypart']),
     filterPhoto (photoObj) {
       return this.photobodyparts.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
+    },
+    collect () {
+      console.log('COLLECT...')
+      this.collectBodypart({
+        'context': this,
+        'bodypartid': this.bodypart.internalid
+      }).then(() => {
+        console.log('Collection successful')
+      }, () => {
+        console.log('Collection failed')
+      })
+    },
+    uncollect () {
+      console.log('UNCOLLECT...')
+      this.uncollectBodypart({
+        'context': this,
+        'bodypartid': this.bodypart.internalid
+      }).then(() => {
+        console.log('UNCollection successful')
+      }, () => {
+        console.log('UNCollection failed')
+      })
     }
   }
 }

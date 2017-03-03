@@ -13,6 +13,14 @@ const getters = {
 const mutations = {
   [types.SET_HAIRS] (state, hairs) {
     state.hairs = hairs
+  },
+  [types.COLLECT_HAIR] (state, hairid) {
+    state.hairs.filter(hair => hair.internalid === hairid)[0].collquantity++
+    state.hairs.filter(hair => hair.internalid === hairid)[0].colladdeddate = 'NOW'
+  },
+  [types.UNCOLLECT_HAIR] (state, hairid) {
+    state.hairs.filter(hair => hair.internalid === hairid)[0].collquantity--
+    state.hairs.filter(hair => hair.internalid === hairid)[0].colladdeddate = 'NOW'
   }
 }
 
@@ -34,6 +42,30 @@ const actions = {
         store.dispatch('setHairs', response.data)
         resolve()
       }, (response) => {
+        reject()
+      })
+    })
+  },
+  collectHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hairs/' + hairid + '/collect').then(response => {
+        store.commit(types.COLLECT_HAIR, hairid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  uncollectHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hairs/' + hairid + '/uncollect').then(response => {
+        store.commit(types.UNCOLLECT_HAIR, hairid)
+        resolve()
+      }, response => {
         reject()
       })
     })

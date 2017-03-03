@@ -13,6 +13,14 @@ const getters = {
 const mutations = {
   [types.SET_FACES] (state, faces) {
     state.faces = faces
+  },
+  [types.COLLECT_FACE] (state, faceid) {
+    state.faces.filter(face => face.internalid === faceid)[0].collquantity++
+    state.faces.filter(face => face.internalid === faceid)[0].colladdeddate = 'NOW'
+  },
+  [types.UNCOLLECT_FACE] (state, faceid) {
+    state.faces.filter(face => face.internalid === faceid)[0].collquantity--
+    state.faces.filter(face => face.internalid === faceid)[0].colladdeddate = 'NOW'
   }
 }
 
@@ -34,6 +42,30 @@ const actions = {
         store.dispatch('setFaces', response.data)
         resolve()
       }, (response) => {
+        reject()
+      })
+    })
+  },
+  collectFace (store, payload) {
+    let context = payload.context
+    let faceid = payload.faceid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('faces/' + faceid + '/collect').then(response => {
+        store.commit(types.COLLECT_FACE, faceid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  uncollectFace (store, payload) {
+    let context = payload.context
+    let faceid = payload.faceid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('faces/' + faceid + '/uncollect').then(response => {
+        store.commit(types.UNCOLLECT_FACE, faceid)
+        resolve()
+      }, response => {
         reject()
       })
     })

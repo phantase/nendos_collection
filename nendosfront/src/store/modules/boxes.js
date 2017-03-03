@@ -13,6 +13,14 @@ const getters = {
 const mutations = {
   [types.SET_BOXES] (state, boxes) {
     state.boxes = boxes
+  },
+  [types.COLLECT_BOX] (state, boxid) {
+    state.boxes.filter(box => box.internalid === boxid)[0].collquantity++
+    state.boxes.filter(box => box.internalid === boxid)[0].colladdeddate = 'NOW'
+  },
+  [types.UNCOLLECT_BOX] (state, boxid) {
+    state.boxes.filter(box => box.internalid === boxid)[0].collquantity--
+    state.boxes.filter(box => box.internalid === boxid)[0].colladdeddate = 'NOW'
   }
 }
 
@@ -34,6 +42,30 @@ const actions = {
         store.dispatch('setBoxes', response.data)
         resolve()
       }, (response) => {
+        reject()
+      })
+    })
+  },
+  collectBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('boxes/' + boxid + '/collect').then(response => {
+        store.commit(types.COLLECT_BOX, boxid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  uncollectBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('boxes/' + boxid + '/uncollect').then(response => {
+        store.commit(types.UNCOLLECT_BOX, boxid)
+        resolve()
+      }, response => {
         reject()
       })
     })

@@ -13,7 +13,11 @@
       </div>
     </div>
 
-    <collection-and-validation-tile :colladdeddate="hair.colladdeddate" :collquantity="hair.collquantity" :validatorname="hair.validatorname"></collection-and-validation-tile>
+    <collection-and-validation-tile :colladdeddate="hair.colladdeddate"
+                                    :collquantity="hair.collquantity"
+                                    :validatorname="hair.validatorname"
+                                    v-on:collect="collect"
+                                    v-on:uncollect="uncollect"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -125,8 +129,31 @@ export default {
     }
   },
   methods: {
+    ...Vuex.mapActions(['collectHair', 'uncollectHair']),
     filterPhoto (photoObj) {
       return this.photohairs.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
+    },
+    collect () {
+      console.log('COLLECT...')
+      this.collectHair({
+        'context': this,
+        'hairid': this.hair.internalid
+      }).then(() => {
+        console.log('Collection successful')
+      }, () => {
+        console.log('Collection failed')
+      })
+    },
+    uncollect () {
+      console.log('UNCOLLECT...')
+      this.uncollectHair({
+        'context': this,
+        'hairid': this.hair.internalid
+      }).then(() => {
+        console.log('UNCollection successful')
+      }, () => {
+        console.log('UNCollection failed')
+      })
     }
   }
 }

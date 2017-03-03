@@ -13,6 +13,14 @@ const getters = {
 const mutations = {
   [types.SET_HANDS] (state, hands) {
     state.hands = hands
+  },
+  [types.COLLECT_HAND] (state, handid) {
+    state.hands.filter(hand => hand.internalid === handid)[0].collquantity++
+    state.hands.filter(hand => hand.internalid === handid)[0].colladdeddate = 'NOW'
+  },
+  [types.UNCOLLECT_HAND] (state, handid) {
+    state.hands.filter(hand => hand.internalid === handid)[0].collquantity--
+    state.hands.filter(hand => hand.internalid === handid)[0].colladdeddate = 'NOW'
   }
 }
 
@@ -34,6 +42,30 @@ const actions = {
         store.dispatch('setHands', response.data)
         resolve()
       }, (response) => {
+        reject()
+      })
+    })
+  },
+  collectHand (store, payload) {
+    let context = payload.context
+    let handid = payload.handid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hands/' + handid + '/collect').then(response => {
+        store.commit(types.COLLECT_HAND, handid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  uncollectHand (store, payload) {
+    let context = payload.context
+    let handid = payload.handid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hands/' + handid + '/uncollect').then(response => {
+        store.commit(types.UNCOLLECT_HAND, handid)
+        resolve()
+      }, response => {
         reject()
       })
     })

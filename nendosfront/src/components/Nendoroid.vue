@@ -14,7 +14,11 @@
       </div>
     </div>
 
-    <collection-and-validation-tile :colladdeddate="nendoroid.colladdeddate" :collquantity="nendoroid.collquantity" :validatorname="nendoroid.validatorname"></collection-and-validation-tile>
+    <collection-and-validation-tile :colladdeddate="nendoroid.colladdeddate"
+                                    :collquantity="nendoroid.collquantity"
+                                    :validatorname="nendoroid.validatorname"
+                                    v-on:collect="collect"
+                                    v-on:uncollect="uncollect"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -173,8 +177,31 @@ export default {
     }
   },
   methods: {
+    ...Vuex.mapActions(['collectNendoroid', 'uncollectNendoroid']),
     filterPhoto (photoObj) {
       return this.photonendoroids.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
+    },
+    collect () {
+      console.log('COLLECT...')
+      this.collectNendoroid({
+        'context': this,
+        'nendoroidid': this.nendoroid.internalid
+      }).then(() => {
+        console.log('Collection successful')
+      }, () => {
+        console.log('Collection failed')
+      })
+    },
+    uncollect () {
+      console.log('UNCOLLECT...')
+      this.uncollectNendoroid({
+        'context': this,
+        'nendoroidid': this.nendoroid.internalid
+      }).then(() => {
+        console.log('UNCollection successful')
+      }, () => {
+        console.log('UNCollection failed')
+      })
     }
   }
 }
