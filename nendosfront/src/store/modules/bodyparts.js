@@ -21,6 +21,19 @@ const mutations = {
   [types.UNCOLLECT_BODYPART] (state, bodypartid) {
     state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].collquantity--
     state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].colladdeddate = 'NOW'
+  },
+  [types.VALIDATE_BODYPART] (state, payload) {
+    let bodypartid = payload.bodypartid
+    let userid = payload.userid
+    let username = payload.username
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validatorid = userid
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validatorname = username
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validationdate = 'NOW'
+  },
+  [types.UNVALIDATE_BODYPART] (state, bodypartid) {
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validatorid = null
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validatorname = null
+    state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validationdate = null
   }
 }
 
@@ -64,6 +77,34 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('bodyparts/' + bodypartid + '/uncollect').then(response => {
         store.commit(types.UNCOLLECT_BODYPART, bodypartid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  validateBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('bodyparts/' + bodypartid + '/validate').then(response => {
+        store.commit(types.VALIDATE_BODYPART, {
+          'bodypartid': bodypartid,
+          'userid': store.rootState.auth.user.internalid,
+          'username': store.rootState.auth.user.username
+        })
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unvalidateBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('bodyparts/' + bodypartid + '/unvalidate').then(response => {
+        store.commit(types.UNVALIDATE_BODYPART, bodypartid)
         resolve()
       }, response => {
         reject()

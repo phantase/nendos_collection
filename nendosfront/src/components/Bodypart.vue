@@ -17,7 +17,9 @@
                                     :collquantity="bodypart.collquantity"
                                     :validatorname="bodypart.validatorname"
                                     v-on:collect="collect"
-                                    v-on:uncollect="uncollect"></collection-and-validation-tile>
+                                    v-on:uncollect="uncollect"
+                                    v-on:validate="validate"
+                                    v-on:unvalidate="unvalidate"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -125,7 +127,7 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectBodypart', 'uncollectBodypart']),
+    ...Vuex.mapActions(['collectBodypart', 'uncollectBodypart', 'validateBodypart', 'unvalidateBodypart']),
     filterPhoto (photoObj) {
       return this.photobodyparts.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -149,6 +151,28 @@ export default {
         console.log('UNCollection successful')
       }, () => {
         console.log('UNCollection failed')
+      })
+    },
+    validate () {
+      console.log('VALIDATE...')
+      this.validateBodypart({
+        'context': this,
+        'bodypartid': this.bodypart.internalid
+      }).then(() => {
+        console.log('Validation successful')
+      }, () => {
+        console.log('Validation failed')
+      })
+    },
+    unvalidate () {
+      console.log('UNVALIDATE...')
+      this.unvalidateBodypart({
+        'context': this,
+        'bodypartid': this.bodypart.internalid
+      }).then(() => {
+        console.log('UNValidation successful')
+      }, () => {
+        console.log('UNValidation failed')
       })
     }
   }
