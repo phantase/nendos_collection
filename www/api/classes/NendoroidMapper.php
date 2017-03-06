@@ -270,4 +270,14 @@ class NendoroidMapper extends Mapper
     return $results;
   }
 
+  public function addHistory($userid, $elementid, $action, $detail="", $photoid=null) {
+    $element = $this->getByInternalid($elementid);
+
+    $mapper = new HistoryMapper($this->db);
+    $mapper->addElementHistory($userid, $element->getBoxId(), $elementid,
+                               null, null,
+                               null, null, null,
+                               $photoid, $action, $detail);
+    return null;
+  }
 }

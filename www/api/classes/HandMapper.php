@@ -160,4 +160,15 @@ class HandMapper extends Mapper
     }
     return $results;
   }
+
+  public function addHistory($userid, $elementid, $action, $detail="", $photoid=null) {
+    $element = $this->getByInternalid($elementid);
+
+    $mapper = new HistoryMapper($this->db);
+    $mapper->addElementHistory($userid, $element->getBoxId(), $element->getNendoroidId(),
+                               null, null,
+                               null, null, $elementid,
+                               $photoid, $action, $detail);
+    return null;
+  }
 }

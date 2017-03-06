@@ -51,4 +51,12 @@ class UserMapper extends Mapper
     }
   }
 
+  public function addHistory($userid, $elementid, $action, $detail="", $photoid=null) {
+    $mapper = new HistoryMapper($this->db);
+    $mapper->addElementHistory($userid, null, null,
+                               null, null,
+                               null, null, null,
+                               $photoid, $action, $detail);
+    return null;
+  }
 }
