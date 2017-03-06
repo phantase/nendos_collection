@@ -21,6 +21,19 @@ const mutations = {
   [types.UNCOLLECT_BOX] (state, boxid) {
     state.boxes.filter(box => box.internalid === boxid)[0].collquantity--
     state.boxes.filter(box => box.internalid === boxid)[0].colladdeddate = 'NOW'
+  },
+  [types.VALIDATE_BOX] (state, payload) {
+    let boxid = payload.boxid
+    let userid = payload.userid
+    let username = payload.username
+    state.boxes.filter(box => box.internalid === boxid)[0].validatorid = userid
+    state.boxes.filter(box => box.internalid === boxid)[0].validatorname = username
+    state.boxes.filter(box => box.internalid === boxid)[0].validationdate = 'NOW'
+  },
+  [types.UNVALIDATE_BOX] (state, boxid) {
+    state.boxes.filter(box => box.internalid === boxid)[0].validatorid = null
+    state.boxes.filter(box => box.internalid === boxid)[0].validatorname = null
+    state.boxes.filter(box => box.internalid === boxid)[0].validationdate = null
   }
 }
 
@@ -64,6 +77,34 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('boxes/' + boxid + '/uncollect').then(response => {
         store.commit(types.UNCOLLECT_BOX, boxid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  validateBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('boxes/' + boxid + '/validate').then(response => {
+        store.commit(types.VALIDATE_BOX, {
+          'boxid': boxid,
+          'userid': store.rootState.auth.user.internalid,
+          'username': store.rootState.auth.user.username
+        })
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unvalidateBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('boxes/' + boxid + '/unvalidate').then(response => {
+        store.commit(types.UNVALIDATE_BOX, boxid)
         resolve()
       }, response => {
         reject()
