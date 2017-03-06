@@ -21,6 +21,19 @@ const mutations = {
   [types.UNCOLLECT_HAIR] (state, hairid) {
     state.hairs.filter(hair => hair.internalid === hairid)[0].collquantity--
     state.hairs.filter(hair => hair.internalid === hairid)[0].colladdeddate = 'NOW'
+  },
+  [types.VALIDATE_HAIR] (state, payload) {
+    let hairid = payload.hairid
+    let userid = payload.userid
+    let username = payload.username
+    state.hairs.filter(hair => hair.internalid === hairid)[0].validatorid = userid
+    state.hairs.filter(hair => hair.internalid === hairid)[0].validatorname = username
+    state.hairs.filter(hair => hair.internalid === hairid)[0].validationdate = 'NOW'
+  },
+  [types.UNVALIDATE_HAIR] (state, hairid) {
+    state.hairs.filter(hair => hair.internalid === hairid)[0].validatorid = null
+    state.hairs.filter(hair => hair.internalid === hairid)[0].validatorname = null
+    state.hairs.filter(hair => hair.internalid === hairid)[0].validationdate = null
   }
 }
 
@@ -64,6 +77,34 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('hairs/' + hairid + '/uncollect').then(response => {
         store.commit(types.UNCOLLECT_HAIR, hairid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  validateHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hairs/' + hairid + '/validate').then(response => {
+        store.commit(types.VALIDATE_HAIR, {
+          'hairid': hairid,
+          'userid': store.rootState.auth.user.internalid,
+          'username': store.rootState.auth.user.username
+        })
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unvalidateHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hairs/' + hairid + '/unvalidate').then(response => {
+        store.commit(types.UNVALIDATE_HAIR, hairid)
         resolve()
       }, response => {
         reject()
