@@ -17,7 +17,9 @@
                                     :collquantity="hand.collquantity"
                                     :validatorname="hand.validatorname"
                                     v-on:collect="collect"
-                                    v-on:uncollect="uncollect"></collection-and-validation-tile>
+                                    v-on:uncollect="uncollect"
+                                    v-on:validate="validate"
+                                    v-on:unvalidate="unvalidate"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -125,7 +127,7 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectHand', 'uncollectHand']),
+    ...Vuex.mapActions(['collectHand', 'uncollectHand', 'validateHand', 'unvalidateHand']),
     filterPhoto (photoObj) {
       return this.photohands.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -149,6 +151,28 @@ export default {
         console.log('UNCollection successful')
       }, () => {
         console.log('UNCollection failed')
+      })
+    },
+    validate () {
+      console.log('VALIDATE...')
+      this.validateHand({
+        'context': this,
+        'handid': this.hand.internalid
+      }).then(() => {
+        console.log('Validation successful')
+      }, () => {
+        console.log('Validation failed')
+      })
+    },
+    unvalidate () {
+      console.log('UNVALIDATE...')
+      this.unvalidateHand({
+        'context': this,
+        'handid': this.hand.internalid
+      }).then(() => {
+        console.log('UNValidation successful')
+      }, () => {
+        console.log('UNValidation failed')
       })
     }
   }
