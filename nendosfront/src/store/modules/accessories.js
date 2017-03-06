@@ -21,6 +21,19 @@ const mutations = {
   [types.UNCOLLECT_ACCESSORY] (state, accessoryid) {
     state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].collquantity--
     state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].colladdeddate = 'NOW'
+  },
+  [types.VALIDATE_ACCESSORY] (state, payload) {
+    let accessoryid = payload.accessoryid
+    let userid = payload.userid
+    let username = payload.username
+    state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validatorid = userid
+    state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validatorname = username
+    state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validationdate = 'NOW'
+  },
+  [types.UNVALIDATE_ACCESSORY] (state, accessoryid) {
+    state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validatorid = null
+    state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validatorname = null
+    state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validationdate = null
   }
 }
 
@@ -64,6 +77,34 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('accessories/' + accessoryid + '/uncollect').then(response => {
         store.commit(types.UNCOLLECT_ACCESSORY, accessoryid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  validateAccessory (store, payload) {
+    let context = payload.context
+    let accessoryid = payload.accessoryid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('accessories/' + accessoryid + '/validate').then(response => {
+        store.commit(types.VALIDATE_ACCESSORY, {
+          'accessoryid': accessoryid,
+          'userid': store.rootState.auth.user.internalid,
+          'username': store.rootState.auth.user.username
+        })
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unvalidateAccessory (store, payload) {
+    let context = payload.context
+    let accessoryid = payload.accessoryid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('accessories/' + accessoryid + '/unvalidate').then(response => {
+        store.commit(types.UNVALIDATE_ACCESSORY, accessoryid)
         resolve()
       }, response => {
         reject()

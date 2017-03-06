@@ -22,14 +22,14 @@
       <div class="box">
         <div class="box-body">
           <span v-if="validatorname">
-            <span class="badge pull-right bg-green">V</span>
+            <span class="btn btn-xs bg-red pull-right" @click="unvalidate"v-if="canvalidate">Unvalidate</span>
+            <span class="badge pull-right bg-green" v-else>V</span>
             Validated by <i>{{validatorname}}</i>
-            <span class="btn btn-xs bg-red" @click="unvalidate"v-if="canvalidate">Unvalidate</span>
           </span>
           <span v-else>
-            <span class="badge pull-right bg-red">NV</span>
+            <span class="btn btn-xs bg-green pull-right" @click="validate" v-if="canvalidate">Validate</span>
+            <span class="badge pull-right bg-red" v-else>NV</span>
             Not validated
-            <span class="btn btn-xs bg-green" @click="validate" v-if="canvalidate">Validate</span>
           </span>
         </div>
       </div>
