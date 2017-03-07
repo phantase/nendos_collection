@@ -48,8 +48,6 @@ export default {
     ...Vuex.mapActions(['relogin', 'retrieveData'])
   },
   mounted () {
-    this.retrieveData({'context': this})
-
     this.relogin({
       'context': this
     }).then(() => {
@@ -57,6 +55,7 @@ export default {
       this.retrieveData({'context': this})
     }, () => {
       console.log('Not connected')
+      this.retrieveData({'context': this})
     })
   }
 }
