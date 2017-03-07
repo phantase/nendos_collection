@@ -10,7 +10,7 @@
           <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
         </li>
         <li v-for="page in breadcrumb">
-          <router-link :to="page.link">{{ page.title }}</router-link>
+          <router-link :to="computeLink(page.link)">{{ page.title }}</router-link>
         </li>
         <li class="active">{{ pageheader }}</li>
       </ol>
@@ -23,6 +23,14 @@
     props: ['pageheader', 'pagedescription', 'breadcrumb'],
     data () {
       return {
+      }
+    },
+    methods: {
+      computeLink (initlink) {
+        if (initlink.indexOf(':id') > -1 && this.$route.params.id) {
+          return initlink.replace(':id', this.$route.params.id)
+        }
+        return initlink
       }
     }
   }
