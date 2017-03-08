@@ -1,25 +1,9 @@
 <template>
-  <div :class="norow?'':'row'">
+  <div class="row">
     <router-link :to="'/hair/'+hair.internalid" :class="classtiles" v-for="hair in hairs">
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <h3 class="box-title">
-            <div class="db-hair-internalid">{{ hair.internalid }}</div>
-          </h3>
-        </div>
-        <div class="box-body db-image"
-              data-toggle="tooltip" data-html="true"
-              :title="`<div class='db-hair-frontback text-yellow'>`+hair.frontback+`</div>
-                        <div class='db-hair-haircut'><span class='text-yellow'>Haircut:</span> `+hair.haircut+`</div>
-                        <div class='db-hair-description'><span class='text-yellow'>Description:</span> `+hair.description+`</div>`">
-          <img :src="resources.imagesurl+'/images/nendos/hairs/'+hair.internalid+'_thumb'" />
-          <span class="badge bg-blue incollection" v-if="hair.collquantity">{{ hair.collquantity }}</span>
-          <span v-if="viewvalidation">
-            <span class="badge pull-right bg-green validationbadge" v-if="hair.validatorname">V</span>
-            <span class="badge pull-right bg-red validationbadge" v-else>NV</span>
-          </span>
-        </div>
-      </div>
+
+      <hair-tile :hair="hair"></hair-tile>
+
     </router-link>
   </div>
 </template>
@@ -30,9 +14,14 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
+import HairTile from './HairTile'
+
 export default {
   name: 'HairsTiles',
-  props: ['hairs', 'tilessize', 'norow'],
+  props: ['hairs', 'tilessize'],
+  components: {
+    HairTile
+  },
   store: store,
   data () {
     return {
