@@ -52,7 +52,9 @@
         <div class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodyparts4box">
           <bodypart-tile :bodypart="bodypart" minimal="true" collectpage="true"></bodypart-tile>
         </div>
-        <accessories-tiles :accessories="accessories4box" norow="true"></accessories-tiles>
+        <div class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessories4box">
+          <accessory-tile :accessory="accessory" minimal="true" collectpage="true"></accessory-tile>
+        </div>
       </div>
     </div>
 
@@ -70,7 +72,7 @@ import FaceTile from './dblayouts/FaceTile'
 import HairTile from './dblayouts/HairTile'
 import HandTile from './dblayouts/HandTile'
 import BodypartTile from './dblayouts/BodypartTile'
-import AccessoriesTiles from './dblayouts/AccessoriesTiles'
+import AccessoryTile from './dblayouts/AccessoryTile'
 
 export default {
   name: 'BoxCollect',
@@ -80,7 +82,7 @@ export default {
     HairTile,
     HandTile,
     BodypartTile,
-    AccessoriesTiles
+    AccessoryTile
   },
   store: store,
   data () {
