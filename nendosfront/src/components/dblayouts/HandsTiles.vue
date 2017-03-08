@@ -1,24 +1,9 @@
 <template>
-  <div :class="norow?'':'row'">
+  <div class="row">
     <router-link :to="'/hand/'+hand.internalid" :class="classtiles" v-for="hand in hands">
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <h3 class="box-title">
-            <div class="db-hand-internalid">{{ hand.internalid }}</div>
-          </h3>
-        </div>
-        <div class="box-body db-image"
-              data-toggle="tooltip" data-html="true"
-              :title="`<div class='db-hand-leftright text-yellow'>`+hand.leftright+`</div>
-                        <div class='db-hand-posture'><span class='text-yellow'>Posture:</span> `+hand.posture+`</div>`">
-          <img :src="resources.imagesurl+'/images/nendos/hands/'+hand.internalid+'_thumb'" />
-          <span class="badge bg-blue incollection" v-if="hand.collquantity">{{ hand.collquantity }}</span>
-          <span v-if="viewvalidation">
-            <span class="badge pull-right bg-green validationbadge" v-if="hand.validatorname">V</span>
-            <span class="badge pull-right bg-red validationbadge" v-else>NV</span>
-          </span>
-        </div>
-      </div>
+
+      <hand-tile :hand="hand"></hand-tile>
+
     </router-link>
   </div>
 </template>
@@ -29,9 +14,14 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
+import HandTile from './HandTile'
+
 export default {
   name: 'HandsTiles',
-  props: ['hands', 'tilessize', 'norow'],
+  props: ['hands', 'tilessize'],
+  components: {
+    HandTile
+  },
   store: store,
   data () {
     return {

@@ -46,7 +46,9 @@
         <div class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairs4box">
           <hair-tile :hair="hair" minimal="true" collectpage="true"></hair-tile>
         </div>
-        <hands-tiles :hands="hands4box" norow="true"></hands-tiles>
+        <div class="col-md-2 col-sm-4 col-xs-6" v-for="hand in hands4box">
+          <hand-tile :hand="hand" minimal="true" collectpage="true"></hand-tile>
+        </div>
         <bodyparts-tiles :bodyparts="bodyparts4box" norow="true"></bodyparts-tiles>
         <accessories-tiles :accessories="accessories4box" norow="true"></accessories-tiles>
       </div>
@@ -64,7 +66,7 @@ import Resources from './../config/resources'
 import NendoroidTile from './dblayouts/NendoroidTile'
 import FaceTile from './dblayouts/FaceTile'
 import HairTile from './dblayouts/HairTile'
-import HandsTiles from './dblayouts/HandsTiles'
+import HandTile from './dblayouts/HandTile'
 import BodypartsTiles from './dblayouts/BodypartsTiles'
 import AccessoriesTiles from './dblayouts/AccessoriesTiles'
 
@@ -74,7 +76,7 @@ export default {
     NendoroidTile,
     FaceTile,
     HairTile,
-    HandsTiles,
+    HandTile,
     BodypartsTiles,
     AccessoriesTiles
   },
