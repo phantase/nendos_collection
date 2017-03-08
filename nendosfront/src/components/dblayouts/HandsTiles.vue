@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div :class="norow?'':'row'">
     <router-link :to="'/hand/'+hand.internalid" :class="classtiles" v-for="hand in hands">
       <div class="box box-solid">
         <div class="box-header with-border">
@@ -31,7 +31,7 @@ import Resources from './../../config/resources'
 
 export default {
   name: 'HandsTiles',
-  props: ['hands', 'tilessize'],
+  props: ['hands', 'tilessize', 'norow'],
   store: store,
   data () {
     return {

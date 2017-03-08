@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div :class="norow?'':'row'">
     <router-link :to="'/hair/'+hair.internalid" :class="classtiles" v-for="hair in hairs">
       <div class="box box-solid">
         <div class="box-header with-border">
@@ -32,7 +32,7 @@ import Resources from './../../config/resources'
 
 export default {
   name: 'HairsTiles',
-  props: ['hairs', 'tilessize'],
+  props: ['hairs', 'tilessize', 'norow'],
   store: store,
   data () {
     return {

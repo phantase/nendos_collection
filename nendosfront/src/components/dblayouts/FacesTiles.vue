@@ -1,24 +1,9 @@
 <template>
   <div class="row">
     <router-link :to="'/face/'+face.internalid" :class="classtiles" v-for="face in faces">
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <h3 class="box-title">
-            <div class="db-face-internalid">{{ face.internalid }}</div>
-          </h3>
-        </div>
-        <div class="box-body db-image"
-              data-toggle="tooltip" data-html="true"
-              :title="`<div class='db-face-eyes'><span class='text-yellow'>Eyes:</span> `+face.eyes+`</div>
-                        <div class='db-face-mouth'><span class='text-yellow'>Mouth:</span> `+face.mouth+`</div>`">
-          <img :src="resources.imagesurl+'/images/nendos/faces/'+face.internalid+'_thumb'" />
-          <span class="badge bg-blue incollection" v-if="face.collquantity">{{ face.collquantity }}</span>
-          <span v-if="viewvalidation">
-            <span class="badge pull-right bg-green validationbadge" v-if="face.validatorname">V</span>
-            <span class="badge pull-right bg-red validationbadge" v-else>NV</span>
-          </span>
-        </div>
-      </div>
+
+      <face-tile :face="face"></face-tile>
+
     </router-link>
   </div>
 </template>
@@ -29,9 +14,14 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
+import FaceTile from './FaceTile'
+
 export default {
   name: 'FacesTiles',
   props: ['faces', 'tilessize'],
+  components: {
+    FaceTile
+  },
   store: store,
   data () {
     return {

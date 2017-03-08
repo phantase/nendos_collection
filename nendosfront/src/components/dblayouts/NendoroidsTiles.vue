@@ -1,25 +1,9 @@
 <template>
   <div class="row">
     <router-link :to="'/nendoroid/'+nendoroid.internalid" :class="classtiles" v-for="nendoroid in nendoroids">
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <h3 class="box-title">
-            <div class="db-nendoroid-name" data-toggle="tooltip" :title="nendoroid.name">{{ nendoroid.name }}</div>
-            <div class="db-nendoroid-version" data-toggle="tooltip" :title="nendoroid.version">{{ nendoroid.version ? nendoroid.version : '&nbsp;' }}</div>
-          </h3>
-        </div>
-        <div class="box-body db-image"
-              data-toggle="tooltip" data-html="true"
-              :title="`<div class='db-nendoroid-name'>`+nendoroid.name+`</div>
-                        <div class='db-nendoroid-version'>`+(nendoroid.version ? nendoroid.version : '')+`</div>`">
-          <img :src="resources.imagesurl+'/images/nendos/nendoroids/'+nendoroid.internalid+'_thumb'" />
-          <span class="badge bg-blue incollection" v-if="nendoroid.collquantity">{{ nendoroid.collquantity }}</span>
-          <span v-if="viewvalidation">
-            <span class="badge pull-right bg-green validationbadge" v-if="nendoroid.validatorname">V</span>
-            <span class="badge pull-right bg-red validationbadge" v-else>NV</span>
-          </span>
-        </div>
-      </div>
+
+      <nendoroid-tile :nendoroid="nendoroid"></nendoroid-tile>
+
     </router-link>
   </div>
 </template>
@@ -30,9 +14,14 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
+import NendoroidTile from './NendoroidTile'
+
 export default {
   name: 'NendoroidsTiles',
   props: ['nendoroids', 'tilessize'],
+  components: {
+    NendoroidTile
+  },
   store: store,
   data () {
     return {
@@ -44,6 +33,8 @@ export default {
     classtiles () {
       if (typeof this.tilessize !== 'undefined' && this.tilessize === 'big') {
         return 'col-md-6 col-sm-6 col-xs-12'
+      } else if (typeof this.tilessize !== 'undefined' && this.tilessize === 'small') {
+        return 'col-md-2 col-sm-4 col-xs-6'
       } else {
         return 'col-md-3 col-sm-6 col-xs-12'
       }

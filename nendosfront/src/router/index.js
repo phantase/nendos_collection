@@ -8,6 +8,7 @@ import Accessories from 'components/Accessories'
 import Bodypart from 'components/Bodypart'
 import Bodyparts from 'components/Bodyparts'
 import Box from 'components/Box'
+import BoxCollect from 'components/BoxCollect'
 import Boxes from 'components/Boxes'
 import Face from 'components/Face'
 import Faces from 'components/Faces'
@@ -105,6 +106,24 @@ export default new Router({
         ]
       },
       component: Box
+    },
+    {
+      path: '/box/:id/collect',
+      name: 'Box Collection',
+      meta: {
+        description: 'Collection of a box',
+        breadcrumb: [
+          {
+            title: 'Boxes',
+            link: '/boxes'
+          },
+          {
+            title: 'Box',
+            link: '/box/:id'
+          }
+        ]
+      },
+      component: BoxCollect
     },
     {
       path: '/boxes',

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div :class="norow?'':'row'">
     <router-link :to="'/bodypart/'+bodypart.internalid" :class="classtiles" v-for="bodypart in bodyparts">
       <div class="box box-solid">
         <div class="box-header with-border">
@@ -31,7 +31,7 @@ import Resources from './../../config/resources'
 
 export default {
   name: 'BodypartsTiles',
-  props: ['bodyparts', 'tilessize'],
+  props: ['bodyparts', 'tilessize', 'norow'],
   store: store,
   data () {
     return {

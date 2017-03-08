@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div :class="norow?'':'row'">
     <router-link :to="'/box/'+box.internalid" :class="classtiles" v-for="box in boxes">
       <div class="box box-solid">
         <div class="box-header with-border">
@@ -37,7 +37,7 @@ import Resources from './../../config/resources'
 
 export default {
   name: 'BoxesTiles',
-  props: ['boxes', 'tilessize'],
+  props: ['boxes', 'tilessize', 'norow'],
   store: store,
   data () {
     return {
