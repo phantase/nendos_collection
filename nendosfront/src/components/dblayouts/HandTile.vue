@@ -1,6 +1,6 @@
 <template>
       <div class="box box-solid"
-            :style="collectpage?hand.collquantity?'background-color: #ddd;':collectable?'background-color: #9e9;':'background-color: #e99;':''"
+            :style="collectpage?collectable?'background-color: #9e9;':'background-color: #e99;':''"
             @click="changeCollectability">
         <div class="box-header with-border">
           <h3 class="box-title">
@@ -31,7 +31,7 @@ import Resources from './../../config/resources'
 
 export default {
   name: 'HandsTiles',
-  props: ['hand', 'minimal', 'collectpage'],
+  props: ['hand', 'minimal', 'collectpage', 'collactivated'],
   store: store,
   data () {
     return {
@@ -44,8 +44,14 @@ export default {
   },
   methods: {
     changeCollectability () {
-      this.collectable = !this.collectable
+      if (this.collactivated) {
+        this.collectable = !this.collectable
+        this.$emit(this.collectable ? 'collect' : 'uncollect', 'hand', this.hand.internalid)
+      }
     }
+  },
+  mounted () {
+    this.$emit(this.collectable ? 'collect' : 'uncollect', 'hand', this.hand.internalid)
   },
   destroyed () {
     $('[role="tooltip"]').remove()

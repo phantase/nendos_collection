@@ -155,6 +155,7 @@
 import store from './../store'
 import Vuex from 'vuex'
 
+import router from './../router'
 import Resources from './../config/resources'
 
 import AppBoxHeader from './layouts/BoxHeader'
@@ -214,31 +215,15 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectBox', 'uncollectBox', 'validateBox', 'unvalidateBox']),
+    ...Vuex.mapActions(['validateBox', 'unvalidateBox']),
     filterPhoto (photoObj) {
       return this.photoboxes.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
     collect () {
-      console.log('COLLECT...')
-      this.collectBox({
-        'context': this,
-        'boxid': this.box.internalid
-      }).then(() => {
-        console.log('Collection successful')
-      }, () => {
-        console.log('Collection failed')
-      })
+      router.push('/box/' + this.$route.params.id + '/collect')
     },
     uncollect () {
-      console.log('UNCOLLECT...')
-      this.uncollectBox({
-        'context': this,
-        'boxid': this.box.internalid
-      }).then(() => {
-        console.log('UNCollection successful')
-      }, () => {
-        console.log('UNCollection failed')
-      })
+      router.push('/box/' + this.$route.params.id + '/uncollect')
     },
     validate () {
       console.log('VALIDATE...')

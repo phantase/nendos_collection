@@ -6,8 +6,8 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <a class="btn btn-app" style="float:right; margin:10px;">
-                <span class="badge bg-green">xxx</span>
+              <a class="btn btn-app" :class="activated?'':'disabled'" style="float:right; margin:10px;" @click="collect">
+                <span class="badge bg-green">{{parttocollects.length}}</span>
                 <i class="fa fa-briefcase"></i>
                 Collect
               </a>
@@ -23,19 +23,38 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" v-if="!activated && !finished">
+      <div class="col-md-12">
+        <div class="alert alert-info">
+          <h4><i class="icon fa fa-info"></i>Collection in progress..</h4>
+          <div class="progress">
+            <div class="progress-bar" :style="'width: '+progresswidth+'%'"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" v-if="finished">
+      <div class="col-md-12">
+        <div class="alert alert-success">
+          <h4><i class="icon fa fa-check"></i>Collection successful</h4>
+          <router-link :to="'/box/'+this.$route.params.id">Go back to the box...</router-link>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" v-if="activated">
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Collect a box <i>(information)</i></h3>
+            <h3 class="box-title">About the box collection</h3>
           </div>
           <div class="box-body">
-            Choose the parts you want to add to your collection. By default, all of them are select, so just click on <b>Collect</b> button (top right) to add the whole box.<br/>
-            Please note that the parts you have already collected will not be collected again. If you want to add another copy to your collection, go to the page of the part and add a new copy.<br/>
-            In <i style="background-color: #ddd;">Grey</i>, the parts already in your collection.
-            In <i style="background-color: #9e9;">Green</i>, the parts you will add to your collection.
+            Choose the parts you want to add to your collection by clicking on it. By default, all of them are select, so just click on <b>Collect</b> button (top right) to add the whole box.<br/>
+            In <i style="background-color: #9e9;">Green</i>, the parts you will add to your collection.<br/>
             In <i style="background-color: #e99;">Red</i>, the parts you will <b>not</b> add to your collection.<br/>
-            The badge <span class="badge bg-green">xxx</span> of the button precises the number of parts that will be collected.
+            The badge <span class="badge bg-green">xxx</span> on the <i>Collect</i> button precises the number of parts that will be collected.<br/>
+            Please note that if you have already collected some parts of this box, you will collect them again except if you deselect them in the list bellow.
           </div>
         </div>
       </div>
@@ -44,22 +63,28 @@
     <div class="row">
       <div class="col-md-12">
         <div class="col-md-2 col-sm-4 col-xs-6" v-for="nendoroid in nendoroids4box">
-          <nendoroid-tile :nendoroid="nendoroid" minimal="true" collectpage="true"></nendoroid-tile>
+          <nendoroid-tile :nendoroid="nendoroid"
+                    minimal="true" collectpage="true" :collactivated="activated" @collect="collectpart" @uncollect="uncollectpart"></nendoroid-tile>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6" v-for="face in faces4box">
-          <face-tile :face="face" minimal="true" collectpage="true"></face-tile>
+          <face-tile :face="face"
+                    minimal="true" collectpage="true" :collactivated="activated" @collect="collectpart" @uncollect="uncollectpart"></face-tile>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairs4box">
-          <hair-tile :hair="hair" minimal="true" collectpage="true"></hair-tile>
+          <hair-tile :hair="hair"
+                    minimal="true" collectpage="true" :collactivated="activated" @collect="collectpart" @uncollect="uncollectpart"></hair-tile>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6" v-for="hand in hands4box">
-          <hand-tile :hand="hand" minimal="true" collectpage="true"></hand-tile>
+          <hand-tile :hand="hand"
+                    minimal="true" collectpage="true" :collactivated="activated" @collect="collectpart" @uncollect="uncollectpart"></hand-tile>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodyparts4box">
-          <bodypart-tile :bodypart="bodypart" minimal="true" collectpage="true"></bodypart-tile>
+          <bodypart-tile :bodypart="bodypart"
+                    minimal="true" collectpage="true" :collactivated="activated" @collect="collectpart" @uncollect="uncollectpart"></bodypart-tile>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessories4box">
-          <accessory-tile :accessory="accessory" minimal="true" collectpage="true"></accessory-tile>
+          <accessory-tile :accessory="accessory"
+                    minimal="true" collectpage="true" :collactivated="activated" @collect="collectpart" @uncollect="uncollectpart"></accessory-tile>
         </div>
       </div>
     </div>
@@ -93,7 +118,10 @@ export default {
   store: store,
   data () {
     return {
-      resources: Resources
+      resources: Resources,
+      parttocollects: [],
+      activated: true,
+      progress: 0
     }
   },
   computed: {
@@ -118,10 +146,118 @@ export default {
     },
     accessories4box () {
       return this.accessories.filter(accessory => accessory.boxid === this.$route.params.id)
+    },
+    progresswidth () {
+      return this.progress * 100 / (this.parttocollects.length + 1)
+    },
+    finished () {
+      return (this.parttocollects.length + 1) === this.progress
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectBox', 'uncollectBox', 'validateBox', 'unvalidateBox'])
+    ...Vuex.mapActions(['collectBox', 'collectNendoroid', 'collectFace', 'collectHair', 'collectHand', 'collectBodypart', 'collectAccessory']),
+    collectpart (part, id) {
+      if (this.parttocollects.indexOf(part + '@' + id) < 0) {
+        this.parttocollects.push(part + '@' + id)
+      }
+    },
+    uncollectpart (part, id) {
+      this.parttocollects.splice(this.parttocollects.indexOf(part + '@' + id), 1)
+    },
+    collect () {
+      if (this.activated) {
+        this.activated = false
+        console.log('COLLECT...')
+        this.parttocollects.forEach(function (element) {
+          console.log(element)
+          let pid = element.split('@')[1]
+          switch (element.split('@')[0]) {
+            case 'nendoroid':
+              this.collectNendoroid({
+                'context': this,
+                'nendoroidid': pid
+              }).then(() => {
+                console.log('Collection successful')
+                this.progress++
+              }, () => {
+                console.log('Collection failed')
+                this.progress++
+              })
+              break
+            case 'face':
+              this.collectFace({
+                'context': this,
+                'faceid': pid
+              }).then(() => {
+                console.log('Collection successful')
+                this.progress++
+              }, () => {
+                console.log('Collection failed')
+                this.progress++
+              })
+              break
+            case 'hair':
+              this.collectHair({
+                'context': this,
+                'hairid': pid
+              }).then(() => {
+                console.log('Collection successful')
+                this.progress++
+              }, () => {
+                console.log('Collection failed')
+                this.progress++
+              })
+              break
+            case 'hand':
+              this.collectHand({
+                'context': this,
+                'handid': pid
+              }).then(() => {
+                console.log('Collection successful')
+                this.progress++
+              }, () => {
+                console.log('Collection failed')
+                this.progress++
+              })
+              break
+            case 'bodypart':
+              this.collectBodypart({
+                'context': this,
+                'bodypartid': pid
+              }).then(() => {
+                console.log('Collection successful')
+                this.progress++
+              }, () => {
+                console.log('Collection failed')
+                this.progress++
+              })
+              break
+            case 'accessory':
+              this.collectAccessory({
+                'context': this,
+                'accessoryid': pid
+              }).then(() => {
+                console.log('Collection successful')
+                this.progress++
+              }, () => {
+                console.log('Collection failed')
+                this.progress++
+              })
+              break
+          }
+        }, this)
+        this.collectBox({
+          'context': this,
+          'boxid': this.box.internalid
+        }).then(() => {
+          console.log('Collection successful')
+          this.progress++
+        }, () => {
+          console.log('Collection failed')
+          this.progress++
+        })
+      }
+    }
   }
 }
 </script>

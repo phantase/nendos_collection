@@ -1,7 +1,7 @@
 <template>
       <div class="box box-solid"
-            :style="collectpage?nendoroid.collquantity?'background-color: #ddd;':collectable?'background-color: #9e9;':'background-color: #e99;':''"
-            @click.stop="changeCollectability">
+            :style="collectpage?collectable?'background-color: #9e9;':'background-color: #e99;':''"
+            @click="changeCollectability">
         <div class="box-header with-border">
           <h3 class="box-title">
             <div class="db-nendoroid-name" data-toggle="tooltip" :title="nendoroid.name">{{ nendoroid.name }}</div>
@@ -32,7 +32,7 @@ import Resources from './../../config/resources'
 
 export default {
   name: 'NendoroidTile',
-  props: ['nendoroid', 'minimal', 'collectpage'],
+  props: ['nendoroid', 'minimal', 'collectpage', 'collactivated'],
   store: store,
   data () {
     return {
@@ -41,21 +41,18 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['viewvalidation']),
-    classtiles () {
-      if (typeof this.tilessize !== 'undefined' && this.tilessize === 'big') {
-        return 'col-md-6 col-sm-6 col-xs-12'
-      } else if (typeof this.tilessize !== 'undefined' && this.tilessize === 'small') {
-        return 'col-md-2 col-sm-4 col-xs-6'
-      } else {
-        return 'col-md-3 col-sm-6 col-xs-12'
-      }
-    }
+    ...Vuex.mapGetters(['viewvalidation'])
   },
   methods: {
     changeCollectability () {
-      this.collectable = !this.collectable
+      if (this.collactivated) {
+        this.collectable = !this.collectable
+        this.$emit(this.collectable ? 'collect' : 'uncollect', 'nendoroid', this.nendoroid.internalid)
+      }
     }
+  },
+  mounted () {
+    this.$emit(this.collectable ? 'collect' : 'uncollect', 'nendoroid', this.nendoroid.internalid)
   },
   destroyed () {
     $('[role="tooltip"]').remove()
