@@ -6,6 +6,11 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
+              <a class="btn btn-app" style="float:right; margin:10px;">
+                <span class="badge bg-green">xxx</span>
+                <i class="fa fa-briefcase"></i>
+                Collect
+              </a>
               <div class="db-box-category text-yellow">
                 <span>{{ box.category}}</span>
                 <span v-if="box.number">#{{ box.number}}</span>
@@ -22,14 +27,15 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Collect a box</h3>
+            <h3 class="box-title">Collect a box <i>(information)</i></h3>
           </div>
           <div class="box-body">
-            Choose the parts you want to add to your collection. By default, all of them are select, so just click on <b>Collect</b> button to add the whole box.<br/>
+            Choose the parts you want to add to your collection. By default, all of them are select, so just click on <b>Collect</b> button (top right) to add the whole box.<br/>
             Please note that the parts you have already collected will not be collected again. If you want to add another copy to your collection, go to the page of the part and add a new copy.<br/>
             In <i style="background-color: #ddd;">Grey</i>, the parts already in your collection.
             In <i style="background-color: #9e9;">Green</i>, the parts you will add to your collection.
-            In <i style="background-color: #e99;">Red</i>, the parts you will <b>not</b> add to your collection.
+            In <i style="background-color: #e99;">Red</i>, the parts you will <b>not</b> add to your collection.<br/>
+            The badge <span class="badge bg-green">xxx</span> of the button precises the number of parts that will be collected.
           </div>
         </div>
       </div>
