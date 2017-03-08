@@ -49,7 +49,9 @@
         <div class="col-md-2 col-sm-4 col-xs-6" v-for="hand in hands4box">
           <hand-tile :hand="hand" minimal="true" collectpage="true"></hand-tile>
         </div>
-        <bodyparts-tiles :bodyparts="bodyparts4box" norow="true"></bodyparts-tiles>
+        <div class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodyparts4box">
+          <bodypart-tile :bodypart="bodypart" minimal="true" collectpage="true"></bodypart-tile>
+        </div>
         <accessories-tiles :accessories="accessories4box" norow="true"></accessories-tiles>
       </div>
     </div>
@@ -67,7 +69,7 @@ import NendoroidTile from './dblayouts/NendoroidTile'
 import FaceTile from './dblayouts/FaceTile'
 import HairTile from './dblayouts/HairTile'
 import HandTile from './dblayouts/HandTile'
-import BodypartsTiles from './dblayouts/BodypartsTiles'
+import BodypartTile from './dblayouts/BodypartTile'
 import AccessoriesTiles from './dblayouts/AccessoriesTiles'
 
 export default {
@@ -77,7 +79,7 @@ export default {
     FaceTile,
     HairTile,
     HandTile,
-    BodypartsTiles,
+    BodypartTile,
     AccessoriesTiles
   },
   store: store,
