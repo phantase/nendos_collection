@@ -7,6 +7,12 @@ const state = {
 const getters = {
   boxes (state) {
     return state.boxes
+  },
+  countboxes (state) {
+    return state.boxes.length
+  },
+  countuserboxes (state) {
+    return state.boxes.filter(box => box.collquantity).length
   }
 }
 

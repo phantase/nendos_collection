@@ -7,6 +7,12 @@ const state = {
 const getters = {
   nendoroids (state) {
     return state.nendoroids
+  },
+  countnendoroids (state) {
+    return state.nendoroids.length
+  },
+  countusernendoroids (state) {
+    return state.nendoroids.filter(nendoroid => nendoroid.collquantity).length
   }
 }
 

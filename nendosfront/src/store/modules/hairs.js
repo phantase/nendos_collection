@@ -7,6 +7,12 @@ const state = {
 const getters = {
   hairs (state) {
     return state.hairs
+  },
+  counthairs (state) {
+    return state.hairs.length
+  },
+  countuserhairs (state) {
+    return state.hairs.filter(hair => hair.collquantity).length
   }
 }
 

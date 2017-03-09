@@ -7,6 +7,12 @@ const state = {
 const getters = {
   hands (state) {
     return state.hands
+  },
+  counthands (state) {
+    return state.hands.length
+  },
+  countuserhands (state) {
+    return state.hands.filter(hand => hand.collquantity).length
   }
 }
 

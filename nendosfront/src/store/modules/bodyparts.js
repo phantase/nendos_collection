@@ -7,6 +7,12 @@ const state = {
 const getters = {
   bodyparts (state) {
     return state.bodyparts
+  },
+  countbodyparts (state) {
+    return state.bodyparts.length
+  },
+  countuserbodyparts (state) {
+    return state.bodyparts.filter(bodypart => bodypart.collquantity).length
   }
 }
 

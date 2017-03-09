@@ -15,6 +15,9 @@ const getters = {
   photos (state) {
     return state.photos
   },
+  countphotos (state) {
+    return state.photos.length
+  },
   photoaccessories (state) {
     return state.photoaccessories
   },

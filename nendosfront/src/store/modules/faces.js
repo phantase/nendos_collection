@@ -7,6 +7,12 @@ const state = {
 const getters = {
   faces (state) {
     return state.faces
+  },
+  countfaces (state) {
+    return state.faces.length
+  },
+  countuserfaces (state) {
+    return state.faces.filter(face => face.collquantity).length
   }
 }
 
