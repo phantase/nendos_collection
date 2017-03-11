@@ -61,6 +61,9 @@ export default {
 }
 </script>
 
+<style src="../static/font-awesome/4.7.0/css/font-awesome.min.css"></style>
+<style src="../static/ionicons/2.0.1/css/ionicons.min.css"></style>
+<style src="../static/plugins/select2/select2.min.css"></style>
 <style src="../static/bootstrap/css/bootstrap.min.css"></style>
 <style src="../static/adminLte/css/skins/_all-skins.min.css"></style>
 <style src="../static/adminLte/css/AdminLTE.min.css"></style>
