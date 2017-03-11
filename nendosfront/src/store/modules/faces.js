@@ -17,6 +17,9 @@ const getters = {
 }
 
 const mutations = {
+  [types.ADD_FACE] (state, face) {
+    state.faces.push(face)
+  },
   [types.SET_FACES] (state, faces) {
     state.faces = faces
   },
@@ -44,6 +47,9 @@ const mutations = {
 }
 
 const actions = {
+  addFace (store, face) {
+    store.commit(types.ADD_FACE, face)
+  },
   setFaces (store, faces) {
     store.commit(types.SET_FACES, faces)
   },
@@ -112,6 +118,18 @@ const actions = {
       context.$http.patch('faces/' + faceid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_FACE, faceid)
         resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  createFace (store, payload) {
+    let context = payload.context
+    let formData = payload.formData
+    return new Promise((resolve, reject) => {
+      context.$http.post('face/new', formData).then(response => {
+        store.dispatch('addFace', response.data)
+        resolve(response.data.internalid)
       }, response => {
         reject()
       })

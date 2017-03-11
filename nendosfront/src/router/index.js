@@ -22,6 +22,7 @@ import Photo from 'components/Photo'
 import Photos from 'components/Photos'
 import AddAccessory from 'components/forms/AddAccessory'
 import AddBodypart from 'components/forms/AddBodypart'
+import AddFace from 'components/forms/AddFace'
 
 Vue.use(Router)
 
@@ -162,6 +163,20 @@ export default new Router({
         description: 'List of all boxes'
       },
       component: Boxes
+    },
+    {
+      path: '/face/add',
+      name: 'Add face',
+      meta: {
+        description: 'Add a new face',
+        breadcrumb: [
+          {
+            title: 'Faces',
+            link: '/faces'
+          }
+        ]
+      },
+      component: AddFace
     },
     {
       path: '/face/:id',
