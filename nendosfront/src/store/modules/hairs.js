@@ -17,6 +17,9 @@ const getters = {
 }
 
 const mutations = {
+  [types.ADD_HAIR] (state, hair) {
+    state.hairs.push(hair)
+  },
   [types.SET_HAIRS] (state, hairs) {
     state.hairs = hairs
   },
@@ -44,6 +47,9 @@ const mutations = {
 }
 
 const actions = {
+  addHair (store, hair) {
+    store.commit(types.ADD_HAIR, hair)
+  },
   setHairs (store, hairs) {
     store.commit(types.SET_HAIRS, hairs)
   },
@@ -112,6 +118,18 @@ const actions = {
       context.$http.patch('hairs/' + hairid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_HAIR, hairid)
         resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  createHair (store, payload) {
+    let context = payload.context
+    let formData = payload.formData
+    return new Promise((resolve, reject) => {
+      context.$http.post('hair/new', formData).then(response => {
+        store.dispatch('addHair', response.data)
+        resolve(response.data.internalid)
       }, response => {
         reject()
       })

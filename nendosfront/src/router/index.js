@@ -23,6 +23,7 @@ import Photos from 'components/Photos'
 import AddAccessory from 'components/forms/AddAccessory'
 import AddBodypart from 'components/forms/AddBodypart'
 import AddFace from 'components/forms/AddFace'
+import AddHair from 'components/forms/AddHair'
 
 Vue.use(Router)
 
@@ -199,6 +200,20 @@ export default new Router({
         description: 'List of all faces'
       },
       component: Faces
+    },
+    {
+      path: '/hair/add',
+      name: 'Add hair',
+      meta: {
+        description: 'Add a new hair',
+        breadcrumb: [
+          {
+            title: 'Hairs',
+            link: '/hairs'
+          }
+        ]
+      },
+      component: AddHair
     },
     {
       path: '/hair/:id',
