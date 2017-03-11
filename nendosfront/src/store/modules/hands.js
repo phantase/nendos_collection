@@ -17,6 +17,9 @@ const getters = {
 }
 
 const mutations = {
+  [types.ADD_HAND] (state, hand) {
+    state.hands.push(hand)
+  },
   [types.SET_HANDS] (state, hands) {
     state.hands = hands
   },
@@ -44,6 +47,9 @@ const mutations = {
 }
 
 const actions = {
+  addHand (store, hand) {
+    store.commit(types.ADD_HAND, hand)
+  },
   setHands (store, hands) {
     store.commit(types.SET_HANDS, hands)
   },
@@ -112,6 +118,18 @@ const actions = {
       context.$http.patch('hands/' + handid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_HAND, handid)
         resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  createHand (store, payload) {
+    let context = payload.context
+    let formData = payload.formData
+    return new Promise((resolve, reject) => {
+      context.$http.post('hand/new', formData).then(response => {
+        store.dispatch('addHand', response.data)
+        resolve(response.data.internalid)
       }, response => {
         reject()
       })

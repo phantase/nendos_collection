@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa icon-icon_nendo_hair"></i> Add a hair</h3>
+            <h3 class="box-title"><i class="fa icon-icon_nendo_hand"></i> Add a hand</h3>
           </div>
           <div class="box-body">
             <form role="form">
@@ -28,32 +28,26 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                   <div class="form-group">
-                    <label>Main color</label>
-                    <input type="text" class="form-control" placeholder="Main color" v-model="maincolor">
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label>Other color</label>
-                    <input type="text" class="form-control" placeholder="Other color" v-model="othercolor">
-                  </div>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <div class="form-group">
-                    <label>Haircut</label>
-                    <input type="text" class="form-control" placeholder="Haircut" v-model="haircut">
+                    <label>Posture</label>
+                    <input type="text" class="form-control" placeholder="Posture" v-model="posture">
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
-                    <label>Front/Back/Other</label>
-                    <select class="form-control" v-model="frontback">
-                      <option value="Front">Front</option>
-                      <option value="Back">Back</option>
-                      <option value="Other">Other</option>
+                    <label>Left/Right/Both</label>
+                    <select class="form-control" v-model="leftright">
+                      <option value="Left">Left</option>
+                      <option value="Right">Right</option>
+                      <option value="Both">Both</option>
                     </select>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <div class="form-group">
+                    <label>Skin color</label>
+                    <input type="text" class="form-control" placeholder="Skin color" v-model="skincolor">
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -65,7 +59,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add bodypart</button>
+                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add hand</button>
               </div>
             </form>
           </div>
@@ -84,7 +78,7 @@ import Vuex from 'vuex'
 import Resources from './../../config/resources'
 
 export default {
-  name: 'AddHair',
+  name: 'AddHand',
   components: {
   },
   store: store,
@@ -93,10 +87,9 @@ export default {
       resources: Resources,
       boxselected: 'box',
       nendoroidselected: 'nendoroid',
-      maincolor: null,
-      othercolor: null,
-      haircut: null,
-      frontback: 'Front',
+      posture: null,
+      leftright: 'Left',
+      skincolor: null,
       description: null,
       boxerror: false
     }
@@ -117,14 +110,13 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['createHair']),
+    ...Vuex.mapActions(['createHand']),
     cancel () {
       this.boxselected = 'box'
       this.nendoroidselected = 'nendoroid'
-      this.maincolor = null
-      this.othercolor = null
-      this.haircut = null
-      this.frontback = 'Front'
+      this.posture = null
+      this.leftright = 'Left'
+      this.skincolor = null
       this.description = null
       this.boxerror = false
     },
@@ -141,17 +133,16 @@ export default {
         let formData = new FormData()
         formData.append('boxid', this.boxselected === 'box' ? null : this.boxselected)
         formData.append('nendoroidid', this.nendoroidselected === 'nendoroid' ? null : this.nendoroidselected)
-        formData.append('main_color', this.maincolor)
-        formData.append('other_color', this.othercolor)
-        formData.append('haircut', this.haircut)
-        formData.append('frontback', this.frontback)
+        formData.append('posture', this.posture)
+        formData.append('leftright', this.leftright)
+        formData.append('skin_color', this.skincolor)
         formData.append('description', this.description)
-        this.createHair({
+        this.createHand({
           'context': this,
           'formData': formData
         }).then(response => {
           console.log('Addition successful')
-          router.push('/hair/' + response)
+          router.push('/hand/' + response)
         }, response => {
           console.log('Addition failed')
         })

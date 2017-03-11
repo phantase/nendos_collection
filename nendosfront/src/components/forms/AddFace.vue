@@ -139,8 +139,8 @@ export default {
         }
         console.log('Can submit')
         let formData = new FormData()
-        formData.append('boxid', this.boxselected)
-        formData.append('nendoroidid', this.nendoroidselected)
+        formData.append('boxid', this.boxselected === 'box' ? null : this.boxselected)
+        formData.append('nendoroidid', this.nendoroidselected === 'nendoroid' ? null : this.nendoroidselected)
         formData.append('eyes', this.eyes)
         formData.append('eyes_color', this.eyescolor)
         formData.append('mouth', this.mouth)
