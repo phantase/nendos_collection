@@ -171,4 +171,26 @@ class HandMapper extends Mapper
                                $photoid, $action, $detail);
     return null;
   }
+
+  public function save(HandEntity $hand, $userid) {
+    $sql = "INSERT INTO hands
+              (boxid, nendoroidid, skin_color, leftright, posture, description, creatorid, creationdate, editorid, editiondate) VALUES
+              (:boxid, :nendoroidid, :skin_color, :leftright, :posture, :description, :userid, NOW(), :userid, NOW())";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "boxid" => $hand->getBoxId(),
+        "nendoroidid" => $hand->getNendoroidId(),
+        "skin_color" => $hand->getSkinColor(),
+        "leftright" => $hand->getLeftRight(),
+        "posture" => $hand->getPosture(),
+        "description" => $hand->getDescription(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not save hand");
+    }
+    $handid = $this->db->lastInsertId();
+    $this->addHistory($userid,$handid,"Creation");
+    return $this->getByInternalid($handid);
+  }
 }
