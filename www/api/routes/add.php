@@ -19,7 +19,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "accessories":
                     $accessory_data = [];
                     $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $accessory_data['boxid'] = $boxid === "" ? null : $boxid
+                    $accessory_data['boxid'] = $boxid === "" ? null : $boxid;
                     $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
                     $accessory_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
                     $accessory_data['type'] = filter_var($data['type'], FILTER_SANITIZE_STRING);
@@ -35,7 +35,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "bodyparts":
                     $bodypart_data = [];
                     $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $bodypart_data['boxid'] = $boxid === "" ? null : $boxid
+                    $bodypart_data['boxid'] = $boxid === "" ? null : $boxid;
                     $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
                     $bodypart_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
                     $bodypart_data['part'] = filter_var($data['part'], FILTER_SANITIZE_STRING);
@@ -51,7 +51,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "faces":
                     $face_data = [];
                     $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $face_data['boxid'] = $boxid === "" ? null : $boxid
+                    $face_data['boxid'] = $boxid === "" ? null : $boxid;
                     $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
                     $face_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
                     $face_data['eyes'] = filter_var($data['eyes'], FILTER_SANITIZE_STRING);
@@ -68,7 +68,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "hairs":
                     $hair_data = [];
                     $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $hair_data['boxid'] = $boxid === "" ? null : $boxid
+                    $hair_data['boxid'] = $boxid === "" ? null : $boxid;
                     $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
                     $hair_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
                     $hair_data['main_color'] = filter_var($data['main_color'], FILTER_SANITIZE_STRING);
@@ -85,7 +85,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "hands":
                     $hand_data = [];
                     $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $hand_data['boxid'] = $boxid === "" ? null : $boxid
+                    $hand_data['boxid'] = $boxid === "" ? null : $boxid;
                     $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
                     $hand_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
                     $hand_data['skin_color'] = filter_var($data['skin_color'], FILTER_SANITIZE_STRING);
