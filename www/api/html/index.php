@@ -35,5 +35,6 @@ require '../routes/account.php';
 require '../routes/get_auth.php';
 require '../routes/collection.php';
 require '../routes/validation.php';
+require '../routes/add.php';
 
 $app->run();

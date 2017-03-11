@@ -171,4 +171,25 @@ class AccessoryMapper extends Mapper
                                $photoid, $action, $detail);
     return null;
   }
+
+  public function save(AccessoryEntity $accessory, $userid) {
+    $sql = "INSERT INTO accessories
+              (boxid, nendoroidid, type, main_color, other_color, description, creatorid, creationdate, editorid, editiondate) VALUES
+              (:boxid, :nendoroidid, :type, :main_color, :other_color, :description, :userid, NOW(), :userid, NOW())";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "boxid" => $accessory->getBoxId(),
+        "nendoroidid" => $accessory->getNendoroidId(),
+        "type" => $accessory->getType(),
+        "main_color" => $accessory->getMainColor(),
+        "other_color" => $accessory->getOtherColor(),
+        "description" => $accessory->getDescription(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not save accessory");
+    }
+    $accessoryid = $this->db->lastInsertId();
+    return $this->getByInternalid($accessoryid);
+  }
 }

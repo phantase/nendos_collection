@@ -1,0 +1,49 @@
+<?php
+
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
+
+// Collect an element for a specific user
+$app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands}/new', function(Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
+    if( $request->getAttribute("token")->user->administrator || $request->getAttribute("token")->user->editor ) {
+        $element = $args['element'];
+        $data = $request->getParsedBody();
+        $this->applogger->addInfo("User $userid adds a new $element");
+
+        $newelement = null;
+
+        try {
+            switch ($element) {
+                case "accessory":
+                case "accessories":
+                    $accessory_data = [];
+                    $accessory_data['boxid'] = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
+                    $accessory_data['nendoroidid'] = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
+                    $accessory_data['type'] = filter_var($data['type'], FILTER_SANITIZE_STRING);
+                    $accessory_data['main_color'] = filter_var($data['main_color'], FILTER_SANITIZE_STRING);
+                    $accessory_data['other_color'] = filter_var($data['other_color'], FILTER_SANITIZE_STRING);
+                    $accessory_data['description'] = filter_var($data['description'], FILTER_SANITIZE_STRING);
+                    $accessory = new AccessoryEntity($accessory_data);
+
+                    $accessory_mapper = new AccessoryMapper($this->db);
+                    $newelement = $accessory_mapper->save($accessory, $userid);
+                    break;
+            }
+
+            if( is_null($newelement) ){
+                $newresponse = $response->withJson(null,500);
+            } else {
+                $newresponse = $response->withJson($newelement,201);
+            }
+
+        } catch (Exception $e){
+            $this->applogger->addInfo($e);
+            $newresponse = $response->withJson(null,400);
+        }
+    } else {
+        $this->applogger->addInfo("User $userid tries to create a new $element without right to do it");
+        $newresponse = $response->withJson(null, 403);
+    }
+    return $newresponse;
+});
