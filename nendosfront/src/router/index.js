@@ -26,6 +26,7 @@ import AddFace from 'components/forms/AddFace'
 import AddHair from 'components/forms/AddHair'
 import AddHand from 'components/forms/AddHand'
 import AddNendoroid from 'components/forms/AddNendoroid'
+import AddBox from 'components/forms/AddBox'
 
 Vue.use(Router)
 
@@ -126,6 +127,20 @@ export default new Router({
         description: 'List of all bodyparts'
       },
       component: Bodyparts
+    },
+    {
+      path: '/box/add',
+      name: 'Add box',
+      meta: {
+        description: 'Add a new box',
+        breadcrumb: [
+          {
+            title: 'Boxes',
+            link: '/boxes'
+          }
+        ]
+      },
+      component: AddBox
     },
     {
       path: '/box/:id',

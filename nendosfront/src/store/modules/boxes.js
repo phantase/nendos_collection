@@ -17,6 +17,9 @@ const getters = {
 }
 
 const mutations = {
+  [types.ADD_BOX] (state, box) {
+    state.boxes.push(box)
+  },
   [types.SET_BOXES] (state, boxes) {
     state.boxes = boxes
   },
@@ -44,6 +47,9 @@ const mutations = {
 }
 
 const actions = {
+  addBox (store, box) {
+    store.commit(types.ADD_BOX, box)
+  },
   setBoxes (store, boxes) {
     store.commit(types.SET_BOXES, boxes)
   },
@@ -112,6 +118,18 @@ const actions = {
       context.$http.patch('boxes/' + boxid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_BOX, boxid)
         resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  createBox (store, payload) {
+    let context = payload.context
+    let formData = payload.formData
+    return new Promise((resolve, reject) => {
+      context.$http.post('box/new', formData).then(response => {
+        store.dispatch('addBox', response.data)
+        resolve(response.data.internalid)
       }, response => {
         reject()
       })
