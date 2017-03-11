@@ -111,6 +111,25 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $nendoroid_mapper = new NendoroidMapper($this->db);
                     $newelement = $nendoroid_mapper->save($nendoroid, $userid);
                     break;
+                case "box":
+                case "boxes":
+                    $box_data = [];
+                    $box_data['number'] = filter_var($data['number'], FILTER_SANITIZE_STRING);
+                    $box_data['name'] = filter_var($data['name'], FILTER_SANITIZE_STRING);
+                    $box_data['series'] = filter_var($data['series'], FILTER_SANITIZE_STRING);
+                    $box_data['manufacturer'] = filter_var($data['manufacturer'], FILTER_SANITIZE_STRING);
+                    $box_data['category'] = filter_var($data['category'], FILTER_SANITIZE_STRING);
+                    $box_data['price'] = filter_var($data['price'], FILTER_SANITIZE_STRING);
+                    $box_data['releasedate'] = filter_var($data['releasedate'], FILTER_SANITIZE_STRING);
+                    $box_data['specifications'] = filter_var($data['specifications'], FILTER_SANITIZE_STRING);
+                    $box_data['sculptor'] = filter_var($data['sculptor'], FILTER_SANITIZE_STRING);
+                    $box_data['cooperation'] = filter_var($data['cooperation'], FILTER_SANITIZE_STRING);
+                    $box_data['officialurl'] = filter_var($data['officialurl'], FILTER_SANITIZE_STRING);
+                    $box = new BoxEntity($box_data);
+
+                    $box_mapper = new BoxMapper($this->db);
+                    $newelement = $box_mapper->save($box, $userid);
+                    break;
             }
 
             if( is_null($newelement) ){

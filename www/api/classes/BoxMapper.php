@@ -289,4 +289,31 @@ class BoxMapper extends Mapper
                                $photoid, $action, $detail);
     return null;
   }
+
+  public function save(BoxEntity $box, $userid) {
+    $sql = "INSERT INTO boxes
+              (number, name, series, manufacturer, category, price, releasedate, specifications, sculptor, cooperation, officialurl, creatorid, creationdate, editorid, editiondate) VALUES
+              (:number, :name, :series, :manufacturer, :category, :price, :releasedate, :specifications, :sculptor, :cooperation, :officialurl, :userid, NOW(), :userid, NOW())";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "number" => $box->getNumber(),
+        "name" => $box->getName(),
+        "series" => $box->getSeries(),
+        "manufacturer" => $box->getManufacturer(),
+        "category" => $box->getCategory(),
+        "price" => $box->getPrice(),
+        "releasedate" => $box->getReleaseDate(),
+        "specifications" => $box->getSpecifications(),
+        "sculptor" => $box->getSculptor(),
+        "cooperation" => $box->getCooperation(),
+        "officialurl" => $box->getOfficialURL(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not save box");
+    }
+    $boxid = $this->db->lastInsertId();
+    $this->addHistory($userid,$boxid,"Creation");
+    return $this->getByInternalid($boxid);
+  }
 }
