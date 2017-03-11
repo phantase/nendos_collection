@@ -43,6 +43,21 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $bodypart_mapper = new BodypartMapper($this->db);
                     $newelement = $bodypart_mapper->save($bodypart, $userid);
                     break;
+                case "face":
+                case "faces":
+                    $face_data = [];
+                    $face_data['boxid'] = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
+                    $face_data['nendoroidid'] = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
+                    $face_data['eyes'] = filter_var($data['eyes'], FILTER_SANITIZE_STRING);
+                    $face_data['eyes_color'] = filter_var($data['eyes_color'], FILTER_SANITIZE_STRING);
+                    $face_data['mouth'] = filter_var($data['mouth'], FILTER_SANITIZE_STRING);
+                    $face_data['skin_color'] = filter_var($data['skin_color'], FILTER_SANITIZE_STRING);
+                    $face_data['sex'] = filter_var($data['sex'], FILTER_SANITIZE_STRING);
+                    $face = new FaceEntity($face_data);
+
+                    $face_mapper = new FaceMapper($this->db);
+                    $newelement = $face_mapper->save($face, $userid);
+                    break;
             }
 
             if( is_null($newelement) ){

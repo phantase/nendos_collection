@@ -171,4 +171,27 @@ class FaceMapper extends Mapper
                                $photoid, $action, $detail);
     return null;
   }
+
+  public function save(FaceEntity $face, $userid) {
+    $sql = "INSERT INTO faces
+              (boxid, nendoroidid, eyes, eyes_color, mouth, skin_color, sex, creatorid, creationdate, editorid, editiondate) VALUES
+              (:boxid, :nendoroidid, :eyes, :eyes_color, :mouth, :skin_color, :sex, :userid, NOW(), :userid, NOW())";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "boxid" => $face->getBoxId(),
+        "nendoroidid" => $face->getNendoroidId(),
+        "eyes" => $face->getEyes(),
+        "eyes_color" => $face->getEyesColor(),
+        "mouth" => $face->getMouth(),
+        "skin_color" => $face->getSkinColor(),
+        "sex" => $face->getSex(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not save face");
+    }
+    $faceid = $this->db->lastInsertId();
+    $this->addHistory($userid,$faceid,"Creation");
+    return $this->getByInternalid($faceid);
+  }
 }
