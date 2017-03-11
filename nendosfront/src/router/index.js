@@ -25,6 +25,7 @@ import AddBodypart from 'components/forms/AddBodypart'
 import AddFace from 'components/forms/AddFace'
 import AddHair from 'components/forms/AddHair'
 import AddHand from 'components/forms/AddHand'
+import AddNendoroid from 'components/forms/AddNendoroid'
 
 Vue.use(Router)
 
@@ -273,6 +274,20 @@ export default new Router({
         description: 'List of all hands'
       },
       component: Hands
+    },
+    {
+      path: '/nendoroid/add',
+      name: 'Add nendoroid',
+      meta: {
+        description: 'Add a new nendoroid',
+        breadcrumb: [
+          {
+            title: 'Nendoroids',
+            link: '/nendoroids'
+          }
+        ]
+      },
+      component: AddNendoroid
     },
     {
       path: '/nendoroid/:id',

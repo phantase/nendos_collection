@@ -17,6 +17,9 @@ const getters = {
 }
 
 const mutations = {
+  [types.ADD_NENDOROID] (state, nendoroid) {
+    state.nendoroids.push(nendoroid)
+  },
   [types.SET_NENDOROIDS] (state, nendoroids) {
     state.nendoroids = nendoroids
   },
@@ -44,6 +47,9 @@ const mutations = {
 }
 
 const actions = {
+  addNendoroid (store, nendoroid) {
+    store.commit(types.ADD_NENDOROID, nendoroid)
+  },
   setNendoroids (store, nendoroids) {
     store.commit(types.SET_NENDOROIDS, nendoroids)
   },
@@ -112,6 +118,18 @@ const actions = {
       context.$http.patch('nendoroids/' + nendoroidid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_NENDOROID, nendoroidid)
         resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  createNendoroid (store, payload) {
+    let context = payload.context
+    let formData = payload.formData
+    return new Promise((resolve, reject) => {
+      context.$http.post('nendoroid/new', formData).then(response => {
+        store.dispatch('addNendoroid', response.data)
+        resolve(response.data.internalid)
       }, response => {
         reject()
       })
