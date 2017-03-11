@@ -18,14 +18,12 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "accessory":
                 case "accessories":
                     $accessory_data = [];
-                    $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $accessory_data['boxid'] = $boxid === "" ? null : $boxid;
-                    $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
-                    $accessory_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
-                    $accessory_data['type'] = filter_var($data['type'], FILTER_SANITIZE_STRING);
-                    $accessory_data['main_color'] = filter_var($data['main_color'], FILTER_SANITIZE_STRING);
-                    $accessory_data['other_color'] = filter_var($data['other_color'], FILTER_SANITIZE_STRING);
-                    $accessory_data['description'] = filter_var($data['description'], FILTER_SANITIZE_STRING);
+                    $accessory_data['boxid']        = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
+                    $accessory_data['nendoroidid']  = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
+                    $accessory_data['type']         = array_key_exists('type',          $data) ? filter_var($data['type'],          FILTER_SANITIZE_STRING) : null;
+                    $accessory_data['main_color']   = array_key_exists('main_color',    $data) ? filter_var($data['main_color'],    FILTER_SANITIZE_STRING) : null;
+                    $accessory_data['other_color']  = array_key_exists('other_color',   $data) ? filter_var($data['other_color'],   FILTER_SANITIZE_STRING) : null;
+                    $accessory_data['description']  = array_key_exists('description',   $data) ? filter_var($data['description'],   FILTER_SANITIZE_STRING) : null;
                     $accessory = new AccessoryEntity($accessory_data);
 
                     $accessory_mapper = new AccessoryMapper($this->db);
@@ -34,14 +32,12 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "bodypart":
                 case "bodyparts":
                     $bodypart_data = [];
-                    $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $bodypart_data['boxid'] = $boxid === "" ? null : $boxid;
-                    $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
-                    $bodypart_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
-                    $bodypart_data['part'] = filter_var($data['part'], FILTER_SANITIZE_STRING);
-                    $bodypart_data['main_color'] = filter_var($data['main_color'], FILTER_SANITIZE_STRING);
-                    $bodypart_data['other_color'] = filter_var($data['other_color'], FILTER_SANITIZE_STRING);
-                    $bodypart_data['description'] = filter_var($data['description'], FILTER_SANITIZE_STRING);
+                    $bodypart_data['boxid']         = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
+                    $bodypart_data['nendoroidid']   = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
+                    $bodypart_data['part']          = array_key_exists('part',          $data) ? filter_var($data['part'],          FILTER_SANITIZE_STRING) : null;
+                    $bodypart_data['main_color']    = array_key_exists('main_color',    $data) ? filter_var($data['main_color'],    FILTER_SANITIZE_STRING) : null;
+                    $bodypart_data['other_color']   = array_key_exists('other_color',   $data) ? filter_var($data['other_color'],   FILTER_SANITIZE_STRING) : null;
+                    $bodypart_data['description']   = array_key_exists('description',   $data) ? filter_var($data['description'],   FILTER_SANITIZE_STRING) : null;
                     $bodypart = new BodypartEntity($bodypart_data);
 
                     $bodypart_mapper = new BodypartMapper($this->db);
@@ -50,15 +46,13 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "face":
                 case "faces":
                     $face_data = [];
-                    $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $face_data['boxid'] = $boxid === "" ? null : $boxid;
-                    $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
-                    $face_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
-                    $face_data['eyes'] = filter_var($data['eyes'], FILTER_SANITIZE_STRING);
-                    $face_data['eyes_color'] = filter_var($data['eyes_color'], FILTER_SANITIZE_STRING);
-                    $face_data['mouth'] = filter_var($data['mouth'], FILTER_SANITIZE_STRING);
-                    $face_data['skin_color'] = filter_var($data['skin_color'], FILTER_SANITIZE_STRING);
-                    $face_data['sex'] = filter_var($data['sex'], FILTER_SANITIZE_STRING);
+                    $face_data['boxid']         = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
+                    $face_data['nendoroidid']   = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
+                    $face_data['eyes']          = array_key_exists('eyes',          $data) ? filter_var($data['eyes'],          FILTER_SANITIZE_STRING) : null;
+                    $face_data['eyes_color']    = array_key_exists('eyes_color',    $data) ? filter_var($data['eyes_color'],    FILTER_SANITIZE_STRING) : null;
+                    $face_data['mouth']         = array_key_exists('mouth',         $data) ? filter_var($data['mouth'],         FILTER_SANITIZE_STRING) : null;
+                    $face_data['skin_color']    = array_key_exists('skin_color',    $data) ? filter_var($data['skin_color'],    FILTER_SANITIZE_STRING) : null;
+                    $face_data['sex']           = array_key_exists('sex',           $data) ? filter_var($data['sex'],           FILTER_SANITIZE_STRING) : null;
                     $face = new FaceEntity($face_data);
 
                     $face_mapper = new FaceMapper($this->db);
@@ -67,15 +61,13 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "hair":
                 case "hairs":
                     $hair_data = [];
-                    $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $hair_data['boxid'] = $boxid === "" ? null : $boxid;
-                    $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
-                    $hair_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
-                    $hair_data['main_color'] = filter_var($data['main_color'], FILTER_SANITIZE_STRING);
-                    $hair_data['other_color'] = filter_var($data['other_color'], FILTER_SANITIZE_STRING);
-                    $hair_data['haircut'] = filter_var($data['haircut'], FILTER_SANITIZE_STRING);
-                    $hair_data['description'] = filter_var($data['description'], FILTER_SANITIZE_STRING);
-                    $hair_data['frontback'] = filter_var($data['frontback'], FILTER_SANITIZE_STRING);
+                    $hair_data['boxid']         = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
+                    $hair_data['nendoroidid']   = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
+                    $hair_data['main_color']    = array_key_exists('main_color',    $data) ? filter_var($data['main_color'],    FILTER_SANITIZE_STRING) : null;
+                    $hair_data['other_color']   = array_key_exists('other_color',   $data) ? filter_var($data['other_color'],   FILTER_SANITIZE_STRING) : null;
+                    $hair_data['haircut']       = array_key_exists('haircut',       $data) ? filter_var($data['haircut'],       FILTER_SANITIZE_STRING) : null;
+                    $hair_data['description']   = array_key_exists('description',   $data) ? filter_var($data['description'],   FILTER_SANITIZE_STRING) : null;
+                    $hair_data['frontback']     = array_key_exists('frontback',     $data) ? filter_var($data['frontback'],     FILTER_SANITIZE_STRING) : null;
                     $hair = new HairEntity($hair_data);
 
                     $hair_mapper = new HairMapper($this->db);
@@ -84,14 +76,12 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "hand":
                 case "hands":
                     $hand_data = [];
-                    $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $hand_data['boxid'] = $boxid === "" ? null : $boxid;
-                    $nendoroidid = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
-                    $hand_data['nendoroidid'] = $nendoroidid === "" ? null : $nendoroidid;
-                    $hand_data['skin_color'] = filter_var($data['skin_color'], FILTER_SANITIZE_STRING);
-                    $hand_data['leftright'] = filter_var($data['leftright'], FILTER_SANITIZE_STRING);
-                    $hand_data['posture'] = filter_var($data['posture'], FILTER_SANITIZE_STRING);
-                    $hand_data['description'] = filter_var($data['description'], FILTER_SANITIZE_STRING);
+                    $hand_data['boxid']         = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
+                    $hand_data['nendoroidid']   = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
+                    $hand_data['skin_color']    = array_key_exists('skin_color',    $data) ? filter_var($data['skin_color'],    FILTER_SANITIZE_STRING) : null;
+                    $hand_data['leftright']     = array_key_exists('leftright',     $data) ? filter_var($data['leftright'],     FILTER_SANITIZE_STRING) : null;
+                    $hand_data['posture']       = array_key_exists('posture',       $data) ? filter_var($data['posture'],       FILTER_SANITIZE_STRING) : null;
+                    $hand_data['description']   = array_key_exists('description',   $data) ? filter_var($data['description'],   FILTER_SANITIZE_STRING) : null;
                     $hand = new HandEntity($hand_data);
 
                     $hand_mapper = new HandMapper($this->db);
@@ -100,12 +90,11 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "nendoroid":
                 case "nendoroids":
                     $nendoroid_data = [];
-                    $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
-                    $nendoroid_data['boxid'] = $boxid === "" ? null : $boxid;
-                    $nendoroid_data['name'] = filter_var($data['name'], FILTER_SANITIZE_STRING);
-                    $nendoroid_data['version'] = filter_var($data['version'], FILTER_SANITIZE_STRING);
-                    $nendoroid_data['sex'] = filter_var($data['sex'], FILTER_SANITIZE_STRING);
-                    $nendoroid_data['dominant_color'] = filter_var($data['dominant_color'], FILTER_SANITIZE_STRING);
+                    $nendoroid_data['boxid']            = array_key_exists('boxid',             $data) ? filter_var($data['boxid'],             FILTER_SANITIZE_NUMBER_INT) : null;
+                    $nendoroid_data['name']             = array_key_exists('name',              $data) ? filter_var($data['name'],              FILTER_SANITIZE_STRING) : null;
+                    $nendoroid_data['version']          = array_key_exists('version',           $data) ? filter_var($data['version'],           FILTER_SANITIZE_STRING) : null;
+                    $nendoroid_data['sex']              = array_key_exists('sex',               $data) ? filter_var($data['sex'],               FILTER_SANITIZE_STRING) : null;
+                    $nendoroid_data['dominant_color']   = array_key_exists('dominant_color',    $data) ? filter_var($data['dominant_color'],    FILTER_SANITIZE_STRING) : null;
                     $nendoroid = new NendoroidEntity($nendoroid_data);
 
                     $nendoroid_mapper = new NendoroidMapper($this->db);
@@ -114,17 +103,17 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "box":
                 case "boxes":
                     $box_data = [];
-                    $box_data['number'] = filter_var($data['number'], FILTER_SANITIZE_STRING);
-                    $box_data['name'] = filter_var($data['name'], FILTER_SANITIZE_STRING);
-                    $box_data['series'] = filter_var($data['series'], FILTER_SANITIZE_STRING);
-                    $box_data['manufacturer'] = filter_var($data['manufacturer'], FILTER_SANITIZE_STRING);
-                    $box_data['category'] = filter_var($data['category'], FILTER_SANITIZE_STRING);
-                    $box_data['price'] = filter_var($data['price'], FILTER_SANITIZE_STRING);
-                    $box_data['releasedate'] = filter_var($data['releasedate'], FILTER_SANITIZE_STRING);
-                    $box_data['specifications'] = filter_var($data['specifications'], FILTER_SANITIZE_STRING);
-                    $box_data['sculptor'] = filter_var($data['sculptor'], FILTER_SANITIZE_STRING);
-                    $box_data['cooperation'] = filter_var($data['cooperation'], FILTER_SANITIZE_STRING);
-                    $box_data['officialurl'] = filter_var($data['officialurl'], FILTER_SANITIZE_STRING);
+                    $box_data['number']         = array_key_exists('number',            $data) ? filter_var($data['number'],            FILTER_SANITIZE_STRING) : null;
+                    $box_data['name']           = array_key_exists('name',              $data) ? filter_var($data['name'],              FILTER_SANITIZE_STRING) : null;
+                    $box_data['series']         = array_key_exists('series',            $data) ? filter_var($data['series'],            FILTER_SANITIZE_STRING) : null;
+                    $box_data['manufacturer']   = array_key_exists('manufacturer',      $data) ? filter_var($data['manufacturer'],      FILTER_SANITIZE_STRING) : null;
+                    $box_data['category']       = array_key_exists('category',          $data) ? filter_var($data['category'],          FILTER_SANITIZE_STRING) : null;
+                    $box_data['price']          = array_key_exists('price',             $data) ? filter_var($data['price'],             FILTER_SANITIZE_STRING) : null;
+                    $box_data['releasedate']    = array_key_exists('releasedate',       $data) ? filter_var($data['releasedate'],       FILTER_SANITIZE_STRING) : null;
+                    $box_data['specifications'] = array_key_exists('specifications',    $data) ? filter_var($data['specifications'],    FILTER_SANITIZE_STRING) : null;
+                    $box_data['sculptor']       = array_key_exists('sculptor',          $data) ? filter_var($data['sculptor'],          FILTER_SANITIZE_STRING) : null;
+                    $box_data['cooperation']    = array_key_exists('cooperation',       $data) ? filter_var($data['cooperation'],       FILTER_SANITIZE_STRING) : null;
+                    $box_data['officialurl']    = array_key_exists('officialurl',       $data) ? filter_var($data['officialurl'],       FILTER_SANITIZE_URL) : null;
                     $box = new BoxEntity($box_data);
 
                     $box_mapper = new BoxMapper($this->db);
