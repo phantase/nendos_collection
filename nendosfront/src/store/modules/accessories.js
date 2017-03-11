@@ -17,6 +17,9 @@ const getters = {
 }
 
 const mutations = {
+  [types.ADD_ACCESSORY] (state, accessory) {
+    state.accessories.push(accessory)
+  },
   [types.SET_ACCESSORIES] (state, accessories) {
     state.accessories = accessories
   },
@@ -44,6 +47,9 @@ const mutations = {
 }
 
 const actions = {
+  addAccessory (store, accessory) {
+    store.commit(types.ADD_ACCESSORY, accessory)
+  },
   setAccessories (store, accessories) {
     store.commit(types.SET_ACCESSORIES, accessories)
   },
@@ -112,6 +118,18 @@ const actions = {
       context.$http.patch('accessories/' + accessoryid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_ACCESSORY, accessoryid)
         resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  createAccessory (store, payload) {
+    let context = payload.context
+    let formData = payload.formData
+    return new Promise((resolve, reject) => {
+      context.$http.post('accessory/new', formData).then(response => {
+        store.dispatch('addAccessory', response.data)
+        resolve(response.data.internalid)
       }, response => {
         reject()
       })

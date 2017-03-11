@@ -20,6 +20,7 @@ import Nendoroid from 'components/Nendoroid'
 import Nendoroids from 'components/Nendoroids'
 import Photo from 'components/Photo'
 import Photos from 'components/Photos'
+import AddAccessory from 'components/forms/AddAccessory'
 
 Vue.use(Router)
 
@@ -48,6 +49,20 @@ export default new Router({
         description: 'Logout'
       },
       component: Logout
+    },
+    {
+      path: '/accessory/add',
+      name: 'Add accessory',
+      meta: {
+        description: 'Add a new accessory',
+        breadcrumb: [
+          {
+            title: 'Accessories',
+            link: '/accessories'
+          }
+        ]
+      },
+      component: AddAccessory
     },
     {
       path: '/accessory/:id',
