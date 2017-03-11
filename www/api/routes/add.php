@@ -58,6 +58,21 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $face_mapper = new FaceMapper($this->db);
                     $newelement = $face_mapper->save($face, $userid);
                     break;
+                case "hair":
+                case "hairs":
+                    $hair_data = [];
+                    $hair_data['boxid'] = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
+                    $hair_data['nendoroidid'] = filter_var($data['nendoroidid'], FILTER_SANITIZE_NUMBER_INT);
+                    $hair_data['main_color'] = filter_var($data['main_color'], FILTER_SANITIZE_STRING);
+                    $hair_data['other_color'] = filter_var($data['other_color'], FILTER_SANITIZE_STRING);
+                    $hair_data['haircut'] = filter_var($data['haircut'], FILTER_SANITIZE_STRING);
+                    $hair_data['description'] = filter_var($data['description'], FILTER_SANITIZE_STRING);
+                    $hair_data['frontback'] = filter_var($data['frontback'], FILTER_SANITIZE_STRING);
+                    $hair = new HairEntity($hair_data);
+
+                    $hair_mapper = new HairMapper($this->db);
+                    $newelement = $hair_mapper->save($hair, $userid);
+                    break;
             }
 
             if( is_null($newelement) ){

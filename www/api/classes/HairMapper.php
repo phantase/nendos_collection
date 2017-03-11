@@ -171,4 +171,27 @@ class HairMapper extends Mapper
                                $photoid, $action, $detail);
     return null;
   }
+
+  public function save(HairEntity $hair, $userid) {
+    $sql = "INSERT INTO hairs
+              (boxid, nendoroidid, main_color, other_color, haircut, description, frontback, creatorid, creationdate, editorid, editiondate) VALUES
+              (:boxid, :nendoroidid, :main_color, :other_color, :haircut, :description, :frontback, :userid, NOW(), :userid, NOW())";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "boxid" => $hair->getBoxId(),
+        "nendoroidid" => $hair->getNendoroidId(),
+        "main_color" => $hair->getMainColor(),
+        "other_color" => $hair->getOtherColor(),
+        "haircut" => $hair->getHairCut(),
+        "description" => $hair->getDescription(),
+        "frontback" => $hair->getFrontBack(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not save hair");
+    }
+    $hairid = $this->db->lastInsertId();
+    $this->addHistory($userid,$hairid,"Creation");
+    return $this->getByInternalid($hairid);
+  }
 }
