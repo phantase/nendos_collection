@@ -171,4 +171,25 @@ class BodypartMapper extends Mapper
                                $photoid, $action, $detail);
     return null;
   }
+
+  public function save(BodypartEntity $bodypart, $userid) {
+    $sql = "INSERT INTO bodyparts
+              (boxid, nendoroidid, part, main_color, other_color, description, creatorid, creationdate, editorid, editiondate) VALUES
+              (:boxid, :nendoroidid, :part, :main_color, :other_color, :description, :userid, NOW(), :userid, NOW())";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "boxid" => $bodypart->getBoxId(),
+        "nendoroidid" => $bodypart->getNendoroidId(),
+        "part" => $bodypart->getPart(),
+        "main_color" => $bodypart->getMainColor(),
+        "other_color" => $bodypart->getOtherColor(),
+        "description" => $bodypart->getDescription(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not save bodypart");
+    }
+    $bodypartid = $this->db->lastInsertId();
+    return $this->getByInternalid($bodypartid);
+  }
 }
