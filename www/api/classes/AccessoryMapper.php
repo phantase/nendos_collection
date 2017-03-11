@@ -190,6 +190,7 @@ class AccessoryMapper extends Mapper
       throw new Exception("Could not save accessory");
     }
     $accessoryid = $this->db->lastInsertId();
+    $this->addHistory($userid,$accessoryid,"Creation");
     return $this->getByInternalid($accessoryid);
   }
 }

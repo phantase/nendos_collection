@@ -190,6 +190,7 @@ class BodypartMapper extends Mapper
       throw new Exception("Could not save bodypart");
     }
     $bodypartid = $this->db->lastInsertId();
+    $this->addHistory($userid,$bodypartid,"Creation");
     return $this->getByInternalid($bodypartid);
   }
 }
