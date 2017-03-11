@@ -21,6 +21,7 @@ import Nendoroids from 'components/Nendoroids'
 import Photo from 'components/Photo'
 import Photos from 'components/Photos'
 import AddAccessory from 'components/forms/AddAccessory'
+import AddBodypart from 'components/forms/AddBodypart'
 
 Vue.use(Router)
 
@@ -85,6 +86,20 @@ export default new Router({
         description: 'List of all accessories'
       },
       component: Accessories
+    },
+    {
+      path: '/bodypart/add',
+      name: 'Add bodypart',
+      meta: {
+        description: 'Add a new bodypart',
+        breadcrumb: [
+          {
+            title: 'Bodyparts',
+            link: '/bodyparts'
+          }
+        ]
+      },
+      component: AddBodypart
     },
     {
       path: '/bodypart/:id',

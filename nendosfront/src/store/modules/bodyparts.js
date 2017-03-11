@@ -17,6 +17,9 @@ const getters = {
 }
 
 const mutations = {
+  [types.ADD_BODYPART] (state, bodypart) {
+    state.bodyparts.push(bodypart)
+  },
   [types.SET_BODYPARTS] (state, bodyparts) {
     state.bodyparts = bodyparts
   },
@@ -44,6 +47,9 @@ const mutations = {
 }
 
 const actions = {
+  addBodypart (store, bodypart) {
+    store.commit(types.ADD_BODYPART, bodypart)
+  },
   setBodyparts (store, bodyparts) {
     store.commit(types.SET_BODYPARTS, bodyparts)
   },
@@ -112,6 +118,18 @@ const actions = {
       context.$http.patch('bodyparts/' + bodypartid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_BODYPART, bodypartid)
         resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  createBodypart (store, payload) {
+    let context = payload.context
+    let formData = payload.formData
+    return new Promise((resolve, reject) => {
+      context.$http.post('bodypart/new', formData).then(response => {
+        store.dispatch('addBodypart', response.data)
+        resolve(response.data.internalid)
       }, response => {
         reject()
       })
