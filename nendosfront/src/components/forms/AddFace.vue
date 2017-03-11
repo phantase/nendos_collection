@@ -8,15 +8,20 @@
             <h3 class="box-title"><i class="fa icon-icon_nendo_face"></i> Add a face</h3>
           </div>
           <div class="box-body">
+            <div class="alert alert-danger" v-if="failure">
+              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+              An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
+            </div>
             <form role="form">
               <div class="row">
                 <div class="col-md-6 col-sm-12">
-                  <div class="form-group" :class="boxerror?'has-error':''">
+                  <div class="form-group" :class="errorbox?'has-error':''">
                     <label>Box</label>
                     <select class="form-control" v-model="boxselected">
                       <option value="box">- Box -</option>
                       <option v-for="box in boxes4select" :value="box.internalid">{{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}</option>
                     </select>
+                    <span class="help-block" v-if="errorbox">You must select a box</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -29,27 +34,31 @@
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="erroreyes?'has-error':''">
                     <label>Eyes</label>
                     <input type="text" class="form-control" placeholder="Eyes" v-model="eyes">
+                    <span class="help-block" v-if="erroreyes">The eyes are mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="erroreyescolor?'has-error':''">
                     <label>Eyes color name</label>
                     <input type="text" class="form-control" placeholder="Eyes color name" v-model="eyescolor">
+                    <span class="help-block" v-if="erroreyescolor">The eyes color is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errormouth?'has-error':''">
                     <label>Mouth</label>
                     <input type="text" class="form-control" placeholder="Mouth" v-model="mouth">
+                    <span class="help-block" v-if="errormouth">The mouth is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errorskincolor?'has-error':''">
                     <label>Skin color name</label>
                     <input type="text" class="form-control" placeholder="Skin color name" v-model="skincolor">
+                    <span class="help-block" v-if="errorskincolor">The skin color is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -98,7 +107,12 @@ export default {
       mouth: null,
       skincolor: null,
       sex: 'Undefined',
-      boxerror: false
+      errorbox: false,
+      erroreyes: false,
+      erroreyescolor: false,
+      errormouth: false,
+      errorskincolor: false,
+      failure: false
     }
   },
   computed: {
@@ -126,21 +140,56 @@ export default {
       this.mouth = null
       this.skincolor = null
       this.sex = 'Undefined'
-      this.boxerror = false
+      this.errorbox = false
+      this.erroreyes = false
+      this.erroreyescolor = false
+      this.errormouth = false
+      this.errorskincolor = false
+      this.failure = false
+    },
+    checkForm () {
+      if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
+        this.errorbox = true
+      } else {
+        this.errorbox = false
+      }
+      if (this.eyes === null) {
+        this.erroreyes = true
+      } else {
+        this.erroreyes = false
+      }
+      if (this.eyescolor === null) {
+        this.erroreyescolor = true
+      } else {
+        this.erroreyescolor = false
+      }
+      if (this.mouth === null) {
+        this.errormouth = true
+      } else {
+        this.errormouth = false
+      }
+      if (this.skincolor === null) {
+        this.errorskincolor = true
+      } else {
+        this.errorskincolor = false
+      }
     },
     submit () {
       console.log('Submit form')
-      if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
+      this.failure = false
+      this.checkForm()
+      if (this.errorbox || this.erroreyes || this.erroreyescolor || this.errormouth || this.errorskincolor) {
         console.log('Cannot submit')
-        this.boxerror = true
       } else {
         if (this.nendoroidselected !== 'nendoroid') {
           this.boxselected = this.nendoroids.filter(nendoroid => nendoroid.internalid === this.nendoroidselected)[0].boxid
         }
         console.log('Can submit')
         let formData = new FormData()
-        formData.append('boxid', this.boxselected === 'box' ? null : this.boxselected)
-        formData.append('nendoroidid', this.nendoroidselected === 'nendoroid' ? null : this.nendoroidselected)
+        formData.append('boxid', this.boxselected)
+        if (this.nendoroidselected !== 'nendoroid') {
+          formData.append('nendoroidid', this.nendoroidselected)
+        }
         formData.append('eyes', this.eyes)
         formData.append('eyes_color', this.eyescolor)
         formData.append('mouth', this.mouth)
@@ -154,6 +203,7 @@ export default {
           router.push('/face/' + response)
         }, response => {
           console.log('Addition failed')
+          this.failure = true
         })
       }
     }

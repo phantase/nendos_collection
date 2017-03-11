@@ -8,10 +8,14 @@
             <h3 class="box-title"><i class="fa icon-icon_nendo_hand"></i> Add a hand</h3>
           </div>
           <div class="box-body">
+            <div class="alert alert-danger" v-if="failure">
+              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+              An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
+            </div>
             <form role="form">
               <div class="row">
                 <div class="col-md-6 col-sm-12">
-                  <div class="form-group" :class="boxerror?'has-error':''">
+                  <div class="form-group" :class="errorbox?'has-error':''">
                     <label>Box</label>
                     <select class="form-control" v-model="boxselected">
                       <option value="box">- Box -</option>
@@ -29,9 +33,10 @@
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errorposture?'has-error':''">
                     <label>Posture</label>
                     <input type="text" class="form-control" placeholder="Posture" v-model="posture">
+                    <span class="help-block" v-if="errorposture">The posture is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
@@ -45,15 +50,17 @@
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errorskincolor?'has-error':''">
                     <label>Skin color</label>
                     <input type="text" class="form-control" placeholder="Skin color" v-model="skincolor">
+                    <span class="help-block" v-if="errorskincolor">The skincolor is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errordescription?'has-error':''">
                     <label>Description</label>
                     <input type="text" class="form-control" placeholder="Description" v-model="description">
+                    <span class="help-block" v-if="errordescription">The description is mandatory</span>
                   </div>
                 </div>
               </div>
@@ -91,7 +98,11 @@ export default {
       leftright: 'Left',
       skincolor: null,
       description: null,
-      boxerror: false
+      errorbox: false,
+      errorskincolor: false,
+      errorposture: false,
+      errordescription: false,
+      failure: false
     }
   },
   computed: {
@@ -118,21 +129,50 @@ export default {
       this.leftright = 'Left'
       this.skincolor = null
       this.description = null
-      this.boxerror = false
+      this.errorbox = false
+      this.errorskincolor = false
+      this.errorposture = false
+      this.errordescription = false
+      this.failure = false
+    },
+    checkForm () {
+      if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
+        this.errorbox = true
+      } else {
+        this.errorbox = false
+      }
+      if (this.skincolor === null) {
+        this.errorskincolor = true
+      } else {
+        this.errorskincolor = false
+      }
+      if (this.posture === null) {
+        this.errorposture = true
+      } else {
+        this.errorposture = false
+      }
+      if (this.description === null) {
+        this.errordescription = true
+      } else {
+        this.errordescription = false
+      }
     },
     submit () {
       console.log('Submit form')
-      if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
+      this.failure = false
+      this.checkForm()
+      if (this.errorbox || this.errorskincolor || this.errorposture || this.errordescription) {
         console.log('Cannot submit')
-        this.boxerror = true
       } else {
         if (this.nendoroidselected !== 'nendoroid') {
           this.boxselected = this.nendoroids.filter(nendoroid => nendoroid.internalid === this.nendoroidselected)[0].boxid
         }
         console.log('Can submit')
         let formData = new FormData()
-        formData.append('boxid', this.boxselected === 'box' ? null : this.boxselected)
-        formData.append('nendoroidid', this.nendoroidselected === 'nendoroid' ? null : this.nendoroidselected)
+        formData.append('boxid', this.boxselected)
+        if (this.nendoroidselected !== 'nendoroid') {
+          formData.append('nendoroidid', this.nendoroidselected)
+        }
         formData.append('posture', this.posture)
         formData.append('leftright', this.leftright)
         formData.append('skin_color', this.skincolor)
@@ -145,6 +185,7 @@ export default {
           router.push('/hand/' + response)
         }, response => {
           console.log('Addition failed')
+          this.failure = true
         })
       }
     }

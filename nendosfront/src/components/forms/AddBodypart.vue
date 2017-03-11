@@ -8,15 +8,20 @@
             <h3 class="box-title"><i class="fa icon-icon_nendo_body"></i> Add a bodypart</h3>
           </div>
           <div class="box-body">
+            <div class="alert alert-danger" v-if="failure">
+              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+              An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
+            </div>
             <form role="form">
               <div class="row">
                 <div class="col-md-6 col-sm-12">
-                  <div class="form-group" :class="boxerror?'has-error':''">
+                  <div class="form-group" :class="errorbox?'has-error':''">
                     <label>Box</label>
                     <select class="form-control" v-model="boxselected">
                       <option value="box">- Box -</option>
                       <option v-for="box in boxes4select" :value="box.internalid">{{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}</option>
                     </select>
+                    <span class="help-block" v-if="errorbox">You must select a box</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -29,15 +34,17 @@
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errorpart?'has-error':''">
                     <label>Part</label>
                     <input type="text" class="form-control" placeholder="Part" v-model="part">
+                    <span class="help-block" v-if="errorpart">The part is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errormaincolor?'has-error':''">
                     <label>Main color</label>
                     <input type="text" class="form-control" placeholder="Main color" v-model="maincolor">
+                    <span class="help-block" v-if="errormaincolor">The main color is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -47,9 +54,10 @@
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errordescription?'has-error':''">
                     <label>Description</label>
                     <input type="text" class="form-control" placeholder="Description" v-model="description">
+                    <span class="help-block" v-if="errordescription">The description is mandatory</span>
                   </div>
                 </div>
               </div>
@@ -87,7 +95,11 @@ export default {
       maincolor: null,
       othercolor: null,
       description: null,
-      boxerror: false
+      errorbox: false,
+      errorpart: false,
+      errormaincolor: false,
+      errordescription: false,
+      failure: false
     }
   },
   computed: {
@@ -114,24 +126,55 @@ export default {
       this.maincolor = null
       this.othercolor = null
       this.description = null
-      this.boxerror = false
+      this.errorbox = false
+      this.errorpart = false
+      this.errormaincolor = false
+      this.errordescription = false
+      this.failure = false
+    },
+    checkForm () {
+      if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
+        this.errorbox = true
+      } else {
+        this.errorbox = false
+      }
+      if (this.part === null) {
+        this.errorpart = true
+      } else {
+        this.errorpart = false
+      }
+      if (this.maincolor === null) {
+        this.errormaincolor = true
+      } else {
+        this.errormaincolor = false
+      }
+      if (this.description === null) {
+        this.errordescription = true
+      } else {
+        this.errordescription = false
+      }
     },
     submit () {
       console.log('Submit form')
-      if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
+      this.failure = false
+      this.checkForm()
+      if (this.errorbox || this.errorpart || this.errormaincolor || this.errordescription) {
         console.log('Cannot submit')
-        this.boxerror = true
       } else {
         if (this.nendoroidselected !== 'nendoroid') {
           this.boxselected = this.nendoroids.filter(nendoroid => nendoroid.internalid === this.nendoroidselected)[0].boxid
         }
         console.log('Can submit')
         let formData = new FormData()
-        formData.append('boxid', this.boxselected === 'box' ? null : this.boxselected)
-        formData.append('nendoroidid', this.nendoroidselected === 'nendoroid' ? null : this.nendoroidselected)
+        formData.append('boxid', this.boxselected)
+        if (this.nendoroidselected !== 'nendoroid') {
+          formData.append('nendoroidid', this.nendoroidselected)
+        }
         formData.append('part', this.part)
         formData.append('main_color', this.maincolor)
-        formData.append('other_color', this.othercolor)
+        if (this.othercolor) {
+          formData.append('other_color', this.othercolor)
+        }
         formData.append('description', this.description)
         this.createBodypart({
           'context': this,
@@ -141,6 +184,7 @@ export default {
           router.push('/bodypart/' + response)
         }, response => {
           console.log('Addition failed')
+          this.failure = true
         })
       }
     }

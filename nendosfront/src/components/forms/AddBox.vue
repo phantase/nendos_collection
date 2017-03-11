@@ -8,72 +8,80 @@
             <h3 class="box-title"><i class="fa icon-icon_nendo_box"></i> Add a box</h3>
           </div>
           <div class="box-body">
+            <div class="alert alert-danger" v-if="failure">
+              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+              An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
+            </div>
             <form role="form">
               <div class="row">
                 <div class="col-md-8 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errorname?'has-error':''">
                     <label>Name</label>
-                    <input type="text" class="form-control" placeholder="Name" v-model="name">
+                    <input type="text" class="form-control" maxlength="100" placeholder="Name" v-model="name">
+                    <span class="help-block" v-if="errorname">The name is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Series</label>
-                    <input type="text" class="form-control" placeholder="Series" v-model="series">
+                    <input type="text" class="form-control" maxlength="100" placeholder="Series" v-model="series">
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errorcategory?'has-error':''">
                     <label>Category</label>
-                    <input type="text" class="form-control" placeholder="Category" v-model="category">
+                    <input type="text" class="form-control" maxlength="50" placeholder="Category" v-model="category">
+                    <span class="help-block" v-if="errorcategory">The category is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Number</label>
-                    <input type="text" class="form-control" placeholder="Number" v-model="number">
+                    <input type="text" class="form-control" maxlength="5" placeholder="Number" v-model="number">
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Manufacturer</label>
-                    <input type="text" class="form-control" placeholder="Manufacturer" v-model="manufacturer">
+                    <input type="text" class="form-control" maxlength="100" placeholder="Manufacturer" v-model="manufacturer">
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Sculptor</label>
-                    <input type="text" class="form-control" placeholder="Sculptor" v-model="sculptor">
+                    <input type="text" class="form-control" maxlength="50" placeholder="Sculptor" v-model="sculptor">
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Cooperation</label>
-                    <input type="text" class="form-control" placeholder="Cooperation" v-model="cooperation">
+                    <input type="text" class="form-control" maxlength="50" placeholder="Cooperation" v-model="cooperation">
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errorreleasedate?'has-error':''">
                     <label>Release date</label>
                     <input type="text" class="form-control" placeholder="YYYY/MM" v-model="releasedate">
+                    <span class="help-block" v-if="errorreleasedate">The release date must be in format YYYY/MM</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errorprice?'has-error':''">
                     <label>Price (¥)</label>
-                    <input type="text" class="form-control" placeholder="Price (¥)" v-model="price">
+                    <input type="text" class="form-control" maxlength="10" placeholder="Price (¥)" v-model="price">
+                    <span class="help-block" v-if="errorprice">The price must be a number</span>
                   </div>
                 </div>
                 <div class="col-md-12 col-sm-12">
                   <div class="form-group">
                     <label>Specifications</label>
-                    <input type="text" class="form-control" placeholder="Specifications" v-model="specifications">
+                    <input type="text" class="form-control" maxlength="200" placeholder="Specifications" v-model="specifications">
                   </div>
                 </div>
                 <div class="col-md-12 col-sm-12">
                   <div class="form-group">
                     <label>Official page URL</label>
-                    <input type="text" class="form-control" placeholder="http://www.goodsmile.info/en/product/......" v-model="officialurl">
+                    <input type="text" class="form-control" maxlength="200" placeholder="http://www.goodsmile.info/en/product/......" v-model="officialurl">
                   </div>
                 </div>
               </div>
@@ -115,7 +123,12 @@ export default {
       specifications: null,
       sculptor: null,
       cooperation: null,
-      officialurl: null
+      officialurl: null,
+      errorname: false,
+      errorcategory: false,
+      errorprice: false,
+      errorreleasedate: false,
+      failure: false
     }
   },
   computed: {
@@ -135,26 +148,72 @@ export default {
       this.sculptor = null
       this.cooperation = null
       this.officialurl = null
+      this.errorname = false
+      this.errorcategory = false
+      this.errorprice = false
+      this.errorreleasedate = false
+      this.failure = false
+    },
+    checkForm () {
+      if (this.name === null) {
+        this.errorname = true
+      } else {
+        this.errorname = false
+      }
+      if (this.category === null) {
+        this.errorcategory = true
+      } else {
+        this.errorcategory = false
+      }
+      if (this.price && isNaN(this.price)) {
+        this.errorprice = true
+      } else {
+        this.errorprice = false
+      }
+      if (this.releasedate && !this.releasedate.match(/(19|20)[0-9]{2}\/[0-9]{2}/)) {
+        this.errorreleasedate = true
+      } else {
+        this.errorreleasedate = false
+      }
     },
     submit () {
       console.log('Submit form')
-      if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
+      this.failure = false
+      this.checkForm()
+      if (this.errorname || this.errorcategory || this.errorprice || this.errorreleasedate) {
         console.log('Cannot submit')
-        this.boxerror = true
       } else {
         console.log('Can submit')
         let formData = new FormData()
-        formData.append('number', this.number)
+        if (this.number) {
+          formData.append('number', this.number)
+        }
         formData.append('name', this.name)
-        formData.append('series', this.series)
-        formData.append('manufacturer', this.manufacturer)
+        if (this.series) {
+          formData.append('series', this.series)
+        }
+        if (this.manufacturer) {
+          formData.append('manufacturer', this.manufacturer)
+        }
         formData.append('category', this.category)
-        formData.append('price', this.price)
-        formData.append('releasedate', this.releasedate.split('/')[0] + '-' + this.releasedate.split('/')[1] + '-01')
-        formData.append('specifications', this.specifications)
-        formData.append('sculptor', this.sculptor)
-        formData.append('cooperation', this.cooperation)
-        formData.append('officialurl', this.officialurl)
+        if (this.price) {
+          formData.append('price', this.price)
+        }
+        if (this.releasedate) {
+          formData.append('releasedate', this.releasedate ? this.releasedate.split('/')[0] + '-' + this.releasedate.split('/')[1] + '-01' : null)
+        }
+        if (this.specifications) {
+          formData.append('specifications', this.specifications)
+        }
+        if (this.sculptor) {
+          formData.append('sculptor', this.sculptor)
+        }
+        if (this.cooperation) {
+          formData.append('cooperation', this.cooperation)
+        }
+        if (this.officialurl) {
+          formData.append('officialurl', this.officialurl)
+        }
         this.createBox({
           'context': this,
           'formData': formData
@@ -163,6 +222,7 @@ export default {
           router.push('/box/' + response)
         }, response => {
           console.log('Addition failed')
+          this.failure = true
         })
       }
     }

@@ -8,27 +8,33 @@
             <h3 class="box-title"><i class="fa icon-icon_nendo_nendo"></i> Add a nendoroid</h3>
           </div>
           <div class="box-body">
+            <div class="alert alert-danger" v-if="failure">
+              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+              An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
+            </div>
             <form role="form">
               <div class="row">
                 <div class="col-md-12 col-sm-12">
-                  <div class="form-group" :class="boxerror?'has-error':''">
+                  <div class="form-group" :class="errorbox?'has-error':''">
                     <label>Box</label>
                     <select class="form-control" v-model="boxselected">
                       <option value="box">- Box -</option>
                       <option v-for="box in boxes4select" :value="box.internalid">{{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}</option>
                     </select>
+                    <span class="help-block" v-if="errorbox">You must select a box</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                  <div class="form-group">
+                  <div class="form-group" :class="errorname?'has-error':''">
                     <label>Name</label>
-                    <input type="text" class="form-control" placeholder="Name" v-model="name">
+                    <input type="text" class="form-control" maxlength="100" placeholder="Name" v-model="name">
+                    <span class="help-block" v-if="errorname">The name is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group">
                     <label>Version</label>
-                    <input type="text" class="form-control" placeholder="Version" v-model="version">
+                    <input type="text" class="form-control" maxlength="100" placeholder="Version" v-model="version">
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
@@ -81,7 +87,9 @@ export default {
       version: null,
       sex: 'Female',
       dominantcolor: '000000',
-      boxerror: false
+      errorbox: false,
+      errorname: false,
+      failure: false
     }
   },
   computed: {
@@ -98,21 +106,38 @@ export default {
       this.version = null
       this.sex = 'Female"'
       this.dominantcolor = '000000'
-      this.boxerror = false
+      this.errorbox = false
+      this.errorname = false
+      this.failure = false
+    },
+    checkForm () {
+      if (this.boxselected === 'box') {
+        this.errorbox = true
+      } else {
+        this.errorbox = false
+      }
+      if (this.name === null) {
+        this.errorname = true
+      } else {
+        this.errorname = false
+      }
     },
     submit () {
       console.log('Submit form')
-      if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
+      this.failure = false
+      this.checkForm()
+      if (this.errorbox || this.errorname) {
         console.log('Cannot submit')
-        this.boxerror = true
       } else {
         console.log('Can submit')
         let formData = new FormData()
-        formData.append('boxid', this.boxselected === 'box' ? null : this.boxselected)
+        formData.append('boxid', this.boxselected)
         formData.append('name', this.name)
-        formData.append('version', this.version)
+        if (this.version) {
+          formData.append('version', this.version)
+        }
         formData.append('sex', this.sex)
-        formData.append('dominantcolor', this.dominantcolor)
+        formData.append('dominant_color', this.dominantcolor)
         this.createNendoroid({
           'context': this,
           'formData': formData
@@ -121,6 +146,7 @@ export default {
           router.push('/nendoroid/' + response)
         }, response => {
           console.log('Addition failed')
+          this.failure = true
         })
       }
     }
