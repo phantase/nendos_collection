@@ -97,6 +97,20 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $hand_mapper = new HandMapper($this->db);
                     $newelement = $hand_mapper->save($hand, $userid);
                     break;
+                case "nendoroid":
+                case "nendoroids":
+                    $nendoroid_data = [];
+                    $boxid = filter_var($data['boxid'], FILTER_SANITIZE_NUMBER_INT);
+                    $nendoroid_data['boxid'] = $boxid === "" ? null : $boxid;
+                    $nendoroid_data['name'] = filter_var($data['name'], FILTER_SANITIZE_STRING);
+                    $nendoroid_data['version'] = filter_var($data['version'], FILTER_SANITIZE_STRING);
+                    $nendoroid_data['sex'] = filter_var($data['sex'], FILTER_SANITIZE_STRING);
+                    $nendoroid_data['dominant_color'] = filter_var($data['dominant_color'], FILTER_SANITIZE_STRING);
+                    $nendoroid = new NendoroidEntity($nendoroid_data);
+
+                    $nendoroid_mapper = new NendoroidMapper($this->db);
+                    $newelement = $nendoroid_mapper->save($nendoroid, $userid);
+                    break;
             }
 
             if( is_null($newelement) ){

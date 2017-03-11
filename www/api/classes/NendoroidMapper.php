@@ -280,4 +280,25 @@ class NendoroidMapper extends Mapper
                                $photoid, $action, $detail);
     return null;
   }
+
+  public function save(NendoroidEntity $nendoroid, $userid) {
+    $sql = "INSERT INTO nendoroids
+              (boxid, name, version, sex, dominant_color, creatorid, creationdate, editorid, editiondate) VALUES
+              (:boxid, :name, :version, :sex, :dominant_color, :userid, NOW(), :userid, NOW())";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "boxid" => $nendoroid->getBoxId(),
+        "name" => $nendoroid->getName(),
+        "version" => $nendoroid->getVersion(),
+        "sex" => $nendoroid->getSex(),
+        "dominant_color" => $nendoroid->getDominantColor(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not save nendoroid");
+    }
+    $hairid = $this->db->lastInsertId();
+    $this->addHistory($userid,$hairid,"Creation");
+    return $this->getByInternalid($hairid);
+  }
 }
