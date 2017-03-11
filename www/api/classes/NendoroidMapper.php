@@ -297,8 +297,8 @@ class NendoroidMapper extends Mapper
     if(!$result) {
       throw new Exception("Could not save nendoroid");
     }
-    $hairid = $this->db->lastInsertId();
-    $this->addHistory($userid,$hairid,"Creation");
-    return $this->getByInternalid($hairid);
+    $nendoroidid = $this->db->lastInsertId();
+    $this->addHistory($userid,$nendoroidid,"Creation");
+    return $this->getByInternalid($nendoroidid);
   }
 }
