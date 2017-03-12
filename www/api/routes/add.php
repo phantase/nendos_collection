@@ -4,7 +4,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 // Collect an element for a specific user
-$app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands}/new', function(Request $request, Response $response, $args) {
+$app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands}', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     if( $request->getAttribute("token")->user->administrator || $request->getAttribute("token")->user->editor ) {
         $element = $args['element'];
