@@ -127,7 +127,7 @@ const actions = {
     let context = payload.context
     let formData = payload.formData
     return new Promise((resolve, reject) => {
-      context.$http.post('face/new', formData).then(response => {
+      context.$http.post('face', formData).then(response => {
         store.dispatch('addFace', response.data)
         resolve(response.data.internalid)
       }, response => {

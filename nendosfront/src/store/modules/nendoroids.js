@@ -127,7 +127,7 @@ const actions = {
     let context = payload.context
     let formData = payload.formData
     return new Promise((resolve, reject) => {
-      context.$http.post('nendoroid/new', formData).then(response => {
+      context.$http.post('nendoroid', formData).then(response => {
         store.dispatch('addNendoroid', response.data)
         resolve(response.data.internalid)
       }, response => {
