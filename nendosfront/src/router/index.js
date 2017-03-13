@@ -71,6 +71,24 @@ export default new Router({
       component: FormAccessory
     },
     {
+      path: '/accessory/:id/edit',
+      name: 'Edit accessory',
+      meta: {
+        description: 'Edit an accessory',
+        breadcrumb: [
+          {
+            title: 'Accessories',
+            link: '/accessories'
+          },
+          {
+            title: 'Accessory',
+            link: '/accessory/:id'
+          }
+        ]
+      },
+      component: FormAccessory
+    },
+    {
       path: '/accessory/:id',
       name: 'Accessory',
       meta: {
@@ -101,6 +119,24 @@ export default new Router({
           {
             title: 'Bodyparts',
             link: '/bodyparts'
+          }
+        ]
+      },
+      component: FormBodypart
+    },
+    {
+      path: '/bodypart/:id/edit',
+      name: 'Edit bodypart',
+      meta: {
+        description: 'Edit a bodypart',
+        breadcrumb: [
+          {
+            title: 'Bodyparts',
+            link: '/bodyparts'
+          },
+          {
+            title: 'Bodypart',
+            link: '/bodypart/:id'
           }
         ]
       },
@@ -215,6 +251,24 @@ export default new Router({
       component: FormFace
     },
     {
+      path: '/face/:id/edit',
+      name: 'Edit face',
+      meta: {
+        description: 'Edit a face',
+        breadcrumb: [
+          {
+            title: 'Faces',
+            link: '/faces'
+          },
+          {
+            title: 'Face',
+            link: '/face/:id'
+          }
+        ]
+      },
+      component: FormFace
+    },
+    {
       path: '/face/:id',
       name: 'Face',
       meta: {
@@ -245,6 +299,24 @@ export default new Router({
           {
             title: 'Hairs',
             link: '/hairs'
+          }
+        ]
+      },
+      component: FormHair
+    },
+    {
+      path: '/hair/:id/edit',
+      name: 'Edit hair',
+      meta: {
+        description: 'Edit a hair',
+        breadcrumb: [
+          {
+            title: 'Hairs',
+            link: '/hairs'
+          },
+          {
+            title: 'Hair',
+            link: '/hair/:id'
           }
         ]
       },
@@ -287,6 +359,24 @@ export default new Router({
       component: FormHand
     },
     {
+      path: '/hand/:id/edit',
+      name: 'Edit hand',
+      meta: {
+        description: 'Edit a hand',
+        breadcrumb: [
+          {
+            title: 'Hands',
+            link: '/hands'
+          },
+          {
+            title: 'Hand',
+            link: '/hand/:id'
+          }
+        ]
+      },
+      component: FormHand
+    },
+    {
       path: '/hand/:id',
       name: 'Hand',
       meta: {
@@ -317,6 +407,24 @@ export default new Router({
           {
             title: 'Nendoroids',
             link: '/nendoroids'
+          }
+        ]
+      },
+      component: FormNendoroid
+    },
+    {
+      path: '/nendoroid/:id/edit',
+      name: 'Edit nendoroid',
+      meta: {
+        description: 'Edit a nendoroid',
+        breadcrumb: [
+          {
+            title: 'Nendoroids',
+            link: '/nendoroids'
+          },
+          {
+            title: 'Nendoroid',
+            link: '/nendoroid/:id'
           }
         ]
       },
