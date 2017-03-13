@@ -172,7 +172,7 @@ class BodypartMapper extends Mapper
     return null;
   }
 
-  public function save(BodypartEntity $bodypart, $userid) {
+  public function create(BodypartEntity $bodypart, $userid) {
     $sql = "INSERT INTO bodyparts
               (boxid, nendoroidid, part, main_color, other_color, description, creatorid, creationdate, editorid, editiondate) VALUES
               (:boxid, :nendoroidid, :part, :main_color, :other_color, :description, :userid, NOW(), :userid, NOW())";

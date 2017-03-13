@@ -290,7 +290,7 @@ class BoxMapper extends Mapper
     return null;
   }
 
-  public function save(BoxEntity $box, $userid) {
+  public function create(BoxEntity $box, $userid) {
     $sql = "INSERT INTO boxes
               (number, name, series, manufacturer, category, price, releasedate, specifications, sculptor, cooperation, officialurl, creatorid, creationdate, editorid, editiondate) VALUES
               (:number, :name, :series, :manufacturer, :category, :price, :releasedate, :specifications, :sculptor, :cooperation, :officialurl, :userid, NOW(), :userid, NOW())";
@@ -310,10 +310,51 @@ class BoxMapper extends Mapper
         "userid" => $userid
       ]);
     if(!$result) {
-      throw new Exception("Could not save box");
+      throw new Exception("Could not create box");
     }
     $boxid = $this->db->lastInsertId();
     $this->addHistory($userid,$boxid,"Creation");
     return $this->getByInternalid($boxid);
+  }
+
+  public function update(BoxEntity $box, $userid) {
+    $sql = "UPDATE boxes SET
+              number = :number,
+              name = :name,
+              series = :series,
+              manufacturer = :manufacturer,
+              category = :category,
+              price = :price,
+              releasedate = :releasedate,
+              specifications = :specifications,
+              sculptor = :sculptor,
+              cooperation = :cooperation,
+              officialurl = :officialurl,
+              editorid = :userid,
+              editiondate = NOW(),
+              validatorid = null,
+              validationdate = null
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $box->getInternalid(),
+        "number" => $box->getNumber(),
+        "name" => $box->getName(),
+        "series" => $box->getSeries(),
+        "manufacturer" => $box->getManufacturer(),
+        "category" => $box->getCategory(),
+        "price" => $box->getPrice(),
+        "releasedate" => $box->getReleaseDate(),
+        "specifications" => $box->getSpecifications(),
+        "sculptor" => $box->getSculptor(),
+        "cooperation" => $box->getCooperation(),
+        "officialurl" => $box->getOfficialURL(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update box");
+    }
+    $this->addHistory($userid,$boxid,"Update");
+    return $this->getByInternalid($box->getInternalid());
   }
 }

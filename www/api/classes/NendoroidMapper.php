@@ -281,7 +281,7 @@ class NendoroidMapper extends Mapper
     return null;
   }
 
-  public function save(NendoroidEntity $nendoroid, $userid) {
+  public function create(NendoroidEntity $nendoroid, $userid) {
     $sql = "INSERT INTO nendoroids
               (boxid, name, version, sex, dominant_color, creatorid, creationdate, editorid, editiondate) VALUES
               (:boxid, :name, :version, :sex, :dominant_color, :userid, NOW(), :userid, NOW())";

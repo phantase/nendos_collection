@@ -172,7 +172,7 @@ class FaceMapper extends Mapper
     return null;
   }
 
-  public function save(FaceEntity $face, $userid) {
+  public function create(FaceEntity $face, $userid) {
     $sql = "INSERT INTO faces
               (boxid, nendoroidid, eyes, eyes_color, mouth, skin_color, sex, creatorid, creationdate, editorid, editiondate) VALUES
               (:boxid, :nendoroidid, :eyes, :eyes_color, :mouth, :skin_color, :sex, :userid, NOW(), :userid, NOW())";

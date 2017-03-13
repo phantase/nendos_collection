@@ -4,12 +4,13 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 // Collect an element for a specific user
-$app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands}', function(Request $request, Response $response, $args) {
+$app->put('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands}/{internalid:[0-9]+}', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     if( $request->getAttribute("token")->user->administrator || $request->getAttribute("token")->user->editor ) {
         $element = $args['element'];
+        $internalid = (int)$args['internalid'];
         $data = $request->getParsedBody();
-        $this->applogger->addInfo("User $userid adds a new $element");
+        $this->applogger->addInfo("User $userid edits $element $internalid");
 
         $newelement = null;
 
@@ -18,6 +19,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                 case "accessory":
                 case "accessories":
                     $accessory_data = [];
+                    $accessory_data['internalid']   = $internalid;
                     $accessory_data['boxid']        = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
                     $accessory_data['nendoroidid']  = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
                     $accessory_data['type']         = array_key_exists('type',          $data) ? filter_var($data['type'],          FILTER_SANITIZE_STRING) : null;
@@ -27,11 +29,12 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $accessory = new AccessoryEntity($accessory_data);
 
                     $accessory_mapper = new AccessoryMapper($this->db);
-                    $newelement = $accessory_mapper->create($accessory, $userid);
+                    $newelement = $accessory_mapper->update($accessory, $userid);
                     break;
                 case "bodypart":
                 case "bodyparts":
                     $bodypart_data = [];
+                    $bodypart_data['internalid']    = $internalid;
                     $bodypart_data['boxid']         = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
                     $bodypart_data['nendoroidid']   = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
                     $bodypart_data['part']          = array_key_exists('part',          $data) ? filter_var($data['part'],          FILTER_SANITIZE_STRING) : null;
@@ -41,11 +44,12 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $bodypart = new BodypartEntity($bodypart_data);
 
                     $bodypart_mapper = new BodypartMapper($this->db);
-                    $newelement = $bodypart_mapper->create($bodypart, $userid);
+                    $newelement = $bodypart_mapper->update($bodypart, $userid);
                     break;
                 case "face":
                 case "faces":
                     $face_data = [];
+                    $face_data['internalid']    = $internalid;
                     $face_data['boxid']         = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
                     $face_data['nendoroidid']   = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
                     $face_data['eyes']          = array_key_exists('eyes',          $data) ? filter_var($data['eyes'],          FILTER_SANITIZE_STRING) : null;
@@ -56,11 +60,12 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $face = new FaceEntity($face_data);
 
                     $face_mapper = new FaceMapper($this->db);
-                    $newelement = $face_mapper->create($face, $userid);
+                    $newelement = $face_mapper->update($face, $userid);
                     break;
                 case "hair":
                 case "hairs":
                     $hair_data = [];
+                    $hair_data['internalid']    = $internalid;
                     $hair_data['boxid']         = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
                     $hair_data['nendoroidid']   = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
                     $hair_data['main_color']    = array_key_exists('main_color',    $data) ? filter_var($data['main_color'],    FILTER_SANITIZE_STRING) : null;
@@ -71,11 +76,12 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $hair = new HairEntity($hair_data);
 
                     $hair_mapper = new HairMapper($this->db);
-                    $newelement = $hair_mapper->create($hair, $userid);
+                    $newelement = $hair_mapper->update($hair, $userid);
                     break;
                 case "hand":
                 case "hands":
                     $hand_data = [];
+                    $hand_data['internalid']    = $internalid;
                     $hand_data['boxid']         = array_key_exists('boxid',         $data) ? filter_var($data['boxid'],         FILTER_SANITIZE_NUMBER_INT) : null;
                     $hand_data['nendoroidid']   = array_key_exists('nendoroidid',   $data) ? filter_var($data['nendoroidid'],   FILTER_SANITIZE_NUMBER_INT) : null;
                     $hand_data['skin_color']    = array_key_exists('skin_color',    $data) ? filter_var($data['skin_color'],    FILTER_SANITIZE_STRING) : null;
@@ -85,11 +91,12 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $hand = new HandEntity($hand_data);
 
                     $hand_mapper = new HandMapper($this->db);
-                    $newelement = $hand_mapper->create($hand, $userid);
+                    $newelement = $hand_mapper->update($hand, $userid);
                     break;
                 case "nendoroid":
                 case "nendoroids":
                     $nendoroid_data = [];
+                    $nendoroid_data['internalid']       = $internalid;
                     $nendoroid_data['boxid']            = array_key_exists('boxid',             $data) ? filter_var($data['boxid'],             FILTER_SANITIZE_NUMBER_INT) : null;
                     $nendoroid_data['name']             = array_key_exists('name',              $data) ? filter_var($data['name'],              FILTER_SANITIZE_STRING) : null;
                     $nendoroid_data['version']          = array_key_exists('version',           $data) ? filter_var($data['version'],           FILTER_SANITIZE_STRING) : null;
@@ -98,11 +105,12 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $nendoroid = new NendoroidEntity($nendoroid_data);
 
                     $nendoroid_mapper = new NendoroidMapper($this->db);
-                    $newelement = $nendoroid_mapper->create($nendoroid, $userid);
+                    $newelement = $nendoroid_mapper->update($nendoroid, $userid);
                     break;
                 case "box":
                 case "boxes":
                     $box_data = [];
+                    $box_data['internalid']     = $internalid;
                     $box_data['number']         = array_key_exists('number',            $data) ? filter_var($data['number'],            FILTER_SANITIZE_STRING) : null;
                     $box_data['name']           = array_key_exists('name',              $data) ? filter_var($data['name'],              FILTER_SANITIZE_STRING) : null;
                     $box_data['series']         = array_key_exists('series',            $data) ? filter_var($data['series'],            FILTER_SANITIZE_STRING) : null;
@@ -117,7 +125,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
                     $box = new BoxEntity($box_data);
 
                     $box_mapper = new BoxMapper($this->db);
-                    $newelement = $box_mapper->create($box, $userid);
+                    $newelement = $box_mapper->update($box, $userid);
                     break;
             }
 
@@ -132,7 +140,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
             $newresponse = $response->withJson(null,400);
         }
     } else {
-        $this->applogger->addInfo("User $userid tries to create a new $element without right to do it");
+        $this->applogger->addInfo("User $userid tries to edit $element $internalid without right to do it");
         $newresponse = $response->withJson(null, 403);
     }
     return $newresponse;

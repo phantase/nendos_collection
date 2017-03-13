@@ -172,7 +172,7 @@ class HairMapper extends Mapper
     return null;
   }
 
-  public function save(HairEntity $hair, $userid) {
+  public function create(HairEntity $hair, $userid) {
     $sql = "INSERT INTO hairs
               (boxid, nendoroidid, main_color, other_color, haircut, description, frontback, creatorid, creationdate, editorid, editiondate) VALUES
               (:boxid, :nendoroidid, :main_color, :other_color, :haircut, :description, :frontback, :userid, NOW(), :userid, NOW())";

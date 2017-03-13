@@ -172,7 +172,7 @@ class HandMapper extends Mapper
     return null;
   }
 
-  public function save(HandEntity $hand, $userid) {
+  public function create(HandEntity $hand, $userid) {
     $sql = "INSERT INTO hands
               (boxid, nendoroidid, skin_color, leftright, posture, description, creatorid, creationdate, editorid, editiondate) VALUES
               (:boxid, :nendoroidid, :skin_color, :leftright, :posture, :description, :userid, NOW(), :userid, NOW())";

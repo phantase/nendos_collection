@@ -172,7 +172,7 @@ class AccessoryMapper extends Mapper
     return null;
   }
 
-  public function save(AccessoryEntity $accessory, $userid) {
+  public function create(AccessoryEntity $accessory, $userid) {
     $sql = "INSERT INTO accessories
               (boxid, nendoroidid, type, main_color, other_color, description, creatorid, creationdate, editorid, editiondate) VALUES
               (:boxid, :nendoroidid, :type, :main_color, :other_color, :description, :userid, NOW(), :userid, NOW())";
