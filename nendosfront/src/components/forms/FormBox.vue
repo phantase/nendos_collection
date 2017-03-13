@@ -137,6 +137,23 @@ export default {
   },
   methods: {
     ...Vuex.mapActions(['createBox', 'updateBox']),
+    retrieveBoxParams () {
+      let box = this.boxes.find(box => box.internalid === this.$route.params.id)
+      this.internalid = box.internalid
+      this.name = box.name
+      this.series = box.series
+      this.category = box.category
+      this.number = box.number
+      this.manufacturer = box.manufacturer
+      this.sculptor = box.sculptor
+      this.cooperation = box.cooperation
+      if (box.releasedate) {
+        this.releasedate = box.releasedate.split('-')[0] + '/' + box.releasedate.split('-')[1]
+      }
+      this.price = box.price
+      this.specifications = box.specifications
+      this.officialurl = box.officialurl
+    },
     cancel () {
       this.number = null
       this.name = null
@@ -154,6 +171,7 @@ export default {
       this.errorprice = false
       this.errorreleasedate = false
       this.failure = false
+      this.retrieveBoxParams()
     },
     checkForm () {
       if (this.name === null) {
@@ -261,21 +279,7 @@ export default {
   mounted () {
     if (this.$route.name === 'Edit box') {
       console.log('Edition mode')
-      let box = this.boxes.find(box => box.internalid === this.$route.params.id)
-      this.internalid = box.internalid
-      this.name = box.name
-      this.series = box.series
-      this.category = box.category
-      this.number = box.number
-      this.manufacturer = box.manufacturer
-      this.sculptor = box.sculptor
-      this.cooperation = box.cooperation
-      if (box.releasedate) {
-        this.releasedate = box.releasedate.split('-')[0] + '/' + box.releasedate.split('-')[1]
-      }
-      this.price = box.price
-      this.specifications = box.specifications
-      this.officialurl = box.officialurl
+      this.retrieveBoxParams()
     } else {
       console.log('Addition mode')
     }
