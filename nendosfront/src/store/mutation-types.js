@@ -9,6 +9,7 @@ export const RESET_COUNTS = 'RESET_COUNTS'
 export const RESET_USERCOUNTS = 'RESET_USERCOUNTS'
 // boxes
 export const ADD_BOX = 'ADD_BOX'
+export const EDIT_BOX = 'EDIT_BOX'
 export const SET_BOXES = 'SET_BOXES'
 export const RESET_BOXES = 'RESET_BOXES'
 export const COLLECT_BOX = 'COLLECT_BOX'

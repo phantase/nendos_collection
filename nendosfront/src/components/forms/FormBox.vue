@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa icon-icon_nendo_box"></i> Add a box</h3>
+            <h3 class="box-title"><i class="fa icon-icon_nendo_box"></i> {{ internalid ? 'Edit' : 'Add' }} a box</h3>
           </div>
           <div class="box-body">
             <div class="alert alert-danger" v-if="failure">
@@ -87,7 +87,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add box</button>
+                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save box</button>
               </div>
             </form>
           </div>
@@ -106,7 +106,7 @@ import Vuex from 'vuex'
 import Resources from './../../config/resources'
 
 export default {
-  name: 'AddBox',
+  name: 'FormBox',
   components: {
   },
   store: store,
@@ -128,14 +128,15 @@ export default {
       errorcategory: false,
       errorprice: false,
       errorreleasedate: false,
-      failure: false
+      failure: false,
+      internalid: null
     }
   },
   computed: {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands'])
   },
   methods: {
-    ...Vuex.mapActions(['createBox']),
+    ...Vuex.mapActions(['createBox', 'updateBox']),
     cancel () {
       this.number = null
       this.name = null
@@ -184,50 +185,100 @@ export default {
         console.log('Cannot submit')
       } else {
         console.log('Can submit')
+        let body = {}
         let formData = new FormData()
+        if (this.internalid) {
+          body.internalid = this.internalid
+          formData.append('internalid', this.internalid)
+        }
         if (this.number) {
+          body.number = this.number
           formData.append('number', this.number)
         }
+        body.name = this.name
         formData.append('name', this.name)
         if (this.series) {
+          body.series = this.series
           formData.append('series', this.series)
         }
         if (this.manufacturer) {
+          body.manufacturer = this.manufacturer
           formData.append('manufacturer', this.manufacturer)
         }
+        body.category = this.category
         formData.append('category', this.category)
         if (this.price) {
+          body.price = this.price
           formData.append('price', this.price)
         }
         if (this.releasedate) {
+          body.releasedate = this.releasedate ? this.releasedate.split('/')[0] + '-' + this.releasedate.split('/')[1] + '-01' : null
           formData.append('releasedate', this.releasedate ? this.releasedate.split('/')[0] + '-' + this.releasedate.split('/')[1] + '-01' : null)
         }
         if (this.specifications) {
+          body.specifications = this.specifications
           formData.append('specifications', this.specifications)
         }
         if (this.sculptor) {
+          body.sculptor = this.sculptor
           formData.append('sculptor', this.sculptor)
         }
         if (this.cooperation) {
+          body.cooperation = this.cooperation
           formData.append('cooperation', this.cooperation)
         }
         if (this.officialurl) {
+          body.officialurl = this.officialurl
           formData.append('officialurl', this.officialurl)
         }
-        this.createBox({
-          'context': this,
-          'formData': formData
-        }).then(response => {
-          console.log('Addition successful')
-          router.push('/box/' + response)
-        }, response => {
-          console.log('Addition failed')
-          this.failure = true
-        })
+        if (this.internalid) {
+          this.updateBox({
+            'context': this,
+            'body': body,
+            'internalid': this.internalid
+          }).then(response => {
+            console.log('Edition successful')
+            router.push('/box/' + response)
+          }, response => {
+            console.log('Edition failed')
+            this.failure = true
+          })
+        } else {
+          this.createBox({
+            'context': this,
+            'formData': formData
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/box/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+        }
       }
     }
   },
   mounted () {
+    if (this.$route.name === 'Edit box') {
+      console.log('Edition mode')
+      let box = this.boxes.find(box => box.internalid === this.$route.params.id)
+      this.internalid = box.internalid
+      this.name = box.name
+      this.series = box.series
+      this.category = box.category
+      this.number = box.number
+      this.manufacturer = box.manufacturer
+      this.sculptor = box.sculptor
+      this.cooperation = box.cooperation
+      if (box.releasedate) {
+        this.releasedate = box.releasedate.split('-')[0] + '/' + box.releasedate.split('-')[1]
+      }
+      this.price = box.price
+      this.specifications = box.specifications
+      this.officialurl = box.officialurl
+    } else {
+      console.log('Addition mode')
+    }
     // $('select').select2()
   },
   beforeUpdate () {

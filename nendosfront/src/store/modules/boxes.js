@@ -20,6 +20,10 @@ const mutations = {
   [types.ADD_BOX] (state, box) {
     state.boxes.push(box)
   },
+  [types.EDIT_BOX] (state, box) {
+    let idx = state.boxes.findIndex(intbox => intbox.internalid === box.internalid)
+    state.boxes[idx] = box
+  },
   [types.SET_BOXES] (state, boxes) {
     state.boxes = boxes
   },
@@ -49,6 +53,9 @@ const mutations = {
 const actions = {
   addBox (store, box) {
     store.commit(types.ADD_BOX, box)
+  },
+  editBox (store, box) {
+    store.commit(types.EDIT_BOX, box)
   },
   setBoxes (store, boxes) {
     store.commit(types.SET_BOXES, boxes)
@@ -129,6 +136,22 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.post('box', formData).then(response => {
         store.dispatch('addBox', response.data)
+        resolve(response.data.internalid)
+      }, response => {
+        reject()
+      })
+    })
+  },
+  updateBox (store, payload) {
+    let context = payload.context
+    let body = payload.body
+    let internalid = payload.internalid
+    return new Promise((resolve, reject) => {
+      context.$http.put('box/' + internalid, body, {
+        // emulateHTTP: true,
+        // emulateJSON: true
+      }).then(response => {
+        store.dispatch('editBox', response.data)
         resolve(response.data.internalid)
       }, response => {
         reject()

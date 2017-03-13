@@ -26,7 +26,7 @@ import AddFace from 'components/forms/AddFace'
 import AddHair from 'components/forms/AddHair'
 import AddHand from 'components/forms/AddHand'
 import AddNendoroid from 'components/forms/AddNendoroid'
-import AddBox from 'components/forms/AddBox'
+import FormBox from 'components/forms/FormBox'
 
 Vue.use(Router)
 
@@ -140,7 +140,25 @@ export default new Router({
           }
         ]
       },
-      component: AddBox
+      component: FormBox
+    },
+    {
+      path: '/box/:id/edit',
+      name: 'Edit box',
+      meta: {
+        description: 'Edit a box',
+        breadcrumb: [
+          {
+            title: 'Boxes',
+            link: '/boxes'
+          },
+          {
+            title: 'Box',
+            link: '/box/:id'
+          }
+        ]
+      },
+      component: FormBox
     },
     {
       path: '/box/:id',
