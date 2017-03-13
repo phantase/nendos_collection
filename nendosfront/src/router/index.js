@@ -20,12 +20,12 @@ import Nendoroid from 'components/Nendoroid'
 import Nendoroids from 'components/Nendoroids'
 import Photo from 'components/Photo'
 import Photos from 'components/Photos'
-import AddAccessory from 'components/forms/AddAccessory'
-import AddBodypart from 'components/forms/AddBodypart'
-import AddFace from 'components/forms/AddFace'
-import AddHair from 'components/forms/AddHair'
-import AddHand from 'components/forms/AddHand'
-import AddNendoroid from 'components/forms/AddNendoroid'
+import FormAccessory from 'components/forms/FormAccessory'
+import FormBodypart from 'components/forms/FormBodypart'
+import FormFace from 'components/forms/FormFace'
+import FormHair from 'components/forms/FormHair'
+import FormHand from 'components/forms/FormHand'
+import FormNendoroid from 'components/forms/FormNendoroid'
 import FormBox from 'components/forms/FormBox'
 
 Vue.use(Router)
@@ -68,7 +68,7 @@ export default new Router({
           }
         ]
       },
-      component: AddAccessory
+      component: FormAccessory
     },
     {
       path: '/accessory/:id',
@@ -104,7 +104,7 @@ export default new Router({
           }
         ]
       },
-      component: AddBodypart
+      component: FormBodypart
     },
     {
       path: '/bodypart/:id',
@@ -212,7 +212,7 @@ export default new Router({
           }
         ]
       },
-      component: AddFace
+      component: FormFace
     },
     {
       path: '/face/:id',
@@ -248,7 +248,7 @@ export default new Router({
           }
         ]
       },
-      component: AddHair
+      component: FormHair
     },
     {
       path: '/hair/:id',
@@ -284,7 +284,7 @@ export default new Router({
           }
         ]
       },
-      component: AddHand
+      component: FormHand
     },
     {
       path: '/hand/:id',
@@ -320,7 +320,7 @@ export default new Router({
           }
         ]
       },
-      component: AddNendoroid
+      component: FormNendoroid
     },
     {
       path: '/nendoroid/:id',

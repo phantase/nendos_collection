@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa icon-icon_nendo_body"></i> Add a bodypart</h3>
+            <h3 class="box-title"><i class="fa icon-icon_nendo_hand"></i> Add a hand</h3>
           </div>
           <div class="box-body">
             <div class="alert alert-danger" v-if="failure">
@@ -21,7 +21,6 @@
                       <option value="box">- Box -</option>
                       <option v-for="box in boxes4select" :value="box.internalid">{{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}</option>
                     </select>
-                    <span class="help-block" v-if="errorbox">You must select a box</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -33,24 +32,28 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group" :class="errorpart?'has-error':''">
-                    <label>Part</label>
-                    <input type="text" class="form-control" placeholder="Part" v-model="part">
-                    <span class="help-block" v-if="errorpart">The part is mandatory</span>
+                <div class="col-md-4 col-sm-12">
+                  <div class="form-group" :class="errorposture?'has-error':''">
+                    <label>Posture</label>
+                    <input type="text" class="form-control" placeholder="Posture" v-model="posture">
+                    <span class="help-block" v-if="errorposture">The posture is mandatory</span>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
-                  <div class="form-group" :class="errormaincolor?'has-error':''">
-                    <label>Main color</label>
-                    <input type="text" class="form-control" placeholder="Main color" v-model="maincolor">
-                    <span class="help-block" v-if="errormaincolor">The main color is mandatory</span>
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                   <div class="form-group">
-                    <label>Other color</label>
-                    <input type="text" class="form-control" placeholder="Other color" v-model="othercolor">
+                    <label>Left/Right/Both</label>
+                    <select class="form-control" v-model="leftright">
+                      <option value="Left">Left</option>
+                      <option value="Right">Right</option>
+                      <option value="Both">Both</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <div class="form-group" :class="errorskincolor?'has-error':''">
+                    <label>Skin color</label>
+                    <input type="text" class="form-control" placeholder="Skin color" v-model="skincolor">
+                    <span class="help-block" v-if="errorskincolor">The skincolor is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -63,7 +66,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add bodypart</button>
+                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add hand</button>
               </div>
             </form>
           </div>
@@ -82,7 +85,7 @@ import Vuex from 'vuex'
 import Resources from './../../config/resources'
 
 export default {
-  name: 'AddBodypart',
+  name: 'FormHand',
   components: {
   },
   store: store,
@@ -91,13 +94,13 @@ export default {
       resources: Resources,
       boxselected: 'box',
       nendoroidselected: 'nendoroid',
-      part: null,
-      maincolor: null,
-      othercolor: null,
+      posture: null,
+      leftright: 'Left',
+      skincolor: null,
       description: null,
       errorbox: false,
-      errorpart: false,
-      errormaincolor: false,
+      errorskincolor: false,
+      errorposture: false,
       errordescription: false,
       failure: false
     }
@@ -118,17 +121,17 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['createBodypart']),
+    ...Vuex.mapActions(['createHand']),
     cancel () {
       this.boxselected = 'box'
       this.nendoroidselected = 'nendoroid'
-      this.part = null
-      this.maincolor = null
-      this.othercolor = null
+      this.posture = null
+      this.leftright = 'Left'
+      this.skincolor = null
       this.description = null
       this.errorbox = false
-      this.errorpart = false
-      this.errormaincolor = false
+      this.errorskincolor = false
+      this.errorposture = false
       this.errordescription = false
       this.failure = false
     },
@@ -138,15 +141,15 @@ export default {
       } else {
         this.errorbox = false
       }
-      if (this.part === null) {
-        this.errorpart = true
+      if (this.skincolor === null) {
+        this.errorskincolor = true
       } else {
-        this.errorpart = false
+        this.errorskincolor = false
       }
-      if (this.maincolor === null) {
-        this.errormaincolor = true
+      if (this.posture === null) {
+        this.errorposture = true
       } else {
-        this.errormaincolor = false
+        this.errorposture = false
       }
       if (this.description === null) {
         this.errordescription = true
@@ -158,11 +161,11 @@ export default {
       console.log('Submit form')
       this.failure = false
       this.checkForm()
-      if (this.errorbox || this.errorpart || this.errormaincolor || this.errordescription) {
+      if (this.errorbox || this.errorskincolor || this.errorposture || this.errordescription) {
         console.log('Cannot submit')
       } else {
         if (this.nendoroidselected !== 'nendoroid') {
-          this.boxselected = this.nendoroids.filter(nendoroid => nendoroid.internalid === this.nendoroidselected)[0].boxid
+          this.boxselected = this.nendoroids.find(nendoroid => nendoroid.internalid === this.nendoroidselected).boxid
         }
         console.log('Can submit')
         let formData = new FormData()
@@ -170,18 +173,16 @@ export default {
         if (this.nendoroidselected !== 'nendoroid') {
           formData.append('nendoroidid', this.nendoroidselected)
         }
-        formData.append('part', this.part)
-        formData.append('main_color', this.maincolor)
-        if (this.othercolor) {
-          formData.append('other_color', this.othercolor)
-        }
+        formData.append('posture', this.posture)
+        formData.append('leftright', this.leftright)
+        formData.append('skin_color', this.skincolor)
         formData.append('description', this.description)
-        this.createBodypart({
+        this.createHand({
           'context': this,
           'formData': formData
         }).then(response => {
           console.log('Addition successful')
-          router.push('/bodypart/' + response)
+          router.push('/hand/' + response)
         }, response => {
           console.log('Addition failed')
           this.failure = true

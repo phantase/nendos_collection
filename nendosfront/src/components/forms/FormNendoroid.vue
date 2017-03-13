@@ -75,7 +75,7 @@ import Vuex from 'vuex'
 import Resources from './../../config/resources'
 
 export default {
-  name: 'AddNendoroid',
+  name: 'FormNendoroid',
   components: {
   },
   store: store,

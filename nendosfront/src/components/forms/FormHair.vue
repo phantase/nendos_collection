@@ -92,7 +92,7 @@ import Vuex from 'vuex'
 import Resources from './../../config/resources'
 
 export default {
-  name: 'AddHair',
+  name: 'FormHair',
   components: {
   },
   store: store,
@@ -174,7 +174,7 @@ export default {
         console.log('Cannot submit')
       } else {
         if (this.nendoroidselected !== 'nendoroid') {
-          this.boxselected = this.nendoroids.filter(nendoroid => nendoroid.internalid === this.nendoroidselected)[0].boxid
+          this.boxselected = this.nendoroids.find(nendoroid => nendoroid.internalid === this.nendoroidselected).boxid
         }
         console.log('Can submit')
         let formData = new FormData()

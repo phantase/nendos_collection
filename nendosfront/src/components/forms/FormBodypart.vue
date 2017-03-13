@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa icon-icon_nendo_face"></i> Add a face</h3>
+            <h3 class="box-title"><i class="fa icon-icon_nendo_body"></i> Add a bodypart</h3>
           </div>
           <div class="box-body">
             <div class="alert alert-danger" v-if="failure">
@@ -33,48 +33,37 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-8 col-sm-12">
-                  <div class="form-group" :class="erroreyes?'has-error':''">
-                    <label>Eyes</label>
-                    <input type="text" class="form-control" placeholder="Eyes" v-model="eyes">
-                    <span class="help-block" v-if="erroreyes">The eyes are mandatory</span>
+                <div class="col-md-12">
+                  <div class="form-group" :class="errorpart?'has-error':''">
+                    <label>Part</label>
+                    <input type="text" class="form-control" placeholder="Part" v-model="part">
+                    <span class="help-block" v-if="errorpart">The part is mandatory</span>
                   </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
-                  <div class="form-group" :class="erroreyescolor?'has-error':''">
-                    <label>Eyes color name</label>
-                    <input type="text" class="form-control" placeholder="Eyes color name" v-model="eyescolor">
-                    <span class="help-block" v-if="erroreyescolor">The eyes color is mandatory</span>
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group" :class="errormaincolor?'has-error':''">
+                    <label>Main color</label>
+                    <input type="text" class="form-control" placeholder="Main color" v-model="maincolor">
+                    <span class="help-block" v-if="errormaincolor">The main color is mandatory</span>
                   </div>
                 </div>
-                <div class="col-md-8 col-sm-12">
-                  <div class="form-group" :class="errormouth?'has-error':''">
-                    <label>Mouth</label>
-                    <input type="text" class="form-control" placeholder="Mouth" v-model="mouth">
-                    <span class="help-block" v-if="errormouth">The mouth is mandatory</span>
-                  </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                  <div class="form-group" :class="errorskincolor?'has-error':''">
-                    <label>Skin color name</label>
-                    <input type="text" class="form-control" placeholder="Skin color name" v-model="skincolor">
-                    <span class="help-block" v-if="errorskincolor">The skin color is mandatory</span>
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label>Other color</label>
+                    <input type="text" class="form-control" placeholder="Other color" v-model="othercolor">
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <div class="form-group">
-                    <label>Sex</label>
-                    <select class="form-control" v-model="sex">
-                      <option value="Undefined">- Sex -</option>
-                      <option value="Female">Female</option>
-                      <option value="Male">Male</option>
-                    </select>
+                  <div class="form-group" :class="errordescription?'has-error':''">
+                    <label>Description</label>
+                    <input type="text" class="form-control" placeholder="Description" v-model="description">
+                    <span class="help-block" v-if="errordescription">The description is mandatory</span>
                   </div>
                 </div>
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add face</button>
+                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add bodypart</button>
               </div>
             </form>
           </div>
@@ -93,7 +82,7 @@ import Vuex from 'vuex'
 import Resources from './../../config/resources'
 
 export default {
-  name: 'AddFace',
+  name: 'FormBodypart',
   components: {
   },
   store: store,
@@ -102,16 +91,14 @@ export default {
       resources: Resources,
       boxselected: 'box',
       nendoroidselected: 'nendoroid',
-      eyes: null,
-      eyescolor: null,
-      mouth: null,
-      skincolor: null,
-      sex: 'Undefined',
+      part: null,
+      maincolor: null,
+      othercolor: null,
+      description: null,
       errorbox: false,
-      erroreyes: false,
-      erroreyescolor: false,
-      errormouth: false,
-      errorskincolor: false,
+      errorpart: false,
+      errormaincolor: false,
+      errordescription: false,
       failure: false
     }
   },
@@ -131,20 +118,18 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['createFace']),
+    ...Vuex.mapActions(['createBodypart']),
     cancel () {
       this.boxselected = 'box'
       this.nendoroidselected = 'nendoroid'
-      this.eyes = null
-      this.eyescolor = null
-      this.mouth = null
-      this.skincolor = null
-      this.sex = 'Undefined'
+      this.part = null
+      this.maincolor = null
+      this.othercolor = null
+      this.description = null
       this.errorbox = false
-      this.erroreyes = false
-      this.erroreyescolor = false
-      this.errormouth = false
-      this.errorskincolor = false
+      this.errorpart = false
+      this.errormaincolor = false
+      this.errordescription = false
       this.failure = false
     },
     checkForm () {
@@ -153,36 +138,31 @@ export default {
       } else {
         this.errorbox = false
       }
-      if (this.eyes === null) {
-        this.erroreyes = true
+      if (this.part === null) {
+        this.errorpart = true
       } else {
-        this.erroreyes = false
+        this.errorpart = false
       }
-      if (this.eyescolor === null) {
-        this.erroreyescolor = true
+      if (this.maincolor === null) {
+        this.errormaincolor = true
       } else {
-        this.erroreyescolor = false
+        this.errormaincolor = false
       }
-      if (this.mouth === null) {
-        this.errormouth = true
+      if (this.description === null) {
+        this.errordescription = true
       } else {
-        this.errormouth = false
-      }
-      if (this.skincolor === null) {
-        this.errorskincolor = true
-      } else {
-        this.errorskincolor = false
+        this.errordescription = false
       }
     },
     submit () {
       console.log('Submit form')
       this.failure = false
       this.checkForm()
-      if (this.errorbox || this.erroreyes || this.erroreyescolor || this.errormouth || this.errorskincolor) {
+      if (this.errorbox || this.errorpart || this.errormaincolor || this.errordescription) {
         console.log('Cannot submit')
       } else {
         if (this.nendoroidselected !== 'nendoroid') {
-          this.boxselected = this.nendoroids.filter(nendoroid => nendoroid.internalid === this.nendoroidselected)[0].boxid
+          this.boxselected = this.nendoroids.find(nendoroid => nendoroid.internalid === this.nendoroidselected).boxid
         }
         console.log('Can submit')
         let formData = new FormData()
@@ -190,17 +170,18 @@ export default {
         if (this.nendoroidselected !== 'nendoroid') {
           formData.append('nendoroidid', this.nendoroidselected)
         }
-        formData.append('eyes', this.eyes)
-        formData.append('eyes_color', this.eyescolor)
-        formData.append('mouth', this.mouth)
-        formData.append('skin_color', this.skincolor)
-        formData.append('sex', this.sex)
-        this.createFace({
+        formData.append('part', this.part)
+        formData.append('main_color', this.maincolor)
+        if (this.othercolor) {
+          formData.append('other_color', this.othercolor)
+        }
+        formData.append('description', this.description)
+        this.createBodypart({
           'context': this,
           'formData': formData
         }).then(response => {
           console.log('Addition successful')
-          router.push('/face/' + response)
+          router.push('/bodypart/' + response)
         }, response => {
           console.log('Addition failed')
           this.failure = true
