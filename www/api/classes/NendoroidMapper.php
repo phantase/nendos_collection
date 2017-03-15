@@ -301,4 +301,33 @@ class NendoroidMapper extends Mapper
     $this->addHistory($userid,$nendoroidid,"Creation");
     return $this->getByInternalid($nendoroidid);
   }
+
+  public function update(NendoroidEntity $nendoroid, $userid) {
+    $sql = "UPDATE nendoroids SET
+              boxid = :boxid,
+              name = :name,
+              version = :version,
+              sex = :sex,
+              dominant_color = :dominant_color,
+              editorid = :userid,
+              editiondate = NOW(),
+              validatorid = null,
+              validationdate = null
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $nendoroid->getInternalid(),
+        "boxid" => $nendoroid->getBoxId(),
+        "name" => $nendoroid->getName(),
+        "version" => $nendoroid->getVersion(),
+        "sex" => $nendoroid->getSex(),
+        "dominant_color" => $nendoroid->getDominantColor(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update nendoroid");
+    }
+    $this->addHistory($userid,$nendoroid->getInternalid(),"Update");
+    return $this->getByInternalid($nendoroid->getInternalid());
+  }
 }

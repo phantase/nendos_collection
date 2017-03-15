@@ -20,6 +20,10 @@ const mutations = {
   [types.ADD_NENDOROID] (state, nendoroid) {
     state.nendoroids.push(nendoroid)
   },
+  [types.EDIT_NENDOROID] (state, nendoroid) {
+    let idx = state.nendoroids.findIndex(intnendoroid => intnendoroid.internalid === nendoroid.internalid)
+    state.nendoroids[idx] = nendoroid
+  },
   [types.SET_NENDOROIDS] (state, nendoroids) {
     state.nendoroids = nendoroids
   },
@@ -49,6 +53,9 @@ const mutations = {
 const actions = {
   addNendoroid (store, nendoroid) {
     store.commit(types.ADD_NENDOROID, nendoroid)
+  },
+  editNendoroid (store, nendoroid) {
+    store.commit(types.EDIT_NENDOROID, nendoroid)
   },
   setNendoroids (store, nendoroids) {
     store.commit(types.SET_NENDOROIDS, nendoroids)
@@ -129,6 +136,22 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.post('nendoroid', formData).then(response => {
         store.dispatch('addNendoroid', response.data)
+        resolve(response.data.internalid)
+      }, response => {
+        reject()
+      })
+    })
+  },
+  updateNendoroid (store, payload) {
+    let context = payload.context
+    let body = payload.body
+    let internalid = payload.internalid
+    return new Promise((resolve, reject) => {
+      context.$http.put('nendoroid/' + internalid, body, {
+        // emulateHTTP: true,
+        // emulateJSON: true
+      }).then(response => {
+        store.dispatch('editNendoroid', response.data)
         resolve(response.data.internalid)
       }, response => {
         reject()

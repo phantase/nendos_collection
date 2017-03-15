@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa icon-icon_nendo_nendo"></i> Add a nendoroid</h3>
+            <h3 class="box-title"><i class="fa icon-icon_nendo_nendo"></i> {{ internalid ? 'Edit' : 'Add' }} a nendoroid</h3>
           </div>
           <div class="box-body">
             <div class="alert alert-danger" v-if="failure">
@@ -56,7 +56,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add nendoroid</button>
+                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save nendoroid</button>
               </div>
             </form>
           </div>
@@ -96,10 +96,31 @@ export default {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands']),
     boxes4select () {
       return this.boxes
+    },
+    internalid () {
+      return this.$route.name === 'Edit nendoroid' ? this.$route.params.id : null
+    }
+  },
+  watch: {
+    internalid () {
+      this.cancel()
     }
   },
   methods: {
-    ...Vuex.mapActions(['createNendoroid']),
+    ...Vuex.mapActions(['createNendoroid', 'updateNendoroid']),
+    retrieveNendoroidParams () {
+      if (this.internalid) {
+        console.log('Nendoroid Edition mode')
+        let nendoroid = this.nendoroids.find(nendoroid => nendoroid.internalid === this.$route.params.id)
+        this.boxselected = nendoroid.boxid
+        this.name = nendoroid.name
+        this.version = nendoroid.version
+        this.sex = nendoroid.sex
+        this.dominantcolor = nendoroid.dominant_color
+      } else {
+        console.log('Nendoroid Addition mode')
+      }
+    },
     cancel () {
       this.boxselected = 'box'
       this.name = null
@@ -109,6 +130,7 @@ export default {
       this.errorbox = false
       this.errorname = false
       this.failure = false
+      this.retrieveNendoroidParams()
     },
     checkForm () {
       if (this.boxselected === 'box') {
@@ -130,28 +152,53 @@ export default {
         console.log('Cannot submit')
       } else {
         console.log('Can submit')
+        let body = {}
         let formData = new FormData()
+        if (this.internalid) {
+          body.internalid = this.internalid
+          formData.append('internalid', this.internalid)
+        }
+        body.boxid = this.boxselected
         formData.append('boxid', this.boxselected)
+        body.name = this.name
         formData.append('name', this.name)
         if (this.version) {
+          body.version = this.version
           formData.append('version', this.version)
         }
+        body.sex = this.sex
         formData.append('sex', this.sex)
+        body.dominant_color = this.dominantcolor
         formData.append('dominant_color', this.dominantcolor)
-        this.createNendoroid({
-          'context': this,
-          'formData': formData
-        }).then(response => {
-          console.log('Addition successful')
-          router.push('/nendoroid/' + response)
-        }, response => {
-          console.log('Addition failed')
-          this.failure = true
-        })
+        if (this.internalid) {
+          this.updateNendoroid({
+            'context': this,
+            'body': body,
+            'internalid': this.internalid
+          }).then(response => {
+            console.log('Edition successful')
+            router.push('/nendoroid/' + response)
+          }, response => {
+            console.log('Edition failed')
+            this.failure = true
+          })
+        } else {
+          this.createNendoroid({
+            'context': this,
+            'formData': formData
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/nendoroid/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+        }
       }
     }
   },
   mounted () {
+    this.cancel()
     // $('select').select2()
   },
   beforeUpdate () {
