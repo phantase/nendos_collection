@@ -20,6 +20,10 @@ const mutations = {
   [types.ADD_HAIR] (state, hair) {
     state.hairs.push(hair)
   },
+  [types.EDIT_HAIR] (state, hair) {
+    let idx = state.hairs.findIndex(inthair => inthair.internalid === hair.internalid)
+    state.hairs[idx] = hair
+  },
   [types.SET_HAIRS] (state, hairs) {
     state.hairs = hairs
   },
@@ -49,6 +53,9 @@ const mutations = {
 const actions = {
   addHair (store, hair) {
     store.commit(types.ADD_HAIR, hair)
+  },
+  editHair (store, hair) {
+    store.commit(types.EDIT_HAIR, hair)
   },
   setHairs (store, hairs) {
     store.commit(types.SET_HAIRS, hairs)
@@ -129,6 +136,22 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.post('hair', formData).then(response => {
         store.dispatch('addHair', response.data)
+        resolve(response.data.internalid)
+      }, response => {
+        reject()
+      })
+    })
+  },
+  updateHair (store, payload) {
+    let context = payload.context
+    let body = payload.body
+    let internalid = payload.internalid
+    return new Promise((resolve, reject) => {
+      context.$http.put('hair/' + internalid, body, {
+        // emulateHTTP: true,
+        // emulateJSON: true
+      }).then(response => {
+        store.dispatch('editHair', response.data)
         resolve(response.data.internalid)
       }, response => {
         reject()

@@ -194,4 +194,37 @@ class HairMapper extends Mapper
     $this->addHistory($userid,$hairid,"Creation");
     return $this->getByInternalid($hairid);
   }
+
+  public function update(HairEntity $hair, $userid) {
+    $sql = "UPDATE hairs SET
+              boxid = :boxid,
+              nendoroidid = :nendoroidid,
+              main_color = :main_color,
+              other_color = :other_color,
+              haircut = :haircut,
+              description = :description,
+              frontback = :frontback,
+              editorid = :userid,
+              editiondate = NOW(),
+              validatorid = null,
+              validationdate = null
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $hair->getInternalId(),
+        "boxid" => $hair->getBoxId(),
+        "nendoroidid" => $hair->getNendoroidId(),
+        "main_color" => $hair->getMainColor(),
+        "other_color" => $hair->getOtherColor(),
+        "haircut" => $hair->getHairCut(),
+        "description" => $hair->getDescription(),
+        "frontback" => $hair->getFrontBack(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update hair");
+    }
+    $this->addHistory($userid,$hair->getInternalId(),"Creation");
+    return $this->getByInternalid($hair->getInternalId());
+  }
 }

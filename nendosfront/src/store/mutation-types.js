@@ -36,6 +36,7 @@ export const VALIDATE_FACE = 'VALIDATE_FACE'
 export const UNVALIDATE_FACE = 'UNVALIDATE_FACE'
 // hairs
 export const ADD_HAIR = 'ADD_HAIR'
+export const EDIT_HAIR = 'EDIT_HAIR'
 export const SET_HAIRS = 'SET_HAIRS'
 export const RESET_HAIRS = 'RESET_HAIRS'
 export const COLLECT_HAIR = 'COLLECT_HAIR'
