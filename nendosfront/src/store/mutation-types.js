@@ -45,6 +45,7 @@ export const VALIDATE_HAIR = 'VALIDATE_HAIR'
 export const UNVALIDATE_HAIR = 'UNVALIDATE_HAIR'
 // hands
 export const ADD_HAND = 'ADD_HAND'
+export const EDIT_HAND = 'EDIT_HAND'
 export const SET_HANDS = 'SET_HANDS'
 export const RESET_HANDS = 'RESET_HANDS'
 export const COLLECT_HAND = 'COLLECT_HAND'

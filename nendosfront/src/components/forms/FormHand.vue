@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa icon-icon_nendo_hand"></i> Add a hand</h3>
+            <h3 class="box-title"><i class="fa icon-icon_nendo_hand"></i> {{ internalid ? 'Edit' : 'Add' }} a hand</h3>
           </div>
           <div class="box-body">
             <div class="alert alert-danger" v-if="failure">
@@ -118,10 +118,27 @@ export default {
         return this.nendoroids.filter(nendoroid => nendoroid.boxid === this.boxselected)
       }
       return this.nendoroids
+    },
+    internalid () {
+      return this.$route.name === 'Edit hand' ? this.$route.params.id : null
     }
   },
   methods: {
-    ...Vuex.mapActions(['createHand']),
+    ...Vuex.mapActions(['createHand', 'updateHand']),
+    retrieveHandParams () {
+      if (this.internalid) {
+        console.log('Hand Edition mode')
+        let hand = this.hands.find(hand => hand.internalid === this.$route.params.id)
+        this.boxselected = hand.boxid ? hand.boxid : 'box'
+        this.nendoroidselected = hand.nendoroidid ? hand.nendoroidid : 'nendoroid'
+        this.posture = hand.posture
+        this.leftright = hand.leftright
+        this.skincolor = hand.skin_color
+        this.description = hand.description
+      } else {
+        console.log('Hand Addition mode')
+      }
+    },
     cancel () {
       this.boxselected = 'box'
       this.nendoroidselected = 'nendoroid'
@@ -134,6 +151,7 @@ export default {
       this.errorposture = false
       this.errordescription = false
       this.failure = false
+      this.retrieveHandParams()
     },
     checkForm () {
       if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
@@ -168,29 +186,55 @@ export default {
           this.boxselected = this.nendoroids.find(nendoroid => nendoroid.internalid === this.nendoroidselected).boxid
         }
         console.log('Can submit')
+        let body = {}
         let formData = new FormData()
+        if (this.internalid) {
+          body.internalid = this.internalid
+          formData.append('internalid', this.internalid)
+        }
+        body.boxid = this.boxselected
         formData.append('boxid', this.boxselected)
         if (this.nendoroidselected !== 'nendoroid') {
+          body.nendoroidid = this.nendoroidselected
           formData.append('nendoroidid', this.nendoroidselected)
         }
+        body.posture = this.posture
         formData.append('posture', this.posture)
+        body.leftright = this.leftright
         formData.append('leftright', this.leftright)
+        body.skin_color = this.skincolor
         formData.append('skin_color', this.skincolor)
+        body.description = this.description
         formData.append('description', this.description)
-        this.createHand({
-          'context': this,
-          'formData': formData
-        }).then(response => {
-          console.log('Addition successful')
-          router.push('/hand/' + response)
-        }, response => {
-          console.log('Addition failed')
-          this.failure = true
-        })
+        if (this.internalid) {
+          this.updateHand({
+            'context': this,
+            'body': body,
+            'internalid': this.internalid
+          }).then(response => {
+            console.log('Edition successful')
+            router.push('/hand/' + response)
+          }, response => {
+            console.log('Edition failed')
+            this.failure = true
+          })
+        } else {
+          this.createHand({
+            'context': this,
+            'formData': formData
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/hand/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+        }
       }
     }
   },
   mounted () {
+    this.cancel()
     // $('select').select2()
   },
   beforeUpdate () {

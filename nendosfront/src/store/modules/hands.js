@@ -20,6 +20,10 @@ const mutations = {
   [types.ADD_HAND] (state, hand) {
     state.hands.push(hand)
   },
+  [types.EDIT_HAND] (state, hand) {
+    let idx = state.hands.findIndex(inthand => inthand.internalid === hand.internalid)
+    state.hands[idx] = hand
+  },
   [types.SET_HANDS] (state, hands) {
     state.hands = hands
   },
@@ -49,6 +53,9 @@ const mutations = {
 const actions = {
   addHand (store, hand) {
     store.commit(types.ADD_HAND, hand)
+  },
+  editHand (store, hand) {
+    store.commit(types.EDIT_HAND, hand)
   },
   setHands (store, hands) {
     store.commit(types.SET_HANDS, hands)
@@ -129,6 +136,22 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.post('hand', formData).then(response => {
         store.dispatch('addHand', response.data)
+        resolve(response.data.internalid)
+      }, response => {
+        reject()
+      })
+    })
+  },
+  updateHand (store, payload) {
+    let context = payload.context
+    let body = payload.body
+    let internalid = payload.internalid
+    return new Promise((resolve, reject) => {
+      context.$http.put('hand/' + internalid, body, {
+        // emulateHTTP: true,
+        // emulateJSON: true
+      }).then(response => {
+        store.dispatch('editHand', response.data)
         resolve(response.data.internalid)
       }, response => {
         reject()

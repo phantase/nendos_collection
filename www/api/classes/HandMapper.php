@@ -193,4 +193,35 @@ class HandMapper extends Mapper
     $this->addHistory($userid,$handid,"Creation");
     return $this->getByInternalid($handid);
   }
+
+  public function update(HandEntity $hand, $userid) {
+    $sql = "UPDATE hands SET
+              boxid = :boxid,
+              nendoroidid = :nendoroidid,
+              skin_color = :skin_color,
+              leftright = :leftright,
+              posture = :posture,
+              description = :description,
+              editorid = :userid,
+              editiondate = NOW(),
+              validatorid = null,
+              validationdate = null
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $hand->getInternalId(),
+        "boxid" => $hand->getBoxId(),
+        "nendoroidid" => $hand->getNendoroidId(),
+        "skin_color" => $hand->getSkinColor(),
+        "leftright" => $hand->getLeftRight(),
+        "posture" => $hand->getPosture(),
+        "description" => $hand->getDescription(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not save hand");
+    }
+    $this->addHistory($userid,$hand->getInternalId(),"Update");
+    return $this->getByInternalid($hand->getInternalId());
+  }
 }
