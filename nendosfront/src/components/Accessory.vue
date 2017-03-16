@@ -6,6 +6,7 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
+              <router-link :to="'/accessory/'+accessory.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link>
               <div class="db-accessory-internalid">Accessory {{ accessory.internalid }}</div>
             </h3>
           </div>
@@ -112,7 +113,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'photos', 'photoaccessories', 'authenticated', 'viewvalidation']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'photos', 'photoaccessories', 'authenticated', 'viewvalidation', 'canedit']),
     accessory () {
       return this.accessories.filter(accessory => accessory.internalid === this.$route.params.id)[0]
     },

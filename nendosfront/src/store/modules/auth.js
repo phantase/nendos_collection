@@ -21,6 +21,9 @@ const getters = {
   },
   canvalidate (state) {
     return state.user.administrator === '1' || state.user.validator === '1'
+  },
+  canedit (state) {
+    return state.user.administrator === '1' || state.user.editor === '1'
   }
 }
 

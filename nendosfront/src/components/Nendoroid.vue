@@ -6,6 +6,7 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
+              <router-link :to="'/nendoroid/'+nendoroid.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link>
               <div class="db-nendoroid-name">{{ nendoroid.name }}</div>
               <div class="db-nendoroid-version">{{ nendoroid.version ? nendoroid.version : '&nbsp;' }}</div>
             </h3>
@@ -152,7 +153,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photonendoroids', 'authenticated', 'viewvalidation']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photonendoroids', 'authenticated', 'viewvalidation', 'canedit']),
     nendoroid () {
       return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.$route.params.id)[0]
     },

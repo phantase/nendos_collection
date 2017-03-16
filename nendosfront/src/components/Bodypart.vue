@@ -6,6 +6,7 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
+              <router-link :to="'/bodypart/'+bodypart.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link>
               <div class="db-bodypart-internalid">Bodypart {{ bodypart.internalid }}</div>
             </h3>
           </div>
@@ -112,7 +113,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'bodyparts', 'photos', 'photobodyparts', 'authenticated', 'viewvalidation']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'bodyparts', 'photos', 'photobodyparts', 'authenticated', 'viewvalidation', 'canedit']),
     bodypart () {
       return this.bodyparts.filter(bodypart => bodypart.internalid === this.$route.params.id)[0]
     },

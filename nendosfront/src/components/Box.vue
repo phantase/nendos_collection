@@ -6,6 +6,7 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
+              <router-link :to="'/box/'+box.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link>
               <div class="db-box-category text-yellow">
                 <span>{{ box.category}}</span>
                 <span v-if="box.number">#{{ box.number}}</span>
@@ -188,7 +189,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photoboxes', 'authenticated', 'viewvalidation']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photoboxes', 'authenticated', 'viewvalidation', 'canedit']),
     box () {
       return this.boxes.filter(box => box.internalid === this.$route.params.id)[0]
     },
