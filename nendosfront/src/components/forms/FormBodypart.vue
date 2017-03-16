@@ -120,6 +120,11 @@ export default {
       return this.$route.name === 'Edit bodypart' ? this.$route.params.id : null
     }
   },
+  watch: {
+    internalid () {
+      this.cancel()
+    }
+  },
   methods: {
     ...Vuex.mapActions(['createBodypart', 'updateBodypart']),
     retrieveBodypartParams () {

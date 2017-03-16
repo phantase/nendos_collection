@@ -123,6 +123,11 @@ export default {
       return this.$route.name === 'Edit hand' ? this.$route.params.id : null
     }
   },
+  watch: {
+    internalid () {
+      this.cancel()
+    }
+  },
   methods: {
     ...Vuex.mapActions(['createHand', 'updateHand']),
     retrieveHandParams () {

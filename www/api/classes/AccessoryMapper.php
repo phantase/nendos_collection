@@ -193,4 +193,35 @@ class AccessoryMapper extends Mapper
     $this->addHistory($userid,$accessoryid,"Creation");
     return $this->getByInternalid($accessoryid);
   }
+
+  public function update(AccessoryEntity $accessory, $userid) {
+    $sql = "UPDATE accessories SET
+              boxid = :boxid,
+              nendoroidid = :nendoroidid,
+              type = :type,
+              main_color = :main_color,
+              other_color = :other_color,
+              description = :description,
+              editorid = :userid,
+              editiondate = NOW(),
+              validatorid = null,
+              validationdate = null
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $accessory->getInternalId(),
+        "boxid" => $accessory->getBoxId(),
+        "nendoroidid" => $accessory->getNendoroidId(),
+        "type" => $accessory->getType(),
+        "main_color" => $accessory->getMainColor(),
+        "other_color" => $accessory->getOtherColor(),
+        "description" => $accessory->getDescription(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update accessory");
+    }
+    $this->addHistory($userid,$accessory->getInternalId(),"Update");
+    return $this->getByInternalid($accessory->getInternalId());
+  }
 }

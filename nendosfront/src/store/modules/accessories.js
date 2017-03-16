@@ -20,6 +20,10 @@ const mutations = {
   [types.ADD_ACCESSORY] (state, accessory) {
     state.accessories.push(accessory)
   },
+  [types.EDIT_ACCESSORY] (state, accessory) {
+    let idx = state.accessories.findIndex(intaccessory => intaccessory.internalid === accessory.internalid)
+    state.accessories[idx] = accessory
+  },
   [types.SET_ACCESSORIES] (state, accessories) {
     state.accessories = accessories
   },
@@ -49,6 +53,9 @@ const mutations = {
 const actions = {
   addAccessory (store, accessory) {
     store.commit(types.ADD_ACCESSORY, accessory)
+  },
+  editAccessory (store, accessory) {
+    store.commit(types.EDIT_ACCESSORY, accessory)
   },
   setAccessories (store, accessories) {
     store.commit(types.SET_ACCESSORIES, accessories)
@@ -129,6 +136,22 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.post('accessory', formData).then(response => {
         store.dispatch('addAccessory', response.data)
+        resolve(response.data.internalid)
+      }, response => {
+        reject()
+      })
+    })
+  },
+  updateAccessory (store, payload) {
+    let context = payload.context
+    let body = payload.body
+    let internalid = payload.internalid
+    return new Promise((resolve, reject) => {
+      context.$http.put('accessory/' + internalid, body, {
+        // emulateHTTP: true,
+        // emulateJSON: true
+      }).then(response => {
+        store.dispatch('editAccessory', response.data)
         resolve(response.data.internalid)
       }, response => {
         reject()
