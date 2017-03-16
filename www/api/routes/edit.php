@@ -104,8 +104,6 @@ $app->put('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
                     $nendoroid_data['dominant_color']   = array_key_exists('dominant_color',    $data) ? filter_var($data['dominant_color'],    FILTER_SANITIZE_STRING) : null;
                     $nendoroid = new NendoroidEntity($nendoroid_data);
 
-                    $this->applogger->addInfo(json_encode($nendoroid));
-
                     $nendoroid_mapper = new NendoroidMapper($this->db);
                     $newelement = $nendoroid_mapper->update($nendoroid, $userid);
                     break;

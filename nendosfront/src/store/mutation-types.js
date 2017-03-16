@@ -27,6 +27,7 @@ export const VALIDATE_NENDOROID = 'VALIDATE_NENDOROID'
 export const UNVALIDATE_NENDOROID = 'UNVALIDATE_NENDOROID'
 // faces
 export const ADD_FACE = 'ADD_FACE'
+export const EDIT_FACE = 'EDIT_FACE'
 export const SET_FACES = 'SET_FACES'
 export const RESET_FACES = 'RESET_FACES'
 export const COLLECT_FACE = 'COLLECT_FACE'

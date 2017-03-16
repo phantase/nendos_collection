@@ -194,4 +194,37 @@ class FaceMapper extends Mapper
     $this->addHistory($userid,$faceid,"Creation");
     return $this->getByInternalid($faceid);
   }
+
+  public function update(FaceEntity $face, $userid) {
+    $sql = "UPDATE faces SET
+              boxid = :boxid,
+              nendoroidid = :nendoroidid,
+              eyes = :eyes,
+              eyes_color = :eyes_color,
+              mouth = :mouth,
+              skin_color = :skin_color,
+              sex = :sex,
+              editorid = :userid,
+              editiondate = NOW(),
+              validatorid = null,
+              validationdate = null
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $face->getInternalId(),
+        "boxid" => $face->getBoxId(),
+        "nendoroidid" => $face->getNendoroidId(),
+        "eyes" => $face->getEyes(),
+        "eyes_color" => $face->getEyesColor(),
+        "mouth" => $face->getMouth(),
+        "skin_color" => $face->getSkinColor(),
+        "sex" => $face->getSex(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update face");
+    }
+    $this->addHistory($userid,$face->getInternalId(),"Update");
+    return $this->getByInternalid($face->getInternalId());
+  }
 }

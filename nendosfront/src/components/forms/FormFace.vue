@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa icon-icon_nendo_face"></i> Add a face</h3>
+            <h3 class="box-title"><i class="fa icon-icon_nendo_face"></i> {{ internalid ? 'Edit' : 'Add' }} a face</h3>
           </div>
           <div class="box-body">
             <div class="alert alert-danger" v-if="failure">
@@ -74,7 +74,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add face</button>
+                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save face</button>
               </div>
             </form>
           </div>
@@ -128,10 +128,33 @@ export default {
         return this.nendoroids.filter(nendoroid => nendoroid.boxid === this.boxselected)
       }
       return this.nendoroids
+    },
+    internalid () {
+      return this.$route.name === 'Edit face' ? this.$route.params.id : null
+    }
+  },
+  watch: {
+    internalid () {
+      this.cancel()
     }
   },
   methods: {
-    ...Vuex.mapActions(['createFace']),
+    ...Vuex.mapActions(['createFace', 'updateFace']),
+    retrieveFaceParams () {
+      if (this.internalid) {
+        console.log('Face Edition mode')
+        let face = this.faces.find(face => face.internalid === this.$route.params.id)
+        this.boxselected = face.boxid ? face.boxid : 'box'
+        this.nendoroidselected = face.nendoroidid ? face.nendoroidid : 'nendoroid'
+        this.eyes = face.eyes
+        this.eyescolor = face.eyes_color
+        this.mouth = face.mouth
+        this.skincolor = face.skin_color
+        this.sex = face.sex
+      } else {
+        console.log('Face Addition mode')
+      }
+    },
     cancel () {
       this.boxselected = 'box'
       this.nendoroidselected = 'nendoroid'
@@ -146,6 +169,7 @@ export default {
       this.errormouth = false
       this.errorskincolor = false
       this.failure = false
+      this.retrieveFaceParams()
     },
     checkForm () {
       if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
@@ -185,30 +209,57 @@ export default {
           this.boxselected = this.nendoroids.find(nendoroid => nendoroid.internalid === this.nendoroidselected).boxid
         }
         console.log('Can submit')
+        let body = {}
         let formData = new FormData()
+        if (this.internalid) {
+          body.internalid = this.internalid
+          formData.append('internalid', this.internalid)
+        }
+        body.boxid = this.boxselected
         formData.append('boxid', this.boxselected)
         if (this.nendoroidselected !== 'nendoroid') {
+          body.nendoroidid = this.nendoroidselected
           formData.append('nendoroidid', this.nendoroidselected)
         }
+        body.eyes = this.eyes
         formData.append('eyes', this.eyes)
+        body.eyes_color = this.eyescolor
         formData.append('eyes_color', this.eyescolor)
+        body.mouth = this.mouth
         formData.append('mouth', this.mouth)
+        body.skin_color = this.skincolor
         formData.append('skin_color', this.skincolor)
+        body.sex = this.sex
         formData.append('sex', this.sex)
-        this.createFace({
-          'context': this,
-          'formData': formData
-        }).then(response => {
-          console.log('Addition successful')
-          router.push('/face/' + response)
-        }, response => {
-          console.log('Addition failed')
-          this.failure = true
-        })
+        if (this.internalid) {
+          this.updateFace({
+            'context': this,
+            'body': body,
+            'internalid': this.internalid
+          }).then(response => {
+            console.log('Edition successful')
+            router.push('/face/' + response)
+          }, response => {
+            console.log('Edition failed')
+            this.failure = true
+          })
+        } else {
+          this.createFace({
+            'context': this,
+            'formData': formData
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/face/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+        }
       }
     }
   },
   mounted () {
+    this.cancel()
     // $('select').select2()
   },
   beforeUpdate () {

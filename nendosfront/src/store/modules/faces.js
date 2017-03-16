@@ -20,6 +20,10 @@ const mutations = {
   [types.ADD_FACE] (state, face) {
     state.faces.push(face)
   },
+  [types.EDIT_FACE] (state, face) {
+    let idx = state.faces.findIndex(intface => intface.internalid === face.internalid)
+    state.faces[idx] = face
+  },
   [types.SET_FACES] (state, faces) {
     state.faces = faces
   },
@@ -49,6 +53,9 @@ const mutations = {
 const actions = {
   addFace (store, face) {
     store.commit(types.ADD_FACE, face)
+  },
+  editFace (store, face) {
+    store.commit(types.EDIT_FACE, face)
   },
   setFaces (store, faces) {
     store.commit(types.SET_FACES, faces)
@@ -129,6 +136,22 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.post('face', formData).then(response => {
         store.dispatch('addFace', response.data)
+        resolve(response.data.internalid)
+      }, response => {
+        reject()
+      })
+    })
+  },
+  updateFace (store, payload) {
+    let context = payload.context
+    let body = payload.body
+    let internalid = payload.internalid
+    return new Promise((resolve, reject) => {
+      context.$http.put('face/' + internalid, body, {
+        // emulateHTTP: true,
+        // emulateJSON: true
+      }).then(response => {
+        store.dispatch('editFace', response.data)
         resolve(response.data.internalid)
       }, response => {
         reject()
