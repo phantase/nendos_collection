@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa icon-icon_nendo_body"></i> Add a bodypart</h3>
+            <h3 class="box-title"><i class="fa icon-icon_nendo_body"></i> {{ internalid ? 'Edit' : 'Add' }} a bodypart</h3>
           </div>
           <div class="box-body">
             <div class="alert alert-danger" v-if="failure">
@@ -63,7 +63,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add bodypart</button>
+                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save bodypart</button>
               </div>
             </form>
           </div>
@@ -115,10 +115,27 @@ export default {
         return this.nendoroids.filter(nendoroid => nendoroid.boxid === this.boxselected)
       }
       return this.nendoroids
+    },
+    internalid () {
+      return this.$route.name === 'Edit bodypart' ? this.$route.params.id : null
     }
   },
   methods: {
-    ...Vuex.mapActions(['createBodypart']),
+    ...Vuex.mapActions(['createBodypart', 'updateBodypart']),
+    retrieveBodypartParams () {
+      if (this.internalid) {
+        console.log('Bodypart Edition mode')
+        let bodypart = this.bodyparts.find(bodypart => bodypart.internalid === this.$route.params.id)
+        this.boxselected = bodypart.boxid ? bodypart.boxid : 'box'
+        this.nendoroidselected = bodypart.nendoroidid ? bodypart.nendoroidid : 'nendoroid'
+        this.part = bodypart.part
+        this.maincolor = bodypart.main_color
+        this.othercolor = bodypart.other_color
+        this.description = bodypart.description
+      } else {
+        console.log('Bodypart Addition mode')
+      }
+    },
     cancel () {
       this.boxselected = 'box'
       this.nendoroidselected = 'nendoroid'
@@ -131,6 +148,7 @@ export default {
       this.errormaincolor = false
       this.errordescription = false
       this.failure = false
+      this.retrieveBodypartParams()
     },
     checkForm () {
       if (this.boxselected === 'box' && this.nendoroidselected === 'nendoroid') {
@@ -165,31 +183,57 @@ export default {
           this.boxselected = this.nendoroids.find(nendoroid => nendoroid.internalid === this.nendoroidselected).boxid
         }
         console.log('Can submit')
+        let body = {}
         let formData = new FormData()
+        if (this.internalid) {
+          body.internalid = this.internalid
+          formData.append('internalid', this.internalid)
+        }
+        body.boxid = this.boxselected
         formData.append('boxid', this.boxselected)
         if (this.nendoroidselected !== 'nendoroid') {
+          body.nendoroidid = this.nendoroidselected
           formData.append('nendoroidid', this.nendoroidselected)
         }
+        body.part = this.part
         formData.append('part', this.part)
+        body.main_color = this.maincolor
         formData.append('main_color', this.maincolor)
         if (this.othercolor) {
+          body.other_color = this.othercolor
           formData.append('other_color', this.othercolor)
         }
+        body.description = this.description
         formData.append('description', this.description)
-        this.createBodypart({
-          'context': this,
-          'formData': formData
-        }).then(response => {
-          console.log('Addition successful')
-          router.push('/bodypart/' + response)
-        }, response => {
-          console.log('Addition failed')
-          this.failure = true
-        })
+        if (this.internalid) {
+          this.updateBodypart({
+            'context': this,
+            'body': body,
+            'internalid': this.internalid
+          }).then(response => {
+            console.log('Edition successful')
+            router.push('/bodypart/' + response)
+          }, response => {
+            console.log('Edition failed')
+            this.failure = true
+          })
+        } else {
+          this.createBodypart({
+            'context': this,
+            'formData': formData
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/bodypart/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+        }
       }
     }
   },
   mounted () {
+    this.cancel()
     // $('select').select2()
   },
   beforeUpdate () {

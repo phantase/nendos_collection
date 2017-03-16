@@ -193,4 +193,35 @@ class BodypartMapper extends Mapper
     $this->addHistory($userid,$bodypartid,"Creation");
     return $this->getByInternalid($bodypartid);
   }
+
+  public function update(BodypartEntity $bodypart, $userid) {
+    $sql = "UPDATE bodyparts SET
+              boxid = :boxid,
+              nendoroidid = :nendoroidid,
+              part = :part,
+              main_color = :main_color,
+              other_color = :other_color,
+              description = :description,
+              editorid = :userid,
+              editiondate = NOW(),
+              validatorid = null,
+              validationdate = null
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $bodypart->getInternalId(),
+        "boxid" => $bodypart->getBoxId(),
+        "nendoroidid" => $bodypart->getNendoroidId(),
+        "part" => $bodypart->getPart(),
+        "main_color" => $bodypart->getMainColor(),
+        "other_color" => $bodypart->getOtherColor(),
+        "description" => $bodypart->getDescription(),
+        "userid" => $userid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update bodypart");
+    }
+    $this->addHistory($userid,$bodypart->getInternalId(),"Update");
+    return $this->getByInternalid($bodypart->getInternalId());
+  }
 }

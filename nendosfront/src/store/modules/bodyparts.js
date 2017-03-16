@@ -20,6 +20,10 @@ const mutations = {
   [types.ADD_BODYPART] (state, bodypart) {
     state.bodyparts.push(bodypart)
   },
+  [types.EDIT_BODYPART] (state, bodypart) {
+    let idx = state.bodyparts.findIndex(intbodypart => intbodypart.internalid === bodypart.internalid)
+    state.bodyparts[idx] = bodypart
+  },
   [types.SET_BODYPARTS] (state, bodyparts) {
     state.bodyparts = bodyparts
   },
@@ -49,6 +53,9 @@ const mutations = {
 const actions = {
   addBodypart (store, bodypart) {
     store.commit(types.ADD_BODYPART, bodypart)
+  },
+  editBodypart (store, bodypart) {
+    store.commit(types.EDIT_BODYPART, bodypart)
   },
   setBodyparts (store, bodyparts) {
     store.commit(types.SET_BODYPARTS, bodyparts)
@@ -129,6 +136,22 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.post('bodypart', formData).then(response => {
         store.dispatch('addBodypart', response.data)
+        resolve(response.data.internalid)
+      }, response => {
+        reject()
+      })
+    })
+  },
+  updateBodypart (store, payload) {
+    let context = payload.context
+    let body = payload.body
+    let internalid = payload.internalid
+    return new Promise((resolve, reject) => {
+      context.$http.put('bodypart/' + internalid, body, {
+        // emulateHTTP: true,
+        // emulateJSON: true
+      }).then(response => {
+        store.dispatch('editBodypart', response.data)
         resolve(response.data.internalid)
       }, response => {
         reject()
