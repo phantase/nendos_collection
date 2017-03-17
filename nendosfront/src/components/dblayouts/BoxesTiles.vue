@@ -17,7 +17,7 @@
               :title="`<div class='db-box-category text-yellow'>`+box.category+(box.number ? ' #'+box.number:'')+`</div>
                             <div class='db-box-name'>`+box.name+`</div>
                             <div class='db-box-series'>`+(box.series?box.series:``)+`</div>`">
-          <img :src="resources.imagesurl+'/images/nendos/boxes/'+box.internalid+'_thumb'" />
+          <img :src="resources.apiurl+'/images/boxes/'+box.internalid+'/thumb'" />
           <span class="badge bg-blue incollection" v-if="box.collquantity">{{ box.collquantity }}</span>
           <span v-if="viewvalidation">
             <span class="badge pull-right bg-green validationbadge" v-if="box.validatorname">V</span>

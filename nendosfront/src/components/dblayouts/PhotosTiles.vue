@@ -9,7 +9,7 @@
           </h3>
         </div>
         <div class="box-body db-image">
-          <img :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_thumb'" />
+          <img :src="resources.apiurl+'/images/photos/'+photo.internalid+'/thumb'" />
         </div>
       </div>
     </router-link>

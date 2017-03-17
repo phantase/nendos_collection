@@ -11,7 +11,7 @@
               data-toggle="tooltip" data-html="true"
               :title="`<div class='db-accessory-type text-yellow'>`+accessory.type+`</div>
                         <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`">
-          <img :src="resources.imagesurl+'/images/nendos/accessories/'+accessory.internalid+'_thumb'" />
+          <img :src="resources.apiurl+'/images/accessories/'+accessory.internalid+'/thumb'" />
           <span v-if="!minimal">
             <span class="badge bg-blue incollection" v-if="accessory.collquantity">{{ accessory.collquantity }}</span>
             <span v-if="viewvalidation">

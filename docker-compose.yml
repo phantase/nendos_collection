@@ -42,3 +42,4 @@ services:
       - "3000:80"
     volumes:
       - "./www/api/:/var/www/"
+      - "./.data/nendos:/var/www/html/images/nendos/"

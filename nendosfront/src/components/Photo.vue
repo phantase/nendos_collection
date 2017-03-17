@@ -19,7 +19,7 @@
         <div class="box">
           <app-box-header title="Photo" icon="fa-photo"></app-box-header>
           <div class="box-body db-photo db-photo-annotation-container">
-            <img id="db-photo" :src="resources.imagesurl+'/images/nendos/photos/'+photo.internalid+'_full'" :orig-width="photo.width" :orig-height="photo.height" @load="handleResize" />
+            <img id="db-photo" :src="resources.apiurl+'/images/photos/'+photo.internalid+'/full'" :orig-width="photo.width" :orig-height="photo.height" @load="handleResize" />
             <div :id="'db-photo-box-annotation-'+box.photoannotationid" class="db-photo-annotation"
                   data-toggle="tooltip" data-html="true"
                   :title="`<div class='db-box-category text-yellow'>`+box.category+(box.number ? ' #'+box.number:'')+`</div>

@@ -11,7 +11,7 @@
     <div class="lockscreen-item">
       <!-- lockscreen image -->
       <div class="lockscreen-image">
-        <img :src="resources.imagesurl+'/images/nendos/users/'+(user?user.internalid:'0')+'_thumb'" alt="User Image">
+        <img :src="resources.apiurl+'/images/users/'+(user?user.internalid:'0')+'/thumb'" alt="User Image">
       </div>
       <!-- /.lockscreen-image -->
 

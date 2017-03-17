@@ -11,7 +11,7 @@
               data-toggle="tooltip" data-html="true"
               :title="`<div class='db-hand-leftright text-yellow'>`+hand.leftright+`</div>
                         <div class='db-hand-posture'><span class='text-yellow'>Posture:</span> `+hand.posture+`</div>`">
-          <img :src="resources.imagesurl+'/images/nendos/hands/'+hand.internalid+'_thumb'" />
+          <img :src="resources.apiurl+'/images/hands/'+hand.internalid+'/thumb'" />
           <span v-if="!minimal">
             <span class="badge bg-blue incollection" v-if="hand.collquantity">{{ hand.collquantity }}</span>
             <span v-if="viewvalidation">

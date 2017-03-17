@@ -37,5 +37,6 @@ require '../routes/collection.php';
 require '../routes/validation.php';
 require '../routes/add.php';
 require '../routes/edit.php';
+require '../routes/images.php';
 
 $app->run();

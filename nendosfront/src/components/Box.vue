@@ -85,7 +85,7 @@
         <div class="box">
           <app-box-header title="Photo" collapsable="true" icon="fa-photo"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.imagesurl+'/images/nendos/boxes/'+box.internalid+'_thumb'" />
+            <img :src="resources.apiurl+'/images/boxes/'+box.internalid+'/thumb'" />
           </div>
         </div>
       </div>

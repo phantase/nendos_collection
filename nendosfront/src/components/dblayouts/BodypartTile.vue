@@ -11,7 +11,7 @@
               data-toggle="tooltip" data-html="true"
               :title="`<div class='db-bodypart-part text-yellow'>`+bodypart.part+`</div>
                         <div class='db-bodypart-description'><span class='text-yellow'>Description:</span> `+bodypart.description+`</div>`">
-          <img :src="resources.imagesurl+'/images/nendos/bodyparts/'+bodypart.internalid+'_thumb'" />
+          <img :src="resources.apiurl+'/images/bodyparts/'+bodypart.internalid+'/thumb'" />
           <span v-if="!minimal">
             <span class="badge bg-blue incollection" v-if="bodypart.collquantity">{{ bodypart.collquantity }}</span>
             <span v-if="viewvalidation">
