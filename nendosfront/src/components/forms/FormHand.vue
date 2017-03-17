@@ -66,7 +66,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Add hand</button>
+                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save hand</button>
               </div>
             </form>
           </div>
