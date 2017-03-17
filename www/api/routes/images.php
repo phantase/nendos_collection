@@ -60,7 +60,9 @@ $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
             $response->write($image);
             return $response->withHeader('Content-Type', 'image/jpg');
         } else {
-            return $response->withStatus(404);
+            $image = file_get_contents("images/nendos/unknown.png");
+            $response->write($image);
+            return $response->withHeader('Content-Type', 'image/png')->withStatus(404);
         }
     } catch (Exception $e){
         return $response->withStatus(400);
