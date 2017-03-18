@@ -27,6 +27,7 @@ import FormHair from 'components/forms/FormHair'
 import FormHand from 'components/forms/FormHand'
 import FormNendoroid from 'components/forms/FormNendoroid'
 import FormBox from 'components/forms/FormBox'
+import FormImage from 'components/forms/FormImage'
 
 Vue.use(Router)
 
@@ -249,6 +250,24 @@ export default new Router({
         ]
       },
       component: FormFace
+    },
+    {
+      path: '/face/:id/edit/image',
+      name: 'Edit face photo',
+      meta: {
+        description: 'Edit the photo of a face',
+        breadcrumb: [
+          {
+            title: 'Faces',
+            link: '/faces'
+          },
+          {
+            title: 'Face',
+            link: '/face/:id'
+          }
+        ]
+      },
+      component: FormImage
     },
     {
       path: '/face/:id/edit',
