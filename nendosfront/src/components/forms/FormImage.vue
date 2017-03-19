@@ -13,9 +13,13 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" v-if="hugefailure">
       <div class="col-md-12">
         <div class="box-body">
+          <div class="alert alert-danger">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            Huge failure, the file you have sent has not been saved on the server, please try again, if it doesn't work again, maybe our main server is dead (or you trying to do something you're not allowed to...).
+          </div>
         </div>
       </div>
     </div>
@@ -51,14 +55,17 @@
                   <b>Type</b>
                   <a class="pull-right">{{ file_type }}</a><br>
                 </li>
-              </li>
+              </ul>
+            </div>
+            <div>
+              <button type="button" class="btn btn-app pull-right" :class="uploadable?'':'disabled'" @click="uploadPicture"><i class="fa fa-upload"></i>Upload it</button>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
-          <app-box-header title="Uploaded photo" collapsable="true" icon="fa-file-photo"></app-box-header>
+          <app-box-header title="Canditate photo" collapsable="true" icon="fa-file-image-o"></app-box-header>
           <div class="box-body" v-if="failure">
             <div class="alert alert-danger">
               <h4><i class="icon fa fa-ban"></i> Alert!</h4>
@@ -83,7 +90,7 @@
 </template>
 
 <script>
-// import router from './../../router'
+import router from './../../router'
 import store from './../../store'
 import Vuex from 'vuex'
 
@@ -101,11 +108,14 @@ export default {
     return {
       resources: Resources,
       failure: false,
+      hugefailure: false,
+      uploadable: false,
       file_name: 'no file uploaded',
       file_size: 'n.a.',
       file_type: 'n.a.',
       file_width: 'n.a.',
-      file_height: 'n.a.'
+      file_height: 'n.a.',
+      file: null
     }
   },
   computed: {
@@ -115,6 +125,24 @@ export default {
     }
   },
   methods: {
+    uploadPicture () {
+      if (this.uploadable) {
+        console.log('Try to upload picture')
+        this.hugefailure = false
+        if (this.file) {
+          console.log(this.file)
+          let formData = new FormData()
+          formData.append('pic', this.file.nativeFile, this.file.name)
+          let pathArray = this.$route.path.split('/')
+          this.$http.post('auth/images/' + pathArray[1] + '/' + pathArray[2], formData).then(response => {
+            router.push('/' + pathArray[1] + '/' + pathArray[2])
+          }, response => {
+            console.log(response)
+            this.hugefailure = true
+          })
+        }
+      }
+    }
   },
   mounted () {
     /* global FileDrop:true */
@@ -144,12 +172,17 @@ export default {
               this.file_height = img.height + ' px'
               $('#upload_image').html('')
               $('#upload_image').append(img)
+              this.uploadable = true
             }
             img.src = uri
           })
+
+          this.file = file
         } else {
           $('#upload_image').html('')
+          this.file = null
           this.failure = true
+          this.uploadable = false
         }
       })
     })
