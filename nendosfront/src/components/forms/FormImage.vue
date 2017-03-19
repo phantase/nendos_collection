@@ -80,7 +80,7 @@
         <div class="box">
           <app-box-header title="Current photo" collapsable="true" icon="fa-photo"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.apiurl+'/images/faces/'+this.$route.params.id+'/thumb'" />
+            <img :src="resources.apiurl+'/images/'+element+'/'+internalid+'/thumb'" />
           </div>
         </div>
       </div>
@@ -122,6 +122,9 @@ export default {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands']),
     internalid () {
       return this.$route.params.id
+    },
+    element () {
+      return this.$route.path.split('/')[1]
     }
   },
   methods: {
@@ -130,7 +133,6 @@ export default {
         console.log('Try to upload picture')
         this.hugefailure = false
         if (this.file) {
-          console.log(this.file)
           let formData = new FormData()
           formData.append('pic', this.file.nativeFile, this.file.name)
           let pathArray = this.$route.path.split('/')

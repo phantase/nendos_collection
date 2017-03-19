@@ -83,7 +83,7 @@
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
-          <app-box-header title="Photo" collapsable="true" icon="fa-photo"></app-box-header>
+          <app-box-header title="Photo" collapsable="true" icon="fa-photo" editable="true" :editlink="'/box/'+box.internalid+'/edit/image'"></app-box-header>
           <div class="box-body db-image">
             <img :src="resources.apiurl+'/images/boxes/'+box.internalid+'/thumb'" />
           </div>

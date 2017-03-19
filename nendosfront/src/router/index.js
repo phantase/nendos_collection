@@ -72,6 +72,24 @@ export default new Router({
       component: FormAccessory
     },
     {
+      path: '/accessory/:id/edit/image',
+      name: 'Edit accessory photo',
+      meta: {
+        description: 'Edit the photo of an accessory',
+        breadcrumb: [
+          {
+            title: 'Accessories',
+            link: '/accessories'
+          },
+          {
+            title: 'Accessory',
+            link: '/accessory/:id'
+          }
+        ]
+      },
+      component: FormImage
+    },
+    {
       path: '/accessory/:id/edit',
       name: 'Edit accessory',
       meta: {
@@ -126,6 +144,24 @@ export default new Router({
       component: FormBodypart
     },
     {
+      path: '/bodypart/:id/edit/image',
+      name: 'Edit bodypart photo',
+      meta: {
+        description: 'Edit the photo of a bodypart',
+        breadcrumb: [
+          {
+            title: 'Bodyparts',
+            link: '/bodyparts'
+          },
+          {
+            title: 'Bodypart',
+            link: '/bodypart/:id'
+          }
+        ]
+      },
+      component: FormImage
+    },
+    {
       path: '/bodypart/:id/edit',
       name: 'Edit bodypart',
       meta: {
@@ -178,6 +214,24 @@ export default new Router({
         ]
       },
       component: FormBox
+    },
+    {
+      path: '/box/:id/edit/image',
+      name: 'Edit box photo',
+      meta: {
+        description: 'Edit the photo of a box',
+        breadcrumb: [
+          {
+            title: 'Boxes',
+            link: '/boxes'
+          },
+          {
+            title: 'Box',
+            link: '/box/:id'
+          }
+        ]
+      },
+      component: FormImage
     },
     {
       path: '/box/:id/edit',
@@ -324,6 +378,24 @@ export default new Router({
       component: FormHair
     },
     {
+      path: '/hair/:id/edit/image',
+      name: 'Edit hair photo',
+      meta: {
+        description: 'Edit the photo of a hair',
+        breadcrumb: [
+          {
+            title: 'Hairs',
+            link: '/hairs'
+          },
+          {
+            title: 'Hair',
+            link: '/hair/:id'
+          }
+        ]
+      },
+      component: FormImage
+    },
+    {
       path: '/hair/:id/edit',
       name: 'Edit hair',
       meta: {
@@ -378,6 +450,24 @@ export default new Router({
       component: FormHand
     },
     {
+      path: '/hand/:id/edit/image',
+      name: 'Edit hand photo',
+      meta: {
+        description: 'Edit the photo of a hand',
+        breadcrumb: [
+          {
+            title: 'Hands',
+            link: '/hands'
+          },
+          {
+            title: 'Hand',
+            link: '/hand/:id'
+          }
+        ]
+      },
+      component: FormImage
+    },
+    {
       path: '/hand/:id/edit',
       name: 'Edit hand',
       meta: {
@@ -430,6 +520,24 @@ export default new Router({
         ]
       },
       component: FormNendoroid
+    },
+    {
+      path: '/nendoroid/:id/edit/image',
+      name: 'Edit nendoroid photo',
+      meta: {
+        description: 'Edit the photo of a nendoroid',
+        breadcrumb: [
+          {
+            title: 'Nendoroids',
+            link: '/nendoroids'
+          },
+          {
+            title: 'Nendoroid',
+            link: '/nendoroid/:id'
+          }
+        ]
+      },
+      component: FormImage
     },
     {
       path: '/nendoroid/:id/edit',
