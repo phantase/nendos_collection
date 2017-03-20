@@ -57,9 +57,9 @@
                 </li>
               </ul>
             </div>
-            <div>
-              <button type="button" class="btn btn-app pull-right" :class="uploadable?'':'disabled'" @click="uploadPicture"><i class="fa fa-upload"></i>Upload it</button>
-            </div>
+          </div>
+          <div class="box-footer">
+            <button type="button" class="btn btn-app pull-right" :class="uploadable?'':'disabled'" @click="uploadPicture"><i class="fa fa-upload"></i>Upload it</button>
           </div>
         </div>
       </div>
