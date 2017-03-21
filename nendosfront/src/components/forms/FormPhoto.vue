@@ -85,6 +85,11 @@
                   <a class="pull-right">{{ file_type }}</a><br>
                 </li>
               </ul>
+              <div class="form-group" :class="errortitle?'has-error':''">
+                <label for="phototitle"><i class="fa fa-times-circle-o" v-if="errortitle"></i> Photo title</label>
+                <input type="text" class="form-control" :disabled="uploadable?false:true" id="phototitle" placeholder="Title" v-model="phototitle">
+                <span class="help-block" v-if="errortitle">Please provide a title</span>
+              </div>
             </div>
           </div>
           <div class="box-footer">
@@ -137,7 +142,9 @@ export default {
       file_type: 'n.a.',
       file_width: 'n.a.',
       file_height: 'n.a.',
-      file: null
+      file: null,
+      phototitle: null,
+      errortitle: false
     }
   },
   computed: {
@@ -155,20 +162,25 @@ export default {
       if (this.uploadable) {
         console.log('Try to upload photo')
         this.hugefailure = false
-        if (this.file) {
-          let formData = new FormData()
-          formData.append('pic', this.file.nativeFile, this.file.name)
-          formData.append('title', 'A great title')
-          this.createPhoto({
-            'context': this,
-            'formData': formData
-          }).then(response => {
-            console.log('Addition Successful')
-            router.push('/photo/' + response)
-          }, response => {
-            console.log(response)
-            this.hugefailure = true
-          })
+        if (this.phototitle) {
+          this.errortitle = false
+          if (this.file) {
+            let formData = new FormData()
+            formData.append('pic', this.file.nativeFile, this.file.name)
+            formData.append('title', this.phototitle)
+            this.createPhoto({
+              'context': this,
+              'formData': formData
+            }).then(response => {
+              console.log('Addition Successful')
+              router.push('/photo/' + response)
+            }, response => {
+              console.log(response)
+              this.hugefailure = true
+            })
+          }
+        } else {
+          this.errortitle = true
         }
       }
     }

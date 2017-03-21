@@ -129,14 +129,19 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
             $filename_full = $destination_folder.$internalid."_full.jpg";
             $filename_thumb = $destination_folder.$internalid."_thumb.jpg";
 
+            $maxside = 500;
+
             if ($files['pic']) {
                 $file = $files['pic'];
                 $file->moveTo($filename_full);
 
                 list($width, $height) = getimagesize($filename_full);
-                $image_dest = imagecreatetruecolor(500, 500);
+                $newwidth = $maxside;
+                $newheight = $maxside;
+
+                $image_dest = imagecreatetruecolor($newwidth, $newheight);
                 $image_orig = imagecreatefromjpeg($filename_full);
-                imagecopyresampled($image_dest, $image_orig, 0, 0, 0, 0, 500, 500, $width, $height);
+                imagecopyresampled($image_dest, $image_orig, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
                 imagejpeg($image_dest, $filename_thumb, 90);
 
                 return $response->withStatus(201);

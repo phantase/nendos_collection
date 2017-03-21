@@ -155,8 +155,17 @@ $app->post('/auth/{element:photo|photos}', function(Request $request, Response $
             throw new Exception("No file in request");
         }
 
+        $maxside = 500;
+
         $file = $files['pic'];
         list($width, $height) = getimagesize($file->file);
+        if ($width > $height) {
+            $newwidth = $maxside;
+            $newheight = $height * $maxside / $width;
+        } else {
+            $newheight = $maxside;
+            $newwidth = $width * $maxside / $height;
+        }
 
         $photo_data = [];
         $photo_data['userid']       = $userid;
@@ -182,9 +191,9 @@ $app->post('/auth/{element:photo|photos}', function(Request $request, Response $
             $filename_thumb = $destination_folder.$internalid."_thumb.jpg";
 
             $file->moveTo($filename_full);
-            $image_dest = imagecreatetruecolor(500, 500);
+            $image_dest = imagecreatetruecolor($newwidth, $newheight);
             $image_orig = imagecreatefromjpeg($filename_full);
-            imagecopyresampled($image_dest, $image_orig, 0, 0, 0, 0, 500, 500, $width, $height);
+            imagecopyresampled($image_dest, $image_orig, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
             imagejpeg($image_dest, $filename_thumb, 90);
 
             $newresponse = $response->withJson($newelement,201);
