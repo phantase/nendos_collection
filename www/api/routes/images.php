@@ -71,6 +71,7 @@ $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
 
 // Post the image of a single {element} using its {internalid}
 $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|user|users}/{internalid:[0-9]+}', function (Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
     $files = $request->getUploadedFiles();
@@ -78,6 +79,10 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
         $this->applogger->addInfo("POST images/$param_element/$internalid");
 
         try {
+
+            if (!$files['pic']) {
+                throw new Exception("Error, no image provided", 1);
+            }
 
             switch($param_element){
                 case "box":
@@ -131,23 +136,22 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
 
             $maxside = 500;
 
-            if ($files['pic']) {
-                $file = $files['pic'];
-                $file->moveTo($filename_full);
+            $file = $files['pic'];
+            $file->moveTo($filename_full);
 
-                list($width, $height) = getimagesize($filename_full);
-                $newwidth = $maxside;
-                $newheight = $maxside;
+            list($width, $height) = getimagesize($filename_full);
+            $newwidth = $maxside;
+            $newheight = $maxside;
 
-                $image_dest = imagecreatetruecolor($newwidth, $newheight);
-                $image_orig = imagecreatefromjpeg($filename_full);
-                imagecopyresampled($image_dest, $image_orig, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-                imagejpeg($image_dest, $filename_thumb, 90);
+            $image_dest = imagecreatetruecolor($newwidth, $newheight);
+            $image_orig = imagecreatefromjpeg($filename_full);
+            imagecopyresampled($image_dest, $image_orig, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+            imagejpeg($image_dest, $filename_thumb, 90);
 
-                return $response->withStatus(201);
-            } else {
-                return $response->withStatus(400);
-            }
+            $mapper = MapperFactory::getMapper($this->db,$param_element);
+            $mapper->addHistory($userid, $internalid, "Update", "Picture has been updated");
+
+            return $response->withStatus(201);
 
         } catch (Exception $e){
             $this->applogger->addInfo($e->getMessage());
