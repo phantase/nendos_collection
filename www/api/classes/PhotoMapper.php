@@ -158,13 +158,30 @@ class PhotoMapper extends Mapper
   }
 
   public function addHistory($userid, $elementid, $action, $detail="", $photoid=null) {
-    $element = $this->getByInternalid($elementid);
-
     $mapper = new HistoryMapper($this->db);
-    $mapper->addElementHistory($userid, $element->getBoxId(), $element->getNendoroidId(),
+    $mapper->addElementHistory($userid, null, null,
                                null, null,
                                null, null, null,
                                $elementid, $action, $detail);
     return null;
+  }
+
+  public function create(PhotoEntity $photo, $userid) {
+    $sql = "INSERT INTO photos
+              (userid, title, width, height, uploaded, updated) VALUES
+              (:userid, :title, :width, :height, NOW(), NOW())";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "userid" => $userid,
+        "title" => $photo->getTitle(),
+        "width" => $photo->getWidth(),
+        "height" => $photo->getHeight()
+      ]);
+    if(!$result) {
+      throw new Exception("Could not save photo");
+    }
+    $photoid = $this->db->lastInsertId();
+    $this->addHistory($userid,$photoid,"Creation");
+    return $this->getByInternalid($photoid);
   }
 }

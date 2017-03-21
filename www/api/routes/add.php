@@ -3,7 +3,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-// Collect an element for a specific user
+// Add an element
 $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands}', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     if( $request->getAttribute("token")->user->administrator || $request->getAttribute("token")->user->editor ) {
@@ -135,5 +135,65 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
         $this->applogger->addInfo("User $userid tries to create a new $element without right to do it");
         $newresponse = $response->withJson(null, 403);
     }
+    return $newresponse;
+});
+
+// Add a photo
+$app->post('/auth/{element:photo|photos}', function(Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
+
+    $data = $request->getParsedBody();
+    $files = $request->getUploadedFiles();
+
+    $this->applogger->addInfo("User $userid adds a new photo");
+
+    $newelement = null;
+
+    try {
+
+        if (!$files['pic']) {
+            throw new Exception("No file in request");
+        }
+
+        $file = $files['pic'];
+        list($width, $height) = getimagesize($file->file);
+
+        $photo_data = [];
+        $photo_data['userid']       = $userid;
+        $photo_data['title']        = array_key_exists('title',             $data) ? filter_var($data['title'],             FILTER_SANITIZE_STRING) : null;
+        $photo_data['width']        = $width;
+        $photo_data['height']       = $height;
+        $photo = new PhotoEntity($photo_data);
+
+        $photo_mapper = new PhotoMapper($this->db);
+        $newelement = $photo_mapper->create($photo, $userid);
+
+        if( is_null($newelement) ){
+            $newresponse = $response->withStatus(500);
+        } else {
+            $destination_folder = "images/nendos/photos/";
+            if (!file_exists($destination_folder)) {
+                mkdir($destination_folder, 0777, true);
+            }
+
+            $internalid = $newelement->getInternalid();
+
+            $filename_full = $destination_folder.$internalid."_full.jpg";
+            $filename_thumb = $destination_folder.$internalid."_thumb.jpg";
+
+            $file->moveTo($filename_full);
+            $image_dest = imagecreatetruecolor(500, 500);
+            $image_orig = imagecreatefromjpeg($filename_full);
+            imagecopyresampled($image_dest, $image_orig, 0, 0, 0, 0, 500, 500, $width, $height);
+            imagejpeg($image_dest, $filename_thumb, 90);
+
+            $newresponse = $response->withJson($newelement,201);
+        }
+
+    } catch (Exception $e){
+        $this->applogger->addInfo($e);
+        $newresponse = $response->withStatus(400);
+    }
+
     return $newresponse;
 });

@@ -42,6 +42,13 @@ const getters = {
 }
 
 const mutations = {
+  [types.ADD_PHOTO] (state, photo) {
+    state.photos.push(photo)
+  },
+  [types.EDIT_PHOTO] (state, photo) {
+    let idx = state.photos.findIndex(intphoto => intphoto.internalid === photo.internalid)
+    state.photos[idx] = photo
+  },
   [types.SET_PHOTOS] (state, photos) {
     state.photos = photos
   },
@@ -69,6 +76,12 @@ const mutations = {
 }
 
 const actions = {
+  addPhoto (store, photo) {
+    store.commit(types.ADD_PHOTO, photo)
+  },
+  editPhoto (store, photo) {
+    store.commit(types.EDIT_PHOTO, photo)
+  },
   setPhotos (store, photos) {
     store.commit(types.SET_PHOTOS, photos)
   },
@@ -233,6 +246,34 @@ const actions = {
         store.dispatch('setPhotoNendoroids', response.data)
         resolve()
       }, (response) => {
+        reject()
+      })
+    })
+  },
+  createPhoto (store, payload) {
+    let context = payload.context
+    let formData = payload.formData
+    return new Promise((resolve, reject) => {
+      context.$http.post('photo', formData).then(response => {
+        store.dispatch('addPhoto', response.data)
+        resolve(response.data.internalid)
+      }, response => {
+        reject()
+      })
+    })
+  },
+  updatePhoto (store, payload) {
+    let context = payload.context
+    let body = payload.body
+    let internalid = payload.internalid
+    return new Promise((resolve, reject) => {
+      context.$http.put('photo/' + internalid, body, {
+        // emulateHTTP: true,
+        // emulateJSON: true
+      }).then(response => {
+        store.dispatch('editPhoto', response.data)
+        resolve(response.data.internalid)
+      }, response => {
         reject()
       })
     })

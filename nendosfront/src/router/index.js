@@ -28,6 +28,7 @@ import FormHand from 'components/forms/FormHand'
 import FormNendoroid from 'components/forms/FormNendoroid'
 import FormBox from 'components/forms/FormBox'
 import FormImage from 'components/forms/FormImage'
+import FormPhoto from 'components/forms/FormPhoto'
 
 Vue.use(Router)
 
@@ -578,6 +579,20 @@ export default new Router({
         description: 'List of all nendoroids'
       },
       component: Nendoroids
+    },
+    {
+      path: '/photo/add',
+      name: 'Add Photo',
+      meta: {
+        description: 'Add a photo',
+        breadcrumb: [
+          {
+            title: 'Photos',
+            link: '/photos'
+          }
+        ]
+      },
+      component: FormPhoto
     },
     {
       path: '/photo/:id',
