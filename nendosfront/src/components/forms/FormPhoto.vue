@@ -202,47 +202,49 @@ export default {
     }
   },
   mounted () {
-    /* global FileDrop:true */
-    var dropZone = new FileDrop('upload_zone')
-    dropZone.event('send', files => {
-      files.images().each(file => {
-        if (file.type === 'image/jpeg') {
-          this.failure = false
+    if (this.authenticated) {
+      /* global FileDrop:true */
+      var dropZone = new FileDrop('upload_zone')
+      dropZone.event('send', files => {
+        files.images().each(file => {
+          if (file.type === 'image/jpeg') {
+            this.failure = false
 
-          this.file_name = file.name
+            this.file_name = file.name
 
-          let fsize = file.size
-          let tsize = ''
-          if (fsize > 1024 * 1024) {
-            tsize = Math.round(10 * (fsize / (1024 * 1024))) / 10 + ' MB'
-          } else if (fsize > 1024) {
-            tsize = Math.round((fsize / 1024)) + ' kB'
-          }
-          this.file_size = tsize
-
-          this.file_type = file.type
-
-          file.readDataURI(uri => {
-            let img = new Image()
-            img.onload = evt => {
-              this.file_width = img.width + ' px'
-              this.file_height = img.height + ' px'
-              $('#upload_image').html('')
-              $('#upload_image').append(img)
-              this.uploadable = true
+            let fsize = file.size
+            let tsize = ''
+            if (fsize > 1024 * 1024) {
+              tsize = Math.round(10 * (fsize / (1024 * 1024))) / 10 + ' MB'
+            } else if (fsize > 1024) {
+              tsize = Math.round((fsize / 1024)) + ' kB'
             }
-            img.src = uri
-          })
+            this.file_size = tsize
 
-          this.file = file
-        } else {
-          $('#upload_image').html('')
-          this.file = null
-          this.failure = true
-          this.uploadable = false
-        }
+            this.file_type = file.type
+
+            file.readDataURI(uri => {
+              let img = new Image()
+              img.onload = evt => {
+                this.file_width = img.width + ' px'
+                this.file_height = img.height + ' px'
+                $('#upload_image').html('')
+                $('#upload_image').append(img)
+                this.uploadable = true
+              }
+              img.src = uri
+            })
+
+            this.file = file
+          } else {
+            $('#upload_image').html('')
+            this.file = null
+            this.failure = true
+            this.uploadable = false
+          }
+        })
       })
-    })
+    }
   },
   beforeUpdate () {
   }
