@@ -13,7 +13,21 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" v-if="!authenticated">
+      <div class="col-md-12">
+        <div class="box">
+          <div class="box-body">
+            <div class="alert alert-danger">
+              <h4><i class="icon fa fa-ban"></i> Not authorized!</h4>
+              <div>You don't have the rights to add a photo. But you can create your own account to be able to manage your collection and add your photos, it's free. </div>
+              <div><router-link to="/register" >Yes, bring me to registration!</router-link></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" v-if="authenticated">
       <div class="col-md-12">
         <div class="box">
           <app-box-header title="Photo Guidelines" collapsable="true" icon="fa-legal"></app-box-header>
@@ -44,16 +58,18 @@
 
     <div class="row" v-if="hugefailure">
       <div class="col-md-12">
-        <div class="box-body">
-          <div class="alert alert-danger">
-            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-            Huge failure, the file you have sent has not been saved on the server, please try again, if it doesn't work again, maybe our main server is dead (or you trying to do something you're not allowed to...).
+        <div class="box">
+          <div class="box-body">
+            <div class="alert alert-danger">
+              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+              Huge failure, the file you have sent has not been saved on the server, please try again, if it doesn't work again, maybe our main server is dead (or you're trying to do something you're not allowed to...).
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row" v-show="guidelinesaccepted">
+    <div class="row" v-if="authenticated" v-show="guidelinesaccepted">
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
           <app-box-header title="Upload a new photo" collapsable="true" icon="fa-upload"></app-box-header>
@@ -148,7 +164,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'authenticated']),
     internalid () {
       return this.$route.params.id
     },

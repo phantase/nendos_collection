@@ -7,7 +7,7 @@
           <div class="box-header with-border">
             <h3 class="box-title"><i class="fa icon-icon_nendo_box"></i> {{ internalid ? 'Edit' : 'Add' }} a box</h3>
           </div>
-          <div class="box-body">
+          <div class="box-body" v-if="canedit">
             <div class="alert alert-danger" v-if="failure">
               <h4><i class="icon fa fa-ban"></i> Alert!</h4>
               An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
@@ -91,6 +91,12 @@
               </div>
             </form>
           </div>
+          <div class="box-body" v-else>
+            <div class="alert alert-danger">
+              <h4><i class="icon fa fa-ban"></i> Not authorized!</h4>
+              You don't have the rights to add or edit a box. Please ask for them if you want to contribute to the database.
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -132,7 +138,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
     internalid () {
       return this.$route.name === 'Edit box' ? this.$route.params.id : null
     }
