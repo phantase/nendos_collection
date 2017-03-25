@@ -4,21 +4,24 @@
 
         <template v-for="row in menus">
 
-          <router-link tag="li" active-class="active" :to="row.link" class="treeview" v-if="row.hasOwnProperty('link')">
-            <a>
+          <li class="treeview" :class="row.link === pageto ? 'active' : ''" v-if="row.hasOwnProperty('link')">
+            <router-link :to="row.link">
               <i :class="'fa ' + row.icon "></i>
               <span>{{ row.name }}</span>
-            </a>
+              <span class="pull-right-container" v-if="row.hasOwnProperty('child') && typeof row.child.length != 'undefined'">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </router-link>
 
-            <ul v-show="row.hasOwnProperty('child') && typeof row.child.length != 'undefined'" class="treeview-menu">
-              <router-link tag="li" active-class="active" :to="child.link" v-for="child in row.child">
-                <a>
+            <ul v-if="row.hasOwnProperty('child') && typeof row.child.length != 'undefined'" class="treeview-menu">
+              <li :class="child.link === pageto ? 'active' : ''" v-for="child in row.child">
+                <router-link :to="child.link">
                   <i :class="'fa ' + child.icon "></i> {{ child.name }}
-                </a>
-              </router-link>
+                </router-link>
+              </li>
             </ul>
 
-          </router-link>
+          </li>
 
           <li class="header" v-else>{{ row.name }}</li>
 
@@ -34,6 +37,11 @@
     data () {
       return {
         menus: this.$parent.$parent.$data.menus || []
+      }
+    },
+    computed: {
+      pageto () {
+        return this.$route.path
       }
     }
   }

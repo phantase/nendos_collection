@@ -10,7 +10,14 @@ export default [
   {
     name: 'Photos',
     link: '/photos',
-    icon: 'fa-photo'
+    icon: 'fa-photo',
+    child: [
+      {
+        name: 'Add a photo',
+        link: '/photo/add',
+        icon: 'fa-file-photo-o'
+      }
+    ]
   },
   {
     name: 'DATABASE'
