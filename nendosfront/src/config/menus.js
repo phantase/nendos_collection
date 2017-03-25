@@ -15,7 +15,8 @@ export default [
       {
         name: 'Add a photo',
         link: '/photo/add',
-        icon: 'fa-file-photo-o'
+        icon: 'fa-file-photo-o',
+        require: 'authenticated'
       }
     ]
   },
@@ -25,7 +26,15 @@ export default [
   {
     name: 'Boxes',
     link: '/boxes',
-    icon: 'icon-icon_nendo_boxes'
+    icon: 'icon-icon_nendo_boxes',
+    child: [
+      {
+        name: 'Add a box',
+        link: '/box/add',
+        icon: 'fa-plus-circle',
+        require: 'editor'
+      }
+    ]
   },
   {
     name: 'Nendoroids',

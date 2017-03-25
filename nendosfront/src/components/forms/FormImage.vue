@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" v-if="canedit">
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
           <app-box-header title="Upload a new photo" collapsable="true" icon="fa-upload"></app-box-header>
@@ -85,6 +85,18 @@
         </div>
       </div>
     </div>
+    <div class="row" v-else>
+      <div class="col-md-12">
+        <div class="box">
+          <div class="box-body">
+            <div class="alert alert-danger">
+              <h4><i class="icon fa fa-ban"></i> Not authorized!</h4>
+              You don't have the rights to add or change an image. Please ask for them if you want to contribute to the database.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -119,7 +131,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
     internalid () {
       return this.$route.params.id
     },
@@ -147,47 +159,49 @@ export default {
     }
   },
   mounted () {
-    /* global FileDrop:true */
-    var dropZone = new FileDrop('upload_zone')
-    dropZone.event('send', files => {
-      files.images().each(file => {
-        if (file.type === 'image/jpeg') {
-          this.failure = false
+    if (this.canedit) {
+      /* global FileDrop:true */
+      var dropZone = new FileDrop('upload_zone')
+      dropZone.event('send', files => {
+        files.images().each(file => {
+          if (file.type === 'image/jpeg') {
+            this.failure = false
 
-          this.file_name = file.name
+            this.file_name = file.name
 
-          let fsize = file.size
-          let tsize = ''
-          if (fsize > 1024 * 1024) {
-            tsize = Math.round(10 * (fsize / (1024 * 1024))) / 10 + ' MB'
-          } else if (fsize > 1024) {
-            tsize = Math.round((fsize / 1024)) + ' kB'
-          }
-          this.file_size = tsize
-
-          this.file_type = file.type
-
-          file.readDataURI(uri => {
-            let img = new Image()
-            img.onload = evt => {
-              this.file_width = img.width + ' px'
-              this.file_height = img.height + ' px'
-              $('#upload_image').html('')
-              $('#upload_image').append(img)
-              this.uploadable = true
+            let fsize = file.size
+            let tsize = ''
+            if (fsize > 1024 * 1024) {
+              tsize = Math.round(10 * (fsize / (1024 * 1024))) / 10 + ' MB'
+            } else if (fsize > 1024) {
+              tsize = Math.round((fsize / 1024)) + ' kB'
             }
-            img.src = uri
-          })
+            this.file_size = tsize
 
-          this.file = file
-        } else {
-          $('#upload_image').html('')
-          this.file = null
-          this.failure = true
-          this.uploadable = false
-        }
+            this.file_type = file.type
+
+            file.readDataURI(uri => {
+              let img = new Image()
+              img.onload = evt => {
+                this.file_width = img.width + ' px'
+                this.file_height = img.height + ' px'
+                $('#upload_image').html('')
+                $('#upload_image').append(img)
+                this.uploadable = true
+              }
+              img.src = uri
+            })
+
+            this.file = file
+          } else {
+            $('#upload_image').html('')
+            this.file = null
+            this.failure = true
+            this.uploadable = false
+          }
+        })
       })
-    })
+    }
   },
   beforeUpdate () {
   }
