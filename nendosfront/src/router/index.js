@@ -9,6 +9,7 @@ import Bodypart from 'components/Bodypart'
 import Bodyparts from 'components/Bodyparts'
 import Box from 'components/Box'
 import BoxCollect from 'components/BoxCollect'
+import BoxUncollect from 'components/BoxUncollect'
 import Boxes from 'components/Boxes'
 import Face from 'components/Face'
 import Faces from 'components/Faces'
@@ -283,6 +284,24 @@ export default new Router({
         ]
       },
       component: BoxCollect
+    },
+    {
+      path: '/box/:id/uncollect',
+      name: 'Box Uncollection',
+      meta: {
+        description: 'Uncollection of a box',
+        breadcrumb: [
+          {
+            title: 'Boxes',
+            link: '/boxes'
+          },
+          {
+            title: 'Box',
+            link: '/box/:id'
+          }
+        ]
+      },
+      component: BoxUncollect
     },
     {
       path: '/boxes',

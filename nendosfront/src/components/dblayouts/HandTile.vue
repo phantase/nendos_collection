@@ -1,6 +1,6 @@
 <template>
       <div class="box box-solid"
-            :style="collectpage?collectable?'background-color: #9e9;':'background-color: #e99;':''"
+            :style="getStyle()"
             @click="changeCollectability">
         <div class="box-header with-border">
           <h3 class="box-title">
@@ -31,12 +31,13 @@ import Resources from './../../config/resources'
 
 export default {
   name: 'HandsTiles',
-  props: ['hand', 'minimal', 'collectpage', 'collactivated'],
+  props: ['hand', 'minimal', 'collectpage', 'uncollectpage'],
   store: store,
   data () {
     return {
       resources: Resources,
-      collectable: true
+      collectable: true,
+      uncollectable: true
     }
   },
   computed: {
@@ -44,14 +45,40 @@ export default {
   },
   methods: {
     changeCollectability () {
-      if (this.collactivated) {
+      if (this.collectpage) {
         this.collectable = !this.collectable
-        this.$emit(this.collectable ? 'collect' : 'uncollect', 'hand', this.hand.internalid)
+        this.$emit(this.collectable ? 'collect' : 'dontcollect', 'hand', this.hand.internalid)
+      } else if (this.uncollectpage && this.hand.collquantity) {
+        this.uncollectable = !this.uncollectable
+        this.$emit(this.uncollectable ? 'uncollect' : 'keep', 'hand', this.hand.internalid)
+      }
+    },
+    getStyle () {
+      if (this.collectpage) {
+        if (this.collectable) {
+          return 'background-color: #9e9;'
+        } else {
+          return 'background-color: #e99;'
+        }
+      } else if (this.uncollectpage) {
+        if (this.hand.collquantity === null) {
+          return 'background-color: #ccc;'
+        } else if (this.uncollectable) {
+          return 'background-color: #e99;'
+        } else {
+          return 'background-color: #9e9;'
+        }
+      } else {
+        return ''
       }
     }
   },
   mounted () {
-    this.$emit(this.collectable ? 'collect' : 'uncollect', 'hand', this.hand.internalid)
+    if (this.collectpage) {
+      this.$emit(this.collectable ? 'collect' : 'dontcollect', 'hand', this.hand.internalid)
+    } else if (this.uncollectpage && this.hand.collquantity) {
+      this.$emit(this.uncollectable ? 'uncollect' : 'keep', 'hand', this.hand.internalid)
+    }
   },
   destroyed () {
     $('[role="tooltip"]').remove()
