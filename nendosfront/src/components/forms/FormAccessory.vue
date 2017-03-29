@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box">
+  <div class="db-box" v-if="!noeditableelement">
 
     <div class="row">
       <div class="col-md-12">
@@ -78,6 +78,21 @@
     </div>
 
   </div>
+  <div class="row" v-else>
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Not found</h3>
+        </div>
+        <div class="box-body">
+          <div class="alert alert-danger">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            What you are looking for was not found, please check again the information you enter.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -105,7 +120,8 @@ export default {
       errortype: false,
       errormaincolor: false,
       errordescription: false,
-      failure: false
+      failure: false,
+      noeditableelement: false
     }
   },
   computed: {
@@ -137,12 +153,17 @@ export default {
       if (this.internalid) {
         console.log('Accessory Edition mode')
         let accessory = this.accessories.find(accessory => accessory.internalid === this.$route.params.id)
-        this.boxselected = accessory.boxid ? accessory.boxid : 'box'
-        this.nendoroidselected = accessory.nendoroidid ? accessory.nendoroidid : 'nendoroid'
-        this.type = accessory.type
-        this.maincolor = accessory.main_color
-        this.othercolor = accessory.other_color
-        this.description = accessory.description
+        if (accessory) {
+          this.boxselected = accessory.boxid ? accessory.boxid : 'box'
+          this.nendoroidselected = accessory.nendoroidid ? accessory.nendoroidid : 'nendoroid'
+          this.type = accessory.type
+          this.maincolor = accessory.main_color
+          this.othercolor = accessory.other_color
+          this.description = accessory.description
+          this.noeditableelement = false
+        } else {
+          this.noeditableelement = true
+        }
       } else {
         console.log('Accessory Addition mode')
       }

@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box">
+  <div class="db-box" v-if="!noeditableelement">
 
     <div class="row">
       <div class="col-md-12">
@@ -78,6 +78,21 @@
     </div>
 
   </div>
+  <div class="row" v-else>
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Not found</h3>
+        </div>
+        <div class="box-body">
+          <div class="alert alert-danger">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            What you are looking for was not found, please check again the information you enter.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -105,7 +120,8 @@ export default {
       errorpart: false,
       errormaincolor: false,
       errordescription: false,
-      failure: false
+      failure: false,
+      noeditableelement: false
     }
   },
   computed: {
@@ -137,12 +153,17 @@ export default {
       if (this.internalid) {
         console.log('Bodypart Edition mode')
         let bodypart = this.bodyparts.find(bodypart => bodypart.internalid === this.$route.params.id)
-        this.boxselected = bodypart.boxid ? bodypart.boxid : 'box'
-        this.nendoroidselected = bodypart.nendoroidid ? bodypart.nendoroidid : 'nendoroid'
-        this.part = bodypart.part
-        this.maincolor = bodypart.main_color
-        this.othercolor = bodypart.other_color
-        this.description = bodypart.description
+        if (bodypart) {
+          this.boxselected = bodypart.boxid ? bodypart.boxid : 'box'
+          this.nendoroidselected = bodypart.nendoroidid ? bodypart.nendoroidid : 'nendoroid'
+          this.part = bodypart.part
+          this.maincolor = bodypart.main_color
+          this.othercolor = bodypart.other_color
+          this.description = bodypart.description
+          this.noeditableelement = false
+        } else {
+          this.noeditableelement = true
+        }
       } else {
         console.log('Bodypart Addition mode')
       }

@@ -91,6 +91,21 @@
     </div>
 
   </div>
+  <div class="row" v-else>
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Not found</h3>
+        </div>
+        <div class="box-body">
+          <div class="alert alert-danger">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            What you are looking for was not found, please check again the information you enter.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

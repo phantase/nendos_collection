@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box">
+  <div class="db-box" v-if="!noeditableelement">
 
     <div class="row">
       <div class="col-md-12">
@@ -102,6 +102,21 @@
     </div>
 
   </div>
+  <div class="row" v-else>
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Not found</h3>
+        </div>
+        <div class="box-body">
+          <div class="alert alert-danger">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            What you are looking for was not found, please check again the information you enter.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -134,7 +149,8 @@ export default {
       errorcategory: false,
       errorprice: false,
       errorreleasedate: false,
-      failure: false
+      failure: false,
+      noeditableelement: false
     }
   },
   computed: {
@@ -154,19 +170,24 @@ export default {
       if (this.internalid) {
         console.log('Box Edition mode')
         let box = this.boxes.find(box => box.internalid === this.internalid)
-        this.name = box.name
-        this.series = box.series
-        this.category = box.category
-        this.number = box.number
-        this.manufacturer = box.manufacturer
-        this.sculptor = box.sculptor
-        this.cooperation = box.cooperation
-        if (box.releasedate) {
-          this.releasedate = box.releasedate.split('-')[0] + '/' + box.releasedate.split('-')[1]
+        if (box) {
+          this.name = box.name
+          this.series = box.series
+          this.category = box.category
+          this.number = box.number
+          this.manufacturer = box.manufacturer
+          this.sculptor = box.sculptor
+          this.cooperation = box.cooperation
+          if (box.releasedate) {
+            this.releasedate = box.releasedate.split('-')[0] + '/' + box.releasedate.split('-')[1]
+          }
+          this.price = box.price
+          this.specifications = box.specifications
+          this.officialurl = box.officialurl
+          this.noeditableelement = false
+        } else {
+          this.noeditableelement = true
         }
-        this.price = box.price
-        this.specifications = box.specifications
-        this.officialurl = box.officialurl
       } else {
         console.log('Box Addition mode')
       }

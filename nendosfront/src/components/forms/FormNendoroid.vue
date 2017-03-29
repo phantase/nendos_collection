@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box">
+  <div class="db-box" v-if="!noeditableelement">
 
     <div class="row">
       <div class="col-md-12">
@@ -71,6 +71,21 @@
     </div>
 
   </div>
+  <div class="row" v-else>
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Not found</h3>
+        </div>
+        <div class="box-body">
+          <div class="alert alert-danger">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            What you are looking for was not found, please check again the information you enter.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -95,7 +110,8 @@ export default {
       dominantcolor: '000000',
       errorbox: false,
       errorname: false,
-      failure: false
+      failure: false,
+      noeditableelement: false
     }
   },
   computed: {
@@ -118,11 +134,16 @@ export default {
       if (this.internalid) {
         console.log('Nendoroid Edition mode')
         let nendoroid = this.nendoroids.find(nendoroid => nendoroid.internalid === this.$route.params.id)
-        this.boxselected = nendoroid.boxid
-        this.name = nendoroid.name
-        this.version = nendoroid.version
-        this.sex = nendoroid.sex
-        this.dominantcolor = nendoroid.dominant_color
+        if (nendoroid) {
+          this.boxselected = nendoroid.boxid
+          this.name = nendoroid.name
+          this.version = nendoroid.version
+          this.sex = nendoroid.sex
+          this.dominantcolor = nendoroid.dominant_color
+          this.noeditableelement = false
+        } else {
+          this.noeditableelement = true
+        }
       } else {
         console.log('Nendoroid Addition mode')
       }

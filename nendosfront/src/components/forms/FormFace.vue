@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box">
+  <div class="db-box" v-if="!noeditableelement">
 
     <div class="row">
       <div class="col-md-12">
@@ -89,6 +89,21 @@
     </div>
 
   </div>
+  <div class="row" v-else>
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Not found</h3>
+        </div>
+        <div class="box-body">
+          <div class="alert alert-danger">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            What you are looking for was not found, please check again the information you enter.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -118,7 +133,8 @@ export default {
       erroreyescolor: false,
       errormouth: false,
       errorskincolor: false,
-      failure: false
+      failure: false,
+      noeditableelement: false
     }
   },
   computed: {
@@ -150,13 +166,18 @@ export default {
       if (this.internalid) {
         console.log('Face Edition mode')
         let face = this.faces.find(face => face.internalid === this.$route.params.id)
-        this.boxselected = face.boxid ? face.boxid : 'box'
-        this.nendoroidselected = face.nendoroidid ? face.nendoroidid : 'nendoroid'
-        this.eyes = face.eyes
-        this.eyescolor = face.eyes_color
-        this.mouth = face.mouth
-        this.skincolor = face.skin_color
-        this.sex = face.sex
+        if (face) {
+          this.boxselected = face.boxid ? face.boxid : 'box'
+          this.nendoroidselected = face.nendoroidid ? face.nendoroidid : 'nendoroid'
+          this.eyes = face.eyes
+          this.eyescolor = face.eyes_color
+          this.mouth = face.mouth
+          this.skincolor = face.skin_color
+          this.sex = face.sex
+          this.noeditableelement = false
+        } else {
+          this.noeditableelement = true
+        }
       } else {
         console.log('Face Addition mode')
       }

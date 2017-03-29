@@ -1,5 +1,5 @@
 <template>
-  <div class="db-box">
+  <div class="db-box" v-if="!noeditableelement">
 
     <div class="row">
       <div class="col-md-12">
@@ -81,6 +81,21 @@
     </div>
 
   </div>
+  <div class="row" v-else>
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Not found</h3>
+        </div>
+        <div class="box-body">
+          <div class="alert alert-danger">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            What you are looking for was not found, please check again the information you enter.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -108,7 +123,8 @@ export default {
       errorskincolor: false,
       errorposture: false,
       errordescription: false,
-      failure: false
+      failure: false,
+      noeditableelement: false
     }
   },
   computed: {
@@ -140,12 +156,17 @@ export default {
       if (this.internalid) {
         console.log('Hand Edition mode')
         let hand = this.hands.find(hand => hand.internalid === this.$route.params.id)
-        this.boxselected = hand.boxid ? hand.boxid : 'box'
-        this.nendoroidselected = hand.nendoroidid ? hand.nendoroidid : 'nendoroid'
-        this.posture = hand.posture
-        this.leftright = hand.leftright
-        this.skincolor = hand.skin_color
-        this.description = hand.description
+        if (hand) {
+          this.boxselected = hand.boxid ? hand.boxid : 'box'
+          this.nendoroidselected = hand.nendoroidid ? hand.nendoroidid : 'nendoroid'
+          this.posture = hand.posture
+          this.leftright = hand.leftright
+          this.skincolor = hand.skin_color
+          this.description = hand.description
+          this.noeditableelement = false
+        } else {
+          this.noeditableelement = true
+        }
       } else {
         console.log('Hand Addition mode')
       }
