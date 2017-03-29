@@ -141,7 +141,7 @@ import Resources from './../../config/resources'
 import AppBoxHeader from './../layouts/BoxHeader'
 
 export default {
-  name: 'FormImage',
+  name: 'FormPhoto',
   components: {
     AppBoxHeader
   },
