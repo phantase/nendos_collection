@@ -316,6 +316,7 @@ export default {
     border: dashed 1px black;
     background-color: rgba(255,255,255,0.2);
     visibility: hidden;
+    text-align: left;
   }
   .db-photo-annotation a {
       border: dashed 1px white;
