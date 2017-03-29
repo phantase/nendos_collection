@@ -6,7 +6,7 @@ class NendoroidMapper extends Mapper
   protected $collectiontablename = "users_nendoroids_collection";
   protected $collectioncolumn = "nendoroidid";
 
-  public function get($userid=null) {
+  public function get($userid=null, $validated=true) {
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
@@ -21,6 +21,9 @@ class NendoroidMapper extends Mapper
                   FROM users_nendoroids_collection
                   WHERE userid = :userid
                   ) AS ucol ON n.internalid = ucol.nendoroidid";
+    if ($validated) {
+      $sql .= " WHERE n.validatorid IS NOT NULL";
+    }
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["userid" => $userid]);
 

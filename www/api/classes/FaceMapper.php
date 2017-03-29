@@ -6,7 +6,7 @@ class FaceMapper extends Mapper
   protected $collectiontablename = "users_faces_collection";
   protected $collectioncolumn = "faceid";
 
-  public function get($userid=null) {
+  public function get($userid=null, $validated=true) {
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
@@ -21,6 +21,9 @@ class FaceMapper extends Mapper
                   FROM users_faces_collection
                   WHERE userid = :userid
                   ) AS ucol ON f.internalid = ucol.faceid";
+    if ($validated) {
+      $sql .= " WHERE f.validatorid IS NOT NULL";
+    }
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["userid" => $userid]);
 

@@ -6,7 +6,7 @@ class HairMapper extends Mapper
   protected $collectiontablename = "users_hairs_collection";
   protected $collectioncolumn = "hairid";
 
-  public function get($userid=null) {
+  public function get($userid=null, $validated=true) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
@@ -21,6 +21,9 @@ class HairMapper extends Mapper
                   FROM users_hairs_collection
                   WHERE userid = :userid
                   ) AS ucol ON h.internalid = ucol.hairid";
+    if ($validated) {
+      $sql .= " WHERE h.validatorid IS NOT NULL";
+    }
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["userid" => $userid]);
 

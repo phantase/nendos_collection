@@ -6,7 +6,7 @@ class HandMapper extends Mapper
   protected $collectiontablename = "users_hands_collection";
   protected $collectioncolumn = "handid";
 
-  public function get($userid=null) {
+  public function get($userid=null, $validated=true) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
@@ -21,6 +21,9 @@ class HandMapper extends Mapper
                   FROM users_hands_collection
                   WHERE userid = :userid
                   ) AS ucol ON h.internalid = ucol.handid";
+    if ($validated) {
+      $sql .= " WHERE h.validatorid IS NOT NULL";
+    }
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["userid" => $userid]);
 

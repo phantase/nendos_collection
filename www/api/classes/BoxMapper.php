@@ -6,7 +6,7 @@ class BoxMapper extends Mapper
   protected $collectiontablename = "users_boxes_collection";
   protected $collectioncolumn = "boxid";
 
-  public function get($userid=null) {
+  public function get($userid=null, $validated=true) {
     $sql = "SELECT b.internalid, b.number, b.name, b.series, b.manufacturer, b.category,
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
@@ -22,6 +22,9 @@ class BoxMapper extends Mapper
                   FROM users_boxes_collection
                   WHERE userid = :userid
                   ) AS ucol ON b.internalid = ucol.boxid";
+    if ($validated) {
+      $sql .= " WHERE b.validatorid IS NOT NULL";
+    }
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["userid" => $userid]);
 

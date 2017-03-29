@@ -6,7 +6,7 @@ class BodypartMapper extends Mapper
   protected $collectiontablename = "users_bodyparts_collection";
   protected $collectioncolumn = "bodypartid";
 
-  public function get($userid=null) {
+  public function get($userid=null, $validated=true) {
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
@@ -21,6 +21,9 @@ class BodypartMapper extends Mapper
                   FROM users_bodyparts_collection
                   WHERE userid = :userid
                   ) AS ucol ON bp.internalid = ucol.bodypartid";
+    if ($validated) {
+      $sql .= " WHERE bp.validatorid IS NOT NULL";
+    }
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["userid" => $userid]);
 

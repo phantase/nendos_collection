@@ -6,7 +6,7 @@ class AccessoryMapper extends Mapper
   protected $collectiontablename = "users_accessories_collection";
   protected $collectioncolumn = "accessoryid";
 
-  public function get($userid=null) {
+  public function get($userid=null, $validated=true) {
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
@@ -21,6 +21,9 @@ class AccessoryMapper extends Mapper
                   FROM users_accessories_collection
                   WHERE userid = :userid
                   ) AS ucol ON a.internalid = ucol.accessoryid";
+    if ($validated) {
+      $sql .= " WHERE a.validatorid IS NOT NULL";
+    }
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["userid" => $userid]);
 
