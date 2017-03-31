@@ -120,11 +120,12 @@
             </h3>
           </div>
           <div class="box-body db-photo db-photo-annotation-container"
-            :class="selectedpart?'drawmode':''"
-            @click="handleAction('click', $event)" @mousemove="handleAction('mousemove', $event)" @mouseout="handleAction('mouseout', $event)">
+            :class="selectedpart?'drawmode':''">
             <img id="db-photo" :src="resources.apiurl+'/images/photos/'+photo.internalid+'/full'" :orig-width="photo.width" :orig-height="photo.height" @load="handleResize" />
             <div class="db-photo-annotation-box"
               :style="drawingStyle"><a></a></div>
+            <div class="db-photo-annotation-event-handler"
+              @click="handleAction('click', $event)" @mousemove="handleAction('mousemove', $event)" @mouseleave="handleAction('mouseleave', $event)"></div>
           </div>
         </div>
       </div>
@@ -188,7 +189,9 @@ export default {
       maxX: -1,
       maxY: -1,
       tempX: -1,
-      tempY: -1
+      tempY: -1,
+      imgWidth: null,
+      imgHeight: null
     }
   },
   computed: {
@@ -233,10 +236,10 @@ export default {
       return 'left: ' + left + 'px; top: ' + top + 'px; width: ' + width + 'px; height: ' + height + 'px; visibility: ' + visibility + ';'
     },
     imagePhotoWidthRatio () {
-      return $('#db-photo').width() / this.photo.width
+      return this.imgWidth / this.photo.width
     },
     imagePhotoHeightRatio () {
-      return $('#db-photo').height() / this.photo.height
+      return this.imgHeight / this.photo.height
     }
   },
   mounted () {
@@ -258,24 +261,25 @@ export default {
   },
   methods: {
     handleResize (event) {
-      // let ratio = document.getElementById('db-photo').offsetWidth / this.photo.width
+      this.imgWidth = $('#db-photo').width()
+      this.imgHeight = $('#db-photo').height()
     },
     handleAction (action, event) {
       if (this.selectedpart) {
         if (action === 'click') {
           if (this.minX === -1 && this.minY === -1) {
-            this.minX = event.layerX / this.imagePhotoWidthRatio
-            this.minY = event.layerY / this.imagePhotoHeightRatio
+            this.minX = Math.ceil(event.layerX / this.imagePhotoWidthRatio)
+            this.minY = Math.ceil(event.layerY / this.imagePhotoHeightRatio)
           } else {
-            this.maxX = event.layerX / this.imagePhotoWidthRatio
-            this.maxY = event.layerY / this.imagePhotoHeightRatio
+            this.maxX = Math.ceil(event.layerX / this.imagePhotoWidthRatio)
+            this.maxY = Math.ceil(event.layerY / this.imagePhotoHeightRatio)
           }
         } else if (action === 'mousemove') {
           if (this.minX !== -1 && this.minY !== -1 && this.maxX === -1 && this.maxY === -1) {
-            this.tempX = event.layerX / this.imagePhotoWidthRatio
-            this.tempY = event.layerY / this.imagePhotoHeightRatio
+            this.tempX = Math.ceil(event.layerX / this.imagePhotoWidthRatio)
+            this.tempY = Math.ceil(event.layerY / this.imagePhotoHeightRatio)
           }
-        } else if (action === 'mouseout') {
+        } else if (action === 'mouseleave') {
           if (this.maxX === -1 && this.maxY === -1) {
             this.removeDrawing()
           }
@@ -385,7 +389,11 @@ export default {
     height: 100%;
     display: block;
   }
-  .db-photo-annotation-box > a:hover {
-    border: dashed 1px #ff851b;
+  .db-photo-annotation-event-handler {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
   }
 </style>
