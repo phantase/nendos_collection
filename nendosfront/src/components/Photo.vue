@@ -6,6 +6,7 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
+              <router-link :to="'/photo/'+photo.internalid+'/addpart'" class="btn btn-xs bg-orange pull-right"><i class="fa fa-binoculars" v-if="authenticated"></i> Identify a part</router-link>
               <div class="db-photo-title">{{ photo.title }}</div>
               <div class="db-photo-username">by {{ photo.username }}</div>
             </h3>
@@ -172,7 +173,15 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['photos', 'accessories', 'photoaccessories', 'bodyparts', 'photobodyparts', 'boxes', 'photoboxes', 'faces', 'photofaces', 'hairs', 'photohairs', 'hands', 'photohands', 'nendoroids', 'photonendoroids']),
+    ...Vuex.mapGetters(['photos',
+      'accessories', 'photoaccessories',
+      'bodyparts', 'photobodyparts',
+      'boxes', 'photoboxes',
+      'faces', 'photofaces',
+      'hairs', 'photohairs',
+      'hands', 'photohands',
+      'nendoroids', 'photonendoroids',
+      'authenticated']),
     photo () {
       return this.photos.filter(photo => photo.internalid === this.$route.params.id)[0]
     },

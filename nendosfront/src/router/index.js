@@ -30,6 +30,7 @@ import FormNendoroid from 'components/forms/FormNendoroid'
 import FormBox from 'components/forms/FormBox'
 import FormImage from 'components/forms/FormImage'
 import FormPhoto from 'components/forms/FormPhoto'
+import FormPhotoPart from 'components/forms/FormPhotoPart'
 
 Vue.use(Router)
 
@@ -612,6 +613,24 @@ export default new Router({
         ]
       },
       component: FormPhoto
+    },
+    {
+      path: '/photo/:id/addpart',
+      name: 'Photo add part',
+      meta: {
+        description: 'Add a part to a photo',
+        breadcrumb: [
+          {
+            title: 'Photos',
+            link: '/photos'
+          },
+          {
+            title: 'Photo',
+            link: '/photo/:id'
+          }
+        ]
+      },
+      component: FormPhotoPart
     },
     {
       path: '/photo/:id',
