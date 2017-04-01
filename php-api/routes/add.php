@@ -207,8 +207,8 @@ $app->post('/auth/{element:photo|photos}', function(Request $request, Response $
     return $newresponse;
 });
 
-// Add a part to a photo
-$app->post('/auth/photo/{internalid:[0-9]+}/add/{element:box|nendoroid|accessory|bodypart|face|hair|hand}', function(Request $request, Response $response, $args) {
-    // Have to implement it... but... later, time to sleep right now...
-    return $response->withStatus(501)
-});
+// // Add a part to a photo
+// $app->post('/auth/photo/{internalid:[0-9]+}/add/{element:box|nendoroid|accessory|bodypart|face|hair|hand}', function(Request $request, Response $response, $args) {
+//     // Have to implement it... but... later, time to sleep right now...
+//     return $response->withStatus(501)
+// });

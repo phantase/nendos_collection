@@ -1,6 +1,6 @@
 export default {
-  apiurl: 'http://192.168.99.100:3000',
-  imagesurl: 'http://192.168.99.100',
+  apiurl: 'http://localhost:3000',
+  imagesurl: 'http://localhost',
   month_names: [
     'Jan.',
     'Feb.',

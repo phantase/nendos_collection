@@ -30,7 +30,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "./www/html:/var/www/html"
+      - "./php-site:/var/www/html"
       - "./.data/nendos:/var/www/html/images/nendos/"
   api:
     depends_on:
@@ -41,5 +41,5 @@ services:
     ports:
       - "3000:80"
     volumes:
-      - "./www/api/:/var/www/"
+      - "./php-api/:/var/www/"
       - "./.data/nendos:/var/www/html/images/nendos/"
