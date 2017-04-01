@@ -72,9 +72,9 @@ function getGETorNULL($index){
   }
 }
 
-function raiseError($errorMessage){
+function raiseError($_errorMessage){
 
-  $errorMessage = $errorMessage;
+  $errorMessage = $_errorMessage;
 
   $include_page = "error";
   $page_title = "Error";
@@ -98,13 +98,10 @@ function save_image($source, $destination, $image_type, $quality){
   switch(strtolower($image_type)){//determine mime type
     case 'image/png':
       imagepng($source, $destination); return true; //save png file
-      break;
     case 'image/gif':
       imagegif($source, $destination); return true; //save gif file
-      break;
     case 'image/jpeg': case 'image/pjpeg':
       imagejpeg($source, $destination, $quality); return true; //save jpeg file
-      break;
     default: return false;
   }
 }

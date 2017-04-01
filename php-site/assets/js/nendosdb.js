@@ -6,7 +6,6 @@ $(function(){
     $('#login_submit').prop('value','Verifying...');
     var usermail = $('#username').val();
     var password = $('#password').val();
-    //var encpass = btoa(btoa(btoa(password)));
     $.post("services/login",{usermail:usermail,password:password},function(data){
       if( data.result == "success" ){
         // SUCCESS
@@ -28,7 +27,6 @@ $(function(){
     var usermail = $('#usermail').val();
     var username = $('#username').val();
     var password = $('#password').val();
-    var repassword = $('#repassword').val();
     $.post("services/signup",{usermail:usermail,username:username,password:password},function(data){
       if( data.result == "success" ){
         // SUCCESS
@@ -86,20 +84,20 @@ $(function(){
       // BOX
       if( element.is("[box]") ){
         var box_collection_status_tooltip = "";
-        if( element.attr("class").indexOf("checked")>0 ){
+        if (element.attr("class").indexOf("checked") > -1) {
           box_collection_status_tooltip = "[Box (<span style='color:#F57921;'>collect</span>)]<br/>";
-          if( element.attr("class").indexOf("unchecked")>0 ){
+          if (element.attr("class").indexOf("unchecked") > -1) {
             box_collection_status_tooltip = "[Box (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
-        if( element.attr("class").indexOf("owned")>0 ){
+        if (element.attr("class").indexOf("owned") > -1) {
           box_collection_status_tooltip = "[Box (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        var box_number_tooltip = "";
+        let box_number_tooltip = "";
         if( element.attr("box_number").length > 0 ){
           box_number_tooltip = " #" + element.attr("box_number");
         }
-        var sorting_tooltip = "";
+        let sorting-tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -111,16 +109,16 @@ $(function(){
       // FACE
       if( element.is("[face]") ){
         var face_collection_status_tooltip = "";
-        if( element.attr("class").indexOf("checked")>0 ){
+        if (element.attr("class").indexOf("checked") > -1) {
           face_collection_status_tooltip = "[Face (<span style='color:#F57921;'>collect</span>)]<br/>";
-          if( element.attr("class").indexOf("unchecked")>0 ){
+          if (element.attr("class").indexOf("unchecked") > -1) {
             face_collection_status_tooltip = "[Face (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
-        if( element.attr("class").indexOf("owned")>0 ){
+        if (element.attr("class").indexOf("owned") > -1) {
           face_collection_status_tooltip = "[Face (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        var sorting_tooltip = "";
+        let sorting-tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -131,16 +129,16 @@ $(function(){
       // HAIR
       if( element.is("[hair]") ){
         var hair_collection_status_tooltip = "";
-        if( element.attr("class").indexOf("checked")>0 ){
+        if (element.attr("class").indexOf("checked") > -1) {
           hair_collection_status_tooltip = "[Hair (<span style='color:#F57921;'>collect</span>)]<br/>";
-          if( element.attr("class").indexOf("unchecked")>0 ){
+          if (element.attr("class").indexOf("unchecked") > -1) {
             hair_collection_status_tooltip = "[Hair (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
-        if( element.attr("class").indexOf("owned")>0 ){
+        if (element.attr("class").indexOf("owned") > -1) {
           hair_collection_status_tooltip = "[Hair (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        var sorting_tooltip = "";
+        let sorting-tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -152,16 +150,16 @@ $(function(){
       // HAND
       if( element.is("[hand]") ){
         var hand_collection_status_tooltip = "";
-        if( element.attr("class").indexOf("checked")>0 ){
+        if (element.attr("class").indexOf("checked") > -1) {
           hand_collection_status_tooltip = "[Hand (<span style='color:#F57921;'>collect</span>)]<br/>";
-          if( element.attr("class").indexOf("unchecked")>0 ){
+          if (element.attr("class").indexOf("unchecked") > -1) {
             hand_collection_status_tooltip = "[Hand (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
-        if( element.attr("class").indexOf("owned")>0 ){
+        if (element.attr("class").indexOf("owned") > -1) {
           hand_collection_status_tooltip = "[Hand (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        var sorting_tooltip = "";
+        let sorting-tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -172,16 +170,16 @@ $(function(){
       // BODYPART
       if( element.is("[bodypart]") ){
         var bodypart_collection_status_tooltip = "";
-        if( element.attr("class").indexOf("checked")>0 ){
+        if (element.attr("class").indexOf("checked") > -1) {
           bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#F57921;'>collect</span>)]<br/>";
-          if( element.attr("class").indexOf("unchecked")>0 ){
+          if (element.attr("class").indexOf("unchecked") > -1) {
             bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
-        if( element.attr("class").indexOf("owned")>0 ){
+        if (element.attr("class").indexOf("owned") > -1) {
           bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        var sorting_tooltip = "";
+        let sorting-tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -192,16 +190,16 @@ $(function(){
       // ACCESSORY
       if( element.is("[accessory]") ){
         var accessory_collection_status_tooltip = "";
-        if( element.attr("class").indexOf("checked")>0 ){
+        if (element.attr("class").indexOf("checked") > -1) {
           accessory_collection_status_tooltip = "[Accessory (<span style='color:#F57921;'>collect</span>)]<br/>";
-          if( element.attr("class").indexOf("unchecked")>0 ){
+          if (element.attr("class").indexOf("unchecked") > -1) {
             accessory_collection_status_tooltip = "[Accessory (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
-        if( element.attr("class").indexOf("owned")>0 ){
+        if (element.attr("class").indexOf("owned") > -1) {
           accessory_collection_status_tooltip = "[Accessory (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        var sorting_tooltip = "";
+        let sorting-tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -212,20 +210,20 @@ $(function(){
       // NENDOROID
       if( element.is("[nendoroid]") ){
         var nendoroid_collection_status_tooltip = "";
-        if( element.attr("class").indexOf("checked")>0 ){
+        if (element.attr("class").indexOf("checked") > -1) {
           nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#F57921;'>collect</span>)]<br/>";
-          if( element.attr("class").indexOf("unchecked")>0 ){
+          if (element.attr("class").indexOf("unchecked") > -1) {
             nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#F57921;'>uncollect</span>)]<br/>";
           }
         }
-        if( element.attr("class").indexOf("owned")>0 ){
+        if (element.attr("class").indexOf("owned") > -1) {
           nendoroid_collection_status_tooltip = "[Nendoroid (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        var box_number_tooltip = "";
+        let box_number_tooltip = "";
         if( element.attr("box_number").length > 0 ){
           box_number_tooltip = " #" + element.attr("box_number");
         }
-        var sorting_tooltip = "";
+        let sorting-tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -237,7 +235,7 @@ $(function(){
       }
       // PHOTO
       if( element.is("[photo]") ){
-        var sorting_tooltip = "";
+        let sorting-tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -930,14 +928,13 @@ $(function(){
             img.onload = function(evt){
               $('#'+currentFileID+'_wxh').append(this.width+'x'+this.height);
               var divwidth = $('#'+currentFileID).css('width').replace(/[^-\d\.]/g, '');
-              var divheight = $('#'+currentFileID+' div').css('height').replace(/[^-\d\.]/g, '');
               if(this.width>this.height){
                 $(this).css('width','100%');
-                var margin = ( divwidth - ( this.height * divwidth / this.width ) ) / 2;
+                let margin = ( divwidth - ( this.height * divwidth / this.width ) ) / 2;
                 $(this).css('margin-top',margin+'px');
               } else {
                 $(this).css('height',divwidth+'px');
-                var margin = ( divwidth - ( this.width * divwidth / this.height ) ) / 2;
+                let margin = ( divwidth - ( this.width * divwidth / this.height ) ) / 2;
                 $(this).css('margin-left',margin+'px');
               }
               $('#'+currentFileID+'_img').css('height',divwidth+'px');
