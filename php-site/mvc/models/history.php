@@ -110,7 +110,6 @@ function add_specificHistory($user_internalid,$element,$element_internalid,$acti
       return add_history($user_internalid,$element_internalid,null,
                   null,null,null,null,null,$photo_internalid,
                   $action,$detail);
-      break;
     case "face":
       $rI = get_singleFace($element_internalid,null);
       if($rI[0] == "000000"){

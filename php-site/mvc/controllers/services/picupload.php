@@ -46,7 +46,7 @@ if( isset($_GET['element']) && isset($_GET['internalid']) ){
 
   // Upload data can be POST'ed as raw form data or uploaded via <iframe> and <form>
   // using regular multipart/form-data enctype (which is handled by PHP $_FILES).
-  if (!empty($_FILES['fd-file']) and is_uploaded_file($_FILES['fd-file']['tmp_name'])) {
+  if (!empty($_FILES['fd-file']) && is_uploaded_file($_FILES['fd-file']['tmp_name'])) {
     // Regular multipart/form-data upload.
     $name = $_FILES['fd-file']['name'];
     $data = file_get_contents($_FILES['fd-file']['tmp_name']);
