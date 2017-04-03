@@ -5,6 +5,7 @@ class PhotoElementEntity implements JsonSerializable
   protected $internalid;
   protected $photoid;
   protected $elementid;
+  protected $userid;
   protected $xmin;
   protected $ymin;
   protected $xmax;
@@ -23,6 +24,7 @@ class PhotoElementEntity implements JsonSerializable
 
     $this->photoid = $data['photoid'];
     $this->elementid = $data['elementid'];
+    $this->userid = $data['userid'];
     $this->xmin = $data['xmin'];
     $this->xmax = $data['xmax'];
     $this->ymin = $data['ymin'];
@@ -39,6 +41,10 @@ class PhotoElementEntity implements JsonSerializable
 
   public function getElementId() {
     return $this->elementid;
+  }
+
+  public function getUserId() {
+    return $this->userid;
   }
 
   public function getXmin() {
@@ -62,6 +68,7 @@ class PhotoElementEntity implements JsonSerializable
       'photoannotationid' => $this->internalid,
       'photoid' => $this->photoid,
       'elementid' => $this->elementid,
+      'userid' => $this->userid,
       'xmin' => $this->xmin,
       'xmax' => $this->xmax,
       'ymin' => $this->ymin,

@@ -28,18 +28,25 @@ class MapperFactory {
       case 'photo':
       case 'photos':
         return new PhotoMapper($db);
+      case 'photoaccessory':
       case 'photoaccessories':
         return new PhotoAccessoryMapper($db);
+      case 'photobodypart':
       case 'photobodyparts':
         return new PhotoBodypartMapper($db);
+      case 'photobox':
       case 'photoboxes':
         return new PhotoBoxMapper($db);
+      case 'photoface':
       case 'photofaces':
         return new PhotoFaceMapper($db);
+      case 'photohair':
       case 'photohairs':
         return new PhotoHairMapper($db);
+      case 'photohand':
       case 'photohands':
         return new PhotoHandMapper($db);
+      case 'photonendoroid':
       case 'photonendoroids':
         return new PhotoNendoroidMapper($db);
       default:

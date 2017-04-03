@@ -122,14 +122,14 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
             }
 
             if( is_null($newelement) ){
-                $newresponse = $response->withJson(null,500);
+                $newresponse = $response->withStatus(500);
             } else {
                 $newresponse = $response->withJson($newelement,201);
             }
 
         } catch (Exception $e){
             $this->applogger->addInfo($e);
-            $newresponse = $response->withJson(null,400);
+            $newresponse = $response->withStatus(400);
         }
     } else {
         $this->applogger->addInfo("User $userid tries to create a new $element without right to do it");
@@ -207,8 +207,38 @@ $app->post('/auth/{element:photo|photos}', function(Request $request, Response $
     return $newresponse;
 });
 
-// // Add a part to a photo
-// $app->post('/auth/photo/{internalid:[0-9]+}/add/{element:box|nendoroid|accessory|bodypart|face|hair|hand}', function(Request $request, Response $response, $args) {
-//     // Have to implement it... but... later, time to sleep right now...
-//     return $response->withStatus(501)
-// });
+// Add a part to a photo
+$app->post('/auth/photo/{internalid:[0-9]+}/add/{element:box|nendoroid|accessory|bodypart|face|hair|hand}', function(Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
+    $photoid = (int)$args['internalid'];
+    $param_element = $args['element'];
+    $data = $request->getParsedBody();
+
+    $this->applogger->addInfo("User $userid tags  photo $photoid with $param_element");
+
+    $photoelement_data = [];
+    $photoelement_data['photoid'] = $photoid;
+    $photoelement_data['elementid'] = array_key_exists('elementid', $data) ? filter_var($data['elementid'], FILTER_SANITIZE_NUMBER_INT) : null;
+    $photoelement_data['userid'] = $userid;
+    $photoelement_data['xmin'] = array_key_exists('xmin', $data) ? filter_var($data['xmin'], FILTER_SANITIZE_NUMBER_INT) : null;
+    $photoelement_data['xmax'] = array_key_exists('xmax', $data) ? filter_var($data['xmax'], FILTER_SANITIZE_NUMBER_INT) : null;
+    $photoelement_data['ymin'] = array_key_exists('ymin', $data) ? filter_var($data['ymin'], FILTER_SANITIZE_NUMBER_INT) : null;
+    $photoelement_data['ymax'] = array_key_exists('ymax', $data) ? filter_var($data['ymax'], FILTER_SANITIZE_NUMBER_INT) : null;
+    $photoelement = new PhotoElementEntity($photoelement_data);
+
+    try {
+        $mapper = MapperFactory::getMapper($this->db,"photo".$param_element);
+        $newelement = $mapper->create($photoelement, $userid);
+
+        if( is_null($newelement) ){
+            $newresponse = $response->withJson(null,500);
+        } else {
+            $newresponse = $response->withJson($newelement,201);
+        }
+    } catch (Exception $e){
+        $this->applogger->addInfo($e);
+        $newresponse = $response->withStatus(400);
+    }
+
+    return $newresponse;
+});
