@@ -119,13 +119,15 @@
               <i class="fa fa-photo"></i> Photo (draw part location)
             </h3>
           </div>
-          <div class="box-body db-photo db-photo-annotation-container"
+          <div class="box-body db-photo"
             :class="selectedpart?'drawmode':''">
-            <img id="db-photo" :src="resources.apiurl+'/images/photos/'+photo.internalid+'/full'" :orig-width="photo.width" :orig-height="photo.height" @load="handleResize" />
-            <div class="db-photo-annotation-box"
-              :style="drawingStyle"><a></a></div>
-            <div class="db-photo-annotation-event-handler"
-              @click="handleAction('click', $event)" @mousemove="handleAction('mousemove', $event)" @mouseleave="handleAction('mouseleave', $event)"></div>
+            <div class="db-photo-annotation-container">
+              <img id="db-photo" :src="resources.apiurl+'/images/photos/'+photo.internalid+'/full'" :orig-width="photo.width" :orig-height="photo.height" @load="handleResize" />
+              <div class="db-photo-annotation-box"
+                :style="drawingStyle"><a></a></div>
+              <div class="db-photo-annotation-event-handler"
+                @click="handleAction('click', $event)" @mousemove="handleAction('mousemove', $event)" @mouseleave="handleAction('mouseleave', $event)"></div>
+            </div>
           </div>
         </div>
       </div>
