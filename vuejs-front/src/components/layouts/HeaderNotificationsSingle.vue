@@ -2,7 +2,7 @@
                   <li><!-- start notification -->
                     <router-link :to="'/notification/' + notification.id">
                       <i class="fa" :class="notification.icon + ' ' + notification.color"></i> {{ notification.message }}
-                    </a>
+                    </router-link>
                   </li>
                   <!-- end notification -->
 </template>

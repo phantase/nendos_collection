@@ -86,7 +86,7 @@
         <div class="box collapsed-box">
           <app-box-header title="Hands" collapsable="true" collapsed="true" icon="icon-icon_nendo_hand"></app-box-header>
           <div class="box-body">
-            <hands-tiles :hands="hands4nendoroid" tilessize="big"></faces-tiles>
+            <hands-tiles :hands="hands4nendoroid" tilessize="big"></hands-tiles>
           </div>
         </div>
       </div>

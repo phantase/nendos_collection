@@ -1,5 +1,11 @@
 <?php
 
+$logs_folder = "../logs/";
+
+if (!file_exists($logs_folder)) {
+    mkdir($logs_folder, 0777, true);
+}
+
 $container = $app->getContainer();
 
 $container['applogger'] = function($c) {
