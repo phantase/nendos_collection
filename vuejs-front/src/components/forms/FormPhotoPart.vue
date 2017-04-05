@@ -14,6 +14,17 @@
       </div>
     </div>
 
+    <div class="row" v-if="failure">
+      <div class="col-md-12">
+        <div class="box">
+          <div class="alert alert-danger">
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12">
         <div class="box">
@@ -152,6 +163,7 @@
 </template>
 
 <script>
+import router from './../../router'
 import store from './../../store'
 import Vuex from 'vuex'
 
@@ -193,7 +205,8 @@ export default {
       tempX: -1,
       tempY: -1,
       imgWidth: null,
-      imgHeight: null
+      imgHeight: null,
+      failure: false
     }
   },
   computed: {
@@ -262,6 +275,7 @@ export default {
     $('[role="tooltip"]').remove()
   },
   methods: {
+    ...Vuex.mapActions(['createPhotoAccessory', 'createPhotoBodypart', 'createPhotoBox', 'createPhotoFace', 'createPhotoHair', 'createPhotoHand', 'createPhotoNendoroid']),
     handleResize (event) {
       this.imgWidth = $('#db-photo').width()
       this.imgHeight = $('#db-photo').height()
@@ -315,7 +329,115 @@ export default {
       this.selectedpart = part
     },
     submit () {
-      console.log('Do something, one day...')
+      console.log('Submit form...')
+      let body = {}
+      let formData = new FormData()
+      body.photoid = this.photo.internalid
+      formData.append('photoid', this.photo.internalid)
+      body.elementid = this.selectedpart.internalid
+      formData.append('elementid', this.selectedpart.internalid)
+      body.xmin = this.minX
+      formData.append('xmin', this.minX)
+      body.ymin = this.minY
+      formData.append('ymin', this.minY)
+      body.xmax = this.maxX
+      formData.append('xmax', this.maxX)
+      body.ymax = this.maxY
+      formData.append('ymax', this.maxY)
+
+      switch (this.selectedparttype) {
+        case 'accessory':
+          this.createPhotoAccessory({
+            'context': this,
+            'formData': formData,
+            'photoid': this.photo.internalid
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/photo/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+          break
+        case 'bodypart':
+          this.createPhotoBodypart({
+            'context': this,
+            'formData': formData,
+            'photoid': this.photo.internalid
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/photo/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+          break
+        case 'box':
+          this.createPhotoBox({
+            'context': this,
+            'formData': formData,
+            'photoid': this.photo.internalid
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/photo/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+          break
+        case 'face':
+          this.createPhotoFace({
+            'context': this,
+            'formData': formData,
+            'photoid': this.photo.internalid
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/photo/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+          break
+        case 'hair':
+          this.createPhotoHair({
+            'context': this,
+            'formData': formData,
+            'photoid': this.photo.internalid
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/photo/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+          break
+        case 'hand':
+          this.createPhotoHand({
+            'context': this,
+            'formData': formData,
+            'photoid': this.photo.internalid
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/photo/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+          break
+        case 'nendoroid':
+          this.createPhotoNendoroid({
+            'context': this,
+            'formData': formData,
+            'photoid': this.photo.internalid
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/photo/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+          break
+      }
     }
   }
 }
