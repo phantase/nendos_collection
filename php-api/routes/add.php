@@ -208,7 +208,7 @@ $app->post('/auth/{element:photo|photos}', function(Request $request, Response $
 });
 
 // Add a part to a photo
-$app->post('/auth/photo/{internalid:[0-9]+}/add/{element:box|nendoroid|accessory|bodypart|face|hair|hand}', function(Request $request, Response $response, $args) {
+$app->post('/auth/photo/{internalid:[0-9]+}/{element:box|nendoroid|accessory|bodypart|face|hair|hand}', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     $photoid = (int)$args['internalid'];
     $param_element = $args['element'];
