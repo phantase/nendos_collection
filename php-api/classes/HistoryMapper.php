@@ -6,9 +6,10 @@ class HistoryMapper extends Mapper
 
   public function getByElementid($elementid, $filterfield) {
     // I trust the elementtype
-    $sql = "SELECT h.internalid, h.userid, h.boxid, h.nendoroidid, h.accessoryid, h.bodypartid, h.faceid,
+    $sql = "SELECT h.internalid, h.userid, u.username, h.boxid, h.nendoroidid, h.accessoryid, h.bodypartid, h.faceid,
                   h.hairid, h.handid, h.photoid, h.action, h.actiondate, h.detail
             FROM history h
+            LEFT JOIN users u ON u.internalid = h.userid
             WHERE $filterfield = :elementid
             ORDER BY actiondate DESC";
     $stmt = $this->db->prepare($sql);

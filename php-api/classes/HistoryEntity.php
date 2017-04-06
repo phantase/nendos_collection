@@ -4,8 +4,9 @@ class HistoryEntity extends Entity implements JsonSerializable
 {
   protected $internalid;
   protected $userid;
+  protected $username;
   protected $boxid;
-  protected $nendoroid;
+  protected $nendoroidid;
   protected $accessoryid;
   protected $bodypartid;
   protected $faceid;
@@ -27,9 +28,10 @@ class HistoryEntity extends Entity implements JsonSerializable
       $this->internalid = $data['internalid'];
     }
 
-  	$this->userid		= $data['userid'];
+    $this->userid   = $data['userid'];
+  	$this->username		= $data['username'];
   	$this->boxid		= $data['boxid'];
-  	$this->nendoroid	= $data['nendoroid'];
+  	$this->nendoroidid	= $data['nendoroidid'];
   	$this->accessoryid	= $data['accessoryid'];
   	$this->bodypartid	= $data['bodypartid'];
   	$this->faceid		= $data['faceid'];
@@ -47,6 +49,10 @@ class HistoryEntity extends Entity implements JsonSerializable
 
   public function getUserId() {
     return $this->userid;
+  }
+
+  public function getUserName() {
+    return $this->username;
   }
 
   public function getBoxId() {
@@ -97,6 +103,7 @@ class HistoryEntity extends Entity implements JsonSerializable
     return [
       'internalid' => $this->internalid,
       'userid' => $this->userid,
+      'username' => $this->username,
       'boxid' => $this->boxid,
       'nendoroidid' => $this->nendoroidid,
       'accessoryid' => $this->accessoryid,
