@@ -284,6 +284,11 @@ class NendoroidMapper extends Mapper
     return null;
   }
 
+  public function getHistory($elementid) {
+    $mapper = new HistoryMapper($this->db);
+    return $mapper->getByElementid($elementid, "nendoroidid");
+  }
+
   public function create(NendoroidEntity $nendoroid, $userid) {
     $sql = "INSERT INTO nendoroids
               (boxid, name, version, sex, dominant_color, creatorid, creationdate, editorid, editiondate) VALUES

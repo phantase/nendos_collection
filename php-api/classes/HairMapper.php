@@ -175,6 +175,11 @@ class HairMapper extends Mapper
     return null;
   }
 
+  public function getHistory($elementid) {
+    $mapper = new HistoryMapper($this->db);
+    return $mapper->getByElementid($elementid, "hairid");
+  }
+
   public function create(HairEntity $hair, $userid) {
     $sql = "INSERT INTO hairs
               (boxid, nendoroidid, main_color, other_color, haircut, description, frontback, creatorid, creationdate, editorid, editiondate) VALUES

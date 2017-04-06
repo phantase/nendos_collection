@@ -175,6 +175,11 @@ class BodypartMapper extends Mapper
     return null;
   }
 
+  public function getHistory($elementid) {
+    $mapper = new HistoryMapper($this->db);
+    return $mapper->getByElementid($elementid, "bodypartid");
+  }
+
   public function create(BodypartEntity $bodypart, $userid) {
     $sql = "INSERT INTO bodyparts
               (boxid, nendoroidid, part, main_color, other_color, description, creatorid, creationdate, editorid, editiondate) VALUES

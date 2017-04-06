@@ -125,3 +125,21 @@ $app->get('/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessories|bo
     }
     return $newresponse;
 });
+
+//  Retrieve history of an {element}
+$app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|photoaccessories|photobodyparts|photoboxes|photofaces|photohairs|photohands|photonendoroids}/{internalid:[0-9]+}/history', function(Request $request, Response $response, $args) {
+    $param_element = $args['element'];
+    $param_internalid = $args['internalid'];
+    $this->applogger->addInfo("$param_element history");
+    try {
+        $mapper = MapperFactory::getMapper($this->db,$param_element);
+        $elements = $mapper->getHistory($param_internalid);
+
+        $newresponse = $response->withJson($elements);
+
+    } catch (Exception $e){
+        $newresponse = $response->withStatus(400);
+    }
+    return $newresponse;
+});
+

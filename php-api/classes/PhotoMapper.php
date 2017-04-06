@@ -166,6 +166,11 @@ class PhotoMapper extends Mapper
     return null;
   }
 
+  public function getHistory($elementid) {
+    $mapper = new HistoryMapper($this->db);
+    return $mapper->getByElementid($elementid, "photoid");
+  }
+
   public function create(PhotoEntity $photo, $userid) {
     $sql = "INSERT INTO photos
               (userid, title, width, height, uploaded, updated) VALUES

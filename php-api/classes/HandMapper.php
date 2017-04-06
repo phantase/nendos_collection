@@ -175,6 +175,11 @@ class HandMapper extends Mapper
     return null;
   }
 
+  public function getHistory($elementid) {
+    $mapper = new HistoryMapper($this->db);
+    return $mapper->getByElementid($elementid, "handid");
+  }
+
   public function create(HandEntity $hand, $userid) {
     $sql = "INSERT INTO hands
               (boxid, nendoroidid, skin_color, leftright, posture, description, creatorid, creationdate, editorid, editiondate) VALUES

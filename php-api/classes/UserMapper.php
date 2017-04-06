@@ -59,4 +59,10 @@ class UserMapper extends Mapper
                                $photoid, $action, $detail);
     return null;
   }
+
+  public function getHistory($elementid) {
+    $mapper = new HistoryMapper($this->db);
+    return $mapper->getByElementid($elementid, "userid");
+  }
+
 }

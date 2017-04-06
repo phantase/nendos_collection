@@ -175,6 +175,11 @@ class AccessoryMapper extends Mapper
     return null;
   }
 
+  public function getHistory($elementid) {
+    $mapper = new HistoryMapper($this->db);
+    return $mapper->getByElementid($elementid, "accessoryid");
+  }
+
   public function create(AccessoryEntity $accessory, $userid) {
     $sql = "INSERT INTO accessories
               (boxid, nendoroidid, type, main_color, other_color, description, creatorid, creationdate, editorid, editiondate) VALUES

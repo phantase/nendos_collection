@@ -175,6 +175,11 @@ class FaceMapper extends Mapper
     return null;
   }
 
+  public function getHistory($elementid) {
+    $mapper = new HistoryMapper($this->db);
+    return $mapper->getByElementid($elementid, "faceid");
+  }
+
   public function create(FaceEntity $face, $userid) {
     $sql = "INSERT INTO faces
               (boxid, nendoroidid, eyes, eyes_color, mouth, skin_color, sex, creatorid, creationdate, editorid, editiondate) VALUES

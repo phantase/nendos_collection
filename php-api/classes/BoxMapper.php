@@ -293,6 +293,11 @@ class BoxMapper extends Mapper
     return null;
   }
 
+  public function getHistory($elementid) {
+    $mapper = new HistoryMapper($this->db);
+    return $mapper->getByElementid($elementid, "boxid");
+  }
+
   public function create(BoxEntity $box, $userid) {
     $sql = "INSERT INTO boxes
               (number, name, series, manufacturer, category, price, releasedate, specifications, sculptor, cooperation, officialurl, creatorid, creationdate, editorid, editiondate) VALUES
