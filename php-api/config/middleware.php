@@ -5,7 +5,7 @@ $container = $app->getContainer();
 $container["JwtAuthentication"] = function($container) {
   return new \Slim\Middleware\JwtAuthentication([
         "path" => "/auth",
-        "passthrough" => ["/auth/login"],
+        "passthrough" => ["/auth/login", "/auth/register", "/auth/confirm"],
         "secure" => true,
         "logger" => $container["jwtlogger"],
         "relaxed" => ["localhost", "192.168.99.100"],
