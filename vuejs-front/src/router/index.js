@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from 'components/Home'
 import Login from 'components/Login'
 import Logout from 'components/Logout'
+import Register from 'components/Register'
 import Accessory from 'components/Accessory'
 import Accessories from 'components/Accessories'
 import Bodypart from 'components/Bodypart'
@@ -59,6 +60,14 @@ export default new Router({
         description: 'Logout'
       },
       component: Logout
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      meta: {
+        description: 'Register'
+      },
+      component: Register
     },
     {
       path: '/accessory/add',
