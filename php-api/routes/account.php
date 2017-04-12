@@ -132,11 +132,11 @@ $app->post('/auth/register', function(Request $request, Response $response) {
 });
 
 // Confirm
-$app->get('/auth/confirm', function(Request $request, Response $response) {
+$app->post('/auth/confirm', function(Request $request, Response $response) {
 
     $data = $request->getParsedBody();
-    $usermail = filter_var($request->getQueryParam('usermail'), FILTER_SANITIZE_STRING);
-    $registrationcode = filter_var($request->getQueryParam('registrationcode'), FILTER_SANITIZE_STRING);
+    $usermail = filter_var($data['usermail'], FILTER_SANITIZE_STRING);
+    $registrationcode = filter_var($data['registrationcode'], FILTER_SANITIZE_STRING);
 
     $this->applogger->addInfo("User $usermail want to confirm is account...");
 
