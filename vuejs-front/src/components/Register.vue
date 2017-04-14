@@ -156,6 +156,7 @@ export default {
         let userinfo = {username: this.username, usermail: this.usermail, password: this.password}
 
         this.$http.post('auth/register', userinfo).then((response) => {
+          console.log(response)
           this.registration_status = this.REGISTER_SUCCESS
         }, (response) => {
           this.registration_status = this.REGISTER_FAIL
