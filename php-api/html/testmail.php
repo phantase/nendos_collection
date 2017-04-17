@@ -13,7 +13,7 @@ require '../vendor/autoload.php';
             // $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'phantakun@gmail.com';
-            $mail->Password = 'fadiese18';
+            $mail->Password = '__PUTHEREYOURPASSWORD__';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
