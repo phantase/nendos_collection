@@ -11,16 +11,7 @@ spl_autoload_register(function ($classname) {
     require ("../classes/" . $classname . ".php");
 });
 
-$config['displayErrorDetails'] = true;
-$config['addContentLengthHeader'] = false;
-
-$config['db']['host']    = "db";
-$config['db']['user']    = "nendos";
-$config['db']['pass']    = "nendospass";
-$config['db']['dbname']  = "nendos";
-$config['db']['charset'] = "utf8";
-
-$config['jwt']['secret'] = "thesecretisthatthereisnospoon";
+require '../configuration.php';
 
 $app = new \Slim\App(["settings" => $config]);
 

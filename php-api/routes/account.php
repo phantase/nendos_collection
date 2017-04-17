@@ -123,22 +123,22 @@ $app->post('/auth/register', function(Request $request, Response $response) {
 
             $mail = new PHPMailer;
             $mail->isSMTP();
-            $mail->SMTPDebug = 4;
-            $mail->Debugoutput = 'html';
-            $mail->Host = 'mail.gandi.net';
+            // $mail->SMTPDebug = 4;
+            // $mail->Debugoutput = 'html';
+            $mail->Host = $this["settings"]["smtp"]["host"];
             $mail->SMTPAuth = true;
-            $mail->Username = 'administrator@nendoroids-db.net';
-            $mail->Password = '__PUTHEREYOURPASSWORD__';
+            $mail->Username = $this["settings"]["smtp"]["user"];
+            $mail->Password = $this["settings"]["smtp"]["pass"];
             $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
+            $mail->Port = $this["settings"]["smtp"]["port"];
 
-            $mail->setFrom('administrator@nendoroids-db.net');
+            $mail->setFrom($this["settings"]["smtp"]["from"], $this["settings"]["smtp"]["name"]);
             $mail->addAddress($usermail, $username);
-            $mail->addBCC('administrator@nendoroids-db.net');
+            $mail->addBCC($this["settings"]["smtp"]["bcc"]);
 
             $mail->isHTML(true);
 
-            $mail->Subject = 'A confirmation is needed for your account at Nendoroids-db.net';
+            $mail->Subject = '[nendoroids-db.net] A confirmation is needed for your account at Nendoroids-db.net';
             $mail->Body    =  "Dear $username,<br>".
                 "A new account has been created with your email <strong>$usermail</strong>. ".
                 "To confirm this account, you will have to enter the following code in the appropriate page (the one you have reached just after your registration...<br>".
