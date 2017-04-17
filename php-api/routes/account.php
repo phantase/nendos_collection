@@ -121,33 +121,48 @@ $app->post('/auth/register', function(Request $request, Response $response) {
         if($registrationcode){
             $this->applogger->addInfo("User ($usermail/$username) successfully register in and went to staged, we are waiting for his email confirmation now");
 
-            $to      = 'fxbt@free.fr';
-            $subject = 'le sujet';
-            $message = 'Bonjour !';
-            $headers = 'From: webmaster@example.com' . "\r\n" .
-            'Reply-To: webmaster@example.com' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->SMTPDebug = 4;
+            $mail->Debugoutput = 'html';
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'phantakun@gmail.com';
+            $mail->Password = 'fadiese18';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
 
-            $mailstatus = mail($to, $subject, $message, $headers);
+            $mail->setFrom('phantakun@gmail.com');
+            $mail->addAddress($usermail, $username);
+            $mail->addBCC('phantakun@gmail.com');
 
-            // $mailstatus = mail("$username <$usermail>",
-            // $mailstatus = mail($usermail,
-            //     "A confirmation is needed for your account at Nendoroids-db.net",
-            //     "Dear $username, \r\n".
-            //     "\r\n".
-            //     "A new account has been created with your email <$usermail>. To confirm this account, you will have to enter the following code in the appropriate page (the one you have reached just after your registration...\r\n".
-            //     "\r\n".
-            //     "Registration code: $registrationcode\r\n".
-            //     "\r\n".
-            //     "If you are not at the origin of this new account you have just to ignore this mail and the account will not be confirmed and deleted in few days automatically.\r\n".
-            //     "\r\n".
-            //     "See you soon at Nendoroids-db.net.\r\n".
-            //     "\r\n".
-            //     "The Nendoroids-db.net team",
-            //     "From: registration@nendoroids-db.net\r\n".
-            //     "Reply-To: registration@nendoroids-db.net\r\n");
+            $mail->isHTML(true);
 
-            $newresponse = $response->withJson($mailstatus, 201);
+            $mail->Subject = 'A confirmation is needed for your account at Nendoroids-db.net';
+            $mail->Body    =  "Dear $username,<br>".
+                "A new account has been created with your email <strong>$usermail</strong>. ".
+                "To confirm this account, you will have to enter the following code in the appropriate page (the one you have reached just after your registration...<br>".
+                "<br>".
+                "<i>Registration code:</i> <code>$registrationcode</code><br>".
+                "<br>".
+                "If you are not at the origin of this new account you have just to ignore this mail and the account will not be confirmed and deleted in few days automatically<br>".
+                "<br>".
+                "See you soon at Nendoroids-db.net.";
+            $mail->AltBody =  "Dear $username, \r\n".
+                "\r\n".
+                "A new account has been created with your email <$usermail>. To confirm this account, you will have to enter the following code in the appropriate page (the one you have reached just after your registration...\r\n".
+                "\r\n".
+                "Registration code: $registrationcode\r\n".
+                "\r\n".
+                "If you are not at the origin of this new account you have just to ignore this mail and the account will not be confirmed and deleted in few days automatically.\r\n".
+                "\r\n".
+                "See you soon at Nendoroids-db.net.\r\n";
+
+            if(!$mail->send()) {
+                $newresponse = $response->withJson($mail->ErrorInfo, 201);
+            } else {
+                $newresponse = $response->withStatus(201);
+            }
         } else {
             $this->applogger->addInfo("User ($usermail/$username) failled to register...");
             $newresponse = $response->withStatus(500);

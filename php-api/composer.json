@@ -5,6 +5,7 @@
         "slim/php-view": "^2.2",
         "tuupola/slim-jwt-auth": "^2.3",
         "tuupola/base62": "^0.7.0",
-        "paragonie/random_compat": "^2.0"
+        "paragonie/random_compat": "^2.0",
+        "phpmailer/phpmailer": "^5.2"
     }
 }
