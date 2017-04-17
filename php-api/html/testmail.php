@@ -9,21 +9,20 @@ require '../vendor/autoload.php';
             $mail->isSMTP();
             $mail->SMTPDebug = 4;
             $mail->Debugoutput = 'html';
-            $mail->Host = 'smtp.gmail.com';
-            // $mail->Host = 'smtp.gmail.com';
+            $mail->Host = 'mail.gandi.net';
             $mail->SMTPAuth = true;
-            $mail->Username = 'phantakun@gmail.com';
+            $mail->Username = 'administrator@nendoroids-db.net';
             $mail->Password = '__PUTHEREYOURPASSWORD__';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            $mail->setFrom('phantakun@gmail.com');
+            $mail->setFrom('administrator@nendoroids-db.net');
             $mail->addAddress('fxbt@free.fr', 'fxbt');
-            $mail->addBCC('phantakun@gmail.com');
+            $mail->addBCC('administrator@nendoroids-db.net');
 
             $mail->isHTML(true);
 
-            $mail->Subject = 'A confirmation is needed for your account at Nendoroids-db.net';
+            $mail->Subject = '[nendoroids-db.net] A confirmation is needed for your account at Nendoroids-db.net';
             $mail->Body    =  "Dear fxbt,<br>".
                 "A new account has been created with your email <strong>fxbt@free.fr</strong>. ".
                 "To confirm this account, you will have to enter the following code in the appropriate page (the one you have reached just after your registration...<br>".

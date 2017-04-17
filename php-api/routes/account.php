@@ -125,16 +125,16 @@ $app->post('/auth/register', function(Request $request, Response $response) {
             $mail->isSMTP();
             $mail->SMTPDebug = 4;
             $mail->Debugoutput = 'html';
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = 'mail.gandi.net';
             $mail->SMTPAuth = true;
-            $mail->Username = 'phantakun@gmail.com';
-            $mail->Password = 'fadiese18';
+            $mail->Username = 'administrator@nendoroids-db.net';
+            $mail->Password = '__PUTHEREYOURPASSWORD__';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            $mail->setFrom('phantakun@gmail.com');
+            $mail->setFrom('administrator@nendoroids-db.net');
             $mail->addAddress($usermail, $username);
-            $mail->addBCC('phantakun@gmail.com');
+            $mail->addBCC('administrator@nendoroids-db.net');
 
             $mail->isHTML(true);
 
