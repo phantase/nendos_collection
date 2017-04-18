@@ -6,9 +6,9 @@ $container["JwtAuthentication"] = function($container) {
   return new \Slim\Middleware\JwtAuthentication([
         "path" => "/auth",
         "passthrough" => ["/auth/login", "/auth/register", "/auth/confirm"],
-        "secure" => true,
+        "secure" => $container["settings"]["jwt"]["secure"],
         "logger" => $container["jwtlogger"],
-        "relaxed" => ["localhost", "192.168.99.100"],
+        "relaxed" => $container["settings"]["jwt"]["relaxed"],
         "secret" => $container["settings"]["jwt"]["secret"]
     ]);
 };

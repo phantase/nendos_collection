@@ -10,9 +10,6 @@ $config['db']['pass']    = "";
 $config['db']['dbname']  = "";
 $config['db']['charset'] = "utf8"; // e.g. utf8
 
-// Secret for JWT
-$config['jwt']['secret'] = "";
-
 // SMTP credential
 $config['smtp']['host']   = ""; // e.g. mail.aserver.com
 $config['smtp']['port']   = 587; // e.g. 587
@@ -24,3 +21,7 @@ $config['smtp']['name']   = ""; // e.g. Registration (A Server)
 
 // CORS
 $config['cors']['origin'] = ""; // e.g. http://someadressyouallow.com
+// JWT
+$config['jwt']['secret'] = "";
+$config['jwt']['secure'] = true; // i.e. do we require HTTPS or not
+$config['jwt']['relaxed'] = ["localhost", "192.168.99.100"]; // e.g. ["localhost", "192.168.99.100"]
