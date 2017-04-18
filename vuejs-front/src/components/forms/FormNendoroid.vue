@@ -18,8 +18,10 @@
                   <div class="form-group" :class="errorbox?'has-error':''">
                     <label>Box</label>
                     <select class="form-control" v-model="boxselected">
-                      <option value="box">- Box -</option>
-                      <option v-for="box in boxes4select" :value="box.internalid">{{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}</option>
+                      <option value="box" v-if="boxes4select.length > 1">- Box -</option>
+                      <option v-for="box in boxes4select" :value="box.internalid">
+                        {{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}
+                      </option>
                     </select>
                     <span class="help-block" v-if="errorbox">You must select a box</span>
                   </div>
@@ -117,7 +119,7 @@ export default {
   computed: {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
     boxes4select () {
-      return this.boxes
+      return this.$route.params.frompart === 'box' ? this.boxes.filter(box => box.internalid === this.$route.params.fromid) : this.boxes
     },
     internalid () {
       return this.$route.name === 'Edit nendoroid' ? this.$route.params.id : null
@@ -227,6 +229,9 @@ export default {
   mounted () {
     this.cancel()
     // $('select').select2()
+    if (this.$route.params.frompart === 'box') {
+      this.boxselected = this.$route.params.fromid
+    }
   },
   beforeUpdate () {
     // $('select').select2()

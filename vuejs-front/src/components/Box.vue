@@ -6,7 +6,10 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <router-link :to="'/box/'+box.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link>
+              <div class="pull-right">
+                <div><router-link :to="'/box/'+box.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link></div>
+                <div style="margin-top:5px;"><router-link :to="'/box/'+box.internalid+'/addpart'" class="btn btn-xs bg-orange pull-right" v-if="canedit"><i class="fa fa-plus"></i> Add a part</router-link></div>
+              </div>
               <div class="db-box-category text-yellow">
                 <span>{{ box.category}}</span>
                 <span v-if="box.number">#{{ box.number}}</span>

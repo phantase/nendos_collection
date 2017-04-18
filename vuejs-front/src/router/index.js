@@ -33,6 +33,7 @@ import FormBox from 'components/forms/FormBox'
 import FormImage from 'components/forms/FormImage'
 import FormPhoto from 'components/forms/FormPhoto'
 import FormPhotoPart from 'components/forms/FormPhotoPart'
+import AddPart from 'components/forms/AddPart'
 
 Vue.use(Router)
 
@@ -273,6 +274,25 @@ export default new Router({
       component: FormBox
     },
     {
+      path: '/box/:id/addpart',
+      name: 'Add part to box',
+      meta: {
+        description: 'Add a part to a box',
+        breadcrumb: [
+          {
+            title: 'Boxes',
+            link: '/boxes'
+          },
+          {
+            title: 'Box',
+            link: '/box/:id'
+          }
+        ],
+        frompart: 'box'
+      },
+      component: AddPart
+    },
+    {
       path: '/box/:id',
       name: 'Box',
       meta: {
@@ -332,6 +352,20 @@ export default new Router({
     },
     {
       path: '/face/add',
+      name: 'Add face',
+      meta: {
+        description: 'Add a new face',
+        breadcrumb: [
+          {
+            title: 'Faces',
+            link: '/faces'
+          }
+        ]
+      },
+      component: FormFace
+    },
+    {
+      path: '/face/add/from/:frompart/:fromid',
       name: 'Add face',
       meta: {
         description: 'Add a new face',
@@ -561,6 +595,20 @@ export default new Router({
       component: FormNendoroid
     },
     {
+      path: '/nendoroid/add/from/:frompart/:fromid',
+      name: 'Add nendoroid',
+      meta: {
+        description: 'Add a new nendoroid',
+        breadcrumb: [
+          {
+            title: 'Nendoroids',
+            link: '/nendoroids'
+          }
+        ]
+      },
+      component: FormNendoroid
+    },
+    {
       path: '/nendoroid/:id/edit/image',
       name: 'Edit nendoroid photo',
       meta: {
@@ -595,6 +643,25 @@ export default new Router({
         ]
       },
       component: FormNendoroid
+    },
+    {
+      path: '/nendoroid/:id/addpart',
+      name: 'Add part to nendoroid',
+      meta: {
+        description: 'Add a part to a nendoroid',
+        breadcrumb: [
+          {
+            title: 'Nendoroids',
+            link: '/nendoroids'
+          },
+          {
+            title: 'Nendoroid',
+            link: '/nendoroid/:id'
+          }
+        ],
+        frompart: 'nendoroid'
+      },
+      component: AddPart
     },
     {
       path: '/nendoroid/:id',
