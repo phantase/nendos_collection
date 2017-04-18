@@ -4,6 +4,7 @@ import Home from 'components/Home'
 import Login from 'components/Login'
 import Logout from 'components/Logout'
 import Register from 'components/Register'
+import Confirm from 'components/Confirm'
 import Accessory from 'components/Accessory'
 import Accessories from 'components/Accessories'
 import Bodypart from 'components/Bodypart'
@@ -68,6 +69,14 @@ export default new Router({
         description: 'Register'
       },
       component: Register
+    },
+    {
+      path: '/confirm',
+      name: 'Confirm',
+      meta: {
+        description: 'Confirm'
+      },
+      component: Confirm
     },
     {
       path: '/accessory/add',
