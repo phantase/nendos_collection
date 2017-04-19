@@ -18,8 +18,10 @@
                   <div class="form-group" :class="errorbox?'has-error':''">
                     <label>Box</label>
                     <select class="form-control" v-model="boxselected">
-                      <option value="box">- Box -</option>
-                      <option v-for="box in boxes4select" :value="box.internalid">{{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}</option>
+                      <option value="box" v-if="!frompart">- Box -</option>
+                      <option v-for="box in boxes4select" :value="box.internalid">
+                        {{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}
+                      </option>
                     </select>
                     <span class="help-block" v-if="errorbox">You must select a box</span>
                   </div>
@@ -28,8 +30,10 @@
                   <div class="form-group">
                     <label>Nendoroid</label>
                     <select class="form-control" v-model="nendoroidselected">
-                      <option value="nendoroid">- Nendoroid -</option>
-                      <option v-for="nendoroid in nendoroids4select" :value="nendoroid.internalid">{{ nendoroid.name }} {{ nendoroid.version?'-'+nendoroid.version:'' }}</option>
+                      <option value="nendoroid" v-if="frompart !== 'nendoroid'">- Nendoroid -</option>
+                      <option v-for="nendoroid in nendoroids4select" :value="nendoroid.internalid">
+                        {{ nendoroid.name }} {{ nendoroid.version?'-'+nendoroid.version:'' }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -127,19 +131,28 @@ export default {
   computed: {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
     boxes4select () {
-      if (this.nendoroidselected !== 'nendoroid') {
-        return this.boxes.filter(box => box.internalid === this.nendoroids.filter(nendoroid => nendoroid.internalid === this.nendoroidselected)[0].boxid)
+      if (this.$route.params.frompart === 'box') {
+        return this.boxes.filter(box => box.internalid === this.$route.params.fromid)
+      } else if (this.$route.params.frompart === 'nendoroid') {
+        return this.boxes.filter(box => box.internalid === this.nendoroids.find(nendoroid => nendoroid.internalid === this.$route.params.fromid).boxid)
+      } else if (this.nendoroidselected !== 'nendoroid') {
+        return this.boxes.filter(box => box.internalid === this.nendoroids.find(nendoroid => nendoroid.internalid === this.nendoroidselected).boxid)
       }
       return this.boxes
     },
     nendoroids4select () {
-      if (this.boxselected !== 'box') {
+      if (this.$route.params.frompart === 'nendoroid') {
+        return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.$route.params.fromid)
+      } else if (this.boxselected !== 'box') {
         return this.nendoroids.filter(nendoroid => nendoroid.boxid === this.boxselected)
       }
       return this.nendoroids
     },
     internalid () {
       return this.$route.name === 'Edit accessory' ? this.$route.params.id : null
+    },
+    frompart () {
+      return this.$route.params.frompart
     }
   },
   watch: {
@@ -267,6 +280,13 @@ export default {
   mounted () {
     this.cancel()
     // $('select').select2()
+    if (this.frompart === 'box') {
+      this.boxselected = this.$route.params.fromid
+    }
+    if (this.frompart === 'nendoroid') {
+      this.boxselected = this.nendoroids.find(nendoroid => nendoroid.internalid === this.$route.params.fromid).boxid
+      this.nendoroidselected = this.$route.params.fromid
+    }
   },
   beforeUpdate () {
     // $('select').select2()

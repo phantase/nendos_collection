@@ -94,6 +94,20 @@ export default new Router({
       component: FormAccessory
     },
     {
+      path: '/accessory/add/from/:frompart/:fromid',
+      name: 'Add accessory',
+      meta: {
+        description: 'Add a new accessory',
+        breadcrumb: [
+          {
+            title: 'Accessories',
+            link: '/accessories'
+          }
+        ]
+      },
+      component: FormAccessory
+    },
+    {
       path: '/accessory/:id/edit/image',
       name: 'Edit accessory photo',
       meta: {
@@ -153,6 +167,20 @@ export default new Router({
     },
     {
       path: '/bodypart/add',
+      name: 'Add bodypart',
+      meta: {
+        description: 'Add a new bodypart',
+        breadcrumb: [
+          {
+            title: 'Bodyparts',
+            link: '/bodyparts'
+          }
+        ]
+      },
+      component: FormBodypart
+    },
+    {
+      path: '/bodypart/add/from/:frompart/:fromid',
       name: 'Add bodypart',
       meta: {
         description: 'Add a new bodypart',
@@ -451,6 +479,20 @@ export default new Router({
       component: FormHair
     },
     {
+      path: '/hair/add/from/:frompart/:fromid',
+      name: 'Add hair',
+      meta: {
+        description: 'Add a new hair',
+        breadcrumb: [
+          {
+            title: 'Hairs',
+            link: '/hairs'
+          }
+        ]
+      },
+      component: FormHair
+    },
+    {
       path: '/hair/:id/edit/image',
       name: 'Edit hair photo',
       meta: {
@@ -510,6 +552,20 @@ export default new Router({
     },
     {
       path: '/hand/add',
+      name: 'Add hand',
+      meta: {
+        description: 'Add a new hand',
+        breadcrumb: [
+          {
+            title: 'Hands',
+            link: '/hands'
+          }
+        ]
+      },
+      component: FormHand
+    },
+    {
+      path: '/hand/add/from/:frompart/:fromid',
       name: 'Add hand',
       meta: {
         description: 'Add a new hand',

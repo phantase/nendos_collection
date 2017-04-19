@@ -18,7 +18,7 @@
                   <div class="form-group" :class="errorbox?'has-error':''">
                     <label>Box</label>
                     <select class="form-control" v-model="boxselected">
-                      <option value="box" v-if="boxes4select.length > 1">- Box -</option>
+                      <option value="box" v-if="frompart !== 'box'">- Box -</option>
                       <option v-for="box in boxes4select" :value="box.internalid">
                         {{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}
                       </option>
@@ -119,10 +119,13 @@ export default {
   computed: {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
     boxes4select () {
-      return this.$route.params.frompart === 'box' ? this.boxes.filter(box => box.internalid === this.$route.params.fromid) : this.boxes
+      return this.frompart === 'box' ? this.boxes.filter(box => box.internalid === this.$route.params.fromid) : this.boxes
     },
     internalid () {
       return this.$route.name === 'Edit nendoroid' ? this.$route.params.id : null
+    },
+    frompart () {
+      return this.$route.params.frompart
     }
   },
   watch: {
@@ -229,7 +232,7 @@ export default {
   mounted () {
     this.cancel()
     // $('select').select2()
-    if (this.$route.params.frompart === 'box') {
+    if (this.frompart === 'box') {
       this.boxselected = this.$route.params.fromid
     }
   },
