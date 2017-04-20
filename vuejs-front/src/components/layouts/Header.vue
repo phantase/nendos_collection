@@ -20,13 +20,13 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
-          <app-header-messages :messages="messages"></app-header-messages>
-          <app-header-notifications :notifications="notifications"></app-header-notifications>
-          <app-header-tasks :tasks="tasks"></app-header-tasks>
+          <app-header-messages :messages="messages" v-if="false"></app-header-messages>
+          <app-header-notifications :notifications="notifications" v-if="false"></app-header-notifications>
+          <app-header-tasks :tasks="tasks" v-if="false"></app-header-tasks>
           <app-header-user-panel></app-header-user-panel>
 
           <!-- Control Sidebar Toggle Button -->
-          <li>
+          <li v-if="false">
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>

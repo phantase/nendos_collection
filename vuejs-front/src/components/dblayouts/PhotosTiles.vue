@@ -1,17 +1,9 @@
 <template>
   <div class="row">
     <router-link :to="'/photo/'+photo.internalid" :class="classtiles" v-for="photo in photos">
-      <div class="box box-solid" :id="'db-photo-'+photo.internalid">
-        <div class="box-header with-border">
-          <h3 class="box-title">
-            <div class="db-photo-title">{{ photo.title }}</div>
-            <div class="db-photo-username">by {{ photo.username }}</div>
-          </h3>
-        </div>
-        <div class="box-body db-image">
-          <img :src="resources.apiurl+'/images/photos/'+photo.internalid+'/thumb'" />
-        </div>
-      </div>
+
+    <photo-tile :photo="photo"></photo-tile>
+
     </router-link>
   </div>
 </template>
@@ -19,9 +11,14 @@
 <script>
 import Resources from './../../config/resources'
 
+import PhotoTile from './PhotoTile'
+
 export default {
   name: 'PhotosTiles',
   props: ['photos', 'tilessize'],
+  components: {
+    PhotoTile
+  },
   data () {
     return {
       resources: Resources

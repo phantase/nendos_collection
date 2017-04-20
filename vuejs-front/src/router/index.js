@@ -34,6 +34,7 @@ import FormImage from 'components/forms/FormImage'
 import FormPhoto from 'components/forms/FormPhoto'
 import FormPhotoPart from 'components/forms/FormPhotoPart'
 import AddPart from 'components/forms/AddPart'
+import Search from 'components/Search'
 
 Vue.use(Router)
 
@@ -794,6 +795,14 @@ export default new Router({
         description: 'List of all photos'
       },
       component: Photos
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      meta: {
+        description: 'Search in Nendoroids db'
+      },
+      component: Search
     }
   ]
 })
