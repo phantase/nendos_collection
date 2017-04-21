@@ -15,14 +15,14 @@
       <div class="col-md-12">
         <div class="nav-tabs-custom">
           <ul class="nav nav-tabs pull-right">
-            <li><a href="#tab_photos"       data-toggle="tab" aria-expanded="true"><i class="fa fa-image"                   ></i> Photos      <span class="pull-right-container"><small class="badge bg-blue">{{ photosfound.length       }}</small></span></a></li>
-            <li><a href="#tab_accessories"  data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_accessories"></i> Accessories <span class="pull-right-container"><small class="badge bg-blue">{{ accessoriesfound.length  }}</small></span></a></li>
-            <li><a href="#tab_bodyparts"    data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_body"       ></i> Bodyparts   <span class="pull-right-container"><small class="badge bg-blue">{{ bodypartsfound.length    }}</small></span></a></li>
-            <li><a href="#tab_hands"        data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_hand"       ></i> Hands       <span class="pull-right-container"><small class="badge bg-blue">{{ handsfound.length        }}</small></span></a></li>
-            <li><a href="#tab_hairs"        data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_hair"       ></i> Hairs       <span class="pull-right-container"><small class="badge bg-blue">{{ hairsfound.length        }}</small></span></a></li>
-            <li><a href="#tab_faces"        data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_face"       ></i> Faces       <span class="pull-right-container"><small class="badge bg-blue">{{ facesfound.length        }}</small></span></a></li>
-            <li><a href="#tab_nendoroids"   data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_nendo"      ></i> Nendoroids  <span class="pull-right-container"><small class="badge bg-blue">{{ nendoroidsfound.length   }}</small></span></a></li>
-            <li class="active"><a href="#tab_boxes"        data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_boxes"      ></i>Boxes      <span class="pull-right-container"><small class="badge bg-blue">{{ boxesfound.length  }}</small></span></a></li>
+            <li><a href="#tab_photos"       data-toggle="tab" aria-expanded="true"><i class="fa fa-image"                   ></i><span class="label label-warning">{{ photosfound.length}}</span> Photos      </a></li>
+            <li><a href="#tab_accessories"  data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_accessories"></i><span class="label label-warning">{{ accessoriesfound.length}}</span> Accessories </a></li>
+            <li><a href="#tab_bodyparts"    data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_body"       ></i><span class="label label-warning">{{ bodypartsfound.length}}</span> Bodyparts   </a></li>
+            <li><a href="#tab_hands"        data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_hand"       ></i><span class="label label-warning">{{ handsfound.length}}</span> Hands       </a></li>
+            <li><a href="#tab_hairs"        data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_hair"       ></i><span class="label label-warning">{{ hairsfound.length}}</span> Hairs       </a></li>
+            <li><a href="#tab_faces"        data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_face"       ></i><span class="label label-warning">{{ facesfound.length}}</span> Faces       </a></li>
+            <li><a href="#tab_nendoroids"   data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_nendo"      ></i><span class="label label-warning">{{ nendoroidsfound.length}}</span> Nendoroids  </a></li>
+            <li class="active"><a href="#tab_boxes"        data-toggle="tab" aria-expanded="true"><i class="fa icon-icon_nendo_boxes"      ></i><span class="label label-warning">{{ boxesfound.length}}</span> Boxes      </a></li>
             <li class="pull-left header">Results</li>
           </ul>
           <div class="tab-content">
@@ -159,4 +159,17 @@ export default {
 </script>
 
 <style scoped>
+.nav-tabs > li > a > .label {
+  position: absolute;
+  top: 7px;
+  left: 23px;
+  text-align: center;
+  font-size: 9px;
+  padding: 2px 3px;
+  line-height: .9;
+}
+.nav-tabs > li > a > i {
+  padding-right: 10px;
+  font-size: 20px;
+}
 </style>
