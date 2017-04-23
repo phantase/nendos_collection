@@ -96,7 +96,7 @@ export default new Router({
     },
     {
       path: '/accessory/add/from/:frompart/:fromid',
-      name: 'Add accessory',
+      name: 'Add accessory from',
       meta: {
         description: 'Add a new accessory',
         breadcrumb: [
@@ -182,7 +182,7 @@ export default new Router({
     },
     {
       path: '/bodypart/add/from/:frompart/:fromid',
-      name: 'Add bodypart',
+      name: 'Add bodypart from',
       meta: {
         description: 'Add a new bodypart',
         breadcrumb: [
@@ -395,7 +395,7 @@ export default new Router({
     },
     {
       path: '/face/add/from/:frompart/:fromid',
-      name: 'Add face',
+      name: 'Add face from',
       meta: {
         description: 'Add a new face',
         breadcrumb: [
@@ -481,7 +481,7 @@ export default new Router({
     },
     {
       path: '/hair/add/from/:frompart/:fromid',
-      name: 'Add hair',
+      name: 'Add hair from',
       meta: {
         description: 'Add a new hair',
         breadcrumb: [
@@ -567,7 +567,7 @@ export default new Router({
     },
     {
       path: '/hand/add/from/:frompart/:fromid',
-      name: 'Add hand',
+      name: 'Add hand from',
       meta: {
         description: 'Add a new hand',
         breadcrumb: [
@@ -653,7 +653,7 @@ export default new Router({
     },
     {
       path: '/nendoroid/add/from/:frompart/:fromid',
-      name: 'Add nendoroid',
+      name: 'Add nendoroid from',
       meta: {
         description: 'Add a new nendoroid',
         breadcrumb: [
