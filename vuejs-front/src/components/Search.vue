@@ -6,6 +6,15 @@
         <div class="box">
           <app-box-header title="Search parameters" collapsable="true" icon="fa-binoculars"></app-box-header>
           <div class="box-body">
+            <div class="form-group">
+              <label for="simpletext">Simple text</label>
+              <input type="text" class="form-control" id="simpletext" placeholder="Enter text" v-model="searchSimpletext">
+            </div>
+
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-default" @click="cancelSearch">Cancel</button>
+            <button type="submit" class="btn btn-warning pull-right" @click="submitSearch">Search</button>
           </div>
         </div>
       </div>
@@ -123,13 +132,18 @@ export default {
   store: store,
   data () {
     return {
-      resources: Resources
+      resources: Resources,
+      searchSimpletext: null,
+      searchSimpletextValidated: null
     }
   },
   computed: {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'authenticated', 'viewvalidation']),
     boxesfound () {
-      return this.boxes
+      if (this.searchSimpletextValidated) {
+        return this.boxes.filter(this.filterBoxes)
+      }
+      return []
     },
     nendoroidsfound () {
       return this.nendoroids
@@ -154,6 +168,19 @@ export default {
     }
   },
   methods: {
+    filterBoxes (box) {
+      // if (box.number.toLowerCase().indexOf(this.searchSimpletextValidated))
+      return box.name.toLowerCase().indexOf(this.searchSimpletextValidated) > -1
+    },
+    submitSearch () {
+      console.log('submitSearch')
+      this.searchSimpletextValidated = this.searchSimpletext.toLowerCase()
+    },
+    cancelSearch () {
+      console.log('cancelSearch')
+      this.searchSimpletext = null
+      this.searchSimpletextValidated = null
+    }
   }
 }
 </script>
