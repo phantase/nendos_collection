@@ -97,7 +97,7 @@ $(function(){
         if( element.attr("box_number").length > 0 ){
           box_number_tooltip = " #" + element.attr("box_number");
         }
-        let sorting-tooltip = "";
+        let sorting_tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -118,7 +118,7 @@ $(function(){
         if (element.attr("class").indexOf("owned") > -1) {
           face_collection_status_tooltip = "[Face (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        let sorting-tooltip = "";
+        let sorting_tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -138,7 +138,7 @@ $(function(){
         if (element.attr("class").indexOf("owned") > -1) {
           hair_collection_status_tooltip = "[Hair (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        let sorting-tooltip = "";
+        let sorting_tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -159,7 +159,7 @@ $(function(){
         if (element.attr("class").indexOf("owned") > -1) {
           hand_collection_status_tooltip = "[Hand (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        let sorting-tooltip = "";
+        let sorting_tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -179,7 +179,7 @@ $(function(){
         if (element.attr("class").indexOf("owned") > -1) {
           bodypart_collection_status_tooltip = "[Bodypart (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        let sorting-tooltip = "";
+        let sorting_tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -199,7 +199,7 @@ $(function(){
         if (element.attr("class").indexOf("owned") > -1) {
           accessory_collection_status_tooltip = "[Accessory (<span style='color:#8080B3;'>owned</span>)]<br/>";
         }
-        let sorting-tooltip = "";
+        let sorting_tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -223,7 +223,7 @@ $(function(){
         if( element.attr("box_number").length > 0 ){
           box_number_tooltip = " #" + element.attr("box_number");
         }
-        let sorting-tooltip = "";
+        let sorting_tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
@@ -235,7 +235,7 @@ $(function(){
       }
       // PHOTO
       if( element.is("[photo]") ){
-        let sorting-tooltip = "";
+        let sorting_tooltip = "";
         if( element.attr("sortingfield") && element.attr("sortingfield").length > 0 ){
           sorting_tooltip = "<br/><i style='font-size:0.6em;'>" + element.attr("sortingfield") + ": " + element.attr("sortingvalue") + "</i>";
         }
