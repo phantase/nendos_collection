@@ -6,9 +6,18 @@
           <app-box-header title="Sorting and filtering" collapsable="true" collapsed="true" icon="fa-filter"></app-box-header>
           <div class="box-body">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" v-model="onlyincollection">
+                    Only in my collection
+                  </label>
+                </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
+                <!-- Here, the other filters... -->
+              </div>
+              <div class="col-md-4">
                 <div class="pull-right">
                   <label>Sort by: </label>
                   <select v-model="orderedby">
@@ -74,6 +83,7 @@ export default {
   data () {
     return {
       resources: Resources,
+      onlyincollection: false,
       orderedby: 'creationdate',
       direction: 'desc'
     }
@@ -81,10 +91,21 @@ export default {
   computed: {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'bodyparts']),
     displayedBodyparts () {
-      return this.bodyparts.concat().sort(this.sortBodyparts)
+      return this.bodyparts.filter(this.filterBodyparts).concat().sort(this.sortBodyparts)
     }
   },
   methods: {
+    filterBodyparts (e) {
+      if (this.onlyincollection) {
+        if (e.colladdeddate) {
+          return true
+        } else {
+          return false
+        }
+      } else {
+        return true
+      }
+    },
     sortBodyparts (a, b) {
       if (this.orderedby.startsWith('box_')) {
         let orderedbyNobox = this.orderedby.substring(4)
