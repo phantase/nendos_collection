@@ -81,6 +81,11 @@ export default {
       this.$emit(this.uncollectable ? 'uncollect' : 'keep', 'nendoroid', this.nendoroid.internalid)
     }
   },
+  updated () {
+    console.log('NendoroidTile > updated')
+    $('[data-toggle="tooltip]').tooltip('destroy')
+    // $('[data-toggle="tooltip]').tooltip()
+  },
   destroyed () {
     $('[role="tooltip"]').remove()
   }
