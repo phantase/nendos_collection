@@ -23,6 +23,9 @@ export default {
       resources: Resources
     }
   },
+  updated () {
+    $('[data-toggle="tooltip"]').tooltip('fixTitle')
+  },
   destroyed () {
     $('[role="tooltip"]').remove()
   }

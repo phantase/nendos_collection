@@ -80,6 +80,9 @@ export default {
       this.$emit(this.uncollectable ? 'uncollect' : 'keep', 'face', this.face.internalid)
     }
   },
+  updated () {
+    $('[data-toggle="tooltip"]').tooltip('fixTitle')
+  },
   destroyed () {
     $('[role="tooltip"]').remove()
   }

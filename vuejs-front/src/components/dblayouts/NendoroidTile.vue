@@ -82,9 +82,7 @@ export default {
     }
   },
   updated () {
-    console.log('NendoroidTile > updated')
-    $('[data-toggle="tooltip]').tooltip('destroy')
-    // $('[data-toggle="tooltip]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip('fixTitle')
   },
   destroyed () {
     $('[role="tooltip"]').remove()

@@ -85,6 +85,9 @@ export default {
       this.$emit(this.uncollectable ? 'uncollect' : 'keep', 'hair', this.hair.internalid)
     }
   },
+  updated () {
+    $('[data-toggle="tooltip"]').tooltip('fixTitle')
+  },
   destroyed () {
     $('[role="tooltip"]').remove()
   }
