@@ -7,7 +7,7 @@
           <div class="box-body">
             <div class="row">
               <div class="col-md-4">
-                <div class="checkbox">
+                <div class="checkbox" v-if="authenticated">
                   <label>
                     <input type="checkbox" v-model="onlyincollection">
                     Only in my collection
@@ -89,7 +89,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'bodyparts']),
+    ...Vuex.mapGetters(['authenticated', 'boxes', 'nendoroids', 'bodyparts']),
     displayedBodyparts () {
       return this.bodyparts.filter(this.filterBodyparts).concat().sort(this.sortBodyparts)
     }
