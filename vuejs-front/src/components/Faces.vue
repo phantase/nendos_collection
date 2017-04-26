@@ -5,56 +5,59 @@
         <div class="box collapsed-box">
           <app-box-header title="Sorting and filtering" collapsable="true" collapsed="true" icon="fa-filter"></app-box-header>
           <div class="box-body">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="checkbox" v-if="authenticated">
-                  <label>
-                    <input type="checkbox" v-model="onlyincollection">
-                    Only in my collection
-                  </label>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <!-- Here, the other filters... -->
-              </div>
-              <div class="col-md-4">
-                <div class="pull-right">
-                  <label>Sort by: </label>
-                  <select v-model="orderedby">
-                    <optgroup label="Face">
-                      <option value="eyes_color">Eyes color</option>
-                      <option value="skin_color">Skin color</option>
-                      <option value="sex">Sex</option>
-                    </optgroup>
-                    <optgroup label="Nendoroid">
-                      <option value="nendoroid_name">Name</option>
-                      <option value="nendoroid_version">Version</option>
-                      <option value="nendoroid_sex">Sex</option>
-                    </optgroup>
-                    <optgroup label="Box">
-                      <option value="box_number">Number</option>
-                      <option value="box_name">Name</option>
-                      <option value="box_series">Series</option>
-                      <option value="box_manufacturer">Manufacturer</option>
-                      <option value="box_category">Category</option>
-                      <option value="box_price">Price</option>
-                      <option value="box_releasedate">Release date</option>
-                      <option value="box_sculptor">Sculptor</option>
-                      <option value="box_cooperation">Cooperation</option>
-                    </optgroup>
-                    <optgroup label="DB">
-                      <option value="creatorname">Creator</option>
-                      <option value="creationdate" selected="">Creation date</option>
-                      <option value="editorname">Last editor</option>
-                      <option value="editiondate">Last edition date</option>
-                    </optgroup>
-                  </select>
-                  <select v-model="direction">
-                    <option value="asc">Asc</option>
-                    <option value="desc">Desc</option>
-                  </select>
-                </div>
-              </div>
+            <div class="pull-left">
+              <span v-if="authenticated">
+                <label>In collection: </label>
+                <select v-model="filterincollection">
+                  <option value="all">All</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </span>
+              <span v-if="viewvalidation">
+                <label>Validation: </label>
+                <select v-model="filtervalidation">
+                  <option value="all">All</option>
+                  <option value="validated">Validated</option>
+                  <option value="notvalidated">Not validated</option>
+                </select>
+              </span>
+            </div>
+            <div class="pull-right">
+              <label>Sort by: </label>
+              <select v-model="orderedby">
+                <optgroup label="Face">
+                  <option value="eyes_color">Eyes color</option>
+                  <option value="skin_color">Skin color</option>
+                  <option value="sex">Sex</option>
+                </optgroup>
+                <optgroup label="Nendoroid">
+                  <option value="nendoroid_name">Name</option>
+                  <option value="nendoroid_version">Version</option>
+                  <option value="nendoroid_sex">Sex</option>
+                </optgroup>
+                <optgroup label="Box">
+                  <option value="box_number">Number</option>
+                  <option value="box_name">Name</option>
+                  <option value="box_series">Series</option>
+                  <option value="box_manufacturer">Manufacturer</option>
+                  <option value="box_category">Category</option>
+                  <option value="box_price">Price</option>
+                  <option value="box_releasedate">Release date</option>
+                  <option value="box_sculptor">Sculptor</option>
+                  <option value="box_cooperation">Cooperation</option>
+                </optgroup>
+                <optgroup label="DB">
+                  <option value="creatorname">Creator</option>
+                  <option value="creationdate" selected="">Creation date</option>
+                  <option value="editorname">Last editor</option>
+                  <option value="editiondate">Last edition date</option>
+                </optgroup>
+              </select>
+              <select v-model="direction">
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+              </select>
             </div>
           </div>
         </div>
@@ -83,28 +86,33 @@ export default {
   data () {
     return {
       resources: Resources,
-      onlyincollection: false,
+      filterincollection: 'all',
+      filtervalidation: 'all',
       orderedby: 'creationdate',
       direction: 'desc'
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'boxes', 'nendoroids', 'faces']),
+    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'faces']),
     displayedFaces () {
       return this.faces.filter(this.filterFaces).concat().sort(this.sortFaces)
     }
   },
   methods: {
     filterFaces (e) {
-      if (this.onlyincollection) {
-        if (e.colladdeddate) {
-          return true
-        } else {
-          return false
-        }
-      } else {
-        return true
+      if (this.filterincollection === 'yes' && e.colladdeddate === null) {
+        return false
       }
+      if (this.filterincollection === 'no' && e.colladdeddate != null) {
+        return false
+      }
+      if (this.filtervalidation === 'validated' && e.validationdate === null) {
+        return false
+      }
+      if (this.filtervalidation === 'notvalidated' && e.validationdate != null) {
+        return false
+      }
+      return true
     },
     sortFaces (a, b) {
       if (this.orderedby.startsWith('box_')) {
