@@ -35,6 +35,7 @@ import FormPhoto from 'components/forms/FormPhoto'
 import FormPhotoPart from 'components/forms/FormPhotoPart'
 import AddPart from 'components/forms/AddPart'
 import Search from 'components/Search'
+import News from 'components/News'
 
 Vue.use(Router)
 
@@ -803,6 +804,14 @@ export default new Router({
         description: 'Search in Nendoroids db'
       },
       component: Search
+    },
+    {
+      path: '/news',
+      name: 'News',
+      meta: {
+        description: 'News of Nendoroids db'
+      },
+      component: News
     }
   ]
 })

@@ -43,6 +43,29 @@
         </router-link>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="box box-warning">
+          <app-box-header title="Latest news" collapsable="true" icon="fa-newspaper-o"></app-box-header>
+          <div class="box-body">
+            <ul class="products-list product-list-in-box">
+              <app-news-tile type="news"
+                              title="A title for a news"
+                              summary="Flexeris per fabulae aetatem gyris iam exprimunt fabulae iactari quae innumera cirratas multas innumera cirratas."></app-news-tile>
+              <app-news-tile type="article"
+                              title="An article and its title"
+                              summary="Sequi minori est improborum omni sit hodie improborum an quis concessum talis sed quod concessum."></app-news-tile>
+              <app-news-tile type="comment"
+                              title="The title of a comment"
+                              summary="Quod non qui magis quod Quis altero numquam viderit etiam propter quis quodam nihil Fabrici."></app-news-tile>
+            </ul>
+          </div>
+          <div class="box-footer text-center">
+            <router-link to="/news" class="uppercase">View all news</router-link>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -51,12 +74,16 @@
   import store from './../store'
   import Vuex from 'vuex'
 
+  import AppBoxHeader from './layouts/BoxHeader'
   import AppInfoBox from './dblayouts/InfoBox'
+  import AppNewsTile from './dblayouts/NewsTile'
 
   export default {
     name: 'Home',
     components: {
-      AppInfoBox
+      AppBoxHeader,
+      AppInfoBox,
+      AppNewsTile
     },
     store: store,
     data () {

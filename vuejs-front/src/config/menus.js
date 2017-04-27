@@ -8,6 +8,11 @@ export default [
     icon: 'fa-home'
   },
   {
+    name: 'News',
+    link: '/news',
+    icon: 'fa-newspaper-o'
+  },
+  {
     name: 'Photos',
     link: '/photos',
     icon: 'fa-photo',
