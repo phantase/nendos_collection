@@ -11,6 +11,7 @@ import hands from './modules/hands'
 import bodyparts from './modules/bodyparts'
 import accessories from './modules/accessories'
 import photos from './modules/photos'
+import users from './modules/users'
 
 Vue.use(Vuex)
 
@@ -28,7 +29,8 @@ export default new Vuex.Store({
     hands,
     bodyparts,
     accessories,
-    photos
+    photos,
+    users
   },
   strict: debug
 })

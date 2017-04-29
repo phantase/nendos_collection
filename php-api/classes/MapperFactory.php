@@ -49,6 +49,9 @@ class MapperFactory {
       case 'photonendoroid':
       case 'photonendoroids':
         return new PhotoNendoroidMapper($db);
+      case 'user':
+      case 'users':
+        return new UserMapper($db);
       default:
         throw new Exception('Element not supported');
     }

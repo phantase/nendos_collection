@@ -16,7 +16,7 @@ $app->get('/count', function(Request $request, Response $response) {
 });
 
 //  Retrieve all objects of type {element}
-$app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|photoaccessories|photobodyparts|photoboxes|photofaces|photohairs|photohands|photonendoroids}', function(Request $request, Response $response, $args) {
+$app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|photoaccessories|photobodyparts|photoboxes|photofaces|photohairs|photohands|photonendoroids|user|users}', function(Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $this->applogger->addInfo("$param_element list");
     try {
