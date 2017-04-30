@@ -49,10 +49,7 @@
           <app-box-header title="Latest news" collapsable="true" icon="fa-newspaper-o"></app-box-header>
           <div class="box-body">
             <ul class="products-list product-list-in-box">
-              <app-news-tile v-for="singleNews in homeNews"
-                              :type="singleNews.type" :date="singleNews.creationdate" :userid="singleNews.authorid"
-                              :title="singleNews.title"
-                              :summary="singleNews.summary"></app-news-tile>
+              <app-news-tile v-for="singleNews in homeNews" :news="singleNews"></app-news-tile>
             </ul>
           </div>
           <div class="box-footer text-center">

@@ -1,18 +1,18 @@
 <template>
               <li class="item">
                 <div class="product-img">
-                  <img src="../../assets/default-50x50.gif" :alt="type">
+                  <img src="../../assets/default-50x50.gif" :alt="news.type">
                 </div>
                 <div class="product-info">
-                  <router-link to="/news/2" class="product-title">
-                    {{ title }}
-                    <span class="label label-danger pull-right" :class="labeltype">{{ type.toUpperCase() }}</span>
+                  <router-link :to="'/news/' + news.internalid" class="product-title">
+                    {{ news.title }}
+                    <span class="label label-danger pull-right" :class="labeltype">{{ news.type.toUpperCase() }}</span>
                   </router-link>
                   <span class="product-description">
-                    {{ summary }}
+                    {{ news.summary }}
                   </span>
                   <span>
-                    <app-interval-component :date="date"></app-interval-component> - <router-link :to="'/profile/' + user.internalid" v-if="user">{{ user.username }}</router-link>
+                    <app-interval-component :date="news.creationdate"></app-interval-component> - <db-user-component :userid="news.authorid"></db-user-component>
                   </span>
                 </div>
               </li>
@@ -23,15 +23,17 @@ import store from './../../store'
 import Vuex from 'vuex'
 
 import AppIntervalComponent from './../layouts/IntervalComponent'
+import DbUserComponent from './../dblayouts/UserComponent'
 
 import Resources from './../../config/resources'
 
 export default {
   name: 'NewsTile',
-  props: ['type', 'title', 'summary', 'date', 'userid'],
+  props: ['news'],
   store: store,
   components: {
-    AppIntervalComponent
+    AppIntervalComponent,
+    DbUserComponent
   },
   data () {
     return {
@@ -39,14 +41,11 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['users']),
-    user () {
-      return this.users.find(user => user.internalid === this.userid)
-    },
+    ...Vuex.mapGetters([]),
     labeltype () {
-      if (this.type === 'news') {
+      if (this.news.type === 'news') {
         return 'label-warning'
-      } else if (this.type === 'article') {
+      } else if (this.news.type === 'article') {
         return 'label-danger'
       } else {
         return 'label-primary'
