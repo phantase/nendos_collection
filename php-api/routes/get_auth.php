@@ -17,7 +17,7 @@ $app->get('/auth/count', function(Request $request, Response $response) {
 });
 
 //  Retrieve all objects of type {element}
-$app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|photoaccessories|photobodyparts|photoboxes|photofaces|photohairs|photohands|photonendoroids|user|users}', function(Request $request, Response $response, $args) {
+$app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|photoaccessories|photobodyparts|photoboxes|photofaces|photohairs|photohands|photonendoroids|user|users|news}', function(Request $request, Response $response, $args) {
     $user = $request->getAttribute("token")->user;
     $userid = $user->internalid;
     $onlyvalidated = !($user->editor || $user->validator || $user->administrator);
