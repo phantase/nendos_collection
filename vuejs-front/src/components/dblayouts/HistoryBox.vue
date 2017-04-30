@@ -21,7 +21,7 @@
                   <i class="fa fa-square-o bg-red" v-if="historyitem.action === 'Unvalidation'"></i>
                   <i class="fa fa-image bg-purple" v-if="historyitem.action === 'Addition'"></i>
                   <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> {{ historyitem.actiondate.split(' ')[1] }}</span>
+                      <app-interval-component :date="historyitem.actiondate"></app-interval-component>
 
                       <h3 class="timeline-header"><router-link :to="'/user/'+historyitem.userid">{{ historyitem.username }}</router-link> ({{ historyitem.action }})</h3>
 
@@ -54,12 +54,14 @@
 
 <script>
 import AppBoxHeader from './../layouts/BoxHeader'
+import AppIntervalComponent from './../layouts/IntervalComponent'
 
 export default {
   name: 'HistoryBox',
   props: ['elementtype', 'internalid'],
   components: {
-    AppBoxHeader
+    AppBoxHeader,
+    AppIntervalComponent
   },
   data () {
     return {
