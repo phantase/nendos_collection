@@ -39,7 +39,7 @@
           <app-box-header title="News" collapsable="true" icon="fa-newspaper-o"></app-box-header>
           <div class="box-body">
             <ul class="products-list product-list-in-box">
-              <app-news-tile v-for="singleNews in news"
+              <app-news-tile v-for="singleNews in displayedNews"
                               :type="singleNews.type" :date="singleNews.creationdate" :userid="singleNews.authorid"
                               :title="singleNews.title"
                               :summary="singleNews.summary"></app-news-tile>
@@ -77,7 +77,12 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['news'])
+    ...Vuex.mapGetters(['news']),
+    displayedNews () {
+      return this.news.concat().sort(function (a, b) {
+        return new Date(b.creationdate).getTime() - new Date(a.creationdate).getTime()
+      })
+    }
   },
   methods: {
   }

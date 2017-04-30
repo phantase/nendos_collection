@@ -97,7 +97,9 @@
         'countphotos', 'news'
       ]),
       homeNews () {
-        return this.news
+        return this.news.concat().sort(function (a, b) {
+          return new Date(b.creationdate).getTime() - new Date(a.creationdate).getTime()
+        })
       }
     }
   }
