@@ -24,6 +24,9 @@ const getters = {
   },
   canedit (state) {
     return state.user.administrator === '1' || state.user.editor === '1'
+  },
+  canadmin (state) {
+    return state.user.administrator === '1'
   }
 }
 
