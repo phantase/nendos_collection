@@ -1,5 +1,6 @@
 var path = require('path')
 var utils = require('./utils')
+var webpack = require('webpack')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
@@ -28,9 +29,16 @@ module.exports = {
       'vue$': 'vue/dist/vue.common.js',
       'src': resolve('src'),
       'assets': resolve('src/assets'),
-      'components': resolve('src/components')
+      'components': resolve('src/components'),
+      'admin-lte': resolve('node_modules/admin-lte')
     }
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jQuery',
+      jQuery: 'jQuery'
+    })
+  ],
   module: {
     rules: [
       {
