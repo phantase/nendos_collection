@@ -11,6 +11,9 @@
                   <span class="product-description">
                     {{ summary }}
                   </span>
+                  <span>
+                    <app-interval-component :date="date"></app-interval-component> - <router-link :to="'/profile/' + user.internalid" v-if="user">{{ user.username }}</router-link>
+                  </span>
                 </div>
               </li>
 </template>
@@ -19,19 +22,27 @@
 import store from './../../store'
 import Vuex from 'vuex'
 
+import AppIntervalComponent from './../layouts/IntervalComponent'
+
 import Resources from './../../config/resources'
 
 export default {
   name: 'NewsTile',
-  props: ['type', 'title', 'summary'],
+  props: ['type', 'title', 'summary', 'date', 'userid'],
   store: store,
+  components: {
+    AppIntervalComponent
+  },
   data () {
     return {
       resources: Resources
     }
   },
   computed: {
-    ...Vuex.mapGetters(['viewvalidation']),
+    ...Vuex.mapGetters(['users']),
+    user () {
+      return this.users.find(user => user.internalid === this.userid)
+    },
     labeltype () {
       if (this.type === 'news') {
         return 'label-warning'

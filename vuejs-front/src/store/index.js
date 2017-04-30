@@ -12,6 +12,7 @@ import bodyparts from './modules/bodyparts'
 import accessories from './modules/accessories'
 import photos from './modules/photos'
 import users from './modules/users'
+import news from './modules/news'
 
 Vue.use(Vuex)
 
@@ -30,7 +31,8 @@ export default new Vuex.Store({
     bodyparts,
     accessories,
     photos,
-    users
+    users,
+    news
   },
   strict: debug
 })

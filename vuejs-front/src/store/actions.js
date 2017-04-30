@@ -16,4 +16,5 @@ export const retrieveData = (store, payload) => {
   store.dispatch('retrievePhotoHands', payload)
   store.dispatch('retrievePhotoNendoroids', payload)
   store.dispatch('retrieveUsers', payload)
+  store.dispatch('retrieveNews', payload)
 }

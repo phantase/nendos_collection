@@ -105,3 +105,5 @@ export const SET_PHOTONENDOROIDS = 'SET_PHOTONENDOROIDS'
 export const RESET_PHOTONENDOROIDS = 'RESET_PHOTONENDOROIDS'
 // users
 export const SET_USERS = 'SET_USERS'
+// news
+export const SET_NEWS = 'SET_NEWS'

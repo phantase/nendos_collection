@@ -39,15 +39,10 @@
           <app-box-header title="News" collapsable="true" icon="fa-newspaper-o"></app-box-header>
           <div class="box-body">
             <ul class="products-list product-list-in-box">
-              <app-news-tile type="news"
-                              title="A title for a news"
-                              summary="Flexeris per fabulae aetatem gyris iam exprimunt fabulae iactari quae innumera cirratas multas innumera cirratas."></app-news-tile>
-              <app-news-tile type="article"
-                              title="An article and its title"
-                              summary="Sequi minori est improborum omni sit hodie improborum an quis concessum talis sed quod concessum."></app-news-tile>
-              <app-news-tile type="comment"
-                              title="The title of a comment"
-                              summary="Quod non qui magis quod Quis altero numquam viderit etiam propter quis quodam nihil Fabrici."></app-news-tile>
+              <app-news-tile v-for="singleNews in news"
+                              :type="singleNews.type" :date="singleNews.creationdate" :userid="singleNews.authorid"
+                              :title="singleNews.title"
+                              :summary="singleNews.summary"></app-news-tile>
             </ul>
           </div>
         </div>
@@ -82,7 +77,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated'])
+    ...Vuex.mapGetters(['news'])
   },
   methods: {
   }
