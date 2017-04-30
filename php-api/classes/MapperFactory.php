@@ -52,6 +52,8 @@ class MapperFactory {
       case 'user':
       case 'users':
         return new UserMapper($db);
+      case 'news':
+        return new NewsMapper($db);
       default:
         throw new Exception('Element not supported');
     }
