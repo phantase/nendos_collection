@@ -20,9 +20,9 @@
     </div>
 
     <div class="row">
-      <div class="col-md-8 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="box">
-          <app-box-header title="Informations" collapsable="true" icon="fa-info"></app-box-header>
+          <app-box-header title="News" collapsable="true" icon="fa-newspaper-o"></app-box-header>
           <div class="box-body">
             {{ singleNews.content }}
           </div>
