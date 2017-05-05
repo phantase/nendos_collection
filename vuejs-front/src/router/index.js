@@ -37,6 +37,7 @@ import AddPart from 'components/forms/AddPart'
 import Search from 'components/Search'
 import News from 'components/News'
 import SingleNews from 'components/SingleNews'
+import FormSingleNews from 'components/forms/FormSingleNews'
 
 Vue.use(Router)
 
@@ -813,6 +814,24 @@ export default new Router({
         description: 'News of Nendoroids db'
       },
       component: News
+    },
+    {
+      path: '/news/:id/edit',
+      name: 'Edit news',
+      meta: {
+        description: 'Edit a single news',
+        breadcrumb: [
+          {
+            title: 'News',
+            link: '/news'
+          },
+          {
+            title: 'Single news',
+            link: '/news/:id'
+          }
+        ]
+      },
+      component: FormSingleNews
     },
     {
       path: '/news/:id',

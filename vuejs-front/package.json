@@ -12,11 +12,13 @@
   "dependencies": {
     "admin-lte": "^2.3.11",
     "bootstrap": "^3.3.7",
+    "ckeditor": "^4.6.2",
     "filedrop": "^2.0.0",
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
     "jquery": "^3.2.1",
     "vue": "^2.1.10",
+    "vue-ckeditor2": "^1.0.5",
     "vue-resource": "^1.2.0",
     "vue-router": "^2.2.0",
     "vuex": "^2.1.2"

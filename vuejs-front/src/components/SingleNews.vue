@@ -68,13 +68,7 @@ export default {
   store: store,
   data () {
     return {
-      resources: Resources,
-      ckeditorConfig: {
-        toolbar: [
-          [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript' ]
-        ],
-        height: 300
-      }
+      resources: Resources
     }
   },
   computed: {
