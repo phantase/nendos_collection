@@ -134,7 +134,7 @@ export default {
   computed: {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'bodyparts', 'photos', 'photobodyparts', 'authenticated', 'viewvalidation', 'canedit']),
     bodypart () {
-      return this.bodyparts.filter(bodypart => bodypart.internalid === this.$route.params.id)[0]
+      return this.bodyparts.find(bodypart => bodypart.internalid === this.$route.params.id)
     },
     box () {
       return this.boxes.filter(box => box.internalid === this.bodypart.boxid)[0]

@@ -177,7 +177,7 @@ export default {
   computed: {
     ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photonendoroids', 'authenticated', 'viewvalidation', 'canedit']),
     nendoroid () {
-      return this.nendoroids.filter(nendoroid => nendoroid.internalid === this.$route.params.id)[0]
+      return this.nendoroids.find(nendoroid => nendoroid.internalid === this.$route.params.id)
     },
     box () {
       return this.boxes.filter(box => box.internalid === this.nendoroid.boxid)[0]
