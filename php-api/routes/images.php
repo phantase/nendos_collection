@@ -140,8 +140,17 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
             $file->moveTo($filename_full);
 
             list($width, $height) = getimagesize($filename_full);
-            $newwidth = $maxside;
-            $newheight = $maxside;
+            /** Version with same proportion as original **/
+            if ($width > $height) {
+                $newwidth = $maxside;
+                $newheight = $height * $maxside / $width;
+            } else {
+                $newheight = $maxside;
+                $newwidth = $width * $maxside / $height;
+            }
+            /** Version with squared thumb **/
+            // $newwidth = $maxside;
+            // $newheight = $maxside;
 
             $image_dest = imagecreatetruecolor($newwidth, $newheight);
             $image_orig = imagecreatefromjpeg($filename_full);
