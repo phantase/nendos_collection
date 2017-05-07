@@ -230,6 +230,6 @@ class HandMapper extends Mapper
       throw new Exception("Could not save hand");
     }
     $this->addHistory($userid,$hand->getInternalId(),"Update");
-    return $this->getByInternalid($hand->getInternalId());
+    return $this->getByInternalid($hand->getInternalId(), $userid);
   }
 }

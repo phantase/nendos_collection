@@ -233,6 +233,6 @@ class FaceMapper extends Mapper
       throw new Exception("Could not update face");
     }
     $this->addHistory($userid,$face->getInternalId(),"Update");
-    return $this->getByInternalid($face->getInternalId());
+    return $this->getByInternalid($face->getInternalId(), $userid);
   }
 }

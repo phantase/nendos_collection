@@ -233,6 +233,6 @@ class HairMapper extends Mapper
       throw new Exception("Could not update hair");
     }
     $this->addHistory($userid,$hair->getInternalId(),"Update");
-    return $this->getByInternalid($hair->getInternalId());
+    return $this->getByInternalid($hair->getInternalId(), $userid);
   }
 }

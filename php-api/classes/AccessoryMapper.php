@@ -230,6 +230,6 @@ class AccessoryMapper extends Mapper
       throw new Exception("Could not update accessory");
     }
     $this->addHistory($userid,$accessory->getInternalId(),"Update");
-    return $this->getByInternalid($accessory->getInternalId());
+    return $this->getByInternalid($accessory->getInternalId(), $userid);
   }
 }

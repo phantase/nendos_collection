@@ -336,6 +336,6 @@ class NendoroidMapper extends Mapper
       throw new Exception("Could not update nendoroid");
     }
     $this->addHistory($userid,$nendoroid->getInternalid(),"Update");
-    return $this->getByInternalid($nendoroid->getInternalid());
+    return $this->getByInternalid($nendoroid->getInternalid(), $userid);
   }
 }

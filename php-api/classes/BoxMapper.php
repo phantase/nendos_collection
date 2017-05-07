@@ -363,6 +363,6 @@ class BoxMapper extends Mapper
       throw new Exception("Could not update box");
     }
     $this->addHistory($userid,$box->getInternalid(),"Update");
-    return $this->getByInternalid($box->getInternalid());
+    return $this->getByInternalid($box->getInternalid(), $userid);
   }
 }

@@ -230,6 +230,6 @@ class BodypartMapper extends Mapper
       throw new Exception("Could not update bodypart");
     }
     $this->addHistory($userid,$bodypart->getInternalId(),"Update");
-    return $this->getByInternalid($bodypart->getInternalId());
+    return $this->getByInternalid($bodypart->getInternalId(), $userid);
   }
 }
