@@ -14,14 +14,14 @@
                   <div class="form-group" :class="errortitle?'has-error':''">
                     <label>Title</label>
                     <input type="text" class="form-control" maxlength="100" placeholder="Title" v-model="title">
-                    <span class="help-block" v-if="errortype">The type is mandatory</span>
+                    <span class="help-block" v-if="errortitle">The title is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="errortype?'has-error':''">
                     <label>Type</label>
                     <input type="text" class="form-control" maxlength="10" placeholder="Type" v-model="type">
-                    <span class="help-block" v-if="errortitle">The title is mandatory</span>
+                    <span class="help-block" v-if="errortype">The type is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-12 col-sm-12">
@@ -144,6 +144,7 @@ export default {
       this.content = null
       this.errortitle = false
       this.errorsummary = false
+      $('#content-wyg').trumbowyg('empty')
       this.retrieveNewsParams()
     },
     checkForm () {
