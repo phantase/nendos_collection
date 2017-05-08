@@ -17,7 +17,7 @@ $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
 
     } catch (Exception $e){
         $this->applogger->addInfo($e);
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });
@@ -36,7 +36,7 @@ $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
 
     } catch (Exception $e){
         $this->applogger->addInfo($e);
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });

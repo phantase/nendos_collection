@@ -44,7 +44,7 @@ $app->post('/auth/login', function(Request $request, Response $response) {
         $newresponse = $response->withJson($repdata);
     } else {
         $this->applogger->addInfo("User $usermail failled to log in");
-        $newresponse = $response->withJson(null,401);
+        $newresponse = $response->withStatus(401);
     }
 
     return $newresponse;
@@ -84,7 +84,7 @@ $app->get('/auth/relogin', function(Request $request, Response $response) {
     } else {
         $this->applogger->addInfo("User $user->usermail failled to relogin...");
 
-        $newresponse = $response->withJson(null,401);
+        $newresponse = $response->withStatus(401);
     }
 
     return $newresponse;

@@ -18,11 +18,11 @@ $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
 
         } catch (Exception $e){
             $this->applogger->addInfo($e);
-            $newresponse = $response->withJson(null,400);
+            $newresponse = $response->withStatus(400);
         }
     } else {
         $this->applogger->addInfo("User $userid tries to validate something without the right to do it");
-        $newresponse = $response->withJson(null,403);
+        $newresponse = $response->withStatus(403);
     }
     return $newresponse;
 });
@@ -42,11 +42,11 @@ $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
 
         } catch (Exception $e){
             $this->applogger->addInfo($e);
-            $newresponse = $response->withJson(null,400);
+            $newresponse = $response->withStatus(400);
         }
     } else {
         $this->applogger->addInfo("User $userid tries to unvalidate something without the right to do it");
-        $newresponse = $response->withJson(null,403);
+        $newresponse = $response->withStatus(403);
     }
     return $newresponse;
 });

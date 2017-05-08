@@ -133,7 +133,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
         }
     } else {
         $this->applogger->addInfo("User $userid tries to create a new $element without right to do it");
-        $newresponse = $response->withJson(null, 403);
+        $newresponse = $response->withStatus(403);
     }
     return $newresponse;
 });
@@ -231,7 +231,7 @@ $app->post('/auth/photo/{internalid:[0-9]+}/{element:box|nendoroid|accessory|bod
         $newelement = $mapper->create($photoelement, $userid);
 
         if( is_null($newelement) ){
-            $newresponse = $response->withJson(null,500);
+            $newresponse = $response->withStatus(500);
         } else {
             $newresponse = $response->withJson($newelement,201);
         }
@@ -275,7 +275,7 @@ $app->post('/auth/news', function(Request $request, Response $response, $args) {
         }
     } else {
         $this->applogger->addInfo("User $userid tries to create a new news without right to do it");
-        $newresponse = $response->withJson(null, 403);
+        $newresponse = $response->withStatus(403);
     }
     return $newresponse;
 });

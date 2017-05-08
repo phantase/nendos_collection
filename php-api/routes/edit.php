@@ -130,18 +130,18 @@ $app->put('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
             }
 
             if( is_null($newelement) ){
-                $newresponse = $response->withJson(null,500);
+                $newresponse = $response->withStatus(500);
             } else {
                 $newresponse = $response->withJson($newelement,200);
             }
 
         } catch (Exception $e){
             $this->applogger->addInfo($e);
-            $newresponse = $response->withJson(null,400);
+            $newresponse = $response->withStatus(400);
         }
     } else {
         $this->applogger->addInfo("User $userid tries to edit $element $internalid without right to do it");
-        $newresponse = $response->withJson(null, 403);
+        $newresponse = $response->withStatus(403);
     }
     return $newresponse;
 });
@@ -169,18 +169,18 @@ $app->put('/auth/news/{internalid:[0-9]+}', function(Request $request, Response 
             $newelement = $news_mapper->update($news, $userid);
 
             if( is_null($newelement) ){
-                $newresponse = $response->withJson(null,500);
+                $newresponse = $response->withStatus(500);
             } else {
                 $newresponse = $response->withJson($newelement,200);
             }
 
         } catch (Exception $e){
             $this->applogger->addInfo($e);
-            $newresponse = $response->withJson(null,400);
+            $newresponse = $response->withStatus(400);
         }
     } else {
         $this->applogger->addInfo("User $userid tries to edit news $internalid without right to do it");
-        $newresponse = $response->withJson(null, 403);
+        $newresponse = $response->withStatus(403);
     }
     return $newresponse;
 });

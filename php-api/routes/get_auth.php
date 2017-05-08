@@ -32,7 +32,7 @@ $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
         $newresponse = $response->withJson($elements);
 
     } catch (Exception $e){
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });
@@ -50,7 +50,7 @@ $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
         $newresponse = $response->withJson($count);
 
     } catch (Exception $e){
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });
@@ -66,13 +66,13 @@ $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
         $element = $mapper->getByInternalid($internalid, $userid);
 
         if( is_null($element) ){
-            $newresponse = $response->withJson(null,404);
+            $newresponse = $response->withStatus(404);
         } else {
             $newresponse = $response->withJson($element);
         }
 
     } catch (Exception $e){
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });
@@ -124,13 +124,13 @@ $app->get('/auth/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessori
         }
 
         if( is_null($element) ){
-            $newresponse = $response->withJson(null,404);
+            $newresponse = $response->withStatus(404);
         } else {
             $newresponse = $response->withJson($element);
         }
 
     } catch (Exception $e){
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });

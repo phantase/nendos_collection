@@ -26,7 +26,7 @@ $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypa
         $newresponse = $response->withJson($elements);
 
     } catch (Exception $e){
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });
@@ -43,7 +43,7 @@ $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypa
         $newresponse = $response->withJson($count);
 
     } catch (Exception $e){
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });
@@ -58,13 +58,13 @@ $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypa
         $element = $mapper->getByInternalid($internalid);
 
         if( is_null($element) ){
-            $newresponse = $response->withJson(null,404);
+            $newresponse = $response->withStatus(404);
         } else {
             $newresponse = $response->withJson($element);
         }
 
     } catch (Exception $e){
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });
@@ -115,13 +115,13 @@ $app->get('/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessories|bo
         }
 
         if( is_null($element) ){
-            $newresponse = $response->withJson(null,404);
+            $newresponse = $response->withStatus(404);
         } else {
             $newresponse = $response->withJson($element);
         }
 
     } catch (Exception $e){
-        $newresponse = $response->withJson(null,400);
+        $newresponse = $response->withStatus(400);
     }
     return $newresponse;
 });
