@@ -10,10 +10,17 @@
           <div class="box-body" v-if="canadmin">
             <form role="form">
               <div class="row">
-                <div class="col-md-12 col-sm-12">
+                <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errortitle?'has-error':''">
                     <label>Title</label>
                     <input type="text" class="form-control" maxlength="100" placeholder="Title" v-model="title">
+                    <span class="help-block" v-if="errortype">The type is mandatory</span>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <div class="form-group" :class="errortype?'has-error':''">
+                    <label>Type</label>
+                    <input type="text" class="form-control" maxlength="10" placeholder="Type" v-model="type">
                     <span class="help-block" v-if="errortitle">The title is mandatory</span>
                   </div>
                 </div>
@@ -27,14 +34,14 @@
                 <div class="col-md-12 col-sm-12">
                   <div class="form-group" :class="errorcontent?'has-error':''">
                     <label>Content</label>
-                    <ckeditor v-model="content" :config="config"></ckeditor>
+                    <textarea id="content-wyg" v-model="content"></textarea>
                     <span class="help-block" v-if="errorcontent">The content is mandatory</span>
                   </div>
                 </div>
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save box</button>
+                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save news</button>
               </div>
             </form>
           </div>
@@ -67,6 +74,7 @@
 </template>
 
 <script>
+import router from './../../router'
 import store from './../../store'
 import Vuex from 'vuex'
 
@@ -76,33 +84,26 @@ import AppBoxHeader from './../layouts/BoxHeader'
 import AppIntervalComponent from './../layouts/IntervalComponent'
 import DbUserComponent from './../dblayouts/UserComponent'
 
-import Ckeditor from 'vue-ckeditor2'
-
 export default {
   name: 'FormSingleNews',
   components: {
     AppBoxHeader,
     AppIntervalComponent,
-    DbUserComponent,
-    Ckeditor
+    DbUserComponent
   },
   store: store,
   data () {
     return {
       resources: Resources,
       title: null,
+      type: null,
       summary: null,
-      content: '',
+      content: null,
       errortitle: false,
+      errortype: false,
       errorsummary: false,
       errorcontent: false,
-      noeditableelement: false,
-      config: {
-        toolbar: [
-          [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript' ]
-        ],
-        height: 300
-      }
+      noeditableelement: false
     }
   },
   computed: {
@@ -117,14 +118,16 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions([]),
+    ...Vuex.mapActions(['createNews', 'updateNews']),
     retrieveNewsParams () {
       if (this.internalid) {
         console.log('News Edition mode')
         let singleNews = this.news.find(singlenews => singlenews.internalid === this.internalid)
         if (singleNews) {
           this.title = singleNews.title
+          this.type = singleNews.type
           this.summary = singleNews.summary
+          this.content = singleNews.content
           this.noeditableelement = false
         } else {
           this.noeditableelement = true
@@ -132,10 +135,13 @@ export default {
       } else {
         console.log('News Addition mode')
       }
+      $('#content-wyg').trumbowyg('html', this.content)
     },
     cancel () {
       this.title = null
+      this.type = null
       this.summary = null
+      this.content = null
       this.errortitle = false
       this.errorsummary = false
       this.retrieveNewsParams()
@@ -145,6 +151,11 @@ export default {
         this.errortitle = true
       } else {
         this.errortitle = false
+      }
+      if (this.type === null) {
+        this.errortype = true
+      } else {
+        this.errortype = false
       }
       if (this.summary === null) {
         this.errorsummary = true
@@ -168,36 +179,41 @@ export default {
         }
         body.title = this.title
         formData.append('title', this.title)
+        body.type = this.type
+        formData.append('type', this.type)
         body.summary = this.summary
         formData.append('summary', this.summary)
-        // if (this.internalid) {
-        //   this.updateNews({
-        //     'context': this,
-        //     'body': body,
-        //     'internalid': this.internalid
-        //   }).then(response => {
-        //     console.log('Edition successful')
-        //     router.push('/news/' + response)
-        //   }, response => {
-        //     console.log('Edition failed')
-        //     this.failure = true
-        //   })
-        // } else {
-        //   this.createNews({
-        //     'context': this,
-        //     'formData': formData
-        //   }).then(response => {
-        //     console.log('Addition successful')
-        //     router.push('/news/' + response)
-        //   }, response => {
-        //     console.log('Addition failed')
-        //     this.failure = true
-        //   })
-        // }
+        body.content = $('#content-wyg').trumbowyg('html')
+        formData.append('content', $('#content-wyg').trumbowyg('html'))
+        if (this.internalid) {
+          this.updateNews({
+            'context': this,
+            'body': body,
+            'internalid': this.internalid
+          }).then(response => {
+            console.log('Edition successful')
+            router.push('/news/' + response)
+          }, response => {
+            console.log('Edition failed')
+            this.failure = true
+          })
+        } else {
+          this.createNews({
+            'context': this,
+            'formData': formData
+          }).then(response => {
+            console.log('Addition successful')
+            router.push('/news/' + response)
+          }, response => {
+            console.log('Addition failed')
+            this.failure = true
+          })
+        }
       }
     }
   },
   mounted () {
+    $('#content-wyg').trumbowyg()
     this.cancel()
     // $('select').select2()
   },

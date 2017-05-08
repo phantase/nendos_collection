@@ -3,7 +3,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-// Collect an element for a specific user
+// Edit an element
 $app->put('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands}/{internalid:[0-9]+}', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     if( $request->getAttribute("token")->user->administrator || $request->getAttribute("token")->user->editor ) {
@@ -141,6 +141,45 @@ $app->put('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
         }
     } else {
         $this->applogger->addInfo("User $userid tries to edit $element $internalid without right to do it");
+        $newresponse = $response->withJson(null, 403);
+    }
+    return $newresponse;
+});
+
+// Edit an news
+$app->put('/auth/news/{internalid:[0-9]+}', function(Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
+    if( $request->getAttribute("token")->user->administrator ) {
+        $internalid = (int)$args['internalid'];
+        $data = $request->getParsedBody();
+        $this->applogger->addInfo("User $userid edits news $internalid");
+
+        $newelement = null;
+
+        try {
+            $news_data = [];
+            $news_data['internalid']    = $internalid;
+            $news_data['title']         = array_key_exists('title',     $data) ? filter_var($data['title'],     FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES) : null;
+            $news_data['summary']       = array_key_exists('summary',   $data) ? filter_var($data['summary'],   FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES) : null;
+            $news_data['content']       = array_key_exists('content',   $data) ? filter_var($data['content'],   FILTER_UNSAFE_RAW) : null;
+            $news_data['type']          = array_key_exists('type',      $data) ? filter_var($data['type'],      FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES) : null;
+            $news = new NewsEntity($news_data);
+
+            $news_mapper = new NewsMapper($this->db);
+            $newelement = $news_mapper->update($news, $userid);
+
+            if( is_null($newelement) ){
+                $newresponse = $response->withJson(null,500);
+            } else {
+                $newresponse = $response->withJson($newelement,200);
+            }
+
+        } catch (Exception $e){
+            $this->applogger->addInfo($e);
+            $newresponse = $response->withJson(null,400);
+        }
+    } else {
+        $this->applogger->addInfo("User $userid tries to edit news $internalid without right to do it");
         $newresponse = $response->withJson(null, 403);
     }
     return $newresponse;

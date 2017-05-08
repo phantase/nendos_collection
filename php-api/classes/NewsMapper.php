@@ -44,6 +44,7 @@ class NewsMapper extends Mapper
     if(!$result) {
       throw new Exception("Could not save news");
     }
+    $newsid = $this->db->lastInsertId();
     return $this->getByInternalid($newsid);
   }
 

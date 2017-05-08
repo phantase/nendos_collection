@@ -242,3 +242,40 @@ $app->post('/auth/photo/{internalid:[0-9]+}/{element:box|nendoroid|accessory|bod
 
     return $newresponse;
 });
+
+// Add a news
+$app->post('/auth/news', function(Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
+    if( $request->getAttribute("token")->user->administrator ) {
+        $data = $request->getParsedBody();
+        $this->applogger->addInfo("User $userid adds a new news");
+
+        $newelement = null;
+
+        try {
+            $news_data = [];
+            $news_data['title']         = array_key_exists('title',     $data) ? filter_var($data['title'],     FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES) : null;
+            $news_data['summary']       = array_key_exists('summary',   $data) ? filter_var($data['summary'],   FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES) : null;
+            $news_data['content']       = array_key_exists('content',   $data) ? filter_var($data['content'],   FILTER_UNSAFE_RAW) : null;
+            $news_data['type']          = array_key_exists('type',      $data) ? filter_var($data['type'],      FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES) : null;
+            $news = new NewsEntity($news_data);
+
+            $news_mapper = new NewsMapper($this->db);
+            $newelement = $news_mapper->create($news, $userid);
+
+            if( is_null($newelement) ){
+                $newresponse = $response->withStatus(500);
+            } else {
+                $newresponse = $response->withJson($newelement,201);
+            }
+
+        } catch (Exception $e){
+            $this->applogger->addInfo($e);
+            $newresponse = $response->withStatus(400);
+        }
+    } else {
+        $this->applogger->addInfo("User $userid tries to create a new news without right to do it");
+        $newresponse = $response->withJson(null, 403);
+    }
+    return $newresponse;
+});

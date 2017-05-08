@@ -23,8 +23,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="box">
           <app-box-header title="News" collapsable="true" icon="fa-newspaper-o"></app-box-header>
-          <div class="box-body">
-            {{ singleNews.content }}
+          <div class="box-body" v-html="singleNews.content">
           </div>
         </div>
       </div>
@@ -59,7 +58,7 @@ import AppIntervalComponent from './layouts/IntervalComponent'
 import DbUserComponent from './dblayouts/UserComponent'
 
 export default {
-  name: 'Accessory',
+  name: 'SingleNews',
   components: {
     AppBoxHeader,
     AppIntervalComponent,

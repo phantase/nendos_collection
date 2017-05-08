@@ -816,6 +816,20 @@ export default new Router({
       component: News
     },
     {
+      path: '/news/add',
+      name: 'Add news',
+      meta: {
+        description: 'Add a single news',
+        breadcrumb: [
+          {
+            title: 'News',
+            link: '/news'
+          }
+        ]
+      },
+      component: FormSingleNews
+    },
+    {
       path: '/news/:id/edit',
       name: 'Edit news',
       meta: {
