@@ -6,7 +6,7 @@ CREATE TABLE `news` (
   `content` text NOT NULL,
   `type` varchar(10) NOT NULL,
   `authorid` bigint(20) UNSIGNED NOT NULL,
-  `creationdate` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `creationdate` datetime NOT NULL,
   `editorid` bigint(20) UNSIGNED NOT NULL,
   `editiondate` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
