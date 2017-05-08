@@ -10,7 +10,15 @@ export default [
   {
     name: 'News',
     link: '/news',
-    icon: 'fa-newspaper-o'
+    icon: 'fa-newspaper-o',
+    child: [
+      {
+        name: 'Add a news',
+        link: '/news/add',
+        icon: 'fa-plus-circle',
+        require: 'administrator'
+      }
+    ]
   },
   {
     name: 'Photos',
@@ -20,7 +28,7 @@ export default [
       {
         name: 'Add a photo',
         link: '/photo/add',
-        icon: 'fa-file-photo-o',
+        icon: 'fa-plus-circle',
         require: 'authenticated'
       }
     ]

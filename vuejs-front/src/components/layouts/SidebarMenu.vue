@@ -44,7 +44,7 @@
       }
     },
     computed: {
-      ...Vuex.mapGetters(['authenticated', 'canedit']),
+      ...Vuex.mapGetters(['authenticated', 'canedit', 'canadmin']),
       pageto () {
         return this.$route.path
       }
@@ -67,6 +67,8 @@
               return this.authenticated
             case 'editor':
               return this.canedit
+            case 'administrator':
+              return this.canadmin
             default:
               return false
           }
