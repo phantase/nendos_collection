@@ -10,7 +10,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -38,7 +38,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -62,7 +62,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -88,7 +88,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -114,7 +114,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -140,7 +140,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
                   ph.xmin, ph.xmax, ph.ymin, ph.ymax, ph.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM hairs h

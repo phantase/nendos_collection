@@ -24,6 +24,7 @@ class BoxEntity extends Entity implements JsonSerializable
   protected $validatorid;
   protected $validatorname;
   protected $validationdate;
+  protected $haspicture;
 
   /**
    *
@@ -56,6 +57,7 @@ class BoxEntity extends Entity implements JsonSerializable
     $this->validatorid = $data['validatorid'];
     $this->validatorname = $data['validatorname'];
     $this->validationdate = $data['validationdate'];
+    $this->haspicture = $data['haspicture'];
     $this->xmin = $data['xmin'];
     $this->xmax = $data['xmax'];
     $this->ymin = $data['ymin'];
@@ -149,6 +151,10 @@ class BoxEntity extends Entity implements JsonSerializable
     return $this->validationdate;
   }
 
+  public function getHasPicture() {
+    return $this->haspicture;
+  }
+
   public function jsonSerialize() {
     return [
       'internalid' => $this->internalid,
@@ -172,6 +178,7 @@ class BoxEntity extends Entity implements JsonSerializable
       'validatorid' => $this->validatorid,
       'validatorname' => $this->validatorname,
       'validationdate' => $this->validationdate,
+      'haspicture' => $this->haspicture,
       'xmin' => $this->xmin,
       'xmax' => $this->xmax,
       'ymin' => $this->ymin,

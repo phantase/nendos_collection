@@ -11,7 +11,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -40,7 +40,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -65,7 +65,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -92,7 +92,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -120,7 +120,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -148,7 +148,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid

@@ -3,6 +3,13 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+// Retrieve the unknown image
+$app->get('/images/unknown', function (Request $request, Response $response, $args) {
+    $image = file_get_contents("images/nendos/unknown.png");
+    $response->write($image);
+    return $response->withHeader('Content-Type', 'image/png');
+});
+
 // Retrieve the image of a single {element} using its {internalid}
 $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|user|users}/{internalid:[0-9]+}[/{size:full|thumb}]', function (Request $request, Response $response, $args) {
     $param_element = $args['element'];

@@ -5,7 +5,7 @@ class UserMapper extends Mapper
   protected $tablename = "users";
 
   public function get() {
-    $sql = "SELECT u.internalid, u.usermail, u.username, u.administrator, u.validator, u.editor, u.signupdate, u.lastviewdate
+    $sql = "SELECT u.internalid, u.usermail, u.username, u.administrator, u.validator, u.editor, u.signupdate, u.lastviewdate, u.haspicture
             FROM users u";
     $stmt = $this->db->query($sql);
 
@@ -17,7 +17,7 @@ class UserMapper extends Mapper
   }
 
   public function getByInternalid($user_internalid) {
-    $sql = "SELECT u.internalid, u.usermail, u.username, u.administrator, u.validator, u.editor, u.signupdate, u.lastviewdate
+    $sql = "SELECT u.internalid, u.usermail, u.username, u.administrator, u.validator, u.editor, u.signupdate, u.lastviewdate, u.haspicture
             FROM users u
             WHERE u.internalid = :user_internalid";
     $stmt = $this->db->prepare($sql);
@@ -29,7 +29,7 @@ class UserMapper extends Mapper
   }
 
   public function getByUsermail($usermail) {
-    $sql = "SELECT u.internalid, u.usermail, u.username, u.administrator, u.validator, u.editor, u.signupdate, u.lastviewdate
+    $sql = "SELECT u.internalid, u.usermail, u.username, u.administrator, u.validator, u.editor, u.signupdate, u.lastviewdate, u.haspicture
             FROM users u
             WHERE u.usermail = :usermail";
     $stmt = $this->db->prepare($sql);
@@ -41,7 +41,7 @@ class UserMapper extends Mapper
   }
 
   public function checkUser($usermail,$encpass) {
-    $sql = "SELECT u.internalid, u.usermail, u.username, u.administrator, u.validator, u.editor, u.signupdate, u.lastviewdate
+    $sql = "SELECT u.internalid, u.usermail, u.username, u.administrator, u.validator, u.editor, u.signupdate, u.lastviewdate, u.haspicture
             FROM users u
             WHERE u.usermail = :usermail
             AND u.encpass = :encpass";

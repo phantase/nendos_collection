@@ -10,7 +10,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -38,7 +38,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -62,7 +62,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -88,7 +88,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -114,7 +114,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -140,7 +140,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   pb.xmin, pb.xmax, pb.ymin, pb.ymax, pb.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM bodyparts bp

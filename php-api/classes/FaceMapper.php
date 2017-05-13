@@ -10,7 +10,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
@@ -38,7 +38,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
@@ -62,7 +62,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
@@ -88,7 +88,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
@@ -114,7 +114,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
@@ -140,7 +140,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
                   pf.xmin, pf.xmax, pf.ymin, pf.ymax, pf.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM faces f

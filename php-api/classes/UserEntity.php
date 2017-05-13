@@ -10,7 +10,9 @@ class UserEntity implements JsonSerializable
   protected $editor;
   protected $signupdate;
   protected $lastviewdate;
-  /**
+  protected $haspicture;
+
+/**
    *
    *
    * @param  array $data The data to use to create
@@ -27,6 +29,7 @@ class UserEntity implements JsonSerializable
     $this->editor = $data['editor'];
     $this->signupdate = $data['signupdate'];
     $this->lastviewdate = $data['lastviewdate'];
+    $this->haspicture = $data['haspicture'];
   }
 
   public function getInternalid() {
@@ -61,6 +64,10 @@ class UserEntity implements JsonSerializable
     return $this->lastviewdate;
   }
 
+  public function getHasPicture() {
+    return $this->haspicture;
+  }
+
   public function jsonSerialize() {
     return [
       'internalid' => $this->internalid,
@@ -70,7 +77,8 @@ class UserEntity implements JsonSerializable
       'validator' => $this->validator,
       'editor' => $this->editor,
       'signupdate' => $this->signupdate,
-      'lastviewdate' => $this->lastviewdate
+      'lastviewdate' => $this->lastviewdate,
+      'haspicture' => $this->haspicture
     ];
   }
 }

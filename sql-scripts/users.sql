@@ -8,7 +8,8 @@ CREATE TABLE `users` (
   `validator` tinyint(1) NOT NULL DEFAULT '0',
   `editor` tinyint(1) NOT NULL DEFAULT '0',
   `signupdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `lastviewdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `lastviewdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `haspicture` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- Add the indexes
 ALTER TABLE `users`

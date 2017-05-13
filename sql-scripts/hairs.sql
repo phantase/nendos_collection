@@ -13,7 +13,8 @@ CREATE TABLE `hairs` (
   `editorid` bigint(20) UNSIGNED NOT NULL,
   `editiondate` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `validatorid` bigint(20) UNSIGNED DEFAULT NULL,
-  `validationdate` datetime DEFAULT NULL
+  `validationdate` datetime DEFAULT NULL,
+  `haspicture` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- Add the indexes
 ALTER TABLE `hairs`

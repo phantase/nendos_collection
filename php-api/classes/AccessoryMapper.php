@@ -10,7 +10,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
@@ -38,7 +38,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
@@ -62,7 +62,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
@@ -88,7 +88,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
@@ -114,7 +114,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
@@ -140,7 +140,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   pa.xmin, pa.xmax, pa.ymin, pa.ymax, pa.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
             FROM accessories a

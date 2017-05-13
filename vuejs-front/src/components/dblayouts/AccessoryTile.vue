@@ -11,7 +11,8 @@
               data-toggle="tooltip" data-html="true"
               :title="`<div class='db-accessory-type text-yellow'>`+accessory.type+`</div>
                         <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`">
-          <img :src="resources.apiurl+'/images/accessories/'+accessory.internalid+'/thumb'" />
+          <img :src="resources.apiurl+'/images/accessories/'+accessory.internalid+'/thumb'" v-if="accessory.haspicture == '1'"/>
+          <img :src="resources.apiurl+'/images/unknown'" v-else />
           <span v-if="!minimal">
             <span class="badge bg-blue incollection" v-if="accessory.collquantity">{{ accessory.collquantity }}</span>
             <span v-if="viewvalidation">
