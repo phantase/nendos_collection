@@ -109,3 +109,7 @@ export const SET_USERS = 'SET_USERS'
 export const ADD_NEWS = 'ADD_NEWS'
 export const EDIT_NEWS = 'EDIT_NEWS'
 export const SET_NEWS = 'SET_NEWS'
+// settings
+export const SET_AUTORELOAD = 'SET_AUTORELOAD'
+export const SET_RELOADINTERVAL = 'SET_RELOADINTERVAL'
+export const SET_INTERVALID = 'SET_INTERVALID'

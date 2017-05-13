@@ -14,6 +14,16 @@
         <ul class="control-sidebar-menu">
           <li>
             <a href="javascript:;">
+              <i class="menu-icon fa fa-info bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">No activity</h4>
+                <p>Not implemented...</p>
+              </div>
+            </a>
+          </li>
+          <li v-if="false">
+            <a href="javascript:;">
               <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
               <div class="menu-info">
@@ -28,7 +38,21 @@
 
         <h3 class="control-sidebar-heading">Tasks Progress</h3>
         <ul class="control-sidebar-menu">
-          <li>
+          <li v-if="false">
+            <a href="javascript:;">
+              <h4 class="control-sidebar-subheading">
+                No progress
+                <span class="pull-right-container">
+                  <span class="label label-warning pull-right">N.I.</span>
+                </span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 100%"></div>
+              </div>
+            </a>
+          </li>
+          <li v-if="false">
             <a href="javascript:;">
               <h4 class="control-sidebar-subheading">
                 Custom Template Design
@@ -57,15 +81,26 @@
 
           <div class="form-group">
             <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
+              Automatic reload
+              <input type="checkbox" class="pull-right" v-model="localAutoReload">
             </label>
 
             <p>
-              Some information about this general settings option
+              The data will be automatically fetched from the database without need for any action from your side
             </p>
           </div>
-          <!-- /.form-group -->
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Reload each
+            </label>
+            <select class="form-control" v-model="localReloadInterval">
+              <option value="1">1 minute</option>
+              <option value="2">2 minutes</option>
+              <option value="5">5 minutes</option>
+              <option value="10">10 minutes</option>
+              <option value="30">30 minutes</option>
+            </select>
+          </div>
         </form>
       </div>
       <!-- /.tab-pane -->
@@ -75,11 +110,37 @@
 </template>
 
 <script>
+  import store from './../../store'
+  import Vuex from 'vuex'
+
   export default {
     name: 'ControlSidebar',
+    store: store,
     data () {
       return {
       }
+    },
+    computed: {
+      ...Vuex.mapGetters(['autoReload', 'reloadInterval']),
+      localAutoReload: {
+        get () {
+          return this.autoReload
+        },
+        set (value) {
+          this.setAutoReload({'value': value, 'context': this})
+        }
+      },
+      localReloadInterval: {
+        get () {
+          return this.reloadInterval
+        },
+        set (value) {
+          this.setReloadInterval({'value': value, 'context': this})
+        }
+      }
+    },
+    methods: {
+      ...Vuex.mapActions(['setAutoReload', 'setReloadInterval'])
     }
   }
 </script>

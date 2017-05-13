@@ -18,3 +18,7 @@ export const retrieveData = (store, payload) => {
   store.dispatch('retrieveUsers', payload)
   store.dispatch('retrieveNews', payload)
 }
+
+export const doSomething = () => {
+  console.log('I have done something ' + new Date())
+}

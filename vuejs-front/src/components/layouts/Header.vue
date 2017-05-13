@@ -26,7 +26,7 @@
           <app-header-user-panel></app-header-user-panel>
 
           <!-- Control Sidebar Toggle Button -->
-          <li v-if="false">
+          <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>

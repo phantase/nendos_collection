@@ -13,6 +13,7 @@ import accessories from './modules/accessories'
 import photos from './modules/photos'
 import users from './modules/users'
 import news from './modules/news'
+import settings from './modules/settings'
 
 Vue.use(Vuex)
 
@@ -32,7 +33,8 @@ export default new Vuex.Store({
     accessories,
     photos,
     users,
-    news
+    news,
+    settings
   },
   strict: debug
 })
