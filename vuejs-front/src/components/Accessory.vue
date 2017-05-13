@@ -70,7 +70,8 @@
         <div class="box">
           <app-box-header title="Photo" collapsable="true" icon="fa-photo" editable="true" :editlink="'/accessory/'+accessory.internalid+'/edit/image'"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.apiurl+'/images/accessories/'+accessory.internalid+'/thumb'" />
+            <img :src="resources.apiurl+'/images/accessories/'+accessory.internalid+'/thumb'"  v-if="accessory.haspicture == '1'"/>
+            <img :src="resources.apiurl+'/images/unknown'" v-else />
           </div>
         </div>
       </div>

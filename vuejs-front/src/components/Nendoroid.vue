@@ -63,7 +63,8 @@
         <div class="box">
           <app-box-header title="Photo" collapsable="true" icon="fa-photo" editable="true" :editlink="'/nendoroid/'+nendoroid.internalid+'/edit/image'"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.apiurl+'/images/nendoroids/'+nendoroid.internalid+'/thumb'" />
+            <img :src="resources.apiurl+'/images/nendoroids/'+nendoroid.internalid+'/thumb'" v-if="nendoroid.haspicture == '1'"/>
+            <img :src="resources.apiurl+'/images/unknown'" v-else />
           </div>
         </div>
       </div>
