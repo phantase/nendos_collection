@@ -14,7 +14,7 @@ CREATE TABLE `faces` (
   `editiondate` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `validatorid` bigint(20) UNSIGNED DEFAULT NULL,
   `validationdate` datetime DEFAULT NULL,
-  `haspicture` tinyint(1) NOT NULL
+  `haspicture` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- Add the indexes
 ALTER TABLE `faces`
