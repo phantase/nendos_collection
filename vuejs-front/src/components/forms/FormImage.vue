@@ -80,7 +80,8 @@
         <div class="box">
           <app-box-header title="Current photo" collapsable="true" icon="fa-photo"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.apiurl+'/images/'+element+'/'+internalid+'/thumb'" />
+            <img :src="resources.apiurl+'/images/'+element+'/'+internalid+'/thumb'" v-if="elementObject.haspicture === '1'" />
+            <img :src="resources.apiurl+'/images/unknown'" v-else />
           </div>
         </div>
       </div>
@@ -153,6 +154,26 @@ export default {
     },
     element () {
       return this.$route.path.split('/')[1]
+    },
+    elementObject () {
+      switch (this.element) {
+        case 'box':
+          return this.boxes.find(box => box.internalid === this.$route.params.id)
+        case 'nendoroid':
+          return this.nendoroids.find(nendoroid => nendoroid.internalid === this.$route.params.id)
+        case 'accessory':
+          return this.accessories.find(accessory => accessory.internalid === this.$route.params.id)
+        case 'bodypart':
+          return this.bodyparts.find(bodypart => bodypart.internalid === this.$route.params.id)
+        case 'face':
+          return this.faces.find(face => face.internalid === this.$route.params.id)
+        case 'hair':
+          return this.hairs.find(hair => hair.internalid === this.$route.params.id)
+        case 'hand':
+          return this.hands.find(hand => hand.internalid === this.$route.params.id)
+        default:
+          return null
+      }
     }
   },
   methods: {
