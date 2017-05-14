@@ -232,4 +232,18 @@ class AccessoryMapper extends Mapper
     $this->addHistory($userid,$accessory->getInternalId(),"Update");
     return $this->getByInternalid($accessory->getInternalId(), $userid);
   }
+
+  public function addPicture($accessory_internalid, $userid) {
+    $sql = "UPDATE accessories SET
+              haspicture = 1
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $accessory_internalid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update accessory");
+    }
+    $this->addHistory($userid, $accessory_internalid, "Update", "Picture has been updated");
+  }
 }

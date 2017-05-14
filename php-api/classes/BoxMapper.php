@@ -365,4 +365,18 @@ class BoxMapper extends Mapper
     $this->addHistory($userid,$box->getInternalid(),"Update");
     return $this->getByInternalid($box->getInternalid(), $userid);
   }
+
+  public function addPicture($box_internalid, $userid) {
+    $sql = "UPDATE boxes SET
+              haspicture = 1
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $box_internalid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update box");
+    }
+    $this->addHistory($userid, $box_internalid, "Update", "Picture has been updated");
+  }
 }

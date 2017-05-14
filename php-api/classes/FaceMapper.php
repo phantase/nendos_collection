@@ -235,4 +235,18 @@ class FaceMapper extends Mapper
     $this->addHistory($userid,$face->getInternalId(),"Update");
     return $this->getByInternalid($face->getInternalId(), $userid);
   }
+
+  public function addPicture($face_internalid, $userid) {
+    $sql = "UPDATE faces SET
+              haspicture = 1
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $face_internalid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update face");
+    }
+    $this->addHistory($userid, $face_internalid, "Update", "Picture has been updated");
+  }
 }

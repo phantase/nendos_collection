@@ -165,7 +165,7 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
             imagejpeg($image_dest, $filename_thumb, 90);
 
             $mapper = MapperFactory::getMapper($this->db,$param_element);
-            $mapper->addHistory($userid, $internalid, "Update", "Picture has been updated");
+            $mapper->addPicture($internalid, $userid);
 
             return $response->withStatus(201);
 

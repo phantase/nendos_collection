@@ -134,4 +134,18 @@ class UserMapper extends Mapper
     }
   }
 
+  public function addPicture($user_internalid, $userid) {
+    $sql = "UPDATE users SET
+              haspicture = 1
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $user_internalid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update user");
+    }
+    $this->addHistory($userid, $user_internalid, "Update", "Picture has been updated");
+  }
+
 }

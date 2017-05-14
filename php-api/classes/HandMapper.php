@@ -232,4 +232,18 @@ class HandMapper extends Mapper
     $this->addHistory($userid,$hand->getInternalId(),"Update");
     return $this->getByInternalid($hand->getInternalId(), $userid);
   }
+
+  public function addPicture($hand_internalid, $userid) {
+    $sql = "UPDATE hands SET
+              haspicture = 1
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $hand_internalid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update hand");
+    }
+    $this->addHistory($userid, $hand_internalid, "Update", "Picture has been updated");
+  }
 }

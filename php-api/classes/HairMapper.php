@@ -235,4 +235,18 @@ class HairMapper extends Mapper
     $this->addHistory($userid,$hair->getInternalId(),"Update");
     return $this->getByInternalid($hair->getInternalId(), $userid);
   }
+
+  public function addPicture($hair_internalid, $userid) {
+    $sql = "UPDATE hairs SET
+              haspicture = 1
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $hair_internalid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update hair");
+    }
+    $this->addHistory($userid, $hair_internalid, "Update", "Picture has been updated");
+  }
 }

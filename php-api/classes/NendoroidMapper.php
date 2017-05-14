@@ -338,4 +338,18 @@ class NendoroidMapper extends Mapper
     $this->addHistory($userid,$nendoroid->getInternalid(),"Update");
     return $this->getByInternalid($nendoroid->getInternalid(), $userid);
   }
+
+  public function addPicture($nendoroid_internalid, $userid) {
+    $sql = "UPDATE nendoroids SET
+              haspicture = 1
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $nendoroid_internalid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update nendoroid");
+    }
+    $this->addHistory($userid, $nendoroid_internalid, "Update", "Picture has been updated");
+  }
 }

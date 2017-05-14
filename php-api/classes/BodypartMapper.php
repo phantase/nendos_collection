@@ -232,4 +232,18 @@ class BodypartMapper extends Mapper
     $this->addHistory($userid,$bodypart->getInternalId(),"Update");
     return $this->getByInternalid($bodypart->getInternalId(), $userid);
   }
+
+  public function addPicture($bodypart_internalid, $userid) {
+    $sql = "UPDATE bodyparts SET
+              haspicture = 1
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $bodypart_internalid
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update bodypart");
+    }
+    $this->addHistory($userid, $bodypart_internalid, "Update", "Picture has been updated");
+  }
 }
