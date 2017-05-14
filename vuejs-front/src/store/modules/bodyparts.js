@@ -47,6 +47,10 @@ const mutations = {
     state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validatorid = null
     state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validatorname = null
     state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validationdate = null
+  },
+  [types.ADD_BODYPART_PICTURE] (state, internalid) {
+    let idx = state.bodyparts.findIndex(intbodypart => intbodypart.internalid === internalid)
+    state.bodyparts[idx].haspicture = 1
   }
 }
 
@@ -157,6 +161,10 @@ const actions = {
         reject()
       })
     })
+  },
+  addBodypartPicture (store, payload) {
+    let internalid = payload.internalid
+    store.commit(types.ADD_BODYPART_PICTURE, internalid)
   }
 }
 

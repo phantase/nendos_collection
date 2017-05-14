@@ -47,6 +47,10 @@ const mutations = {
     state.hands.filter(hand => hand.internalid === handid)[0].validatorid = null
     state.hands.filter(hand => hand.internalid === handid)[0].validatorname = null
     state.hands.filter(hand => hand.internalid === handid)[0].validationdate = null
+  },
+  [types.ADD_HAND_PICTURE] (state, internalid) {
+    let idx = state.hands.findIndex(inthand => inthand.internalid === internalid)
+    state.hands[idx].haspicture = 1
   }
 }
 
@@ -157,6 +161,10 @@ const actions = {
         reject()
       })
     })
+  },
+  addHandPicture (store, payload) {
+    let internalid = payload.internalid
+    store.commit(types.ADD_HAND_PICTURE, internalid)
   }
 }
 

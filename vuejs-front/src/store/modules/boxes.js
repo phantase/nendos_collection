@@ -47,6 +47,10 @@ const mutations = {
     state.boxes.filter(box => box.internalid === boxid)[0].validatorid = null
     state.boxes.filter(box => box.internalid === boxid)[0].validatorname = null
     state.boxes.filter(box => box.internalid === boxid)[0].validationdate = null
+  },
+  [types.ADD_BOX_PICTURE] (state, internalid) {
+    let idx = state.boxes.findIndex(intbox => intbox.internalid === internalid)
+    state.boxes[idx].haspicture = 1
   }
 }
 
@@ -157,6 +161,10 @@ const actions = {
         reject()
       })
     })
+  },
+  addBoxPicture (store, payload) {
+    let internalid = payload.internalid
+    store.commit(types.ADD_BOX_PICTURE, internalid)
   }
 }
 

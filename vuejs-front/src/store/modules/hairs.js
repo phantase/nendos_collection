@@ -47,6 +47,10 @@ const mutations = {
     state.hairs.filter(hair => hair.internalid === hairid)[0].validatorid = null
     state.hairs.filter(hair => hair.internalid === hairid)[0].validatorname = null
     state.hairs.filter(hair => hair.internalid === hairid)[0].validationdate = null
+  },
+  [types.ADD_HAIR_PICTURE] (state, internalid) {
+    let idx = state.hairs.findIndex(inthair => inthair.internalid === internalid)
+    state.hairs[idx].haspicture = 1
   }
 }
 
@@ -157,6 +161,10 @@ const actions = {
         reject()
       })
     })
+  },
+  addHairPicture (store, payload) {
+    let internalid = payload.internalid
+    store.commit(types.ADD_HAIR_PICTURE, internalid)
   }
 }
 

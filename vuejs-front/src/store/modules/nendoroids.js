@@ -47,6 +47,10 @@ const mutations = {
     state.nendoroids.filter(nendoroid => nendoroid.internalid === nendoroidid)[0].validatorid = null
     state.nendoroids.filter(nendoroid => nendoroid.internalid === nendoroidid)[0].validatorname = null
     state.nendoroids.filter(nendoroid => nendoroid.internalid === nendoroidid)[0].validationdate = null
+  },
+  [types.ADD_NENDOROID_PICTURE] (state, internalid) {
+    let idx = state.nendoroids.findIndex(intnendoroid => intnendoroid.internalid === internalid)
+    state.nendoroids[idx].haspicture = 1
   }
 }
 
@@ -157,6 +161,10 @@ const actions = {
         reject()
       })
     })
+  },
+  addNendoroidPicture (store, payload) {
+    let internalid = payload.internalid
+    store.commit(types.ADD_NENDOROID_PICTURE, internalid)
   }
 }
 

@@ -177,6 +177,7 @@ export default {
     }
   },
   methods: {
+    ...Vuex.mapActions(['addBoxPicture', 'addNendoroidPicture', 'addAccessoryPicture', 'addBodypartPicture', 'addFacePicture', 'addHairPicture', 'addHandPicture']),
     uploadPicture () {
       if (this.uploadable) {
         console.log('Try to upload picture')
@@ -186,6 +187,29 @@ export default {
           formData.append('pic', this.file.nativeFile, this.file.name)
           let pathArray = this.$route.path.split('/')
           this.$http.post('auth/images/' + pathArray[1] + '/' + pathArray[2], formData).then(response => {
+            switch (this.element) {
+              case 'box':
+                this.addBoxPicture({'internalid': this.$route.params.id})
+                break
+              case 'nendoroid':
+                this.addNendoroidPicture({'internalid': this.$route.params.id})
+                break
+              case 'accessory':
+                this.addAccessoryPicture({'internalid': this.$route.params.id})
+                break
+              case 'bodypart':
+                this.addBodypartPicture({'internalid': this.$route.params.id})
+                break
+              case 'face':
+                this.addFacePicture({'internalid': this.$route.params.id})
+                break
+              case 'hair':
+                this.addHairPicture({'internalid': this.$route.params.id})
+                break
+              case 'hand':
+                this.addHandPicture({'internalid': this.$route.params.id})
+                break
+            }
             router.push('/' + pathArray[1] + '/' + pathArray[2])
           }, response => {
             console.log(response)

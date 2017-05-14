@@ -47,6 +47,10 @@ const mutations = {
     state.faces.filter(face => face.internalid === faceid)[0].validatorid = null
     state.faces.filter(face => face.internalid === faceid)[0].validatorname = null
     state.faces.filter(face => face.internalid === faceid)[0].validationdate = null
+  },
+  [types.ADD_FACE_PICTURE] (state, internalid) {
+    let idx = state.faces.findIndex(intface => intface.internalid === internalid)
+    state.faces[idx].haspicture = 1
   }
 }
 
@@ -157,6 +161,10 @@ const actions = {
         reject()
       })
     })
+  },
+  addFacePicture (store, payload) {
+    let internalid = payload.internalid
+    store.commit(types.ADD_FACE_PICTURE, internalid)
   }
 }
 

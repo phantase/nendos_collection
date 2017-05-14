@@ -47,6 +47,10 @@ const mutations = {
     state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validatorid = null
     state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validatorname = null
     state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validationdate = null
+  },
+  [types.ADD_ACCESSORY_PICTURE] (state, internalid) {
+    let idx = state.accessories.findIndex(intaccessory => intaccessory.internalid === internalid)
+    state.accessories[idx].haspicture = 1
   }
 }
 
@@ -157,6 +161,10 @@ const actions = {
         reject()
       })
     })
+  },
+  addAccessoryPicture (store, payload) {
+    let internalid = payload.internalid
+    store.commit(types.ADD_ACCESSORY_PICTURE, internalid)
   }
 }
 
