@@ -8,7 +8,15 @@ const state = {
   photofaces: [],
   photohairs: [],
   photohands: [],
-  photonendoroids: []
+  photonendoroids: [],
+  photosLoadedDate: null,
+  photoaccessoriesLoadedDate: null,
+  photobodypartsLoadedDate: null,
+  photoboxesLoadedDate: null,
+  photofacesLoadedDate: null,
+  photohairsLoadedDate: null,
+  photohandsLoadedDate: null,
+  photonendoroidsLoadedDate: null
 }
 
 const getters = {
@@ -38,6 +46,30 @@ const getters = {
   },
   photonendoroids (state) {
     return state.photonendoroids
+  },
+  photosLoadedDate (state) {
+    return state.photosLoadedDate
+  },
+  photoaccessoriesLoadedDate (state) {
+    return state.photoaccessoriesLoadedDate
+  },
+  photobodypartsLoadedDate (state) {
+    return state.photobodypartsLoadedDate
+  },
+  photoboxesLoadedDate (state) {
+    return state.photoboxesLoadedDate
+  },
+  photofacesLoadedDate (state) {
+    return state.photofacesLoadedDate
+  },
+  photohairsLoadedDate (state) {
+    return state.photohairsLoadedDate
+  },
+  photohandsLoadedDate (state) {
+    return state.photohandsLoadedDate
+  },
+  photonendoroidsLoadedDate (state) {
+    return state.photonendoroidsLoadedDate
   }
 }
 
@@ -51,6 +83,7 @@ const mutations = {
   },
   [types.SET_PHOTOS] (state, photos) {
     state.photos = photos
+    state.photosLoadedDate = new Date()
   },
   [types.ADD_PHOTOACCESSORY] (state, photoaccessory) {
     state.photoaccessories.push(photoaccessory)
@@ -61,6 +94,7 @@ const mutations = {
   },
   [types.SET_PHOTOACCESSORIES] (state, photoaccessories) {
     state.photoaccessories = photoaccessories
+    state.photoaccessoriesLoadedDate = new Date()
   },
   [types.ADD_PHOTOBODYPART] (state, photobodypart) {
     state.photobodyparts.push(photobodypart)
@@ -71,6 +105,7 @@ const mutations = {
   },
   [types.SET_PHOTOBODYPARTS] (state, photobodyparts) {
     state.photobodyparts = photobodyparts
+    state.photobodypartsLoadedDate = new Date()
   },
   [types.ADD_PHOTOBOX] (state, photobox) {
     state.photoboxes.push(photobox)
@@ -81,6 +116,7 @@ const mutations = {
   },
   [types.SET_PHOTOBOXES] (state, photoboxes) {
     state.photoboxes = photoboxes
+    state.photoboxesLoadedDate = new Date()
   },
   [types.ADD_PHOTOFACE] (state, photoface) {
     state.photofaces.push(photoface)
@@ -91,6 +127,7 @@ const mutations = {
   },
   [types.SET_PHOTOFACES] (state, photofaces) {
     state.photofaces = photofaces
+    state.photofacesLoadedDate = new Date()
   },
   [types.ADD_PHOTOHAIR] (state, photohair) {
     state.photohairs.push(photohair)
@@ -101,6 +138,7 @@ const mutations = {
   },
   [types.SET_PHOTOHAIRS] (state, photohairs) {
     state.photohairs = photohairs
+    state.photohairsLoadedDate = new Date()
   },
   [types.ADD_PHOTOHAND] (state, photohand) {
     state.photohands.push(photohand)
@@ -111,6 +149,7 @@ const mutations = {
   },
   [types.SET_PHOTOHANDS] (state, photohands) {
     state.photohands = photohands
+    state.photohandsLoadedDate = new Date()
   },
   [types.ADD_PHOTONENDOROID] (state, photonendoroid) {
     state.photonendoroids.push(photonendoroid)
@@ -121,6 +160,7 @@ const mutations = {
   },
   [types.SET_PHOTONENDOROIDS] (state, photonendoroids) {
     state.photonendoroids = photonendoroids
+    state.photonendoroidsLoadedDate = new Date()
   }
 }
 

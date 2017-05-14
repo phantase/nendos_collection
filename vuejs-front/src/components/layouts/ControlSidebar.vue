@@ -10,7 +10,111 @@
     <div class="tab-content">
       <!-- Home tab content -->
       <div class="tab-pane active" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <h3 class="control-sidebar-heading">Loading status</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa icon-icon_nendo_boxes" :class="boxesLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Boxes</h4>
+                <p v-if="boxesLoadedDate">{{ boxesLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa icon-icon_nendo_nendo" :class="nendoroidsLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Nendoroids</h4>
+                <p v-if="nendoroidsLoadedDate">{{ nendoroidsLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa icon-icon_nendo_face" :class="facesLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Faces</h4>
+                <p v-if="facesLoadedDate">{{ facesLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa icon-icon_nendo_hair" :class="hairsLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Hairs</h4>
+                <p v-if="hairsLoadedDate">{{ hairsLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa icon-icon_nendo_hand" :class="handsLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Hands</h4>
+                <p v-if="handsLoadedDate">{{ handsLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa icon-icon_nendo_body" :class="bodypartsLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Bodyparts</h4>
+                <p v-if="bodypartsLoadedDate">{{ bodypartsLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa icon-icon_nendo_accessories" :class="accessoriesLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Accessories</h4>
+                <p v-if="accessoriesLoadedDate">{{ accessoriesLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa fa-photo" :class="photosLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Photos</h4>
+                <p v-if="photosLoadedDate">{{ photosLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa fa-address-book-o" :class="usersLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Users</h4>
+                <p v-if="usersLoadedDate">{{ usersLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript;">
+              <i class="menu-icon fa fa-newspaper-o" :class="newsLoadedDate?'bg-green':'bg-red'"></i>
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">News</h4>
+                <p v-if="newsLoadedDate">{{ newsLoadedDate }}</p>
+                <p v-else>Not loaded</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+        <!--<h3 class="control-sidebar-heading">Recent Activity</h3>
         <ul class="control-sidebar-menu">
           <li>
             <a href="javascript:;">
@@ -33,10 +137,9 @@
               </div>
             </a>
           </li>
-        </ul>
+        </ul>-->
         <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <!--<h3 class="control-sidebar-heading">Tasks Progress</h3>
         <ul class="control-sidebar-menu">
           <li v-if="false">
             <a href="javascript:;">
@@ -66,9 +169,8 @@
               </div>
             </a>
           </li>
-        </ul>
+        </ul>-->
         <!-- /.control-sidebar-menu -->
-
       </div>
       <!-- /.tab-pane -->
       <!-- Stats tab content -->
@@ -121,7 +223,7 @@
       }
     },
     computed: {
-      ...Vuex.mapGetters(['autoReload', 'reloadInterval']),
+      ...Vuex.mapGetters(['autoReload', 'reloadInterval', 'boxesLoadedDate', 'nendoroidsLoadedDate', 'facesLoadedDate', 'hairsLoadedDate', 'handsLoadedDate', 'bodypartsLoadedDate', 'accessoriesLoadedDate', 'photosLoadedDate', 'usersLoadedDate', 'newsLoadedDate']),
       localAutoReload: {
         get () {
           return this.autoReload

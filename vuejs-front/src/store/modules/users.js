@@ -1,7 +1,8 @@
 import * as types from '../mutation-types.js'
 
 const state = {
-  users: []
+  users: [],
+  usersLoadedDate: null
 }
 
 const getters = {
@@ -10,12 +11,16 @@ const getters = {
   },
   countusers (state) {
     return state.users.length
+  },
+  usersLoadedDate (state) {
+    return state.usersLoadedDate
   }
 }
 
 const mutations = {
   [types.SET_USERS] (state, users) {
     state.users = users
+    state.usersLoadedDate = new Date()
   }
 }
 

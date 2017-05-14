@@ -1,7 +1,8 @@
 import * as types from '../mutation-types.js'
 
 const state = {
-  hairs: []
+  hairs: [],
+  hairsLoadedDate: null
 }
 
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
   },
   countuserhairs (state) {
     return state.hairs.filter(hair => hair.collquantity).length
+  },
+  hairsLoadedDate (state) {
+    return state.hairsLoadedDate
   }
 }
 
@@ -26,6 +30,7 @@ const mutations = {
   },
   [types.SET_HAIRS] (state, hairs) {
     state.hairs = hairs
+    state.hairsLoadedDate = new Date()
   },
   [types.COLLECT_HAIR] (state, hairid) {
     state.hairs.filter(hair => hair.internalid === hairid)[0].collquantity++

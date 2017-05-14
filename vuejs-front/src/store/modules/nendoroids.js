@@ -1,7 +1,8 @@
 import * as types from '../mutation-types.js'
 
 const state = {
-  nendoroids: []
+  nendoroids: [],
+  nendoroidsLoadedDate: null
 }
 
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
   },
   countusernendoroids (state) {
     return state.nendoroids.filter(nendoroid => nendoroid.collquantity).length
+  },
+  nendoroidsLoadedDate (state) {
+    return state.nendoroidsLoadedDate
   }
 }
 
@@ -26,6 +30,7 @@ const mutations = {
   },
   [types.SET_NENDOROIDS] (state, nendoroids) {
     state.nendoroids = nendoroids
+    state.nendoroidsLoadedDate = new Date()
   },
   [types.COLLECT_NENDOROID] (state, nendoroidid) {
     state.nendoroids.filter(nendoroid => nendoroid.internalid === nendoroidid)[0].collquantity++

@@ -1,7 +1,8 @@
 import * as types from '../mutation-types.js'
 
 const state = {
-  hands: []
+  hands: [],
+  handsLoadedDate: null
 }
 
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
   },
   countuserhands (state) {
     return state.hands.filter(hand => hand.collquantity).length
+  },
+  handsLoadedDate (state) {
+    return state.handsLoadedDate
   }
 }
 
@@ -26,6 +30,7 @@ const mutations = {
   },
   [types.SET_HANDS] (state, hands) {
     state.hands = hands
+    state.handsLoadedDate = new Date()
   },
   [types.COLLECT_HAND] (state, handid) {
     state.hands.filter(hand => hand.internalid === handid)[0].collquantity++

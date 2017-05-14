@@ -1,7 +1,8 @@
 import * as types from '../mutation-types.js'
 
 const state = {
-  bodyparts: []
+  bodyparts: [],
+  bodypartsLoadedDate: null
 }
 
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
   },
   countuserbodyparts (state) {
     return state.bodyparts.filter(bodypart => bodypart.collquantity).length
+  },
+  bodypartsLoadedDate (state) {
+    return state.bodypartsLoadedDate
   }
 }
 
@@ -26,6 +30,7 @@ const mutations = {
   },
   [types.SET_BODYPARTS] (state, bodyparts) {
     state.bodyparts = bodyparts
+    state.bodypartsLoadedDate = new Date()
   },
   [types.COLLECT_BODYPART] (state, bodypartid) {
     state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].collquantity++

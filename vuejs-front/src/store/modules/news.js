@@ -1,7 +1,8 @@
 import * as types from '../mutation-types.js'
 
 const state = {
-  news: []
+  news: [],
+  newsLoadedDate: null
 }
 
 const getters = {
@@ -10,6 +11,9 @@ const getters = {
   },
   countnews (state) {
     return state.news.length
+  },
+  newsLoadedDate (state) {
+    return state.newsLoadedDate
   }
 }
 
@@ -23,6 +27,7 @@ const mutations = {
   },
   [types.SET_NEWS] (state, news) {
     state.news = news
+    state.newsLoadedDate = new Date()
   }
 }
 

@@ -1,7 +1,8 @@
 import * as types from '../mutation-types.js'
 
 const state = {
-  faces: []
+  faces: [],
+  facesLoadedDate: null
 }
 
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
   },
   countuserfaces (state) {
     return state.faces.filter(face => face.collquantity).length
+  },
+  facesLoadedDate (state) {
+    return state.facesLoadedDate
   }
 }
 
@@ -26,6 +30,7 @@ const mutations = {
   },
   [types.SET_FACES] (state, faces) {
     state.faces = faces
+    state.facesLoadedDate = new Date()
   },
   [types.COLLECT_FACE] (state, faceid) {
     state.faces.filter(face => face.internalid === faceid)[0].collquantity++

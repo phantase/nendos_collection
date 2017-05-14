@@ -1,7 +1,8 @@
 import * as types from '../mutation-types.js'
 
 const state = {
-  accessories: []
+  accessories: [],
+  accessoriesLoadedDate: null
 }
 
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
   },
   countuseraccessories (state) {
     return state.accessories.filter(accessory => accessory.collquantity).length
+  },
+  accessoriesLoadedDate (state) {
+    return state.accessoriesLoadedDate
   }
 }
 
@@ -26,6 +30,7 @@ const mutations = {
   },
   [types.SET_ACCESSORIES] (state, accessories) {
     state.accessories = accessories
+    state.accessoriesLoadedDate = new Date()
   },
   [types.COLLECT_ACCESSORY] (state, accessoryid) {
     state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].collquantity++
