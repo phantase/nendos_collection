@@ -61,12 +61,17 @@ const mutations = {
 
 const actions = {
   addBodypart (store, bodypart) {
+    store.dispatch('addBodypartToIndex', bodypart)
     store.commit(types.ADD_BODYPART, bodypart)
   },
   editBodypart (store, bodypart) {
+    store.dispatch('editBodypartToIndex', bodypart)
     store.commit(types.EDIT_BODYPART, bodypart)
   },
   setBodyparts (store, bodyparts) {
+    bodyparts.forEach((bodypart) => {
+      store.dispatch('addBodypartToIndex', bodypart)
+    })
     store.commit(types.SET_BODYPARTS, bodyparts)
   },
   retrieveBodyparts (store, payload) {

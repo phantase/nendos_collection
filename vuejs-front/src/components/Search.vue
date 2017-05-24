@@ -134,40 +134,49 @@ export default {
     return {
       resources: Resources,
       searchSimpletext: null,
-      searchSimpletextValidated: null
+      searchSimpletextValidated: null,
+      boxesfound: [],
+      nendoroidsfound: [],
+      facesfound: [],
+      hairsfound: [],
+      handsfound: [],
+      bodypartsfound: [],
+      accessoriesfound: [],
+      photosfound: []
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'authenticated', 'viewvalidation']),
-    boxesfound () {
-      if (this.searchSimpletextValidated) {
-        return this.boxes.filter(this.filterBoxes)
-      }
-      return []
-    },
-    nendoroidsfound () {
-      return this.nendoroids
-    },
-    facesfound () {
-      return this.faces
-    },
-    hairsfound () {
-      return this.hairs
-    },
-    handsfound () {
-      return this.hands
-    },
-    bodypartsfound () {
-      return this.bodyparts
-    },
-    accessoriesfound () {
-      return this.accessories
-    },
-    photosfound () {
-      return this.photos
-    }
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'authenticated', 'viewvalidation'])
+    // boxesfound () {
+    //   if (this.searchSimpletextValidated) {
+    //     return this.boxes.filter(this.filterBoxes)
+    //   }
+    //   return []
+    // },
+    // nendoroidsfound () {
+    //   return this.nendoroids
+    // },
+    // facesfound () {
+    //   return this.faces
+    // },
+    // hairsfound () {
+    //   return this.hairs
+    // },
+    // handsfound () {
+    //   return this.hands
+    // },
+    // bodypartsfound () {
+    //   return this.bodyparts
+    // },
+    // accessoriesfound () {
+    //   return this.accessories
+    // },
+    // photosfound () {
+    //   return this.photos
+    // }
   },
   methods: {
+    ...Vuex.mapActions(['doSearch']),
     filterBoxes (box) {
       // if (box.number.toLowerCase().indexOf(this.searchSimpletextValidated))
       return box.name.toLowerCase().indexOf(this.searchSimpletextValidated) > -1
@@ -175,11 +184,55 @@ export default {
     submitSearch () {
       console.log('submitSearch')
       this.searchSimpletextValidated = this.searchSimpletext.toLowerCase()
+      console.log('doSearchInElasticLunr')
+      this.boxesfound = []
+      this.nendoroidsfound = []
+      this.accessoriesfound = []
+      this.bodypartsfound = []
+      this.facesfound = []
+      this.hairsfound = []
+      this.handsfound = []
+      this.photosfound = []
+      console.log(this.doSearch(this.searchSimpletextValidated))
+      this.doSearch(this.searchSimpletextValidated).then((results) => {
+        results.boxes.forEach((searchBoxResult) => {
+          this.boxesfound.push(this.boxes.find(box => box.internalid === searchBoxResult.ref))
+        })
+        results.nendoroids.forEach((searchNendoroidResult) => {
+          this.nendoroidsfound.push(this.nendoroids.find(nendoroid => nendoroid.internalid === searchNendoroidResult.ref))
+        })
+        results.accessories.forEach((searchAccessoriesesult) => {
+          this.accessoriesfound.push(this.accessories.find(accessory => accessory.internalid === searchAccessoriesesult.ref))
+        })
+        results.bodyparts.forEach((searchBodypartResult) => {
+          this.bodypartsfound.push(this.bodyparts.find(bodypart => bodypart.internalid === searchBodypartResult.ref))
+        })
+        results.faces.forEach((searchFaceResult) => {
+          this.facesfound.push(this.faces.find(face => face.internalid === searchFaceResult.ref))
+        })
+        results.hairs.forEach((searchHairResult) => {
+          this.hairsfound.push(this.hairs.find(hair => hair.internalid === searchHairResult.ref))
+        })
+        results.hands.forEach((searchHandResult) => {
+          this.handsfound.push(this.hands.find(hand => hand.internalid === searchHandResult.ref))
+        })
+        results.photos.forEach((searchPhotoResult) => {
+          this.photosfound.push(this.photos.find(photo => photo.internalid === searchPhotoResult.ref))
+        })
+      })
     },
     cancelSearch () {
       console.log('cancelSearch')
       this.searchSimpletext = null
       this.searchSimpletextValidated = null
+      this.boxesfound = []
+      this.nendoroidsfound = []
+      this.accessoriesfound = []
+      this.bodypartsfound = []
+      this.facesfound = []
+      this.hairsfound = []
+      this.handsfound = []
+      this.photosfound = []
     }
   }
 }

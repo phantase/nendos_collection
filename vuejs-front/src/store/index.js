@@ -14,6 +14,7 @@ import photos from './modules/photos'
 import users from './modules/users'
 import news from './modules/news'
 import settings from './modules/settings'
+import search from './modules/search'
 
 Vue.use(Vuex)
 
@@ -34,7 +35,8 @@ export default new Vuex.Store({
     photos,
     users,
     news,
-    settings
+    settings,
+    search
   },
   strict: debug
 })

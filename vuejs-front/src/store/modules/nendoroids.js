@@ -61,12 +61,17 @@ const mutations = {
 
 const actions = {
   addNendoroid (store, nendoroid) {
+    store.dispatch('addNendoroidToIndex', nendoroid)
     store.commit(types.ADD_NENDOROID, nendoroid)
   },
   editNendoroid (store, nendoroid) {
+    store.dispatch('editNendoroidToIndex', nendoroid)
     store.commit(types.EDIT_NENDOROID, nendoroid)
   },
   setNendoroids (store, nendoroids) {
+    nendoroids.forEach((nendoroid) => {
+      store.dispatch('addNendoroidToIndex', nendoroid)
+    })
     store.commit(types.SET_NENDOROIDS, nendoroids)
   },
   retrieveNendoroids (store, payload) {

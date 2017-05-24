@@ -61,12 +61,17 @@ const mutations = {
 
 const actions = {
   addAccessory (store, accessory) {
+    store.dispatch('addAccessoryToIndex', accessory)
     store.commit(types.ADD_ACCESSORY, accessory)
   },
   editAccessory (store, accessory) {
+    store.dispatch('editAccessoryToIndex', accessory)
     store.commit(types.EDIT_ACCESSORY, accessory)
   },
   setAccessories (store, accessories) {
+    accessories.forEach((accessory) => {
+      store.dispatch('addAccessoryToIndex', accessory)
+    })
     store.commit(types.SET_ACCESSORIES, accessories)
   },
   retrieveAccessories (store, payload) {
