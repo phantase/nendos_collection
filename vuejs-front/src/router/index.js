@@ -38,6 +38,7 @@ import Search from 'components/Search'
 import News from 'components/News'
 import SingleNews from 'components/SingleNews'
 import FormSingleNews from 'components/forms/FormSingleNews'
+import User from 'components/User'
 
 Vue.use(Router)
 
@@ -860,6 +861,20 @@ export default new Router({
         ]
       },
       component: SingleNews
+    },
+    {
+      path: '/user/:id',
+      name: 'Single User',
+      meta: {
+        description: 'A single user',
+        breadcrumb: [
+          {
+            title: 'Users',
+            link: '/users'
+          }
+        ]
+      },
+      component: User
     }
   ]
 })
