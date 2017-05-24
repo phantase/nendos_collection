@@ -37,6 +37,11 @@ export default [
     name: 'DATABASE'
   },
   {
+    name: 'Search',
+    link: '/search',
+    icon: 'fa-search'
+  },
+  {
     name: 'Boxes',
     link: '/boxes',
     icon: 'icon-icon_nendo_boxes',
