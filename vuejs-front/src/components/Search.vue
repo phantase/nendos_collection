@@ -6,9 +6,10 @@
         <div class="box">
           <app-box-header title="Search parameters" collapsable="true" icon="fa-binoculars"></app-box-header>
           <div class="box-body">
-            <div class="form-group">
-              <label for="simpletext">Simple text</label>
-              <input type="text" class="form-control" id="simpletext" placeholder="Enter text" v-model="searchSimpletext">
+            <div class="form-group" :class="errornotext?'has-error':''">
+              <label for="simpletext">Enter search terms bellow</label>
+              <input type="text" class="form-control" id="simpletext" placeholder="search terms" v-model="searchSimpletext">
+              <span class="help-block" v-if="errornotext">The search terms cannot be empty.</span>
             </div>
 
           </div>
@@ -20,7 +21,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" v-show="searchPerformed">
       <div class="col-md-12">
         <div class="nav-tabs-custom">
           <ul class="nav nav-tabs pull-right">
@@ -40,6 +41,9 @@
                 <router-link :to="'/photo/'+photo.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="photo in photosfound">
                   <photo-tile :photo="photo"></photo-tile>
                 </router-link>
+                <span class="col-md-12" v-if="photosfound.length === 0">
+                  <i>Oh... We found no photo for this search...</i>
+                </span>
               </div>
             </div>
             <div class="tab-pane" id="tab_accessories">
@@ -47,6 +51,9 @@
                 <router-link :to="'/accessory/'+accessory.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessoriesfound">
                   <accessory-tile :accessory="accessory"></accessory-tile>
                 </router-link>
+                <span class="col-md-12" v-if="accessoriesfound.length === 0">
+                  <i>Oh... We found no accessory for this search...</i>
+                </span>
               </div>
             </div>
             <div class="tab-pane" id="tab_bodyparts">
@@ -54,6 +61,9 @@
                 <router-link :to="'/bodypart/'+bodypart.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodypartsfound">
                   <bodypart-tile :bodypart="bodypart"></bodypart-tile>
                 </router-link>
+                <span class="col-md-12" v-if="bodypartsfound.length === 0">
+                  <i>Oh... We found no bodypart for this search...</i>
+                </span>
               </div>
             </div>
             <div class="tab-pane" id="tab_hands">
@@ -61,6 +71,9 @@
                 <router-link :to="'/hand/'+hand.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="hand in handsfound">
                   <hand-tile :hand="hand"></hand-tile>
                 </router-link>
+                <span class="col-md-12" v-if="handsfound.length === 0">
+                  <i>Oh... We found no hand for this search...</i>
+                </span>
               </div>
             </div>
             <div class="tab-pane" id="tab_hairs">
@@ -68,6 +81,9 @@
                 <router-link :to="'/hair/'+hair.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairsfound">
                   <hair-tile :hair="hair"></hair-tile>
                 </router-link>
+                <span class="col-md-12" v-if="hairsfound.length === 0">
+                  <i>Oh... We found no hairs for this search...</i>
+                </span>
               </div>
             </div>
             <div class="tab-pane" id="tab_faces">
@@ -75,6 +91,9 @@
                 <router-link :to="'/face/'+face.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="face in facesfound">
                   <face-tile :face="face"></face-tile>
                 </router-link>
+                <span class="col-md-12" v-if="facesfound.length === 0">
+                  <i>Oh... We found no face for this search...</i>
+                </span>
               </div>
             </div>
             <div class="tab-pane" id="tab_nendoroids">
@@ -82,6 +101,9 @@
                 <router-link :to="'/nendoroid/'+nendoroid.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="nendoroid in nendoroidsfound">
                   <nendoroid-tile :nendoroid="nendoroid"></nendoroid-tile>
                 </router-link>
+                <span class="col-md-12" v-if="nendoroidsfound.length === 0">
+                  <i>Oh... We found no nendoroid for this search...</i>
+                </span>
               </div>
             </div>
             <div class="tab-pane active" id="tab_boxes">
@@ -89,6 +111,9 @@
                 <router-link :to="'/box/'+box.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="box in boxesfound">
                   <box-tile :box="box"></box-tile>
                 </router-link>
+                <span class="col-md-12" v-if="boxesfound.length === 0">
+                  <i>Oh... We found no box for this search...</i>
+                </span>
               </div>
             </div>
           </div>
@@ -133,8 +158,10 @@ export default {
   data () {
     return {
       resources: Resources,
+      errornotext: false,
       searchSimpletext: null,
       searchSimpletextValidated: null,
+      searchPerformed: false,
       boxesfound: [],
       nendoroidsfound: [],
       facesfound: [],
@@ -146,83 +173,62 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'authenticated', 'viewvalidation'])
-    // boxesfound () {
-    //   if (this.searchSimpletextValidated) {
-    //     return this.boxes.filter(this.filterBoxes)
-    //   }
-    //   return []
-    // },
-    // nendoroidsfound () {
-    //   return this.nendoroids
-    // },
-    // facesfound () {
-    //   return this.faces
-    // },
-    // hairsfound () {
-    //   return this.hairs
-    // },
-    // handsfound () {
-    //   return this.hands
-    // },
-    // bodypartsfound () {
-    //   return this.bodyparts
-    // },
-    // accessoriesfound () {
-    //   return this.accessories
-    // },
-    // photosfound () {
-    //   return this.photos
-    // }
+    ...Vuex.mapGetters(['searchTerm', 'boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'authenticated', 'viewvalidation'])
   },
   methods: {
-    ...Vuex.mapActions(['doSearch']),
-    filterBoxes (box) {
-      // if (box.number.toLowerCase().indexOf(this.searchSimpletextValidated))
-      return box.name.toLowerCase().indexOf(this.searchSimpletextValidated) > -1
-    },
+    ...Vuex.mapActions(['doSearch', 'setSearchTerm', 'resetSearchTerm']),
     submitSearch () {
-      console.log('submitSearch')
-      this.searchSimpletextValidated = this.searchSimpletext.toLowerCase()
-      console.log('doSearchInElasticLunr')
-      this.boxesfound = []
-      this.nendoroidsfound = []
-      this.accessoriesfound = []
-      this.bodypartsfound = []
-      this.facesfound = []
-      this.hairsfound = []
-      this.handsfound = []
-      this.photosfound = []
-      console.log(this.doSearch(this.searchSimpletextValidated))
-      this.doSearch(this.searchSimpletextValidated).then((results) => {
-        results.boxes.forEach((searchBoxResult) => {
-          this.boxesfound.push(this.boxes.find(box => box.internalid === searchBoxResult.ref))
+      this.errornotext = false
+      this.searchPerformed = false
+      if (this.searchSimpletext) {
+        console.log('submitSearch')
+        this.searchSimpletextValidated = this.searchSimpletext.toLowerCase()
+        this.resetSearchTerm()
+        this.boxesfound = []
+        this.nendoroidsfound = []
+        this.accessoriesfound = []
+        this.bodypartsfound = []
+        this.facesfound = []
+        this.hairsfound = []
+        this.handsfound = []
+        this.photosfound = []
+        this.doSearch(this.searchSimpletextValidated).then((results) => {
+          this.searchPerformed = true
+          console.log(results)
+          results.boxes.forEach((searchBoxResult) => {
+            this.boxesfound.push(this.boxes.find(box => box.internalid === searchBoxResult.ref))
+          })
+          results.nendoroids.forEach((searchNendoroidResult) => {
+            this.nendoroidsfound.push(this.nendoroids.find(nendoroid => nendoroid.internalid === searchNendoroidResult.ref))
+          })
+          results.accessories.forEach((searchAccessoriesesult) => {
+            this.accessoriesfound.push(this.accessories.find(accessory => accessory.internalid === searchAccessoriesesult.ref))
+          })
+          results.bodyparts.forEach((searchBodypartResult) => {
+            this.bodypartsfound.push(this.bodyparts.find(bodypart => bodypart.internalid === searchBodypartResult.ref))
+          })
+          results.faces.forEach((searchFaceResult) => {
+            this.facesfound.push(this.faces.find(face => face.internalid === searchFaceResult.ref))
+          })
+          results.hairs.forEach((searchHairResult) => {
+            this.hairsfound.push(this.hairs.find(hair => hair.internalid === searchHairResult.ref))
+          })
+          results.hands.forEach((searchHandResult) => {
+            this.handsfound.push(this.hands.find(hand => hand.internalid === searchHandResult.ref))
+          })
+          results.photos.forEach((searchPhotoResult) => {
+            this.photosfound.push(this.photos.find(photo => photo.internalid === searchPhotoResult.ref))
+          })
         })
-        results.nendoroids.forEach((searchNendoroidResult) => {
-          this.nendoroidsfound.push(this.nendoroids.find(nendoroid => nendoroid.internalid === searchNendoroidResult.ref))
-        })
-        results.accessories.forEach((searchAccessoriesesult) => {
-          this.accessoriesfound.push(this.accessories.find(accessory => accessory.internalid === searchAccessoriesesult.ref))
-        })
-        results.bodyparts.forEach((searchBodypartResult) => {
-          this.bodypartsfound.push(this.bodyparts.find(bodypart => bodypart.internalid === searchBodypartResult.ref))
-        })
-        results.faces.forEach((searchFaceResult) => {
-          this.facesfound.push(this.faces.find(face => face.internalid === searchFaceResult.ref))
-        })
-        results.hairs.forEach((searchHairResult) => {
-          this.hairsfound.push(this.hairs.find(hair => hair.internalid === searchHairResult.ref))
-        })
-        results.hands.forEach((searchHandResult) => {
-          this.handsfound.push(this.hands.find(hand => hand.internalid === searchHandResult.ref))
-        })
-        results.photos.forEach((searchPhotoResult) => {
-          this.photosfound.push(this.photos.find(photo => photo.internalid === searchPhotoResult.ref))
-        })
-      })
+      } else {
+        this.errornotext = true
+        this.searchPerformed = false
+      }
     },
     cancelSearch () {
       console.log('cancelSearch')
+      this.errornotext = false
+      this.searchPerformed = false
       this.searchSimpletext = null
       this.searchSimpletextValidated = null
       this.boxesfound = []
@@ -233,7 +239,16 @@ export default {
       this.hairsfound = []
       this.handsfound = []
       this.photosfound = []
+    },
+    doQueryTermSearch () {
+      if (this.searchTerm) {
+        this.searchSimpletext = this.searchTerm
+        this.submitSearch()
+      }
     }
+  },
+  mounted () {
+    this.doQueryTermSearch()
   }
 }
 </script>

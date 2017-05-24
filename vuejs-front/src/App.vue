@@ -45,9 +45,10 @@ export default {
     ...Vuex.mapGetters(['authenticated'])
   },
   methods: {
-    ...Vuex.mapActions(['relogin', 'retrieveData'])
+    ...Vuex.mapActions(['relogin', 'retrieveData', 'initSearch'])
   },
   mounted () {
+    this.initSearch()
     this.relogin({
       'context': this
     }).then(() => {

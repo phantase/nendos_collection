@@ -9,7 +9,8 @@ const state = {
   facesIndex: null,
   hairsIndex: null,
   handsIndex: null,
-  photosIndex: null
+  photosIndex: null,
+  searchTerm: null
 }
 
 const getters = {
@@ -36,6 +37,9 @@ const getters = {
   },
   photosIndex (state) {
     return state.photosIndex
+  },
+  searchTerm (state) {
+    return state.searchTerm
   }
 }
 
@@ -48,12 +52,14 @@ const mutations = {
       this.addField('series')
       this.addField('sculptor')
       this.addField('cooperation')
+      this.saveDocument(false)
     })
     state.nendoroidsIndex = state.elasticlunr(function () {
       this.setRef('internalid')
       this.addField('name')
       this.addField('version')
       this.addField('sex')
+      this.saveDocument(false)
     })
     state.accessoriesIndex = state.elasticlunr(function () {
       this.setRef('internalid')
@@ -61,6 +67,7 @@ const mutations = {
       this.addField('description')
       this.addField('main_color')
       this.addField('other_color')
+      this.saveDocument(false)
     })
     state.bodypartsIndex = state.elasticlunr(function () {
       this.setRef('internalid')
@@ -68,6 +75,7 @@ const mutations = {
       this.addField('description')
       this.addField('main_color')
       this.addField('other_color')
+      this.saveDocument(false)
     })
     state.facesIndex = state.elasticlunr(function () {
       this.setRef('internalid')
@@ -76,6 +84,7 @@ const mutations = {
       this.addField('eyes_color')
       this.addField('skin_color')
       this.addField('sex')
+      this.saveDocument(false)
     })
     state.hairsIndex = state.elasticlunr(function () {
       this.setRef('internalid')
@@ -84,16 +93,19 @@ const mutations = {
       this.addField('main_color')
       this.addField('other_color')
       this.addField('frontback')
+      this.saveDocument(false)
     })
     state.handsIndex = state.elasticlunr(function () {
       this.setRef('internalid')
       this.addField('posture')
       this.addField('leftright')
       this.addField('description')
+      this.saveDocument(false)
     })
     state.photosIndex = state.elasticlunr(function () {
       this.setRef('internalid')
       this.addField('title')
+      this.saveDocument(false)
     })
   },
   [types.ADD_BOX_TO_INDEX] (state, box) {
@@ -159,6 +171,12 @@ const mutations = {
   [types.EDIT_PHOTO_IN_INDEX] (state, photo) {
     console.log('EDIT_PHOTO_IN_INDEX')
     state.photosIndex.update(photo)
+  },
+  [types.SET_A_SEARCH_TERM] (state, term) {
+    state.searchTerm = term
+  },
+  [types.RESET_A_SEARCH_TERM] (state) {
+    state.searchTerm = null
   }
 }
 
@@ -225,6 +243,12 @@ const actions = {
       'hands': state.handsIndex.search(queryText),
       'photos': state.photosIndex.search(queryText)
     }
+  },
+  setSearchTerm (store, term) {
+    store.commit(types.SET_A_SEARCH_TERM, term)
+  },
+  resetSearchTerm (store) {
+    store.commit(types.RESET_A_SEARCH_TERM)
   }
 }
 

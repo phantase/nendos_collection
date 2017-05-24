@@ -1,6 +1,4 @@
 export const retrieveData = (store, payload) => {
-  store.dispatch('initSearch')
-  // store.dispatch('retrieveCounts', payload)
   store.dispatch('retrieveBoxes', payload)
   store.dispatch('retrieveNendoroids', payload)
   store.dispatch('retrieveFaces', payload)
@@ -18,8 +16,4 @@ export const retrieveData = (store, payload) => {
   store.dispatch('retrievePhotoNendoroids', payload)
   store.dispatch('retrieveUsers', payload)
   store.dispatch('retrieveNews', payload)
-}
-
-export const doSomething = () => {
-  console.log('I have done something ' + new Date())
 }
