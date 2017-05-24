@@ -36,7 +36,7 @@
       <!-- Menu Footer-->
       <li class="user-footer">
         <div class="pull-left">
-          <router-link to="/profile"  v-if="user.internalid" class="btn btn-default btn-flat">Profile</router-link>
+          <router-link :to="'/user/'+user.internalid"  v-if="user.internalid" class="btn btn-default btn-flat">Profile</router-link>
           <router-link to="/register"  v-else class="btn btn-default btn-flat">Register</router-link>
         </div>
         <div class="pull-right">
@@ -51,6 +51,7 @@
 <script>
   import Resources from './../../config/resources'
   import store from './../../store'
+  import Vuex from 'vuex'
 
   export default {
     name: 'HeaderUserPanel',
@@ -61,9 +62,7 @@
       }
     },
     computed: {
-      user () {
-        return store.getters.user
-      }
+      ...Vuex.mapGetters(['user'])
     }
   }
 </script>
