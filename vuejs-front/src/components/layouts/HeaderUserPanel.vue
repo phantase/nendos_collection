@@ -22,13 +22,13 @@
       <li class="user-body" v-if="user.internalid">
         <div class="row">
           <div class="col-xs-4 text-center">
-            <a href="#">Followers</a>
+            <a href="#">Collection</a>
           </div>
           <div class="col-xs-4 text-center">
             <a href="#">Photos</a>
           </div>
           <div class="col-xs-4 text-center">
-            <a href="#">Friends</a>
+            <a href="#">Favorites</a>
           </div>
         </div>
         <!-- /.row -->
