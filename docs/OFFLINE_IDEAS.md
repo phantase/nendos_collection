@@ -7,3 +7,9 @@
 * We can also image than when it's creation, the state change is "MAJOR"; when it's modification, the state change could be "minor"
 * And of course, as we manage the parts with different request, we will be able to download only the requested new parts
 * So maybe also do something incremental as we have the date of modification of each database record
+==> What has been done is that right now we have the possibility to launch an auto-reload (with a user defined time interval between reloads), but right now, this reload retrieves the whole database...
+
+# TODO (also)
+
+* Page to edit (change/add) the user picture, and services server side
+* Page to edit an user, and services server side
