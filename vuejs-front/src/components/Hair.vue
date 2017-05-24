@@ -72,7 +72,7 @@
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
-          <app-box-header title="Photo" collapsable="true" icon="fa-photo" editable="true" :editlink="'/hair/'+hair.internalid+'/edit/image'"></app-box-header>
+          <app-box-header title="Photo" collapsable="true" icon="fa-photo" :editable="canedit" :editlink="'/hair/'+hair.internalid+'/edit/image'"></app-box-header>
           <div class="box-body db-image">
             <img :src="resources.apiurl+'/images/hairs/'+hair.internalid+'/thumb'" v-if="hair.haspicture == '1'"/>
             <img :src="resources.apiurl+'/images/unknown'" v-else />
