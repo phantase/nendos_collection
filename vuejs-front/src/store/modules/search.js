@@ -232,16 +232,32 @@ const actions = {
   editPhotoInIndex (store, photo) {
     store.commit(types.EDIT_PHOTO_IN_INDEX, photo)
   },
-  doSearch ({commit, state}, queryText) {
+  doSearch ({commit, state}, payload) {
     return {
-      'boxes': state.boxesIndex.search(queryText),
-      'nendoroids': state.nendoroidsIndex.search(queryText),
-      'accessories': state.accessoriesIndex.search(queryText),
-      'bodyparts': state.bodypartsIndex.search(queryText),
-      'faces': state.facesIndex.search(queryText),
-      'hairs': state.hairsIndex.search(queryText),
-      'hands': state.handsIndex.search(queryText),
-      'photos': state.photosIndex.search(queryText)
+      'boxes': state.boxesIndex.search(payload.queryTerm, {
+        expand: !payload.strictMode
+      }),
+      'nendoroids': state.nendoroidsIndex.search(payload.queryTerm, {
+        expand: !payload.strictMode
+      }),
+      'accessories': state.accessoriesIndex.search(payload.queryTerm, {
+        expand: !payload.strictMode
+      }),
+      'bodyparts': state.bodypartsIndex.search(payload.queryTerm, {
+        expand: !payload.strictMode
+      }),
+      'faces': state.facesIndex.search(payload.queryTerm, {
+        expand: !payload.strictMode
+      }),
+      'hairs': state.hairsIndex.search(payload.queryTerm, {
+        expand: !payload.strictMode
+      }),
+      'hands': state.handsIndex.search(payload.queryTerm, {
+        expand: !payload.strictMode
+      }),
+      'photos': state.photosIndex.search(payload.queryTerm, {
+        expand: !payload.strictMode
+      })
     }
   },
   setSearchTerm (store, term) {

@@ -11,7 +11,15 @@
               <input type="text" class="form-control" id="simpletext" placeholder="search terms" v-model="searchSimpletext">
               <span class="help-block" v-if="errornotext">The search terms cannot be empty.</span>
             </div>
-
+            <div class="form-group">
+              <div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" v-model="searchStrictMode"> Strict search <i class="fa fa-question-circle-o" data-toggle="tooltip" title="When strict search is checked, 'love' will return the exact word 'love' in the fields, but not 'LoveLive!' for example. And 'Mik' will probably return nothing in strict mode but will return a lot of 'Miku' and some 'Mikoto' when this option is unchecked."></i>
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="box-footer">
             <button type="submit" class="btn btn-default" @click="cancelSearch">Cancel</button>
@@ -161,6 +169,7 @@ export default {
       errornotext: false,
       searchSimpletext: null,
       searchSimpletextValidated: null,
+      searchStrictMode: false,
       searchPerformed: false,
       boxesfound: [],
       nendoroidsfound: [],
@@ -192,7 +201,10 @@ export default {
         this.hairsfound = []
         this.handsfound = []
         this.photosfound = []
-        this.doSearch(this.searchSimpletextValidated).then((results) => {
+        this.doSearch({
+          'queryTerm': this.searchSimpletextValidated,
+          'strictMode': this.searchStrictMode
+        }).then((results) => {
           this.searchPerformed = true
           console.log(results)
           results.boxes.forEach((searchBoxResult) => {
@@ -231,6 +243,7 @@ export default {
       this.searchPerformed = false
       this.searchSimpletext = null
       this.searchSimpletextValidated = null
+      this.searchStrictMode = false
       this.boxesfound = []
       this.nendoroidsfound = []
       this.accessoriesfound = []
