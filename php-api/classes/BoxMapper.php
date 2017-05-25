@@ -4,7 +4,8 @@ class BoxMapper extends Mapper
 {
   protected $tablename = "boxes";
   protected $collectiontablename = "users_boxes_collection";
-  protected $collectioncolumn = "boxid";
+  protected $favoritestablename = "users_boxes_favorites";
+  protected $othertablecolumn = "boxid";
 
   public function get($userid=null, $validated=true) {
     $sql = "SELECT b.internalid, b.number, b.name, b.series, b.manufacturer, b.category,

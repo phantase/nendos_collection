@@ -26,6 +26,7 @@ require '../routes/account.php';
 require '../routes/get_auth.php';
 require '../routes/collection.php';
 require '../routes/validation.php';
+require '../routes/favorites.php';
 require '../routes/add.php';
 require '../routes/edit.php';
 require '../routes/images.php';

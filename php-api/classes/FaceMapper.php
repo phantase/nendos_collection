@@ -4,7 +4,8 @@ class FaceMapper extends Mapper
 {
   protected $tablename = "faces";
   protected $collectiontablename = "users_faces_collection";
-  protected $collectioncolumn = "faceid";
+  protected $favoritestablename = "users_faces_favorites";
+  protected $othertablecolumn = "faceid";
 
   public function get($userid=null, $validated=true) {
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,

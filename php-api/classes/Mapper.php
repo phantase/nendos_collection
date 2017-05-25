@@ -10,7 +10,8 @@ abstract class Mapper {
 
   protected $tablename;
   protected $collectiontablename;
-  protected $collectioncolumn;
+  protected $favoritestablename;
+  protected $othertablecolumn;
 
   public function count() {
     $sql = "SELECT count(*) AS count FROM ".$this->tablename;
@@ -47,7 +48,7 @@ abstract class Mapper {
   public function collectForUser($elementid, $userid) {
     $sql = "SELECT quantity
             FROM ".$this->collectiontablename."
-            WHERE userid = :userid AND ".$this->collectioncolumn." = :elementid";
+            WHERE userid = :userid AND ".$this->othertablecolumn." = :elementid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
 
@@ -56,12 +57,12 @@ abstract class Mapper {
       $sql = "UPDATE ".$this->collectiontablename."
               SET quantity = :quantity
               WHERE userid = :userid
-              AND ".$this->collectioncolumn." = :elementid";
+              AND ".$this->othertablecolumn." = :elementid";
       $stmt = $this->db->prepare($sql);
       $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid, "quantity" => $quantity]);
     } else {
       $quantity = 1;
-      $sql = "INSERT INTO ".$this->collectiontablename."(userid,".$this->collectioncolumn.")
+      $sql = "INSERT INTO ".$this->collectiontablename."(userid,".$this->othertablecolumn.")
               VALUES(:userid,:elementid)";
       $stmt = $this->db->prepare($sql);
       $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
@@ -72,7 +73,7 @@ abstract class Mapper {
   public function uncollectForUser($elementid, $userid) {
     $sql = "SELECT quantity
             FROM ".$this->collectiontablename."
-            WHERE userid = :userid AND ".$this->collectioncolumn." = :elementid";
+            WHERE userid = :userid AND ".$this->othertablecolumn." = :elementid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
 
@@ -83,13 +84,13 @@ abstract class Mapper {
         $sql = "UPDATE ".$this->collectiontablename."
                 SET quantity = :quantity
                 WHERE userid = :userid
-                AND ".$this->collectioncolumn." = :elementid";
+                AND ".$this->othertablecolumn." = :elementid";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid, "quantity" => $quantity]);
       } else {
         $quantity = 0;
         $sql = "DELETE FROM ".$this->collectiontablename."
-                WHERE userid = :userid AND ".$this->collectioncolumn." = :elementid";
+                WHERE userid = :userid AND ".$this->othertablecolumn." = :elementid";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
       }
@@ -125,6 +126,19 @@ abstract class Mapper {
     }
 
     return $result;
+  }
+
+  public function favoriteForUser($elementid, $userid) {
+    $sql = "INSERT INTO ".$this->favoritestablename."(userid,".$this->othertablecolumn.")
+            VALUES(:userid,:elementid)";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
+  }
+  public function unfavoriteForUser($elementid, $userid) {
+    $sql = "DELETE FROM ".$this->favoritestablename."
+            WHERE userid = :userid AND ".$this->othertablecolumn." = :elementid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid]);
   }
 
   public function addHistory($userid, $elementid, $action) {

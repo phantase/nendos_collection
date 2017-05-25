@@ -3,6 +3,8 @@
 class PhotoMapper extends Mapper
 {
   protected $tablename = "photos";
+  protected $favoritestablename = "users_photos_favorites";
+  protected $othertablecolumn = "photoid";
 
   public function get() {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated

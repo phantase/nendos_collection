@@ -13,3 +13,7 @@
 
 * Page to edit (change/add) the user picture, and services server side
 * Page to edit an user, and services server side
+
+# Favorites
+
+* See if we let the internalid, maybe it's better to remove it and make the userid+elementid the PK (unique), so we avoid users favorite multiple time the element if they use the API...

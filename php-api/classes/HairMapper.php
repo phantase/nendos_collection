@@ -4,7 +4,8 @@ class HairMapper extends Mapper
 {
   protected $tablename = "hairs";
   protected $collectiontablename = "users_hairs_collection";
-  protected $collectioncolumn = "hairid";
+  protected $favoritestablename = "users_hairs_favorites";
+  protected $othertablecolumn = "hairid";
 
   public function get($userid=null, $validated=true) {
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
