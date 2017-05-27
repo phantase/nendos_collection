@@ -17,3 +17,7 @@
 # Favorites
 
 * See if we let the internalid, maybe it's better to remove it and make the userid+elementid the PK (unique), so we avoid users favorite multiple time the element if they use the API...
+
+# Tooltips
+
+* Add tooltips on ALL buttons and objects that can lead to an action
