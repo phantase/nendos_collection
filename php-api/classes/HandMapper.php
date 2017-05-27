@@ -12,7 +12,8 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -21,7 +22,18 @@ class HandMapper extends Mapper
                   SELECT handid, additiondate, quantity
                   FROM users_hands_collection
                   WHERE userid = :userid
-                  ) AS ucol ON h.internalid = ucol.handid";
+                  ) AS ucol ON h.internalid = ucol.handid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, handid
+                  FROM users_hands_favorites
+                  GROUP BY handid
+                  ) AS faved ON h.internalid = faved.handid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, handid
+                  FROM users_hands_favorites
+                  WHERE userid = :userid
+                  GROUP BY handid
+                  ) AS userfav ON h.internalid = userfav.handid";
     if ($validated) {
       $sql .= " WHERE h.validatorid IS NOT NULL";
     }
@@ -40,7 +52,8 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -50,6 +63,17 @@ class HandMapper extends Mapper
                   FROM users_hands_collection
                   WHERE userid = :userid
                   ) AS ucol ON h.internalid = ucol.handid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, handid
+                  FROM users_hands_favorites
+                  GROUP BY handid
+                  ) AS faved ON h.internalid = faved.handid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, handid
+                  FROM users_hands_favorites
+                  WHERE userid = :userid
+                  GROUP BY handid
+                  ) AS userfav ON h.internalid = userfav.handid
             WHERE h.internalid = :hand_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["hand_internalid" => $hand_internalid, "userid" => $userid]);
@@ -64,7 +88,8 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -74,6 +99,17 @@ class HandMapper extends Mapper
                   FROM users_hands_collection
                   WHERE userid = :userid
                   ) AS ucol ON h.internalid = ucol.handid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, handid
+                  FROM users_hands_favorites
+                  GROUP BY handid
+                  ) AS faved ON h.internalid = faved.handid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, handid
+                  FROM users_hands_favorites
+                  WHERE userid = :userid
+                  GROUP BY handid
+                  ) AS userfav ON h.internalid = userfav.handid
             WHERE h.boxid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid, "userid" => $userid]);
@@ -90,7 +126,8 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -100,6 +137,17 @@ class HandMapper extends Mapper
                   FROM users_hands_collection
                   WHERE userid = :userid
                   ) AS ucol ON h.internalid = ucol.handid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, handid
+                  FROM users_hands_favorites
+                  GROUP BY handid
+                  ) AS faved ON h.internalid = faved.handid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, handid
+                  FROM users_hands_favorites
+                  WHERE userid = :userid
+                  GROUP BY handid
+                  ) AS userfav ON h.internalid = userfav.handid
             WHERE h.nendoroidid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid, "userid" => $userid]);
@@ -116,7 +164,8 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -126,6 +175,17 @@ class HandMapper extends Mapper
                   FROM users_hands_collection
                   WHERE userid = :userid
                   ) AS ucol ON h.internalid = ucol.handid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, handid
+                  FROM users_hands_favorites
+                  GROUP BY handid
+                  ) AS faved ON h.internalid = faved.handid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, handid
+                  FROM users_hands_favorites
+                  WHERE userid = :userid
+                  GROUP BY handid
+                  ) AS userfav ON h.internalid = userfav.handid
             WHERE h.internalid = :handid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["handid" => $handid, "userid" => $userid]);
@@ -143,7 +203,8 @@ class HandMapper extends Mapper
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
                   ph.xmin, ph.xmax, ph.ymin, ph.ymax, ph.internalid AS photoannotationid,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -154,6 +215,17 @@ class HandMapper extends Mapper
                   FROM users_hands_collection
                   WHERE userid = :userid
                   ) AS ucol ON h.internalid = ucol.handid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, handid
+                  FROM users_hands_favorites
+                  GROUP BY handid
+                  ) AS faved ON h.internalid = faved.handid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, handid
+                  FROM users_hands_favorites
+                  WHERE userid = :userid
+                  GROUP BY handid
+                  ) AS userfav ON h.internalid = userfav.handid
             WHERE ph.photoid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid, "userid" => $userid]);
