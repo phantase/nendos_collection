@@ -12,7 +12,8 @@ class FaceMapper extends Mapper
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
                   f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
             LEFT JOIN users ue ON f.editorid = ue.internalid
@@ -21,7 +22,18 @@ class FaceMapper extends Mapper
                   SELECT faceid, additiondate, quantity
                   FROM users_faces_collection
                   WHERE userid = :userid
-                  ) AS ucol ON f.internalid = ucol.faceid";
+                  ) AS ucol ON f.internalid = ucol.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, faceid
+                  FROM users_faces_favorites
+                  GROUP BY faceid
+                  ) AS faved ON f.internalid = faved.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, faceid
+                  FROM users_faces_favorites
+                  WHERE userid = :userid
+                  GROUP BY faceid
+                  ) AS userfav ON f.internalid = userfav.faceid";
     if ($validated) {
       $sql .= " WHERE f.validatorid IS NOT NULL";
     }
@@ -40,7 +52,8 @@ class FaceMapper extends Mapper
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
                   f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
             LEFT JOIN users ue ON f.editorid = ue.internalid
@@ -50,6 +63,17 @@ class FaceMapper extends Mapper
                   FROM users_faces_collection
                   WHERE userid = :userid
                   ) AS ucol ON f.internalid = ucol.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, faceid
+                  FROM users_faces_favorites
+                  GROUP BY faceid
+                  ) AS faved ON f.internalid = faved.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, faceid
+                  FROM users_faces_favorites
+                  WHERE userid = :userid
+                  GROUP BY faceid
+                  ) AS userfav ON f.internalid = userfav.faceid
             WHERE f.internalid = :face_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["face_internalid" => $face_internalid, "userid" => $userid]);
@@ -64,7 +88,8 @@ class FaceMapper extends Mapper
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
                   f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
             LEFT JOIN users ue ON f.editorid = ue.internalid
@@ -74,6 +99,17 @@ class FaceMapper extends Mapper
                   FROM users_faces_collection
                   WHERE userid = :userid
                   ) AS ucol ON f.internalid = ucol.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, faceid
+                  FROM users_faces_favorites
+                  GROUP BY faceid
+                  ) AS faved ON f.internalid = faved.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, faceid
+                  FROM users_faces_favorites
+                  WHERE userid = :userid
+                  GROUP BY faceid
+                  ) AS userfav ON f.internalid = userfav.faceid
             WHERE f.boxid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid, "userid" => $userid]);
@@ -90,7 +126,8 @@ class FaceMapper extends Mapper
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
                   f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
             LEFT JOIN users ue ON f.editorid = ue.internalid
@@ -100,6 +137,17 @@ class FaceMapper extends Mapper
                   FROM users_faces_collection
                   WHERE userid = :userid
                   ) AS ucol ON f.internalid = ucol.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, faceid
+                  FROM users_faces_favorites
+                  GROUP BY faceid
+                  ) AS faved ON f.internalid = faved.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, faceid
+                  FROM users_faces_favorites
+                  WHERE userid = :userid
+                  GROUP BY faceid
+                  ) AS userfav ON f.internalid = userfav.faceid
             WHERE f.nendoroidid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid, "userid" => $userid]);
@@ -116,7 +164,8 @@ class FaceMapper extends Mapper
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
                   f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
             LEFT JOIN users ue ON f.editorid = ue.internalid
@@ -126,6 +175,17 @@ class FaceMapper extends Mapper
                   FROM users_faces_collection
                   WHERE userid = :userid
                   ) AS ucol ON f.internalid = ucol.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, faceid
+                  FROM users_faces_favorites
+                  GROUP BY faceid
+                  ) AS faved ON f.internalid = faved.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, faceid
+                  FROM users_faces_favorites
+                  WHERE userid = :userid
+                  GROUP BY faceid
+                  ) AS userfav ON f.internalid = userfav.faceid
             WHERE f.internalid = :faceid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["faceid" => $faceid, "userid" => $userid]);
@@ -143,7 +203,8 @@ class FaceMapper extends Mapper
                   f.editorid, ue.username AS editorname, f.editiondate,
                   f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
                   pf.xmin, pf.xmax, pf.ymin, pf.ymax, pf.internalid AS photoannotationid,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM faces f
             LEFT JOIN users uc ON f.creatorid = uc.internalid
             LEFT JOIN users ue ON f.editorid = ue.internalid
@@ -154,6 +215,17 @@ class FaceMapper extends Mapper
                   FROM users_faces_collection
                   WHERE userid = :userid
                   ) AS ucol ON f.internalid = ucol.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, faceid
+                  FROM users_faces_favorites
+                  GROUP BY faceid
+                  ) AS faved ON f.internalid = faved.faceid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, faceid
+                  FROM users_faces_favorites
+                  WHERE userid = :userid
+                  GROUP BY faceid
+                  ) AS userfav ON f.internalid = userfav.faceid
             WHERE pf.photoid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid, "userid" => $userid]);
