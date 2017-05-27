@@ -12,7 +12,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -21,7 +22,18 @@ class AccessoryMapper extends Mapper
                   SELECT accessoryid, additiondate, quantity
                   FROM users_accessories_collection
                   WHERE userid = :userid
-                  ) AS ucol ON a.internalid = ucol.accessoryid";
+                  ) AS ucol ON a.internalid = ucol.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS faved ON a.internalid = faved.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, accessoryid
+                  FROM users_accessories_favorites
+                  WHERE userid = :userid
+                  GROUP BY accessoryid
+                  ) AS userfav ON a.internalid = userfav.accessoryid";
     if ($validated) {
       $sql .= " WHERE a.validatorid IS NOT NULL";
     }
@@ -40,7 +52,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -50,6 +63,17 @@ class AccessoryMapper extends Mapper
                   FROM users_accessories_collection
                   WHERE userid = :userid
                   ) AS ucol ON a.internalid = ucol.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS faved ON a.internalid = faved.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, accessoryid
+                  FROM users_accessories_favorites
+                  WHERE userid = :userid
+                  GROUP BY accessoryid
+                  ) AS userfav ON a.internalid = userfav.accessoryid
             WHERE a.internalid = :accessory_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["accessory_internalid" => $accessory_internalid, "userid" => $userid]);
@@ -64,7 +88,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -74,6 +99,17 @@ class AccessoryMapper extends Mapper
                   FROM users_accessories_collection
                   WHERE userid = :userid
                   ) AS ucol ON a.internalid = ucol.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS faved ON a.internalid = faved.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, accessoryid
+                  FROM users_accessories_favorites
+                  WHERE userid = :userid
+                  GROUP BY accessoryid
+                  ) AS userfav ON a.internalid = userfav.accessoryid
             WHERE a.boxid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid, "userid" => $userid]);
@@ -90,7 +126,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -100,6 +137,17 @@ class AccessoryMapper extends Mapper
                   FROM users_accessories_collection
                   WHERE userid = :userid
                   ) AS ucol ON a.internalid = ucol.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS faved ON a.internalid = faved.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, accessoryid
+                  FROM users_accessories_favorites
+                  WHERE userid = :userid
+                  GROUP BY accessoryid
+                  ) AS userfav ON a.internalid = userfav.accessoryid
             WHERE a.nendoroidid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid, "userid" => $userid]);
@@ -116,7 +164,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -126,6 +175,17 @@ class AccessoryMapper extends Mapper
                   FROM users_accessories_collection
                   WHERE userid = :userid
                   ) AS ucol ON a.internalid = ucol.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS faved ON a.internalid = faved.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, accessoryid
+                  FROM users_accessories_favorites
+                  WHERE userid = :userid
+                  GROUP BY accessoryid
+                  ) AS userfav ON a.internalid = userfav.accessoryid
             WHERE a.internalid = :accessoryid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["accessoryid" => $accessoryid, "userid" => $userid]);
@@ -143,7 +203,8 @@ class AccessoryMapper extends Mapper
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   pa.xmin, pa.xmax, pa.ymin, pa.ymax, pa.internalid AS photoannotationid,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -154,6 +215,17 @@ class AccessoryMapper extends Mapper
                   FROM users_accessories_collection
                   WHERE userid = :userid
                   ) AS ucol ON a.internalid = ucol.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS faved ON a.internalid = faved.accessoryid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, accessoryid
+                  FROM users_accessories_favorites
+                  WHERE userid = :userid
+                  GROUP BY accessoryid
+                  ) AS userfav ON a.internalid = userfav.accessoryid
             WHERE pa.photoid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid, "userid" => $userid]);
