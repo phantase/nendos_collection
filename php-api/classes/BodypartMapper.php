@@ -12,7 +12,8 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -21,7 +22,18 @@ class BodypartMapper extends Mapper
                   SELECT bodypartid, additiondate, quantity
                   FROM users_bodyparts_collection
                   WHERE userid = :userid
-                  ) AS ucol ON bp.internalid = ucol.bodypartid";
+                  ) AS ucol ON bp.internalid = ucol.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, bodypartid
+                  FROM users_bodyparts_favorites
+                  GROUP BY bodypartid
+                  ) AS faved ON bp.internalid = faved.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, bodypartid
+                  FROM users_bodyparts_favorites
+                  WHERE userid = :userid
+                  GROUP BY bodypartid
+                  ) AS userfav ON bp.internalid = userfav.bodypartid";
     if ($validated) {
       $sql .= " WHERE bp.validatorid IS NOT NULL";
     }
@@ -40,7 +52,8 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -50,6 +63,17 @@ class BodypartMapper extends Mapper
                   FROM users_bodyparts_collection
                   WHERE userid = :userid
                   ) AS ucol ON bp.internalid = ucol.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, bodypartid
+                  FROM users_bodyparts_favorites
+                  GROUP BY bodypartid
+                  ) AS faved ON bp.internalid = faved.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, bodypartid
+                  FROM users_bodyparts_favorites
+                  WHERE userid = :userid
+                  GROUP BY bodypartid
+                  ) AS userfav ON bp.internalid = userfav.bodypartid
             WHERE bp.internalid = :bodypart_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["bodypart_internalid" => $bodypart_internalid, "userid" => $userid]);
@@ -64,7 +88,8 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -74,6 +99,17 @@ class BodypartMapper extends Mapper
                   FROM users_bodyparts_collection
                   WHERE userid = :userid
                   ) AS ucol ON bp.internalid = ucol.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, bodypartid
+                  FROM users_bodyparts_favorites
+                  GROUP BY bodypartid
+                  ) AS faved ON bp.internalid = faved.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, bodypartid
+                  FROM users_bodyparts_favorites
+                  WHERE userid = :userid
+                  GROUP BY bodypartid
+                  ) AS userfav ON bp.internalid = userfav.bodypartid
             WHERE bp.boxid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid, "userid" => $userid]);
@@ -90,7 +126,8 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -100,6 +137,17 @@ class BodypartMapper extends Mapper
                   FROM users_bodyparts_collection
                   WHERE userid = :userid
                   ) AS ucol ON bp.internalid = ucol.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, bodypartid
+                  FROM users_bodyparts_favorites
+                  GROUP BY bodypartid
+                  ) AS faved ON bp.internalid = faved.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, bodypartid
+                  FROM users_bodyparts_favorites
+                  WHERE userid = :userid
+                  GROUP BY bodypartid
+                  ) AS userfav ON bp.internalid = userfav.bodypartid
             WHERE bp.nendoroidid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid, "userid" => $userid]);
@@ -116,7 +164,8 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -126,6 +175,17 @@ class BodypartMapper extends Mapper
                   FROM users_bodyparts_collection
                   WHERE userid = :userid
                   ) AS ucol ON bp.internalid = ucol.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, bodypartid
+                  FROM users_bodyparts_favorites
+                  GROUP BY bodypartid
+                  ) AS faved ON bp.internalid = faved.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, bodypartid
+                  FROM users_bodyparts_favorites
+                  WHERE userid = :userid
+                  GROUP BY bodypartid
+                  ) AS userfav ON bp.internalid = userfav.bodypartid
             WHERE bp.internalid = :bodypartid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["bodypartid" => $bodypartid, "userid" => $userid]);
@@ -143,7 +203,8 @@ class BodypartMapper extends Mapper
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   pb.xmin, pb.xmax, pb.ymin, pb.ymax, pb.internalid AS photoannotationid,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  faved.numberfavorited, userfav.inuserfavorites
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -154,6 +215,17 @@ class BodypartMapper extends Mapper
                   FROM users_bodyparts_collection
                   WHERE userid = :userid
                   ) AS ucol ON bp.internalid = ucol.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, bodypartid
+                  FROM users_bodyparts_favorites
+                  GROUP BY bodypartid
+                  ) AS faved ON bp.internalid = faved.bodypartid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, bodypartid
+                  FROM users_bodyparts_favorites
+                  WHERE userid = :userid
+                  GROUP BY bodypartid
+                  ) AS userfav ON bp.internalid = userfav.bodypartid
             WHERE pb.photoid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid, "userid" => $userid]);
