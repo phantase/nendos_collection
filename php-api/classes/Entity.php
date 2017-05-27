@@ -11,6 +11,9 @@ class Entity
   // For user collection
   protected $colladdeddate;
   protected $collquantity;
+  // For favorites
+  protected $numberfavorited;
+  protected $inuserfavorites;
 
   public function getXMin() {
     return $this->xmin;
@@ -38,6 +41,14 @@ class Entity
 
   public function getCollQuantity() {
     return $this->collquantity;
+  }
+
+  public function getNumberFavorited() {
+    return $this->numberfavorited;
+  }
+
+  public function getInUserFavorites() {
+    return $this->inuserfavorites;
   }
 
 }

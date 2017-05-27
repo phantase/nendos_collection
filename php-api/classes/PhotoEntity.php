@@ -29,6 +29,8 @@ class PhotoEntity implements JsonSerializable
     $this->height = $data['height'];
     $this->uploaded = $data['uploaded'];
     $this->updated = $data['updated'];
+    $this->numberfavorited = $data['numberfavorited'];
+    $this->inuserfavorites = $data['inuserfavorites'];
   }
 
   public function getInternalid() {
@@ -73,6 +75,8 @@ class PhotoEntity implements JsonSerializable
       'height' => $this->height,
       'uploaded' => $this->uploaded,
       'updated' => $this->updated,
+      'numberfavorited' => $this->numberfavorited,
+      'inuserfavorites' => $this->inuserfavorites
     ];
   }
 
