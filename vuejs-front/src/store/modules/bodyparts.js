@@ -53,6 +53,14 @@ const mutations = {
     state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validatorname = null
     state.bodyparts.filter(bodypart => bodypart.internalid === bodypartid)[0].validationdate = null
   },
+  [types.FAVORITE_BODYPART] (state, bodypartid) {
+    state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).numberfavorited++
+    state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).inuserfavorites = '1'
+  },
+  [types.UNFAVORITE_BODYPART] (state, bodypartid) {
+    state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).numberfavorited--
+    state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).inuserfavorites = null
+  },
   [types.ADD_BODYPART_PICTURE] (state, internalid) {
     let idx = state.bodyparts.findIndex(intbodypart => intbodypart.internalid === internalid)
     state.bodyparts[idx].haspicture = 1
@@ -138,6 +146,30 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('bodyparts/' + bodypartid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_BODYPART, bodypartid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  favoriteBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('bodyparts/' + bodypartid + '/favorite').then(response => {
+        store.commit(types.FAVORITE_BODYPART, bodypartid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unfavoriteBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('bodyparts/' + bodypartid + '/unfavorite').then(response => {
+        store.commit(types.UNFAVORITE_BODYPART, bodypartid)
         resolve()
       }, response => {
         reject()
