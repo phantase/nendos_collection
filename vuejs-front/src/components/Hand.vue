@@ -6,7 +6,15 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <router-link :to="'/hand/'+hand.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link>
+              <button type="button" class="btn btn-xs pull-right" :class="hand.inuserfavorites==='1'?'text-red':'text-muted'"
+                      data-toggle="tooltip"
+                      :title="favoriteTooltipTitle"
+                      :disabled="!authenticated"
+                      @click.once="doFavorite">
+                <i class="fa fa-heart" ></i>
+                <span class="badge bg-yellow">{{ hand.numberfavorited ? hand.numberfavorited : '0' }}</span>
+              </button>
+              <router-link :to="'/hand/'+hand.internalid+'/edit'" class="btn btn-xs bg-blue pull-right margin-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link>
               <div class="db-face-internalid">Hand {{ hand.internalid }}</div>
             </h3>
           </div>
@@ -145,10 +153,17 @@ export default {
     },
     photo4hand () {
       return this.photos.filter(this.filterPhoto)
+    },
+    favoriteTooltipTitle () {
+      if (this.authenticated) {
+        return this.hand.inuserfavorites ? 'In your favorites (remove)' : 'Not in your favorites (add)'
+      } else {
+        return 'Number of times favorited'
+      }
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectHand', 'uncollectHand', 'validateHand', 'unvalidateHand']),
+    ...Vuex.mapActions(['collectHand', 'uncollectHand', 'validateHand', 'unvalidateHand', 'favoriteHand', 'unfavoriteHand']),
     filterPhoto (photoObj) {
       return this.photohands.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -195,6 +210,32 @@ export default {
       }, () => {
         console.log('UNValidation failed')
       })
+    },
+    doFavorite () {
+      console.log('DO FAVORITE...')
+      if (this.hand.inuserfavorites === '1') {
+        console.log('UNFAVORITE...')
+        this.unfavoriteHand({
+          'context': this,
+          'handid': this.hand.internalid
+        }).then(() => {
+          console.log('UNFavorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('UnFavorite failed')
+        })
+      } else {
+        console.log('FAVORITE...')
+        this.favoriteHand({
+          'context': this,
+          'handid': this.hand.internalid
+        }).then(() => {
+          console.log('Favorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('Favorite failed')
+        })
+      }
     }
   }
 }
@@ -207,5 +248,8 @@ export default {
   }
   .pull-right+br {
     clear: both;
+  }
+  .margin-right {
+    margin-right: 5px;
   }
 </style>

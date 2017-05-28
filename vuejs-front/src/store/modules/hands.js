@@ -53,6 +53,14 @@ const mutations = {
     state.hands.filter(hand => hand.internalid === handid)[0].validatorname = null
     state.hands.filter(hand => hand.internalid === handid)[0].validationdate = null
   },
+  [types.FAVORITE_HAND] (state, handid) {
+    state.hands.find(hand => hand.internalid === handid).numberfavorited++
+    state.hands.find(hand => hand.internalid === handid).inuserfavorites = '1'
+  },
+  [types.UNFAVORITE_HAND] (state, handid) {
+    state.hands.find(hand => hand.internalid === handid).numberfavorited--
+    state.hands.find(hand => hand.internalid === handid).inuserfavorites = null
+  },
   [types.ADD_HAND_PICTURE] (state, internalid) {
     let idx = state.hands.findIndex(inthand => inthand.internalid === internalid)
     state.hands[idx].haspicture = 1
@@ -138,6 +146,30 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('hands/' + handid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_HAND, handid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  favoriteHand (store, payload) {
+    let context = payload.context
+    let handid = payload.handid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hands/' + handid + '/favorite').then(response => {
+        store.commit(types.FAVORITE_HAND, handid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unfavoriteHand (store, payload) {
+    let context = payload.context
+    let handid = payload.handid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hands/' + handid + '/unfavorite').then(response => {
+        store.commit(types.UNFAVORITE_HAND, handid)
         resolve()
       }, response => {
         reject()
