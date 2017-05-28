@@ -6,7 +6,15 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <router-link :to="'/accessory/'+accessory.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link>
+              <button type="button" class="btn btn-xs pull-right" :class="accessory.inuserfavorites==='1'?'text-red':'text-muted'"
+                      data-toggle="tooltip"
+                      :title="favoriteTooltipTitle"
+                      :disabled="!authenticated"
+                      @click.once="doFavorite">
+                <i class="fa fa-heart" ></i>
+                <span class="badge bg-yellow">{{ accessory.numberfavorited ? accessory.numberfavorited : '0' }}</span>
+              </button>
+              <router-link :to="'/accessory/'+accessory.internalid+'/edit'" class="btn btn-xs bg-blue pull-right margin-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link>
               <div class="db-accessory-internalid">Accessory {{ accessory.internalid }}</div>
             </h3>
           </div>
@@ -145,10 +153,17 @@ export default {
     },
     photos4accessory () {
       return this.photos.filter(this.filterPhoto)
+    },
+    favoriteTooltipTitle () {
+      if (this.authenticated) {
+        return this.accessory.inuserfavorites ? 'In your favorites (remove)' : 'Not in your favorites (add)'
+      } else {
+        return 'Number of times favorited'
+      }
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectAccessory', 'uncollectAccessory', 'validateAccessory', 'unvalidateAccessory']),
+    ...Vuex.mapActions(['collectAccessory', 'uncollectAccessory', 'validateAccessory', 'unvalidateAccessory', 'favoriteAccessory', 'unfavoriteAccessory']),
     filterPhoto (photoObj) {
       return this.photoaccessories.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -195,6 +210,32 @@ export default {
       }, () => {
         console.log('UNValidation failed')
       })
+    },
+    doFavorite () {
+      console.log('DO FAVORITE...')
+      if (this.accessory.inuserfavorites === '1') {
+        console.log('UNFAVORITE...')
+        this.unfavoriteAccessory({
+          'context': this,
+          'accessoryid': this.accessory.internalid
+        }).then(() => {
+          console.log('UNFavorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('UnFavorite failed')
+        })
+      } else {
+        console.log('FAVORITE...')
+        this.favoriteAccessory({
+          'context': this,
+          'accessoryid': this.accessory.internalid
+        }).then(() => {
+          console.log('Favorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('Favorite failed')
+        })
+      }
     }
   }
 }
@@ -207,5 +248,8 @@ export default {
   }
   .pull-right+br {
     clear: both;
+  }
+  .margin-right {
+    margin-right: 5px;
   }
 </style>

@@ -53,6 +53,14 @@ const mutations = {
     state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validatorname = null
     state.accessories.filter(accessory => accessory.internalid === accessoryid)[0].validationdate = null
   },
+  [types.FAVORITE_ACCESSORY] (state, accessoryid) {
+    state.accessories.find(accessory => accessory.internalid === accessoryid).numberfavorited++
+    state.accessories.find(accessory => accessory.internalid === accessoryid).inuserfavorites = '1'
+  },
+  [types.UNFAVORITE_ACCESSORY] (state, accessoryid) {
+    state.accessories.find(accessory => accessory.internalid === accessoryid).numberfavorited--
+    state.accessories.find(accessory => accessory.internalid === accessoryid).inuserfavorites = null
+  },
   [types.ADD_ACCESSORY_PICTURE] (state, internalid) {
     let idx = state.accessories.findIndex(intaccessory => intaccessory.internalid === internalid)
     state.accessories[idx].haspicture = 1
@@ -138,6 +146,30 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('accessories/' + accessoryid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_ACCESSORY, accessoryid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  favoriteAccessory (store, payload) {
+    let context = payload.context
+    let accessoryid = payload.accessoryid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('accessories/' + accessoryid + '/favorite').then(response => {
+        store.commit(types.FAVORITE_ACCESSORY, accessoryid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unfavoriteAccessory (store, payload) {
+    let context = payload.context
+    let accessoryid = payload.accessoryid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('accessories/' + accessoryid + '/unfavorite').then(response => {
+        store.commit(types.UNFAVORITE_ACCESSORY, accessoryid)
         resolve()
       }, response => {
         reject()
