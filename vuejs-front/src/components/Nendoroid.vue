@@ -6,7 +6,15 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <div class="pull-right">
+              <button type="button" class="btn btn-xs pull-right" :class="nendoroid.inuserfavorites==='1'?'text-red':'text-muted'"
+                      data-toggle="tooltip"
+                      :title="favoriteTooltipTitle"
+                      :disabled="!authenticated"
+                      @click.once="doFavorite">
+                <i class="fa fa-heart" ></i>
+                <span class="badge bg-yellow">{{ nendoroid.numberfavorited ? nendoroid.numberfavorited : '0' }}</span>
+              </button>
+              <div class="pull-right margin-right">
                 <div><router-link :to="'/nendoroid/'+nendoroid.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link></div>
                 <div style="margin-top:5px;"><router-link :to="'/nendoroid/'+nendoroid.internalid+'/addpart'" class="btn btn-xs bg-orange pull-right" v-if="canedit"><i class="fa fa-plus"></i> Add a part</router-link></div>
               </div>
@@ -200,10 +208,17 @@ export default {
     },
     photo4nendoroid () {
       return this.photos.filter(this.filterPhoto)
+    },
+    favoriteTooltipTitle () {
+      if (this.authenticated) {
+        return this.nendoroid.inuserfavorites ? 'In your favorites (remove)' : 'Not in your favorites (add)'
+      } else {
+        return 'Number of times favorited'
+      }
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectNendoroid', 'uncollectNendoroid', 'validateNendoroid', 'unvalidateNendoroid']),
+    ...Vuex.mapActions(['collectNendoroid', 'uncollectNendoroid', 'validateNendoroid', 'unvalidateNendoroid', 'favoriteNendoroid', 'unfavoriteNendoroid']),
     filterPhoto (photoObj) {
       return this.photonendoroids.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -250,6 +265,32 @@ export default {
       }, () => {
         console.log('UNValidation failed')
       })
+    },
+    doFavorite () {
+      console.log('DO FAVORITE...')
+      if (this.nendoroid.inuserfavorites === '1') {
+        console.log('UNFAVORITE...')
+        this.unfavoriteNendoroid({
+          'context': this,
+          'nendoroidid': this.nendoroid.internalid
+        }).then(() => {
+          console.log('UNFavorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('UnFavorite failed')
+        })
+      } else {
+        console.log('FAVORITE...')
+        this.favoriteNendoroid({
+          'context': this,
+          'nendoroidid': this.nendoroid.internalid
+        }).then(() => {
+          console.log('Favorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('Favorite failed')
+        })
+      }
     }
   }
 }
@@ -262,5 +303,8 @@ export default {
   }
   .pull-right+br {
     clear: both;
+  }
+  .margin-right {
+    margin-right: 5px;
   }
 </style>

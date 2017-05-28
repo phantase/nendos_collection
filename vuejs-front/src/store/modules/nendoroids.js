@@ -53,6 +53,14 @@ const mutations = {
     state.nendoroids.filter(nendoroid => nendoroid.internalid === nendoroidid)[0].validatorname = null
     state.nendoroids.filter(nendoroid => nendoroid.internalid === nendoroidid)[0].validationdate = null
   },
+  [types.FAVORITE_NENDOROID] (state, nendoroidid) {
+    state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).numberfavorited++
+    state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).inuserfavorites = '1'
+  },
+  [types.UNFAVORITE_NENDOROID] (state, nendoroidid) {
+    state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).numberfavorited--
+    state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).inuserfavorites = null
+  },
   [types.ADD_NENDOROID_PICTURE] (state, internalid) {
     let idx = state.nendoroids.findIndex(intnendoroid => intnendoroid.internalid === internalid)
     state.nendoroids[idx].haspicture = 1
@@ -138,6 +146,30 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('nendoroids/' + nendoroidid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_NENDOROID, nendoroidid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  favoriteNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('nendoroids/' + nendoroidid + '/favorite').then(response => {
+        store.commit(types.FAVORITE_NENDOROID, nendoroidid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unfavoriteNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('nendoroids/' + nendoroidid + '/unfavorite').then(response => {
+        store.commit(types.UNFAVORITE_NENDOROID, nendoroidid)
         resolve()
       }, response => {
         reject()
