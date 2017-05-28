@@ -53,6 +53,14 @@ const mutations = {
     state.faces.filter(face => face.internalid === faceid)[0].validatorname = null
     state.faces.filter(face => face.internalid === faceid)[0].validationdate = null
   },
+  [types.FAVORITE_FACE] (state, faceid) {
+    state.faces.find(face => face.internalid === faceid).numberfavorited++
+    state.faces.find(face => face.internalid === faceid).inuserfavorites = '1'
+  },
+  [types.UNFAVORITE_FACE] (state, faceid) {
+    state.faces.find(face => face.internalid === faceid).numberfavorited--
+    state.faces.find(face => face.internalid === faceid).inuserfavorites = null
+  },
   [types.ADD_FACE_PICTURE] (state, internalid) {
     let idx = state.faces.findIndex(intface => intface.internalid === internalid)
     state.faces[idx].haspicture = 1
@@ -138,6 +146,30 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('faces/' + faceid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_FACE, faceid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  favoriteFace (store, payload) {
+    let context = payload.context
+    let faceid = payload.faceid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('faces/' + faceid + '/favorite').then(response => {
+        store.commit(types.FAVORITE_FACE, faceid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unfavoriteFace (store, payload) {
+    let context = payload.context
+    let faceid = payload.faceid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('faces/' + faceid + '/unfavorite').then(response => {
+        store.commit(types.UNFAVORITE_FACE, faceid)
         resolve()
       }, response => {
         reject()
