@@ -53,6 +53,14 @@ const mutations = {
     state.hairs.filter(hair => hair.internalid === hairid)[0].validatorname = null
     state.hairs.filter(hair => hair.internalid === hairid)[0].validationdate = null
   },
+  [types.FAVORITE_HAIR] (state, hairid) {
+    state.hairs.find(hair => hair.internalid === hairid).numberfavorited++
+    state.hairs.find(hair => hair.internalid === hairid).inuserfavorites = '1'
+  },
+  [types.UNFAVORITE_HAIR] (state, hairid) {
+    state.hairs.find(hair => hair.internalid === hairid).numberfavorited--
+    state.hairs.find(hair => hair.internalid === hairid).inuserfavorites = null
+  },
   [types.ADD_HAIR_PICTURE] (state, internalid) {
     let idx = state.hairs.findIndex(inthair => inthair.internalid === internalid)
     state.hairs[idx].haspicture = 1
@@ -138,6 +146,30 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('hairs/' + hairid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_HAIR, hairid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  favoriteHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hairs/' + hairid + '/favorite').then(response => {
+        store.commit(types.FAVORITE_HAIR, hairid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unfavoriteHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('hairs/' + hairid + '/unfavorite').then(response => {
+        store.commit(types.UNFAVORITE_HAIR, hairid)
         resolve()
       }, response => {
         reject()
