@@ -16,6 +16,8 @@ export const COLLECT_BOX = 'COLLECT_BOX'
 export const UNCOLLECT_BOX = 'UNCOLLECT_BOX'
 export const VALIDATE_BOX = 'VALIDATE_BOX'
 export const UNVALIDATE_BOX = 'UNVALIDATE_BOX'
+export const FAVORITE_BOX = 'FAVORITE_BOX'
+export const UNFAVORITE_BOX = 'UNFAVORITE_BOX'
 export const ADD_BOX_PICTURE = 'ADD_BOX_PICTURE'
 // nendoroids
 export const ADD_NENDOROID = 'ADD_NENDOROID'

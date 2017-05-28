@@ -6,7 +6,15 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <div class="pull-right">
+              <button type="button" class="btn btn-xs pull-right" :class="box.inuserfavorites==='1'?'text-red':'text-muted'"
+                      data-toggle="tooltip"
+                      :title="favoriteTooltipTitle"
+                      :disabled="!authenticated"
+                      @click.once="doFavorite">
+                <i class="fa fa-heart" ></i>
+                <span class="badge bg-yellow">{{ box.numberfavorited ? box.numberfavorited : '0' }}</span>
+              </button>
+              <div class="pull-right margin-right">
                 <div><router-link :to="'/box/'+box.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canedit"><i class="fa fa-edit"></i> Edit</router-link></div>
                 <div style="margin-top:5px;"><router-link :to="'/box/'+box.internalid+'/addpart'" class="btn btn-xs bg-orange pull-right" v-if="canedit"><i class="fa fa-plus"></i> Add a part</router-link></div>
               </div>
@@ -236,10 +244,17 @@ export default {
     },
     photo4box () {
       return this.photos.filter(this.filterPhoto)
+    },
+    favoriteTooltipTitle () {
+      if (this.authenticated) {
+        return this.box.inuserfavorites ? 'In your favorites (remove)' : 'Not in your favorites (add)'
+      } else {
+        return 'Number of times favorited'
+      }
     }
   },
   methods: {
-    ...Vuex.mapActions(['validateBox', 'unvalidateBox']),
+    ...Vuex.mapActions(['validateBox', 'unvalidateBox', 'favoriteBox', 'unfavoriteBox']),
     filterPhoto (photoObj) {
       return this.photoboxes.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -270,6 +285,32 @@ export default {
       }, () => {
         console.log('UNValidation failed')
       })
+    },
+    doFavorite () {
+      console.log('DO FAVORITE...')
+      if (this.box.inuserfavorites === '1') {
+        console.log('UNFAVORITE...')
+        this.unfavoriteBox({
+          'context': this,
+          'boxid': this.box.internalid
+        }).then(() => {
+          console.log('UNFavorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('UnFavorite failed')
+        })
+      } else {
+        console.log('FAVORITE...')
+        this.favoriteBox({
+          'context': this,
+          'boxid': this.box.internalid
+        }).then(() => {
+          console.log('Favorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('Favorite failed')
+        })
+      }
     }
   }
 }
@@ -282,5 +323,8 @@ export default {
   }
   .pull-right+br {
     clear: both;
+  }
+  .margin-right {
+    margin-right: 5px;
   }
 </style>

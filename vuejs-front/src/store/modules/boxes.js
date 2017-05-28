@@ -53,6 +53,14 @@ const mutations = {
     state.boxes.filter(box => box.internalid === boxid)[0].validatorname = null
     state.boxes.filter(box => box.internalid === boxid)[0].validationdate = null
   },
+  [types.FAVORITE_BOX] (state, boxid) {
+    state.boxes.find(box => box.internalid === boxid).numberfavorited++
+    state.boxes.find(box => box.internalid === boxid).inuserfavorites = '1'
+  },
+  [types.UNFAVORITE_BOX] (state, boxid) {
+    state.boxes.find(box => box.internalid === boxid).numberfavorited--
+    state.boxes.find(box => box.internalid === boxid).inuserfavorites = null
+  },
   [types.ADD_BOX_PICTURE] (state, internalid) {
     let idx = state.boxes.findIndex(intbox => intbox.internalid === internalid)
     state.boxes[idx].haspicture = 1
@@ -138,6 +146,30 @@ const actions = {
     return new Promise((resolve, reject) => {
       context.$http.patch('boxes/' + boxid + '/unvalidate').then(response => {
         store.commit(types.UNVALIDATE_BOX, boxid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  favoriteBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('boxes/' + boxid + '/favorite').then(response => {
+        store.commit(types.FAVORITE_BOX, boxid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unfavoriteBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('boxes/' + boxid + '/unfavorite').then(response => {
+        store.commit(types.UNFAVORITE_BOX, boxid)
         resolve()
       }, response => {
         reject()
