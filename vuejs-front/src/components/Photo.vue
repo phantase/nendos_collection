@@ -6,7 +6,15 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <router-link :to="'/photo/'+photo.internalid+'/addpart'" class="btn btn-xs bg-orange pull-right"><i class="fa fa-binoculars" v-if="authenticated"></i> Identify a part</router-link>
+              <button type="button" class="btn btn-xs pull-right" :class="photo.inuserfavorites==='1'?'text-red':'text-muted'"
+                      data-toggle="tooltip"
+                      :title="favoriteTooltipTitle"
+                      :disabled="!authenticated"
+                      @click.once="doFavorite">
+                <i class="fa fa-heart" ></i>
+                <span class="badge bg-yellow">{{ photo.numberfavorited ? photo.numberfavorited : '0' }}</span>
+              </button>
+              <router-link :to="'/photo/'+photo.internalid+'/addpart'" class="btn btn-xs bg-orange pull-right margin-right"><i class="fa fa-binoculars" v-if="authenticated"></i> Identify a part</router-link>
               <div class="db-photo-title">{{ photo.title }}</div>
               <div class="db-photo-username">by {{ photo.username }}</div>
             </h3>
@@ -239,6 +247,13 @@ export default {
         e4p.push(Object.assign({}, element, this.nendoroids.filter(e => e.internalid === element.elementid)[0], element))
       })
       return e4p
+    },
+    favoriteTooltipTitle () {
+      if (this.authenticated) {
+        return this.photo.inuserfavorites ? 'In your favorites (remove)' : 'Not in your favorites (add)'
+      } else {
+        return 'Number of times favorited'
+      }
     }
   },
   mounted () {
@@ -259,6 +274,7 @@ export default {
     $('[role="tooltip"]').remove()
   },
   methods: {
+    ...Vuex.mapActions(['favoritePhoto', 'unfavoritePhoto']),
     handleResize (event) {
       try {
         let ratio = document.getElementById('db-photo').offsetWidth / this.photo.width
@@ -313,6 +329,32 @@ export default {
         }
       } catch (exception) {
         // do nothing
+      }
+    },
+    doFavorite () {
+      console.log('DO FAVORITE...')
+      if (this.photo.inuserfavorites === '1') {
+        console.log('UNFAVORITE...')
+        this.unfavoritePhoto({
+          'context': this,
+          'photoid': this.photo.internalid
+        }).then(() => {
+          console.log('UNFavorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('UnFavorite failed')
+        })
+      } else {
+        console.log('FAVORITE...')
+        this.favoritePhoto({
+          'context': this,
+          'photoid': this.photo.internalid
+        }).then(() => {
+          console.log('Favorite successful')
+          $('[data-toggle="tooltip"]').tooltip('fixTitle')
+        }, () => {
+          console.log('Favorite failed')
+        })
       }
     }
   }
@@ -372,5 +414,8 @@ export default {
     max-width: 100%;
     max-height: 100%;
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+  }
+  .margin-right {
+    margin-right: 5px;
   }
 </style>

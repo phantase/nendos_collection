@@ -85,6 +85,14 @@ const mutations = {
     state.photos = photos
     state.photosLoadedDate = new Date()
   },
+  [types.FAVORITE_PHOTO] (state, photoid) {
+    state.photos.find(photo => photo.internalid === photoid).numberfavorited++
+    state.photos.find(photo => photo.internalid === photoid).inuserfavorites = '1'
+  },
+  [types.UNFAVORITE_PHOTO] (state, photoid) {
+    state.photos.find(photo => photo.internalid === photoid).numberfavorited--
+    state.photos.find(photo => photo.internalid === photoid).inuserfavorites = null
+  },
   [types.ADD_PHOTOACCESSORY] (state, photoaccessory) {
     state.photoaccessories.push(photoaccessory)
   },
@@ -193,6 +201,30 @@ const actions = {
         store.dispatch('setPhotos', response.data)
         resolve()
       }, (response) => {
+        reject()
+      })
+    })
+  },
+  favoritePhoto (store, payload) {
+    let context = payload.context
+    let photoid = payload.photoid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('photos/' + photoid + '/favorite').then(response => {
+        store.commit(types.FAVORITE_PHOTO, photoid)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
+  },
+  unfavoritePhoto (store, payload) {
+    let context = payload.context
+    let photoid = payload.photoid
+    return new Promise((resolve, reject) => {
+      context.$http.patch('photos/' + photoid + '/unfavorite').then(response => {
+        store.commit(types.UNFAVORITE_PHOTO, photoid)
+        resolve()
+      }, response => {
         reject()
       })
     })
