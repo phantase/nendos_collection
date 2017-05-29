@@ -14,7 +14,7 @@ class BoxMapper extends Mapper
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -34,7 +34,12 @@ class BoxMapper extends Mapper
                   FROM users_boxes_favorites
                   WHERE userid = :userid
                   GROUP BY boxid
-                  ) AS userfav ON b.internalid = userfav.boxid";
+                  ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid";
     if ($validated) {
       $sql .= " WHERE b.validatorid IS NOT NULL";
     }
@@ -55,7 +60,7 @@ class BoxMapper extends Mapper
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -76,6 +81,11 @@ class BoxMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid
             WHERE b.internalid = :box_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["box_internalid" => $box_internalid, "userid" => $userid]);
@@ -92,7 +102,7 @@ class BoxMapper extends Mapper
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -113,6 +123,11 @@ class BoxMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid
             WHERE b.internalid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid, "userid" => $userid]);
@@ -131,7 +146,7 @@ class BoxMapper extends Mapper
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -153,6 +168,11 @@ class BoxMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid
             WHERE n.internalid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid, "userid" => $userid]);
@@ -171,7 +191,7 @@ class BoxMapper extends Mapper
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -193,6 +213,11 @@ class BoxMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid
             WHERE a.internalid = :accessoryid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["accessoryid" => $accessoryid, "userid" => $userid]);
@@ -211,7 +236,7 @@ class BoxMapper extends Mapper
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -233,6 +258,11 @@ class BoxMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid
             WHERE bp.internalid = :bodypartid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["bodypartid" => $bodypartid, "userid" => $userid]);
@@ -251,7 +281,7 @@ class BoxMapper extends Mapper
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -273,6 +303,11 @@ class BoxMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid
             WHERE f.internalid = :faceid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["faceid" => $faceid, "userid" => $userid]);
@@ -291,7 +326,7 @@ class BoxMapper extends Mapper
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -313,6 +348,11 @@ class BoxMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid
             WHERE h.internalid = :hairid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["hairid" => $hairid, "userid" => $userid]);
@@ -331,7 +371,7 @@ class BoxMapper extends Mapper
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -353,6 +393,11 @@ class BoxMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid
             WHERE h.internalid = :handid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["handid" => $handid, "userid" => $userid]);
@@ -372,7 +417,7 @@ class BoxMapper extends Mapper
                   b.validatorid, uv.username AS validatorname, b.validationdate,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
                   pb.xmin, pb.xmax, pb.ymin, pb.ymax, pb.internalid AS photoannotationid,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -394,6 +439,11 @@ class BoxMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, boxid
+                  FROM users_boxes_favorites
+                  GROUP BY boxid
+                  ) AS favusers ON b.internalid = favusers.boxid
             WHERE pb.photoid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid, "userid" => $userid]);

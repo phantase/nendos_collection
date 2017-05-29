@@ -8,33 +8,7 @@ class PhotoMapper extends Mapper
 
   public function get($userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
-            FROM photos p
-            LEFT JOIN users u ON p.userid = u.internalid
-            LEFT JOIN (
-                  SELECT count(*) AS numberfavorited, photoid
-                  FROM users_photos_favorites
-                  GROUP BY photoid
-                  ) AS faved ON p.internalid = faved.photoid
-            LEFT JOIN (
-                  SELECT count(*) AS inuserfavorites, photoid
-                  FROM users_photos_favorites
-                  WHERE userid = :userid
-                  GROUP BY photoid
-                  ) AS userfav ON p.internalid = userfav.photoid";
-    $stmt = $this->db->prepare($sql);
-    $result = $stmt->execute(["userid" => $userid]);
-
-    $results = [];
-    while ($row = $stmt->fetch()) {
-      $results[] = new PhotoEntity($row);
-    }
-    return $results;
-  }
-
-  public function getByInternalid($photo_internalid, $userid=null) {
-    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN (
@@ -48,6 +22,42 @@ class PhotoMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["userid" => $userid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new PhotoEntity($row);
+    }
+    return $results;
+  }
+
+  public function getByInternalid($photo_internalid, $userid=null) {
+    $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+            FROM photos p
+            LEFT JOIN users u ON p.userid = u.internalid
+            LEFT JOIN (
+                  SELECT count(*) AS numberfavorited, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS faved ON p.internalid = faved.photoid
+            LEFT JOIN (
+                  SELECT count(*) AS inuserfavorites, photoid
+                  FROM users_photos_favorites
+                  WHERE userid = :userid
+                  GROUP BY photoid
+                  ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid
             WHERE p.internalid = :photo_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photo_internalid" => $photo_internalid,"userid" => $userid]);
@@ -59,7 +69,7 @@ class PhotoMapper extends Mapper
 
   public function getByBoxid($boxid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_boxes pb ON p.internalid = pb.photoid
@@ -74,6 +84,11 @@ class PhotoMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid
             WHERE pb.boxid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid,"userid" => $userid]);
@@ -87,7 +102,7 @@ class PhotoMapper extends Mapper
 
   public function getByNendoroidid($nendoroidid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_nendoroids pn ON p.internalid = pn.photoid
@@ -102,6 +117,11 @@ class PhotoMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid
             WHERE pn.nendoroidid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid,"userid" => $userid]);
@@ -115,7 +135,7 @@ class PhotoMapper extends Mapper
 
   public function getByAccessoryid($accessoryid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_accessories pa ON p.internalid = pa.photoid
@@ -130,6 +150,11 @@ class PhotoMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid
             WHERE pa.accessoryid = :accessoryid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["accessoryid" => $accessoryid,"userid" => $userid]);
@@ -143,7 +168,7 @@ class PhotoMapper extends Mapper
 
   public function getByBodypartid($bodypartid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_bodyparts pb ON p.internalid = pb.photoid
@@ -158,6 +183,11 @@ class PhotoMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid
             WHERE pb.bodypartid = :bodypartid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["bodypartid" => $bodypartid,"userid" => $userid]);
@@ -171,7 +201,7 @@ class PhotoMapper extends Mapper
 
   public function getByFaceid($faceid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_faces pf ON p.internalid = pf.photoid
@@ -186,6 +216,11 @@ class PhotoMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid
             WHERE pf.faceid = :faceid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["faceid" => $faceid,"userid" => $userid]);
@@ -199,7 +234,7 @@ class PhotoMapper extends Mapper
 
   public function getByHairid($hairid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_hairs ph ON p.internalid = ph.photoid
@@ -214,6 +249,11 @@ class PhotoMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid
             WHERE ph.hairid = :hairid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["hairid" => $hairid,"userid" => $userid]);
@@ -227,7 +267,7 @@ class PhotoMapper extends Mapper
 
   public function getByHandid($handid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_hands ph ON p.internalid = ph.photoid
@@ -242,6 +282,11 @@ class PhotoMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid
             WHERE ph.handid = :handid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["handid" => $handid,"userid" => $userid]);
@@ -255,7 +300,7 @@ class PhotoMapper extends Mapper
 
   public function getByPhotoid($photoid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN (
@@ -269,6 +314,11 @@ class PhotoMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
+                  FROM users_photos_favorites
+                  GROUP BY photoid
+                  ) AS favusers ON p.internalid = favusers.photoid
             WHERE p.internalid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid,"userid" => $userid]);

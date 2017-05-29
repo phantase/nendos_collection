@@ -67,6 +67,7 @@ class BoxEntity extends Entity implements JsonSerializable
     $this->collquantity = $data['collquantity'];
     $this->numberfavorited = $data['numberfavorited'];
     $this->inuserfavorites = $data['inuserfavorites'];
+    $this->favusers = $data['favusers'];
   }
 
   public function getInternalid() {
@@ -189,7 +190,8 @@ class BoxEntity extends Entity implements JsonSerializable
       'colladdeddate' => $this->colladdeddate,
       'collquantity' => $this->collquantity,
       'numberfavorited' => $this->numberfavorited,
-      'inuserfavorites' => $this->inuserfavorites
+      'inuserfavorites' => $this->inuserfavorites,
+      'favusers'  => explode(',', $this->favusers)
     ];
   }
 
