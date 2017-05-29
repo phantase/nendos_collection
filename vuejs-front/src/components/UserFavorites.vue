@@ -186,35 +186,28 @@ export default {
       return this.user.internalid === this.$route.params.id
     },
     boxesfound () {
-      // return this.boxes.filter(box => box.favusers.indexOf(this.userid) !== -1)
-      return []
+      return this.boxes.filter(box => box.favusers.indexOf(this.userid) !== -1)
     },
     nendoroidsfound () {
-      // return this.nendoroids.filter(nendoroid => nendoroid.favusers.indexOf(this.userid) !== -1)
-      return []
+      return this.nendoroids.filter(nendoroid => nendoroid.favusers.indexOf(this.userid) !== -1)
     },
     accessoriesfound () {
       return this.accessories.filter(accessory => accessory.favusers.indexOf(this.userid) !== -1)
     },
     bodypartsfound () {
-      // return this.bodyparts.filter(bodypart => bodypart.favusers.indexOf(this.userid) !== -1)
-      return []
+      return this.bodyparts.filter(bodypart => bodypart.favusers.indexOf(this.userid) !== -1)
     },
     facesfound () {
-      // return this.faces.filter(face => face.favusers.indexOf(this.userid) !== -1)
-      return []
+      return this.faces.filter(face => face.favusers.indexOf(this.userid) !== -1)
     },
     handsfound () {
-      // return this.hands.filter(hand => hand.favusers.indexOf(this.userid) !== -1)
-      return []
+      return this.hands.filter(hand => hand.favusers.indexOf(this.userid) !== -1)
     },
     hairsfound () {
-      // return this.hairs.filter(hair => hair.favusers.indexOf(this.userid) !== -1)
-      return []
+      return this.hairs.filter(hair => hair.favusers.indexOf(this.userid) !== -1)
     },
     photosfound () {
-      // return this.photos.filter(photo => photo.favusers.indexOf(this.userid) !== -1)
-      return []
+      return this.photos.filter(photo => photo.favusers.indexOf(this.userid) !== -1)
     }
   }
 }
