@@ -3,7 +3,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-// Collect an element for a specific user
+// Favorite an element for a specific user
 $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{internalid:[0-9]+}/favorite', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     $element = $args['element'];
@@ -22,7 +22,7 @@ $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
     return $newresponse;
 });
 
-// UNCollect an element for a specific user
+// UNFavorite an element for a specific user
 $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{internalid:[0-9]+}/unfavorite', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     $element = $args['element'];
