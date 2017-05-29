@@ -21,3 +21,7 @@
 # Tooltips
 
 * Add tooltips on ALL buttons and objects that can lead to an action
+
+# User.vue
+
+* Verify if the fact that we have two users (one coming from store and which represents the current logged in user, and one computed from the id in parameter) is not a source of conflict...
