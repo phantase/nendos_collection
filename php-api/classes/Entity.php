@@ -14,6 +14,7 @@ class Entity
   // For favorites
   protected $numberfavorited;
   protected $inuserfavorites;
+  protected $favusers;
 
   public function getXMin() {
     return $this->xmin;
@@ -49,6 +50,10 @@ class Entity
 
   public function getInUserFavorites() {
     return $this->inuserfavorites;
+  }
+
+  public function getFavUsers() {
+    return $this->favusers;
   }
 
 }

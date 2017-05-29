@@ -28,7 +28,7 @@
             <a href="#">Photos</a>
           </div>
           <div class="col-xs-4 text-center">
-            <a href="#">Favorites</a>
+            <router-link :to="'/user/'+user.internalid+'/favorites'">Favorites</router-link>
           </div>
         </div>
         <!-- /.row -->

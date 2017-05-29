@@ -39,6 +39,7 @@ import News from 'components/News'
 import SingleNews from 'components/SingleNews'
 import FormSingleNews from 'components/forms/FormSingleNews'
 import User from 'components/User'
+import UserFavorites from 'components/UserFavorites'
 
 Vue.use(Router)
 
@@ -861,6 +862,24 @@ export default new Router({
         ]
       },
       component: SingleNews
+    },
+    {
+      path: '/user/:id/favorites',
+      name: 'User Favorites',
+      meta: {
+        description: `User's favorites`,
+        breadcrumb: [
+          {
+            title: 'Users',
+            link: '/users'
+          },
+          {
+            title: 'User',
+            link: '/user/:id'
+          }
+        ]
+      },
+      component: UserFavorites
     },
     {
       path: '/user/:id',

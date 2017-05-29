@@ -13,7 +13,7 @@ class AccessoryMapper extends Mapper
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -33,7 +33,12 @@ class AccessoryMapper extends Mapper
                   FROM users_accessories_favorites
                   WHERE userid = :userid
                   GROUP BY accessoryid
-                  ) AS userfav ON a.internalid = userfav.accessoryid";
+                  ) AS userfav ON a.internalid = userfav.accessoryid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS favusers ON a.internalid = favusers.accessoryid";
     if ($validated) {
       $sql .= " WHERE a.validatorid IS NOT NULL";
     }
@@ -53,7 +58,7 @@ class AccessoryMapper extends Mapper
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -74,6 +79,11 @@ class AccessoryMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS favusers ON a.internalid = favusers.accessoryid
             WHERE a.internalid = :accessory_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["accessory_internalid" => $accessory_internalid, "userid" => $userid]);
@@ -89,7 +99,7 @@ class AccessoryMapper extends Mapper
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -110,6 +120,11 @@ class AccessoryMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS favusers ON a.internalid = favusers.accessoryid
             WHERE a.boxid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid, "userid" => $userid]);
@@ -127,7 +142,7 @@ class AccessoryMapper extends Mapper
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -148,6 +163,11 @@ class AccessoryMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS favusers ON a.internalid = favusers.accessoryid
             WHERE a.nendoroidid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid, "userid" => $userid]);
@@ -165,7 +185,7 @@ class AccessoryMapper extends Mapper
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -186,6 +206,11 @@ class AccessoryMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS favusers ON a.internalid = favusers.accessoryid
             WHERE a.internalid = :accessoryid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["accessoryid" => $accessoryid, "userid" => $userid]);
@@ -204,7 +229,7 @@ class AccessoryMapper extends Mapper
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   pa.xmin, pa.xmax, pa.ymin, pa.ymax, pa.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
-                  faved.numberfavorited, userfav.inuserfavorites
+                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -226,6 +251,11 @@ class AccessoryMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(userid) AS favusers, accessoryid
+                  FROM users_accessories_favorites
+                  GROUP BY accessoryid
+                  ) AS favusers ON a.internalid = favusers.accessoryid
             WHERE pa.photoid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid, "userid" => $userid]);
