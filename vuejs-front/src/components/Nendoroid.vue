@@ -128,6 +128,10 @@
       </div>
     </div>
 
+    <div class="row">
+      <favorited-tile :favusers="nendoroid.favusers"></favorited-tile>
+    </div>
+
     <history-box elementtype="nendoroid" :internalid="nendoroid.internalid"></history-box>
 
   </div>
@@ -162,6 +166,7 @@ import BodypartsTiles from './dblayouts/BodypartsTiles'
 import AccessoriesTiles from './dblayouts/AccessoriesTiles'
 import PhotosTiles from './dblayouts/PhotosTiles'
 import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile'
+import FavoritedTile from './dblayouts/FavoritedTile'
 import HistoryBox from './dblayouts/HistoryBox'
 
 export default {
@@ -175,6 +180,7 @@ export default {
     AccessoriesTiles,
     PhotosTiles,
     CollectionAndValidationTile,
+    FavoritedTile,
     HistoryBox
   },
   store: store,

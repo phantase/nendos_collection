@@ -189,7 +189,7 @@ export default {
       return this.boxes.filter(box => box.favusers && box.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)
     },
     nendoroidsfound () {
-      return this.nendoroids.filter(nendoroid => nendoroid.favusers.indexOf(this.userid) !== -1)
+      return this.nendoroids.filter(nendoroid => nendoroid.favusers && nendoroid.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)
     },
     accessoriesfound () {
       return this.accessories.filter(accessory => accessory.favusers && accessory.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)
