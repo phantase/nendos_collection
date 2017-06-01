@@ -35,8 +35,12 @@ class HandMapper extends Mapper
                   GROUP BY handid
                   ) AS userfav ON h.internalid = userfav.handid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, handid
-                  FROM users_hands_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, handid
+                  FROM users_hands_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid";
     if ($validated) {
@@ -80,8 +84,12 @@ class HandMapper extends Mapper
                   GROUP BY handid
                   ) AS userfav ON h.internalid = userfav.handid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, handid
-                  FROM users_hands_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, handid
+                  FROM users_hands_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
             WHERE h.internalid = :hand_internalid";
@@ -121,8 +129,12 @@ class HandMapper extends Mapper
                   GROUP BY handid
                   ) AS userfav ON h.internalid = userfav.handid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, handid
-                  FROM users_hands_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, handid
+                  FROM users_hands_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
             WHERE h.boxid = :boxid";
@@ -164,8 +176,12 @@ class HandMapper extends Mapper
                   GROUP BY handid
                   ) AS userfav ON h.internalid = userfav.handid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, handid
-                  FROM users_hands_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, handid
+                  FROM users_hands_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
             WHERE h.nendoroidid = :nendoroidid";
@@ -207,8 +223,12 @@ class HandMapper extends Mapper
                   GROUP BY handid
                   ) AS userfav ON h.internalid = userfav.handid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, handid
-                  FROM users_hands_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, handid
+                  FROM users_hands_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
             WHERE h.internalid = :handid";
@@ -252,8 +272,12 @@ class HandMapper extends Mapper
                   GROUP BY handid
                   ) AS userfav ON h.internalid = userfav.handid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, handid
-                  FROM users_hands_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, handid
+                  FROM users_hands_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
             WHERE ph.photoid = :photoid";
