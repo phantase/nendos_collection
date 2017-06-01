@@ -78,7 +78,7 @@ class PhotoEntity implements JsonSerializable
       'updated' => $this->updated,
       'numberfavorited' => $this->numberfavorited,
       'inuserfavorites' => $this->inuserfavorites,
-      'favusers'  => explode(',', $this->favusers)
+      'favusers'  => json_decode($this->favusers)
     ];
   }
 

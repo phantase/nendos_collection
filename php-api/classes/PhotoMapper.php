@@ -23,8 +23,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid";
     $stmt = $this->db->prepare($sql);
@@ -54,8 +58,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid
             WHERE p.internalid = :photo_internalid";
@@ -85,8 +93,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid
             WHERE pb.boxid = :boxid";
@@ -118,8 +130,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid
             WHERE pn.nendoroidid = :nendoroidid";
@@ -151,8 +167,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid
             WHERE pa.accessoryid = :accessoryid";
@@ -184,8 +204,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid
             WHERE pb.bodypartid = :bodypartid";
@@ -217,8 +241,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid
             WHERE pf.faceid = :faceid";
@@ -250,8 +278,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid
             WHERE ph.hairid = :hairid";
@@ -283,8 +315,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid
             WHERE ph.handid = :handid";
@@ -315,8 +351,12 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, photoid
-                  FROM users_photos_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, photoid
+                  FROM users_photos_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY photoid
                   ) AS favusers ON p.internalid = favusers.photoid
             WHERE p.internalid = :photoid";

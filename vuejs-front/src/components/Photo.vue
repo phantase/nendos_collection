@@ -131,6 +131,10 @@
       </div>
     </div>
 
+    <div class="row">
+      <favorited-tile :favusers="photo.favusers"></favorited-tile>
+    </div>
+
     <history-box elementtype="photo" :internalid="photo.internalid"></history-box>
 
   </div>
@@ -165,6 +169,7 @@ import HairsTiles from './dblayouts/HairsTiles'
 import HandsTiles from './dblayouts/HandsTiles'
 import BodypartsTiles from './dblayouts/BodypartsTiles'
 import AccessoriesTiles from './dblayouts/AccessoriesTiles'
+import FavoritedTile from './dblayouts/FavoritedTile'
 import HistoryBox from './dblayouts/HistoryBox'
 
 export default {
@@ -178,6 +183,7 @@ export default {
     HandsTiles,
     BodypartsTiles,
     AccessoriesTiles,
+    FavoritedTile,
     HistoryBox
   },
   store: store,
