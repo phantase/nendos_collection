@@ -35,8 +35,12 @@ class BodypartMapper extends Mapper
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, bodypartid
-                  FROM users_bodyparts_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, bodypartid
+                  FROM users_bodyparts_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid";
     if ($validated) {
@@ -80,8 +84,12 @@ class BodypartMapper extends Mapper
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, bodypartid
-                  FROM users_bodyparts_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, bodypartid
+                  FROM users_bodyparts_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
             WHERE bp.internalid = :bodypart_internalid";
@@ -121,8 +129,12 @@ class BodypartMapper extends Mapper
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, bodypartid
-                  FROM users_bodyparts_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, bodypartid
+                  FROM users_bodyparts_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
             WHERE bp.boxid = :boxid";
@@ -164,8 +176,12 @@ class BodypartMapper extends Mapper
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, bodypartid
-                  FROM users_bodyparts_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, bodypartid
+                  FROM users_bodyparts_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
             WHERE bp.nendoroidid = :nendoroidid";
@@ -207,8 +223,12 @@ class BodypartMapper extends Mapper
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, bodypartid
-                  FROM users_bodyparts_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, bodypartid
+                  FROM users_bodyparts_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
             WHERE bp.internalid = :bodypartid";
@@ -252,8 +272,12 @@ class BodypartMapper extends Mapper
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, bodypartid
-                  FROM users_bodyparts_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, bodypartid
+                  FROM users_bodyparts_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
             WHERE pb.photoid = :photoid";
