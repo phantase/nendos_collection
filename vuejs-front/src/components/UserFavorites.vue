@@ -192,7 +192,7 @@ export default {
       return this.nendoroids.filter(nendoroid => nendoroid.favusers.indexOf(this.userid) !== -1)
     },
     accessoriesfound () {
-      return this.accessories.filter(accessory => accessory.favusers.indexOf(this.userid) !== -1)
+      return this.accessories.filter(accessory => accessory.favusers && accessory.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)
     },
     bodypartsfound () {
       return this.bodyparts.filter(bodypart => bodypart.favusers.indexOf(this.userid) !== -1)
