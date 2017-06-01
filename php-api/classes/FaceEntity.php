@@ -163,7 +163,7 @@ class FaceEntity extends Entity implements JsonSerializable
       'collquantity' => $this->collquantity,
       'numberfavorited' => $this->numberfavorited,
       'inuserfavorites' => $this->inuserfavorites,
-      'favusers'  => explode(',', $this->favusers)
+      'favusers'  => json_decode($this->favusers)
     ];
   }
 

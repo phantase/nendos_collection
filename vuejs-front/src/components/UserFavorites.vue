@@ -198,7 +198,7 @@ export default {
       return this.bodyparts.filter(bodypart => bodypart.favusers && bodypart.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)
     },
     facesfound () {
-      return this.faces.filter(face => face.favusers.indexOf(this.userid) !== -1)
+      return this.faces.filter(face => face.favusers && face.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)
     },
     handsfound () {
       return this.hands.filter(hand => hand.favusers && hand.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)

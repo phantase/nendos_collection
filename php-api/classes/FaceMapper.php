@@ -35,8 +35,12 @@ class FaceMapper extends Mapper
                   GROUP BY faceid
                   ) AS userfav ON f.internalid = userfav.faceid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, faceid
-                  FROM users_faces_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, faceid
+                  FROM users_faces_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY faceid
                   ) AS favusers ON f.internalid = favusers.faceid";
     if ($validated) {
@@ -80,8 +84,12 @@ class FaceMapper extends Mapper
                   GROUP BY faceid
                   ) AS userfav ON f.internalid = userfav.faceid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, faceid
-                  FROM users_faces_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, faceid
+                  FROM users_faces_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY faceid
                   ) AS favusers ON f.internalid = favusers.faceid
             WHERE f.internalid = :face_internalid";
@@ -121,8 +129,12 @@ class FaceMapper extends Mapper
                   GROUP BY faceid
                   ) AS userfav ON f.internalid = userfav.faceid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, faceid
-                  FROM users_faces_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, faceid
+                  FROM users_faces_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY faceid
                   ) AS favusers ON f.internalid = favusers.faceid
             WHERE f.boxid = :boxid";
@@ -164,8 +176,12 @@ class FaceMapper extends Mapper
                   GROUP BY faceid
                   ) AS userfav ON f.internalid = userfav.faceid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, faceid
-                  FROM users_faces_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, faceid
+                  FROM users_faces_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY faceid
                   ) AS favusers ON f.internalid = favusers.faceid
             WHERE f.nendoroidid = :nendoroidid";
@@ -207,8 +223,12 @@ class FaceMapper extends Mapper
                   GROUP BY faceid
                   ) AS userfav ON f.internalid = userfav.faceid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, faceid
-                  FROM users_faces_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, faceid
+                  FROM users_faces_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY faceid
                   ) AS favusers ON f.internalid = favusers.faceid
             WHERE f.internalid = :faceid";
@@ -252,8 +272,12 @@ class FaceMapper extends Mapper
                   GROUP BY faceid
                   ) AS userfav ON f.internalid = userfav.faceid
             LEFT JOIN (
-                  SELECT GROUP_CONCAT(userid) AS favusers, faceid
-                  FROM users_faces_favorites
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',f.additiondate,
+                                                        '\"}')),']') AS favusers, faceid
+                  FROM users_faces_favorites AS f, users AS u
+                  WHERE f.userid = u.internalid
                   GROUP BY faceid
                   ) AS favusers ON f.internalid = favusers.faceid
             WHERE pf.photoid = :photoid";

@@ -99,6 +99,10 @@
       </div>
     </div>
 
+    <div class="row">
+      <favorited-tile :favusers="face.favusers"></favorited-tile>
+    </div>
+
     <history-box elementtype="face" :internalid="face.internalid"></history-box>
 
   </div>
@@ -128,6 +132,7 @@ import Resources from './../config/resources'
 import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
 import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile'
+import FavoritedTile from './dblayouts/FavoritedTile'
 import HistoryBox from './dblayouts/HistoryBox'
 
 export default {
@@ -136,6 +141,7 @@ export default {
     AppBoxHeader,
     PhotosTiles,
     CollectionAndValidationTile,
+    FavoritedTile,
     HistoryBox
   },
   store: store,
