@@ -10,7 +10,7 @@
                       data-toggle="tooltip"
                       :title="favoriteTooltipTitle"
                       :disabled="!authenticated"
-                      @click.once="doFavorite">
+                      @click="doFavorite">
                 <i class="fa fa-heart" ></i>
                 <span class="badge bg-yellow">{{ box.numberfavorited ? box.numberfavorited : '0' }}</span>
               </button>
