@@ -204,7 +204,7 @@ export default {
       return this.hands.filter(hand => hand.favusers && hand.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)
     },
     hairsfound () {
-      return this.hairs.filter(hair => hair.favusers.indexOf(this.userid) !== -1)
+      return this.hairs.filter(hair => hair.favusers && hair.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)
     },
     photosfound () {
       return this.photos.filter(photo => photo.favusers.indexOf(this.userid) !== -1)
