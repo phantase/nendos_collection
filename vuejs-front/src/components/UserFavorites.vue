@@ -186,7 +186,7 @@ export default {
       return this.user.internalid === this.$route.params.id
     },
     boxesfound () {
-      return this.boxes.filter(box => box.favusers.indexOf(this.userid) !== -1)
+      return this.boxes.filter(box => box.favusers && box.favusers.findIndex(favuser => favuser.userid === this.userid) !== -1)
     },
     nendoroidsfound () {
       return this.nendoroids.filter(nendoroid => nendoroid.favusers.indexOf(this.userid) !== -1)
