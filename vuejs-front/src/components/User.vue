@@ -51,6 +51,11 @@
                 <a class="pull-right">{{ user.lastviewdate }}</a><br>
               </li>
             </ul>
+            <div class="pull-middle">
+                <router-link class="btn btn-warning" :to="'/user/'+user.internalid+'/collection'"><i class="fa fa-cube"></i> Collection</router-link>
+                <router-link class="btn btn-warning" :to="'/user/'+user.internalid+'/photos'"><i class="fa fa-image"></i> Photos</router-link>
+                <router-link class="btn btn-warning" :to="'/user/'+user.internalid+'/favorites'"><i class="fa fa-heart"></i> Favorites</router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -121,5 +126,8 @@ export default {
   }
   .pull-right+br {
     clear: both;
+  }
+  .pull-middle {
+    text-align: center;
   }
 </style>
