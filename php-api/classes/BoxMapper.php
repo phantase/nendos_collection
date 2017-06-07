@@ -13,7 +13,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -43,7 +43,17 @@ class BoxMapper extends Mapper
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
-                  ) AS favusers ON b.internalid = favusers.boxid";
+                  ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid";
     if ($validated) {
       $sql .= " WHERE b.validatorid IS NOT NULL";
     }
@@ -63,7 +73,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -94,6 +104,16 @@ class BoxMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid
             WHERE b.internalid = :box_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["box_internalid" => $box_internalid, "userid" => $userid]);
@@ -109,7 +129,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -140,6 +160,16 @@ class BoxMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid
             WHERE b.internalid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid, "userid" => $userid]);
@@ -157,7 +187,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -189,6 +219,16 @@ class BoxMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid
             WHERE n.internalid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid, "userid" => $userid]);
@@ -206,7 +246,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -238,6 +278,16 @@ class BoxMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid
             WHERE a.internalid = :accessoryid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["accessoryid" => $accessoryid, "userid" => $userid]);
@@ -255,7 +305,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -287,6 +337,16 @@ class BoxMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid
             WHERE bp.internalid = :bodypartid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["bodypartid" => $bodypartid, "userid" => $userid]);
@@ -304,7 +364,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -336,6 +396,16 @@ class BoxMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid
             WHERE f.internalid = :faceid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["faceid" => $faceid, "userid" => $userid]);
@@ -353,7 +423,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -385,6 +455,16 @@ class BoxMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid
             WHERE h.internalid = :hairid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["hairid" => $hairid, "userid" => $userid]);
@@ -402,7 +482,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
@@ -434,6 +514,16 @@ class BoxMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid
             WHERE h.internalid = :handid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["handid" => $handid, "userid" => $userid]);
@@ -451,7 +541,7 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   pb.xmin, pb.xmax, pb.ymin, pb.ymax, pb.internalid AS photoannotationid,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM boxes b
@@ -484,6 +574,16 @@ class BoxMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, boxid
+                  FROM users_boxes_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY boxid
+                  ) AS colusers ON b.internalid = colusers.boxid
             WHERE pb.photoid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid, "userid" => $userid]);
