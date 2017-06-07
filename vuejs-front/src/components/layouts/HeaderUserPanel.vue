@@ -25,7 +25,7 @@
             <router-link :to="'/user/'+user.internalid+'/collection'">Collection</router-link>
           </div>
           <div class="col-xs-4 text-center">
-            <a href="#">Photos</a>
+            <router-link :to="'/user/'+user.internalid+'/photos'">Photos</router-link>
           </div>
           <div class="col-xs-4 text-center">
             <router-link :to="'/user/'+user.internalid+'/favorites'">Favorites</router-link>

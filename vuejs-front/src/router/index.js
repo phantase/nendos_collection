@@ -41,6 +41,7 @@ import FormSingleNews from 'components/forms/FormSingleNews'
 import User from 'components/User'
 import UserFavorites from 'components/UserFavorites'
 import UserCollection from 'components/UserCollection'
+import UserPhotos from 'components/UserPhotos'
 
 Vue.use(Router)
 
@@ -899,6 +900,24 @@ export default new Router({
         ]
       },
       component: UserCollection
+    },
+    {
+      path: '/user/:id/photos',
+      name: 'User Photos',
+      meta: {
+        description: `User's photos`,
+        breadcrumb: [
+          {
+            title: 'Users',
+            link: '/users'
+          },
+          {
+            title: 'User',
+            link: '/user/:id'
+          }
+        ]
+      },
+      component: UserPhotos
     },
     {
       path: '/user/:id',
