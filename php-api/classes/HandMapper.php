@@ -12,7 +12,7 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -42,7 +42,17 @@ class HandMapper extends Mapper
                   FROM users_hands_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY handid
-                  ) AS favusers ON h.internalid = favusers.handid";
+                  ) AS favusers ON h.internalid = favusers.handid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, handid
+                  FROM users_hands_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY handid
+                  ) AS colusers ON h.internalid = colusers.handid";
     if ($validated) {
       $sql .= " WHERE h.validatorid IS NOT NULL";
     }
@@ -61,7 +71,7 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -92,6 +102,16 @@ class HandMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, handid
+                  FROM users_hands_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY handid
+                  ) AS colusers ON h.internalid = colusers.handid
             WHERE h.internalid = :hand_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["hand_internalid" => $hand_internalid, "userid" => $userid]);
@@ -106,7 +126,7 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -137,6 +157,16 @@ class HandMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, handid
+                  FROM users_hands_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY handid
+                  ) AS colusers ON h.internalid = colusers.handid
             WHERE h.boxid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid, "userid" => $userid]);
@@ -153,7 +183,7 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -184,6 +214,16 @@ class HandMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, handid
+                  FROM users_hands_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY handid
+                  ) AS colusers ON h.internalid = colusers.handid
             WHERE h.nendoroidid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid, "userid" => $userid]);
@@ -200,7 +240,7 @@ class HandMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -231,6 +271,16 @@ class HandMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, handid
+                  FROM users_hands_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY handid
+                  ) AS colusers ON h.internalid = colusers.handid
             WHERE h.internalid = :handid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["handid" => $handid, "userid" => $userid]);
@@ -248,7 +298,7 @@ class HandMapper extends Mapper
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
                   ph.xmin, ph.xmax, ph.ymin, ph.ymax, ph.internalid AS photoannotationid,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM hands h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
@@ -280,6 +330,16 @@ class HandMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY handid
                   ) AS favusers ON h.internalid = favusers.handid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, handid
+                  FROM users_hands_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY handid
+                  ) AS colusers ON h.internalid = colusers.handid
             WHERE ph.photoid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid, "userid" => $userid]);
