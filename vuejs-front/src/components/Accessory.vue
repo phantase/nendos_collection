@@ -97,6 +97,7 @@
 
     <div class="row">
       <favorited-tile :favusers="accessory.favusers"></favorited-tile>
+      <collected-tile :colusers="accessory.colusers"></collected-tile>
     </div>
 
     <history-box elementtype="accessory" :internalid="accessory.internalid"></history-box>
@@ -129,6 +130,7 @@ import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
 import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile'
 import FavoritedTile from './dblayouts/FavoritedTile'
+import CollectedTile from './dblayouts/CollectedTile'
 import HistoryBox from './dblayouts/HistoryBox'
 
 export default {
@@ -137,6 +139,7 @@ export default {
     AppBoxHeader,
     PhotosTiles,
     CollectionAndValidationTile,
+    CollectedTile,
     FavoritedTile,
     HistoryBox
   },

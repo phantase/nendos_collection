@@ -163,6 +163,7 @@
 
     <div class="row">
       <favorited-tile :favusers="box.favusers"></favorited-tile>
+      <collected-tile :colusers="box.colusers"></collected-tile>
     </div>
 
     <history-box elementtype="box" :internalid="box.internalid"></history-box>
@@ -201,6 +202,7 @@ import BodypartsTiles from './dblayouts/BodypartsTiles'
 import AccessoriesTiles from './dblayouts/AccessoriesTiles'
 import PhotosTiles from './dblayouts/PhotosTiles'
 import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile'
+import CollectedTile from './dblayouts/CollectedTile'
 import FavoritedTile from './dblayouts/FavoritedTile'
 import HistoryBox from './dblayouts/HistoryBox'
 
@@ -216,6 +218,7 @@ export default {
     AccessoriesTiles,
     PhotosTiles,
     CollectionAndValidationTile,
+    CollectedTile,
     FavoritedTile,
     HistoryBox
   },
