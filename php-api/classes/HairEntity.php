@@ -57,6 +57,7 @@ class HairEntity extends Entity implements JsonSerializable
     $this->photoannotationid = $data['photoannotationid'];
     $this->colladdeddate = $data['colladdeddate'];
     $this->collquantity = $data['collquantity'];
+    $this->colusers = $data['colusers'];
     $this->numberfavorited = $data['numberfavorited'];
     $this->inuserfavorites = $data['inuserfavorites'];
     $this->favusers = $data['favusers'];
@@ -161,6 +162,7 @@ class HairEntity extends Entity implements JsonSerializable
       'photoannotationid' => $this->photoannotationid,
       'colladdeddate' => $this->colladdeddate,
       'collquantity' => $this->collquantity,
+      'colusers' => json_decode($this->colusers),
       'numberfavorited' => $this->numberfavorited,
       'inuserfavorites' => $this->inuserfavorites,
       'favusers'  => json_decode($this->favusers)
