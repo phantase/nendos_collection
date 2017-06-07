@@ -22,7 +22,7 @@
       <li class="user-body" v-if="user.internalid">
         <div class="row">
           <div class="col-xs-4 text-center">
-            <a href="#">Collection</a>
+            <router-link :to="'/user/'+user.internalid+'/collection'">Collection</router-link>
           </div>
           <div class="col-xs-4 text-center">
             <a href="#">Photos</a>
