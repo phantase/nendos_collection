@@ -12,7 +12,7 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -42,7 +42,17 @@ class BodypartMapper extends Mapper
                   FROM users_bodyparts_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY bodypartid
-                  ) AS favusers ON bp.internalid = favusers.bodypartid";
+                  ) AS favusers ON bp.internalid = favusers.bodypartid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, bodypartid
+                  FROM users_bodyparts_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS colusers ON bp.internalid = colusers.bodypartid";
     if ($validated) {
       $sql .= " WHERE bp.validatorid IS NOT NULL";
     }
@@ -61,7 +71,7 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -92,6 +102,16 @@ class BodypartMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, bodypartid
+                  FROM users_bodyparts_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS colusers ON bp.internalid = colusers.bodypartid
             WHERE bp.internalid = :bodypart_internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["bodypart_internalid" => $bodypart_internalid, "userid" => $userid]);
@@ -106,7 +126,7 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -137,6 +157,16 @@ class BodypartMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, bodypartid
+                  FROM users_bodyparts_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS colusers ON bp.internalid = colusers.bodypartid
             WHERE bp.boxid = :boxid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["boxid" => $boxid, "userid" => $userid]);
@@ -153,7 +183,7 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -184,6 +214,16 @@ class BodypartMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, bodypartid
+                  FROM users_bodyparts_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS colusers ON bp.internalid = colusers.bodypartid
             WHERE bp.nendoroidid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["nendoroidid" => $nendoroidid, "userid" => $userid]);
@@ -200,7 +240,7 @@ class BodypartMapper extends Mapper
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -231,6 +271,16 @@ class BodypartMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, bodypartid
+                  FROM users_bodyparts_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS colusers ON bp.internalid = colusers.bodypartid
             WHERE bp.internalid = :bodypartid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["bodypartid" => $bodypartid, "userid" => $userid]);
@@ -248,7 +298,7 @@ class BodypartMapper extends Mapper
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   pb.xmin, pb.xmax, pb.ymin, pb.ymax, pb.internalid AS photoannotationid,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity,
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
@@ -280,6 +330,16 @@ class BodypartMapper extends Mapper
                   WHERE f.userid = u.internalid
                   GROUP BY bodypartid
                   ) AS favusers ON bp.internalid = favusers.bodypartid
+            LEFT JOIN (
+                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',c.additiondate,
+                                                        '\",\"quantity\":\"',c.quantity,
+                                                        '\"}')),']') AS colusers, bodypartid
+                  FROM users_bodyparts_collection AS c, users AS u
+                  WHERE c.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS colusers ON bp.internalid = colusers.bodypartid
             WHERE pb.photoid = :photoid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute(["photoid" => $photoid, "userid" => $userid]);
