@@ -38,6 +38,7 @@ import Search from 'components/Search'
 import News from 'components/News'
 import SingleNews from 'components/SingleNews'
 import FormSingleNews from 'components/forms/FormSingleNews'
+import Users from 'components/Users'
 import User from 'components/User'
 import UserFavorites from 'components/UserFavorites'
 import UserCollection from 'components/UserCollection'
@@ -864,6 +865,16 @@ export default new Router({
         ]
       },
       component: SingleNews
+    },
+    {
+      path: '/users',
+      name: 'Users',
+      meta: {
+        description: `Users`,
+        breadcrumb: [
+        ]
+      },
+      component: Users
     },
     {
       path: '/user/:id/favorites',
