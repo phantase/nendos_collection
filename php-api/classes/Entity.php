@@ -11,6 +11,7 @@ class Entity
   // For user collection
   protected $colladdeddate;
   protected $collquantity;
+  protected $colusers;
   // For favorites
   protected $numberfavorited;
   protected $inuserfavorites;
@@ -42,6 +43,10 @@ class Entity
 
   public function getCollQuantity() {
     return $this->collquantity;
+  }
+
+  public function getColUsers() {
+    return $this->colusers;
   }
 
   public function getNumberFavorited() {
