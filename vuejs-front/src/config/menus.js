@@ -88,8 +88,8 @@ export default [
     name: 'OTHERS'
   },
   {
-    name: 'Credits',
-    link: '/credits',
+    name: 'About',
+    link: '/about',
     icon: 'fa-info-circle'
   }
 ]
