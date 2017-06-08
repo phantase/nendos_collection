@@ -1,6 +1,6 @@
 <template>
   <span class="user">
-    <i class="fa fa-user-circle-o"></i> <router-link :to="'/profile/' + user.internalid" v-if="user">{{ user.username }}</router-link><span v-else>Unknown</span>
+    <i class="fa fa-user-circle-o"></i> <router-link :to="'/user/' + user.internalid" v-if="user">{{ user.username }}</router-link><span v-else>Unknown</span>
   </span>
 </template>
 
