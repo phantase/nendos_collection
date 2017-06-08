@@ -120,7 +120,7 @@ import AppBoxHeader from './layouts/BoxHeader'
 import ProgressTableRow from './dblayouts/ProgressTableRow'
 
 export default {
-  name: 'Photos',
+  name: 'Users',
   components: {
     AppBoxHeader,
     ProgressTableRow

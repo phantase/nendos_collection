@@ -32,7 +32,7 @@
 import AppBoxHeader from './../layouts/BoxHeader'
 
 export default {
-  name: 'FavoritedTile',
+  name: 'CollectedTile',
   props: ['colusers'],
   components: {
     AppBoxHeader

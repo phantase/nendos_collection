@@ -15,7 +15,7 @@
 <script>
 
 export default {
-  name: 'BoxTile',
+  name: 'ProgressTableRow',
   props: ['icon', 'bartype', 'badgecolor', 'value', 'total'],
   data () {
     return {

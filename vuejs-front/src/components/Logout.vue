@@ -39,7 +39,7 @@ import store from './../store'
 import Vuex from 'vuex'
 
 export default {
-  name: 'Login',
+  name: 'Logout',
   store: store,
   data () {
     return {

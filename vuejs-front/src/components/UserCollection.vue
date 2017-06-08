@@ -144,7 +144,7 @@ import BodypartTile from './dblayouts/BodypartTile'
 import AccessoryTile from './dblayouts/AccessoryTile'
 
 export default {
-  name: 'User',
+  name: 'UserCollection',
   components: {
     AppBoxHeader,
     BoxTile,

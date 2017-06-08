@@ -56,7 +56,7 @@ import AppBoxHeader from './layouts/BoxHeader'
 import PhotosTiles from './dblayouts/PhotosTiles'
 
 export default {
-  name: 'Photos',
+  name: 'UserPhotos',
   components: {
     AppBoxHeader,
     PhotosTiles

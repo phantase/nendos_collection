@@ -156,7 +156,7 @@ import AccessoryTile from './dblayouts/AccessoryTile'
 import PhotoTile from './dblayouts/PhotoTile'
 
 export default {
-  name: 'User',
+  name: 'UserFavorites',
   components: {
     AppBoxHeader,
     BoxTile,
