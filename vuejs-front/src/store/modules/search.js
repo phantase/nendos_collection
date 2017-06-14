@@ -1,43 +1,10 @@
 import * as types from '../mutation-types.js'
 
 const state = {
-  elasticlunr: require('elasticlunr'),
-  boxesIndex: null,
-  nendoroidsIndex: null,
-  accessoriesIndex: null,
-  bodypartsIndex: null,
-  facesIndex: null,
-  hairsIndex: null,
-  handsIndex: null,
-  photosIndex: null,
   searchTerm: null
 }
 
 const getters = {
-  boxesIndex (state) {
-    return state.boxesIndex
-  },
-  nendoroidsIndex (state) {
-    return state.nendoroidsIndex
-  },
-  accessoriesIndex (state) {
-    return state.accessoriesIndex
-  },
-  bodypartsIndex (state) {
-    return state.bodypartsIndex
-  },
-  facesIndex (state) {
-    return state.facesIndex
-  },
-  hairsIndex (state) {
-    return state.hairsIndex
-  },
-  handsIndex (state) {
-    return state.handsIndex
-  },
-  photosIndex (state) {
-    return state.photosIndex
-  },
   searchTerm (state) {
     return state.searchTerm
   }
@@ -45,132 +12,55 @@ const getters = {
 
 const mutations = {
   [types.INIT_SEARCH] (state) {
-    console.log('INIT_SEARCH')
-    state.boxesIndex = state.elasticlunr(function () {
-      this.setRef('internalid')
-      this.addField('name')
-      this.addField('series')
-      this.addField('sculptor')
-      this.addField('cooperation')
-      this.saveDocument(false)
-    })
-    state.nendoroidsIndex = state.elasticlunr(function () {
-      this.setRef('internalid')
-      this.addField('name')
-      this.addField('version')
-      this.addField('sex')
-      this.saveDocument(false)
-    })
-    state.accessoriesIndex = state.elasticlunr(function () {
-      this.setRef('internalid')
-      this.addField('type')
-      this.addField('description')
-      this.addField('main_color')
-      this.addField('other_color')
-      this.saveDocument(false)
-    })
-    state.bodypartsIndex = state.elasticlunr(function () {
-      this.setRef('internalid')
-      this.addField('part')
-      this.addField('description')
-      this.addField('main_color')
-      this.addField('other_color')
-      this.saveDocument(false)
-    })
-    state.facesIndex = state.elasticlunr(function () {
-      this.setRef('internalid')
-      this.addField('eyes')
-      this.addField('mouth')
-      this.addField('eyes_color')
-      this.addField('skin_color')
-      this.addField('sex')
-      this.saveDocument(false)
-    })
-    state.hairsIndex = state.elasticlunr(function () {
-      this.setRef('internalid')
-      this.addField('haircut')
-      this.addField('description')
-      this.addField('main_color')
-      this.addField('other_color')
-      this.addField('frontback')
-      this.saveDocument(false)
-    })
-    state.handsIndex = state.elasticlunr(function () {
-      this.setRef('internalid')
-      this.addField('posture')
-      this.addField('leftright')
-      this.addField('description')
-      this.saveDocument(false)
-    })
-    state.photosIndex = state.elasticlunr(function () {
-      this.setRef('internalid')
-      this.addField('title')
-      this.saveDocument(false)
-    })
+    // console.log('INIT_SEARCH (do nothing)')
   },
   [types.ADD_BOX_TO_INDEX] (state, box) {
-    console.log('ADD_BOX_TO_INDEX')
-    state.boxesIndex.addDoc(box)
+    // console.log('ADD_BOX_TO_INDEX (do nothing)')
   },
   [types.ADD_NENDOROID_TO_INDEX] (state, nendoroid) {
-    console.log('ADD_NENDOROID_TO_INDEX')
-    state.nendoroidsIndex.addDoc(nendoroid)
+    // console.log('ADD_NENDOROID_TO_INDEX (do nothing)')
   },
   [types.ADD_ACCESSORY_TO_INDEX] (state, accessory) {
-    console.log('ADD_ACCESSORY_TO_INDEX')
-    state.accessoriesIndex.addDoc(accessory)
+    // console.log('ADD_ACCESSORY_TO_INDEX (do nothing)')
   },
   [types.ADD_BODYPART_TO_INDEX] (state, bodypart) {
-    console.log('ADD_BODYPART_TO_INDEX')
-    state.bodypartsIndex.addDoc(bodypart)
+    // console.log('ADD_BODYPART_TO_INDEX (do nothing)')
   },
   [types.ADD_FACE_TO_INDEX] (state, face) {
-    console.log('ADD_FACE_TO_INDEX')
-    state.facesIndex.addDoc(face)
+    // console.log('ADD_FACE_TO_INDEX (do nothing)')
   },
   [types.ADD_HAIR_TO_INDEX] (state, hair) {
-    console.log('ADD_HAIR_TO_INDEX')
-    state.hairsIndex.addDoc(hair)
+    // console.log('ADD_HAIR_TO_INDEX (do nothing)')
   },
   [types.ADD_HAND_TO_INDEX] (state, hand) {
-    console.log('ADD_HAND_TO_INDEX')
-    state.handsIndex.addDoc(hand)
+    // console.log('ADD_HAND_TO_INDEX (do nothing)')
   },
   [types.ADD_PHOTO_TO_INDEX] (state, photo) {
-    console.log('ADD_PHOTO_TO_INDEX')
-    state.photosIndex.addDoc(photo)
+    // console.log('ADD_PHOTO_TO_INDEX (do nothing)')
   },
   [types.EDIT_BOX_IN_INDEX] (state, box) {
-    console.log('EDIT_BOX_IN_INDEX')
-    state.boxesIndex.update(box)
+    // console.log('EDIT_BOX_IN_INDEX (do nothing)')
   },
   [types.EDIT_NENDOROID_IN_INDEX] (state, nendoroid) {
-    console.log('EDIT_NENDOROID_IN_INDEX')
-    state.nendoroidsIndex.update(nendoroid)
+    // console.log('EDIT_NENDOROID_IN_INDEX (do nothing)')
   },
   [types.EDIT_ACCESSORY_IN_INDEX] (state, accessory) {
-    console.log('EDIT_ACCESSORY_IN_INDEX')
-    state.accessoriesIndex.update(accessory)
+    // console.log('EDIT_ACCESSORY_IN_INDEX (do nothing)')
   },
   [types.EDIT_BODYPART_IN_INDEX] (state, bodypart) {
-    console.log('EDIT_BODYPART_IN_INDEX')
-    state.bodypartsIndex.update(bodypart)
+    // console.log('EDIT_BODYPART_IN_INDEX (do nothing)')
   },
   [types.EDIT_FACE_IN_INDEX] (state, face) {
-    console.log('EDIT_FACE_IN_INDEX')
-    state.facesIndex.update(face)
+    // console.log('EDIT_FACE_IN_INDEX (do nothing)')
   },
   [types.EDIT_HAIR_IN_INDEX] (state, hair) {
-    console.log('EDIT_HAIR_IN_INDEX')
-    state.hairsIndex.update(hair)
+    // console.log('EDIT_HAIR_IN_INDEX (do nothing)')
   },
   [types.EDIT_HAND_IN_INDEX] (state, hand) {
-    console.log('EDIT_HAND_IN_INDEX')
-    state.handsIndex.update(hand)
+    // console.log('EDIT_HAND_IN_INDEX (do nothing)')
   },
   [types.EDIT_PHOTO_IN_INDEX] (state, photo) {
-    console.log('EDIT_PHOTO_IN_INDEX')
-    state.photosIndex.update(photo)
+    // console.log('EDIT_PHOTO_IN_INDEX (do nothing)')
   },
   [types.SET_A_SEARCH_TERM] (state, term) {
     state.searchTerm = term
@@ -232,32 +122,130 @@ const actions = {
   editPhotoInIndex (store, photo) {
     store.commit(types.EDIT_PHOTO_IN_INDEX, photo)
   },
-  doSearch ({commit, state}, payload) {
+  doSearch ({commit, getters}, payload) {
+    let foundboxes = []
+    getters.boxes.filter((box) => {
+      if (box.name && box.name.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (box.series && box.series.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (box.sculptor && box.sculptor.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (box.cooperation && box.cooperation.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      }
+      return false
+    }).forEach((box) => {
+      foundboxes.push({'ref': box.internalid})
+    })
+    let foundnendoroids = []
+    getters.nendoroids.filter((nendoroid) => {
+      if (nendoroid.name && nendoroid.name.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (nendoroid.version && nendoroid.version.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (nendoroid.sex && nendoroid.sex.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      }
+      return false
+    }).forEach((nendoroid) => {
+      foundnendoroids.push({'ref': nendoroid.internalid})
+    })
+    let foundaccessories = []
+    getters.accessories.filter((accessory) => {
+      if (accessory.type && accessory.type.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (accessory.description && accessory.description.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (accessory.main_color && accessory.main_color.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (accessory.other_color && accessory.other_color.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      }
+      return false
+    }).forEach((accessory) => {
+      foundaccessories.push({'ref': accessory.internalid})
+    })
+    let foundbodyparts = []
+    getters.bodyparts.filter((bodypart) => {
+      if (bodypart.part && bodypart.part.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (bodypart.description && bodypart.description.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (bodypart.main_color && bodypart.main_color.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (bodypart.other_color && bodypart.other_color.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      }
+      return false
+    }).forEach((bodypart) => {
+      foundbodyparts.push({'ref': bodypart.internalid})
+    })
+    let foundfaces = []
+    getters.faces.filter((face) => {
+      if (face.eyes && face.eyes.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (face.mouth && face.mouth.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (face.eyes_color && face.eyes_color.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (face.skin_color && face.skin_color.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (face.sex && face.sex.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      }
+      return false
+    }).forEach((face) => {
+      foundfaces.push({'ref': face.internalid})
+    })
+    let foundhairs = []
+    getters.hairs.filter((hair) => {
+      if (hair.haircut && hair.haircut.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (hair.description && hair.description.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (hair.main_color && hair.main_color.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (hair.other_color && hair.other_color.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (hair.frontback && hair.frontback.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      }
+      return false
+    }).forEach((hair) => {
+      foundhairs.push({'ref': hair.internalid})
+    })
+    let foundhands = []
+    getters.hands.filter((hand) => {
+      if (hand.posture && hand.posture.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (hand.leftright && hand.leftright.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      } else if (hand.description && hand.description.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      }
+      return false
+    }).forEach((hand) => {
+      foundhands.push({'ref': hand.internalid})
+    })
+    let foundphotos = []
+    getters.photos.filter((photo) => {
+      if (photo.title && photo.title.toLowerCase().indexOf(payload.queryTerm) !== -1) {
+        return true
+      }
+      return false
+    }).forEach((photo) => {
+      foundphotos.push({'ref': photo.internalid})
+    })
     return {
-      'boxes': state.boxesIndex.search(payload.queryTerm, {
-        expand: !payload.strictMode
-      }),
-      'nendoroids': state.nendoroidsIndex.search(payload.queryTerm, {
-        expand: !payload.strictMode
-      }),
-      'accessories': state.accessoriesIndex.search(payload.queryTerm, {
-        expand: !payload.strictMode
-      }),
-      'bodyparts': state.bodypartsIndex.search(payload.queryTerm, {
-        expand: !payload.strictMode
-      }),
-      'faces': state.facesIndex.search(payload.queryTerm, {
-        expand: !payload.strictMode
-      }),
-      'hairs': state.hairsIndex.search(payload.queryTerm, {
-        expand: !payload.strictMode
-      }),
-      'hands': state.handsIndex.search(payload.queryTerm, {
-        expand: !payload.strictMode
-      }),
-      'photos': state.photosIndex.search(payload.queryTerm, {
-        expand: !payload.strictMode
-      })
+      'boxes': foundboxes,
+      'nendoroids': foundnendoroids,
+      'accessories': foundaccessories,
+      'bodyparts': foundbodyparts,
+      'faces': foundfaces,
+      'hairs': foundhairs,
+      'hands': foundhands,
+      'photos': foundphotos
     }
   },
   setSearchTerm (store, term) {
