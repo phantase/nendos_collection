@@ -24,6 +24,10 @@ Vue.http.interceptors.push(function (request, next) {
   }
   next()
 })
+router.beforeEach((to, from, next) => {
+  document.title = 'Nendoroids db / ' + to.name
+  next()
+})
 
 /* eslint-disable no-new */
 new Vue({

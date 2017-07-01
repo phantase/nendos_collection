@@ -115,6 +115,11 @@ export default {
     isself () {
       return this.user.internalid === this.$route.params.id
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      document.title += ' / ' + vm.user.username + ' / Id: ' + vm.user.internalid
+    })
   }
 }
 </script>

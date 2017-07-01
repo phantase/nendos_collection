@@ -78,6 +78,11 @@ export default {
   },
   methods: {
     ...Vuex.mapActions([])
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      document.title += ' / ' + vm.singleNews.title + ' / Id: ' + vm.singleNews.internalid
+    })
   }
 }
 </script>

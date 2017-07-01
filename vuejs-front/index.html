@@ -6,12 +6,47 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Nendoroids db</title>
+    <!-- Piwik -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//stats.phantase.com/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Piwik Code -->
   </head>
   <body class="hold-transition skin-yellow sidebar-mini">
     <div id="app"></div>
 
     <script type="text/javascript">
         window.fd = {logging: false}
+        // https://piwik.org/blog/2017/02/how-to-track-single-page-websites-using-piwik-analytics/
+        var currentUrl = location.href;
+        window.addEventListener('hashchange', function() {
+            _paq.push(['setReferrerUrl', currentUrl]);
+             currentUrl = '' + window.location.hash.substr(1);
+            _paq.push(['setCustomUrl', currentUrl]);
+            _paq.push(['setDocumentTitle', document.title]);
+
+            // remove all previously assigned custom variables, requires Piwik 3.0.2
+            _paq.push(['deleteCustomVariables', 'page']);
+            _paq.push(['setGenerationTimeMs', 0]);
+            _paq.push(['trackPageView']);
+
+            // make Piwik aware of newly added content
+            var content = document.getElementById('content');
+            _paq.push(['MediaAnalytics::scanForMedia', content]);
+            _paq.push(['FormAnalytics::scanForForms', content]);
+            _paq.push(['trackContentImpressionsWithinNode', content]);
+            _paq.push(['enableLinkTracking']);
+        });
     </script>
     <!-- built files will be auto injected -->
   </body>

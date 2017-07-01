@@ -250,6 +250,11 @@ export default {
         })
       }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      document.title += ' / ' + vm.hair.frontback + ' / Id: ' + vm.hair.internalid
+    })
   }
 }
 </script>

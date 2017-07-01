@@ -246,6 +246,11 @@ export default {
         })
       }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      document.title += ' / ' + vm.hand.leftright + ' / Id: ' + vm.hand.internalid
+    })
   }
 }
 </script>

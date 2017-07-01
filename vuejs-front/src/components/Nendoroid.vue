@@ -301,6 +301,11 @@ export default {
         })
       }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      document.title += ' / ' + vm.nendoroid.name + (vm.nendoroid.version ? ' / ' + vm.nendoroid.version : '')
+    })
   }
 }
 </script>

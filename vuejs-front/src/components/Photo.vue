@@ -363,6 +363,11 @@ export default {
         })
       }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      document.title += ' / ' + vm.photo.title + ' / Id: ' + vm.photo.internalid
+    })
   }
 }
 </script>
