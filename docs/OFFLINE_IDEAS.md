@@ -1,5 +1,7 @@
 # Ideas I got when offline (and then not able to write tickets in Github)
 
+## Auto-reloead
+
 * Check from time to time when user is connected for new data
 * For that, maybe, at each change of the DB (new part, part modification, validation, unvalidation, new image, image modification, part added to image...) modify a (static) file with inside a hash that will be used to know if there is something new, if there is, then the data will be downloaded again
 * Then of course, we had to keep this (or these) hash(es) client side to be able to make comparison easily between the current state client side and the state server side.
@@ -9,19 +11,19 @@
 * So maybe also do something incremental as we have the date of modification of each database record
 ==> What has been done is that right now we have the possibility to launch an auto-reload (with a user defined time interval between reloads), but right now, this reload retrieves the whole database...
 
-# TODO (also)
+## TODO (also)
 
 * Page to edit (change/add) the user picture, and services server side
 * Page to edit an user, and services server side
 
-# Favorites
+## Favorites
 
 * See if we let the internalid, maybe it's better to remove it and make the userid+elementid the PK (unique), so we avoid users favorite multiple time the element if they use the API...
 
-# Tooltips
+## Tooltips
 
 * Add tooltips on ALL buttons and objects that can lead to an action
 
-# User.vue
+## User.vue
 
 * Verify if the fact that we have two users (one coming from store and which represents the current logged in user, and one computed from the id in parameter) is not a source of conflict...
