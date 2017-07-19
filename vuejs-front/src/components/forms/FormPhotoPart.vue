@@ -133,7 +133,7 @@
           <div class="box-body db-photo"
             :class="selectedpart?'drawmode':''">
             <div class="db-photo-annotation-container">
-              <img id="db-photo" :src="resources.apiurl+'/images/photos/'+photo.internalid+'/full'" :orig-width="photo.width" :orig-height="photo.height" @load="handleResize" />
+              <img id="db-photo" :src="resources.img_url+'/images/photos/'+photo.internalid+'/full'" :orig-width="photo.width" :orig-height="photo.height" @load="handleResize" />
               <div class="db-photo-annotation-box"
                 :style="drawingStyle"><a></a></div>
               <div class="db-photo-annotation-event-handler"

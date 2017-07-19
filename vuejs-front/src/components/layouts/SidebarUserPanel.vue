@@ -2,7 +2,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-        <img :src="resources.apiurl+'/images/users/'+(user.internalid?user.internalid:'0')+'/thumb'" class="img-circle" alt="User Image" />
+        <img :src="resources.img_url+'/images/users/'+(user.internalid?user.internalid:'0')+'/thumb'" class="img-circle" alt="User Image" />
         </div>
         <div class="pull-left info">
           <p>{{ user.internalid ? user.username : 'Unknow user' }}</p>

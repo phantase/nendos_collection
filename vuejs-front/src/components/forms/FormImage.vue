@@ -80,8 +80,8 @@
         <div class="box">
           <app-box-header title="Current photo" collapsable="true" icon="fa-photo"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.apiurl+'/images/'+element+'/'+internalid+'/thumb'" v-if="elementObject.haspicture === '1'" />
-            <img :src="resources.apiurl+'/images/unknown'" v-else />
+            <img :src="resources.img_url+'/images/'+element+'/'+internalid+'/thumb'" v-if="elementObject.haspicture === '1'" />
+            <img :src="resources.img_url+'/images/unknown'" v-else />
           </div>
         </div>
       </div>

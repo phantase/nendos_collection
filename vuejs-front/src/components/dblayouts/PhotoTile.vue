@@ -7,7 +7,7 @@
           </h3>
         </div>
         <div class="box-body db-image">
-          <img :src="resources.apiurl+'/images/photos/'+photo.internalid+'/thumb'" />
+          <img :src="resources.img_url+'/images/photos/'+photo.internalid+'/thumb'" />
         </div>
       </div>
 </template>

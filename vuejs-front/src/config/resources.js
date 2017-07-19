@@ -1,5 +1,5 @@
 export default {
-  apiurl: 'http://192.168.99.100:3000',
+  img_url: process.env.IMG_URL,
   month_names: [
     'Jan.',
     'Feb.',

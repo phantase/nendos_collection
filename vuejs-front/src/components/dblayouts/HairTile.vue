@@ -12,8 +12,8 @@
               :title="`<div class='db-hair-frontback text-yellow'>`+hair.frontback+`</div>
                         <div class='db-hair-haircut'><span class='text-yellow'>Haircut:</span> `+hair.haircut+`</div>
                         <div class='db-hair-description'><span class='text-yellow'>Description:</span> `+hair.description+`</div>`">
-          <img :src="resources.apiurl+'/images/hairs/'+hair.internalid+'/thumb'" v-if="hair.haspicture == '1'"/>
-          <img :src="resources.apiurl+'/images/unknown'" v-else />
+          <img :src="resources.img_url+'/images/hairs/'+hair.internalid+'/thumb'" v-if="hair.haspicture == '1'"/>
+          <img :src="resources.img_url+'/images/unknown'" v-else />
           <span v-if="!minimal">
             <span class="badge bg-blue incollection" v-if="hair.collquantity">{{ hair.collquantity }}</span>
             <span v-if="viewvalidation">

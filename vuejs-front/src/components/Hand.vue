@@ -78,8 +78,8 @@
         <div class="box">
           <app-box-header title="Photo" collapsable="true" icon="fa-photo" :editable="canedit" :editlink="'/hand/'+hand.internalid+'/edit/image'"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.apiurl+'/images/hands/'+hand.internalid+'/thumb'" v-if="hand.haspicture == '1'"/>
-            <img :src="resources.apiurl+'/images/unknown'" v-else />
+            <img :src="resources.img_url+'/images/hands/'+hand.internalid+'/thumb'" v-if="hand.haspicture == '1'"/>
+            <img :src="resources.img_url+'/images/unknown'" v-else />
           </div>
         </div>
       </div>
