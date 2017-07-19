@@ -7,14 +7,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VueResource from 'vue-resource'
 import router from './router'
-import resources from './config/resources'
 import App from './App'
 
 import store from './store'
 
 Vue.use(Vuex)
 Vue.use(VueResource)
-Vue.http.options.root = resources.apiurl
+Vue.http.options.root = process.env.API_URL
 Vue.http.interceptors.push(function (request, next) {
   if (store.getters.authenticated) {
     request.headers.set('Authorization', 'Bearer ' + store.getters.token)
