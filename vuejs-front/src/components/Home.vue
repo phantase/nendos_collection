@@ -57,6 +57,20 @@
           </div>
         </div>
       </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="box box-warning">
+          <app-box-header title="Latest validated elements" collapsable="true" icon="fa-clock-o"></app-box-header>
+          <div class="box-body">
+            <box-h-tile       :box="latestBox"              v-if="latestElementView % 7 === 0"></box-h-tile>
+            <nendoroid-h-tile :nendoroid="latestNendoroid"  v-if="latestElementView % 7 === 1"></nendoroid-h-tile>
+            <face-h-tile      :face="latestFace"            v-if="latestElementView % 7 === 2"></face-h-tile>
+            <hair-h-tile      :hair="latestHair"            v-if="latestElementView % 7 === 3"></hair-h-tile>
+            <hand-h-tile      :hand="latestHand"            v-if="latestElementView % 7 === 4"></hand-h-tile>
+            <bodypart-h-tile  :bodypart="latestBodypart"    v-if="latestElementView % 7 === 5"></bodypart-h-tile>
+            <accessory-h-tile :accessory="latestAccessory"  v-if="latestElementView % 7 === 6"></accessory-h-tile>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -70,16 +84,32 @@
   import AppInfoBox from './dblayouts/InfoBox'
   import AppNewsTile from './dblayouts/NewsTile'
 
+  import BoxHTile from './dblayouts/BoxHTile'
+  import NendoroidHTile from './dblayouts/NendoroidHTile'
+  import FaceHTile from './dblayouts/FaceHTile'
+  import HairHTile from './dblayouts/HairHTile'
+  import HandHTile from './dblayouts/HandHTile'
+  import BodypartHTile from './dblayouts/BodypartHTile'
+  import AccessoryHTile from './dblayouts/AccessoryHTile'
+
   export default {
     name: 'Home',
     components: {
       AppBoxHeader,
       AppInfoBox,
-      AppNewsTile
+      AppNewsTile,
+      BoxHTile,
+      NendoroidHTile,
+      FaceHTile,
+      HairHTile,
+      HandHTile,
+      BodypartHTile,
+      AccessoryHTile
     },
     store: store,
     data () {
       return {
+        latestElementView: 0
       }
     },
     computed: {
@@ -91,13 +121,54 @@
         'counthands', 'countuserhands',
         'countbodyparts', 'countuserbodyparts',
         'countaccessories', 'countuseraccessories',
-        'countphotos', 'news'
+        'countphotos', 'news',
+        'boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories'
       ]),
       homeNews () {
         return this.news.concat().sort(function (a, b) {
           return new Date(b.creationdate).getTime() - new Date(a.creationdate).getTime()
         })
+      },
+      latestBox () {
+        return this.boxes.concat().sort(function (a, b) {
+          return new Date(b.validationdate).getTime() - new Date(a.validationdate).getTime()
+        })[0]
+      },
+      latestNendoroid () {
+        return this.nendoroids.concat().sort(function (a, b) {
+          return new Date(b.validationdate).getTime() - new Date(a.validationdate).getTime()
+        })[0]
+      },
+      latestFace () {
+        return this.faces.concat().sort(function (a, b) {
+          return new Date(b.validationdate).getTime() - new Date(a.validationdate).getTime()
+        })[0]
+      },
+      latestHair () {
+        return this.hairs.concat().sort(function (a, b) {
+          return new Date(b.validationdate).getTime() - new Date(a.validationdate).getTime()
+        })[0]
+      },
+      latestHand () {
+        return this.hands.concat().sort(function (a, b) {
+          return new Date(b.validationdate).getTime() - new Date(a.validationdate).getTime()
+        })[0]
+      },
+      latestBodypart () {
+        return this.bodyparts.concat().sort(function (a, b) {
+          return new Date(b.validationdate).getTime() - new Date(a.validationdate).getTime()
+        })[0]
+      },
+      latestAccessory () {
+        return this.accessories.concat().sort(function (a, b) {
+          return new Date(b.validationdate).getTime() - new Date(a.validationdate).getTime()
+        })[0]
       }
+    },
+    mounted () {
+      window.setInterval(() => {
+        this.latestElementView ++
+      }, 5000)
     }
   }
 </script>
