@@ -61,13 +61,17 @@
         <div class="box box-warning">
           <app-box-header title="Latest validated elements" collapsable="true" icon="fa-clock-o"></app-box-header>
           <div class="box-body">
-            <box-h-tile       :box="latestBox"              v-if="latestElementView % 7 === 0"></box-h-tile>
-            <nendoroid-h-tile :nendoroid="latestNendoroid"  v-if="latestElementView % 7 === 1"></nendoroid-h-tile>
-            <face-h-tile      :face="latestFace"            v-if="latestElementView % 7 === 2"></face-h-tile>
-            <hair-h-tile      :hair="latestHair"            v-if="latestElementView % 7 === 3"></hair-h-tile>
-            <hand-h-tile      :hand="latestHand"            v-if="latestElementView % 7 === 4"></hand-h-tile>
-            <bodypart-h-tile  :bodypart="latestBodypart"    v-if="latestElementView % 7 === 5"></bodypart-h-tile>
-            <accessory-h-tile :accessory="latestAccessory"  v-if="latestElementView % 7 === 6"></accessory-h-tile>
+            <div class="latestElement">
+              <transition name="slide">
+                <box-h-tile       :box="latestBox"              v-if="latestBox && latestElementView % 7 === 0" key="box"></box-h-tile>
+                <nendoroid-h-tile :nendoroid="latestNendoroid"  v-if="latestNendoroid && latestElementView % 7 === 1" key="nendoroid"></nendoroid-h-tile>
+                <face-h-tile      :face="latestFace"            v-if="latestFace && latestElementView % 7 === 2" key="face"></face-h-tile>
+                <hair-h-tile      :hair="latestHair"            v-if="latestHair && latestElementView % 7 === 3" key="hair"></hair-h-tile>
+                <hand-h-tile      :hand="latestHand"            v-if="latestHand && latestElementView % 7 === 4" key="hand"></hand-h-tile>
+                <bodypart-h-tile  :bodypart="latestBodypart"    v-if="latestBodypart && latestElementView % 7 === 5" key="bodypart"></bodypart-h-tile>
+                <accessory-h-tile :accessory="latestAccessory"  v-if="latestAccessory && latestElementView % 7 === 6" key="accessory"></accessory-h-tile>
+              </transition>
+            </div>
           </div>
         </div>
       </div>
@@ -172,3 +176,30 @@
     }
   }
 </script>
+
+<style scoped>
+.latestElement {
+  overflow: hidden;
+  position: relative;
+  height: 100px;
+  width: 100%;
+}
+.latestElement a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: transform 1.5s;
+}
+.slide-enter {
+  transform: translate(103%, 0);
+}
+.slide-leave-to {
+  transform:  translate(-103%, 0);
+}
+</style>
