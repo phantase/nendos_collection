@@ -113,7 +113,8 @@
     store: store,
     data () {
       return {
-        latestElementView: 0
+        latestElementView: 0,
+        latestElementInterval: null
       }
     },
     computed: {
@@ -170,9 +171,13 @@
       }
     },
     mounted () {
-      window.setInterval(() => {
+      this.latestElementInterval = window.setInterval(() => {
         this.latestElementView ++
       }, 5000)
+    },
+    beforeDestroy () {
+      window.clearInterval(this.latestElementInterval)
+      this.latestElementInterval = null
     }
   }
 </script>
@@ -181,7 +186,7 @@
 .latestElement {
   overflow: hidden;
   position: relative;
-  height: 100px;
+  height: 100px; /* this is a maginc number */
   width: 100%;
 }
 .latestElement a {
