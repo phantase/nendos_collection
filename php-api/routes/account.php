@@ -147,7 +147,7 @@ $app->post('/auth/register', function(Request $request, Response $response) {
                 "<br>".
                 "If you are not at the origin of this new account you have just to ignore this mail and the account will not be confirmed and deleted in few days automatically.<br>".
                 "<br>".
-                "If you have closed the page with the confirmation form, you can go to <a href=\"https://www.nendoroids-db.net/confirm\">the confirmation page</a> and enter your email and the confirmation code.<br>".
+                "If you have closed the page with the confirmation form, you can go to <a href=\"https://www.nendoroids-db.net/#/confirm\">the confirmation page</a> and enter your email and the confirmation code.<br>".
                 "<br>".
                 "See you soon at Nendoroids-db.net.";
             $mail->AltBody =  "Dear $username, \r\n".
@@ -158,7 +158,7 @@ $app->post('/auth/register', function(Request $request, Response $response) {
                 "\r\n".
                 "If you are not at the origin of this new account you have just to ignore this mail and the account will not be confirmed and deleted in few days automatically.\r\n".
                 "\r\n".
-                "If you have closed the page with the confirmation form, you can go to <https://www.nendoroids-db.net/confirm> (the confirmation page) and enter your email and the confirmation code.\r\n".
+                "If you have closed the page with the confirmation form, you can go to <https://www.nendoroids-db.net/#/confirm> (the confirmation page) and enter your email and the confirmation code.\r\n".
                 "\r\n".
                 "See you soon at Nendoroids-db.net.\r\n";
 
