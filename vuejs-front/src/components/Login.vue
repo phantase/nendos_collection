@@ -55,8 +55,8 @@ export default {
   store: store,
   data () {
     return {
-      usermail: 'phantase@phantase.com',
-      password: 'phantase',
+      usermail: process.env.DEFAULT_USERNAME,
+      password: process.env.DEFAULT_PASSWORD,
       rememberme: false,
       loginerror: false
     }
