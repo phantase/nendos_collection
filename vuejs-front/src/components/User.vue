@@ -10,7 +10,7 @@
                 <div><router-link :to="'/user/'+user.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canadmin || isself"><i class="fa fa-edit"></i> Edit</router-link></div>
               </div>
               <div class="db-box-category text-yellow">
-                <span>{{ user.username}}</span>
+                <span>{{ user.username }}</span>
               </div>
               <div class="db-box-name" v-if="canadmin || isself">{{ user.usermail }}</div>
             </h3>
@@ -118,7 +118,11 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      document.title += ' / ' + vm.user.username + ' / Id: ' + vm.user.internalid
+      if (vm.user) {
+        document.title += ' / ' + vm.user.username + ' / Id: ' + vm.user.internalid
+      } else {
+        document.title += ' / Id: ' + vm.$route.params.id
+      }
     })
   }
 }
