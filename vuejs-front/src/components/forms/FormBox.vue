@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa icon-icon_nendo_box"></i> {{ internalid ? 'Edit' : 'Add' }} a box</h3>
+            <h3 class="box-title"><i class="fa icon-icon_nendo_boxes"></i> {{ internalid ? 'Edit' : 'Add' }} a box</h3>
           </div>
           <div class="box-body" v-if="canedit">
             <div class="alert alert-danger" v-if="failure">
