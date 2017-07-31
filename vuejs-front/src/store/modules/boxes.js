@@ -69,17 +69,17 @@ const mutations = {
 
 const actions = {
   addBox (store, box) {
-    store.dispatch('addBoxToIndex', box)
+    // store.dispatch('addBoxToIndex', box)
     store.commit(types.ADD_BOX, box)
   },
   editBox (store, box) {
-    store.dispatch('editBoxToIndex', box)
+    // store.dispatch('editBoxToIndex', box)
     store.commit(types.EDIT_BOX, box)
   },
   setBoxes (store, boxes) {
-    boxes.forEach((box) => {
-      store.dispatch('addBoxToIndex', box)
-    })
+    // boxes.forEach((box) => {
+    //   store.dispatch('addBoxToIndex', box)
+    // })
     store.commit(types.SET_BOXES, boxes)
   },
   retrieveBoxes (store, payload) {

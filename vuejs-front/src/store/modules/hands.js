@@ -69,17 +69,17 @@ const mutations = {
 
 const actions = {
   addHand (store, hand) {
-    store.dispatch('addHandToIndex', hand)
+    // store.dispatch('addHandToIndex', hand)
     store.commit(types.ADD_HAND, hand)
   },
   editHand (store, hand) {
-    store.dispatch('editHandToIndex', hand)
+    // store.dispatch('editHandToIndex', hand)
     store.commit(types.EDIT_HAND, hand)
   },
   setHands (store, hands) {
-    hands.forEach((hand) => {
-      store.dispatch('addHandToIndex', hand)
-    })
+    // hands.forEach((hand) => {
+    //   store.dispatch('addHandToIndex', hand)
+    // })
     store.commit(types.SET_HANDS, hands)
   },
   retrieveHands (store, payload) {

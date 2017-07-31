@@ -43,6 +43,7 @@ import User from 'components/User'
 import UserFavorites from 'components/UserFavorites'
 import UserCollection from 'components/UserCollection'
 import UserPhotos from 'components/UserPhotos'
+import FormUser from 'components/forms/FormUser'
 import About from 'components/About'
 
 Vue.use(Router)
@@ -930,6 +931,24 @@ export default new Router({
         ]
       },
       component: UserPhotos
+    },
+    {
+      path: '/user/:id/edit',
+      name: 'Edit User',
+      meta: {
+        description: `Edit a user`,
+        breadcrumb: [
+          {
+            title: 'Users',
+            link: '/users'
+          },
+          {
+            title: 'User',
+            link: '/user/:id'
+          }
+        ]
+      },
+      component: FormUser
     },
     {
       path: '/user/:id',

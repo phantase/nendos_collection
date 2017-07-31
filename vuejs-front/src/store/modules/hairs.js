@@ -69,17 +69,17 @@ const mutations = {
 
 const actions = {
   addHair (store, hair) {
-    store.dispatch('addHairToIndex', hair)
+    // store.dispatch('addHairToIndex', hair)
     store.commit(types.ADD_HAIR, hair)
   },
   editHair (store, hair) {
-    store.dispatch('editHairToIndex', hair)
+    // store.dispatch('editHairToIndex', hair)
     store.commit(types.EDIT_HAIR, hair)
   },
   setHairs (store, hairs) {
-    hairs.forEach((hair) => {
-      store.dispatch('addHairToIndex', hair)
-    })
+    // hairs.forEach((hair) => {
+    //   store.dispatch('addHairToIndex', hair)
+    // })
     store.commit(types.SET_HAIRS, hairs)
   },
   retrieveHairs (store, payload) {

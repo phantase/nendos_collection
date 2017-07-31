@@ -199,3 +199,100 @@ $app->post('/auth/confirm', function(Request $request, Response $response) {
 
     return $newresponse;
 });
+
+// Edit
+$app->put('/auth/user/{internalid:[0-9]+}', function(Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
+    $internalid = (int)$args['internalid'];
+    $data = $request->getParsedBody();
+    if ($userid == $internalid) {
+        $this->applogger->addInfo("User $userid edits his user information");
+
+        $newelement = null;
+        try {
+            $usermail = filter_var($data['usermail'], FILTER_SANITIZE_STRING);
+            if (strlen($usermail) == 0) {
+                throw new Exception("No usermail provided");
+            }
+            $username = filter_var($data['username'], FILTER_SANITIZE_STRING);
+            if (strlen($username) == 0) {
+                throw new Exception("No username provided");
+            }
+            $oldpassword = filter_var($data['oldpassword'], FILTER_SANITIZE_STRING);
+            if (strlen($oldpassword) == 0) {
+                throw new Exception("No previous password provided");
+            }
+            $encpass = base64_encode(base64_encode(base64_encode($request->getAttribute("token")->user->usermail.$oldpassword.A_SALT)));
+            $user_mapper = new UserMapper($this->db);
+            $user = $user_mapper->checkUser($request->getAttribute("token")->user->usermail,$encpass);
+            if ($user) {
+                // OK
+            } else {
+                throw new Exception("Previous password is wrong");
+            }
+            $encpass = base64_encode(base64_encode(base64_encode($usermail.$oldpassword.A_SALT)));
+
+            $newpassword = filter_var($data['newpassword'], FILTER_SANITIZE_STRING);
+            if (strlen($newpassword) > 0) {
+                $encpass = base64_encode(base64_encode(base64_encode($usermail.$newpassword.A_SALT)));
+            }
+
+            $newelement = $user_mapper->update($usermail, $username, $encpass, $userid);
+
+            if( is_null($newelement) ){
+                $newresponse = $response->withStatus(500);
+            } else {
+                $now = new DateTime();
+                $future = new DateTime("now +24 hours");
+                $jti = Tuupola\Base62::encode(random_bytes(16));
+
+                $payload = [
+                  "iat" => $now->getTimeStamp(),
+                  "exp" => $future->getTimeStamp(),
+                  "jti" => $jti,
+                  "user" => $newelement
+                ];
+
+                $secret = $this["settings"]["jwt"]["secret"];
+                $token = Firebase\JWT\JWT::encode($payload, $secret, "HS256");
+                $repdata["status"] = "ok";
+                $repdata["token"] = $token;
+                $repdata["user"] = $newelement;
+
+                $this->applogger->addInfo("User $usermail successfully update his info and generates a new token");
+
+                $newresponse = $response->withJson($repdata,200);
+            }
+        } catch (Exception $e){
+            $this->applogger->addInfo($e);
+            $newresponse = $response->withStatus(400);
+        }
+    } else if($request->getAttribute("token")->user->administrator) {
+        $this->applogger->addInfo("Administrator $userid edits user $internalid rights");
+
+        $newelement = null;
+
+        try {
+            $administrator = filter_var($data['administrator'], FILTER_SANITIZE_NUMBER_INT );
+            $validator = filter_var($data['validator'], FILTER_SANITIZE_NUMBER_INT );
+            $editor = filter_var($data['editor'], FILTER_SANITIZE_NUMBER_INT );
+
+            $user_mapper = new UserMapper($this->db);
+            $newelement = $user_mapper->updateRights($administrator, $validator, $editor, $internalid);
+
+            if( is_null($newelement) ){
+                $newresponse = $response->withStatus(500);
+            } else {
+                $newresponse = $response->withJson($newelement,200);
+            }
+
+        } catch (Exception $e){
+            $this->applogger->addInfo($e);
+            $newresponse = $response->withStatus(400);
+        }
+    } else {
+        $this->applogger->addInfo("User $userid tries to edit user $internalid without right to do it (not himself and not administrator)");
+        $newresponse = $response->withStatus(403);
+    }
+    return $newresponse;
+});

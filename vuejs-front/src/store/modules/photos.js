@@ -174,17 +174,17 @@ const mutations = {
 
 const actions = {
   addPhoto (store, photo) {
-    store.dispatch('addPhotoToIndex', photo)
+    // store.dispatch('addPhotoToIndex', photo)
     store.commit(types.ADD_PHOTO, photo)
   },
   editPhoto (store, photo) {
-    store.dispatch('editPhotoToIndex', photo)
+    // store.dispatch('editPhotoToIndex', photo)
     store.commit(types.EDIT_PHOTO, photo)
   },
   setPhotos (store, photos) {
-    photos.forEach((photo) => {
-      store.dispatch('addPhotoToIndex', photo)
-    })
+    // photos.forEach((photo) => {
+    //   store.dispatch('addPhotoToIndex', photo)
+    // })
     store.commit(types.SET_PHOTOS, photos)
   },
   retrievePhotos (store, payload) {

@@ -19,3 +19,5 @@ ALTER TABLE `users`
 -- Add the auto increment
 ALTER TABLE `users`
   MODIFY `internalid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+-- Add constraint to avoid multiple users with the same usermail
+ALTER TABLE `users` ADD UNIQUE(`usermail`);

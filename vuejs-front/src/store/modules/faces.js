@@ -69,17 +69,17 @@ const mutations = {
 
 const actions = {
   addFace (store, face) {
-    store.dispatch('addFaceToIndex', face)
+    // store.dispatch('addFaceToIndex', face)
     store.commit(types.ADD_FACE, face)
   },
   editFace (store, face) {
-    store.dispatch('editFaceToIndex', face)
+    // store.dispatch('editFaceToIndex', face)
     store.commit(types.EDIT_FACE, face)
   },
   setFaces (store, faces) {
-    faces.forEach((face) => {
-      store.dispatch('addFaceToIndex', face)
-    })
+    // faces.forEach((face) => {
+    //   store.dispatch('addFaceToIndex', face)
+    // })
     store.commit(types.SET_FACES, faces)
   },
   retrieveFaces (store, payload) {

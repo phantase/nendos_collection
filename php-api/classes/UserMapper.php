@@ -148,4 +148,41 @@ class UserMapper extends Mapper
     $this->addHistory($userid, $user_internalid, "Update", "Picture has been updated");
   }
 
+  public function update($usermail, $username, $encpass, $userid) {
+    $sql = "UPDATE users SET
+              usermail = :usermail,
+              username = :username,
+              encpass = :encpass
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $userid,
+        "usermail" => $usermail,
+        "username" => $username,
+        "encpass" => $encpass
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update user");
+    }
+    return $this->getByInternalid($userid);
+  }
+
+  public function updateRights($administrator, $validator, $editor, $userid) {
+    $sql = "UPDATE users SET
+              administrator = :administrator,
+              validator = :validator,
+              editor = :editor
+            WHERE internalid = :internalid";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "internalid" => $userid,
+        "administrator" => $administrator,
+        "validator" => $validator,
+        "editor" => $editor
+      ]);
+    if(!$result) {
+      throw new Exception("Could not update user");
+    }
+    return $this->getByInternalid($userid);
+  }
 }
