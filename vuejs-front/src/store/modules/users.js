@@ -40,6 +40,10 @@ const mutations = {
     state.users.find(user => user.internalid === userid).administrator = administrator
     state.users.find(user => user.internalid === userid).validator = validator
     state.users.find(user => user.internalid === userid).editor = editor
+  },
+  [types.ADD_USER_PICTURE] (state, internalid) {
+    let idx = state.users.findIndex(intuser => intuser.internalid === internalid)
+    state.users[idx].haspicture = 1
   }
 }
 
@@ -130,6 +134,10 @@ const actions = {
         reject()
       })
     })
+  },
+  addUserPicture (store, payload) {
+    let internalid = payload.internalid
+    store.commit(types.ADD_USER_PICTURE, internalid)
   }
 }
 

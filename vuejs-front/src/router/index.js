@@ -933,6 +933,24 @@ export default new Router({
       component: UserPhotos
     },
     {
+      path: '/user/:id/edit/image',
+      name: 'Edit user photo',
+      meta: {
+        description: 'Edit the photo of an user',
+        breadcrumb: [
+          {
+            title: 'Users',
+            link: '/users'
+          },
+          {
+            title: 'User',
+            link: '/user/:id'
+          }
+        ]
+      },
+      component: FormImage
+    },
+    {
       path: '/user/:id/edit',
       name: 'Edit User',
       meta: {

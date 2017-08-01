@@ -2,6 +2,7 @@
 export const SET_USER = 'SET_USER'
 export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
 export const SET_TOKEN = 'SET_TOKEN'
+export const ADD_AUTH_USER_PICTURE = 'ADD_AUTH_USER_PICTURE'
 // counts
 export const SET_COUNTS = 'SET_COUNTS'
 export const SET_USERCOUNTS = 'SET_USERCOUNTS'

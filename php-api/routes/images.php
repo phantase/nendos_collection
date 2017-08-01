@@ -77,7 +77,7 @@ $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
 });
 
 // Post the image of a single {element} using its {internalid}
-$app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|user|users}/{internalid:[0-9]+}', function (Request $request, Response $response, $args) {
+$app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{internalid:[0-9]+}', function (Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
@@ -124,6 +124,76 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
                 case "photos":
                     $element = "photos";
                     break;
+                default:
+                    throw new Exception("Error Processing Request", 1);
+            }
+
+            $destination_folder = "images/nendos/$element/";
+
+            if (!file_exists($destination_folder)) {
+                mkdir($destination_folder, 0777, true);
+            }
+
+            $filename_full = $destination_folder.$internalid."_full.jpg";
+            $filename_thumb = $destination_folder.$internalid."_thumb.jpg";
+
+            $maxside = 500;
+
+            $file = $files['pic'];
+            $file->moveTo($filename_full);
+
+            list($width, $height) = getimagesize($filename_full);
+            /** Version with same proportion as original **/
+            if ($width > $height) {
+                $newwidth = $maxside;
+                $newheight = $height * $maxside / $width;
+            } else {
+                $newheight = $maxside;
+                $newwidth = $width * $maxside / $height;
+            }
+            /** Version with squared thumb **/
+            // $newwidth = $maxside;
+            // $newheight = $maxside;
+
+            $image_dest = imagecreatetruecolor($newwidth, $newheight);
+            $image_orig = imagecreatefromjpeg($filename_full);
+            imagecopyresampled($image_dest, $image_orig, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+            imagejpeg($image_dest, $filename_thumb, 90);
+
+            $mapper = MapperFactory::getMapper($this->db,$param_element);
+            $mapper->addPicture($internalid, $userid);
+
+            return $response->withStatus(201);
+
+        } catch (Exception $e){
+            $this->applogger->addInfo($e->getMessage());
+            return $response->withStatus(400);
+        }
+    } else {
+        $this->applogger->addInfo("POST images/$param_element/$internalid Forbidden, not allowed to");
+        return $response->withStatus(403);
+    }
+
+
+});
+
+// Post the image of a user using its {internalid}
+$app->post('/auth/images/{element:user|users}/{internalid:[0-9]+}', function (Request $request, Response $response, $args) {
+    $userid = $request->getAttribute("token")->user->internalid;
+    $param_element = $args['element'];
+    $internalid = (int)$args['internalid'];
+    $files = $request->getUploadedFiles();
+    $this->applogger->addInfo("Userid: $userid Internalid: $internalid");
+    if( $userid == $internalid ){
+        $this->applogger->addInfo("POST images/$param_element/$internalid");
+
+        try {
+
+            if (!$files['pic']) {
+                throw new Exception("Error, no image provided", 1);
+            }
+
+            switch($param_element){
                 case "user":
                 case "users":
                     $element = "users";

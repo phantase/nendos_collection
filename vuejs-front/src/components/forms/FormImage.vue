@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="canedit">
+    <div class="row" v-if="canEditImage">
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
           <app-box-header title="Upload a new photo" collapsable="true" icon="fa-upload"></app-box-header>
@@ -148,7 +148,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'users', 'user', 'canedit']),
     internalid () {
       return this.$route.params.id
     },
@@ -171,13 +171,22 @@ export default {
           return this.hairs.find(hair => hair.internalid === this.$route.params.id)
         case 'hand':
           return this.hands.find(hand => hand.internalid === this.$route.params.id)
+        case 'user':
+          return this.users.find(user => user.internalid === this.$route.params.id)
         default:
           return null
+      }
+    },
+    canEditImage () {
+      if (this.element === 'user' && this.internalid === this.user.internalid) {
+        return true
+      } else {
+        return this.canedit
       }
     }
   },
   methods: {
-    ...Vuex.mapActions(['addBoxPicture', 'addNendoroidPicture', 'addAccessoryPicture', 'addBodypartPicture', 'addFacePicture', 'addHairPicture', 'addHandPicture']),
+    ...Vuex.mapActions(['addBoxPicture', 'addNendoroidPicture', 'addAccessoryPicture', 'addBodypartPicture', 'addFacePicture', 'addHairPicture', 'addHandPicture', 'addUserPicture']),
     uploadPicture () {
       if (this.uploadable) {
         console.log('Try to upload picture')
@@ -209,6 +218,9 @@ export default {
               case 'hand':
                 this.addHandPicture({'internalid': this.$route.params.id})
                 break
+              case 'user':
+                this.addUserPicture({'internalid': this.$route.params.id})
+                break
             }
             router.push('/' + pathArray[1] + '/' + pathArray[2])
           }, response => {
@@ -220,7 +232,7 @@ export default {
     }
   },
   mounted () {
-    if (this.canedit) {
+    if (this.canEditImage) {
       /* global FileDrop:true */
       var dropZone = new FileDrop('upload_zone')
       dropZone.event('send', files => {

@@ -39,6 +39,9 @@ const mutations = {
   },
   [types.SET_TOKEN] (state, token) {
     state.token = token
+  },
+  [types.ADD_AUTH_USER_PICTURE] (state) {
+    state.user.haspicture = '1'
   }
 }
 
