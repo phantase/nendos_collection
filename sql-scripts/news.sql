@@ -4,7 +4,7 @@ CREATE TABLE `news` (
   `title` varchar(100) NOT NULL,
   `summary` varchar(150) NOT NULL,
   `content` text NOT NULL,
-  `type` varchar(10) NOT NULL,
+  `type` varchar(20) NOT NULL,
   `authorid` bigint(20) UNSIGNED NOT NULL,
   `creationdate` datetime NOT NULL,
   `editorid` bigint(20) UNSIGNED NOT NULL,

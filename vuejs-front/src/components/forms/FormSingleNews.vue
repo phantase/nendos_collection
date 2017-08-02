@@ -20,7 +20,13 @@
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="errortype?'has-error':''">
                     <label>Type</label>
-                    <input type="text" class="form-control" maxlength="10" placeholder="Type" v-model="type">
+                    <select v-model="type" class="form-control">
+                      <option value="Site News">Site News</option>
+                      <option value="Content News">Content News</option>
+                      <option value="Nendoroid News">Nendoroid News</option>
+                      <option value="Article">Article</option>
+                      <option value="Other">Other</option>
+                    </select>
                     <span class="help-block" v-if="errortype">The type is mandatory</span>
                   </div>
                 </div>

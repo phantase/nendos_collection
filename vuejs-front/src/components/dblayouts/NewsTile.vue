@@ -1,7 +1,11 @@
 <template>
               <li class="item">
                 <div class="product-img">
-                  <img src="../../assets/default-50x50.gif" :alt="news.type">
+                  <img src="../../assets/news-site_news.jpg" :alt="news.type" v-if="news.type === 'Site News'">
+                  <img src="../../assets/news-content_news.jpg" :alt="news.type" v-else-if="news.type === 'Content News'">
+                  <img src="../../assets/news-nendoroid_news.jpg" :alt="news.type" v-else-if="news.type === 'Nendoroid News'">
+                  <img src="../../assets/news-article.jpg" :alt="news.type" v-else-if="news.type === 'Article'">
+                  <img src="../../assets/news-other.jpg" :alt="news.type" v-else>
                 </div>
                 <div class="product-info">
                   <router-link :to="'/news/' + news.internalid" class="product-title">
@@ -43,10 +47,14 @@ export default {
   computed: {
     ...Vuex.mapGetters([]),
     labeltype () {
-      if (this.news.type === 'news') {
-        return 'label-warning'
-      } else if (this.news.type === 'article') {
+      if (this.news.type === 'Site News') {
+        return 'label-success'
+      } else if (this.news.type === 'Content News') {
         return 'label-danger'
+      } else if (this.news.type === 'Nendoroid News') {
+        return 'label-warning'
+      } else if (this.news.type === 'Article') {
+        return 'label-info'
       } else {
         return 'label-primary'
       }

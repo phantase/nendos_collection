@@ -8,7 +8,11 @@
             <h3 class="box-title">
               <router-link :to="'/news/'+singleNews.internalid+'/edit'" class="btn btn-xs bg-blue pull-right" v-if="canadmin"><i class="fa fa-edit"></i> Edit</router-link>
               <div class="product-img pull-left">
-                <img src="../assets/default-50x50.gif" :alt="singleNews.type">
+                  <img src="../assets/news-site_news.jpg" :alt="singleNews.type" v-if="singleNews.type === 'Site News'">
+                  <img src="../assets/news-content_news.jpg" :alt="singleNews.type" v-else-if="singleNews.type === 'Content News'">
+                  <img src="../assets/news-nendoroid_news.jpg" :alt="singleNews.type" v-else-if="singleNews.type === 'Nendoroid News'">
+                  <img src="../assets/news-article.jpg" :alt="singleNews.type" v-else-if="singleNews.type === 'Article'">
+                  <img src="../assets/news-other.jpg" :alt="singleNews.type" v-else>
               </div>
               <div class="db-news-title">{{ singleNews.title }}</div>
               <div class="db-news-creationdate"><app-interval-component :date="singleNews.creationdate"></app-interval-component></div>
@@ -22,7 +26,7 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="box">
-          <app-box-header title="News" collapsable="true" icon="fa-newspaper-o"></app-box-header>
+          <app-box-header :title="singleNews.type" collapsable="true" icon="fa-newspaper-o"></app-box-header>
           <div class="box-body" v-html="singleNews.content">
           </div>
         </div>
