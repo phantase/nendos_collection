@@ -21,7 +21,7 @@
             <ul>
               <li><a href="https://adminlte.io/themes/AdminLTE/index2.html">AdminLTE</a>: An amazing CSS and JS board theme from <a href="https://adminlte.io/">Almsaeed Studio</a>.</li>
               <li><a href="http://getbootstrap.com/">Bootstrap</a>: The most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.</li>
-              <li><a href="http://elasticlunr.com/">Elasticlunr.js</a>: Lightweight full-text search engine in Javascript for browser search and offline search.</li>
+              <li><strike><a href="http://elasticlunr.com/">Elasticlunr.js</a>: Lightweight full-text search engine in Javascript for browser search and offline search.</strike></li>
               <li><a href="http://filedropjs.org/">Filedrop.js</a>: Self-contained cross-browser HTML5, legacy, AJAX, drag & drop JavaScript file upload.</li>
               <li><a href="http://fontawesome.io/">Font Awesome</a>: The iconic font and CSS toolkit.</li>
               <li><a href="http://ionicons.com/">Ionicons</a>: The premium icon font from Ionic Framework.</li>
@@ -41,7 +41,7 @@
               <li><a href="https://github.com/slimphp/PHP-View">SlimPHP/PHP-View</a>: A simple PHP renderer for Slim3.</li>
               <li><a href="http://appelsiini.net/projects/slim-jwt-auth/">JWT Authentication Middleware</a>: A middleware implementing JSON Web Token Authentication.</li>
               <li><a href="https://github.com/tuupola/base62">Tuupola/base62</a>: An encoder and decoder for arbitraty data.</li>
-              <li><a href="https://github.com/paragonie/random_compat">Paragonie/random_compat</a>: A PHP 5.x support for random_butes() and random_int().</li>
+              <li><a href="https://github.com/paragonie/random_compat">Paragonie/random_compat</a>: A PHP 5.x support for random_bytes() and random_int().</li>
               <li><a href="https://github.com/PHPMailer/PHPMailer">PHPMailer</a>: The classic email sending library for PHP.</li>
             </ul>
           </div>
