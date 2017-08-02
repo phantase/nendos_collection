@@ -52,7 +52,13 @@
               <tbody>
                 <tr v-for="user in users">
                   <td>{{ user.internalid }}</td>
-                  <td><router-link :to="'user/' + user.internalid">{{ user.username }}</router-link></td>
+                  <td>
+                    <router-link :to="'user/' + user.internalid">{{ user.username }}</router-link>
+                    <div class="image limitedsize">
+                      <img :src="resources.img_url+'/images/users/'+user.internalid+'/thumb'" v-if="user.haspicture == '1'" :alt="user.username" class="img-circle" />
+                      <img :src="resources.img_url+'/images/unknown'" v-else :alt="user.username" class="img-circle" />
+                    </div>
+                  </td>
                   <td>
                     <table class="table table-collandfav">
                       <progress-table-row icon="icon-icon_nendo_boxes" bartype="progress-bar-warning" badgecolor="bg-orange"
@@ -196,7 +202,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .element-count {
     position: relative;
   }
@@ -213,5 +219,11 @@ export default {
 
   .table-collandfav {
     width: 100%;
+  }
+
+  .limitedsize > img {
+    width: 100%;
+    max-width: 45px;
+    height: 100%;
   }
 </style>
