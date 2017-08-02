@@ -52,11 +52,17 @@
               <tbody>
                 <tr v-for="user in users">
                   <td>{{ user.internalid }}</td>
-                  <td>
-                    <router-link :to="'user/' + user.internalid">{{ user.username }}</router-link>
-                    <div class="image limitedsize">
-                      <img :src="resources.img_url+'/images/users/'+user.internalid+'/thumb'" v-if="user.haspicture == '1'" :alt="user.username" class="img-circle" />
-                      <img :src="resources.img_url+'/images/unknown'" v-else :alt="user.username" class="img-circle" />
+                  <td class="post">
+                    <div class="user-block">
+                      <img :src="resources.img_url+'/images/users/'+user.internalid+'/thumb'" v-if="user.haspicture == '1'" :alt="user.username" class="img-circle img-bordered-sm" />
+                      <img :src="resources.img_url+'/images/unknown'" v-else :alt="user.username" class="img-circle img-bordered-sm" />
+                      <span class="username"><router-link :to="'user/' + user.internalid">{{ user.username }}</router-link></span>
+                      <span class="description">
+                        <span v-if="user.administrator === '1'">Administrator</span>
+                        <span v-else-if="user.validator === '1'">Validator</span>
+                        <span v-else-if="user.editor === '1'">Editor</span>
+                        <span v-else>Simple user</span>
+                      </span>
                     </div>
                   </td>
                   <td>
@@ -219,11 +225,5 @@ export default {
 
   .table-collandfav {
     width: 100%;
-  }
-
-  .limitedsize > img {
-    width: 100%;
-    max-width: 45px;
-    height: 100%;
   }
 </style>
