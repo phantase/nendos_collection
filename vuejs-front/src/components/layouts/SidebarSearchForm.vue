@@ -29,7 +29,7 @@
       ...Vuex.mapActions(['setSearchTerm']),
       submit () {
         this.setSearchTerm(this.queryTerm)
-        router.push('search')
+        router.push('/search')
         this.queryTerm = null
       }
     }
