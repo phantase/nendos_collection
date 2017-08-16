@@ -5,7 +5,7 @@ $container = $app->getContainer();
 $container["JwtAuthentication"] = function($container) {
   return new \Slim\Middleware\JwtAuthentication([
         "path" => "/auth",
-        "passthrough" => ["/auth/login", "/auth/register", "/auth/confirm"],
+        "passthrough" => ["/auth/login", "/auth/register", "/auth/confirm", "/auth/forgotpass", "/auth/confirmforgot"],
         "secure" => $container["settings"]["jwt"]["secure"],
         "logger" => $container["jwtlogger"],
         "relaxed" => $container["settings"]["jwt"]["relaxed"],

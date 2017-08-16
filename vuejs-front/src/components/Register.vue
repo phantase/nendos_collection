@@ -16,11 +16,9 @@
         <p>Please check your information and try again (or maybe the registration server is down)...</p>
       </div>
 
-      <div class="login-box-body" v-if="registration_status === REGISTER_SUCCESS">
-        <div class="callout callout-info">
-          <h4>Registration successful</h4>
-          <p>The registration was successful, you must receive in few minutes a mail with a confirmation code.</p>
-        </div>
+      <div class="callout callout-info" v-if="registration_status === REGISTER_SUCCESS">
+        <h4>Registration successful</h4>
+        <p>The registration was successful, you must receive in few minutes a mail with a confirmation code.</p>
       </div>
       <div class="callout callout-danger" v-if="registration_status === REGISTRATIONCODE_ERROR">
         <h4>Confirmation unsuccessful</h4>

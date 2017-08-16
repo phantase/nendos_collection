@@ -77,6 +77,17 @@ class UserMapper extends Mapper
     return $mapper->getByElementid($elementid, "userid");
   }
 
+  public function checkUserStaged($usermail) {
+    $sql = "SELECT us.internalid, us.usermail, us.username, us.encpass, us.registrationdate, us.registrationcode
+            FROM usersstaged us
+            WHERE us.usermail = :usermail";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["usermail" => $usermail]);
+    if($row = $stmt->fetch()) {
+      return $row['registrationcode'];
+    }
+  }
+
   public function createUserStaged($usermail, $username, $encpass) {
     $registrationcode = md5($usermail.$username.$encpass.time());
     $sql = "INSERT INTO usersstaged
@@ -132,6 +143,68 @@ class UserMapper extends Mapper
       // Finally, returns the created user
       return $this->getByInternalid($userid);
     }
+  }
+
+  public function checkUserStagedForgot($usermail) {
+    $sql = "SELECT usf.internalid, usf.userid, usf.usermail, usf.requestdate, usf.requestcode
+            FROM usersstagedforgot usf
+            WHERE usf.usermail = :usermail";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["usermail" => $usermail]);
+    if($row = $stmt->fetch()) {
+      return $row['requestcode'];
+    }
+  }
+
+  public function createUserStagedForgot($userid, $usermail) {
+    $requestcode = md5($usermail.time());
+    $sql = "INSERT INTO usersstagedforgot
+                     (userid, usermail, requestcode) VALUES
+                     (:userid, :usermail, :requestcode)";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute([
+        "userid" => $userid,
+        "usermail" => $usermail,
+        "requestcode" => $requestcode
+      ]);
+    $userstagedforgotid = $this->db->lastInsertId();
+    return $requestcode;
+  }
+
+  public function confirmUserForgot($usermail, $requestcode, $encpass) {
+    // Check if usermail and requestcode match
+    $sql = "SELECT usf.internalid, usf.userid, usf.usermail, usf.requestdate, usf.requestcode
+            FROM usersstagedforgot usf
+            WHERE usf.usermail = :usermail
+            AND usf.requestcode = :requestcode";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["usermail" => $usermail, "requestcode" => $requestcode]);
+    if($row = $stmt->fetch()) {
+      // Yes, they match, so create a new password to the user and send it to him
+      $sql = "UPDATE users
+                 SET encpass = :encpass
+               WHERE internalid = :userid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute([
+          "userid" => $row['userid'],
+          "encpass" => $encpass
+        ]);
+      if(!$result) {
+        throw new Exception("Could not update user");
+      }
+      // Remove the userstaged
+      $sql = "DELETE FROM usersstagedforgot WHERE internalid = :internalid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute([
+          "internalid" => $row['internalid']
+        ]);
+      if(!$result) {
+        throw new Exception("Cannot remove the staged user (forgot), but the user's password must have been updagted");
+      }
+      // Finally, true...
+      return true;
+    }
+    return false;
   }
 
   public function addPicture($user_internalid, $userid) {
