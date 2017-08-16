@@ -13,7 +13,7 @@ $app->post('/auth/login', function(Request $request, Response $response) {
     $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
     $encpass = base64_encode(base64_encode(base64_encode($usermail.$password.A_SALT)));
     $data['encpass'] = $encpass;
-    $this->applogger->addInfo("User $usermail try to login...");
+    $this->applogger->addInfo("POST /auth/login", array('usermail' => $usermail));
 
     $mapper = new UserMapper($this->db);
     $user = $mapper->checkUser($usermail,$encpass);
@@ -39,11 +39,11 @@ $app->post('/auth/login', function(Request $request, Response $response) {
         $repdata["token"] = $token;
         $repdata["user"] = $user;
 
-        $this->applogger->addInfo("User $usermail successfully log in");
+        $this->applogger->addDebug("POST /auto/login - log in success", array('usermail'=>$usermail));
 
         $newresponse = $response->withJson($repdata);
     } else {
-        $this->applogger->addInfo("User $usermail failled to log in");
+        $this->applogger->addDebug("POST /auto/login - log in fail", array('usermail'=>$usermail));
         $newresponse = $response->withStatus(401);
     }
 
@@ -53,7 +53,7 @@ $app->post('/auth/login', function(Request $request, Response $response) {
 // ReLogin
 $app->get('/auth/relogin', function(Request $request, Response $response) {
     $user = $request->getAttribute("token")->user;
-    $this->applogger->addInfo("User $user->usermail try to relogin...");
+    $this->applogger->addInfo("GET /auth/relogin", array('usermail'=>$user->usermail));
 
     $mapper = new UserMapper($this->db);
     $mapper->updateUserLastViewDate($user->internalid);
@@ -78,11 +78,11 @@ $app->get('/auth/relogin', function(Request $request, Response $response) {
         $repdata["user"] = $user;
 
         $usermail = $user->getUsermail();
-        $this->applogger->addInfo("User $usermail successfully relogin...");
+        $this->applogger->addDebug("GET /auth/relogin - relogin success", array('usermail'=>$user->usermail));
 
         $newresponse = $response->withJson($repdata);
     } else {
-        $this->applogger->addInfo("User $user->usermail failled to relogin...");
+        $this->applogger->addDebug("GET /auth/relogin - relogin fail", array('usermail'=>$user->usermail));
 
         $newresponse = $response->withStatus(401);
     }
@@ -93,7 +93,7 @@ $app->get('/auth/relogin', function(Request $request, Response $response) {
 // Whoami
 $app->get('/auth/whoami', function(Request $request, Response $response) {
     $user = $request->getAttribute("token")->user;
-    $this->applogger->addInfo("User $user->usermail want to know whoishe");
+    $this->applogger->addInfo("GET /auth/whoami", array('usermail'=>$user->usermail));
     $newresponse = $response->withJson($user);
     return $newresponse;
 });
@@ -107,20 +107,27 @@ $app->post('/auth/register', function(Request $request, Response $response) {
     $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
     $encpass = base64_encode(base64_encode(base64_encode($usermail.$password.A_SALT)));
     $data['encpass'] = $encpass;
-    $this->applogger->addInfo("A new user ($usermail/$username) want to register...");
+    $this->applogger->addInfo("POST /auth/register", array('usermail' => $usermail, 'username' => $username));
 
     $mapper = new UserMapper($this->db);
 
     $user = $mapper->getByUsermail($usermail);
     if ($user) {
-        // Usermail already exist in database
+        $this->applogger->addNotice("POST /auth/register - user already exists", array('usermail' => $usermail));
         $newresponse = $response->withStatus(409);
     } else {
-        $registrationcode = $mapper->createUserStaged($usermail, $username, $encpass);
+        $registrationcode = $mapper->checkUserStaged($usermail);
 
         if($registrationcode){
-            $this->applogger->addInfo("User ($usermail/$username) successfully register in and went to staged, we are waiting for his email confirmation now");
+            $this->applogger->addDebug("POST /auth/register - user already staged", array('usermail' => $usermail));
+        } else {
+            $registrationcode = $mapper->createUserStaged($usermail, $username, $encpass);
+            if($registrationcode) {
+                $this->applogger->addDebug("POST /auth/register - user staged", array('usermail' => $usermail));
+            }
+        }
 
+        if($registrationcode){
             $mail = new PHPMailer;
             $mail->isSMTP();
             // $mail->SMTPDebug = 4;
@@ -163,12 +170,14 @@ $app->post('/auth/register', function(Request $request, Response $response) {
                 "See you soon at Nendoroids-db.net.\r\n";
 
             if(!$mail->send()) {
+                $this->applogger->addCritical("POST /auth/register - confirmation code not sent", array('usermail' => $usermail, 'errorinfo' => $mail->ErrorInfo));
                 $newresponse = $response->withJson($mail->ErrorInfo, 201);
             } else {
+                $this->applogger->addDebug("POST /auth/register - confirmation code sent", array('usermail' => $usermail));
                 $newresponse = $response->withStatus(201);
             }
         } else {
-            $this->applogger->addInfo("User ($usermail/$username) failled to register...");
+            $this->applogger->addError("POST /auth/register - user not staged", array('usermail' => $usermail));
             $newresponse = $response->withStatus(500);
         }
     }
@@ -183,17 +192,16 @@ $app->post('/auth/confirm', function(Request $request, Response $response) {
     $usermail = filter_var($data['usermail'], FILTER_SANITIZE_STRING);
     $registrationcode = filter_var($data['registrationcode'], FILTER_SANITIZE_STRING);
 
-    $this->applogger->addInfo("User $usermail want to confirm is account...");
+    $this->applogger->addInfo("POST /auth/confirm", array('usermail'=>$usermail));
 
     $mapper = new UserMapper($this->db);
     $user = $mapper->confirmUser($usermail, $registrationcode);
 
     if($user){
-        $this->applogger->addInfo("User $usermail has successfully confirmed his mail and is now a real user");
-
+        $this->applogger->addDebug("POST /auth/confirm - confirmation success", array('usermail'=>$usermail));
         $newresponse = $response->withJson($user, 201);
     } else {
-        $this->applogger->addInfo("User $usermail failled to confirm his account...");
+        $this->applogger->addDebug("POST /auth/confirm - confirmation fail", array('usermail'=>$usermail));
         $newresponse = $response->withStatus(403);
     }
 
@@ -206,7 +214,7 @@ $app->put('/auth/user/{internalid:[0-9]+}', function(Request $request, Response 
     $internalid = (int)$args['internalid'];
     $data = $request->getParsedBody();
     if ($userid == $internalid) {
-        $this->applogger->addInfo("User $userid edits his user information");
+        $this->applogger->addInfo("PUT /auth/user - standard user", array('userid'=>$userid));
 
         $newelement = null;
         try {
@@ -259,16 +267,16 @@ $app->put('/auth/user/{internalid:[0-9]+}', function(Request $request, Response 
                 $repdata["token"] = $token;
                 $repdata["user"] = $newelement;
 
-                $this->applogger->addInfo("User $usermail successfully update his info and generates a new token");
+                $this->applogger->addDebug("PUT /auth/user - update success", array('usermail'=>$usermail));
 
                 $newresponse = $response->withJson($repdata,200);
             }
         } catch (Exception $e){
-            $this->applogger->addInfo($e);
+            $this->applogger->addError("PUT /auth/user - user update fail", array('userid'=>$userid, 'error'=>$e));
             $newresponse = $response->withStatus(400);
         }
     } else if($request->getAttribute("token")->user->administrator) {
-        $this->applogger->addInfo("Administrator $userid edits user $internalid rights");
+        $this->applogger->addInfo("PUT /auth/user - administrator", array('adminid'=>$userid, 'userid'=>$internalid));
 
         $newelement = null;
 
