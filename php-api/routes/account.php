@@ -78,11 +78,11 @@ $app->get('/auth/relogin', function(Request $request, Response $response) {
         $repdata["user"] = $user;
 
         $usermail = $user->getUsermail();
-        $this->applogger->addDebug("GET /auth/relogin - relogin success", array('usermail'=>$user->usermail));
+        $this->applogger->addDebug("GET /auth/relogin - relogin success", array('usermail'=>$user->getUsermail()));
 
         $newresponse = $response->withJson($repdata);
     } else {
-        $this->applogger->addDebug("GET /auth/relogin - relogin fail", array('usermail'=>$user->usermail));
+        $this->applogger->addDebug("GET /auth/relogin - relogin fail", array('usermail'=>$user->getUsermail()));
 
         $newresponse = $response->withStatus(401);
     }
