@@ -8,7 +8,7 @@ $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
     $userid = $request->getAttribute("token")->user->internalid;
     $element = $args['element'];
     $internalid = (int)$args['internalid'];
-    $this->applogger->addInfo("User $userid collects $element $internalid");
+    $this->applogger->addInfo("PATCH /auth/$element/$internalid/collect", array('user'=>$request->getAttribute("token")->user));
     try {
         $mapper = MapperFactory::getMapper($this->db,$element);
         $quantity = $mapper->collectForUser($internalid, $userid);
@@ -16,7 +16,7 @@ $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
         $newresponse = $response->withJson($quantity);
 
     } catch (Exception $e){
-        $this->applogger->addInfo($e);
+        $this->applogger->addError("PATCH /auth/$element/$internalid/collect", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
         $newresponse = $response->withStatus(400);
     }
     return $newresponse;
@@ -27,7 +27,7 @@ $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
     $userid = $request->getAttribute("token")->user->internalid;
     $element = $args['element'];
     $internalid = (int)$args['internalid'];
-    $this->applogger->addInfo("User $userid uncollects $element $internalid");
+    $this->applogger->addInfo("PATCH /auth/$element/$internalid/uncollect", array('user'=>$request->getAttribute("token")->user));
     try {
         $mapper = MapperFactory::getMapper($this->db,$element);
         $quantity = $mapper->uncollectForUser($internalid, $userid);
@@ -35,7 +35,7 @@ $app->patch('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
         $newresponse = $response->withJson($quantity);
 
     } catch (Exception $e){
-        $this->applogger->addInfo($e);
+        $this->applogger->addError("PATCH /auth/$element/$internalid/uncollect", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
         $newresponse = $response->withStatus(400);
     }
     return $newresponse;

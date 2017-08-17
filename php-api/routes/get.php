@@ -5,7 +5,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 // General count (count all object in DB)
 $app->get('/count', function(Request $request, Response $response) {
-    $this->applogger->addInfo("Count");
+    $this->applogger->addInfo("GET /count");
 
     $mapper = new CountMapper($this->db);
     $counts = $mapper->get();
@@ -18,7 +18,7 @@ $app->get('/count', function(Request $request, Response $response) {
 //  Retrieve all objects of type {element}
 $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|photoaccessories|photobodyparts|photoboxes|photofaces|photohairs|photohands|photonendoroids|user|users|news}', function(Request $request, Response $response, $args) {
     $param_element = $args['element'];
-    $this->applogger->addInfo("$param_element list");
+    $this->applogger->addInfo("GET /$param_element");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         $elements = $mapper->get();
@@ -34,7 +34,7 @@ $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypa
 // Retrieve the count of all objects of type {element}
 $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/count', function(Request $request, Response $response, $args) {
     $element = $args['element'];
-    $this->applogger->addInfo("$element count");
+    $this->applogger->addInfo("GET /$element/count");
     try {
         $mapper = MapperFactory::getMapper($this->db,$element);
         $count = $mapper->count();
@@ -52,7 +52,7 @@ $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypa
 $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{internalid:[0-9]+}', function (Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
-    $this->applogger->addInfo("$param_element $internalid single");
+    $this->applogger->addInfo("GET /$param_element/$internalid");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         $element = $mapper->getByInternalid($internalid);
@@ -74,7 +74,7 @@ $app->get('/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessories|bo
     $param_elementfrom = $args['elementfrom'];
     $param_element = $args['element'];
     $param_id = (int)$args['id'];
-    $this->applogger->addInfo("$param_element list in $param_elementfrom $param_id");
+    $this->applogger->addInfo("GET /$param_elementfrom/$param_id/$param_element");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         switch($param_elementfrom){
@@ -130,7 +130,7 @@ $app->get('/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessories|bo
 $app->get('/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|photoaccessories|photobodyparts|photoboxes|photofaces|photohairs|photohands|photonendoroids}/{internalid:[0-9]+}/history', function(Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $param_internalid = $args['internalid'];
-    $this->applogger->addInfo("$param_element history");
+    $this->applogger->addInfo("GET /$param_element/$param_internalid/history");
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         $elements = $mapper->getHistory($param_internalid);

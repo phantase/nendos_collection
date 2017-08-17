@@ -9,7 +9,7 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
     if( $request->getAttribute("token")->user->administrator || $request->getAttribute("token")->user->editor ) {
         $element = $args['element'];
         $data = $request->getParsedBody();
-        $this->applogger->addInfo("User $userid adds a new $element");
+        $this->applogger->addInfo("POST /auth/$element", array('user'=>$request->getAttribute("token")->user));
 
         $newelement = null;
 
@@ -128,11 +128,11 @@ $app->post('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|
             }
 
         } catch (Exception $e){
-            $this->applogger->addInfo($e);
+            $this->applogger->addError("POST /auth/$element", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
             $newresponse = $response->withStatus(400);
         }
     } else {
-        $this->applogger->addInfo("User $userid tries to create a new $element without right to do it");
+        $this->applogger->addDebug("POST /auth/$element - No right to do that", array('user'=>$request->getAttribute("token")->user));
         $newresponse = $response->withStatus(403);
     }
     return $newresponse;
@@ -145,7 +145,7 @@ $app->post('/auth/{element:photo|photos}', function(Request $request, Response $
     $data = $request->getParsedBody();
     $files = $request->getUploadedFiles();
 
-    $this->applogger->addInfo("User $userid adds a new photo");
+    $this->applogger->addInfo("POST /auth/photo", array('user'=>$request->getAttribute("token")->user));
 
     $newelement = null;
 
@@ -200,7 +200,7 @@ $app->post('/auth/{element:photo|photos}', function(Request $request, Response $
         }
 
     } catch (Exception $e){
-        $this->applogger->addInfo($e);
+        $this->applogger->addError("POST /auth/photo", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
         $newresponse = $response->withStatus(400);
     }
 
@@ -214,7 +214,7 @@ $app->post('/auth/photo/{internalid:[0-9]+}/{element:box|nendoroid|accessory|bod
     $param_element = $args['element'];
     $data = $request->getParsedBody();
 
-    $this->applogger->addInfo("User $userid tags  photo $photoid with $param_element");
+    $this->applogger->addInfo("POST /auth/photo/$photoid/$param_element", array('user'=>$request->getAttribute("token")->user));
 
     $photoelement_data = [];
     $photoelement_data['photoid'] = $photoid;
@@ -236,7 +236,7 @@ $app->post('/auth/photo/{internalid:[0-9]+}/{element:box|nendoroid|accessory|bod
             $newresponse = $response->withJson($newelement,201);
         }
     } catch (Exception $e){
-        $this->applogger->addInfo($e);
+        $this->applogger->addError("POST /auth/photo/$photoid/$param_element", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
         $newresponse = $response->withStatus(400);
     }
 
@@ -248,7 +248,7 @@ $app->post('/auth/news', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     if( $request->getAttribute("token")->user->administrator ) {
         $data = $request->getParsedBody();
-        $this->applogger->addInfo("User $userid adds a new news");
+        $this->applogger->addInfo("POST /auth/news", array('user'=>$request->getAttribute("token")->user));
 
         $newelement = null;
 
@@ -270,11 +270,11 @@ $app->post('/auth/news', function(Request $request, Response $response, $args) {
             }
 
         } catch (Exception $e){
-            $this->applogger->addInfo($e);
+            $this->applogger->addError("POST /auth/news", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
             $newresponse = $response->withStatus(400);
         }
     } else {
-        $this->applogger->addInfo("User $userid tries to create a new news without right to do it");
+        $this->applogger->addDebug("POST /auth/news - No right to do that", array('user'=>$request->getAttribute("token")->user));
         $newresponse = $response->withStatus(403);
     }
     return $newresponse;

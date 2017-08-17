@@ -10,7 +10,7 @@ $app->put('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
         $element = $args['element'];
         $internalid = (int)$args['internalid'];
         $data = $request->getParsedBody();
-        $this->applogger->addInfo("User $userid edits $element $internalid");
+        $this->applogger->addInfo("PUT /auth/$element/$internalid", array('user'=>$request->getAttribute("token")->user));
 
         $newelement = null;
 
@@ -136,11 +136,11 @@ $app->put('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
             }
 
         } catch (Exception $e){
-            $this->applogger->addInfo($e);
+            $this->applogger->addError("PUT /auth/$element/$internalid", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
             $newresponse = $response->withStatus(400);
         }
     } else {
-        $this->applogger->addInfo("User $userid tries to edit $element $internalid without right to do it");
+        $this->applogger->addDebug("PUT /auth/$element/$internalid - No right to do that", array('user'=>$request->getAttribute("token")->user));
         $newresponse = $response->withStatus(403);
     }
     return $newresponse;
@@ -152,7 +152,7 @@ $app->put('/auth/news/{internalid:[0-9]+}', function(Request $request, Response 
     if( $request->getAttribute("token")->user->administrator ) {
         $internalid = (int)$args['internalid'];
         $data = $request->getParsedBody();
-        $this->applogger->addInfo("User $userid edits news $internalid");
+        $this->applogger->addInfo("PUT /auth/news/$internalid", array('user'=>$request->getAttribute("token")->user));
 
         $newelement = null;
 
@@ -175,11 +175,11 @@ $app->put('/auth/news/{internalid:[0-9]+}', function(Request $request, Response 
             }
 
         } catch (Exception $e){
-            $this->applogger->addInfo($e);
+            $this->applogger->addError("PUT /auth/news/$internalid", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
             $newresponse = $response->withStatus(400);
         }
     } else {
-        $this->applogger->addInfo("User $userid tries to edit news $internalid without right to do it");
+        $this->applogger->addDebug("PUT /auth/news/$internalid - No right to do that", array('user'=>$request->getAttribute("token")->user));
         $newresponse = $response->withStatus(403);
     }
     return $newresponse;

@@ -5,6 +5,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 // Retrieve the unknown image
 $app->get('/images/unknown', function (Request $request, Response $response, $args) {
+    $this->applogger->addInfo("GET /images/unknown");
     $image = file_get_contents("images/nendos/unknown.png");
     $response->write($image);
     return $response->withHeader('Content-Type', 'image/png');
@@ -15,7 +16,7 @@ $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
     $param_size = isset($args['size'])?$args['size']:'full';
-    $this->applogger->addInfo("GET images/$param_element/$internalid/$param_size");
+    $this->applogger->addInfo("GET /images/$param_element/$internalid/$param_size");
 
     try {
 
@@ -69,9 +70,11 @@ $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
         } else {
             $image = file_get_contents("images/nendos/unknown.png");
             $response->write($image);
+            $this->applogger->addDebug("GET /images/$param_element/$internalid/$param_size - Image doesn't exist");
             return $response->withHeader('Content-Type', 'image/png')->withStatus(404);
         }
     } catch (Exception $e){
+        $this->applogger->addError("GET /images/$param_element/$internalid/$param_size", array('exception'=>$e));
         return $response->withStatus(400);
     }
 });
@@ -82,9 +85,8 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
     $files = $request->getUploadedFiles();
+    $this->applogger->addInfo("POST /auth/images/$param_element/$internalid", array('user'=>$request->getAttribute("token")->user));
     if( $request->getAttribute("token")->user->editor === "1" || $request->getAttribute("token")->user->administrator === "1" ){
-        $this->applogger->addInfo("POST images/$param_element/$internalid");
-
         try {
 
             if (!$files['pic']) {
@@ -166,11 +168,11 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
             return $response->withStatus(201);
 
         } catch (Exception $e){
-            $this->applogger->addInfo($e->getMessage());
+            $this->applogger->addError("POST /images/$param_element/$internalid", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
             return $response->withStatus(400);
         }
     } else {
-        $this->applogger->addInfo("POST images/$param_element/$internalid Forbidden, not allowed to");
+        $this->applogger->addDebug("POST /images/$param_element/$internalid - No right to do that", array('user'=>$request->getAttribute("token")->user));
         return $response->withStatus(403);
     }
 

@@ -6,7 +6,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 // General count (count all object in DB)
 $app->get('/auth/count', function(Request $request, Response $response) {
     $userid = $request->getAttribute("token")->user->internalid;
-    $this->applogger->addInfo("Auth Count for $userid");
+    $this->applogger->addInfo("GET /auth/count", array('user'=>$request->getAttribute("token")->user));
 
     $mapper = new CountMapper($this->db);
     $counts = $mapper->getForUser($userid);
@@ -23,7 +23,7 @@ $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
     $onlyvalidated = !($user->editor || $user->validator || $user->administrator);
 
     $param_element = $args['element'];
-    $this->applogger->addInfo("$param_element list for $userid");
+    $this->applogger->addInfo("GET /auth/$param_element", array('user'=>$request->getAttribute("token")->user));
 
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
@@ -41,7 +41,7 @@ $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
 $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/count', function(Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     $element = $args['element'];
-    $this->applogger->addInfo("$element count for $userid");
+    $this->applogger->addInfo("GET /auth/$element/count", array('user'=>$request->getAttribute("token")->user));
     try {
         $mapper = MapperFactory::getMapper($this->db,$element);
         $count = $mapper->countForUser($userid);
@@ -60,7 +60,7 @@ $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|b
     $userid = $request->getAttribute("token")->user->internalid;
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
-    $this->applogger->addInfo("$param_element $internalid single for $userid");
+    $this->applogger->addInfo("GET /auth/$param_element/$internalid", array('user'=>$request->getAttribute("token")->user));
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         $element = $mapper->getByInternalid($internalid, $userid);
@@ -83,7 +83,7 @@ $app->get('/auth/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessori
     $param_elementfrom = $args['elementfrom'];
     $param_element = $args['element'];
     $param_id = (int)$args['id'];
-    $this->applogger->addInfo("$param_element list in $param_elementfrom $param_id for $userid");
+    $this->applogger->addInfo("GET /auth/$param_elementfrom/$param_id/$param_element", array('user'=>$request->getAttribute("token")->user));
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         switch($param_elementfrom){
@@ -139,7 +139,7 @@ $app->get('/auth/{elementfrom:box|boxes|nendoroid|nendoroids|accessory|accessori
 $app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|photoaccessories|photobodyparts|photoboxes|photofaces|photohairs|photohands|photonendoroids}/{internalid:[0-9]+}/history', function(Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $param_internalid = $args['internalid'];
-    $this->applogger->addInfo("$param_element history");
+    $this->applogger->addInfo("GET /auth/$param_element/history", array('user'=>$request->getAttribute("token")->user));
     try {
         $mapper = MapperFactory::getMapper($this->db,$param_element);
         $elements = $mapper->getHistory($param_internalid);
