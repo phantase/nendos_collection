@@ -6,6 +6,7 @@ import Logout from 'components/Logout'
 import Register from 'components/Register'
 import ForgotPass from 'components/ForgotPass'
 import Confirm from 'components/Confirm'
+import ConfirmForgot from 'components/ConfirmForgot'
 import Accessory from 'components/Accessory'
 import Accessories from 'components/Accessories'
 import Bodypart from 'components/Bodypart'
@@ -98,6 +99,14 @@ export default new Router({
         description: 'Forgot password'
       },
       component: ForgotPass
+    },
+    {
+      path: '/confirmforgot',
+      name: 'Confirm forgot password',
+      meta: {
+        description: 'Confirm forgot password'
+      },
+      component: ConfirmForgot
     },
     {
       path: '/accessory/add',
