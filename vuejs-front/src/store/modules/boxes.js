@@ -17,6 +17,31 @@ const getters = {
   },
   boxesLoadedDate (state) {
     return state.boxesLoadedDate
+  },
+  boxesSeriesCodeList (state) {
+    return state.boxes.map(a => a.series).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  boxesCategoryCodeList (state) {
+    return state.boxes.map(a => a.category).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  boxesManufacturerCodeList (state) {
+    return state.boxes.map(a => a.manufacturer).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  boxesSculptorCodeList (state) {
+    return state.boxes.map(a => a.sculptor).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  boxesCooperationCodeList (state) {
+    return state.boxes.map(a => a.cooperation).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
   }
 }
 

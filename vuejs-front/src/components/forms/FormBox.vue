@@ -23,14 +23,16 @@
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
-                    <label>Series</label>
-                    <input type="text" class="form-control" maxlength="100" placeholder="Series" v-model="series">
+                    <label>Series - {{ series }}</label>
+                    <!-- <input type="text" class="form-control" maxlength="100" placeholder="Series" v-model="series" id="series_hidden"> -->
+                    <select2 placeholder="Series" :options="boxesSeriesCodeList" v-model="series"></select2>
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errorcategory?'has-error':''">
                     <label>Category</label>
-                    <input type="text" class="form-control" maxlength="50" placeholder="Category" v-model="category">
+                    <!-- <input type="text" class="form-control" maxlength="50" placeholder="Category" v-model="category"> -->
+                    <select2 placeholder="Category" :options="boxesCategoryCodeList" v-model="category"></select2>
                     <span class="help-block" v-if="errorcategory">The category is mandatory</span>
                   </div>
                 </div>
@@ -43,19 +45,22 @@
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Manufacturer</label>
-                    <input type="text" class="form-control" maxlength="100" placeholder="Manufacturer" v-model="manufacturer">
+                    <!-- <input type="text" class="form-control" maxlength="100" placeholder="Manufacturer" v-model="manufacturer"> -->
+                    <select2 placeholder="Manufacturer" :options="boxesManufacturerCodeList" v-model="manufacturer"></select2>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Sculptor</label>
-                    <input type="text" class="form-control" maxlength="50" placeholder="Sculptor" v-model="sculptor">
+                    <!-- <input type="text" class="form-control" maxlength="50" placeholder="Sculptor" v-model="sculptor"> -->
+                    <select2 placeholder="Sculptor" :options="boxesSculptorCodeList" v-model="sculptor"></select2>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Cooperation</label>
-                    <input type="text" class="form-control" maxlength="50" placeholder="Cooperation" v-model="cooperation">
+                    <!-- <input type="text" class="form-control" maxlength="50" placeholder="Cooperation" v-model="cooperation"> -->
+                    <select2 placeholder="Cooperation" :options="boxesCooperationCodeList" v-model="cooperation"></select2>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
@@ -126,9 +131,12 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
+import Select2 from './../atomic/Select2'
+
 export default {
   name: 'FormBox',
   components: {
+    Select2
   },
   store: store,
   data () {
@@ -154,7 +162,8 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit',
+      'boxesSeriesCodeList', 'boxesCategoryCodeList', 'boxesManufacturerCodeList', 'boxesSculptorCodeList', 'boxesCooperationCodeList']),
     internalid () {
       return this.$route.name === 'Edit box' ? this.$route.params.id : null
     }
@@ -212,12 +221,12 @@ export default {
       this.retrieveBoxParams()
     },
     checkForm () {
-      if (this.name === null) {
+      if (this.name === null || this.name === '') {
         this.errorname = true
       } else {
         this.errorname = false
       }
-      if (this.category === null) {
+      if (this.category === null || this.category === '') {
         this.errorcategory = true
       } else {
         this.errorcategory = false
