@@ -31,6 +31,7 @@
               <li><a href="https://github.com/pagekit/vue-resource">Vue-resource</a>: The HTTP client for Vue.js.</li>
               <li><a href="http://router.vuejs.org/">Vue-router</a>: The official router for Vue.js.</li>
               <li><a href="https://vuex.vuejs.org/">Vuex</a>: Centralized State Management for Vue.js.</li>
+              <li><a href="https://select2.github.io/">Select2</a>: The jQuery replacement for select boxes.</li>
             </ul>
             <p>The Server side is made with:</p>
             <ul>
