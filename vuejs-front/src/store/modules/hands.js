@@ -17,6 +17,21 @@ const getters = {
   },
   handsLoadedDate (state) {
     return state.handsLoadedDate
+  },
+  handsPostureCodeList (state) {
+    return state.hands.map(a => a.posture).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  handsLeftRightCodeList (state) {
+    return state.hands.map(a => a.leftright).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  handsSkinColorCodeList (state) {
+    return state.hands.map(a => a.skin_color).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
   }
 }
 

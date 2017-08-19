@@ -39,24 +39,20 @@
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="errorposture?'has-error':''">
                     <label>Posture</label>
-                    <input type="text" class="form-control" placeholder="Posture" v-model="posture">
+                    <select2 placeholder="Posture" :options="handsPostureCodeList" v-model="posture"></select2>
                     <span class="help-block" v-if="errorposture">The posture is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Left/Right/Both</label>
-                    <select class="form-control" v-model="leftright">
-                      <option value="Left">Left</option>
-                      <option value="Right">Right</option>
-                      <option value="Both">Both</option>
-                    </select>
+                    <select2 placeholder="Left/Right/Both" :options="handsLeftRightCodeList" v-model="leftright"></select2>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="errorskincolor?'has-error':''">
                     <label>Skin color</label>
-                    <input type="text" class="form-control" placeholder="Skin color" v-model="skincolor">
+                    <select2 placeholder="Skin color" :options="handsSkinColorCodeList" v-model="skincolor"></select2>
                     <span class="help-block" v-if="errorskincolor">The skincolor is mandatory</span>
                   </div>
                 </div>
@@ -109,9 +105,12 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
+import Select2 from './../atomic/Select2'
+
 export default {
   name: 'FormHand',
   components: {
+    Select2
   },
   store: store,
   data () {
@@ -132,7 +131,8 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit',
+      'handsPostureCodeList', 'handsLeftRightCodeList', 'handsSkinColorCodeList']),
     boxes4select () {
       if (this.$route.params.frompart === 'box') {
         return this.boxes.filter(box => box.internalid === this.$route.params.fromid)
