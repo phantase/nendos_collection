@@ -354,7 +354,7 @@ $app->post('/auth/forgotpass', function(Request $request, Response $response) {
                 "<br>".
                 "<i>Confirmation code:</i> <code>$requestcode</code><br>".
                 "<br>".
-                "If you are not at the origin of this new account you have just to ignore this mail and the request will be deleted in few days automatically.<br>".
+                "If you are not at the origin of this request you have just to ignore this mail and the request will be deleted in few days automatically.<br>".
                 "<br>".
                 "If you have closed the page with the confirmation form, you can go to <a href=\"https://www.nendoroids-db.net/#/confirmforgot\">the confirmation page</a> and enter your email and the confirmation code.<br>".
                 "<br>".
@@ -366,7 +366,7 @@ $app->post('/auth/forgotpass', function(Request $request, Response $response) {
                 "\r\n".
                 "Confirmation code: $requestcode\r\n".
                 "\r\n".
-                "If you are not at the origin of this new account you have just to ignore this mail and the request will be deleted in few days automatically..\r\n".
+                "If you are not at the origin of this request you have just to ignore this mail and the request will be deleted in few days automatically..\r\n".
                 "\r\n".
                 "If you have closed the page with the confirmation form, you can go to <https://www.nendoroids-db.net/#/confirmforgot> (the confirmation page) and enter your email and the confirmation code.\r\n".
                 "\r\n".
