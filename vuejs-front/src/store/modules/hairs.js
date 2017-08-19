@@ -17,6 +17,26 @@ const getters = {
   },
   hairsLoadedDate (state) {
     return state.hairsLoadedDate
+  },
+  hairsMainColorCodeList (state) {
+    return state.hairs.map(a => a.main_color).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  hairsOtherColorCodeList (state) {
+    return state.hairs.map(a => a.other_color).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  hairsHaircutCodeList (state) {
+    return state.hairs.map(a => a.haircut).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  hairsFrontBackCodeList (state) {
+    return state.hairs.map(a => a.frontback).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
   }
 }
 

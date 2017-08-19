@@ -40,31 +40,27 @@
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group" :class="errormaincolor?'has-error':''">
                     <label>Main color</label>
-                    <input type="text" class="form-control" placeholder="Main color" v-model="maincolor">
+                    <select2 placeholder="Main color" :options="hairsMainColorCodeList" v-model="maincolor"></select2>
                     <span class="help-block" v-if="errormaincolor">The main color is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group">
                     <label>Other color</label>
-                    <input type="text" class="form-control" placeholder="Other color" v-model="othercolor">
+                    <select2 placeholder="Other color" :options="hairsOtherColorCodeList" v-model="othercolor"></select2>
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errorhaircut?'has-error':''">
                     <label>Haircut</label>
-                    <input type="text" class="form-control" placeholder="Haircut" v-model="haircut">
+                    <select2 placeholder="Haircut" :options="hairsHaircutCodeList" v-model="haircut"></select2>
                     <span class="help-block" v-if="errorhaircut">The haircut is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Front/Back/Other</label>
-                    <select class="form-control" v-model="frontback">
-                      <option value="Front">Front</option>
-                      <option value="Back">Back</option>
-                      <option value="Other">Other</option>
-                    </select>
+                    <select2 placeholder="Front/Back/Other" :options="hairsFrontBackCodeList" v-model="frontback"></select2>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -116,9 +112,12 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
+import Select2 from './../atomic/Select2'
+
 export default {
   name: 'FormHair',
   components: {
+    Select2
   },
   store: store,
   data () {
@@ -140,7 +139,8 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit',
+      'hairsMainColorCodeList', 'hairsOtherColorCodeList', 'hairsHaircutCodeList', 'hairsFrontBackCodeList']),
     boxes4select () {
       if (this.$route.params.frompart === 'box') {
         return this.boxes.filter(box => box.internalid === this.$route.params.fromid)
