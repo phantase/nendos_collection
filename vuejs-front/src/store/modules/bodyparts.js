@@ -17,6 +17,21 @@ const getters = {
   },
   bodypartsLoadedDate (state) {
     return state.bodypartsLoadedDate
+  },
+  bodypartsPartCodeList (state) {
+    return state.bodyparts.map(a => a.part).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  bodypartsMainColorCodeList (state) {
+    return state.bodyparts.map(a => a.main_color).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  bodypartsOtherColorCodeList (state) {
+    return state.bodyparts.map(a => a.other_color).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
   }
 }
 
