@@ -29,24 +29,20 @@
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group" :class="errorname?'has-error':''">
                     <label>Name</label>
-                    <input type="text" class="form-control" maxlength="100" placeholder="Name" v-model="name">
+                    <select2 placeholder="Name" :options="nendoroidsNameCodeList" v-model="name"></select2>
                     <span class="help-block" v-if="errorname">The name is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group">
                     <label>Version</label>
-                    <input type="text" class="form-control" maxlength="100" placeholder="Version" v-model="version">
+                    <select2 placeholder="Version" :options="nendoroidsVersionCodeList" v-model="version"></select2>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Sex</label>
-                    <select class="form-control" v-model="sex">
-                      <option value="Female">Female</option>
-                      <option value="Male">Male</option>
-                      <option value="Other">Other</option>
-                    </select>
+                    <select2 placeholder="Sex" :options="nendoroidsSexCodeList" v-model="sex"></select2>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
@@ -97,9 +93,12 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
+import Select2 from './../atomic/Select2'
+
 export default {
   name: 'FormNendoroid',
   components: {
+    Select2
   },
   store: store,
   data () {
@@ -117,7 +116,8 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit',
+      'nendoroidsNameCodeList', 'nendoroidsVersionCodeList', 'nendoroidsSexCodeList']),
     boxes4select () {
       return this.frompart === 'box' ? this.boxes.filter(box => box.internalid === this.$route.params.fromid) : this.boxes
     },

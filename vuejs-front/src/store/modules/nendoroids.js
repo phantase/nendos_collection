@@ -17,6 +17,21 @@ const getters = {
   },
   nendoroidsLoadedDate (state) {
     return state.nendoroidsLoadedDate
+  },
+  nendoroidsNameCodeList (state) {
+    return state.nendoroids.map(a => a.name).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  nendoroidsVersionCodeList (state) {
+    return state.nendoroids.map(a => a.version).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  nendoroidsSexCodeList (state) {
+    return state.nendoroids.map(a => a.sex).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
   }
 }
 
