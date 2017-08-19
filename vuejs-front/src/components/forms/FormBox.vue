@@ -23,15 +23,13 @@
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
-                    <label>Series - {{ series }}</label>
-                    <!-- <input type="text" class="form-control" maxlength="100" placeholder="Series" v-model="series" id="series_hidden"> -->
+                    <label>Series</label>
                     <select2 placeholder="Series" :options="boxesSeriesCodeList" v-model="series"></select2>
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errorcategory?'has-error':''">
                     <label>Category</label>
-                    <!-- <input type="text" class="form-control" maxlength="50" placeholder="Category" v-model="category"> -->
                     <select2 placeholder="Category" :options="boxesCategoryCodeList" v-model="category"></select2>
                     <span class="help-block" v-if="errorcategory">The category is mandatory</span>
                   </div>
@@ -45,21 +43,18 @@
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Manufacturer</label>
-                    <!-- <input type="text" class="form-control" maxlength="100" placeholder="Manufacturer" v-model="manufacturer"> -->
                     <select2 placeholder="Manufacturer" :options="boxesManufacturerCodeList" v-model="manufacturer"></select2>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Sculptor</label>
-                    <!-- <input type="text" class="form-control" maxlength="50" placeholder="Sculptor" v-model="sculptor"> -->
                     <select2 placeholder="Sculptor" :options="boxesSculptorCodeList" v-model="sculptor"></select2>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Cooperation</label>
-                    <!-- <input type="text" class="form-control" maxlength="50" placeholder="Cooperation" v-model="cooperation"> -->
                     <select2 placeholder="Cooperation" :options="boxesCooperationCodeList" v-model="cooperation"></select2>
                   </div>
                 </div>
