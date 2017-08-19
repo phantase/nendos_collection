@@ -17,6 +17,21 @@ const getters = {
   },
   accessoriesLoadedDate (state) {
     return state.accessoriesLoadedDate
+  },
+  accessoriesTypeCodeList (state) {
+    return state.accessories.map(a => a.type).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  accessoriesMainColorCodeList (state) {
+    return state.accessories.map(a => a.main_color).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  accessoriesOtherColorCodeList (state) {
+    return state.accessories.map(a => a.other_color).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
   }
 }
 
