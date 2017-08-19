@@ -40,39 +40,35 @@
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="erroreyes?'has-error':''">
                     <label>Eyes</label>
-                    <input type="text" class="form-control" placeholder="Eyes" v-model="eyes">
+                    <select2 placeholder="Eyes" :options="facesEyesCodeList" v-model="eyes"></select2>
                     <span class="help-block" v-if="erroreyes">The eyes are mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="erroreyescolor?'has-error':''">
                     <label>Eyes color name</label>
-                    <input type="text" class="form-control" placeholder="Eyes color name" v-model="eyescolor">
+                    <select2 placeholder="Eyes color name" :options="facesEyesColorCodeList" v-model="eyescolor"></select2>
                     <span class="help-block" v-if="erroreyescolor">The eyes color is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errormouth?'has-error':''">
                     <label>Mouth</label>
-                    <input type="text" class="form-control" placeholder="Mouth" v-model="mouth">
+                    <select2 placeholder="Mouth" :options="facesMouthCodeList" v-model="mouth"></select2>
                     <span class="help-block" v-if="errormouth">The mouth is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="errorskincolor?'has-error':''">
                     <label>Skin color name</label>
-                    <input type="text" class="form-control" placeholder="Skin color name" v-model="skincolor">
+                    <select2 placeholder="Skin color name" :options="facesSkinColorCodeList" v-model="skincolor"></select2>
                     <span class="help-block" v-if="errorskincolor">The skin color is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Sex</label>
-                    <select class="form-control" v-model="sex">
-                      <option value="Undefined">- Sex -</option>
-                      <option value="Female">Female</option>
-                      <option value="Male">Male</option>
-                    </select>
+                    <select2 placeholder="Sex" :options="facesSexCodeList" v-model="sex"></select2>
                   </div>
                 </div>
               </div>
@@ -117,9 +113,12 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
+import Select2 from './../atomic/Select2'
+
 export default {
   name: 'FormFace',
   components: {
+    Select2
   },
   store: store,
   data () {
@@ -142,7 +141,8 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit',
+      'facesEyesCodeList', 'facesEyesColorCodeList', 'facesMouthCodeList', 'facesSkinColorCodeList', 'facesSexCodeList']),
     boxes4select () {
       if (this.$route.params.frompart === 'box') {
         return this.boxes.filter(box => box.internalid === this.$route.params.fromid)

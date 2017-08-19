@@ -17,6 +17,31 @@ const getters = {
   },
   facesLoadedDate (state) {
     return state.facesLoadedDate
+  },
+  facesEyesCodeList (state) {
+    return state.faces.map(a => a.eyes).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  facesEyesColorCodeList (state) {
+    return state.faces.map(a => a.eyes_color).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  facesMouthCodeList (state) {
+    return state.faces.map(a => a.mouth).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  facesSkinColorCodeList (state) {
+    return state.faces.map(a => a.skin_color).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
+  },
+  facesSexCodeList (state) {
+    return state.faces.map(a => a.sex).filter((elem, pos, arr) => {
+      return elem && arr.indexOf(elem) === pos
+    }).sort()
   }
 }
 
