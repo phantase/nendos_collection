@@ -57,6 +57,7 @@ class NendoroidEntity extends Entity implements JsonSerializable
     $this->numberfavorited = $data['numberfavorited'];
     $this->inuserfavorites = $data['inuserfavorites'];
     $this->favusers = $data['favusers'];
+    $this->tags = $data['tags'];
   }
 
   public function getInternalid() {
@@ -151,7 +152,8 @@ class NendoroidEntity extends Entity implements JsonSerializable
       'colusers' => json_decode($this->colusers),
       'numberfavorited' => $this->numberfavorited,
       'inuserfavorites' => $this->inuserfavorites,
-      'favusers'  => json_decode($this->favusers)
+      'favusers'  => json_decode($this->favusers),
+      'tags' => json_decode($this->tags)
     ];
   }
 

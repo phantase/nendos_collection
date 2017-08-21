@@ -12,8 +12,9 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -35,20 +36,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
@@ -71,8 +84,9 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -94,20 +108,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
@@ -126,8 +152,9 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -149,20 +176,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
@@ -183,8 +222,9 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -206,20 +246,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
@@ -240,8 +292,9 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -264,20 +317,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
@@ -298,8 +363,9 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -322,20 +388,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
@@ -356,8 +434,9 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -380,20 +459,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
@@ -414,8 +505,9 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -438,20 +530,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
@@ -472,8 +576,9 @@ class NendoroidMapper extends Mapper
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -496,20 +601,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
@@ -531,8 +648,9 @@ class NendoroidMapper extends Mapper
                   n.editorid, ue.username AS editorname, n.editiondate,
                   n.validatorid, uv.username AS validatorname, n.validationdate,
                   pn.xmin, pn.xmax, pn.ymin, pn.ymax, pn.internalid AS photoannotationid,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM nendoroids n
             LEFT JOIN users uc ON n.creatorid = uc.internalid
             LEFT JOIN users ue ON n.editorid = ue.internalid
@@ -555,20 +673,32 @@ class NendoroidMapper extends Mapper
                   GROUP BY nendoroidid
                   ) AS userfav ON n.internalid = userfav.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, nendoroidid
+                  FROM tags_nendoroids AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY nendoroidid
+                  ) AS tags ON n.internalid = tags.nendoroidid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, nendoroidid
+                                                        '\"}')) AS favusers, nendoroidid
                   FROM users_nendoroids_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY nendoroidid
                   ) AS favusers ON n.internalid = favusers.nendoroidid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, nendoroidid
+                                                        '\"}')) AS colusers, nendoroidid
                   FROM users_nendoroids_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY nendoroidid
