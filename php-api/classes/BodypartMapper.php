@@ -13,7 +13,8 @@ class BodypartMapper extends Mapper
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -34,6 +35,18 @@ class BodypartMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, bodypartid
+                  FROM tags_bodyparts AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS tags ON bp.internalid = tags.bodypartid
             LEFT JOIN (
                   SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
@@ -72,7 +85,8 @@ class BodypartMapper extends Mapper
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -93,6 +107,18 @@ class BodypartMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, bodypartid
+                  FROM tags_bodyparts AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS tags ON bp.internalid = tags.bodypartid
             LEFT JOIN (
                   SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
@@ -127,7 +153,8 @@ class BodypartMapper extends Mapper
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -148,6 +175,18 @@ class BodypartMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, bodypartid
+                  FROM tags_bodyparts AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS tags ON bp.internalid = tags.bodypartid
             LEFT JOIN (
                   SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
@@ -184,7 +223,8 @@ class BodypartMapper extends Mapper
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -205,6 +245,18 @@ class BodypartMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, bodypartid
+                  FROM tags_bodyparts AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS tags ON bp.internalid = tags.bodypartid
             LEFT JOIN (
                   SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
@@ -241,7 +293,8 @@ class BodypartMapper extends Mapper
                   bp.editorid, ue.username AS editorname, bp.editiondate,
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -262,6 +315,18 @@ class BodypartMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, bodypartid
+                  FROM tags_bodyparts AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS tags ON bp.internalid = tags.bodypartid
             LEFT JOIN (
                   SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
@@ -299,7 +364,8 @@ class BodypartMapper extends Mapper
                   bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
                   pb.xmin, pb.xmax, pb.ymin, pb.ymax, pb.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
+                  CONCAT('[',tags.tags,']') AS tags
             FROM bodyparts bp
             LEFT JOIN users uc ON bp.creatorid = uc.internalid
             LEFT JOIN users ue ON bp.editorid = ue.internalid
@@ -321,6 +387,18 @@ class BodypartMapper extends Mapper
                   WHERE userid = :userid
                   GROUP BY bodypartid
                   ) AS userfav ON bp.internalid = userfav.bodypartid
+            LEFT JOIN (
+                  SELECT GROUP_CONCAT(CONCAT('{ \"internalid\":\"',t.internalid,
+                                                        '\",\"userid\":\"',t.userid,
+                                                        '\",\"username\":\"',u.username,
+                                                        '\",\"additiondate\":\"',t.additiondate,
+                                                        '\",\"grade\":\"',t.grade,
+                                                        '\",\"tag\":\"',t.tag,
+                                                        '\"}')) AS tags, bodypartid
+                  FROM tags_bodyparts AS t, users AS u
+                  WHERE t.userid = u.internalid
+                  GROUP BY bodypartid
+                  ) AS tags ON bp.internalid = tags.bodypartid
             LEFT JOIN (
                   SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
