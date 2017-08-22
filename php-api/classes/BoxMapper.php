@@ -13,8 +13,8 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -36,20 +36,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid
@@ -73,8 +73,8 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -96,20 +96,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid
@@ -129,8 +129,8 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -152,20 +152,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid
@@ -187,8 +187,8 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -211,20 +211,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid
@@ -246,8 +246,8 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -270,20 +270,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid
@@ -305,8 +305,8 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -329,20 +329,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid
@@ -364,8 +364,8 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -388,20 +388,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid
@@ -423,8 +423,8 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -447,20 +447,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid
@@ -482,8 +482,8 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -506,20 +506,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid
@@ -541,9 +541,9 @@ class BoxMapper extends Mapper
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
                   b.validatorid, uv.username AS validatorname, b.validationdate,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
                   pb.xmin, pb.xmax, pb.ymin, pb.ymax, pb.internalid AS photoannotationid,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM boxes b
             LEFT JOIN users uc ON b.creatorid = uc.internalid
             LEFT JOIN users ue ON b.editorid = ue.internalid
@@ -566,20 +566,20 @@ class BoxMapper extends Mapper
                   GROUP BY boxid
                   ) AS userfav ON b.internalid = userfav.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, boxid
+                                                        '\"}')) AS favusers, boxid
                   FROM users_boxes_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY boxid
                   ) AS favusers ON b.internalid = favusers.boxid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, boxid
+                                                        '\"}')) AS colusers, boxid
                   FROM users_boxes_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY boxid

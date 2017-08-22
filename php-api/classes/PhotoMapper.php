@@ -8,7 +8,7 @@ class PhotoMapper extends Mapper
 
   public function get($userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN (
@@ -23,10 +23,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid
@@ -43,7 +43,7 @@ class PhotoMapper extends Mapper
 
   public function getByInternalid($photo_internalid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN (
@@ -58,10 +58,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid
@@ -77,7 +77,7 @@ class PhotoMapper extends Mapper
 
   public function getByBoxid($boxid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_boxes pb ON p.internalid = pb.photoid
@@ -93,10 +93,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid
@@ -114,7 +114,7 @@ class PhotoMapper extends Mapper
 
   public function getByNendoroidid($nendoroidid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_nendoroids pn ON p.internalid = pn.photoid
@@ -130,10 +130,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid
@@ -151,7 +151,7 @@ class PhotoMapper extends Mapper
 
   public function getByAccessoryid($accessoryid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_accessories pa ON p.internalid = pa.photoid
@@ -167,10 +167,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid
@@ -188,7 +188,7 @@ class PhotoMapper extends Mapper
 
   public function getByBodypartid($bodypartid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_bodyparts pb ON p.internalid = pb.photoid
@@ -204,10 +204,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid
@@ -225,7 +225,7 @@ class PhotoMapper extends Mapper
 
   public function getByFaceid($faceid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_faces pf ON p.internalid = pf.photoid
@@ -241,10 +241,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid
@@ -262,7 +262,7 @@ class PhotoMapper extends Mapper
 
   public function getByHairid($hairid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_hairs ph ON p.internalid = ph.photoid
@@ -278,10 +278,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid
@@ -299,7 +299,7 @@ class PhotoMapper extends Mapper
 
   public function getByHandid($handid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN photos_hands ph ON p.internalid = ph.photoid
@@ -315,10 +315,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid
@@ -336,7 +336,7 @@ class PhotoMapper extends Mapper
 
   public function getByPhotoid($photoid, $userid=null) {
     $sql = "SELECT p.internalid, p.userid, u.username, p.title, p.width, p.height, p.uploaded, p.updated,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM photos p
             LEFT JOIN users u ON p.userid = u.internalid
             LEFT JOIN (
@@ -351,10 +351,10 @@ class PhotoMapper extends Mapper
                   GROUP BY photoid
                   ) AS userfav ON p.internalid = userfav.photoid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, photoid
+                                                        '\"}')) AS favusers, photoid
                   FROM users_photos_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY photoid

@@ -12,8 +12,8 @@ class HairMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -35,20 +35,20 @@ class HairMapper extends Mapper
                   GROUP BY hairid
                   ) AS userfav ON h.internalid = userfav.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, hairid
+                                                        '\"}')) AS favusers, hairid
                   FROM users_hairs_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY hairid
                   ) AS favusers ON h.internalid = favusers.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, hairid
+                                                        '\"}')) AS colusers, hairid
                   FROM users_hairs_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY hairid
@@ -71,8 +71,8 @@ class HairMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -94,20 +94,20 @@ class HairMapper extends Mapper
                   GROUP BY hairid
                   ) AS userfav ON h.internalid = userfav.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, hairid
+                                                        '\"}')) AS favusers, hairid
                   FROM users_hairs_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY hairid
                   ) AS favusers ON h.internalid = favusers.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, hairid
+                                                        '\"}')) AS colusers, hairid
                   FROM users_hairs_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY hairid
@@ -126,8 +126,8 @@ class HairMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -149,20 +149,20 @@ class HairMapper extends Mapper
                   GROUP BY hairid
                   ) AS userfav ON h.internalid = userfav.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, hairid
+                                                        '\"}')) AS favusers, hairid
                   FROM users_hairs_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY hairid
                   ) AS favusers ON h.internalid = favusers.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, hairid
+                                                        '\"}')) AS colusers, hairid
                   FROM users_hairs_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY hairid
@@ -183,8 +183,8 @@ class HairMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -206,20 +206,20 @@ class HairMapper extends Mapper
                   GROUP BY hairid
                   ) AS userfav ON h.internalid = userfav.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, hairid
+                                                        '\"}')) AS favusers, hairid
                   FROM users_hairs_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY hairid
                   ) AS favusers ON h.internalid = favusers.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, hairid
+                                                        '\"}')) AS colusers, hairid
                   FROM users_hairs_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY hairid
@@ -240,8 +240,8 @@ class HairMapper extends Mapper
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -263,20 +263,20 @@ class HairMapper extends Mapper
                   GROUP BY hairid
                   ) AS userfav ON h.internalid = userfav.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, hairid
+                                                        '\"}')) AS favusers, hairid
                   FROM users_hairs_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY hairid
                   ) AS favusers ON h.internalid = favusers.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, hairid
+                                                        '\"}')) AS colusers, hairid
                   FROM users_hairs_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY hairid
@@ -298,8 +298,8 @@ class HairMapper extends Mapper
                   h.editorid, ue.username AS editorname, h.editiondate,
                   h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
                   ph.xmin, ph.xmax, ph.ymin, ph.ymax, ph.internalid AS photoannotationid,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM hairs h
             LEFT JOIN users uc ON h.creatorid = uc.internalid
             LEFT JOIN users ue ON h.editorid = ue.internalid
@@ -322,20 +322,20 @@ class HairMapper extends Mapper
                   GROUP BY hairid
                   ) AS userfav ON h.internalid = userfav.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, hairid
+                                                        '\"}')) AS favusers, hairid
                   FROM users_hairs_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY hairid
                   ) AS favusers ON h.internalid = favusers.hairid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, hairid
+                                                        '\"}')) AS colusers, hairid
                   FROM users_hairs_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY hairid

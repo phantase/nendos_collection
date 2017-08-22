@@ -12,8 +12,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -35,20 +35,20 @@ class AccessoryMapper extends Mapper
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, accessoryid
+                                                        '\"}')) AS favusers, accessoryid
                   FROM users_accessories_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY accessoryid
                   ) AS favusers ON a.internalid = favusers.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, accessoryid
+                                                        '\"}')) AS colusers, accessoryid
                   FROM users_accessories_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY accessoryid
@@ -71,8 +71,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -94,20 +94,20 @@ class AccessoryMapper extends Mapper
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, accessoryid
+                                                        '\"}')) AS favusers, accessoryid
                   FROM users_accessories_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY accessoryid
                   ) AS favusers ON a.internalid = favusers.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, accessoryid
+                                                        '\"}')) AS colusers, accessoryid
                   FROM users_accessories_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY accessoryid
@@ -126,8 +126,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -149,20 +149,20 @@ class AccessoryMapper extends Mapper
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, accessoryid
+                                                        '\"}')) AS favusers, accessoryid
                   FROM users_accessories_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY accessoryid
                   ) AS favusers ON a.internalid = favusers.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, accessoryid
+                                                        '\"}')) AS colusers, accessoryid
                   FROM users_accessories_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY accessoryid
@@ -183,8 +183,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -206,20 +206,20 @@ class AccessoryMapper extends Mapper
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, accessoryid
+                                                        '\"}')) AS favusers, accessoryid
                   FROM users_accessories_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY accessoryid
                   ) AS favusers ON a.internalid = favusers.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, accessoryid
+                                                        '\"}')) AS colusers, accessoryid
                   FROM users_accessories_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY accessoryid
@@ -240,8 +240,8 @@ class AccessoryMapper extends Mapper
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -263,20 +263,20 @@ class AccessoryMapper extends Mapper
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, accessoryid
+                                                        '\"}')) AS favusers, accessoryid
                   FROM users_accessories_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY accessoryid
                   ) AS favusers ON a.internalid = favusers.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, accessoryid
+                                                        '\"}')) AS colusers, accessoryid
                   FROM users_accessories_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY accessoryid
@@ -298,8 +298,8 @@ class AccessoryMapper extends Mapper
                   a.editorid, ue.username AS editorname, a.editiondate,
                   a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
                   pa.xmin, pa.xmax, pa.ymin, pa.ymax, pa.internalid AS photoannotationid,
-                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, colusers.colusers,
-                  faved.numberfavorited, userfav.inuserfavorites, favusers.favusers
+                  ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
+                  faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers
             FROM accessories a
             LEFT JOIN users uc ON a.creatorid = uc.internalid
             LEFT JOIN users ue ON a.editorid = ue.internalid
@@ -322,20 +322,20 @@ class AccessoryMapper extends Mapper
                   GROUP BY accessoryid
                   ) AS userfav ON a.internalid = userfav.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',f.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',f.additiondate,
-                                                        '\"}')),']') AS favusers, accessoryid
+                                                        '\"}')) AS favusers, accessoryid
                   FROM users_accessories_favorites AS f, users AS u
                   WHERE f.userid = u.internalid
                   GROUP BY accessoryid
                   ) AS favusers ON a.internalid = favusers.accessoryid
             LEFT JOIN (
-                  SELECT CONCAT('[',GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
+                  SELECT GROUP_CONCAT(CONCAT('{ \"userid\":\"',c.userid,
                                                         '\",\"username\":\"',u.username,
                                                         '\",\"additiondate\":\"',c.additiondate,
                                                         '\",\"quantity\":\"',c.quantity,
-                                                        '\"}')),']') AS colusers, accessoryid
+                                                        '\"}')) AS colusers, accessoryid
                   FROM users_accessories_collection AS c, users AS u
                   WHERE c.userid = u.internalid
                   GROUP BY accessoryid
