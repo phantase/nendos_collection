@@ -63,6 +63,12 @@
                 <b>Sex</b>
                 <a class="pull-right">{{ nendoroid.sex }}</a><br>
               </li>
+              <li class="list-group-item" v-if="nendoroid.tags">
+                <b>Tags</b>
+                <p class="pull-right">
+                  <span class="label label-primary" v-for="tag in nendoroid.tags">{{ tag.tag }}</span>
+                </p>
+              </li>
             </ul>
           </div>
         </div>
