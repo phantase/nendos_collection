@@ -74,6 +74,12 @@
                 <b>Sex</b>
                 <a class="pull-right">{{ face.sex }}</a><br>
               </li>
+              <li class="list-group-item" v-if="face.tags">
+                <b>Tags</b>
+                <p class="pull-right">
+                  <span class="label label-primary" v-for="tag in face.tags">{{ tag.tag }}</span>
+                </p>
+              </li>
             </ul>
           </div>
         </div>
