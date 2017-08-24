@@ -3,7 +3,7 @@ CREATE TABLE `tags_hands` (
   `internalid` bigint(20) UNSIGNED NOT NULL,
   `userid` bigint(20) UNSIGNED NOT NULL,
   `handid` bigint(20) UNSIGNED NOT NULL,
-  `additiondate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `additiondate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `grade` int(11) NOT NULL DEFAULT '1',
   `tag` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
