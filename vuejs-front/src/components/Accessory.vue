@@ -70,6 +70,12 @@
                 <b>Description</b>
                 <a class="pull-right">{{ accessory.description }}</a><br>
               </li>
+              <li class="list-group-item" v-if="accessory.tags">
+                <b>Tags</b>
+                <p class="pull-right">
+                  <span class="label label-primary" v-for="tag in accessory.tags">{{ tag.tag }}</span>
+                </p>
+              </li>
             </ul>
           </div>
         </div>
