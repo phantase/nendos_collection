@@ -74,13 +74,14 @@
                 <b>Sex</b>
                 <a class="pull-right">{{ face.sex }}</a><br>
               </li>
-              <li class="list-group-item" v-if="face.tags">
-                <b>Tags</b>
-                <p class="pull-right">
-                  <span class="label label-primary" v-for="tag in face.tags">{{ tag.tag }}</span>
-                </p>
-              </li>
             </ul>
+          </div>
+        </div>
+        <div class="box collapsed-box">
+          <app-box-header title="Tags" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
+          <div class="box-body">
+            <span class="label label-primary margin-right" v-for="tag in face.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
+            <span v-if="!face.tags"><i class="fa fa-ban text-red"></i> No tags</span>
           </div>
         </div>
       </div>
