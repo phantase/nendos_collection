@@ -70,6 +70,12 @@
                 <b>Description</b>
                 <a class="pull-right">{{ hand.description }}</a><br>
               </li>
+              <li class="list-group-item" v-if="hand.tags">
+                <b>Tags</b>
+                <p class="pull-right">
+                  <span class="label label-primary" v-for="tag in hand.tags">{{ tag.tag }}</span>
+                </p>
+              </li>
             </ul>
           </div>
         </div>
