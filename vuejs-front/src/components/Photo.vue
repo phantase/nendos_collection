@@ -72,6 +72,16 @@
         </div>
       </div>
     </div>
+    <div class="row" v-if="photo.tags">
+      <div class="col-md-12">
+        <div class="box collapsed-box">
+          <app-box-header title="Tags" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
+          <div class="box-body">
+            <span class="label label-primary margin-right" v-for="tag in photo.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="boxes4photo.length > 0">
         <div class="box collapsed-box">
