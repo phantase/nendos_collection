@@ -88,6 +88,12 @@
                 <b>Links</b>
                 <a class="pull-right" :href="box.officialurl">GSC product page</a><br>
               </li>
+              <li class="list-group-item" v-if="box.tags">
+                <b>Tags</b>
+                <p class="pull-right">
+                  <span class="label label-primary" v-for="tag in box.tags">{{ tag.tag }}</span>
+                </p>
+              </li>
             </ul>
           </div>
         </div>
