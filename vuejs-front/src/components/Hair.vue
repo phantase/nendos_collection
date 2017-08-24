@@ -74,6 +74,12 @@
                 <b>Description</b>
                 <a class="pull-right">{{ hair.description }}</a><br>
               </li>
+              <li class="list-group-item" v-if="hair.tags">
+                <b>Tags</b>
+                <p class="pull-right">
+                  <span class="label label-primary" v-for="tag in hair.tags">{{ tag.tag }}</span>
+                </p>
+              </li>
             </ul>
           </div>
         </div>
