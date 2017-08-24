@@ -5,6 +5,7 @@ class HandMapper extends Mapper
   protected $tablename = "hands";
   protected $collectiontablename = "users_hands_collection";
   protected $favoritestablename = "users_hands_favorites";
+  protected $tagstablename = "tags_hands";
   protected $othertablecolumn = "handid";
 
   public function get($userid=null, $validated=true) {

@@ -5,6 +5,7 @@ class FaceMapper extends Mapper
   protected $tablename = "faces";
   protected $collectiontablename = "users_faces_collection";
   protected $favoritestablename = "users_faces_favorites";
+  protected $tagstablename = "tags_faces";
   protected $othertablecolumn = "faceid";
 
   public function get($userid=null, $validated=true) {

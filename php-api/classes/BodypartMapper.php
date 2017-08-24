@@ -5,6 +5,7 @@ class BodypartMapper extends Mapper
   protected $tablename = "bodyparts";
   protected $collectiontablename = "users_bodyparts_collection";
   protected $favoritestablename = "users_bodyparts_favorites";
+  protected $tagstablename = "tags_bodyparts";
   protected $othertablecolumn = "bodypartid";
 
   public function get($userid=null, $validated=true) {

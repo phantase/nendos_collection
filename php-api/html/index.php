@@ -30,5 +30,6 @@ require '../routes/favorites.php';
 require '../routes/add.php';
 require '../routes/edit.php';
 require '../routes/images.php';
+require '../routes/tags.php';
 
 $app->run();

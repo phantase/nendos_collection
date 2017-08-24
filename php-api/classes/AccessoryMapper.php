@@ -5,6 +5,7 @@ class AccessoryMapper extends Mapper
   protected $tablename = "accessories";
   protected $collectiontablename = "users_accessories_collection";
   protected $favoritestablename = "users_accessories_favorites";
+  protected $tagstablename = "tags_accessories";
   protected $othertablecolumn = "accessoryid";
 
   public function get($userid=null, $validated=true) {

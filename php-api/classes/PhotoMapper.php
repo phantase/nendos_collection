@@ -4,6 +4,7 @@ class PhotoMapper extends Mapper
 {
   protected $tablename = "photos";
   protected $favoritestablename = "users_photos_favorites";
+  protected $tagstablename = "tags_photos";
   protected $othertablecolumn = "photoid";
 
   public function get($userid=null) {

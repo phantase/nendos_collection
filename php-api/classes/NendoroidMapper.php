@@ -5,6 +5,7 @@ class NendoroidMapper extends Mapper
   protected $tablename = "nendoroids";
   protected $collectiontablename = "users_nendoroids_collection";
   protected $favoritestablename = "users_nendoroids_favorites";
+  protected $tagstablename = "tags_nendoroids";
   protected $othertablecolumn = "nendoroidid";
 
   public function get($userid=null, $validated=true) {

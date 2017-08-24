@@ -5,6 +5,7 @@ class BoxMapper extends Mapper
   protected $tablename = "boxes";
   protected $collectiontablename = "users_boxes_collection";
   protected $favoritestablename = "users_boxes_favorites";
+  protected $tagstablename = "tags_boxes";
   protected $othertablecolumn = "boxid";
 
   public function get($userid=null, $validated=true) {

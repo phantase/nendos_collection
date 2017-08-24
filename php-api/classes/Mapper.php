@@ -11,6 +11,7 @@ abstract class Mapper {
   protected $tablename;
   protected $collectiontablename;
   protected $favoritestablename;
+  protected $tagstablename;
   protected $othertablecolumn;
 
   public function count() {
@@ -143,6 +144,61 @@ abstract class Mapper {
 
   public function addHistory($userid, $elementid, $action) {
     return null;
+  }
+
+  public function tag($elementid, $tag, $userid) {
+    $sql = "SELECT grade
+            FROM ".$this->tagstablename."
+            WHERE ".$this->othertablecolumn." = :elementid AND tag = :tag";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["elementid" => $elementid, "tag" => $tag]);
+
+    if( $result = $stmt->fetch() ) {
+      $grade = $result['grade'] + 1;
+      $sql = "UPDATE ".$this->tagstablename."
+              SET grade = :grade
+              WHERE ".$this->othertablecolumn." = :elementid
+              AND tag = :tag";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute(["elementid" => $elementid, "tag" => $tag, "grade" => $grade]);
+    } else {
+      $grade = 1;
+      $sql = "INSERT INTO ".$this->tagstablename."(userid,".$this->othertablecolumn.",tag)
+              VALUES(:userid,:elementid,:tag)";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute(["elementid" => $elementid, "userid" => $userid, "tag" => $tag]);
+    }
+
+    return $grade;
+  }
+
+  public function untag($elementid, $tag, $userid) {
+    $sql = "SELECT grade
+            FROM ".$this->tagstablename."
+            WHERE ".$this->othertablecolumn." = :elementid AND tag = :tag";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute(["elementid" => $elementid, "tag" => $tag]);
+
+    if( $result = $stmt->fetch() ) {
+      $grade = $result['grade'];
+      if($grade > 1) {
+        $grade --;
+        $sql = "UPDATE ".$this->tagstablename."
+                SET grade = :grade
+                WHERE tag = :tag
+                AND ".$this->othertablecolumn." = :elementid";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["elementid" => $elementid, "tag" => $tag, "grade" => $grade]);
+      } else {
+        $grade = 0;
+        $sql = "DELETE FROM ".$this->tagstablename."
+                WHERE tag = :tag AND ".$this->othertablecolumn." = :elementid";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["elementid" => $elementid, "tag" => $tag]);
+      }
+    }
+
+    return $grade;
   }
 
 }

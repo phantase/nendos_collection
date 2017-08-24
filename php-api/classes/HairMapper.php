@@ -5,6 +5,7 @@ class HairMapper extends Mapper
   protected $tablename = "hairs";
   protected $collectiontablename = "users_hairs_collection";
   protected $favoritestablename = "users_hairs_favorites";
+  protected $tagstablename = "tags_hairs";
   protected $othertablecolumn = "hairid";
 
   public function get($userid=null, $validated=true) {
