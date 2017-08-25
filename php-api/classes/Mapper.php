@@ -201,4 +201,18 @@ abstract class Mapper {
     return $grade;
   }
 
+  public function getTags() {
+    $sql = "SELECT distinct tag
+            FROM ".$this->tagstablename."
+            ORDER BY 1 ASC";
+    $stmt = $this->db->prepare($sql);
+    $result = $stmt->execute();
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = $row['tag'];
+    }
+    return $results;
+  }
+
 }

@@ -62,3 +62,21 @@ $app->delete('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessorie
     }
     return $newresponse;
 });
+
+// Get all tags for an element type
+$app->get('/auth/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/tags', function(Request $request, Response $response, $args) {
+    $element = $args['element'];
+    $this->applogger->addInfo("GET /auth/$element/tags", array('user'=>$request->getAttribute("token")->user));
+
+    try {
+        $mapper = MapperFactory::getMapper($this->db,$element);
+        $tags = $mapper->getTags();
+
+        $newresponse = $response->withJson($tags);
+
+    } catch (Exception $e){
+        $this->applogger->addError("POST /auth/$element/tags", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
+        $newresponse = $response->withStatus(500);
+    }
+    return $newresponse;
+});
