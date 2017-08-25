@@ -256,7 +256,11 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      document.title += ' / ' + vm.bodypart.part + ' / Id: ' + vm.bodypart.internalid
+      if (vm.bodypart) {
+        document.title += ' / ' + vm.bodypart.part + ' / Id: ' + vm.bodypart.internalid
+      } else {
+        document.title += ' / Id: ' + vm.$route.params.id
+      }
     })
   }
 }

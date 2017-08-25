@@ -311,7 +311,11 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      document.title += ' / ' + vm.nendoroid.name + (vm.nendoroid.version ? ' / ' + vm.nendoroid.version : '')
+      if (vm.nendoroid) {
+        document.title += ' / ' + vm.nendoroid.name + (vm.nendoroid.version ? ' / ' + vm.nendoroid.version : '')
+      } else {
+        document.title += ' / Id: ' + vm.$route.params.id
+      }
     })
   }
 }

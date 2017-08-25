@@ -377,7 +377,11 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      document.title += ' / ' + vm.photo.title + ' / Id: ' + vm.photo.internalid
+      if (vm.photo) {
+        document.title += ' / ' + vm.photo.title + ' / Id: ' + vm.photo.internalid
+      } else {
+        document.title += ' / Id: ' + vm.$route.params.id
+      }
     })
   }
 }

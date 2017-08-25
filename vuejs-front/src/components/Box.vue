@@ -331,7 +331,11 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      document.title += ' / ' + vm.box.category + ' / ' + (vm.box.number ? vm.box.category + ' #' + vm.box.number + ' - ' : '') + vm.box.name + (vm.box.series ? ' - ' + vm.box.series : '')
+      if (vm.box) {
+        document.title += ' / ' + vm.box.category + ' / ' + (vm.box.number ? vm.box.category + ' #' + vm.box.number + ' - ' : '') + vm.box.name + (vm.box.series ? ' - ' + vm.box.series : '')
+      } else {
+        document.title += ' / Id: ' + vm.$route.params.id
+      }
     })
   }
 }

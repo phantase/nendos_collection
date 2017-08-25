@@ -260,7 +260,11 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      document.title += ' / Id: ' + vm.face.internalid
+      if (vm.face) {
+        document.title += ' / Id: ' + vm.face.internalid
+      } else {
+        document.title += ' / Id: ' + vm.$route.params.id
+      }
     })
   }
 }

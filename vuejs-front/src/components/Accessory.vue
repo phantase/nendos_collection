@@ -252,11 +252,27 @@ export default {
           console.log('Favorite failed')
         })
       }
+    },
+    tag () {
+      console.log('TAG...')
+      this.tagAccessory({
+        'context': this,
+        'accessoryid': this.accessory.internalid,
+        'tag': this.newTag
+      }).then(() => {
+        console.log('Tag successful')
+      }, () => {
+        console.log('Tag failed')
+      })
     }
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      document.title += ' / ' + vm.accessory.type + ' / Id: ' + vm.accessory.internalid
+      if (vm.accessory) {
+        document.title += ' / ' + vm.accessory.type + ' / Id: ' + vm.accessory.internalid
+      } else {
+        document.title += ' / Id: ' + vm.$route.params.id
+      }
     })
   }
 }

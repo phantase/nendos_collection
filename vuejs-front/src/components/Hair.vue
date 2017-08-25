@@ -260,7 +260,11 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      document.title += ' / ' + vm.hair.frontback + ' / Id: ' + vm.hair.internalid
+      if (vm.hair) {
+        document.title += ' / ' + vm.hair.frontback + ' / Id: ' + vm.hair.internalid
+      } else {
+        document.title += ' / Id: ' + vm.$route.params.id
+      }
     })
   }
 }
