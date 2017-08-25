@@ -16,4 +16,7 @@ export const retrieveData = (store, payload) => {
   store.dispatch('retrievePhotoNendoroids', payload)
   store.dispatch('retrieveUsers', payload)
   store.dispatch('retrieveNews', payload)
+  if (store.state.auth.authenticated) {
+    store.dispatch('retrieveAccessoriesTagsCodeList', payload)
+  }
 }

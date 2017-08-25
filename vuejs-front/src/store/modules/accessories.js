@@ -2,7 +2,8 @@ import * as types from '../mutation-types.js'
 
 const state = {
   accessories: [],
-  accessoriesLoadedDate: null
+  accessoriesLoadedDate: null,
+  accessoriesTagsCodeList: []
 }
 
 const getters = {
@@ -32,6 +33,9 @@ const getters = {
     return state.accessories.map(a => a.other_color).filter((elem, pos, arr) => {
       return elem && arr.indexOf(elem) === pos
     }).sort()
+  },
+  accessoriesTagsCodeList (state) {
+    return state.accessoriesTagsCodeList
   }
 }
 
@@ -79,6 +83,18 @@ const mutations = {
   [types.ADD_ACCESSORY_PICTURE] (state, internalid) {
     let idx = state.accessories.findIndex(intaccessory => intaccessory.internalid === internalid)
     state.accessories[idx].haspicture = 1
+  },
+  [types.SET_ACCESSORIES_TAGS_CODELIST] (state, tags) {
+    state.accessoriesTagsCodeList = tags
+  },
+  [types.TAG_ACCESSORY] (state, payload) {
+    let accessoryid = payload.accessoryid
+    let tag = payload.tag
+    if (state.accessories.find(accessory => accessory.internalid === accessoryid).tags) {
+      state.accessories.find(accessory => accessory.internalid === accessoryid).tags.push({'tag': tag})
+    } else {
+      state.accessories.find(accessory => accessory.internalid === accessoryid).tags = [{'tag': tag}]
+    }
   }
 }
 
@@ -222,6 +238,42 @@ const actions = {
   addAccessoryPicture (store, payload) {
     let internalid = payload.internalid
     store.commit(types.ADD_ACCESSORY_PICTURE, internalid)
+  },
+  setAccessoriesTagsCodeList (store, tags) {
+    store.commit(types.SET_ACCESSORIES_TAGS_CODELIST, tags)
+  },
+  retrieveAccessoriesTagsCodeList (store, payload) {
+    let context = payload.context
+    return new Promise((resolve, reject) => {
+      context.$http.get('accessories/tags', {
+        before (request) {
+          if (this.previousAccessoriesTagsCodeListRequest) {
+            this.previousAccessoriesTagsCodeListRequest.abort()
+          }
+          this.previousAccessoriesTagsCodeListRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setAccessoriesTagsCodeList', response.data)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  tagAccessory (store, payload) {
+    let context = payload.context
+    let accessoryid = payload.accessoryid
+    let tag = payload.tag
+    return new Promise((resolve, reject) => {
+      let formData = new FormData()
+      formData.append('tag', tag)
+      context.$http.post('accessories/' + accessoryid + '/tag', formData).then(response => {
+        store.commit(types.TAG_ACCESSORY, payload)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
   }
 }
 

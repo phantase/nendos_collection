@@ -78,6 +78,20 @@
           <div class="box-body">
             <span class="label label-primary margin-right" v-for="tag in accessory.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!accessory.tags"><i class="fa fa-ban text-red"></i> No tags</span>
+            <a class="btn btn-xs" v-if="authenticated" @click="addTag=!addTag"><i class="fa fa-plus"></i> Add a tag</a>
+            <transition name="fade">
+              <div v-if="addTag">
+                <hr>
+                <div class="row">
+                  <div class="col-md-8">
+                    <select2 placeholder="New tag" :options="accessoriesTagsCodeList" v-model="newTag"></select2>
+                  </div>
+                  <div class="col-md-4">
+                    <button class="btn" @click="tag">Add this tag</button>
+                  </div>
+                </div>
+              </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -139,6 +153,7 @@ import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile
 import FavoritedTile from './dblayouts/FavoritedTile'
 import CollectedTile from './dblayouts/CollectedTile'
 import HistoryBox from './dblayouts/HistoryBox'
+import Select2 from './atomic/Select2'
 
 export default {
   name: 'Accessory',
@@ -148,16 +163,19 @@ export default {
     CollectionAndValidationTile,
     CollectedTile,
     FavoritedTile,
-    HistoryBox
+    HistoryBox,
+    Select2
   },
   store: store,
   data () {
     return {
-      resources: Resources
+      resources: Resources,
+      addTag: false,
+      newTag: []
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'photos', 'photoaccessories', 'authenticated', 'viewvalidation', 'canedit']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'photos', 'photoaccessories', 'authenticated', 'viewvalidation', 'canedit', 'accessoriesTagsCodeList']),
     accessory () {
       return this.accessories.find(accessory => accessory.internalid === this.$route.params.id)
     },
@@ -179,7 +197,7 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectAccessory', 'uncollectAccessory', 'validateAccessory', 'unvalidateAccessory', 'favoriteAccessory', 'unfavoriteAccessory']),
+    ...Vuex.mapActions(['collectAccessory', 'uncollectAccessory', 'validateAccessory', 'unvalidateAccessory', 'favoriteAccessory', 'unfavoriteAccessory', 'tagAccessory']),
     filterPhoto (photoObj) {
       return this.photoaccessories.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -261,6 +279,7 @@ export default {
         'tag': this.newTag
       }).then(() => {
         console.log('Tag successful')
+        this.newTag = []
       }, () => {
         console.log('Tag failed')
       })
@@ -288,5 +307,11 @@ export default {
   }
   .margin-right {
     margin-right: 5px;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0
   }
 </style>
