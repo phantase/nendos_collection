@@ -2,7 +2,8 @@ import * as types from '../mutation-types.js'
 
 const state = {
   bodyparts: [],
-  bodypartsLoadedDate: null
+  bodypartsLoadedDate: null,
+  bodypartsTagsCodeList: []
 }
 
 const getters = {
@@ -32,6 +33,9 @@ const getters = {
     return state.bodyparts.map(a => a.other_color).filter((elem, pos, arr) => {
       return elem && arr.indexOf(elem) === pos
     }).sort()
+  },
+  bodypartsTagsCodeList (state) {
+    return state.bodypartsTagsCodeList
   }
 }
 
@@ -79,6 +83,20 @@ const mutations = {
   [types.ADD_BODYPART_PICTURE] (state, internalid) {
     let idx = state.bodyparts.findIndex(intbodypart => intbodypart.internalid === internalid)
     state.bodyparts[idx].haspicture = 1
+  },
+  [types.SET_BODYPARTS_TAGS_CODELIST] (state, tags) {
+    state.bodypartsTagsCodeList = tags
+  },
+  [types.TAG_BODYPART] (state, payload) {
+    let bodypartid = payload.bodypartid
+    let tag = payload.tag
+    console.log(bodypartid)
+    console.log(tag)
+    if (state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).tags) {
+      state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).tags.push({'tag': tag})
+    } else {
+      state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).tags = [{'tag': tag}]
+    }
   }
 }
 
@@ -222,6 +240,42 @@ const actions = {
   addBodypartPicture (store, payload) {
     let internalid = payload.internalid
     store.commit(types.ADD_BODYPART_PICTURE, internalid)
+  },
+  setBodypartsTagsCodeList (store, tags) {
+    store.commit(types.SET_BODYPARTS_TAGS_CODELIST, tags)
+  },
+  retrieveBodypartsTagsCodeList (store, payload) {
+    let context = payload.context
+    return new Promise((resolve, reject) => {
+      context.$http.get('bodyparts/tags', {
+        before (request) {
+          if (this.previousBodypartsTagsCodeListRequest) {
+            this.previousBodypartsTagsCodeListRequest.abort()
+          }
+          this.previousBodypartsTagsCodeListRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBodypartsTagsCodeList', response.data)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  tagBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    let tag = payload.tag
+    return new Promise((resolve, reject) => {
+      let formData = new FormData()
+      formData.append('tag', tag)
+      context.$http.post('bodyparts/' + bodypartid + '/tag', formData).then(response => {
+        store.commit(types.TAG_BODYPART, payload)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
   }
 }
 

@@ -18,5 +18,6 @@ export const retrieveData = (store, payload) => {
   store.dispatch('retrieveNews', payload)
   if (store.state.auth.authenticated) {
     store.dispatch('retrieveAccessoriesTagsCodeList', payload)
+    store.dispatch('retrieveBodypartsTagsCodeList', payload)
   }
 }
