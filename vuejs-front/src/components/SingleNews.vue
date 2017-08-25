@@ -85,7 +85,11 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      document.title += ' / ' + vm.singleNews.title + ' / Id: ' + vm.singleNews.internalid
+      if (vm.singleNews) {
+        document.title += ' / ' + vm.singleNews.title + ' / Id: ' + vm.singleNews.internalid
+      } else {
+        document.title += ' / Id: ' + vm.$route.params.id
+      }
     })
   }
 }
