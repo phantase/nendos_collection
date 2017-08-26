@@ -2,7 +2,8 @@ import * as types from '../mutation-types.js'
 
 const state = {
   nendoroids: [],
-  nendoroidsLoadedDate: null
+  nendoroidsLoadedDate: null,
+  nendoroidsTagsCodeList: []
 }
 
 const getters = {
@@ -32,6 +33,9 @@ const getters = {
     return state.nendoroids.map(a => a.sex).filter((elem, pos, arr) => {
       return elem && arr.indexOf(elem) === pos
     }).sort()
+  },
+  nendoroidsTagsCodeList (state) {
+    return state.nendoroidsTagsCodeList
   }
 }
 
@@ -79,6 +83,20 @@ const mutations = {
   [types.ADD_NENDOROID_PICTURE] (state, internalid) {
     let idx = state.nendoroids.findIndex(intnendoroid => intnendoroid.internalid === internalid)
     state.nendoroids[idx].haspicture = 1
+  },
+  [types.SET_NENDOROIDS_TAGS_CODELIST] (state, tags) {
+    state.nendoroidsTagsCodeList = tags
+  },
+  [types.TAG_NENDOROID] (state, payload) {
+    let nendoroidid = payload.nendoroidid
+    let tag = payload.tag
+    console.log(nendoroidid)
+    console.log(tag)
+    if (state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).tags) {
+      state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).tags.push({'tag': tag})
+    } else {
+      state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).tags = [{'tag': tag}]
+    }
   }
 }
 
@@ -222,6 +240,42 @@ const actions = {
   addNendoroidPicture (store, payload) {
     let internalid = payload.internalid
     store.commit(types.ADD_NENDOROID_PICTURE, internalid)
+  },
+  setNendoroidsTagsCodeList (store, tags) {
+    store.commit(types.SET_NENDOROIDS_TAGS_CODELIST, tags)
+  },
+  retrieveNendoroidsTagsCodeList (store, payload) {
+    let context = payload.context
+    return new Promise((resolve, reject) => {
+      context.$http.get('nendoroids/tags', {
+        before (request) {
+          if (this.previousNendoroidsTagsCodeListRequest) {
+            this.previousNendoroidsTagsCodeListRequest.abort()
+          }
+          this.previousNendoroidsTagsCodeListRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setNendoroidsTagsCodeList', response.data)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  tagNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    let tag = payload.tag
+    return new Promise((resolve, reject) => {
+      let formData = new FormData()
+      formData.append('tag', tag)
+      context.$http.post('nendoroids/' + nendoroidid + '/tag', formData).then(response => {
+        store.commit(types.TAG_NENDOROID, payload)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
   }
 }
 
