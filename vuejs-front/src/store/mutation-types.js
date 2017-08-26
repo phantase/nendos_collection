@@ -60,6 +60,8 @@ export const UNVALIDATE_HAIR = 'UNVALIDATE_HAIR'
 export const FAVORITE_HAIR = 'FAVORITE_HAIR'
 export const UNFAVORITE_HAIR = 'UNFAVORITE_HAIR'
 export const ADD_HAIR_PICTURE = 'ADD_HAIR_PICTURE'
+export const SET_HAIRS_TAGS_CODELIST = 'SET_HAIRS_TAGS_CODELIST'
+export const TAG_HAIR = 'TAG_HAIR'
 // hands
 export const ADD_HAND = 'ADD_HAND'
 export const EDIT_HAND = 'EDIT_HAND'

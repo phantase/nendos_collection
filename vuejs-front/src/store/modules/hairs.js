@@ -2,7 +2,8 @@ import * as types from '../mutation-types.js'
 
 const state = {
   hairs: [],
-  hairsLoadedDate: null
+  hairsLoadedDate: null,
+  hairsTagsCodeList: []
 }
 
 const getters = {
@@ -37,6 +38,9 @@ const getters = {
     return state.hairs.map(a => a.frontback).filter((elem, pos, arr) => {
       return elem && arr.indexOf(elem) === pos
     }).sort()
+  },
+  hairsTagsCodeList (state) {
+    return state.hairsTagsCodeList
   }
 }
 
@@ -84,6 +88,20 @@ const mutations = {
   [types.ADD_HAIR_PICTURE] (state, internalid) {
     let idx = state.hairs.findIndex(inthair => inthair.internalid === internalid)
     state.hairs[idx].haspicture = 1
+  },
+  [types.SET_HAIRS_TAGS_CODELIST] (state, tags) {
+    state.hairsTagsCodeList = tags
+  },
+  [types.TAG_HAIR] (state, payload) {
+    let hairid = payload.hairid
+    let tag = payload.tag
+    console.log(hairid)
+    console.log(tag)
+    if (state.hairs.find(hair => hair.internalid === hairid).tags) {
+      state.hairs.find(hair => hair.internalid === hairid).tags.push({'tag': tag})
+    } else {
+      state.hairs.find(hair => hair.internalid === hairid).tags = [{'tag': tag}]
+    }
   }
 }
 
@@ -227,6 +245,42 @@ const actions = {
   addHairPicture (store, payload) {
     let internalid = payload.internalid
     store.commit(types.ADD_HAIR_PICTURE, internalid)
+  },
+  setHairsTagsCodeList (store, tags) {
+    store.commit(types.SET_HAIRS_TAGS_CODELIST, tags)
+  },
+  retrieveHairsTagsCodeList (store, payload) {
+    let context = payload.context
+    return new Promise((resolve, reject) => {
+      context.$http.get('hairs/tags', {
+        before (request) {
+          if (this.previousHairsTagsCodeListRequest) {
+            this.previousHairsTagsCodeListRequest.abort()
+          }
+          this.previousHairsTagsCodeListRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setHairsTagsCodeList', response.data)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  tagHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    let tag = payload.tag
+    return new Promise((resolve, reject) => {
+      let formData = new FormData()
+      formData.append('tag', tag)
+      context.$http.post('hairs/' + hairid + '/tag', formData).then(response => {
+        store.commit(types.TAG_HAIR, payload)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
   }
 }
 
