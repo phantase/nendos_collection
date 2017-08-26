@@ -20,6 +20,8 @@ export const UNVALIDATE_BOX = 'UNVALIDATE_BOX'
 export const FAVORITE_BOX = 'FAVORITE_BOX'
 export const UNFAVORITE_BOX = 'UNFAVORITE_BOX'
 export const ADD_BOX_PICTURE = 'ADD_BOX_PICTURE'
+export const SET_BOXES_TAGS_CODELIST = 'SET_BOXES_TAGS_CODELIST'
+export const TAG_BOX = 'TAG_BOX'
 // nendoroids
 export const ADD_NENDOROID = 'ADD_NENDOROID'
 export const EDIT_NENDOROID = 'EDIT_NENDOROID'

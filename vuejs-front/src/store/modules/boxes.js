@@ -2,7 +2,8 @@ import * as types from '../mutation-types.js'
 
 const state = {
   boxes: [],
-  boxesLoadedDate: null
+  boxesLoadedDate: null,
+  boxesTagsCodeList: []
 }
 
 const getters = {
@@ -42,6 +43,9 @@ const getters = {
     return state.boxes.map(a => a.cooperation).filter((elem, pos, arr) => {
       return elem && arr.indexOf(elem) === pos
     }).sort()
+  },
+  boxesTagsCodeList (state) {
+    return state.boxesTagsCodeList
   }
 }
 
@@ -89,6 +93,20 @@ const mutations = {
   [types.ADD_BOX_PICTURE] (state, internalid) {
     let idx = state.boxes.findIndex(intbox => intbox.internalid === internalid)
     state.boxes[idx].haspicture = 1
+  },
+  [types.SET_BOXES_TAGS_CODELIST] (state, tags) {
+    state.boxesTagsCodeList = tags
+  },
+  [types.TAG_BOX] (state, payload) {
+    let boxid = payload.boxid
+    let tag = payload.tag
+    console.log(boxid)
+    console.log(tag)
+    if (state.boxes.find(box => box.internalid === boxid).tags) {
+      state.boxes.find(box => box.internalid === boxid).tags.push({'tag': tag})
+    } else {
+      state.boxes.find(box => box.internalid === boxid).tags = [{'tag': tag}]
+    }
   }
 }
 
@@ -232,6 +250,42 @@ const actions = {
   addBoxPicture (store, payload) {
     let internalid = payload.internalid
     store.commit(types.ADD_BOX_PICTURE, internalid)
+  },
+  setBoxesTagsCodeList (store, tags) {
+    store.commit(types.SET_BOXES_TAGS_CODELIST, tags)
+  },
+  retrieveBoxesTagsCodeList (store, payload) {
+    let context = payload.context
+    return new Promise((resolve, reject) => {
+      context.$http.get('boxes/tags', {
+        before (request) {
+          if (this.previousBoxesTagsCodeListRequest) {
+            this.previousBoxesTagsCodeListRequest.abort()
+          }
+          this.previousBoxesTagsCodeListRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBoxesTagsCodeList', response.data)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  tagBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    let tag = payload.tag
+    return new Promise((resolve, reject) => {
+      let formData = new FormData()
+      formData.append('tag', tag)
+      context.$http.post('boxes/' + boxid + '/tag', formData).then(response => {
+        store.commit(types.TAG_BOX, payload)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
   }
 }
 
