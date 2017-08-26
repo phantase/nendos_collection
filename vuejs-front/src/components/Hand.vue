@@ -78,6 +78,20 @@
           <div class="box-body">
             <span class="label label-primary margin-right" v-for="tag in hand.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!hand.tags"><i class="fa fa-ban text-red"></i> No tags</span>
+            <a class="btn btn-xs" v-if="authenticated" @click="addTag=!addTag"><i class="fa fa-plus"></i> Add a tag</a>
+            <transition name="fade">
+              <div v-if="addTag">
+                <hr>
+                <div class="row">
+                  <div class="col-md-8">
+                    <select2 placeholder="New tag" :options="handsTagsCodeList" v-model="newTag"></select2>
+                  </div>
+                  <div class="col-md-4">
+                    <button class="btn" @click="tag">Add this tag</button>
+                  </div>
+                </div>
+              </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -139,6 +153,7 @@ import CollectionAndValidationTile from './dblayouts/CollectionAndValidationTile
 import CollectedTile from './dblayouts/CollectedTile'
 import FavoritedTile from './dblayouts/FavoritedTile'
 import HistoryBox from './dblayouts/HistoryBox'
+import Select2 from './atomic/Select2'
 
 export default {
   name: 'Hand',
@@ -148,16 +163,19 @@ export default {
     CollectionAndValidationTile,
     CollectedTile,
     FavoritedTile,
-    HistoryBox
+    HistoryBox,
+    Select2
   },
   store: store,
   data () {
     return {
-      resources: Resources
+      resources: Resources,
+      addTag: false,
+      newTag: []
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hands', 'photos', 'photohands', 'authenticated', 'viewvalidation', 'canedit']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hands', 'photos', 'photohands', 'authenticated', 'viewvalidation', 'canedit', 'handsTagsCodeList']),
     hand () {
       return this.hands.find(hand => hand.internalid === this.$route.params.id)
     },
@@ -179,7 +197,7 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectHand', 'uncollectHand', 'validateHand', 'unvalidateHand', 'favoriteHand', 'unfavoriteHand']),
+    ...Vuex.mapActions(['collectHand', 'uncollectHand', 'validateHand', 'unvalidateHand', 'favoriteHand', 'unfavoriteHand', 'tagHand']),
     filterPhoto (photoObj) {
       return this.photohands.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -252,6 +270,19 @@ export default {
           console.log('Favorite failed')
         })
       }
+    },
+    tag () {
+      console.log('TAG...')
+      this.tagHand({
+        'context': this,
+        'handid': this.hand.internalid,
+        'tag': this.newTag
+      }).then(() => {
+        console.log('Tag successful')
+        this.newTag = []
+      }, () => {
+        console.log('Tag failed')
+      })
     }
   },
   beforeRouteEnter (to, from, next) {

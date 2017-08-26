@@ -2,7 +2,8 @@ import * as types from '../mutation-types.js'
 
 const state = {
   hands: [],
-  handsLoadedDate: null
+  handsLoadedDate: null,
+  handsTagsCodeList: []
 }
 
 const getters = {
@@ -32,6 +33,9 @@ const getters = {
     return state.hands.map(a => a.skin_color).filter((elem, pos, arr) => {
       return elem && arr.indexOf(elem) === pos
     }).sort()
+  },
+  handsTagsCodeList (state) {
+    return state.handsTagsCodeList
   }
 }
 
@@ -79,6 +83,20 @@ const mutations = {
   [types.ADD_HAND_PICTURE] (state, internalid) {
     let idx = state.hands.findIndex(inthand => inthand.internalid === internalid)
     state.hands[idx].haspicture = 1
+  },
+  [types.SET_HANDS_TAGS_CODELIST] (state, tags) {
+    state.handsTagsCodeList = tags
+  },
+  [types.TAG_HAND] (state, payload) {
+    let handid = payload.handid
+    let tag = payload.tag
+    console.log(handid)
+    console.log(tag)
+    if (state.hands.find(hand => hand.internalid === handid).tags) {
+      state.hands.find(hand => hand.internalid === handid).tags.push({'tag': tag})
+    } else {
+      state.hands.find(hand => hand.internalid === handid).tags = [{'tag': tag}]
+    }
   }
 }
 
@@ -222,6 +240,42 @@ const actions = {
   addHandPicture (store, payload) {
     let internalid = payload.internalid
     store.commit(types.ADD_HAND_PICTURE, internalid)
+  },
+  setHandsTagsCodeList (store, tags) {
+    store.commit(types.SET_HANDS_TAGS_CODELIST, tags)
+  },
+  retrieveHandsTagsCodeList (store, payload) {
+    let context = payload.context
+    return new Promise((resolve, reject) => {
+      context.$http.get('hands/tags', {
+        before (request) {
+          if (this.previousHandsTagsCodeListRequest) {
+            this.previousHandsTagsCodeListRequest.abort()
+          }
+          this.previousHandsTagsCodeListRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setHandsTagsCodeList', response.data)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  tagHand (store, payload) {
+    let context = payload.context
+    let handid = payload.handid
+    let tag = payload.tag
+    return new Promise((resolve, reject) => {
+      let formData = new FormData()
+      formData.append('tag', tag)
+      context.$http.post('hands/' + handid + '/tag', formData).then(response => {
+        store.commit(types.TAG_HAND, payload)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
   }
 }
 
