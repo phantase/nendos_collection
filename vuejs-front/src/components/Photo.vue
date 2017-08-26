@@ -79,6 +79,20 @@
           <div class="box-body">
             <span class="label label-primary margin-right" v-for="tag in photo.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!photo.tags"><i class="fa fa-ban text-red"></i> No tags</span>
+            <a class="btn btn-xs" v-if="authenticated" @click="addTag=!addTag"><i class="fa fa-plus"></i> Add a tag</a>
+            <transition name="fade">
+              <div v-if="addTag">
+                <hr>
+                <div class="row">
+                  <div class="col-md-8">
+                    <select2 placeholder="New tag" :options="photosTagsCodeList" v-model="newTag"></select2>
+                  </div>
+                  <div class="col-md-4">
+                    <button class="btn" @click="tag">Add this tag</button>
+                  </div>
+                </div>
+              </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -182,6 +196,7 @@ import BodypartsTiles from './dblayouts/BodypartsTiles'
 import AccessoriesTiles from './dblayouts/AccessoriesTiles'
 import FavoritedTile from './dblayouts/FavoritedTile'
 import HistoryBox from './dblayouts/HistoryBox'
+import Select2 from './atomic/Select2'
 
 export default {
   name: 'Photo',
@@ -195,12 +210,15 @@ export default {
     BodypartsTiles,
     AccessoriesTiles,
     FavoritedTile,
-    HistoryBox
+    HistoryBox,
+    Select2
   },
   store: store,
   data () {
     return {
-      resources: Resources
+      resources: Resources,
+      addTag: false,
+      newTag: []
     }
   },
   computed: {
@@ -212,7 +230,7 @@ export default {
       'hairs', 'photohairs',
       'hands', 'photohands',
       'nendoroids', 'photonendoroids',
-      'authenticated']),
+      'authenticated', 'photosTagsCodeList']),
     photo () {
       return this.photos.filter(photo => photo.internalid === this.$route.params.id)[0]
     },
@@ -291,7 +309,7 @@ export default {
     $('[role="tooltip"]').remove()
   },
   methods: {
-    ...Vuex.mapActions(['favoritePhoto', 'unfavoritePhoto']),
+    ...Vuex.mapActions(['favoritePhoto', 'unfavoritePhoto', 'tagPhoto']),
     handleResize (event) {
       try {
         let ratio = document.getElementById('db-photo').offsetWidth / this.photo.width
@@ -373,6 +391,19 @@ export default {
           console.log('Favorite failed')
         })
       }
+    },
+    tag () {
+      console.log('TAG...')
+      this.tagPhoto({
+        'context': this,
+        'photoid': this.photo.internalid,
+        'tag': this.newTag
+      }).then(() => {
+        console.log('Tag successful')
+        this.newTag = []
+      }, () => {
+        console.log('Tag failed')
+      })
     }
   },
   beforeRouteEnter (to, from, next) {

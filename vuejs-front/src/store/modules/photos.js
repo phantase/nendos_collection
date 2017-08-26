@@ -16,7 +16,8 @@ const state = {
   photofacesLoadedDate: null,
   photohairsLoadedDate: null,
   photohandsLoadedDate: null,
-  photonendoroidsLoadedDate: null
+  photonendoroidsLoadedDate: null,
+  photosTagsCodeList: []
 }
 
 const getters = {
@@ -70,6 +71,9 @@ const getters = {
   },
   photonendoroidsLoadedDate (state) {
     return state.photonendoroidsLoadedDate
+  },
+  photosTagsCodeList (state) {
+    return state.photosTagsCodeList
   }
 }
 
@@ -169,6 +173,20 @@ const mutations = {
   [types.SET_PHOTONENDOROIDS] (state, photonendoroids) {
     state.photonendoroids = photonendoroids
     state.photonendoroidsLoadedDate = new Date()
+  },
+  [types.SET_PHOTOS_TAGS_CODELIST] (state, tags) {
+    state.photosTagsCodeList = tags
+  },
+  [types.TAG_PHOTO] (state, payload) {
+    let photoid = payload.photoid
+    let tag = payload.tag
+    console.log(photoid)
+    console.log(tag)
+    if (state.photos.find(photo => photo.internalid === photoid).tags) {
+      state.photos.find(photo => photo.internalid === photoid).tags.push({'tag': tag})
+    } else {
+      state.photos.find(photo => photo.internalid === photoid).tags = [{'tag': tag}]
+    }
   }
 }
 
@@ -532,6 +550,42 @@ const actions = {
       context.$http.post('photo/' + photoid + '/nendoroid', formData).then(response => {
         store.dispatch('addPhotoNendoroid', response.data)
         resolve(response.data.photoid)
+      }, response => {
+        reject()
+      })
+    })
+  },
+  setPhotosTagsCodeList (store, tags) {
+    store.commit(types.SET_PHOTOS_TAGS_CODELIST, tags)
+  },
+  retrievePhotosTagsCodeList (store, payload) {
+    let context = payload.context
+    return new Promise((resolve, reject) => {
+      context.$http.get('photos/tags', {
+        before (request) {
+          if (this.previousPhotosTagsCodeListRequest) {
+            this.previousPhotosTagsCodeListRequest.abort()
+          }
+          this.previousPhotosTagsCodeListRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setPhotosTagsCodeList', response.data)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  tagPhoto (store, payload) {
+    let context = payload.context
+    let photoid = payload.photoid
+    let tag = payload.tag
+    return new Promise((resolve, reject) => {
+      let formData = new FormData()
+      formData.append('tag', tag)
+      context.$http.post('photos/' + photoid + '/tag', formData).then(response => {
+        store.commit(types.TAG_PHOTO, payload)
+        resolve()
       }, response => {
         reject()
       })

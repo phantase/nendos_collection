@@ -24,5 +24,6 @@ export const retrieveData = (store, payload) => {
     store.dispatch('retrieveHandsTagsCodeList', payload)
     store.dispatch('retrieveBodypartsTagsCodeList', payload)
     store.dispatch('retrieveAccessoriesTagsCodeList', payload)
+    store.dispatch('retrievePhotosTagsCodeList', payload)
   }
 }
