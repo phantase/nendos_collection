@@ -46,6 +46,8 @@ export const UNVALIDATE_FACE = 'UNVALIDATE_FACE'
 export const FAVORITE_FACE = 'FAVORITE_FACE'
 export const UNFAVORITE_FACE = 'UNFAVORITE_FACE'
 export const ADD_FACE_PICTURE = 'ADD_FACE_PICTURE'
+export const SET_FACES_TAGS_CODELIST = 'SET_FACES_TAGS_CODELIST'
+export const TAG_FACE = 'TAG_FACE'
 // hairs
 export const ADD_HAIR = 'ADD_HAIR'
 export const EDIT_HAIR = 'EDIT_HAIR'

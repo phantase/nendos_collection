@@ -2,7 +2,8 @@ import * as types from '../mutation-types.js'
 
 const state = {
   faces: [],
-  facesLoadedDate: null
+  facesLoadedDate: null,
+  facsTagsCodeList: []
 }
 
 const getters = {
@@ -42,6 +43,9 @@ const getters = {
     return state.faces.map(a => a.sex).filter((elem, pos, arr) => {
       return elem && arr.indexOf(elem) === pos
     }).sort()
+  },
+  facesTagsCodeList (state) {
+    return state.facesTagsCodeList
   }
 }
 
@@ -89,6 +93,20 @@ const mutations = {
   [types.ADD_FACE_PICTURE] (state, internalid) {
     let idx = state.faces.findIndex(intface => intface.internalid === internalid)
     state.faces[idx].haspicture = 1
+  },
+  [types.SET_FACES_TAGS_CODELIST] (state, tags) {
+    state.facesTagsCodeList = tags
+  },
+  [types.TAG_FACE] (state, payload) {
+    let faceid = payload.faceid
+    let tag = payload.tag
+    console.log(faceid)
+    console.log(tag)
+    if (state.faces.find(face => face.internalid === faceid).tags) {
+      state.faces.find(face => face.internalid === faceid).tags.push({'tag': tag})
+    } else {
+      state.faces.find(face => face.internalid === faceid).tags = [{'tag': tag}]
+    }
   }
 }
 
@@ -232,6 +250,42 @@ const actions = {
   addFacePicture (store, payload) {
     let internalid = payload.internalid
     store.commit(types.ADD_FACE_PICTURE, internalid)
+  },
+  setFacesTagsCodeList (store, tags) {
+    store.commit(types.SET_FACES_TAGS_CODELIST, tags)
+  },
+  retrieveFacesTagsCodeList (store, payload) {
+    let context = payload.context
+    return new Promise((resolve, reject) => {
+      context.$http.get('faces/tags', {
+        before (request) {
+          if (this.previousFacesTagsCodeListRequest) {
+            this.previousFacesTagsCodeListRequest.abort()
+          }
+          this.previousFacesTagsCodeListRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setFacesTagsCodeList', response.data)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  tagFace (store, payload) {
+    let context = payload.context
+    let faceid = payload.faceid
+    let tag = payload.tag
+    return new Promise((resolve, reject) => {
+      let formData = new FormData()
+      formData.append('tag', tag)
+      context.$http.post('faces/' + faceid + '/tag', formData).then(response => {
+        store.commit(types.TAG_FACE, payload)
+        resolve()
+      }, response => {
+        reject()
+      })
+    })
   }
 }
 
