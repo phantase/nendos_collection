@@ -179,7 +179,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hairs', 'photos', 'photohairs', 'authenticated', 'viewvalidation', 'canedit', 'hairsTagsCodeList']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hairs', 'photos', 'photohairs', 'authenticated', 'canedit', 'hairsTagsCodeList']),
     hair () {
       return this.hairs.find(hair => hair.internalid === this.$route.params.id)
     },

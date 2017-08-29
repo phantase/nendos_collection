@@ -164,7 +164,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'authenticated']),
+    ...Vuex.mapGetters(['authenticated']),
     internalid () {
       return this.$route.params.id
     },

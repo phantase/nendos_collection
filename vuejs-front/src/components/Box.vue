@@ -254,7 +254,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photoboxes', 'authenticated', 'viewvalidation', 'canedit', 'boxesTagsCodeList']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photoboxes', 'authenticated', 'canedit', 'boxesTagsCodeList']),
     box () {
       return this.boxes.find(box => box.internalid === this.$route.params.id)
     },

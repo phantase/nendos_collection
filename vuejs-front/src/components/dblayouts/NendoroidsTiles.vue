@@ -10,7 +10,6 @@
 
 <script>
 import store from './../../store'
-import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
@@ -29,7 +28,6 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['viewvalidation']),
     classtiles () {
       if (typeof this.tilessize !== 'undefined' && this.tilessize === 'big') {
         return 'col-md-6 col-sm-6 col-xs-12'

@@ -116,7 +116,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit',
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'canedit',
       'nendoroidsNameCodeList', 'nendoroidsVersionCodeList', 'nendoroidsSexCodeList']),
     boxes4select () {
       return this.frompart === 'box' ? this.boxes.filter(box => box.internalid === this.$route.params.fromid) : this.boxes

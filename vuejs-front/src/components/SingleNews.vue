@@ -75,13 +75,10 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['news', 'authenticated', 'canadmin']),
+    ...Vuex.mapGetters(['news', 'canadmin']),
     singleNews () {
       return this.news.find(singlenews => singlenews.internalid === this.$route.params.id)
     }
-  },
-  methods: {
-    ...Vuex.mapActions([])
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {

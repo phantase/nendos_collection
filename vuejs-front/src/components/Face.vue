@@ -179,7 +179,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'photos', 'photofaces', 'authenticated', 'viewvalidation', 'canedit', 'facesTagsCodeList']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'photos', 'photofaces', 'authenticated', 'canedit', 'facesTagsCodeList']),
     face () {
       return this.faces.find(face => face.internalid === this.$route.params.id)
     },

@@ -157,7 +157,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit',
+    ...Vuex.mapGetters(['boxes', 'canedit',
       'boxesSeriesCodeList', 'boxesCategoryCodeList', 'boxesManufacturerCodeList', 'boxesSculptorCodeList', 'boxesCooperationCodeList']),
     internalid () {
       return this.$route.name === 'Edit box' ? this.$route.params.id : null

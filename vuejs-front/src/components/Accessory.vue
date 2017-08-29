@@ -175,7 +175,8 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'photos', 'photoaccessories', 'authenticated', 'viewvalidation', 'canedit', 'accessoriesTagsCodeList']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'photos', 'photoaccessories',
+      'authenticated', 'canedit', 'accessoriesTagsCodeList']),
     accessory () {
       return this.accessories.find(accessory => accessory.internalid === this.$route.params.id)
     },

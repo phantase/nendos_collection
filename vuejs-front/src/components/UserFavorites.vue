@@ -175,7 +175,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['users', 'user', 'canadmin', 'boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hands', 'hairs', 'photos']),
+    ...Vuex.mapGetters(['users', 'user', 'boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hands', 'hairs', 'photos']),
     userid () {
       return this.$route.params.id
     },

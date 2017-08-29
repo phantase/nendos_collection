@@ -182,10 +182,10 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['searchTerm', 'boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'authenticated', 'viewvalidation'])
+    ...Vuex.mapGetters(['searchTerm', 'boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos'])
   },
   methods: {
-    ...Vuex.mapActions(['doSearch', 'setSearchTerm', 'resetSearchTerm']),
+    ...Vuex.mapActions(['doSearch', 'resetSearchTerm']),
     submitSearch () {
       this.errornotext = false
       this.searchPerformed = false

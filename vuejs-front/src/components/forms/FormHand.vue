@@ -131,7 +131,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'accessories', 'bodyparts', 'faces', 'hairs', 'hands', 'canedit',
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hands', 'canedit',
       'handsPostureCodeList', 'handsLeftRightCodeList', 'handsSkinColorCodeList']),
     boxes4select () {
       if (this.$route.params.frompart === 'box') {

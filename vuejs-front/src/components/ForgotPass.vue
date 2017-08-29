@@ -67,7 +67,6 @@
 <script>
 // import router from './../router'
 import store from './../store'
-import Vuex from 'vuex'
 
 export default {
   name: 'Login',
@@ -89,11 +88,7 @@ export default {
       submission_status: 0
     }
   },
-  computed: {
-    ...Vuex.mapGetters(['authenticated', 'user'])
-  },
   methods: {
-    ...Vuex.mapActions(['login', 'retrieveData']),
     onSubmit () {
       if (this.usermail === null || this.usermail.length < 1) {
         this.submission_status = this.USERMAIL_ERROR

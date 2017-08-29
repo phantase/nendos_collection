@@ -100,7 +100,6 @@
 <script>
 // import router from './../router'
 import store from './../store'
-import Vuex from 'vuex'
 
 export default {
   name: 'Register',
@@ -130,11 +129,7 @@ export default {
       registration_status: 0
     }
   },
-  computed: {
-    ...Vuex.mapGetters(['authenticated', 'user'])
-  },
   methods: {
-    ...Vuex.mapActions(['login', 'retrieveData']),
     onSubmit () {
       this.registration_status = this.SUBMIT_REGISTER
 

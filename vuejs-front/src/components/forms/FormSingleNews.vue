@@ -113,7 +113,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['news', 'authenticated', 'canadmin']),
+    ...Vuex.mapGetters(['news', 'canadmin']),
     internalid () {
       return this.$route.name === 'Edit news' ? this.$route.params.id : null
     }

@@ -54,7 +54,6 @@
 <script>
 // import router from './../router'
 import store from './../store'
-import Vuex from 'vuex'
 
 export default {
   name: 'Confirm',
@@ -73,11 +72,7 @@ export default {
       confirm_status: 0
     }
   },
-  computed: {
-    ...Vuex.mapGetters(['authenticated', 'user'])
-  },
   methods: {
-    ...Vuex.mapActions(['login', 'retrieveData']),
     onSubmitCode () {
       this.confirm_status = this.SUBMIT_CONFIRM
 

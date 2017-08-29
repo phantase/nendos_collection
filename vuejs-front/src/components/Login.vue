@@ -61,9 +61,6 @@ export default {
       loginerror: false
     }
   },
-  computed: {
-    ...Vuex.mapGetters(['authenticated', 'user'])
-  },
   methods: {
     ...Vuex.mapActions(['login', 'retrieveData']),
     onSubmit () {
