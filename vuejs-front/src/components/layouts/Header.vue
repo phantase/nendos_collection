@@ -20,6 +20,14 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
+          <app-header-loading-status-boxes></app-header-loading-status-boxes>
+          <app-header-loading-status-nendoroids></app-header-loading-status-nendoroids>
+          <app-header-loading-status-faces></app-header-loading-status-faces>
+          <app-header-loading-status-hairs></app-header-loading-status-hairs>
+          <app-header-loading-status-hands></app-header-loading-status-hands>
+          <app-header-loading-status-bodyparts></app-header-loading-status-bodyparts>
+          <app-header-loading-status-accessories></app-header-loading-status-accessories>
+
           <app-header-messages :messages="messages" v-if="false"></app-header-messages>
           <app-header-notifications :notifications="notifications" v-if="false"></app-header-notifications>
           <app-header-tasks :tasks="tasks" v-if="false"></app-header-tasks>
@@ -36,6 +44,13 @@
 </template>
 
 <script>
+  import AppHeaderLoadingStatusBoxes from './HeaderLoadingStatusBoxes'
+  import AppHeaderLoadingStatusNendoroids from './HeaderLoadingStatusNendoroids'
+  import AppHeaderLoadingStatusFaces from './HeaderLoadingStatusFaces'
+  import AppHeaderLoadingStatusHairs from './HeaderLoadingStatusHairs'
+  import AppHeaderLoadingStatusHands from './HeaderLoadingStatusHands'
+  import AppHeaderLoadingStatusBodyparts from './HeaderLoadingStatusBodyparts'
+  import AppHeaderLoadingStatusAccessories from './HeaderLoadingStatusAccessories'
   import AppHeaderMessages from './HeaderMessages'
   import AppHeaderNotifications from './HeaderNotifications'
   import AppHeaderTasks from './HeaderTasks'
@@ -44,6 +59,13 @@
   export default {
     name: 'Header',
     components: {
+      AppHeaderLoadingStatusBoxes,
+      AppHeaderLoadingStatusNendoroids,
+      AppHeaderLoadingStatusFaces,
+      AppHeaderLoadingStatusHairs,
+      AppHeaderLoadingStatusHands,
+      AppHeaderLoadingStatusBodyparts,
+      AppHeaderLoadingStatusAccessories,
       AppHeaderMessages,
       AppHeaderNotifications,
       AppHeaderTasks,
