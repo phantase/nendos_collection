@@ -8,7 +8,7 @@
     <div class="lockscreen-name">&nbsp;</div>
 
     <!-- START LOCK SCREEN ITEM -->
-    <div class="lockscreen-item">
+    <div class="lockscreen-item" v-if="authenticated">
       <!-- lockscreen image -->
       <div class="lockscreen-image">
         <img :src="resources.img_url+'/images/users/'+(user?user.internalid:'0')+'/thumb'" alt="User Image">
@@ -27,6 +27,13 @@
       </form>
       <!-- /.lockscreen credentials -->
 
+    </div>
+    <div class="lockscreen-item" v-else>
+      <div class="callout callout-danger">
+        <h4>You're not logged in!</h4>
+
+        <p>Why do you want to log out, you're not logged in???</p>
+      </div>
     </div>
   </div>
   <!-- /.center -->
