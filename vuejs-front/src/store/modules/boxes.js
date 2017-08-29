@@ -3,6 +3,7 @@ import * as types from '../mutation-types.js'
 const state = {
   boxes: [],
   boxesLoadedDate: null,
+  boxesLoadedPartially: false,
   boxesTagsCodeList: []
 }
 
@@ -18,6 +19,9 @@ const getters = {
   },
   boxesLoadedDate (state) {
     return state.boxesLoadedDate
+  },
+  boxesLoadedPartially (state) {
+    return state.boxesLoadedPartially
   },
   boxesSeriesCodeList (state) {
     return state.boxes.map(a => a.series).filter((elem, pos, arr) => {
@@ -107,6 +111,9 @@ const mutations = {
     } else {
       state.boxes.find(box => box.internalid === boxid).tags = [{'tag': tag}]
     }
+  },
+  [types.SET_BOXES_PARTIAL] (state, isPartial) {
+    state.boxesLoadedPartially = isPartial
   }
 }
 
@@ -137,6 +144,7 @@ const actions = {
         }
       }).then((response) => {
         store.dispatch('setBoxes', response.data)
+        store.commit(types.SET_BOXES_PARTIAL, false)
         resolve()
       }, (response) => {
         reject()
@@ -283,6 +291,146 @@ const actions = {
         store.commit(types.TAG_BOX, payload)
         resolve()
       }, response => {
+        reject()
+      })
+    })
+  },
+  retrieveSingleBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.get('box/' + boxid, {
+        before (request) {
+          if (this.previousSingleBoxRequest) {
+            this.previousSingleBoxRequest.abort()
+          }
+          this.previousSingleBoxRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBoxes', [response.data])
+        store.commit(types.SET_BOXES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveBoxesForNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    return new Promise((resolve, reject) => {
+      context.$http.get('nendoroid/' + nendoroidid + '/boxes', {
+        before (request) {
+          if (this.previousBoxesForNendoroidRequest) {
+            this.previousBoxesForNendoroidRequest.abort()
+          }
+          this.previousBoxesForNendoroidRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBoxes', response.data)
+        store.commit(types.SET_BOXES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveBoxesForAccessory (store, payload) {
+    let context = payload.context
+    let accessoryid = payload.accessoryid
+    return new Promise((resolve, reject) => {
+      context.$http.get('accessory/' + accessoryid + '/boxes', {
+        before (request) {
+          if (this.previousBoxesForAccessoryRequest) {
+            this.previousBoxesForAccessoryRequest.abort()
+          }
+          this.previousBoxesForAccessoryRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBoxes', response.data)
+        store.commit(types.SET_BOXES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveBoxesForBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    return new Promise((resolve, reject) => {
+      context.$http.get('bodypart/' + bodypartid + '/boxes', {
+        before (request) {
+          if (this.previousBoxesForBodypartRequest) {
+            this.previousBoxesForBodypartRequest.abort()
+          }
+          this.previousBoxesForBodypartRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBoxes', response.data)
+        store.commit(types.SET_BOXES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveBoxesForFace (store, payload) {
+    let context = payload.context
+    let faceid = payload.faceid
+    return new Promise((resolve, reject) => {
+      context.$http.get('face/' + faceid + '/boxes', {
+        before (request) {
+          if (this.previousBoxesForFaceRequest) {
+            this.previousBoxesForFaceRequest.abort()
+          }
+          this.previousBoxesForFaceRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBoxes', response.data)
+        store.commit(types.SET_BOXES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveBoxesForHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    return new Promise((resolve, reject) => {
+      context.$http.get('hair/' + hairid + '/boxes', {
+        before (request) {
+          if (this.previousBoxesForHairRequest) {
+            this.previousBoxesForHairRequest.abort()
+          }
+          this.previousBoxesForHairRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBoxes', response.data)
+        store.commit(types.SET_BOXES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveBoxesForHand (store, payload) {
+    let context = payload.context
+    let handid = payload.handid
+    return new Promise((resolve, reject) => {
+      context.$http.get('hand/' + handid + '/boxes', {
+        before (request) {
+          if (this.previousBoxesForHandRequest) {
+            this.previousBoxesForHandRequest.abort()
+          }
+          this.previousBoxesForHandRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBoxes', response.data)
+        store.commit(types.SET_BOXES_PARTIAL, true)
+        resolve()
+      }, (response) => {
         reject()
       })
     })

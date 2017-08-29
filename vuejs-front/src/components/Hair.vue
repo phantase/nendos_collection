@@ -129,17 +129,16 @@
 
   </div>
   <div class="row" v-else>
-    <div class="col-md-12">
-      <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Not found</h3>
-        </div>
-        <div class="box-body">
-          <div class="alert alert-danger">
-            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-            What you are looking for was not found, please check again the information you enter.
-          </div>
-        </div>
+    <div class="col-md-12" v-if="hairs.length === 0">
+      <div class="callout callout-info">
+        <h4><i class="icon fa fa-hourglass-half"></i> Loading...</h4>
+        <p>Please wait while we load the information for you.</p>
+      </div>
+    </div>
+    <div class="col-md-12" v-else>
+      <div class="callout callout-danger">
+        <h4><i class="icon fa fa-ban"></i> Not found</h4>
+        <p>What you are looking for was not found, please perform another request.</p>
       </div>
     </div>
   </div>
@@ -179,7 +178,8 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hairs', 'photos', 'photohairs', 'authenticated', 'canedit', 'hairsTagsCodeList']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'hairs', 'photos', 'photohairs',
+      'authenticated', 'canedit', 'hairsTagsCodeList']),
     hair () {
       return this.hairs.find(hair => hair.internalid === this.$route.params.id)
     },
@@ -201,7 +201,11 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectHair', 'uncollectHair', 'validateHair', 'unvalidateHair', 'favoriteHair', 'unfavoriteHair', 'tagHair']),
+    ...Vuex.mapActions(['collectHair', 'uncollectHair',
+      'validateHair', 'unvalidateHair',
+      'favoriteHair', 'unfavoriteHair',
+      'tagHair',
+      'retrieveSingleHair', 'retrieveBoxesForHair', 'retrieveNendoroidsForHair']),
     filterPhoto (photoObj) {
       return this.photohairs.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -286,6 +290,26 @@ export default {
         this.newTag = []
       }, () => {
         console.log('Tag failed')
+      })
+    }
+  },
+  mounted () {
+    if (this.hairs.length === 0) {
+      this.retrieveSingleHair({
+        'context': this,
+        'hairid': this.$route.params.id
+      })
+    }
+    if (this.boxes.length === 0) {
+      this.retrieveBoxesForHair({
+        'context': this,
+        'hairid': this.$route.params.id
+      })
+    }
+    if (this.nendoroids.length === 0) {
+      this.retrieveNendoroidsForHair({
+        'context': this,
+        'hairid': this.$route.params.id
       })
     }
   },

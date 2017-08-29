@@ -2,8 +2,9 @@
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa icon-icon_nendo_body"></i>
-              <span class="label label-success" v-if="bodypartsLoadedDate">Ok</span>
-              <span class="label label-danger" v-else>...</span>
+              <span class="label label-info" v-if="bodypartsLoadedPartially">Partial</span>
+              <span class="label label-success" v-else-if="bodypartsLoadedDate">Full</span>
+              <span class="label label-danger" v-else>Loading</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header" v-if="bodypartsLoadedDate"><i class="icon fa fa-clock-o"></i> Loaded on {{ bodypartsLoadedDate }}</li>
@@ -31,7 +32,7 @@
       }
     },
     computed: {
-      ...Vuex.mapGetters(['bodyparts', 'bodypartsLoadedDate'])
+      ...Vuex.mapGetters(['bodyparts', 'bodypartsLoadedDate', 'bodypartsLoadedPartially'])
     },
     methods: {
       ...Vuex.mapActions(['retrieveBodyparts']),

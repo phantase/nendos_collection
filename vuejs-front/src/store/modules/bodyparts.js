@@ -3,6 +3,7 @@ import * as types from '../mutation-types.js'
 const state = {
   bodyparts: [],
   bodypartsLoadedDate: null,
+  bodypartsLoadedPartially: false,
   bodypartsTagsCodeList: []
 }
 
@@ -18,6 +19,9 @@ const getters = {
   },
   bodypartsLoadedDate (state) {
     return state.bodypartsLoadedDate
+  },
+  bodypartsLoadedPartially (state) {
+    return state.bodypartsLoadedPartially
   },
   bodypartsPartCodeList (state) {
     return state.bodyparts.map(a => a.part).filter((elem, pos, arr) => {
@@ -97,6 +101,9 @@ const mutations = {
     } else {
       state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).tags = [{'tag': tag}]
     }
+  },
+  [types.SET_BODYPARTS_PARTIAL] (state, isPartial) {
+    state.bodypartsLoadedPartially = isPartial
   }
 }
 
@@ -127,6 +134,7 @@ const actions = {
         }
       }).then((response) => {
         store.dispatch('setBodyparts', response.data)
+        store.commit(types.SET_BODYPARTS_PARTIAL, false)
         resolve()
       }, (response) => {
         reject()
@@ -273,6 +281,66 @@ const actions = {
         store.commit(types.TAG_BODYPART, payload)
         resolve()
       }, response => {
+        reject()
+      })
+    })
+  },
+  retrieveSingleBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    return new Promise((resolve, reject) => {
+      context.$http.get('bodypart/' + bodypartid, {
+        before (request) {
+          if (this.previousSingleBodypartRequest) {
+            this.previousSingleBodypartRequest.abort()
+          }
+          this.previousSingleBodypartRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBodyparts', [response.data])
+        store.commit(types.SET_BODYPARTS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveBodypartsForBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.get('box/' + boxid + '/bodyparts', {
+        before (request) {
+          if (this.previousBodypartsForBoxRequest) {
+            this.previousBodypartsForBoxRequest.abort()
+          }
+          this.previousBodypartsForBoxRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBodyparts', response.data)
+        store.commit(types.SET_BODYPARTS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveBodypartsForNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    return new Promise((resolve, reject) => {
+      context.$http.get('nendoroid/' + nendoroidid + '/bodyparts', {
+        before (request) {
+          if (this.previousBodypartsForNendoroidRequest) {
+            this.previousBodypartsForNendoroidRequest.abort()
+          }
+          this.previousBodypartsForNendoroidRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setBodyparts', response.data)
+        store.commit(types.SET_BODYPARTS_PARTIAL, true)
+        resolve()
+      }, (response) => {
         reject()
       })
     })

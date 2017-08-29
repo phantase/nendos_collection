@@ -3,6 +3,7 @@ import * as types from '../mutation-types.js'
 const state = {
   nendoroids: [],
   nendoroidsLoadedDate: null,
+  nendoroidsLoadedPartially: false,
   nendoroidsTagsCodeList: []
 }
 
@@ -18,6 +19,9 @@ const getters = {
   },
   nendoroidsLoadedDate (state) {
     return state.nendoroidsLoadedDate
+  },
+  nendoroidsLoadedPartially (state) {
+    return state.nendoroidsLoadedPartially
   },
   nendoroidsNameCodeList (state) {
     return state.nendoroids.map(a => a.name).filter((elem, pos, arr) => {
@@ -97,6 +101,9 @@ const mutations = {
     } else {
       state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).tags = [{'tag': tag}]
     }
+  },
+  [types.SET_NENDOROIDS_PARTIAL] (state, isPartial) {
+    state.nendoroidsLoadedPartially = isPartial
   }
 }
 
@@ -127,6 +134,7 @@ const actions = {
         }
       }).then((response) => {
         store.dispatch('setNendoroids', response.data)
+        store.commit(types.SET_NENDOROIDS_PARTIAL, false)
         resolve()
       }, (response) => {
         reject()
@@ -273,6 +281,146 @@ const actions = {
         store.commit(types.TAG_NENDOROID, payload)
         resolve()
       }, response => {
+        reject()
+      })
+    })
+  },
+  retrieveSingleNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    return new Promise((resolve, reject) => {
+      context.$http.get('nendoroid/' + nendoroidid, {
+        before (request) {
+          if (this.previousSingleNendoroidRequest) {
+            this.previousSingleNendoroidRequest.abort()
+          }
+          this.previousSingleNendoroidRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setNendoroids', [response.data])
+        store.commit(types.SET_NENDOROIDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveNendoroidsForBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.get('box/' + boxid + '/nendoroids', {
+        before (request) {
+          if (this.previousNendoroidsForBoxRequest) {
+            this.previousNendoroidsForBoxRequest.abort()
+          }
+          this.previousNendoroidsForBoxRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setNendoroids', response.data)
+        store.commit(types.SET_NENDOROIDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveNendoroidsForAccessory (store, payload) {
+    let context = payload.context
+    let accessoryid = payload.accessoryid
+    return new Promise((resolve, reject) => {
+      context.$http.get('accessory/' + accessoryid + '/nendoroids', {
+        before (request) {
+          if (this.previousNendoroidsForAccessoryRequest) {
+            this.previousNendoroidsForAccessoryRequest.abort()
+          }
+          this.previousNendoroidsForAccessoryRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setNendoroids', response.data)
+        store.commit(types.SET_NENDOROIDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveNendoroidsForBodypart (store, payload) {
+    let context = payload.context
+    let bodypartid = payload.bodypartid
+    return new Promise((resolve, reject) => {
+      context.$http.get('bodypart/' + bodypartid + '/nendoroids', {
+        before (request) {
+          if (this.previousNendoroidsForBodypartRequest) {
+            this.previousNendoroidsForBodypartRequest.abort()
+          }
+          this.previousNendoroidsForBodypartRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setNendoroids', response.data)
+        store.commit(types.SET_NENDOROIDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveNendoroidsForFace (store, payload) {
+    let context = payload.context
+    let faceid = payload.faceid
+    return new Promise((resolve, reject) => {
+      context.$http.get('face/' + faceid + '/nendoroids', {
+        before (request) {
+          if (this.previousNendoroidsForFaceRequest) {
+            this.previousNendoroidsForFaceRequest.abort()
+          }
+          this.previousNendoroidsForFaceRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setNendoroids', response.data)
+        store.commit(types.SET_NENDOROIDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveNendoroidsForHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    return new Promise((resolve, reject) => {
+      context.$http.get('hair/' + hairid + '/nendoroids', {
+        before (request) {
+          if (this.previousNendoroidsForHairRequest) {
+            this.previousNendoroidsForHairRequest.abort()
+          }
+          this.previousNendoroidsForHairRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setNendoroids', response.data)
+        store.commit(types.SET_NENDOROIDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveNendoroidsForHand (store, payload) {
+    let context = payload.context
+    let handid = payload.handid
+    return new Promise((resolve, reject) => {
+      context.$http.get('hand/' + handid + '/nendoroids', {
+        before (request) {
+          if (this.previousNendoroidsForHandRequest) {
+            this.previousNendoroidsForHandRequest.abort()
+          }
+          this.previousNendoroidsForHandRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setNendoroids', response.data)
+        store.commit(types.SET_NENDOROIDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
         reject()
       })
     })

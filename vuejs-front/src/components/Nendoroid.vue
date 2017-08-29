@@ -158,17 +158,16 @@
 
   </div>
   <div class="row" v-else>
-    <div class="col-md-12">
-      <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Not found</h3>
-        </div>
-        <div class="box-body">
-          <div class="alert alert-danger">
-            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-            What you are looking for was not found, please check again the information you enter.
-          </div>
-        </div>
+    <div class="col-md-12" v-if="nendoroids.length === 0">
+      <div class="callout callout-info">
+        <h4><i class="icon fa fa-hourglass-half"></i> Loading...</h4>
+        <p>Please wait while we load the information for you.</p>
+      </div>
+    </div>
+    <div class="col-md-12" v-else>
+      <div class="callout callout-danger">
+        <h4><i class="icon fa fa-ban"></i> Not found</h4>
+        <p>What you are looking for was not found, please perform another request.</p>
       </div>
     </div>
   </div>
@@ -218,7 +217,8 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photonendoroids', 'authenticated', 'canedit', 'nendoroidsTagsCodeList']),
+    ...Vuex.mapGetters(['boxes', 'nendoroids', 'faces', 'hairs', 'hands', 'bodyparts', 'accessories', 'photos', 'photonendoroids',
+      'authenticated', 'canedit', 'nendoroidsTagsCodeList']),
     nendoroid () {
       return this.nendoroids.find(nendoroid => nendoroid.internalid === this.$route.params.id)
     },
@@ -252,7 +252,12 @@ export default {
     }
   },
   methods: {
-    ...Vuex.mapActions(['collectNendoroid', 'uncollectNendoroid', 'validateNendoroid', 'unvalidateNendoroid', 'favoriteNendoroid', 'unfavoriteNendoroid', 'tagNendoroid']),
+    ...Vuex.mapActions(['collectNendoroid', 'uncollectNendoroid',
+      'validateNendoroid', 'unvalidateNendoroid',
+      'favoriteNendoroid', 'unfavoriteNendoroid',
+      'tagNendoroid',
+      'retrieveSingleNendoroid', 'retrieveBoxesForNendoroid',
+      'retrieveAccessoriesForNendoroid', 'retrieveBodypartsForNendoroid', 'retrieveFacesForNendoroid', 'retrieveHairsForNendoroid', 'retrieveHandsForNendoroid']),
     filterPhoto (photoObj) {
       return this.photonendoroids.filter(pe => (pe.photoid === photoObj.internalid && pe.elementid === this.$route.params.id)).length > 0
     },
@@ -337,6 +342,50 @@ export default {
         this.newTag = []
       }, () => {
         console.log('Tag failed')
+      })
+    }
+  },
+  mounted () {
+    if (this.nendoroids.length === 0) {
+      this.retrieveSingleNendoroid({
+        'context': this,
+        'nendoroidid': this.$route.params.id
+      })
+    }
+    if (this.boxes.length === 0) {
+      this.retrieveBoxesForNendoroid({
+        'context': this,
+        'nendoroidid': this.$route.params.id
+      })
+    }
+    if (this.accessories.length === 0) {
+      this.retrieveAccessoriesForNendoroid({
+        'context': this,
+        'nendoroidid': this.$route.params.id
+      })
+    }
+    if (this.bodyparts.length === 0) {
+      this.retrieveBodypartsForNendoroid({
+        'context': this,
+        'nendoroidid': this.$route.params.id
+      })
+    }
+    if (this.faces.length === 0) {
+      this.retrieveFacesForNendoroid({
+        'context': this,
+        'nendoroidid': this.$route.params.id
+      })
+    }
+    if (this.hairs.length === 0) {
+      this.retrieveHairsForNendoroid({
+        'context': this,
+        'nendoroidid': this.$route.params.id
+      })
+    }
+    if (this.hands.length === 0) {
+      this.retrieveHandsForNendoroid({
+        'context': this,
+        'nendoroidid': this.$route.params.id
       })
     }
   },

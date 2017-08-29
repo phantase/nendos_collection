@@ -2,8 +2,9 @@
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa icon-icon_nendo_hair"></i>
-              <span class="label label-success" v-if="hairsLoadedDate">Ok</span>
-              <span class="label label-danger" v-else>...</span>
+              <span class="label label-info" v-if="hairsLoadedPartially">Partial</span>
+              <span class="label label-success" v-else-if="hairsLoadedDate">Full</span>
+              <span class="label label-danger" v-else>Loading</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header" v-if="hairsLoadedDate"><i class="icon fa fa-clock-o"></i> Loaded on {{ hairsLoadedDate }}</li>
@@ -31,7 +32,7 @@
       }
     },
     computed: {
-      ...Vuex.mapGetters(['hairs', 'hairsLoadedDate'])
+      ...Vuex.mapGetters(['hairs', 'hairsLoadedDate', 'hairsLoadedPartially'])
     },
     methods: {
       ...Vuex.mapActions(['retrieveHairs']),

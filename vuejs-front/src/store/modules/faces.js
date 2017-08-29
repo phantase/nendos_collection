@@ -3,6 +3,7 @@ import * as types from '../mutation-types.js'
 const state = {
   faces: [],
   facesLoadedDate: null,
+  facesLoadedPartially: false,
   facsTagsCodeList: []
 }
 
@@ -18,6 +19,9 @@ const getters = {
   },
   facesLoadedDate (state) {
     return state.facesLoadedDate
+  },
+  facesLoadedPartially (state) {
+    return state.facesLoadedPartially
   },
   facesEyesCodeList (state) {
     return state.faces.map(a => a.eyes).filter((elem, pos, arr) => {
@@ -107,6 +111,9 @@ const mutations = {
     } else {
       state.faces.find(face => face.internalid === faceid).tags = [{'tag': tag}]
     }
+  },
+  [types.SET_FACES_PARTIAL] (state, isPartial) {
+    state.facesLoadedPartially = isPartial
   }
 }
 
@@ -137,6 +144,7 @@ const actions = {
         }
       }).then((response) => {
         store.dispatch('setFaces', response.data)
+        store.commit(types.SET_FACES_PARTIAL, false)
         resolve()
       }, (response) => {
         reject()
@@ -283,6 +291,66 @@ const actions = {
         store.commit(types.TAG_FACE, payload)
         resolve()
       }, response => {
+        reject()
+      })
+    })
+  },
+  retrieveSingleFace (store, payload) {
+    let context = payload.context
+    let faceid = payload.faceid
+    return new Promise((resolve, reject) => {
+      context.$http.get('face/' + faceid, {
+        before (request) {
+          if (this.previousSingleFaceRequest) {
+            this.previousSingleFaceRequest.abort()
+          }
+          this.previousSingleFaceRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setFaces', [response.data])
+        store.commit(types.SET_FACES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveFacesForBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.get('box/' + boxid + '/faces', {
+        before (request) {
+          if (this.previousFacesForBoxRequest) {
+            this.previousFacesForBoxRequest.abort()
+          }
+          this.previousFacesForBoxRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setFaces', response.data)
+        store.commit(types.SET_FACES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveFacesForNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    return new Promise((resolve, reject) => {
+      context.$http.get('nendoroid/' + nendoroidid + '/faces', {
+        before (request) {
+          if (this.previousFacesForNendoroidRequest) {
+            this.previousFacesForNendoroidRequest.abort()
+          }
+          this.previousFacesForNendoroidRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setFaces', response.data)
+        store.commit(types.SET_FACES_PARTIAL, true)
+        resolve()
+      }, (response) => {
         reject()
       })
     })

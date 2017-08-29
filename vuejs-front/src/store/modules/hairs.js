@@ -3,6 +3,7 @@ import * as types from '../mutation-types.js'
 const state = {
   hairs: [],
   hairsLoadedDate: null,
+  hairsLoadedPartially: false,
   hairsTagsCodeList: []
 }
 
@@ -18,6 +19,9 @@ const getters = {
   },
   hairsLoadedDate (state) {
     return state.hairsLoadedDate
+  },
+  hairsLoadedPartially (state) {
+    return state.hairsLoadedPartially
   },
   hairsMainColorCodeList (state) {
     return state.hairs.map(a => a.main_color).filter((elem, pos, arr) => {
@@ -102,6 +106,9 @@ const mutations = {
     } else {
       state.hairs.find(hair => hair.internalid === hairid).tags = [{'tag': tag}]
     }
+  },
+  [types.SET_HAIRS_PARTIAL] (state, isPartial) {
+    state.hairsLoadedPartially = isPartial
   }
 }
 
@@ -132,6 +139,7 @@ const actions = {
         }
       }).then((response) => {
         store.dispatch('setHairs', response.data)
+        store.commit(types.SET_HAIRS_PARTIAL, false)
         resolve()
       }, (response) => {
         reject()
@@ -278,6 +286,66 @@ const actions = {
         store.commit(types.TAG_HAIR, payload)
         resolve()
       }, response => {
+        reject()
+      })
+    })
+  },
+  retrieveSingleHair (store, payload) {
+    let context = payload.context
+    let hairid = payload.hairid
+    return new Promise((resolve, reject) => {
+      context.$http.get('hair/' + hairid, {
+        before (request) {
+          if (this.previousSingleHairRequest) {
+            this.previousSingleHairRequest.abort()
+          }
+          this.previousSingleHairRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setHairs', [response.data])
+        store.commit(types.SET_HAIRS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveHairsForBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.get('box/' + boxid + '/hairs', {
+        before (request) {
+          if (this.previousHairsForBoxRequest) {
+            this.previousHairsForBoxRequest.abort()
+          }
+          this.previousHairsForBoxRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setHairs', response.data)
+        store.commit(types.SET_HAIRS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveHairsForNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    return new Promise((resolve, reject) => {
+      context.$http.get('nendoroid/' + nendoroidid + '/hairs', {
+        before (request) {
+          if (this.previousHairsForNendoroidRequest) {
+            this.previousHairsForNendoroidRequest.abort()
+          }
+          this.previousHairsForNendoroidRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setHairs', response.data)
+        store.commit(types.SET_HAIRS_PARTIAL, true)
+        resolve()
+      }, (response) => {
         reject()
       })
     })

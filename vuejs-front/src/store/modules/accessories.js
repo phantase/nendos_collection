@@ -3,6 +3,7 @@ import * as types from '../mutation-types.js'
 const state = {
   accessories: [],
   accessoriesLoadedDate: null,
+  accessoriesLoadedPartially: false,
   accessoriesTagsCodeList: []
 }
 
@@ -18,6 +19,9 @@ const getters = {
   },
   accessoriesLoadedDate (state) {
     return state.accessoriesLoadedDate
+  },
+  accessoriesLoadedPartially (state) {
+    return state.accessoriesLoadedPartially
   },
   accessoriesTypeCodeList (state) {
     return state.accessories.map(a => a.type).filter((elem, pos, arr) => {
@@ -95,6 +99,9 @@ const mutations = {
     } else {
       state.accessories.find(accessory => accessory.internalid === accessoryid).tags = [{'tag': tag}]
     }
+  },
+  [types.SET_ACCESSORIES_PARTIAL] (state, isPartial) {
+    state.accessoriesLoadedPartially = isPartial
   }
 }
 
@@ -125,6 +132,7 @@ const actions = {
         }
       }).then((response) => {
         store.dispatch('setAccessories', response.data)
+        store.commit(types.SET_ACCESSORIES_PARTIAL, false)
         resolve()
       }, (response) => {
         reject()
@@ -271,6 +279,66 @@ const actions = {
         store.commit(types.TAG_ACCESSORY, payload)
         resolve()
       }, response => {
+        reject()
+      })
+    })
+  },
+  retrieveSingleAccessory (store, payload) {
+    let context = payload.context
+    let accessoryid = payload.accessoryid
+    return new Promise((resolve, reject) => {
+      context.$http.get('accessory/' + accessoryid, {
+        before (request) {
+          if (this.previousSingleAccessoryRequest) {
+            this.previousSingleAccessoryRequest.abort()
+          }
+          this.previousSingleAccessoryRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setAccessories', [response.data])
+        store.commit(types.SET_ACCESSORIES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveAccessoriesForBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.get('box/' + boxid + '/accessories', {
+        before (request) {
+          if (this.previousAccessoriesForBoxRequest) {
+            this.previousAccessoriesForBoxRequest.abort()
+          }
+          this.previousAccessoriesForBoxRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setAccessories', response.data)
+        store.commit(types.SET_ACCESSORIES_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveAccessoriesForNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    return new Promise((resolve, reject) => {
+      context.$http.get('nendoroid/' + nendoroidid + '/accessories', {
+        before (request) {
+          if (this.previousAccessoriesForNendoroidRequest) {
+            this.previousAccessoriesForNendoroidRequest.abort()
+          }
+          this.previousAccessoriesForNendoroidRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setAccessories', response.data)
+        store.commit(types.SET_ACCESSORIES_PARTIAL, true)
+        resolve()
+      }, (response) => {
         reject()
       })
     })

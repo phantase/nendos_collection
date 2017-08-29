@@ -3,6 +3,7 @@ import * as types from '../mutation-types.js'
 const state = {
   hands: [],
   handsLoadedDate: null,
+  handsLoadedPartially: false,
   handsTagsCodeList: []
 }
 
@@ -18,6 +19,9 @@ const getters = {
   },
   handsLoadedDate (state) {
     return state.handsLoadedDate
+  },
+  handsLoadedPartially (state) {
+    return state.handsLoadedPartially
   },
   handsPostureCodeList (state) {
     return state.hands.map(a => a.posture).filter((elem, pos, arr) => {
@@ -97,6 +101,9 @@ const mutations = {
     } else {
       state.hands.find(hand => hand.internalid === handid).tags = [{'tag': tag}]
     }
+  },
+  [types.SET_HANDS_PARTIAL] (state, isPartial) {
+    state.handsLoadedPartially = isPartial
   }
 }
 
@@ -127,6 +134,7 @@ const actions = {
         }
       }).then((response) => {
         store.dispatch('setHands', response.data)
+        store.commit(types.SET_HANDS_PARTIAL, false)
         resolve()
       }, (response) => {
         reject()
@@ -273,6 +281,66 @@ const actions = {
         store.commit(types.TAG_HAND, payload)
         resolve()
       }, response => {
+        reject()
+      })
+    })
+  },
+  retrieveSingleHand (store, payload) {
+    let context = payload.context
+    let handid = payload.handid
+    return new Promise((resolve, reject) => {
+      context.$http.get('hand/' + handid, {
+        before (request) {
+          if (this.previousSingleHandRequest) {
+            this.previousSingleHandRequest.abort()
+          }
+          this.previousSingleHandRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setHands', [response.data])
+        store.commit(types.SET_HANDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveHandsForBox (store, payload) {
+    let context = payload.context
+    let boxid = payload.boxid
+    return new Promise((resolve, reject) => {
+      context.$http.get('box/' + boxid + '/hands', {
+        before (request) {
+          if (this.previousHandsForBoxRequest) {
+            this.previousHandsForBoxRequest.abort()
+          }
+          this.previousHandsForBoxRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setHands', response.data)
+        store.commit(types.SET_HANDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
+        reject()
+      })
+    })
+  },
+  retrieveHandsForNendoroid (store, payload) {
+    let context = payload.context
+    let nendoroidid = payload.nendoroidid
+    return new Promise((resolve, reject) => {
+      context.$http.get('nendoroid/' + nendoroidid + '/hands', {
+        before (request) {
+          if (this.previousHandsForNendoroidRequest) {
+            this.previousHandsForNendoroidRequest.abort()
+          }
+          this.previousHandsForNendoroidRequest = request
+        }
+      }).then((response) => {
+        store.dispatch('setHands', response.data)
+        store.commit(types.SET_HANDS_PARTIAL, true)
+        resolve()
+      }, (response) => {
         reject()
       })
     })
