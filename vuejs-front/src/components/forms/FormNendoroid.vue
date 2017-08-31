@@ -41,8 +41,8 @@
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
-                    <label>Sex</label>
-                    <select2 placeholder="Sex" :options="nendoroidsSexCodeList" v-model="sex"></select2>
+                    <label>Gender</label>
+                    <select2 placeholder="Gender" :options="nendoroidsSexCodeList" v-model="sex"></select2>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">

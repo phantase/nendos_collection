@@ -71,7 +71,7 @@
                 <a class="pull-right">{{ face.skin_color }}</a><br>
               </li>
               <li class="list-group-item" v-if="face.sex">
-                <b>Sex</b>
+                <b>Gender</b>
                 <a class="pull-right">{{ face.sex }}</a><br>
               </li>
             </ul>

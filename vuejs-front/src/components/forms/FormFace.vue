@@ -67,8 +67,8 @@
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>Sex</label>
-                    <select2 placeholder="Sex" :options="facesSexCodeList" v-model="sex"></select2>
+                    <label>Gender</label>
+                    <select2 placeholder="Gender" :options="facesSexCodeList" v-model="sex"></select2>
                   </div>
                 </div>
               </div>

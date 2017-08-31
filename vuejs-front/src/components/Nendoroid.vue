@@ -60,7 +60,7 @@
                 <a class="pull-right">{{ nendoroid.version }}</a><br>
               </li>
               <li class="list-group-item" v-if="nendoroid.sex">
-                <b>Sex</b>
+                <b>Gender</b>
                 <a class="pull-right">{{ nendoroid.sex }}</a><br>
               </li>
             </ul>

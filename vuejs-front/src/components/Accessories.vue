@@ -34,7 +34,7 @@
                 <optgroup label="Nendoroid">
                   <option value="nendoroid_name">Name</option>
                   <option value="nendoroid_version">Version</option>
-                  <option value="nendoroid_sex">Sex</option>
+                  <option value="nendoroid_sex">Gender</option>
                 </optgroup>
                 <optgroup label="Box">
                   <option value="box_number">Number</option>
