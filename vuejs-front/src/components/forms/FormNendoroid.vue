@@ -19,7 +19,7 @@
                     <label>Box</label>
                     <select class="form-control" v-model="boxselected">
                       <option value="box" v-if="frompart !== 'box'">- Box -</option>
-                      <option v-for="box in boxes4select" :value="box.internalid">
+                      <option v-for="box in boxes4select" :value="box.internalid" :key="box.internalid">
                         {{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}
                       </option>
                     </select>

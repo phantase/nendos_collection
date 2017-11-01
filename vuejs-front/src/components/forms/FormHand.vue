@@ -19,7 +19,7 @@
                     <label>Box</label>
                     <select class="form-control" v-model="boxselected">
                       <option value="box" v-if="!frompart">- Box -</option>
-                      <option v-for="box in boxes4select" :value="box.internalid">
+                      <option v-for="box in boxes4select" :value="box.internalid" :key="box.internalid">
                         {{ box.category }} {{ box.number?'#'+box.number:'' }} - {{ box.name }}
                       </option>
                     </select>
@@ -30,7 +30,7 @@
                     <label>Nendoroid</label>
                     <select class="form-control" v-model="nendoroidselected">
                       <option value="nendoroid" v-if="frompart !== 'nendoroid'">- Nendoroid -</option>
-                      <option v-for="nendoroid in nendoroids4select" :value="nendoroid.internalid">
+                      <option v-for="nendoroid in nendoroids4select" :value="nendoroid.internalid" :key="nendoroid.internalid">
                         {{ nendoroid.name }} {{ nendoroid.version?'-'+nendoroid.version:'' }}
                       </option>
                     </select>

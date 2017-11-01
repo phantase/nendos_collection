@@ -36,7 +36,7 @@
                 <input type="text" class="form-control" id="chooseabox" placeholder="Enter the name of the box/nendoroid" v-model="boxinput">
               </div>
               <div class="row">
-                <div class="col-md-2 col-sm-4 col-xs-6" v-for="box in correspondingboxes" @click="choosebox(box.internalid)">
+                <div class="col-md-2 col-sm-4 col-xs-6" v-for="box in correspondingboxes" @click="choosebox(box.internalid)" :key="box.internalid">
                   <box-tile :box="box" minimal="true"></box-tile>
                 </div>
               </div>
@@ -67,38 +67,37 @@
                 <b>(3) Choose a part</b>
                 <div style="clear:both;">&nbsp;</div>
                 <div v-if="selectedparttype==='box'" @click="choosepart(box)"
-                  class="col-md-2 col-sm-4 col-xs-6" v-for="box in boxes4box">
+                  class="col-md-2 col-sm-4 col-xs-6" v-for="box in boxes4box" :key="box.internalid">
                   <box-tile :box="box" :class="(selectedpart && selectedpart.internalid === box.internalid) ? 'bg-orange' : ''"
                     minimal="true"></box-tile>
                 </div>
                 <div v-if="selectedparttype==='nendoroid'" @click="choosepart(nendoroid)"
-                  class="col-md-2 col-sm-4 col-xs-6" v-for="nendoroid in nendoroids4box">
+                  class="col-md-2 col-sm-4 col-xs-6" v-for="nendoroid in nendoroids4box" :key="nendoroid.internalid">
                   <nendoroid-tile :nendoroid="nendoroid" :class="(selectedpart && selectedpart.internalid === nendoroid.internalid) ? 'bg-orange' : ''"
                     minimal="true"></nendoroid-tile>
                 </div>
                 <div v-if="selectedparttype==='face'" @click="choosepart(face)"
-                  class="col-md-2 col-sm-4 col-xs-6" v-for="face in faces4box">
+                  class="col-md-2 col-sm-4 col-xs-6" v-for="face in faces4box" :key="face.internalid">
                   <face-tile :face="face" :class="(selectedpart && selectedpart.internalid === face.internalid) ? 'bg-orange' : ''"
                     minimal="true"></face-tile>
                 </div>
                 <div v-if="selectedparttype==='hair'" @click="choosepart(hair)"
-                  class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairs4box">
+                  class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairs4box" :key="hair.internalid">
                   <hair-tile :hair="hair" :class="(selectedpart && selectedpart.internalid === hair.internalid) ? 'bg-orange' : ''"
                     minimal="true"></hair-tile>
                 </div>
                 <div v-if="selectedparttype==='hand'" @click="choosepart(hand)"
-                  class="col-md-2 col-sm-4 col-xs-6" v-for="hand in hands4box">
+                  class="col-md-2 col-sm-4 col-xs-6" v-for="hand in hands4box" :key="hand.internalid">
                   <hand-tile :hand="hand" :class="(selectedpart && selectedpart.internalid === hand.internalid) ? 'bg-orange' : ''"
                     minimal="true"></hand-tile>
                 </div>
                 <div v-if="selectedparttype==='bodypart'" @click="choosepart(bodypart)"
-                  class="col-md-2 col-sm-4 col-xs-6"
-                  v-for="bodypart in bodyparts4box">
+                  class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodyparts4box" :key="bodypart.internalid">
                   <bodypart-tile :bodypart="bodypart" :class="(selectedpart && selectedpart.internalid === bodypart.internalid) ? 'bg-orange' : ''"
                     minimal="true"></bodypart-tile>
                 </div>
                 <div v-if="selectedparttype==='accessory'" @click="choosepart(accessory)"
-                  class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessories4box">
+                  class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessories4box" :key="accessory.internalid">
                   <accessory-tile :accessory="accessory" :class="(selectedpart && selectedpart.internalid === accessory.internalid) ? 'bg-orange' : ''"
                     minimal="true"></accessory-tile>
                 </div>
