@@ -79,6 +79,143 @@
           </div>
         </div>
       </div>
+      <div class="col-md-12">
+        <div class="nav-tabs-custom" v-if="canedit">
+          <ul class="nav nav-tabs pull-right">
+            <li><a href="#tab_fromselected" data-toggle="tab" aria-expanded="false">From selected type</a></li>
+            <li class="active"><a href="#tab_fromall" data-toggle="tab" aria-expanded="false">From all types</a></li>
+            <li class="pull-left header"><i class="fa fa-map-signs">Suggestions</li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane" id="tab_fromselected">
+              <i>Click on an eyedropper <i class="fa fa-eyedropper"></i> to automatically fill the fields with these values.</i>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="box box-solid no-shadow">
+                    <div class="box-header">
+                      <h4 class="box-title">Colors</h4>
+                      <div class="box-tools pull-right">
+                        <ul class="pagination pagination-sm inline">
+                          <li v-if="pageColorsSelected > 0"><a @click="changePageColorsSelected(pageColorsSelected - 5)">«</a></li>
+                          <li v-else><a class="disabled">«</a></li>
+                          <li v-if="pageColorsSelected < (colorsSuggestionsSelected.length - 5)"><a @click="changePageColorsSelected(pageColorsSelected + 5)">»</a></li>
+                          <li v-else><a class="disabled">»</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <ul class="todo-list">
+                        <li v-for="(colorsSuggestion, index) in colorsSuggestionsSelected.slice(pageColorsSelected, pageColorsSelected + 5)" :key="index">
+                          <span class="text">{{ colorsSuggestion[0] }} - {{ colorsSuggestion[1] }}</span>
+                          <div class="tools">
+                            <i class="fa fa-eyedropper" @click="writeColors(colorsSuggestion)" title="Select these colors"></i>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="box box-solid no-shadow">
+                    <div class="box-header">
+                      <h4 class="box-title">Descriptions</h4>
+                      <div class="box-tools pull-right">
+                        <ul class="pagination pagination-sm inline">
+                          <li v-if="pageDescriptionsSelected > 0"><a @click="changePageDescriptionsSelected(pageDescriptionsSelected - 5)">«</a></li>
+                          <li v-else><a class="disabled">«</a></li>
+                          <li v-if="pageDescriptionsSelected < (descriptionSuggestionsSelected.length - 5)"><a @click="changePageDescriptionsSelected(pageDescriptionsSelected + 5)">»</a></li>
+                          <li v-else><a class="disabled">»</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <ul class="todo-list">
+                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsSelected.slice(pageDescriptionsSelected, pageDescriptionsSelected + 5)" :key="index">
+                          <span class="text">{{ descriptionSuggestion }} </span>
+                          <div class="tools">
+                            <i class="fa fa-eyedropper" @click="writeDescription(descriptionSuggestion)" title="Select this description"></i>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="box-footer">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-binoculars"></i></span>
+                          <input type="text" placeholder="filter" class="form-control" v-model="filterDescriptionsSelected" >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane active" id="tab_fromall">
+              <i>Click on an eyedropper <i class="fa fa-eyedropper"></i> to automatically fill the fields with these values.</i>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="box box-solid no-shadow">
+                    <div class="box-header">
+                      <h4 class="box-title">Colors</h4>
+                      <div class="box-tools pull-right">
+                        <ul class="pagination pagination-sm inline">
+                          <li v-if="pageColorsAll > 0"><a @click="changePageColorsAll(pageColorsAll - 5)">«</a></li>
+                          <li v-else><a class="disabled">«</a></li>
+                          <li v-if="pageColorsAll < (colorsSuggestionsAll.length - 5)"><a @click="changePageColorsAll(pageColorsAll + 5)">»</a></li>
+                          <li v-else><a class="disabled">»</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <ul class="todo-list">
+                        <li v-for="(colorsSuggestion, index) in colorsSuggestionsAll.slice(pageColorsAll, pageColorsAll + 5)" :key="index">
+                          <span class="text">{{ colorsSuggestion[0] }} - {{ colorsSuggestion[1] }}</span>
+                          <div class="tools">
+                            <i class="fa fa-eyedropper" @click="writeColors(colorsSuggestion)" title="Select these colors"></i>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="box box-solid no-shadow">
+                    <div class="box-header">
+                      <h4 class="box-title">Descriptions</h4>
+                      <div class="box-tools pull-right">
+                        <ul class="pagination pagination-sm inline">
+                          <li v-if="pageDescriptionsAll > 0"><a @click="changePageDescriptionsAll(pageDescriptionsAll - 5)">«</a></li>
+                          <li v-else><a class="disabled">«</a></li>
+                          <li v-if="pageDescriptionsAll < (descriptionSuggestionsAll.length - 5)"><a @click="changePageDescriptionsAll(pageDescriptionsAll + 5)">»</a></li>
+                          <li v-else><a class="disabled">»</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <ul class="todo-list">
+                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsAll.slice(pageDescriptionsAll, pageDescriptionsAll + 5)" :key="index">
+                          <span class="text">{{ descriptionSuggestion }} </span>
+                          <div class="tools">
+                            <i class="fa fa-eyedropper" @click="writeDescription(descriptionSuggestion)" title="Select this description"></i>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="box-footer">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-binoculars"></i></span>
+                          <input type="text" placeholder="filter" class="form-control" v-model="filterDescriptionsAll" >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -128,7 +265,13 @@ export default {
       errormaincolor: false,
       errordescription: false,
       failure: false,
-      noeditableelement: false
+      noeditableelement: false,
+      pageColorsAll: 0,
+      pageDescriptionsAll: 0,
+      filterDescriptionsAll: '',
+      pageColorsSelected: 0,
+      pageDescriptionsSelected: 0,
+      filterDescriptionsSelected: ''
     }
   },
   computed: {
@@ -157,6 +300,42 @@ export default {
     },
     frompart () {
       return this.$route.params.frompart
+    },
+    descriptionSuggestionsSelected () {
+      if (this.type) {
+        return this.accessories
+          .filter(a => a.type === this.type)
+          .filter(a => a.description.toLowerCase().indexOf(this.filterDescriptionsSelected.toLowerCase()) > -1)
+          .sort(this.dateSort)
+          .map(b => b.description)
+          .filter((elem, pos, arr) => elem && arr.indexOf(elem) === pos)
+      }
+      return []
+    },
+    colorsSuggestionsSelected () {
+      if (this.type) {
+        return this.accessories
+          .filter(a => a.type === this.type)
+          .sort(this.dateSort)
+          .map(b => [b.main_color, b.other_color])
+          .filter((elem, pos, arr) => elem && arr.map(b => b[0] + b[1]).indexOf(elem[0] + elem[1]) === pos)
+      }
+      return []
+    },
+    descriptionSuggestionsAll () {
+      return this.accessories
+        .concat()
+        .filter(a => a.description.toLowerCase().indexOf(this.filterDescriptionsAll.toLowerCase()) > -1)
+        .sort(this.dateSort)
+        .map(b => b.description)
+        .filter((elem, pos, arr) => elem && arr.indexOf(elem) === pos)
+    },
+    colorsSuggestionsAll () {
+      return this.accessories
+        .concat()
+        .sort(this.dateSort)
+        .map(b => [b.main_color, b.other_color])
+        .filter((elem, pos, arr) => elem && arr.map(b => b[0] + b[1]).indexOf(elem[0] + elem[1]) === pos)
     }
   },
   watch: {
@@ -279,6 +458,33 @@ export default {
           })
         }
       }
+    },
+    dateSort (d1, d2) {
+      if (d1.editiondate > d2.editiondate) {
+        return -1
+      } else if (d1.editiondate < d2.editiondate) {
+        return 1
+      }
+      return 0
+    },
+    writeDescription (description) {
+      this.description = description
+    },
+    writeColors (colors) {
+      this.maincolor = colors[0]
+      this.othercolor = colors[1]
+    },
+    changePageColorsAll (newPageColorsAll) {
+      this.pageColorsAll = newPageColorsAll
+    },
+    changePageDescriptionsAll (newPageDescriptionsAll) {
+      this.pageDescriptionsAll = newPageDescriptionsAll
+    },
+    changePageColorsSelected (newPageColorsSelected) {
+      this.pageColorsSelected = newPageColorsSelected
+    },
+    changePageDescriptionsSelected (newPageDescriptionsSelected) {
+      this.pageDescriptionsSelected = newPageDescriptionsSelected
     }
   },
   mounted () {
@@ -299,4 +505,17 @@ export default {
 </script>
 
 <style scoped>
+  .fa-eyedropper {
+    cursor: pointer;
+  }
+  .fa-eyedropper:hover {
+    color: blue;
+  }
+  .pagination a {
+    cursor: pointer;
+  }
+  .pagination .disabled {
+    cursor: not-allowed;
+    opacity: .65;
+  }
 </style>

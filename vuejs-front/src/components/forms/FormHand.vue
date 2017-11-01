@@ -78,6 +78,97 @@
           </div>
         </div>
       </div>
+      <div class="col-md-12">
+        <div class="nav-tabs-custom" v-if="canedit">
+          <ul class="nav nav-tabs pull-right">
+            <li><a href="#tab_fromselected" data-toggle="tab" aria-expanded="false">From selected posture</a></li>
+            <li class="active"><a href="#tab_fromall" data-toggle="tab" aria-expanded="false">From all postures</a></li>
+            <li class="pull-left header"><i class="fa fa-map-signs">Suggestions</li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane" id="tab_fromselected">
+              <i>Click on an eyedropper <i class="fa fa-eyedropper"></i> to automatically fill the fields with these values.</i>
+              <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                  <div class="box box-solid no-shadow">
+                    <div class="box-header">
+                      <h4 class="box-title">Descriptions</h4>
+                      <div class="box-tools pull-right">
+                        <ul class="pagination pagination-sm inline">
+                          <li v-if="pageDescriptionsSelected > 0"><a @click="changePageDescriptionsSelected(pageDescriptionsSelected - 5)">«</a></li>
+                          <li v-else><a class="disabled">«</a></li>
+                          <li v-if="pageDescriptionsSelected < (descriptionSuggestionsSelected.length - 5)"><a @click="changePageDescriptionsSelected(pageDescriptionsSelected + 5)">»</a></li>
+                          <li v-else><a class="disabled">»</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <ul class="todo-list">
+                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsSelected.slice(pageDescriptionsSelected, pageDescriptionsSelected + 5)" :key="index">
+                          <span class="text">{{ descriptionSuggestion }} </span>
+                          <div class="tools">
+                            <i class="fa fa-eyedropper" @click="writeDescription(descriptionSuggestion)" title="Select this description"></i>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="box-footer">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-binoculars"></i></span>
+                          <input type="text" placeholder="filter" class="form-control" v-model="filterDescriptionsSelected" >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane active" id="tab_fromall">
+              <i>Click on an eyedropper <i class="fa fa-eyedropper"></i> to automatically fill the fields with these values.</i>
+              <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                  <div class="box box-solid no-shadow">
+                    <div class="box-header">
+                      <h4 class="box-title">Descriptions</h4>
+                      <div class="box-tools pull-right">
+                        <ul class="pagination pagination-sm inline">
+                          <li v-if="pageDescriptionsAll > 0"><a @click="changePageDescriptionsAll(pageDescriptionsAll - 5)">«</a></li>
+                          <li v-else><a class="disabled">«</a></li>
+                          <li v-if="pageDescriptionsAll < (descriptionSuggestionsAll.length - 5)"><a @click="changePageDescriptionsAll(pageDescriptionsAll + 5)">»</a></li>
+                          <li v-else><a class="disabled">»</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <ul class="todo-list">
+                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsAll.slice(pageDescriptionsAll, pageDescriptionsAll + 5)" :key="index">
+                          <span class="text">{{ descriptionSuggestion }} </span>
+                          <div class="tools">
+                            <i class="fa fa-eyedropper" @click="writeDescription(descriptionSuggestion)" title="Select this description"></i>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="box-footer">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-binoculars"></i></span>
+                          <input type="text" placeholder="filter" class="form-control" v-model="filterDescriptionsAll" >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -127,7 +218,11 @@ export default {
       errorposture: false,
       errordescription: false,
       failure: false,
-      noeditableelement: false
+      noeditableelement: false,
+      pageDescriptionsAll: 0,
+      filterDescriptionsAll: '',
+      pageDescriptionsSelected: 0,
+      filterDescriptionsSelected: ''
     }
   },
   computed: {
@@ -156,6 +251,25 @@ export default {
     },
     frompart () {
       return this.$route.params.frompart
+    },
+    descriptionSuggestionsSelected () {
+      if (this.posture) {
+        return this.hands
+          .filter(a => a.posture === this.posture)
+          .filter(a => a.description.toLowerCase().indexOf(this.filterDescriptionsSelected.toLowerCase()) > -1)
+          .sort(this.dateSort)
+          .map(b => b.description)
+          .filter((elem, pos, arr) => elem && arr.indexOf(elem) === pos)
+      }
+      return []
+    },
+    descriptionSuggestionsAll () {
+      return this.hands
+        .concat()
+        .filter(a => a.description.toLowerCase().indexOf(this.filterDescriptionsAll.toLowerCase()) > -1)
+        .sort(this.dateSort)
+        .map(b => b.description)
+        .filter((elem, pos, arr) => elem && arr.indexOf(elem) === pos)
     }
   },
   watch: {
@@ -276,6 +390,23 @@ export default {
           })
         }
       }
+    },
+    dateSort (d1, d2) {
+      if (d1.editiondate > d2.editiondate) {
+        return -1
+      } else if (d1.editiondate < d2.editiondate) {
+        return 1
+      }
+      return 0
+    },
+    writeDescription (description) {
+      this.description = description
+    },
+    changePageDescriptionsAll (newPageDescriptionsAll) {
+      this.pageDescriptionsAll = newPageDescriptionsAll
+    },
+    changePageDescriptionsSelected (newPageDescriptionsSelected) {
+      this.pageDescriptionsSelected = newPageDescriptionsSelected
     }
   },
   mounted () {
@@ -296,4 +427,17 @@ export default {
 </script>
 
 <style scoped>
+  .fa-eyedropper {
+    cursor: pointer;
+  }
+  .fa-eyedropper:hover {
+    color: blue;
+  }
+  .pagination a {
+    cursor: pointer;
+  }
+  .pagination .disabled {
+    cursor: not-allowed;
+    opacity: .65;
+  }
 </style>
