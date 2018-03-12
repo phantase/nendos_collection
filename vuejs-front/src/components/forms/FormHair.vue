@@ -90,7 +90,7 @@
           <ul class="nav nav-tabs pull-right">
             <li><a href="#tab_fromselected" data-toggle="tab" aria-expanded="false">From selected haircut</a></li>
             <li class="active"><a href="#tab_fromall" data-toggle="tab" aria-expanded="false">From all haircuts</a></li>
-            <li class="pull-left header"><i class="fa fa-map-signs">Suggestions</li>
+            <li class="pull-left header"><i class="fa fa-map-signs"></i> Suggestions</li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane" id="tab_fromselected">
