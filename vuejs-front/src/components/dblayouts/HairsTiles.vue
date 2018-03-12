@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <router-link :to="'/hair/'+hair.internalid" :class="classtiles" v-for="hair in hairs">
+    <router-link :to="'/hair/'+hair.internalid" :class="classtiles" v-for="hair in hairs" :key="hair.internalid">
 
       <hair-tile :hair="hair"></hair-tile>
 

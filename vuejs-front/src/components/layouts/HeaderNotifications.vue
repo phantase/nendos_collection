@@ -12,7 +12,7 @@
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
 
-                  <app-header-notifications-single v-for="notification in notifications" :notification="notification"></app-header-notifications-single>
+                  <app-header-notifications-single v-for="notification in notifications" :key="notification.id" :notification="notification"></app-header-notifications-single>
 
                 </ul>
               </li>

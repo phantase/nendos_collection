@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <router-link :to="'/accessory/'+accessory.internalid" :class="classtiles" v-for="accessory in accessories">
+    <router-link :to="'/accessory/'+accessory.internalid" :class="classtiles" v-for="accessory in accessories" :key="accessory.internalid">
 
     <accessory-tile :accessory="accessory"></accessory-tile>
 

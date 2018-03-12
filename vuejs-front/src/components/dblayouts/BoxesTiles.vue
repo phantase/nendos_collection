@@ -1,6 +1,6 @@
 <template>
   <div :class="norow?'':'row'">
-    <router-link :to="'/box/'+box.internalid" :class="classtiles" v-for="box in boxes">
+    <router-link :to="'/box/'+box.internalid" :class="classtiles" v-for="box in boxes" :key="box.internalid">
 
       <box-tile :box="box"></box-tile>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <router-link :to="'/hand/'+hand.internalid" :class="classtiles" v-for="hand in hands">
+    <router-link :to="'/hand/'+hand.internalid" :class="classtiles" v-for="hand in hands" :key="hand.internalid">
 
       <hand-tile :hand="hand"></hand-tile>
 
