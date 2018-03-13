@@ -67,7 +67,10 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save accessory</button>
+                <span class="pull-right">
+                  <button type="submit" class="btn btn-info" @click.prevent="submittoimage" v-if="!internalid">Save accessory and upload image</button>
+                  <button type="submit" class="btn btn-info" @click.prevent="submit">Save accessory</button>
+                </span>
               </div>
             </form>
           </div>
@@ -271,7 +274,8 @@ export default {
       filterDescriptionsAll: '',
       pageColorsSelected: 0,
       pageDescriptionsSelected: 0,
-      filterDescriptionsSelected: ''
+      filterDescriptionsSelected: '',
+      willsubmittoimage: false
     }
   },
   computed: {
@@ -400,6 +404,10 @@ export default {
         this.errordescription = false
       }
     },
+    submittoimage () {
+      this.willsubmittoimage = true
+      this.submit()
+    },
     submit () {
       console.log('Submit form')
       this.failure = false
@@ -451,7 +459,11 @@ export default {
             'formData': formData
           }).then(response => {
             console.log('Addition successful')
-            router.push('/accessory/' + response)
+            if (this.willsubmittoimage) {
+              router.push('/accessory/' + response + '/edit/image')
+            } else {
+              router.push('/accessory/' + response)
+            }
           }, response => {
             console.log('Addition failed')
             this.failure = true
