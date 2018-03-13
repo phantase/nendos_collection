@@ -35,38 +35,38 @@
                     :title="`<div class='db-box-category text-yellow'>`+box.category+(box.number ? ' #'+box.number:'')+`</div>
                               <div class='db-box-name'>`+box.name+`</div>
                               <div class='db-box-series'>`+box.series+`</div>`"
-                    v-for="box in boxes4photo"><a><i class="icon-icon_nendo_boxes bg-orange"></i></a></div>
+                    v-for="box in boxes4photo" :key="box.internalid"><a><i class="icon-icon_nendo_boxes bg-orange"></i></a></div>
               <div :id="'db-photo-nendoroid-annotation-'+nendoroid.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-nendoroid-name'>`+nendoroid.name+`</div>
                               <div class='db-nendoroid-version'>`+(nendoroid.version ? nendoroid.version : '')+`</div>`"
-                    v-for="nendoroid in nendoroids4photo"><a><i class="icon-icon_nendo_nendo bg-orange"></i></a></div>
+                    v-for="nendoroid in nendoroids4photo" :key="nendoroid.internalid"><a><i class="icon-icon_nendo_nendo bg-orange"></i></a></div>
               <div :id="'db-photo-hair-annotation-'+hair.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-hair-frontback text-yellow'>`+hair.frontback+`</div>
                               <div class='db-hair-haircut'><span class='text-yellow'>Haircut:</span> `+hair.haircut+`</div>
                               <div class='db-hair-description'><span class='text-yellow'>Description:</span> `+hair.description+`</div>`"
-                    v-for="hair in hairs4photo"><a><i class="icon-icon_nendo_hair bg-orange"></i></a></div>
+                    v-for="hair in hairs4photo" :key="hair.internalid"><a><i class="icon-icon_nendo_hair bg-orange"></i></a></div>
               <div :id="'db-photo-accessory-annotation-'+accessory.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-accessory-type text-yellow'>`+accessory.type+`</div>
                               <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`"
-                    v-for="accessory in accessories4photo"><a><i class="icon-icon_nendo_accessories bg-orange"></i></a></div>
+                    v-for="accessory in accessories4photo" :key="accessory.internalid"><a><i class="icon-icon_nendo_accessories bg-orange"></i></a></div>
               <div :id="'db-photo-bodypart-annotation-'+bodypart.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-bodypart-part text-yellow'>`+bodypart.part+`</div>
                               <div class='db-bodypart-description'><span class='text-yellow'>Description:</span> `+bodypart.description+`</div>`"
-                    v-for="bodypart in bodyparts4photo"><a><i class="icon-icon_nendo_body bg-orange"></i></a></div>
+                    v-for="bodypart in bodyparts4photo" :key="bodypart.internalid"><a><i class="icon-icon_nendo_body bg-orange"></i></a></div>
               <div :id="'db-photo-face-annotation-'+face.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-face-eyes'><span class='text-yellow'>Eyes:</span> `+face.eyes+`</div>
                               <div class='db-face-mouth'><span class='text-yellow'>Mouth:</span> `+face.mouth+`</div>`"
-                    v-for="face in faces4photo"><a><i class="icon-icon_nendo_face bg-orange"></i></a></div>
+                    v-for="face in faces4photo" :key="face.internalid"><a><i class="icon-icon_nendo_face bg-orange"></i></a></div>
               <div :id="'db-photo-hand-annotation-'+hand.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-hand-leftright text-yellow'>`+hand.leftright+`</div>
                               <div class='db-hand-posture'><span class='text-yellow'>Posture:</span> `+hand.posture+`</div>`"
-                    v-for="hand in hands4photo"><a><i class="icon-icon_nendo_hand bg-orange"></i></a></div>
+                    v-for="hand in hands4photo" :key="hand.internalid"><a><i class="icon-icon_nendo_hand bg-orange"></i></a></div>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@
         <div class="box collapsed-box">
           <app-box-header title="Tags" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
           <div class="box-body">
-            <span class="label label-primary margin-right" v-for="tag in photo.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
+            <span class="label label-primary margin-right" v-for="tag in photo.tags" :key="tag.internalid"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!photo.tags"><i class="fa fa-ban text-red"></i> No tags</span>
             <a class="btn btn-xs" v-if="authenticated" @click="addTag=!addTag"><i class="fa fa-plus"></i> Add a tag</a>
             <transition name="fade">

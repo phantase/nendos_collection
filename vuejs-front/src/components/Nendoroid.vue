@@ -69,7 +69,7 @@
         <div class="box collapsed-box">
           <app-box-header title="Tags" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
           <div class="box-body">
-            <span class="label label-primary margin-right" v-for="tag in nendoroid.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
+            <span class="label label-primary margin-right" v-for="tag in nendoroid.tags" :key="tag.internalid"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!nendoroid.tags"><i class="fa fa-ban text-red"></i> No tags</span>
             <a class="btn btn-xs" v-if="authenticated" @click="addTag=!addTag"><i class="fa fa-plus"></i> Add a tag</a>
             <transition name="fade">
