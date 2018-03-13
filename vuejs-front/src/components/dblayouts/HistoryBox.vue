@@ -9,7 +9,7 @@
           </div>
           <ul class="timeline" v-else>
             <template v-for="(historyitem, index) in history">
-              <li class="time-label" v-if="determineifneednewdate(index)" :key="historyitem.internalid">
+              <li class="time-label" v-if="determineifneednewdate(index)" :key="historyitem.internalid+'_'">
                   <span class="bg-orange">
                       {{ historyitem.actiondate.split(' ')[0]  }}
                   </span>
