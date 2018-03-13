@@ -9,12 +9,12 @@
           </div>
           <ul class="timeline" v-else>
             <template v-for="(historyitem, index) in history">
-              <li class="time-label" v-if="determineifneednewdate(index)">
+              <li class="time-label" v-if="determineifneednewdate(index)" :key="historyitem.internalid">
                   <span class="bg-orange">
                       {{ historyitem.actiondate.split(' ')[0]  }}
                   </span>
               </li>
-              <li>
+              <li :key="historyitem.internalid">
                   <i class="fa fa-plus bg-blue" v-if="historyitem.action === 'Creation'"></i>
                   <i class="fa fa-pencil bg-maroon" v-if="historyitem.action === 'Update'"></i>
                   <i class="fa fa-check-square-o bg-green" v-if="historyitem.action === 'Validation'"></i>
