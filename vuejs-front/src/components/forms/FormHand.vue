@@ -84,13 +84,13 @@
       <div class="col-md-12">
         <div class="nav-tabs-custom" v-if="canedit">
           <ul class="nav nav-tabs pull-right">
-            <li><a href="#tab_fromselected" data-toggle="tab" aria-expanded="false">From selected posture</a></li>
-            <li class="active"><a href="#tab_fromall" data-toggle="tab" aria-expanded="false">From all postures</a></li>
+            <li id="li_fromselected"><a href="#tab_fromselected" data-toggle="tab" aria-expanded="false">From selected posture</a></li>
+            <li id="li_fromall" class="active"><a href="#tab_fromall" data-toggle="tab" aria-expanded="false">From all postures</a></li>
             <li class="pull-left header"><i class="fa fa-map-signs"></i> Suggestions</li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane" id="tab_fromselected">
-              <i>Click on an eyedropper <i class="fa fa-eyedropper"></i> to automatically fill the fields with these values.</i>
+              <i>Click on the selected line to automatically fill the fields with these values.</i>
               <div class="row">
                 <div class="col-md-6">
                 </div>
@@ -109,11 +109,8 @@
                     </div>
                     <div class="box-body">
                       <ul class="todo-list">
-                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsSelected.slice(pageDescriptionsSelected, pageDescriptionsSelected + 5)" :key="index">
+                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsSelected.slice(pageDescriptionsSelected, pageDescriptionsSelected + 5)" :key="index" @click="writeDescription(descriptionSuggestion)">
                           <span class="text">{{ descriptionSuggestion }} </span>
-                          <div class="tools">
-                            <i class="fa fa-eyedropper" @click="writeDescription(descriptionSuggestion)" title="Select this description"></i>
-                          </div>
                         </li>
                       </ul>
                     </div>
@@ -130,7 +127,7 @@
               </div>
             </div>
             <div class="tab-pane active" id="tab_fromall">
-              <i>Click on an eyedropper <i class="fa fa-eyedropper"></i> to automatically fill the fields with these values.</i>
+              <i>Click on the selected line to automatically fill the fields with these values.</i>
               <div class="row">
                 <div class="col-md-6">
                 </div>
@@ -149,11 +146,8 @@
                     </div>
                     <div class="box-body">
                       <ul class="todo-list">
-                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsAll.slice(pageDescriptionsAll, pageDescriptionsAll + 5)" :key="index">
+                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsAll.slice(pageDescriptionsAll, pageDescriptionsAll + 5)" :key="index" @click="writeDescription(descriptionSuggestion)">
                           <span class="text">{{ descriptionSuggestion }} </span>
-                          <div class="tools">
-                            <i class="fa fa-eyedropper" @click="writeDescription(descriptionSuggestion)" title="Select this description"></i>
-                          </div>
                         </li>
                       </ul>
                     </div>
@@ -279,6 +273,10 @@ export default {
   watch: {
     internalid () {
       this.cancel()
+    },
+    posture () {
+      this.changePosture()
+      $('')
     }
   },
   methods: {
@@ -419,6 +417,12 @@ export default {
     },
     changePageDescriptionsSelected (newPageDescriptionsSelected) {
       this.pageDescriptionsSelected = newPageDescriptionsSelected
+    },
+    changePosture () {
+      $('#li_fromselected').addClass('active')
+      $('#tab_fromselected').addClass('active')
+      $('#li_fromall').removeClass('active')
+      $('#tab_fromall').removeClass('active')
     }
   },
   mounted () {
@@ -439,11 +443,9 @@ export default {
 </script>
 
 <style scoped>
-  .fa-eyedropper {
+  .todo-list > li:hover {
+    background-color: lightyellow;
     cursor: pointer;
-  }
-  .fa-eyedropper:hover {
-    color: blue;
   }
   .pagination a {
     cursor: pointer;
