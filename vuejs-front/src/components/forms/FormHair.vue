@@ -37,19 +37,6 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
-                  <div class="form-group" :class="errormaincolor?'has-error':''">
-                    <label>Main color</label>
-                    <select2 placeholder="Main color" :options="hairsMainColorCodeList" v-model="maincolor"></select2>
-                    <span class="help-block" v-if="errormaincolor">The main color is mandatory</span>
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label>Other color</label>
-                    <select2 placeholder="Other color" :options="hairsOtherColorCodeList" v-model="othercolor"></select2>
-                  </div>
-                </div>
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errorhaircut?'has-error':''">
                     <label>Haircut</label>
@@ -61,6 +48,19 @@
                   <div class="form-group">
                     <label>Front/Back/Other</label>
                     <select2 placeholder="Front/Back/Other" :options="hairsFrontBackCodeList" v-model="frontback"></select2>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group" :class="errormaincolor?'has-error':''">
+                    <label>Main color</label>
+                    <select2 placeholder="Main color" :options="hairsMainColorCodeList" v-model="maincolor"></select2>
+                    <span class="help-block" v-if="errormaincolor">The main color is mandatory</span>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label>Other color</label>
+                    <select2 placeholder="Other color" :options="hairsOtherColorCodeList" v-model="othercolor"></select2>
                   </div>
                 </div>
                 <div class="col-md-12">
