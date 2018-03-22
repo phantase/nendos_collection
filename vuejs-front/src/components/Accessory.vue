@@ -74,7 +74,7 @@
           </div>
         </div>
         <div class="box collapsed-box">
-          <app-box-header title="Tags" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
+          <app-box-header :title="'Tags ('+(accessory.tags?accessory.tags.length:0)+')'" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
           <div class="box-body">
             <span class="label label-primary margin-right" v-for="tag in accessory.tags" :key="tag.internalid"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!accessory.tags"><i class="fa fa-ban text-red"></i> No tags</span>
@@ -108,7 +108,7 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12" v-if="photos4accessory.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Photos" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
+          <app-box-header :title="'Photos ('+photos4accessory.length+')'" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
           <div class="box-body">
             <photos-tiles :photos="photos4accessory"></photos-tiles>
           </div>

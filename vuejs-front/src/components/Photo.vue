@@ -75,7 +75,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="box collapsed-box">
-          <app-box-header title="Tags" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
+          <app-box-header :title="'Tags ('+(photo.tags?photo.tags.length:0)+')'" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
           <div class="box-body">
             <span class="label label-primary margin-right" v-for="tag in photo.tags" :key="tag.internalid"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!photo.tags"><i class="fa fa-ban text-red"></i> No tags</span>
@@ -100,7 +100,7 @@
     <div class="row">
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="boxes4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Boxes" collapsable="true" collapsed="true" icon="icon-icon_nendo_boxes"></app-box-header>
+          <app-box-header :title="'Boxes ('+boxes4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_boxes"></app-box-header>
           <div class="box-body">
             <boxes-tiles :boxes="boxes4photo" tilessize="big"></boxes-tiles>
           </div>
@@ -108,7 +108,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="nendoroids4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Nendoroids" collapsable="true" collapsed="true" icon="icon-icon_nendo_nendo"></app-box-header>
+          <app-box-header :title="'Nendoroids ('+nendoroids4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_nendo"></app-box-header>
           <div class="box-body">
             <nendoroids-tiles :nendoroids="nendoroids4photo" tilessize="big"></nendoroids-tiles>
           </div>
@@ -116,7 +116,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="faces4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Faces" collapsable="true" collapsed="true" icon="icon-icon_nendo_face"></app-box-header>
+          <app-box-header :title="'Faces ('+faces4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_face"></app-box-header>
           <div class="box-body">
             <faces-tiles :faces="faces4photo" tilessize="big"></faces-tiles>
           </div>
@@ -124,7 +124,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="hairs4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Hairs" collapsable="true" collapsed="true" icon="icon-icon_nendo_hair"></app-box-header>
+          <app-box-header :title="'Hairs ('+hairs4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_hair"></app-box-header>
           <div class="box-body">
             <hairs-tiles :hairs="hairs4photo" tilessize="big"></hairs-tiles>
           </div>
@@ -132,7 +132,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="hands4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Hands" collapsable="true" collapsed="true" icon="icon-icon_nendo_hand"></app-box-header>
+          <app-box-header :title="'Hands ('+hands4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_hand"></app-box-header>
           <div class="box-body">
             <hands-tiles :hands="hands4photo" tilessize="big"></hands-tiles>
           </div>
@@ -140,7 +140,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="bodyparts4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Bodyparts" collapsable="true" collapsed="true" icon="icon-icon_nendo_body"></app-box-header>
+          <app-box-header :title="'Bodyparts ('+bodyparts4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_body"></app-box-header>
           <div class="box-body">
             <bodyparts-tiles :bodyparts="bodyparts4photo" tilessize="big"></bodyparts-tiles>
           </div>
@@ -148,7 +148,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="accessories4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Accessories" collapsable="true" collapsed="true" icon="icon-icon_nendo_accessories"></app-box-header>
+          <app-box-header :title="'Accessories ('+accessories4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_accessories"></app-box-header>
           <div class="box-body">
             <accessories-tiles :accessories="accessories4photo" tilessize="big"></accessories-tiles>
           </div>
