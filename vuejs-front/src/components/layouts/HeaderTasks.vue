@@ -12,7 +12,7 @@
                 <!-- Inner menu: contains the tasks -->
                 <ul class="menu">
 
-                  <app-header-tasks-single v-for="task in tasks" :task="task"></app-header-tasks-single>
+                  <app-header-tasks-single v-for="task in tasks" :key="task.id" :task="task"></app-header-tasks-single>
 
                 </ul>
               </li>

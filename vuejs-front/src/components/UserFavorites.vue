@@ -35,7 +35,7 @@
               <div class="tab-content">
                 <div class="tab-pane" id="tab_photos">
                   <div class="row">
-                    <router-link :to="'/photo/'+photo.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="photo in photosfound">
+                    <router-link :to="'/photo/'+photo.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="photo in photosfound" :key="photo.internalid">
                       <photo-tile :photo="photo"></photo-tile>
                     </router-link>
                     <span class="col-md-12" v-if="photosfound.length === 0">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="tab-pane" id="tab_accessories">
                   <div class="row">
-                    <router-link :to="'/accessory/'+accessory.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessoriesfound">
+                    <router-link :to="'/accessory/'+accessory.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessoriesfound" :key="accessory.internalid">
                       <accessory-tile :accessory="accessory"></accessory-tile>
                     </router-link>
                     <span class="col-md-12" v-if="accessoriesfound.length === 0">
@@ -55,7 +55,7 @@
                 </div>
                 <div class="tab-pane" id="tab_bodyparts">
                   <div class="row">
-                    <router-link :to="'/bodypart/'+bodypart.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodypartsfound">
+                    <router-link :to="'/bodypart/'+bodypart.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodypartsfound" :key="bodypart.internalid">
                       <bodypart-tile :bodypart="bodypart"></bodypart-tile>
                     </router-link>
                     <span class="col-md-12" v-if="bodypartsfound.length === 0">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="tab-pane" id="tab_hands">
                   <div class="row">
-                    <router-link :to="'/hand/'+hand.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="hand in handsfound">
+                    <router-link :to="'/hand/'+hand.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="hand in handsfound" :key="hand.internalid">
                       <hand-tile :hand="hand"></hand-tile>
                     </router-link>
                     <span class="col-md-12" v-if="handsfound.length === 0">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="tab-pane" id="tab_hairs">
                   <div class="row">
-                    <router-link :to="'/hair/'+hair.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairsfound">
+                    <router-link :to="'/hair/'+hair.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairsfound" :key="hair.internalid">
                       <hair-tile :hair="hair"></hair-tile>
                     </router-link>
                     <span class="col-md-12" v-if="hairsfound.length === 0">
@@ -85,7 +85,7 @@
                 </div>
                 <div class="tab-pane" id="tab_faces">
                   <div class="row">
-                    <router-link :to="'/face/'+face.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="face in facesfound">
+                    <router-link :to="'/face/'+face.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="face in facesfound" :key="face.internalid">
                       <face-tile :face="face"></face-tile>
                     </router-link>
                     <span class="col-md-12" v-if="facesfound.length === 0">
@@ -95,7 +95,7 @@
                 </div>
                 <div class="tab-pane" id="tab_nendoroids">
                   <div class="row">
-                    <router-link :to="'/nendoroid/'+nendoroid.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="nendoroid in nendoroidsfound">
+                    <router-link :to="'/nendoroid/'+nendoroid.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="nendoroid in nendoroidsfound" :key="nendoroid.internalid">
                       <nendoroid-tile :nendoroid="nendoroid"></nendoroid-tile>
                     </router-link>
                     <span class="col-md-12" v-if="nendoroidsfound.length === 0">
@@ -105,7 +105,7 @@
                 </div>
                 <div class="tab-pane active" id="tab_boxes">
                   <div class="row">
-                    <router-link :to="'/box/'+box.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="box in boxesfound">
+                    <router-link :to="'/box/'+box.internalid" class="col-md-2 col-sm-4 col-xs-6" v-for="box in boxesfound" :key="box.internalid">
                       <box-tile :box="box"></box-tile>
                     </router-link>
                     <span class="col-md-12" v-if="boxesfound.length === 0">

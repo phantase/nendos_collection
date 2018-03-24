@@ -87,7 +87,10 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save box</button>
+                <span class="pull-right">
+                  <button type="submit" class="btn btn-info" @click.prevent="submittoimage" v-if="!internalid">Save box and upload image</button>
+                  <button type="submit" class="btn btn-info" @click.prevent="submit">Save box</button>
+                </span>
               </div>
             </form>
           </div>
@@ -153,7 +156,8 @@ export default {
       errorprice: false,
       errorreleasedate: false,
       failure: false,
-      noeditableelement: false
+      noeditableelement: false,
+      willsubmittoimage: false
     }
   },
   computed: {
@@ -237,6 +241,10 @@ export default {
         this.errorreleasedate = false
       }
     },
+    submittoimage () {
+      this.willsubmittoimage = true
+      this.submit()
+    },
     submit () {
       console.log('Submit form')
       this.failure = false
@@ -309,7 +317,11 @@ export default {
             'formData': formData
           }).then(response => {
             console.log('Addition successful')
-            router.push('/box/' + response)
+            if (this.willsubmittoimage) {
+              router.push('/box/' + response + '/edit/image')
+            } else {
+              router.push('/box/' + response)
+            }
           }, response => {
             console.log('Addition failed')
             this.failure = true
@@ -328,5 +340,5 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped>  
 </style>

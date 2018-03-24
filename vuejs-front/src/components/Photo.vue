@@ -35,38 +35,38 @@
                     :title="`<div class='db-box-category text-yellow'>`+box.category+(box.number ? ' #'+box.number:'')+`</div>
                               <div class='db-box-name'>`+box.name+`</div>
                               <div class='db-box-series'>`+box.series+`</div>`"
-                    v-for="box in boxes4photo"><a><i class="icon-icon_nendo_boxes bg-orange"></i></a></div>
+                    v-for="box in boxes4photo" :key="box.internalid"><a><i class="icon-icon_nendo_boxes bg-orange"></i></a></div>
               <div :id="'db-photo-nendoroid-annotation-'+nendoroid.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-nendoroid-name'>`+nendoroid.name+`</div>
                               <div class='db-nendoroid-version'>`+(nendoroid.version ? nendoroid.version : '')+`</div>`"
-                    v-for="nendoroid in nendoroids4photo"><a><i class="icon-icon_nendo_nendo bg-orange"></i></a></div>
+                    v-for="nendoroid in nendoroids4photo" :key="nendoroid.internalid"><a><i class="icon-icon_nendo_nendo bg-orange"></i></a></div>
               <div :id="'db-photo-hair-annotation-'+hair.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-hair-frontback text-yellow'>`+hair.frontback+`</div>
                               <div class='db-hair-haircut'><span class='text-yellow'>Haircut:</span> `+hair.haircut+`</div>
                               <div class='db-hair-description'><span class='text-yellow'>Description:</span> `+hair.description+`</div>`"
-                    v-for="hair in hairs4photo"><a><i class="icon-icon_nendo_hair bg-orange"></i></a></div>
+                    v-for="hair in hairs4photo" :key="hair.internalid"><a><i class="icon-icon_nendo_hair bg-orange"></i></a></div>
               <div :id="'db-photo-accessory-annotation-'+accessory.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-accessory-type text-yellow'>`+accessory.type+`</div>
                               <div class='db-accessory-description'><span class='text-yellow'>Description:</span> `+accessory.description+`</div>`"
-                    v-for="accessory in accessories4photo"><a><i class="icon-icon_nendo_accessories bg-orange"></i></a></div>
+                    v-for="accessory in accessories4photo" :key="accessory.internalid"><a><i class="icon-icon_nendo_accessories bg-orange"></i></a></div>
               <div :id="'db-photo-bodypart-annotation-'+bodypart.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-bodypart-part text-yellow'>`+bodypart.part+`</div>
                               <div class='db-bodypart-description'><span class='text-yellow'>Description:</span> `+bodypart.description+`</div>`"
-                    v-for="bodypart in bodyparts4photo"><a><i class="icon-icon_nendo_body bg-orange"></i></a></div>
+                    v-for="bodypart in bodyparts4photo" :key="bodypart.internalid"><a><i class="icon-icon_nendo_body bg-orange"></i></a></div>
               <div :id="'db-photo-face-annotation-'+face.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-face-eyes'><span class='text-yellow'>Eyes:</span> `+face.eyes+`</div>
                               <div class='db-face-mouth'><span class='text-yellow'>Mouth:</span> `+face.mouth+`</div>`"
-                    v-for="face in faces4photo"><a><i class="icon-icon_nendo_face bg-orange"></i></a></div>
+                    v-for="face in faces4photo" :key="face.internalid"><a><i class="icon-icon_nendo_face bg-orange"></i></a></div>
               <div :id="'db-photo-hand-annotation-'+hand.photoannotationid" class="db-photo-annotation"
                     data-toggle="tooltip" data-html="true"
                     :title="`<div class='db-hand-leftright text-yellow'>`+hand.leftright+`</div>
                               <div class='db-hand-posture'><span class='text-yellow'>Posture:</span> `+hand.posture+`</div>`"
-                    v-for="hand in hands4photo"><a><i class="icon-icon_nendo_hand bg-orange"></i></a></div>
+                    v-for="hand in hands4photo" :key="hand.internalid"><a><i class="icon-icon_nendo_hand bg-orange"></i></a></div>
             </div>
           </div>
         </div>
@@ -75,9 +75,9 @@
     <div class="row">
       <div class="col-md-12">
         <div class="box collapsed-box">
-          <app-box-header title="Tags" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
+          <app-box-header :title="'Tags ('+(photo.tags?photo.tags.length:0)+')'" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
           <div class="box-body">
-            <span class="label label-primary margin-right" v-for="tag in photo.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
+            <span class="label label-primary margin-right" v-for="tag in photo.tags" :key="tag.internalid"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!photo.tags"><i class="fa fa-ban text-red"></i> No tags</span>
             <a class="btn btn-xs" v-if="authenticated" @click="addTag=!addTag"><i class="fa fa-plus"></i> Add a tag</a>
             <transition name="fade">
@@ -100,7 +100,7 @@
     <div class="row">
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="boxes4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Boxes" collapsable="true" collapsed="true" icon="icon-icon_nendo_boxes"></app-box-header>
+          <app-box-header :title="'Boxes ('+boxes4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_boxes"></app-box-header>
           <div class="box-body">
             <boxes-tiles :boxes="boxes4photo" tilessize="big"></boxes-tiles>
           </div>
@@ -108,7 +108,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="nendoroids4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Nendoroids" collapsable="true" collapsed="true" icon="icon-icon_nendo_nendo"></app-box-header>
+          <app-box-header :title="'Nendoroids ('+nendoroids4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_nendo"></app-box-header>
           <div class="box-body">
             <nendoroids-tiles :nendoroids="nendoroids4photo" tilessize="big"></nendoroids-tiles>
           </div>
@@ -116,7 +116,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="faces4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Faces" collapsable="true" collapsed="true" icon="icon-icon_nendo_face"></app-box-header>
+          <app-box-header :title="'Faces ('+faces4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_face"></app-box-header>
           <div class="box-body">
             <faces-tiles :faces="faces4photo" tilessize="big"></faces-tiles>
           </div>
@@ -124,7 +124,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="hairs4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Hairs" collapsable="true" collapsed="true" icon="icon-icon_nendo_hair"></app-box-header>
+          <app-box-header :title="'Hairs ('+hairs4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_hair"></app-box-header>
           <div class="box-body">
             <hairs-tiles :hairs="hairs4photo" tilessize="big"></hairs-tiles>
           </div>
@@ -132,7 +132,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="hands4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Hands" collapsable="true" collapsed="true" icon="icon-icon_nendo_hand"></app-box-header>
+          <app-box-header :title="'Hands ('+hands4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_hand"></app-box-header>
           <div class="box-body">
             <hands-tiles :hands="hands4photo" tilessize="big"></hands-tiles>
           </div>
@@ -140,7 +140,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="bodyparts4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Bodyparts" collapsable="true" collapsed="true" icon="icon-icon_nendo_body"></app-box-header>
+          <app-box-header :title="'Bodyparts ('+bodyparts4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_body"></app-box-header>
           <div class="box-body">
             <bodyparts-tiles :bodyparts="bodyparts4photo" tilessize="big"></bodyparts-tiles>
           </div>
@@ -148,7 +148,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="accessories4photo.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Accessories" collapsable="true" collapsed="true" icon="icon-icon_nendo_accessories"></app-box-header>
+          <app-box-header :title="'Accessories ('+accessories4photo.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_accessories"></app-box-header>
           <div class="box-body">
             <accessories-tiles :accessories="accessories4photo" tilessize="big"></accessories-tiles>
           </div>

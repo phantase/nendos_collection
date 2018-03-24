@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <router-link :to="'/nendoroid/'+nendoroid.internalid" :class="classtiles" v-for="nendoroid in nendoroids">
+    <router-link :to="'/nendoroid/'+nendoroid.internalid" :class="classtiles" v-for="nendoroid in nendoroids" :key="nendoroid.internalid">
 
       <nendoroid-tile :nendoroid="nendoroid"></nendoroid-tile>
 

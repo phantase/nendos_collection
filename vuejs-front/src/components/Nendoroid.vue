@@ -67,9 +67,9 @@
           </div>
         </div>
         <div class="box collapsed-box">
-          <app-box-header title="Tags" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
+          <app-box-header :title="'Tags ('+(nendoroid.tags?nendoroid.tags.length:0)+')'" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
           <div class="box-body">
-            <span class="label label-primary margin-right" v-for="tag in nendoroid.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
+            <span class="label label-primary margin-right" v-for="tag in nendoroid.tags" :key="tag.internalid"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!nendoroid.tags"><i class="fa fa-ban text-red"></i> No tags</span>
             <a class="btn btn-xs" v-if="authenticated" @click="addTag=!addTag"><i class="fa fa-plus"></i> Add a tag</a>
             <transition name="fade">
@@ -101,7 +101,7 @@
     <div class="row">
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="faces4nendoroid.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Faces" collapsable="true" collapsed="true" icon="icon-icon_nendo_face"></app-box-header>
+          <app-box-header :title="'Faces ('+faces4nendoroid.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_face"></app-box-header>
           <div class="box-body">
             <faces-tiles :faces="faces4nendoroid" tilessize="big"></faces-tiles>
           </div>
@@ -109,7 +109,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="hairs4nendoroid.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Hairs" collapsable="true" collapsed="true" icon="icon-icon_nendo_hair"></app-box-header>
+          <app-box-header :title="'Hairs ('+hairs4nendoroid.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_hair"></app-box-header>
           <div class="box-body">
             <hairs-tiles :hairs="hairs4nendoroid" tilessize="big"></hairs-tiles>
           </div>
@@ -117,7 +117,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="hands4nendoroid.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Hands" collapsable="true" collapsed="true" icon="icon-icon_nendo_hand"></app-box-header>
+          <app-box-header :title="'Hands ('+hands4nendoroid.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_hand"></app-box-header>
           <div class="box-body">
             <hands-tiles :hands="hands4nendoroid" tilessize="big"></hands-tiles>
           </div>
@@ -125,7 +125,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="bodyparts4nendoroid.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Bodyparts" collapsable="true" collapsed="true" icon="icon-icon_nendo_body"></app-box-header>
+          <app-box-header :title="'Bodyparts ('+bodyparts4nendoroid.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_body"></app-box-header>
           <div class="box-body">
             <bodyparts-tiles :bodyparts="bodyparts4nendoroid" tilessize="big"></bodyparts-tiles>
           </div>
@@ -133,7 +133,7 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" v-if="accessories4nendoroid.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Accessories" collapsable="true" collapsed="true" icon="icon-icon_nendo_accessories"></app-box-header>
+          <app-box-header :title="'Accessories ('+accessories4nendoroid.length+')'" collapsable="true" collapsed="true" icon="icon-icon_nendo_accessories"></app-box-header>
           <div class="box-body">
             <accessories-tiles :accessories="accessories4nendoroid" tilessize="big"></accessories-tiles>
           </div>
@@ -141,7 +141,7 @@
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12" v-if="photo4nendoroid.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Photos" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
+          <app-box-header :title="'Photos ('+photo4nendoroid.length+')'" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
           <div class="box-body">
             <photos-tiles :photos="photo4nendoroid"></photos-tiles>
           </div>

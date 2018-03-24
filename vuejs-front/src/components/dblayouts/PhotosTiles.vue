@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <router-link :to="'/photo/'+photo.internalid" :class="classtiles" v-for="photo in photos">
+    <router-link :to="'/photo/'+photo.internalid" :class="classtiles" v-for="photo in photos" :key="photo.internalid">
 
     <photo-tile :photo="photo"></photo-tile>
 

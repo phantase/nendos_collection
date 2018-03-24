@@ -37,19 +37,6 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
-                  <div class="form-group" :class="errormaincolor?'has-error':''">
-                    <label>Main color</label>
-                    <select2 placeholder="Main color" :options="hairsMainColorCodeList" v-model="maincolor"></select2>
-                    <span class="help-block" v-if="errormaincolor">The main color is mandatory</span>
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label>Other color</label>
-                    <select2 placeholder="Other color" :options="hairsOtherColorCodeList" v-model="othercolor"></select2>
-                  </div>
-                </div>
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errorhaircut?'has-error':''">
                     <label>Haircut</label>
@@ -63,6 +50,19 @@
                     <select2 placeholder="Front/Back/Other" :options="hairsFrontBackCodeList" v-model="frontback"></select2>
                   </div>
                 </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group" :class="errormaincolor?'has-error':''">
+                    <label>Main color</label>
+                    <select2 placeholder="Main color" :options="hairsMainColorCodeList" v-model="maincolor"></select2>
+                    <span class="help-block" v-if="errormaincolor">The main color is mandatory</span>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label>Other color</label>
+                    <select2 placeholder="Other color" :options="hairsOtherColorCodeList" v-model="othercolor"></select2>
+                  </div>
+                </div>
                 <div class="col-md-12">
                   <div class="form-group" :class="errordescription?'has-error':''">
                     <label>Description</label>
@@ -73,7 +73,10 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save bodypart</button>
+                <span class="pull-right">
+                  <button type="submit" class="btn btn-info" @click.prevent="submittoimage" v-if="!internalid">Save bodypart and upload image</button>
+                  <button type="submit" class="btn btn-info" @click.prevent="submit">Save bodypart</button>
+                </span>
               </div>
             </form>
           </div>
@@ -88,13 +91,13 @@
       <div class="col-md-12">
         <div class="nav-tabs-custom" v-if="canedit">
           <ul class="nav nav-tabs pull-right">
-            <li><a href="#tab_fromselected" data-toggle="tab" aria-expanded="false">From selected haircut</a></li>
-            <li class="active"><a href="#tab_fromall" data-toggle="tab" aria-expanded="false">From all haircuts</a></li>
-            <li class="pull-left header"><i class="fa fa-map-signs">Suggestions</li>
+            <li id="li_fromselected"><a href="#tab_fromselected" data-toggle="tab" aria-expanded="false">From selected haircut</a></li>
+            <li id="li_fromall" class="active"><a href="#tab_fromall" data-toggle="tab" aria-expanded="false">From all haircuts</a></li>
+            <li class="pull-left header"><i class="fa fa-map-signs"></i> Suggestions</li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane" id="tab_fromselected">
-              <i>Click on an eyedropper <i class="fa fa-eyedropper"></i> to automatically fill the fields with these values.</i>
+              <i>Click on the selected line to automatically fill the fields with these values.</i>
               <div class="row">
                 <div class="col-md-6">
                   <div class="box box-solid no-shadow">
@@ -111,11 +114,8 @@
                     </div>
                     <div class="box-body">
                       <ul class="todo-list">
-                        <li v-for="(colorsSuggestion, index) in colorsSuggestionsSelected.slice(pageColorsSelected, pageColorsSelected + 5)" :key="index">
+                        <li v-for="(colorsSuggestion, index) in colorsSuggestionsSelected.slice(pageColorsSelected, pageColorsSelected + 5)" :key="index" @click="writeColors(colorsSuggestion)">
                           <span class="text">{{ colorsSuggestion[0] }} - {{ colorsSuggestion[1] }}</span>
-                          <div class="tools">
-                            <i class="fa fa-eyedropper" @click="writeColors(colorsSuggestion)" title="Select these colors"></i>
-                          </div>
                         </li>
                       </ul>
                     </div>
@@ -136,11 +136,8 @@
                     </div>
                     <div class="box-body">
                       <ul class="todo-list">
-                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsSelected.slice(pageDescriptionsSelected, pageDescriptionsSelected + 5)" :key="index">
+                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsSelected.slice(pageDescriptionsSelected, pageDescriptionsSelected + 5)" :key="index" @click="writeDescription(descriptionSuggestion)">
                           <span class="text">{{ descriptionSuggestion }} </span>
-                          <div class="tools">
-                            <i class="fa fa-eyedropper" @click="writeDescription(descriptionSuggestion)" title="Select this description"></i>
-                          </div>
                         </li>
                       </ul>
                     </div>
@@ -157,7 +154,7 @@
               </div>
             </div>
             <div class="tab-pane active" id="tab_fromall">
-              <i>Click on an eyedropper <i class="fa fa-eyedropper"></i> to automatically fill the fields with these values.</i>
+              <i>Click on the selected line to automatically fill the fields with these values.</i>
               <div class="row">
                 <div class="col-md-6">
                   <div class="box box-solid no-shadow">
@@ -174,11 +171,8 @@
                     </div>
                     <div class="box-body">
                       <ul class="todo-list">
-                        <li v-for="(colorsSuggestion, index) in colorsSuggestionsAll.slice(pageColorsAll, pageColorsAll + 5)" :key="index">
+                        <li v-for="(colorsSuggestion, index) in colorsSuggestionsAll.slice(pageColorsAll, pageColorsAll + 5)" :key="index" @click="writeColors(colorsSuggestion)">
                           <span class="text">{{ colorsSuggestion[0] }} - {{ colorsSuggestion[1] }}</span>
-                          <div class="tools">
-                            <i class="fa fa-eyedropper" @click="writeColors(colorsSuggestion)" title="Select these colors"></i>
-                          </div>
                         </li>
                       </ul>
                     </div>
@@ -199,11 +193,8 @@
                     </div>
                     <div class="box-body">
                       <ul class="todo-list">
-                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsAll.slice(pageDescriptionsAll, pageDescriptionsAll + 5)" :key="index">
+                        <li v-for="(descriptionSuggestion, index) in descriptionSuggestionsAll.slice(pageDescriptionsAll, pageDescriptionsAll + 5)" :key="index" @click="writeDescription(descriptionSuggestion)">
                           <span class="text">{{ descriptionSuggestion }} </span>
-                          <div class="tools">
-                            <i class="fa fa-eyedropper" @click="writeDescription(descriptionSuggestion)" title="Select this description"></i>
-                          </div>
                         </li>
                       </ul>
                     </div>
@@ -278,7 +269,8 @@ export default {
       filterDescriptionsAll: '',
       pageColorsSelected: 0,
       pageDescriptionsSelected: 0,
-      filterDescriptionsSelected: ''
+      filterDescriptionsSelected: '',
+      willsubmittoimage: false
     }
   },
   computed: {
@@ -348,6 +340,10 @@ export default {
   watch: {
     internalid () {
       this.cancel()
+    },
+    haircut () {
+      this.changeHaircut()
+      $('')
     }
   },
   methods: {
@@ -409,6 +405,10 @@ export default {
         this.errordescription = false
       }
     },
+    submittoimage () {
+      this.willsubmittoimage = true
+      this.submit()
+    },
     submit () {
       console.log('Submit form')
       this.failure = false
@@ -462,7 +462,11 @@ export default {
             'formData': formData
           }).then(response => {
             console.log('Addition successful')
-            router.push('/hair/' + response)
+            if (this.willsubmittoimage) {
+              router.push('/hair/' + response + '/edit/image')
+            } else {
+              router.push('/hair/' + response)
+            }
           }, response => {
             console.log('Addition failed')
             this.failure = true
@@ -496,6 +500,12 @@ export default {
     },
     changePageDescriptionsSelected (newPageDescriptionsSelected) {
       this.pageDescriptionsSelected = newPageDescriptionsSelected
+    },
+    changeHaircut () {
+      $('#li_fromselected').addClass('active')
+      $('#tab_fromselected').addClass('active')
+      $('#li_fromall').removeClass('active')
+      $('#tab_fromall').removeClass('active')
     }
   },
   mounted () {
@@ -516,11 +526,9 @@ export default {
 </script>
 
 <style scoped>
-  .fa-eyedropper {
+  .todo-list > li:hover {
+    background-color: lightyellow;
     cursor: pointer;
-  }
-  .fa-eyedropper:hover {
-    color: blue;
   }
   .pagination a {
     cursor: pointer;

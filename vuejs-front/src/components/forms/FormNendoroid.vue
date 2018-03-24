@@ -54,7 +54,10 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save nendoroid</button>
+                <span class="pull-right">
+                  <button type="submit" class="btn btn-info" @click.prevent="submittoimage" v-if="!internalid">Save nendoroid and upload image</button>
+                  <button type="submit" class="btn btn-info" @click.prevent="submit">Save nendoroid</button>
+                </span>
               </div>
             </form>
           </div>
@@ -112,7 +115,8 @@ export default {
       errorbox: false,
       errorname: false,
       failure: false,
-      noeditableelement: false
+      noeditableelement: false,
+      willsubmittoimage: false
     }
   },
   computed: {
@@ -176,6 +180,10 @@ export default {
         this.errorname = false
       }
     },
+    submittoimage () {
+      this.willsubmittoimage = true
+      this.submit()
+    },
     submit () {
       console.log('Submit form')
       this.failure = false
@@ -220,7 +228,11 @@ export default {
             'formData': formData
           }).then(response => {
             console.log('Addition successful')
-            router.push('/nendoroid/' + response)
+            if (this.willsubmittoimage) {
+              router.push('/nendoroid/' + response + '/edit/image')
+            } else {
+              router.push('/nendoroid/' + response)
+            }
           }, response => {
             console.log('Addition failed')
             this.failure = true

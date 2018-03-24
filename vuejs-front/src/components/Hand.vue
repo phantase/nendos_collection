@@ -74,9 +74,9 @@
           </div>
         </div>
         <div class="box collapsed-box">
-          <app-box-header title="Tags" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
+          <app-box-header :title="'Tags ('+(hand.tags?hand.tags.length:0)+')'" collapsable="true" collapsed="true" icon="fa-tags"></app-box-header>
           <div class="box-body">
-            <span class="label label-primary margin-right" v-for="tag in hand.tags"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
+            <span class="label label-primary margin-right" v-for="tag in hand.tags" :key="tag.internalid"><i class="fa fa-tag"></i> {{ tag.tag }}</span>
             <span v-if="!hand.tags"><i class="fa fa-ban text-red"></i> No tags</span>
             <a class="btn btn-xs" v-if="authenticated" @click="addTag=!addTag"><i class="fa fa-plus"></i> Add a tag</a>
             <transition name="fade">
@@ -108,7 +108,7 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12" v-if="photo4hand.length > 0">
         <div class="box collapsed-box">
-          <app-box-header title="Photos" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
+          <app-box-header :title="'Photos ('+photo4hand.length+')'" collapsable="true" collapsed="true" icon="fa-photo"></app-box-header>
           <div class="box-body">
             <photos-tiles :photos="photo4hand"></photos-tiles>
           </div>

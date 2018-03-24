@@ -74,7 +74,10 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save face</button>
+                <span class="pull-right">
+                  <button type="submit" class="btn btn-info" @click.prevent="submittoimage" v-if="!internalid">Save face and upload image</button>
+                  <button type="submit" class="btn btn-info" @click.prevent="submit">Save face</button>
+                </span>
               </div>
             </form>
           </div>
@@ -137,7 +140,8 @@ export default {
       errormouth: false,
       errorskincolor: false,
       failure: false,
-      noeditableelement: false
+      noeditableelement: false,
+      willsubmittoimage: false
     }
   },
   computed: {
@@ -238,6 +242,10 @@ export default {
         this.errorskincolor = false
       }
     },
+    submittoimage () {
+      this.willsubmittoimage = true
+      this.submit()
+    },
     submit () {
       console.log('Submit form')
       this.failure = false
@@ -289,7 +297,11 @@ export default {
             'formData': formData
           }).then(response => {
             console.log('Addition successful')
-            router.push('/face/' + response)
+            if (this.willsubmittoimage) {
+              router.push('/face/' + response + '/edit/image')
+            } else {
+              router.push('/face/' + response)
+            }
           }, response => {
             console.log('Addition failed')
             this.failure = true

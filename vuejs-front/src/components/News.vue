@@ -39,7 +39,7 @@
           <app-box-header title="News" collapsable="true" icon="fa-newspaper-o"></app-box-header>
           <div class="box-body">
             <ul class="products-list product-list-in-box">
-              <app-news-tile v-for="singleNews in displayedNews" :news="singleNews"></app-news-tile>
+              <app-news-tile v-for="singleNews in displayedNews" :key="singleNews.internalid" :news="singleNews"></app-news-tile>
             </ul>
           </div>
         </div>

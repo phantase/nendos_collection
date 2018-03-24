@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <router-link :to="'/bodypart/'+bodypart.internalid" :class="classtiles" v-for="bodypart in bodyparts">
+    <router-link :to="'/bodypart/'+bodypart.internalid" :class="classtiles" v-for="bodypart in bodyparts" :key="bodypart.internalid">
 
       <bodypart-tile :bodypart="bodypart"></bodypart-tile>
 

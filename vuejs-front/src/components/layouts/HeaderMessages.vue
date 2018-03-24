@@ -12,7 +12,7 @@
                 <!-- inner menu: contains the messages -->
                 <ul class="menu">
 
-                  <app-header-messages-single v-for="message in messages" :message="message" ></app-header-messages-single>
+                  <app-header-messages-single v-for="message in messages" :key="message.id" :message="message" ></app-header-messages-single>
 
                 </ul>
                 <!-- /.menu -->
