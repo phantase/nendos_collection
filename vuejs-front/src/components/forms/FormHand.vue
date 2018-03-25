@@ -7,12 +7,12 @@
           <div class="box-header with-border">
             <h3 class="box-title"><i class="fa icon-icon_nendo_hand"></i> {{ internalid ? 'Edit' : 'Add' }} a hand</h3>
           </div>
-          <div class="box-body" v-if="canedit">
-            <div class="alert alert-danger" v-if="failure">
-              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-              An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
-            </div>
-            <form role="form">
+          <form role="form" v-if="canedit">
+            <div class="box-body">
+              <div class="alert alert-danger" v-if="failure">
+                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
+              </div>
               <div class="row">
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group" :class="errorbox?'has-error':''">
@@ -64,15 +64,15 @@
                   </div>
                 </div>
               </div>
-              <div class="box-footer">
-                <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <span class="pull-right">
-                  <button type="submit" class="btn btn-info" @click.prevent="submittoimage" v-if="!internalid">Save hand and upload image</button>
-                  <button type="submit" class="btn btn-info" @click.prevent="submit">Save hand</button>
-                </span>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div class="box-footer">
+              <button type="reset" class="btn btn-default" @click.prevent="cancel">Cancel</button>
+              <span class="pull-right">
+                <button type="submit" class="btn btn-info" @click.prevent="submittoimage" v-if="!internalid">Save hand and upload image</button>
+                <button type="submit" class="btn btn-info" @click.prevent="submit">Save hand</button>
+              </span>
+            </div>
+          </form>
           <div class="box-body" v-else>
             <div class="alert alert-danger">
               <h4><i class="icon fa fa-ban"></i> Not authorized!</h4>
