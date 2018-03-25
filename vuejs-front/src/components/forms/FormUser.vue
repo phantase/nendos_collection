@@ -7,12 +7,12 @@
           <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-id-card-o"></i> Change mail and/or name</h3>
           </div>
-          <div class="box-body">
-            <div class="alert alert-danger" v-if="failureMailName">
-              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-              An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
-            </div>
-            <form role="form">
+          <form role="form">
+            <div class="box-body">
+              <div class="alert alert-danger" v-if="failureMailName">
+                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                An error has occurred! Please check the values you have entered and check again. If the problem persists, try later. And it the problem still persists, please contact an administrator.
+              </div>
               <div class="row">
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="errormail?'has-error':''">
@@ -36,12 +36,12 @@
                   </div>
                 </div>
               </div>
-              <div class="box-footer">
-                <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submitMailName">Update user's Mail & Name</button>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div class="box-footer">
+              <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
+              <button type="submit" class="btn btn-info pull-right" @click.prevent="submitMailName">Update user's Mail & Name</button>
+            </div>
+          </form>
         </div>
         <div class="box" v-if="canadmin && !isself">
           <div class="box-header with-border">
