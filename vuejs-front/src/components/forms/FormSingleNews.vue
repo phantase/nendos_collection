@@ -7,8 +7,8 @@
           <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-newspaper-o"></i> {{ internalid ? 'Edit' : 'Add' }} a news</h3>
           </div>
-          <div class="box-body" v-if="canadmin">
-            <form role="form">
+          <form role="form" v-if="canadmin">
+            <div class="box-body">
               <div class="row">
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errortitle?'has-error':''">
@@ -45,12 +45,12 @@
                   </div>
                 </div>
               </div>
-              <div class="box-footer">
-                <button type="submit" class="btn btn-default" @click.prevent="cancel">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save news</button>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div class="box-footer">
+              <button type="reset" class="btn btn-default" @click.prevent="cancel">Cancel</button>
+              <button type="submit" class="btn btn-info pull-right" @click.prevent="submit">Save news</button>
+            </div>
+          </form>
           <div class="box-body" v-else>
             <div class="alert alert-danger">
               <h4><i class="icon fa fa-ban"></i> Not authorized!</h4>
