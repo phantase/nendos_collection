@@ -17,6 +17,19 @@ if( isset($_GET['bodypart_internalid']) ){
       $bodypart['nendoroid_url'] = urlize($bodypart['nendoroid_name']);
     }
 
+    $og_title = "Bodypart: " . $bodypart['bodypart_part'] 
+              . " from " . $bodypart['box_category'] 
+              . ((isset($bodypart['box_number']) && strlen($bodypart['box_number'])>0)?" #".$bodypart['box_number']:"") 
+              . " - " . $bodypart['box_name'];
+    $og_description = "A bodypart described in Nendoroids-db, " 
+                    . $bodypart['bodypart_part'] 
+                    . " [" . $bodypart['bodypart_main_color'] . ((isset($bodypart['bodypart_other_color']) && strlen($bodypart['bodypart_other_color'])>0)?"/".$bodypart['bodypart_other_color']:"") . "] - " 
+                    . $bodypart['bodypart_description'] 
+                    . " - From box: " . $bodypart['box_category'] 
+                    . ((isset($bodypart['box_number']) && strlen($bodypart['box_number'])>0)?" #".$bodypart['box_number']:"") 
+                    . " - " . $bodypart['box_name'];
+    $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/bodyparts/" . $bodypart['bodypart_internalid'] . "_thumb";
+
     $metadata = array('db_creatorid'    =>  $bodypart['db_creatorid'],
                       'db_creatorname'  =>  $bodypart['db_creatorname'],
                       'db_creationdate' =>  $bodypart['db_creationdate'],

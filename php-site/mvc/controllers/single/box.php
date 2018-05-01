@@ -12,6 +12,19 @@ if( isset($_GET['box_internalid']) ){
   if( $box['coll_additiondate'] ) {
     $box['coll_additionsince'] = ((new DateTime($box['now']))->diff(new DateTime($box['coll_additiondate'])));
   }
+
+  $og_title = "Box: " . $box['box_category'] 
+            . ((isset($box['box_number']) && strlen($box['box_number'])>0)?" #".$box['box_number']:"") 
+            . " - " . $box['box_name'];
+  $og_description = "A box described in Nendoroids-db, " 
+                  . "Box: " . $box['box_category'] 
+                  . ((isset($box['box_number']) && strlen($box['box_number'])>0)?" #".$box['box_number']:"") 
+                  . " - " . $box['box_name']
+                  . " - From series: " . $box['box_series'] 
+                  . " - From manufacturer: " . $box['box_manufacturer'] ;
+  $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/boxes/" . $box['box_internalid'] . "_thumb";
+
+
   $metadata = array('db_creatorid'    =>  $box['db_creatorid'],
                     'db_creatorname'  =>  $box['db_creatorname'],
                     'db_creationdate' =>  $box['db_creationdate'],
