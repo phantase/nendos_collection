@@ -8,6 +8,10 @@
   <head>
     <title><?= $page_title ?></title>
     <meta charset="utf-8" />
+    <meta name="og:type" content="summary" />
+    <meta name="og:title" content="Nendoroids-db - <?= $og_title ?>" />
+    <meta name="og:description" content="<?= $og_description ?>" />
+    <meta name="og:image" content="<?= $og_image ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <base href="/">
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
