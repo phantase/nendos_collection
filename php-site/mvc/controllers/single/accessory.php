@@ -19,7 +19,7 @@ if( isset($_GET['accessory_internalid']) ){
 
     $og_title = "Accessory: " . $accessory['accessory_type'] . " from " . $accessory['box_category'] . ((isset($accessory['box_number']) && strlen($accessory['box_number'])>0)?" #".$accessory['box_number']:"") . " - " . $accessory['box_name'];
     $og_description = "An accessory described in Nendoroids-db, " . $accessory['accessory_type'] . " [" . $accessory['accessory_main_color'] . ((isset($accessory['accessory_other_color']) && strlen($accessory['accessory_other_color'])>0)?"/".$accessory['accessory_other_color']:"") . "] - " . $accessory['accessory_description'] . " - From box: " . $accessory['box_category'] . ((isset($accessory['box_number']) && strlen($accessory['box_number'])>0)?" #".$accessory['box_number']:"") . " - " . $accessory['box_name'];
-    $og_image = "images/nendos/accessories/" . $accessory['accessory_internalid'] . "_thumb";
+    $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/accessories/" . $accessory['accessory_internalid'] . "_thumb";
 
     $metadata = array('db_creatorid'    =>  $accessory['db_creatorid'],
                       'db_creatorname'  =>  $accessory['db_creatorname'],
