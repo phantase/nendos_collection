@@ -17,6 +17,17 @@ if($resultInfo[0] == "00000" ){
   $count_hands = count_allHands();
   $count_accessories = count_allAccessories();
 
+  $og_title = "Nendoroids-db - Collect all your Nendoroids parts";
+  $og_description = "Nendoroids-db, the unique database for all the Nendoroids parts. Already "
+                  . $count_boxes . " boxes, "
+                  . $count_nendoroids . " nendoroids, "
+                  . $count_faces . " faces, "
+                  . $count_hairs . " hairs, "
+                  . $count_bodyparts . " bodyparts, "
+                  . $count_hands . " hands, "
+                  . $count_accessories . " accessories in the database!";
+  $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/logo.svg";
+
 // User counts - if user is logged in
   if( isset($_SESSION['userid']) ){
     $count_userboxes = getValueOrRaiseError(count_userBoxes($_SESSION['userid']));
