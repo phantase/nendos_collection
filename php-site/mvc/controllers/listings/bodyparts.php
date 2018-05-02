@@ -17,6 +17,17 @@ if( $resultInfo[0] == "00000" ){
     }
   }
   $page_title = "Bodyparts";
+
+  $bodypart = $bodyparts[0];
+
+  $og_title = "Already " . count($bodyparts) . " bodyparts described in Nendoroids-db";
+  $og_description = "We have " . count($bodyparts) . " bodyparts described in Nendoroids-db. "
+        . "The last one is a " . $bodypart['bodypart_part']
+        . " - From box: " . $bodypart['box_category'] 
+        . ((isset($bodypart['box_number']) && strlen($bodypart['box_number'])>0)?" #".$bodypart['box_number']:"") 
+        . " - " . $bodypart['box_name'];
+  $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/bodyparts/" . $bodypart['bodypart_internalid'] . "_thumb";
+
 } else {
   raiseError($resultInfo[2]);
 }

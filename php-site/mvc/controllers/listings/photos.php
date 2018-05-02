@@ -15,8 +15,16 @@ if($resultInfo[0]=="00000"){
     $photo[$key]['photo_uploadedsince'] = ((new DateTime($photo['now']))->diff(new DateTime($photo['photo_uploaded'])));
     $photo[$key]['photo_updatedsince'] = ((new DateTime($photo['now']))->diff(new DateTime($photo['photo_updated'])));
   }
-
   $page_title = "Photos";
+
+  $photo = $photos[0];
+
+  $og_title = "Already " . count($photos) . " photos uploaded in Nendoroids-db";
+  $og_description = "We have " . count($photos) . " photos uploaded in Nendoroids-db. "
+        . "The last one is a " . $photo['photo_title']
+        . " - From " . $photo['photo_username'];
+  $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/photos/" . $photo['photo_internalid'] . "_thumb";
+
 } else {
   raiseError($resultInfo[2]);
 }
