@@ -17,6 +17,21 @@ if( isset($_GET['face_internalid']) ){
       $face['nendoroid_url'] = urlize($face['nendoroid_name']);
     }
 
+    $og_title = "Face: " . $face['face_eyes'] 
+              . " from " . $face['box_category'] 
+              . ((isset($face['box_number']) && strlen($face['box_number'])>0)?" #".$face['box_number']:"") 
+              . " - " . $face['box_name'];
+    $og_description = "A face described in Nendoroids-db, " 
+                    . "a " . $face['face_sex'] . " face, "
+                    . "the eyes are " . $face['face_eyes'] 
+                    . " [" . $face['face_eyes_color'] . "] and " 
+                    . "the mouth is " . $face['face_mouth'] 
+                    . " [" . $face['face_skin_color'] . "]" 
+                    . " - From box: " . $face['box_category'] 
+                    . ((isset($face['box_number']) && strlen($face['box_number'])>0)?" #".$face['box_number']:"") 
+                    . " - " . $face['box_name'];
+    $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/faces/" . $face['face_internalid'] . "_thumb";
+
     $metadata = array('db_creatorid'    =>  $face['db_creatorid'],
                       'db_creatorname'  =>  $face['db_creatorname'],
                       'db_creationdate' =>  $face['db_creationdate'],

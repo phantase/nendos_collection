@@ -13,6 +13,19 @@ if( isset($_GET['nendoroid_internalid']) ){
       $nendoroid['coll_additionsince'] = ((new DateTime($nendoroid['now']))->diff(new DateTime($nendoroid['coll_additiondate'])));
     }
 
+    $og_title = "Nendoroid: " . $nendoroid['nendoroid_name'] 
+              . ((isset($nendoroid['nendoroid_version']) && strlen($nendoroid['nendoroid_version'])>0)?" - ".$nendoroid['nendoroid_version']:"")
+              . " from " . $nendoroid['box_category'] 
+              . ((isset($nendoroid['box_number']) && strlen($nendoroid['box_number'])>0)?" #".$nendoroid['box_number']:"") 
+              . " - " . $nendoroid['box_name'];
+    $og_description = "A nendoroid described in Nendoroids-db, " 
+                    . $nendoroid['nendoroid_name'] 
+                    . ((isset($nendoroid['nendoroid_version']) && strlen($nendoroid['nendoroid_version'])>0)?" - ".$nendoroid['nendoroid_version']:"")
+                    . " - From box: " . $nendoroid['box_category'] 
+                    . ((isset($nendoroid['box_number']) && strlen($nendoroid['box_number'])>0)?" #".$nendoroid['box_number']:"") 
+                    . " - " . $nendoroid['box_name'];
+    $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/nendoroids/" . $nendoroid['nendoroid_internalid'] . "_thumb";
+
     $metadata = array('db_creatorid'    =>  $nendoroid['db_creatorid'],
                       'db_creatorname'  =>  $nendoroid['db_creatorname'],
                       'db_creationdate' =>  $nendoroid['db_creationdate'],

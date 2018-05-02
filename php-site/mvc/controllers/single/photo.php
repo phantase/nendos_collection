@@ -14,6 +14,12 @@ if($resultInfo[0]=="00000"){
   raiseError($resultInfo[2]);
 }
 
+$og_title = "Photo: « " . $photo['photo_title'] . " »";
+$og_description = "A photo uploaded in Nendoroids-db, « " 
+      . $photo['photo_title'] . " »"
+      . " from " . $photo['photo_username'];
+$og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/photos/" . $photo['photo_internalid'] . "_thumb";
+
 $resultInfo = get_boxesPhoto($photo_internalid);
 if($resultInfo[0]=="00000"){
   $boxes = $resultInfo[4];

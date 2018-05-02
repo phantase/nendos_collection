@@ -17,6 +17,20 @@ if( isset($_GET['hair_internalid']) ){
       $hair['nendoroid_url'] = urlize($hair['nendoroid_name']);
     }
 
+    $og_title = "Hairs: " . $hair['hair_haircut'] 
+              . " from " . $hair['box_category'] 
+              . ((isset($hair['box_number']) && strlen($hair['box_number'])>0)?" #".$hair['box_number']:"") 
+              . " - " . $hair['box_name'];
+    $og_description = "Some hairs described in Nendoroids-db, " 
+                    . $hair['hair_frontback'] . " - "
+                    . $hair['hair_haircut'] 
+                    . " [" . $hair['hair_main_color'] . ((isset($hair['hair_other_color']) && strlen($hair['hair_other_color'])>0)?"/".$hair['hair_other_color']:"") . "] - " 
+                    . $hair['hair_description'] 
+                    . " - From box: " . $hair['box_category'] 
+                    . ((isset($hair['box_number']) && strlen($hair['box_number'])>0)?" #".$hair['box_number']:"") 
+                    . " - " . $hair['box_name'];
+    $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/hairs/" . $hair['hair_internalid'] . "_thumb";
+
     $metadata = array('db_creatorid'    =>  $hair['db_creatorid'],
                       'db_creatorname'  =>  $hair['db_creatorname'],
                       'db_creationdate' =>  $hair['db_creationdate'],

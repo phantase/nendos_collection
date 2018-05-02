@@ -17,6 +17,20 @@ if( isset($_GET['hand_internalid']) ){
       $hand['nendoroid_url'] = urlize($hand['nendoroid_name']);
     }
 
+    $og_title = "Hand: " . $hand['hand_posture'] 
+              . " from " . $hand['box_category'] 
+              . ((isset($hand['box_number']) && strlen($hand['box_number'])>0)?" #".$hand['box_number']:"") 
+              . " - " . $hand['box_name'];
+    $og_description = "A hand described in Nendoroids-db, " 
+                    . $hand['hand_leftright'] . " - "
+                    . $hand['hand_posture'] 
+                    . " [" . $hand['hand_skin_color'] . "] - " 
+                    . $hand['hand_description'] 
+                    . " - From box: " . $hand['box_category'] 
+                    . ((isset($hand['box_number']) && strlen($hand['box_number'])>0)?" #".$hand['box_number']:"") 
+                    . " - " . $hand['box_name'];
+    $og_image = "http://" . $_SERVER['HTTP_HOST'] . "/images/nendos/hands/" . $hand['hand_internalid'] . "_thumb";
+
     $metadata = array('db_creatorid'    =>  $hand['db_creatorid'],
                       'db_creatorname'  =>  $hand['db_creatorname'],
                       'db_creationdate' =>  $hand['db_creationdate'],
