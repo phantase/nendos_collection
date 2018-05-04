@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="1250px" height="1250px"
+	 xml:space="preserve">
+<defs>
+</defs>
+        <g>
+          <circle cx="300" cy="950" r="280" stroke="#F57921" stroke-width="40" fill="none" />
+          <circle cx="208" cy="900" r="38" fill="#F57921" />
+          <circle cx="392" cy="900" r="38" fill="#F57921" />
+          <path fill="#F57921"
+            d="M145 1040 
+               C145 1051 206 1130 300 1130 
+               C394 1130, 455 1051, 455 1040
+               L422 1020,
+               C422 1020, 386 1090, 300 1090
+               C214 1090, 178 1020, 178 1020" />
+          <circle cx="439" cy="1030" r="20" fill="#F57921" />
+          <circle cx="161" cy="1030" r="20" fill="#F57921" />
+        </g>
+        <circle cx="580" cy="1150" r="20" fill="#F57921" />
+        <line x1="580" y1="1150" x2="580" y2="250" stroke="#F57921" stroke-width="40" />
+        <circle cx="580" cy="250" r="20" fill="#F57921" />
+        <circle cx="670" cy="1150" r="20" fill="#F57921" />
+        <line x1="670" y1="1150" x2="670" y2="250" stroke="#F57921" stroke-width="40" />
+        <circle cx="670" cy="250" r="20" fill="#F57921" />
+        <g>
+          <circle cx="950" cy="950" r="280" stroke="#F57921" stroke-width="40" fill="none" />
+          <circle cx="858" cy="900" r="38" fill="#F57921" />
+          <circle cx="1042" cy="900" r="38" fill="#F57921" />
+          <path fill="#F57921"
+            d="M795 1040 
+               C795 1051 856 1130 950 1130 
+               C1044 1130, 1105 1051, 1105 1040
+               L1072 1020,
+               C1072 1020, 1036 1090, 950 1090
+               C864 1090, 828 1020, 828 1020" />
+          <circle cx="1089" cy="1030" r="20" fill="#F57921" />
+          <circle cx="811" cy="1030" r="20" fill="#F57921" />
+        </g>
+</svg>
