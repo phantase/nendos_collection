@@ -30,8 +30,20 @@ services:
     ports:
       - "80:80"
     volumes:
+      - "./vuejs-front/dist:/var/www/html"
+
+  webold:
+    depends_on:
+      - db
+    image: ftertre/damp
+    links:
+      - db
+    ports:
+      - "90:80"
+    volumes:
       - "./php-site:/var/www/html"
       - "./.data/nendos:/var/www/html/images/nendos/"
+      
   api:
     depends_on:
       - db
