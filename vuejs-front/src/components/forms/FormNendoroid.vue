@@ -29,20 +29,20 @@
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group" :class="errorname?'has-error':''">
                     <label>Name</label>
-                    <select2 placeholder="Name" :options="nendoroidsNameCodeList" v-model="name"></select2>
+                    <auto-suggest placeholder="Name" :options="nendoroidsNameCodeList" v-model="name"></auto-suggest>
                     <span class="help-block" v-if="errorname">The name is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group">
                     <label>Version</label>
-                    <select2 placeholder="Version" :options="nendoroidsVersionCodeList" v-model="version"></select2>
+                    <auto-suggest placeholder="Version" :options="nendoroidsVersionCodeList" v-model="version"></auto-suggest>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Gender</label>
-                    <select2 placeholder="Gender" :options="nendoroidsSexCodeList" v-model="sex"></select2>
+                    <auto-suggest placeholder="Gender" :options="nendoroidsSexCodeList" v-model="sex"></auto-suggest>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
@@ -96,12 +96,12 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
-import Select2 from './../atomic/Select2'
+import AutoSuggest from './../atomic/AutoSuggest'
 
 export default {
   name: 'FormNendoroid',
   components: {
-    Select2
+    AutoSuggest
   },
   store: store,
   data () {
@@ -110,7 +110,7 @@ export default {
       boxselected: 'box',
       name: null,
       version: null,
-      sex: 'Female',
+      sex: null,
       dominantcolor: '000000',
       errorbox: false,
       errorname: false,
@@ -161,7 +161,7 @@ export default {
       this.boxselected = 'box'
       this.name = null
       this.version = null
-      this.sex = 'Female"'
+      this.sex = 'Female'
       this.dominantcolor = '000000'
       this.errorbox = false
       this.errorname = false
@@ -243,13 +243,9 @@ export default {
   },
   mounted () {
     this.cancel()
-    // $('select').select2()
     if (this.frompart === 'box') {
       this.boxselected = this.$route.params.fromid
     }
-  },
-  beforeUpdate () {
-    // $('select').select2()
   }
 }
 </script>
