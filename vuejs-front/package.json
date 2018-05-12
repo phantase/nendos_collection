@@ -22,6 +22,7 @@
     "ts-loader": "^4.0.1",
     "typescript": "^2.7.2",
     "vue": "2.5.15",
+    "vue-autosuggest": "^1.4.2-1",
     "vue-resource": "1.5.0",
     "vue-router": "3.0.1",
     "vuex": "3.0.1"
