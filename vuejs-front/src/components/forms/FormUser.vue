@@ -330,10 +330,6 @@ export default {
   },
   mounted () {
     this.cancel()
-    // $('select').select2()
-  },
-  beforeUpdate () {
-    // $('select').select2()
   }
 }
 </script>
