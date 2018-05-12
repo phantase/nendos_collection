@@ -85,7 +85,7 @@
                 <hr>
                 <div class="row">
                   <div class="col-md-8">
-                    <select2 placeholder="New tag" :options="photosTagsCodeList" v-model="newTag"></select2>
+                    <auto-suggest placeholder="New tag" :options="photosTagsCodeList" v-model="newTag"></auto-suggest>
                   </div>
                   <div class="col-md-4">
                     <button class="btn" @click="tag">Add this tag</button>
@@ -196,7 +196,7 @@ import BodypartsTiles from './dblayouts/BodypartsTiles'
 import AccessoriesTiles from './dblayouts/AccessoriesTiles'
 import FavoritedTile from './dblayouts/FavoritedTile'
 import HistoryBox from './dblayouts/HistoryBox'
-import Select2 from './atomic/Select2'
+import AutoSuggest from './atomic/AutoSuggest'
 
 export default {
   name: 'Photo',
@@ -211,7 +211,7 @@ export default {
     AccessoriesTiles,
     FavoritedTile,
     HistoryBox,
-    Select2
+    AutoSuggest
   },
   store: store,
   data () {
