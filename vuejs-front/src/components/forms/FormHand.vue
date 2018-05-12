@@ -39,20 +39,20 @@
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="errorposture?'has-error':''">
                     <label>Posture</label>
-                    <select2 placeholder="Posture" :options="handsPostureCodeList" v-model="posture"></select2>
+                    <auto-suggest placeholder="Posture" :options="handsPostureCodeList" v-model="posture"></auto-suggest>
                     <span class="help-block" v-if="errorposture">The posture is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Left/Right/Both</label>
-                    <select2 placeholder="Left/Right/Both" :options="handsLeftRightCodeList" v-model="leftright"></select2>
+                    <auto-suggest placeholder="Left/Right/Both" :options="handsLeftRightCodeList" v-model="leftright"></auto-suggest>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="errorskincolor?'has-error':''">
                     <label>Skin color</label>
-                    <select2 placeholder="Skin color" :options="handsSkinColorCodeList" v-model="skincolor"></select2>
+                    <auto-suggest placeholder="Skin color" :options="handsSkinColorCodeList" v-model="skincolor"></auto-suggest>
                     <span class="help-block" v-if="errorskincolor">The skincolor is mandatory</span>
                   </div>
                 </div>
@@ -193,12 +193,12 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
-import Select2 from './../atomic/Select2'
+import AutoSuggest from './../atomic/AutoSuggest'
 
 export default {
   name: 'FormHand',
   components: {
-    Select2
+    AutoSuggest
   },
   store: store,
   data () {
@@ -427,7 +427,6 @@ export default {
   },
   mounted () {
     this.cancel()
-    // $('select').select2()
     if (this.frompart === 'box') {
       this.boxselected = this.$route.params.fromid
     }
@@ -435,9 +434,6 @@ export default {
       this.boxselected = this.nendoroids.find(nendoroid => nendoroid.internalid === this.$route.params.fromid).boxid
       this.nendoroidselected = this.$route.params.fromid
     }
-  },
-  beforeUpdate () {
-    // $('select').select2()
   }
 }
 </script>

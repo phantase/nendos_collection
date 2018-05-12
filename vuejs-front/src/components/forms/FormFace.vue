@@ -40,35 +40,35 @@
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="erroreyes?'has-error':''">
                     <label>Eyes</label>
-                    <select2 placeholder="Eyes" :options="facesEyesCodeList" v-model="eyes"></select2>
+                    <auto-suggest placeholder="Eyes" :options="facesEyesCodeList" v-model="eyes"></auto-suggest>
                     <span class="help-block" v-if="erroreyes">The eyes are mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="erroreyescolor?'has-error':''">
                     <label>Eyes color name</label>
-                    <select2 placeholder="Eyes color name" :options="facesEyesColorCodeList" v-model="eyescolor"></select2>
+                    <auto-suggest placeholder="Eyes color name" :options="facesEyesColorCodeList" v-model="eyescolor"></auto-suggest>
                     <span class="help-block" v-if="erroreyescolor">The eyes color is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errormouth?'has-error':''">
                     <label>Mouth</label>
-                    <select2 placeholder="Mouth" :options="facesMouthCodeList" v-model="mouth"></select2>
+                    <auto-suggest placeholder="Mouth" :options="facesMouthCodeList" v-model="mouth"></auto-suggest>
                     <span class="help-block" v-if="errormouth">The mouth is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group" :class="errorskincolor?'has-error':''">
                     <label>Skin color name</label>
-                    <select2 placeholder="Skin color name" :options="facesSkinColorCodeList" v-model="skincolor"></select2>
+                    <auto-suggest placeholder="Skin color name" :options="facesSkinColorCodeList" v-model="skincolor"></auto-suggest>
                     <span class="help-block" v-if="errorskincolor">The skin color is mandatory</span>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Gender</label>
-                    <select2 placeholder="Gender" :options="facesSexCodeList" v-model="sex"></select2>
+                    <auto-suggest placeholder="Gender" :options="facesSexCodeList" v-model="sex"></auto-suggest>
                   </div>
                 </div>
               </div>
@@ -116,12 +116,12 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
-import Select2 from './../atomic/Select2'
+import AutoSuggest from './../atomic/AutoSuggest'
 
 export default {
   name: 'FormFace',
   components: {
-    Select2
+    AutoSuggest
   },
   store: store,
   data () {
@@ -312,7 +312,6 @@ export default {
   },
   mounted () {
     this.cancel()
-    // $('select').select2()
     if (this.frompart === 'box') {
       this.boxselected = this.$route.params.fromid
     }
@@ -320,9 +319,6 @@ export default {
       this.boxselected = this.nendoroids.find(nendoroid => nendoroid.internalid === this.$route.params.fromid).boxid
       this.nendoroidselected = this.$route.params.fromid
     }
-  },
-  beforeUpdate () {
-    // $('select').select2()
   }
 }
 </script>
