@@ -24,13 +24,13 @@
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Series</label>
-                    <select2 placeholder="Series" :options="boxesSeriesCodeList" v-model="series"></select2>
+                    <auto-suggest placeholder="Series" :options="boxesSeriesCodeList" v-model="series"></auto-suggest>
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12">
                   <div class="form-group" :class="errorcategory?'has-error':''">
                     <label>Category</label>
-                    <select2 placeholder="Category" :options="boxesCategoryCodeList" v-model="category"></select2>
+                    <auto-suggest placeholder="Category" :options="boxesCategoryCodeList" v-model="category"></auto-suggest>
                     <span class="help-block" v-if="errorcategory">The category is mandatory</span>
                   </div>
                 </div>
@@ -43,19 +43,19 @@
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Manufacturer</label>
-                    <select2 placeholder="Manufacturer" :options="boxesManufacturerCodeList" v-model="manufacturer"></select2>
+                    <auto-suggest placeholder="Manufacturer" :options="boxesManufacturerCodeList" v-model="manufacturer"></auto-suggest>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Sculptor</label>
-                    <select2 placeholder="Sculptor" :options="boxesSculptorCodeList" v-model="sculptor"></select2>
+                    <auto-suggest placeholder="Sculptor" :options="boxesSculptorCodeList" v-model="sculptor"></auto-suggest>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                   <div class="form-group">
                     <label>Cooperation</label>
-                    <select2 placeholder="Cooperation" :options="boxesCooperationCodeList" v-model="cooperation"></select2>
+                    <auto-suggest placeholder="Cooperation" :options="boxesCooperationCodeList" v-model="cooperation"></auto-suggest>
                   </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
@@ -129,12 +129,12 @@ import Vuex from 'vuex'
 
 import Resources from './../../config/resources'
 
-import Select2 from './../atomic/Select2'
+import AutoSuggest from './../atomic/AutoSuggest'
 
 export default {
   name: 'FormBox',
   components: {
-    Select2
+    AutoSuggest
   },
   store: store,
   data () {
@@ -332,13 +332,9 @@ export default {
   },
   mounted () {
     this.cancel()
-    // $('select').select2()
-  },
-  beforeUpdate () {
-    // $('select').select2()
   }
 }
 </script>
 
-<style scoped>  
+<style scoped>
 </style>
