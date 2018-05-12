@@ -17,7 +17,6 @@
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
     "jquery": "^3.2.1",
-    "select2": "^4.0.3",
     "trumbowyg": "^2.5.1",
     "ts-loader": "^4.0.1",
     "typescript": "^2.7.2",
