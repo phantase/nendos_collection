@@ -84,13 +84,14 @@ export default {
       filterincollection: 'all',
       filtervalidation: 'all',
       orderedby: 'creationdate',
-      direction: 'desc'
+      direction: 'desc',
+      limit: 20
     }
   },
   computed: {
     ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids']),
     displayedNendoroids () {
-      return this.nendoroids.filter(this.filterNendoroids).concat().sort(this.sortNendoroids)
+      return this.nendoroids.filter(this.filterNendoroids).concat().sort(this.sortNendoroids).slice(0, this.limit)
     }
   },
   methods: {
@@ -123,6 +124,14 @@ export default {
         } else {
           return this.direction === 'desc' ? 1 : -1
         }
+      }
+    }
+  },
+  mounted () {
+    window.onscroll = () => {
+      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+      if (bottomOfWindow) {
+        this.limit += 20
       }
     }
   }
