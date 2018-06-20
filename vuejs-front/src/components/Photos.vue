@@ -53,13 +53,14 @@ export default {
     return {
       resources: Resources,
       orderedby: 'uploaded',
-      direction: 'desc'
+      direction: 'desc',
+      limit: 20
     }
   },
   computed: {
     ...Vuex.mapGetters(['photos']),
     displayedPhotos () {
-      return this.photos.concat().sort(this.sortPhotos)
+      return this.photos.concat().sort(this.sortPhotos).slice(0, this.limit)
     }
   },
   methods: {
@@ -68,6 +69,14 @@ export default {
         return this.direction === 'desc' ? -1 : 1
       } else {
         return this.direction === 'desc' ? 1 : -1
+      }
+    }
+  },
+  mounted () {
+    window.onscroll = () => {
+      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+      if (bottomOfWindow) {
+        this.limit += 20
       }
     }
   }
