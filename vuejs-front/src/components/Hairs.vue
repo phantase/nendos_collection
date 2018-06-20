@@ -2,8 +2,7 @@
   <div class="db-hairs">
     <div class="row">
       <div class="col-md-12">
-        <div class="box collapsed-box">
-          <app-box-header title="Sorting and filtering" collapsable="true" collapsed="true" icon="fa-filter"></app-box-header>
+        <div class="box box-solid">
           <div class="box-body">
             <div class="pull-left">
               <span v-if="authenticated">
@@ -89,18 +88,33 @@ export default {
       resources: Resources,
       filterincollection: 'all',
       filtervalidation: 'all',
-      orderedby: 'creationdate',
-      direction: 'desc',
       limit: 20
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'hairs']),
+    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'hairs', 'hairsOrderedBy', 'hairsDirection']),
     displayedHairs () {
       return this.hairs.filter(this.filterHairs).concat().sort(this.sortHairs).slice(0, this.limit)
+    },
+    orderedby: {
+      get () {
+        return this.hairsOrderedBy
+      },
+      set (newValue) {
+        this.setHairsOrderedBy(newValue)
+      }
+    },
+    direction: {
+      get () {
+        return this.hairsDirection
+      },
+      set (newValue) {
+        this.setHairsDirection(newValue)
+      }
     }
   },
   methods: {
+    ...Vuex.mapActions(['setHairsOrderedBy', 'setHairsDirection']),
     filterHairs (e) {
       if (this.filterincollection === 'yes' && e.colladdeddate === null) {
         return false

@@ -7,7 +7,17 @@ const state = {
   boxesOrderedBy: 'creationdate',
   boxesDirection: 'desc',
   nendoroidsOrderedBy: 'creationdate',
-  nendoroidsDirection: 'desc'
+  nendoroidsDirection: 'desc',
+  facesOrderedBy: 'creationdate',
+  facesDirection: 'desc',
+  hairsOrderedBy: 'creationdate',
+  hairsDirection: 'desc',
+  handsOrderedBy: 'creationdate',
+  handsDirection: 'desc',
+  bodypartsOrderedBy: 'creationdate',
+  bodypartsDirection: 'desc',
+  accessoriesOrderedBy: 'creationdate',
+  accessoriesDirection: 'desc'
 }
 
 const getters = {
@@ -31,6 +41,36 @@ const getters = {
   },
   nendoroidsDirection (state) {
     return state.nendoroidsDirection
+  },
+  facesOrderedBy (state) {
+    return state.facesOrderedBy
+  },
+  facesDirection (state) {
+    return state.facesDirection
+  },
+  hairsOrderedBy (state) {
+    return state.hairsOrderedBy
+  },
+  hairsDirection (state) {
+    return state.hairsDirection
+  },
+  handsOrderedBy (state) {
+    return state.handsOrderedBy
+  },
+  handsDirection (state) {
+    return state.handsDirection
+  },
+  bodypartsOrderedBy (state) {
+    return state.bodypartsOrderedBy
+  },
+  bodypartsDirection (state) {
+    return state.bodypartsDirection
+  },
+  accessoriesOrderedBy (state) {
+    return state.accessoriesOrderedBy
+  },
+  accessoriesDirection (state) {
+    return state.accessoriesDirection
   }
 }
 
@@ -55,6 +95,36 @@ const mutations = {
   },
   [types.SET_NENDOROIDSDIRECTION] (state, nendoroidsDirection) {
     state.nendoroidsDirection = nendoroidsDirection
+  },
+  [types.SET_FACESORDEREDBY] (state, facesOrderedBy) {
+    state.facesOrderedBy = facesOrderedBy
+  },
+  [types.SET_FACESDIRECTION] (state, facesDirection) {
+    state.facesDirection = facesDirection
+  },
+  [types.SET_HAIRSORDEREDBY] (state, hairsOrderedBy) {
+    state.hairsOrderedBy = hairsOrderedBy
+  },
+  [types.SET_HAIRSDIRECTION] (state, hairsDirection) {
+    state.hairsDirection = hairsDirection
+  },
+  [types.SET_HANDSORDEREDBY] (state, handsOrderedBy) {
+    state.handsOrderedBy = handsOrderedBy
+  },
+  [types.SET_HANDSDIRECTION] (state, handsDirection) {
+    state.handsDirection = handsDirection
+  },
+  [types.SET_BODYPARTSORDEREDBY] (state, bodypartsOrderedBy) {
+    state.bodypartsOrderedBy = bodypartsOrderedBy
+  },
+  [types.SET_BODYPARTSDIRECTION] (state, bodypartsDirection) {
+    state.bodypartsDirection = bodypartsDirection
+  },
+  [types.SET_ACCESSORIESORDEREDBY] (state, accessoriesOrderedBy) {
+    state.accessoriesOrderedBy = accessoriesOrderedBy
+  },
+  [types.SET_ACCESSORIESDIRECTION] (state, accessoriesDirection) {
+    state.accessoriesDirection = accessoriesDirection
   }
 }
 
@@ -100,6 +170,36 @@ const actions = {
   },
   setNendoroidsDirection (store, nendoroidsDirection) {
     store.commit(types.SET_NENDOROIDSDIRECTION, nendoroidsDirection)
+  },
+  setFacesOrderedBy (store, facesOrderedBy) {
+    store.commit(types.SET_FACESORDEREDBY, facesOrderedBy)
+  },
+  setFacesDirection (store, facesDirection) {
+    store.commit(types.SET_FACESDIRECTION, facesDirection)
+  },
+  setHairsOrderedBy (store, hairsOrderedBy) {
+    store.commit(types.SET_HAIRSORDEREDBY, hairsOrderedBy)
+  },
+  setHairsDirection (store, hairsDirection) {
+    store.commit(types.SET_HAIRSDIRECTION, hairsDirection)
+  },
+  setHandsOrderedBy (store, handsOrderedBy) {
+    store.commit(types.SET_HANDSORDEREDBY, handsOrderedBy)
+  },
+  setHandsDirection (store, handsDirection) {
+    store.commit(types.SET_HANDSDIRECTION, handsDirection)
+  },
+  setBodypartsOrderedBy (store, bodypartsOrderedBy) {
+    store.commit(types.SET_BODYPARTSORDEREDBY, bodypartsOrderedBy)
+  },
+  setBodypartsDirection (store, bodypartsDirection) {
+    store.commit(types.SET_BODYPARTSDIRECTION, bodypartsDirection)
+  },
+  setAccessoriesOrderedBy (store, accessoriesOrderedBy) {
+    store.commit(types.SET_ACCESSORIESORDEREDBY, accessoriesOrderedBy)
+  },
+  setAccessoriesDirection (store, accessoriesDirection) {
+    store.commit(types.SET_ACCESSORIESDIRECTION, accessoriesDirection)
   }
 }
 

@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-md-12">
         <div class="box box-solid">
-          <!-- <app-box-header title="Sorting and filtering" collapsable="true" collapsed="true" icon="fa-filter"></app-box-header> -->
           <div class="box-body">
             <div class="pull-left">
               <span v-if="authenticated">

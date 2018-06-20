@@ -2,8 +2,7 @@
   <div class="db-hands">
     <div class="row">
       <div class="col-md-12">
-        <div class="box collapsed-box">
-          <app-box-header title="Sorting and filtering" collapsable="true" collapsed="true" icon="fa-filter"></app-box-header>
+        <div class="box box-solid">
           <div class="box-body">
             <div class="pull-left">
               <span v-if="authenticated">
@@ -88,18 +87,33 @@ export default {
       resources: Resources,
       filterincollection: 'all',
       filtervalidation: 'all',
-      orderedby: 'creationdate',
-      direction: 'desc',
       limit: 20
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'hands']),
+    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'hands', 'handsOrderedBy', 'handsDirection']),
     displayedHands () {
       return this.hands.filter(this.filterHands).concat().sort(this.sortHands).slice(0, this.limit)
+    },
+    orderedby: {
+      get () {
+        return this.handsOrderedBy
+      },
+      set (newValue) {
+        this.setHandsOrderedBy(newValue)
+      }
+    },
+    direction: {
+      get () {
+        return this.handsDirection
+      },
+      set (newValue) {
+        this.setHandsDirection(newValue)
+      }
     }
   },
   methods: {
+    ...Vuex.mapActions(['setHandsOrderedBy', 'setHandsDirection']),
     filterHands (e) {
       if (this.filterincollection === 'yes' && e.colladdeddate === null) {
         return false
