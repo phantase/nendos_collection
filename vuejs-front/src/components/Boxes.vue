@@ -2,8 +2,8 @@
   <div class="db-boxes">
     <div class="row">
       <div class="col-md-12">
-        <div class="box collapsed-box">
-          <app-box-header title="Sorting and filtering" collapsable="true" collapsed="true" icon="fa-filter"></app-box-header>
+        <div class="box box-solid">
+          <!-- <app-box-header title="Sorting and filtering" collapsable="true" collapsed="true" icon="fa-filter"></app-box-header> -->
           <div class="box-body">
             <div class="pull-left">
               <span v-if="authenticated">
@@ -78,18 +78,33 @@ export default {
       resources: Resources,
       filterincollection: 'all',
       filtervalidation: 'all',
-      orderedby: 'creationdate',
-      direction: 'desc',
       limit: 20
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes']),
+    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'boxesOrderedBy', 'boxesDirection']),
     displayedBoxes () {
       return this.boxes.filter(this.filterBoxes).concat().sort(this.sortBoxes).slice(0, this.limit)
+    },
+    orderedby: {
+      get () {
+        return this.boxesOrderedBy
+      },
+      set (newValue) {
+        this.setBoxesOrderedBy(newValue)
+      }
+    },
+    direction: {
+      get () {
+        return this.boxesDirection
+      },
+      set (newValue) {
+        this.setBoxesDirection(newValue)
+      }
     }
   },
   methods: {
+    ...Vuex.mapActions(['setBoxesOrderedBy', 'setBoxesDirection']),
     filterBoxes (e) {
       if (this.filterincollection === 'yes' && e.colladdeddate === null) {
         return false
