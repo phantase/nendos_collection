@@ -1,5 +1,5 @@
 <template>
-          <li class="dropdown messages-menu">
+          <li class="dropdown messages-menu hidden-xs">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa icon-icon_nendo_hair"></i>
               <span class="label label-info" v-if="hairsLoadedPartially">Partial</span>
