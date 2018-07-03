@@ -2,7 +2,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-    <app-content-header :pageheader="pageheader" :pagedescription="pagedescription" :breadcrumb="breadcrumb"></app-content-header>
+    <app-content-header :pageheader="pageheader" :pagedescription="pagedescription" :breadcrumb="breadcrumb" v-if="false"></app-content-header>
 
     <!-- Main content -->
     <section class="content">
