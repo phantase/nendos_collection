@@ -15,7 +15,7 @@
               :title="`<div class='db-box-category text-yellow'>`+box.category+(box.number ? ' #'+box.number:'')+`</div>
                             <div class='db-box-name'>`+box.name+`</div>
                             <div class='db-box-series'>`+(box.series?box.series:``)+`</div>`">
-          <img :src="resources.img_url+'/images/boxes/'+box.internalid+'/thumb'" v-if="box.haspicture == '1'"/>
+          <img :src="resources.img_url+'/images/boxes/'+box.internalid+'/1/thumb'" v-if="box.nbpictures > 0"/>
           <img :src="resources.img_url+'/images/unknown'" v-else />
           <span v-if="!minimal">
             <span class="badge bg-blue incollection" v-if="box.collquantity">{{ box.collquantity }}</span>

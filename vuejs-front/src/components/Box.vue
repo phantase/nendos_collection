@@ -117,8 +117,13 @@
         <div class="box">
           <app-box-header title="Photo" collapsable="true" icon="fa-photo" :editable="canedit" :editlink="'/box/'+box.internalid+'/edit/image'"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.img_url+'/images/boxes/'+box.internalid+'/thumb'" v-if="box.haspicture == '1'"/>
+            <img :src="resources.img_url+'/images/boxes/'+box.internalid+'/'+current+'/thumb'" v-if="box.nbpictures > 0"/>
             <img :src="resources.img_url+'/images/unknown'" v-else />
+            <div v-if="box.nbpictures > 1" style="text-align:center;">
+              <i class="fa fa-chevron-left" style="float:left;" @click="prevPhoto()"></i>
+              <span style="text-align:center; font-weight:bold;">{{ box.nbpictures }} photos available</span>
+              <i class="fa fa-chevron-right" style="float:right;" @click="nextPhoto()"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -249,7 +254,8 @@ export default {
     return {
       resources: Resources,
       addTag: false,
-      newTag: []
+      newTag: [],
+      current: 1
     }
   },
   computed: {
@@ -362,6 +368,12 @@ export default {
       }, () => {
         console.log('Tag failed')
       })
+    },
+    nextPhoto () {
+      this.current = (this.current === (this.box.nbpictures * 1)) ? 1 : this.current + 1
+    },
+    prevPhoto () {
+      this.current = (this.current === 1) ? this.box.nbpictures : this.current - 1
     }
   },
   mounted () {

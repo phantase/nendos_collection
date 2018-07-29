@@ -12,9 +12,10 @@ $app->get('/images/unknown', function (Request $request, Response $response, $ar
 });
 
 // Retrieve the image of a single {element} using its {internalid}
-$app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|user|users}/{internalid:[0-9]+}[/{size:full|thumb}]', function (Request $request, Response $response, $args) {
+$app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|user|users}/{internalid:[0-9]+}/{number:[0-9]+}[/{size:full|thumb}]', function (Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
+    $number = (int)$args['number'];
     $param_size = isset($args['size'])?$args['size']:'full';
     $this->applogger->addInfo("GET /images/$param_element/$internalid/$param_size");
 
@@ -61,7 +62,7 @@ $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
                 throw new Exception("Error Processing Request", 1);
         }
 
-        $filename = "images/nendos/$element/$internalid"."_$param_size.jpg";
+        $filename = "images/nendos/$element/$internalid"."_$number"."_$param_size.jpg";
 
         if (file_exists($filename)) {
             $image = file_get_contents($filename);

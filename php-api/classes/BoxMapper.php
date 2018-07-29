@@ -13,7 +13,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -86,7 +86,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -155,7 +155,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -226,7 +226,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -298,7 +298,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -370,7 +370,7 @@ class BoxMapper extends Mapper
                   b.price, b.releasedate, b.specifications, b.sculptor, b.cooperation, b.officialurl,
                   b.creatorid, uc.username AS creatorname, b.creationdate,
                   b.editorid, ue.username AS editorname, b.editiondate,
-                  b.validatorid, uv.username AS validatorname, b.validationdate, b.haspicture,
+                  b.validatorid, uv.username AS validatorname, b.validationdate, b.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -810,7 +810,7 @@ class BoxMapper extends Mapper
 
   public function addPicture($box_internalid, $userid) {
     $sql = "UPDATE boxes SET
-              haspicture = 1
+              nbpictures = 1
             WHERE internalid = :internalid";
     $stmt = $this->db->prepare($sql);
     $result = $stmt->execute([
