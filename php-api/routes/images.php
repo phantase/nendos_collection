@@ -81,12 +81,13 @@ $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
 });
 
 // Post the image of a single {element} using its {internalid}
-$app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{internalid:[0-9]+}', function (Request $request, Response $response, $args) {
+$app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos}/{internalid:[0-9]+}/{imagenumber:[0-9]+}', function (Request $request, Response $response, $args) {
     $userid = $request->getAttribute("token")->user->internalid;
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
+    $imagenumber = (int)$args['imagenumber'];
     $files = $request->getUploadedFiles();
-    $this->applogger->addInfo("POST /auth/images/$param_element/$internalid", array('user'=>$request->getAttribute("token")->user));
+    $this->applogger->addInfo("POST /auth/images/$param_element/$internalid/$imagenumber", array('user'=>$request->getAttribute("token")->user));
     if( $request->getAttribute("token")->user->editor === "1" || $request->getAttribute("token")->user->administrator === "1" ){
         try {
 
@@ -137,8 +138,8 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
                 mkdir($destination_folder, 0777, true);
             }
 
-            $filename_full = $destination_folder.$internalid."_full.jpg";
-            $filename_thumb = $destination_folder.$internalid."_thumb.jpg";
+            $filename_full = $destination_folder.$internalid."_".$imagenumber."_full.jpg";
+            $filename_thumb = $destination_folder.$internalid."_".$imagenumber."_thumb.jpg";
 
             $maxside = 500;
 
@@ -164,16 +165,16 @@ $app->post('/auth/images/{element:box|boxes|nendoroid|nendoroids|accessory|acces
             imagejpeg($image_dest, $filename_thumb, 90);
 
             $mapper = MapperFactory::getMapper($this->db,$param_element);
-            $mapper->addPicture($internalid, $userid);
+            $mapper->addPicture($internalid, $imagenumber, $userid);
 
             return $response->withStatus(201);
 
         } catch (Exception $e){
-            $this->applogger->addError("POST /images/$param_element/$internalid", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
+            $this->applogger->addError("POST /images/$param_element/$internalid/$imagenumber", array('user'=>$request->getAttribute("token")->user,'exception'=>$e));
             return $response->withStatus(400);
         }
     } else {
-        $this->applogger->addDebug("POST /images/$param_element/$internalid - No right to do that", array('user'=>$request->getAttribute("token")->user));
+        $this->applogger->addDebug("POST /images/$param_element/$internalid/$imagenumber - No right to do that", array('user'=>$request->getAttribute("token")->user));
         return $response->withStatus(403);
     }
 
@@ -185,6 +186,7 @@ $app->post('/auth/images/{element:user|users}/{internalid:[0-9]+}', function (Re
     $userid = $request->getAttribute("token")->user->internalid;
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
+    $imagenumber = 1;
     $files = $request->getUploadedFiles();
     $this->applogger->addInfo("Userid: $userid Internalid: $internalid");
     if( $userid == $internalid ){
@@ -238,7 +240,7 @@ $app->post('/auth/images/{element:user|users}/{internalid:[0-9]+}', function (Re
             imagejpeg($image_dest, $filename_thumb, 90);
 
             $mapper = MapperFactory::getMapper($this->db,$param_element);
-            $mapper->addPicture($internalid, $userid);
+            $mapper->addPicture($internalid, $imagenumber, $userid);
 
             return $response->withStatus(201);
 

@@ -296,7 +296,7 @@ export default new Router({
       component: FormBox
     },
     {
-      path: '/box/:id/edit/image',
+      path: '/box/:id/edit/image/:number',
       name: 'Edit box photo',
       meta: {
         description: 'Edit the photo of a box',

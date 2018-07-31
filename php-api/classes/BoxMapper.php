@@ -808,17 +808,35 @@ class BoxMapper extends Mapper
     return $this->getByInternalid($box->getInternalid(), $userid);
   }
 
-  public function addPicture($box_internalid, $userid) {
-    $sql = "UPDATE boxes SET
-              nbpictures = 1
-            WHERE internalid = :internalid";
+  public function addPicture($box_internalid, $box_imagenumber, $userid) {
+    $sql = "SELECT b.nbpictures
+          FROM boxes b
+          WHERE b.internalid = :boxid";
     $stmt = $this->db->prepare($sql);
-    $result = $stmt->execute([
-        "internalid" => $box_internalid
-      ]);
-    if(!$result) {
-      throw new Exception("Could not update box");
+    $stmt->execute(["boxid" => $box_internalid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new BoxEntity($row);
     }
-    $this->addHistory($userid, $box_internalid, "Update", "Picture has been updated");
+    $nbpictures = $results[0]->getNbPictures();
+
+    if ($box_imagenumber > $nbpictures) {
+      $nbpictures ++;
+
+      $sql = "UPDATE boxes SET
+                nbpictures = :nbpictures
+          WHERE internalid = :internalid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute([
+          "internalid" => $box_internalid,
+          "nbpictures" => $nbpictures
+        ]);
+      if(!$result) {
+        throw new Exception("Could not update box");
+      }
+    }
+
+    $this->addHistory($userid, $box_internalid, "Update", "Picture $box_imagenumber has been updated");
   }
 }

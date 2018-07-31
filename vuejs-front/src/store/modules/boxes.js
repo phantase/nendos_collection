@@ -94,9 +94,13 @@ const mutations = {
     state.boxes.find(box => box.internalid === boxid).numberfavorited--
     state.boxes.find(box => box.internalid === boxid).inuserfavorites = null
   },
-  [types.ADD_BOX_PICTURE] (state, internalid) {
+  [types.ADD_BOX_PICTURE] (state, payload) {
+    let internalid = payload.internalid
+    let number = payload.number
     let idx = state.boxes.findIndex(intbox => intbox.internalid === internalid)
-    state.boxes[idx].haspicture = 1
+    if (number > state.boxes[idx].nbpictures) {
+      state.boxes[idx].nbpictures ++
+    }
   },
   [types.SET_BOXES_TAGS_CODELIST] (state, tags) {
     state.boxesTagsCodeList = tags
@@ -257,7 +261,11 @@ const actions = {
   },
   addBoxPicture (store, payload) {
     let internalid = payload.internalid
-    store.commit(types.ADD_BOX_PICTURE, internalid)
+    let number = payload.number
+    store.commit(types.ADD_BOX_PICTURE, {
+      'internalid': internalid,
+      'number': number
+    })
   },
   setBoxesTagsCodeList (store, tags) {
     store.commit(types.SET_BOXES_TAGS_CODELIST, tags)

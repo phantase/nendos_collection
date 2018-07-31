@@ -6,7 +6,7 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">
-              <div>{{ this.$route.name }}</div>
+              <div>{{ this.$route.name }} # {{ imageNumber }}</div>
             </h3>
           </div>
         </div>
@@ -80,7 +80,7 @@
         <div class="box">
           <app-box-header title="Current photo" collapsable="true" icon="fa-photo"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.img_url+'/images/'+element+'/'+internalid+'/thumb'" v-if="elementObject.haspicture === '1'" />
+            <img :src="resources.img_url+'/images/'+element+'/'+internalid+'/'+imageNumber+'/thumb'" v-if="(elementObject.nbpictures * 1) >= imageNumber" />
             <img :src="resources.img_url+'/images/unknown'" v-else />
           </div>
         </div>
@@ -152,6 +152,9 @@ export default {
     internalid () {
       return this.$route.params.id
     },
+    imageNumber () {
+      return this.$route.params.number
+    },
     element () {
       return this.$route.path.split('/')[1]
     },
@@ -195,10 +198,10 @@ export default {
           let formData = new FormData()
           formData.append('pic', this.file.nativeFile, this.file.name)
           let pathArray = this.$route.path.split('/')
-          this.$http.post('auth/images/' + pathArray[1] + '/' + pathArray[2], formData).then(response => {
+          this.$http.post('auth/images/' + pathArray[1] + '/' + pathArray[2] + '/' + pathArray[5], formData).then(response => {
             switch (this.element) {
               case 'box':
-                this.addBoxPicture({'internalid': this.$route.params.id})
+                this.addBoxPicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})
                 break
               case 'nendoroid':
                 this.addNendoroidPicture({'internalid': this.$route.params.id})

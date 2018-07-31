@@ -115,7 +115,9 @@
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
-          <app-box-header title="Photo" collapsable="true" icon="fa-photo" :editable="canedit" :editlink="'/box/'+box.internalid+'/edit/image'"></app-box-header>
+          <app-box-header title="Photo" collapsable="true" icon="fa-photo" 
+              :editable="canedit" :editlink="'/box/'+box.internalid+'/edit/image/'+current"
+              :otherable="canedit" :otherlink="'/box/'+box.internalid+'/edit/image/'+(box.nbpictures*1+1)" othericon="fa-plus-square-o" othername="Add photo"></app-box-header>
           <div class="box-body db-image">
             <img :src="resources.img_url+'/images/boxes/'+box.internalid+'/'+current+'/thumb'" v-if="box.nbpictures > 0"/>
             <img :src="resources.img_url+'/images/unknown'" v-else />
