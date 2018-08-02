@@ -198,7 +198,11 @@ export default {
           let formData = new FormData()
           formData.append('pic', this.file.nativeFile, this.file.name)
           let pathArray = this.$route.path.split('/')
-          this.$http.post('auth/images/' + pathArray[1] + '/' + pathArray[2] + '/' + pathArray[5], formData).then(response => {
+          let posturl = 'auth/images/' + pathArray[1] + '/' + pathArray[2]
+          if (pathArray.length > 5) {
+            posturl += '/' + pathArray[5]
+          }
+          this.$http.post(posturl, formData).then(response => {
             switch (this.element) {
               case 'box':
                 this.addBoxPicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})
@@ -207,7 +211,7 @@ export default {
                 this.addNendoroidPicture({'internalid': this.$route.params.id})
                 break
               case 'accessory':
-                this.addAccessoryPicture({'internalid': this.$route.params.id})
+                this.addAccessoryPicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})
                 break
               case 'bodypart':
                 this.addBodypartPicture({'internalid': this.$route.params.id})

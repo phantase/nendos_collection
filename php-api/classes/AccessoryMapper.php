@@ -12,7 +12,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -84,7 +84,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -152,7 +152,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -222,7 +222,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -292,7 +292,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -362,7 +362,7 @@ class AccessoryMapper extends Mapper
     $sql = "SELECT a.internalid, a.boxid, a.nendoroidid, a.type, a.main_color, a.other_color, a.description,
                   a.creatorid, uc.username AS creatorname, a.creationdate,
                   a.editorid, ue.username AS editorname, a.editiondate,
-                  a.validatorid, uv.username AS validatorname, a.validationdate, a.haspicture,
+                  a.validatorid, uv.username AS validatorname, a.validationdate, a.nbpictures,
                   pa.xmin, pa.xmax, pa.ymin, pa.ymax, pa.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
@@ -499,17 +499,35 @@ class AccessoryMapper extends Mapper
     return $this->getByInternalid($accessory->getInternalId(), $userid);
   }
 
-  public function addPicture($accessory_internalid, $userid) {
-    $sql = "UPDATE accessories SET
-              haspicture = 1
-            WHERE internalid = :internalid";
+  public function addPicture($accessory_internalid, $accessory_imagenumber, $userid) {
+    $sql = "SELECT nbpictures
+          FROM accessories
+          WHERE internalid = :accessoryid";
     $stmt = $this->db->prepare($sql);
-    $result = $stmt->execute([
-        "internalid" => $accessory_internalid
-      ]);
-    if(!$result) {
-      throw new Exception("Could not update accessory");
+    $stmt->execute(["accessoryid" => $accessory_internalid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new AccessoryEntity($row);
     }
-    $this->addHistory($userid, $accessory_internalid, "Update", "Picture has been updated");
+    $nbpictures = $results[0]->getNbPictures();
+
+    if ($accessory_imagenumber > $nbpictures) {
+      $nbpictures ++;
+
+      $sql = "UPDATE accessories SET
+                nbpictures = :nbpictures
+          WHERE internalid = :internalid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute([
+          "internalid" => $accessory_internalid,
+          "nbpictures" => $nbpictures
+        ]);
+      if(!$result) {
+        throw new Exception("Could not update accessory");
+      }
+    }
+
+    $this->addHistory($userid, $accessory_internalid, "Update", "Picture $accessory_imagenumber has been updated");
   }
 }

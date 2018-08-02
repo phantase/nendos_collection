@@ -138,7 +138,7 @@ export default new Router({
       component: FormAccessory
     },
     {
-      path: '/accessory/:id/edit/image',
+      path: '/accessory/:id/edit/image/:number',
       name: 'Edit accessory photo',
       meta: {
         description: 'Edit the photo of an accessory',

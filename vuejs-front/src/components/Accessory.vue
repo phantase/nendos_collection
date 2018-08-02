@@ -97,10 +97,17 @@
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12">
         <div class="box">
-          <app-box-header title="Photo" collapsable="true" icon="fa-photo" :editable="canedit" :editlink="'/accessory/'+accessory.internalid+'/edit/image'"></app-box-header>
+          <app-box-header title="Photo" collapsable="true" icon="fa-photo" 
+              :editable="canedit" :editlink="'/accessory/'+accessory.internalid+'/edit/image/'+current"
+              :otherable="canedit" :otherlink="'/accessory/'+accessory.internalid+'/edit/image/'+(accessory.nbpictures*1+1)" othericon="fa-plus-square-o" othername="Add photo"></app-box-header>
           <div class="box-body db-image">
-            <img :src="resources.img_url+'/images/accessories/'+accessory.internalid+'/thumb'"  v-if="accessory.haspicture == '1'"/>
+            <img :src="resources.img_url+'/images/accessories/'+accessory.internalid+'/'+current+'/thumb'"  v-if="accessory.nbpictures > 0"/>
             <img :src="resources.img_url+'/images/unknown'" v-else />
+            <div v-if="accessory.nbpictures > 1" style="text-align:center;">
+              <i class="fa fa-chevron-left" style="float:left;" @click="prevPhoto()"></i>
+              <span style="text-align:center; font-weight:bold;">{{ accessory.nbpictures }} photos available</span>
+              <i class="fa fa-chevron-right" style="float:right;" @click="nextPhoto()"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -170,7 +177,8 @@ export default {
     return {
       resources: Resources,
       addTag: false,
-      newTag: []
+      newTag: [],
+      current: 1
     }
   },
   computed: {
@@ -287,6 +295,12 @@ export default {
       }, () => {
         console.log('Tag failed')
       })
+    },
+    nextPhoto () {
+      this.current = (this.current === (this.accessory.nbpictures * 1)) ? 1 : this.current + 1
+    },
+    prevPhoto () {
+      this.current = (this.current === 1) ? this.accessory.nbpictures : this.current - 1
     }
   },
   mounted () {

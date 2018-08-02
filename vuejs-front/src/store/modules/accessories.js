@@ -84,9 +84,13 @@ const mutations = {
     state.accessories.find(accessory => accessory.internalid === accessoryid).numberfavorited--
     state.accessories.find(accessory => accessory.internalid === accessoryid).inuserfavorites = null
   },
-  [types.ADD_ACCESSORY_PICTURE] (state, internalid) {
+  [types.ADD_ACCESSORY_PICTURE] (state, payload) {
+    let internalid = payload.internalid
+    let number = payload.number
     let idx = state.accessories.findIndex(intaccessory => intaccessory.internalid === internalid)
-    state.accessories[idx].haspicture = 1
+    if (number > state.accessories[idx].nbpictures) {
+      state.accessories[idx].nbpictures ++
+    }
   },
   [types.SET_ACCESSORIES_TAGS_CODELIST] (state, tags) {
     state.accessoriesTagsCodeList = tags
@@ -245,7 +249,11 @@ const actions = {
   },
   addAccessoryPicture (store, payload) {
     let internalid = payload.internalid
-    store.commit(types.ADD_ACCESSORY_PICTURE, internalid)
+    let number = payload.number
+    store.commit(types.ADD_ACCESSORY_PICTURE, {
+      'internalid': internalid,
+      'number': number
+    })
   },
   setAccessoriesTagsCodeList (store, tags) {
     store.commit(types.SET_ACCESSORIES_TAGS_CODELIST, tags)
