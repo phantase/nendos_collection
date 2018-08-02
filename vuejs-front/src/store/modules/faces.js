@@ -94,9 +94,13 @@ const mutations = {
     state.faces.find(face => face.internalid === faceid).numberfavorited--
     state.faces.find(face => face.internalid === faceid).inuserfavorites = null
   },
-  [types.ADD_FACE_PICTURE] (state, internalid) {
+  [types.ADD_FACE_PICTURE] (state, payload) {
+    let internalid = payload.internalid
+    let number = payload.number
     let idx = state.faces.findIndex(intface => intface.internalid === internalid)
-    state.faces[idx].haspicture = 1
+    if (number > state.faces[idx].nbpictures) {
+      state.faces[idx].nbpictures ++
+    }
   },
   [types.SET_FACES_TAGS_CODELIST] (state, tags) {
     state.facesTagsCodeList = tags
@@ -257,7 +261,11 @@ const actions = {
   },
   addFacePicture (store, payload) {
     let internalid = payload.internalid
-    store.commit(types.ADD_FACE_PICTURE, internalid)
+    let number = payload.number
+    store.commit(types.ADD_FACE_PICTURE, {
+      'internalid': internalid,
+      'number': number
+    })
   },
   setFacesTagsCodeList (store, tags) {
     store.commit(types.SET_FACES_TAGS_CODELIST, tags)

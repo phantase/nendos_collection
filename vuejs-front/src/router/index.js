@@ -437,7 +437,7 @@ export default new Router({
       component: FormFace
     },
     {
-      path: '/face/:id/edit/image',
+      path: '/face/:id/edit/image/:number',
       name: 'Edit face photo',
       meta: {
         description: 'Edit the photo of a face',

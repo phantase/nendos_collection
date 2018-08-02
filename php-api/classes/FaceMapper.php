@@ -12,7 +12,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -84,7 +84,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -152,7 +152,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -222,7 +222,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -292,7 +292,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -362,7 +362,7 @@ class FaceMapper extends Mapper
     $sql = "SELECT f.internalid, f.boxid, f.nendoroidid, f.eyes, f.eyes_color, f.mouth, f.skin_color, f.sex,
                   f.creatorid, uc.username AS creatorname, f.creationdate,
                   f.editorid, ue.username AS editorname, f.editiondate,
-                  f.validatorid, uv.username AS validatorname, f.validationdate, f.haspicture,
+                  f.validatorid, uv.username AS validatorname, f.validationdate, f.nbpictures,
                   pf.xmin, pf.xmax, pf.ymin, pf.ymax, pf.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
@@ -502,17 +502,35 @@ class FaceMapper extends Mapper
     return $this->getByInternalid($face->getInternalId(), $userid);
   }
 
-  public function addPicture($face_internalid, $userid) {
-    $sql = "UPDATE faces SET
-              haspicture = 1
-            WHERE internalid = :internalid";
+  public function addPicture($face_internalid, $face_imagenumber, $userid) {
+    $sql = "SELECT nbpictures
+        FROM faces
+        WHERE internalid = :faceid";
     $stmt = $this->db->prepare($sql);
-    $result = $stmt->execute([
-        "internalid" => $face_internalid
-      ]);
-    if(!$result) {
-      throw new Exception("Could not update face");
+    $stmt->execute(["faceid" => $face_internalid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new FaceEntity($row);
     }
-    $this->addHistory($userid, $face_internalid, "Update", "Picture has been updated");
+    $nbpictures = $results[0]->getNbPictures();
+
+    if ($face_imagenumber > $nbpictures) {
+      $nbpictures ++;
+
+      $sql = "UPDATE faces SET
+                nbpictures = :nbpictures
+          WHERE internalid = :internalid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute([
+          "internalid" => $face_internalid,
+          "nbpictures" => $nbpictures
+        ]);
+      if(!$result) {
+        throw new Exception("Could not update face");
+      }
+    }
+
+    $this->addHistory($userid, $face_internalid, "Update", "Picture $face_imagenumber has been updated");
   }
 }

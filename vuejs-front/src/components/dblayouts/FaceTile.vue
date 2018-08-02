@@ -11,7 +11,7 @@
               data-toggle="tooltip" data-html="true"
               :title="`<div class='db-face-eyes'><span class='text-yellow'>Eyes:</span> `+face.eyes+`</div>
                         <div class='db-face-mouth'><span class='text-yellow'>Mouth:</span> `+face.mouth+`</div>`">
-          <img :src="resources.img_url+'/images/faces/'+face.internalid+'/thumb'" v-if="face.haspicture == '1'"/>
+          <img :src="resources.img_url+'/images/faces/'+face.internalid+'/1/thumb'" v-if="face.nbpictures > 0"/>
           <img :src="resources.img_url+'/images/unknown'" v-else />
           <span v-if="!minimal">
             <span class="badge bg-blue incollection" v-if="face.collquantity">{{ face.collquantity }}</span>
