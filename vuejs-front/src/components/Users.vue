@@ -50,7 +50,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in users">
+                <tr v-for="user in users" :key="user.internalid">
                   <td>{{ user.internalid }}</td>
                   <td class="post">
                     <div class="user-block">
