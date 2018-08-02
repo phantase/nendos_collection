@@ -98,7 +98,7 @@
 
             $og_title = "Nendoroids-db - Already ".$rep['count']." hairs described in Nendoroids-db";
             $og_description = "We have ".$rep['count']." hairs described in Nendoroids-db. The last one is a ".$rep['haircut']." - From box: ".$rep['box_category']."".(isset($rep['box_number'])?" #".$rep['box_number']:"")." - ".$rep['box_name'];
-            $og_image = "https://api.nendoroids-db.net/images/hairs/".$rep['internalid']."/thumb";
+            $og_image = "https://api.nendoroids-db.net/images/hairs/".$rep['internalid']."/1/thumb";
             break;
           case 'hair':
             // We are in single hair
@@ -109,7 +109,7 @@
 
             $og_title = "Nendoroids-db - Hairs: ".$rep['haircut']." from ".$rep['box_category']."".(isset($rep['box_number'])?" #".$rep['box_number']:"")." - ".$rep['box_name'];
             $og_description = "Some hairs described in Nendoroids-db, ".$rep['frontback']." - ".$rep['haircut']." [".$rep['main_color'].(isset($rep['other_color'])?"/".$rep['other_color']:"")."] - ".$rep['description']." - From box: ".$rep['box_category']."".(isset($rep['box_number'])?" #".$rep['box_number']:"")." - ".$rep['box_name'];
-            $og_image = "https://api.nendoroids-db.net/images/hairs/".$rep['internalid']."/thumb";
+            $og_image = "https://api.nendoroids-db.net/images/hairs/".$rep['internalid']."/1/thumb";
             break;
           case 'hands':
             // We are in hands

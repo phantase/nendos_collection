@@ -89,9 +89,13 @@ const mutations = {
     state.hairs.find(hair => hair.internalid === hairid).numberfavorited--
     state.hairs.find(hair => hair.internalid === hairid).inuserfavorites = null
   },
-  [types.ADD_HAIR_PICTURE] (state, internalid) {
+  [types.ADD_HAIR_PICTURE] (state, payload) {
+    let internalid = payload.internalid
+    let number = payload.number
     let idx = state.hairs.findIndex(inthair => inthair.internalid === internalid)
-    state.hairs[idx].haspicture = 1
+    if (number > state.hairs[idx].nbpictures) {
+      state.hairs[idx].nbpictures ++
+    }
   },
   [types.SET_HAIRS_TAGS_CODELIST] (state, tags) {
     state.hairsTagsCodeList = tags
@@ -252,7 +256,11 @@ const actions = {
   },
   addHairPicture (store, payload) {
     let internalid = payload.internalid
-    store.commit(types.ADD_HAIR_PICTURE, internalid)
+    let number = payload.number
+    store.commit(types.ADD_HAIR_PICTURE, {
+      'internalid': internalid,
+      'number': number
+    })
   },
   setHairsTagsCodeList (store, tags) {
     store.commit(types.SET_HAIRS_TAGS_CODELIST, tags)

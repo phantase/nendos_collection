@@ -523,7 +523,7 @@ export default new Router({
       component: FormHair
     },
     {
-      path: '/hair/:id/edit/image',
+      path: '/hair/:id/edit/image/:number',
       name: 'Edit hair photo',
       meta: {
         description: 'Edit the photo of a hair',

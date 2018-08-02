@@ -220,7 +220,7 @@ export default {
                 this.addFacePicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})
                 break
               case 'hair':
-                this.addHairPicture({'internalid': this.$route.params.id})
+                this.addHairPicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})
                 break
               case 'hand':
                 this.addHandPicture({'internalid': this.$route.params.id})

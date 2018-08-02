@@ -3,7 +3,7 @@
     <div class="info-box">
       <span class="info-box-icon bg-yellow"><i class="fa icon-icon_nendo_hair"></i></span>
       <span class="info-box-icon bg-yellow" style="float:right;">
-        <img :src="resources.img_url+'/images/hairs/'+hair.internalid+'/thumb'" v-if="hair.haspicture == '1'"/>
+        <img :src="resources.img_url+'/images/hairs/'+hair.internalid+'/1/thumb'" v-if="hair.nbpictures > 0"/>
         <img :src="resources.img_url+'/images/unknown'" v-else />
       </span>
       <div class="info-box-content">

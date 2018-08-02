@@ -12,7 +12,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -84,7 +84,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -152,7 +152,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -222,7 +222,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -292,7 +292,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -362,7 +362,7 @@ class HairMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.main_color, h.other_color, h.haircut, h.description, h.frontback,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ph.xmin, ph.xmax, ph.ymin, ph.ymax, ph.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
@@ -502,17 +502,35 @@ class HairMapper extends Mapper
     return $this->getByInternalid($hair->getInternalId(), $userid);
   }
 
-  public function addPicture($hair_internalid, $userid) {
-    $sql = "UPDATE hairs SET
-              haspicture = 1
-            WHERE internalid = :internalid";
+  public function addPicture($hair_internalid, $hair_imagenumber, $userid) {
+    $sql = "SELECT nbpictures
+        FROM hairs
+        WHERE internalid = :hairid";
     $stmt = $this->db->prepare($sql);
-    $result = $stmt->execute([
-        "internalid" => $hair_internalid
-      ]);
-    if(!$result) {
-      throw new Exception("Could not update hair");
+    $stmt->execute(["hairid" => $hair_internalid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new HairEntity($row);
     }
-    $this->addHistory($userid, $hair_internalid, "Update", "Picture has been updated");
+    $nbpictures = $results[0]->getNbPictures();
+
+    if ($hair_imagenumber > $nbpictures) {
+      $nbpictures ++;
+
+      $sql = "UPDATE hairs SET
+                nbpictures = :nbpictures
+          WHERE internalid = :internalid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute([
+          "internalid" => $hair_internalid,
+          "nbpictures" => $nbpictures
+        ]);
+      if(!$result) {
+        throw new Exception("Could not update hair");
+      }
+    }
+
+    $this->addHistory($userid, $hair_internalid, "Update", "Picture $hair_imagenumber has been updated");
   }
 }
