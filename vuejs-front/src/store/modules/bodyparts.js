@@ -84,9 +84,13 @@ const mutations = {
     state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).numberfavorited--
     state.bodyparts.find(bodypart => bodypart.internalid === bodypartid).inuserfavorites = null
   },
-  [types.ADD_BODYPART_PICTURE] (state, internalid) {
+  [types.ADD_BODYPART_PICTURE] (state, payload) {
+    let internalid = payload.internalid
+    let number = payload.number
     let idx = state.bodyparts.findIndex(intbodypart => intbodypart.internalid === internalid)
-    state.bodyparts[idx].haspicture = 1
+    if (number > state.bodyparts[idx].nbpictures) {
+      state.bodyparts[idx].nbpictures ++
+    }
   },
   [types.SET_BODYPARTS_TAGS_CODELIST] (state, tags) {
     state.bodypartsTagsCodeList = tags
@@ -247,7 +251,11 @@ const actions = {
   },
   addBodypartPicture (store, payload) {
     let internalid = payload.internalid
-    store.commit(types.ADD_BODYPART_PICTURE, internalid)
+    let number = payload.number
+    store.commit(types.ADD_BODYPART_PICTURE, {
+      'internalid': internalid,
+      'number': number
+    })
   },
   setBodypartsTagsCodeList (store, tags) {
     store.commit(types.SET_BODYPARTS_TAGS_CODELIST, tags)

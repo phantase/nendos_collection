@@ -140,7 +140,7 @@
 
             $og_title = "Nendoroids-db - Already ".$rep['count']." bodyparts described in Nendoroids-db";
             $og_description = "We have ".$rep['count']." bodyparts described in Nendoroids-db. The last one is a ".$rep['part']." - From box: ".$rep['box_category']."".(isset($rep['box_number'])?" #".$rep['box_number']:"")." - ".$rep['box_name'];
-            $og_image = "https://api.nendoroids-db.net/images/bodyparts/".$rep['internalid']."/thumb";
+            $og_image = "https://api.nendoroids-db.net/images/bodyparts/".$rep['internalid']."/1/thumb";
             break;
           case 'bodypart':
             // We are in single bodypart
@@ -151,7 +151,7 @@
 
             $og_title = "Nendoroids-db - Bodypart: ".$rep['part']." from ".$rep['box_category']."".(isset($rep['box_number'])?" #".$rep['box_number']:"")." - ".$rep['box_name'];
             $og_description = "A bodypart described in Nendoroids-db, ".$rep['part']." [".$rep['main_color'].(isset($rep['other_color'])?"/".$rep['other_color']:"")."] - ".$rep['description']." - From box: ".$rep['box_category']."".(isset($rep['box_number'])?" #".$rep['box_number']:"")." - ".$rep['box_name'];
-            $og_image = "https://api.nendoroids-db.net/images/bodyparts/".$rep['internalid']."/thumb";
+            $og_image = "https://api.nendoroids-db.net/images/bodyparts/".$rep['internalid']."/1/thumb";
             break;
           case 'accessories':
             // We are in accessories

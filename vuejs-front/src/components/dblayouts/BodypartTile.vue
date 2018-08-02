@@ -11,7 +11,7 @@
               data-toggle="tooltip" data-html="true"
               :title="`<div class='db-bodypart-part text-yellow'>`+bodypart.part+`</div>
                         <div class='db-bodypart-description'><span class='text-yellow'>Description:</span> `+bodypart.description+`</div>`">
-          <img :src="resources.img_url+'/images/bodyparts/'+bodypart.internalid+'/thumb'" v-if="bodypart.haspicture == '1'"/>
+          <img :src="resources.img_url+'/images/bodyparts/'+bodypart.internalid+'/1/thumb'" v-if="bodypart.nbpictures > 0"/>
           <img :src="resources.img_url+'/images/unknown'" v-else />
           <span v-if="!minimal">
             <span class="badge bg-blue incollection" v-if="bodypart.collquantity">{{ bodypart.collquantity }}</span>

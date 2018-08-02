@@ -224,7 +224,7 @@ export default new Router({
       component: FormBodypart
     },
     {
-      path: '/bodypart/:id/edit/image',
+      path: '/bodypart/:id/edit/image/:number',
       name: 'Edit bodypart photo',
       meta: {
         description: 'Edit the photo of a bodypart',

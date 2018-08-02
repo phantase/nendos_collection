@@ -12,7 +12,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -84,7 +84,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -152,7 +152,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -222,7 +222,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -292,7 +292,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -362,7 +362,7 @@ class BodypartMapper extends Mapper
     $sql = "SELECT bp.internalid, bp.boxid, bp.nendoroidid, bp.part, bp.main_color, bp.other_color, bp.description,
                   bp.creatorid, uc.username AS creatorname, bp.creationdate,
                   bp.editorid, ue.username AS editorname, bp.editiondate,
-                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.haspicture,
+                  bp.validatorid, uv.username AS validatorname, bp.validationdate, bp.nbpictures,
                   pb.xmin, pb.xmax, pb.ymin, pb.ymax, pb.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
@@ -499,17 +499,35 @@ class BodypartMapper extends Mapper
     return $this->getByInternalid($bodypart->getInternalId(), $userid);
   }
 
-  public function addPicture($bodypart_internalid, $userid) {
-    $sql = "UPDATE bodyparts SET
-              haspicture = 1
-            WHERE internalid = :internalid";
+  public function addPicture($bodypart_internalid, $bodypart_imagenumber, $userid) {
+    $sql = "SELECT nbpictures
+        FROM bodyparts
+        WHERE internalid = :bodypartid";
     $stmt = $this->db->prepare($sql);
-    $result = $stmt->execute([
-        "internalid" => $bodypart_internalid
-      ]);
-    if(!$result) {
-      throw new Exception("Could not update bodypart");
+    $stmt->execute(["bodypartid" => $bodypart_internalid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new BodypartEntity($row);
     }
-    $this->addHistory($userid, $bodypart_internalid, "Update", "Picture has been updated");
+    $nbpictures = $results[0]->getNbPictures();
+
+    if ($bodypart_imagenumber > $nbpictures) {
+      $nbpictures ++;
+
+      $sql = "UPDATE bodyparts SET
+                nbpictures = :nbpictures
+          WHERE internalid = :internalid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute([
+          "internalid" => $bodypart_internalid,
+          "nbpictures" => $nbpictures
+        ]);
+      if(!$result) {
+        throw new Exception("Could not update bodypart");
+      }
+    }
+
+    $this->addHistory($userid, $bodypart_internalid, "Update", "Picture $bodypart_imagenumber has been updated");
   }
 }

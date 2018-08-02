@@ -214,7 +214,7 @@ export default {
                 this.addAccessoryPicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})
                 break
               case 'bodypart':
-                this.addBodypartPicture({'internalid': this.$route.params.id})
+                this.addBodypartPicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})
                 break
               case 'face':
                 this.addFacePicture({'internalid': this.$route.params.id})
