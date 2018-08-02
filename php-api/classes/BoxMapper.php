@@ -809,9 +809,9 @@ class BoxMapper extends Mapper
   }
 
   public function addPicture($box_internalid, $box_imagenumber, $userid) {
-    $sql = "SELECT b.nbpictures
-          FROM boxes b
-          WHERE b.internalid = :boxid";
+    $sql = "SELECT nbpictures
+          FROM boxes
+          WHERE internalid = :boxid";
     $stmt = $this->db->prepare($sql);
     $stmt->execute(["boxid" => $box_internalid]);
 

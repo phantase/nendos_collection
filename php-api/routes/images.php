@@ -12,7 +12,7 @@ $app->get('/images/unknown', function (Request $request, Response $response, $ar
 });
 
 // Retrieve the image of a single {element} using its {internalid}
-$app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands|photo|photos|user|users}/{internalid:[0-9]+}/{number:[0-9]+}[/{size:full|thumb}]', function (Request $request, Response $response, $args) {
+$app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories|bodypart|bodyparts|face|faces|hair|hairs|hand|hands}/{internalid:[0-9]+}/{number:[0-9]+}[/{size:full|thumb}]', function (Request $request, Response $response, $args) {
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
     $number = (int)$args['number'];
@@ -50,6 +50,38 @@ $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
             case "hands":
                 $element = "hands";
                 break;
+            default:
+                throw new Exception("Error Processing Request", 1);
+        }
+
+        $filename = "images/nendos/$element/$internalid"."_$number"."_$param_size.jpg";
+
+        if (file_exists($filename)) {
+            $image = file_get_contents($filename);
+            $response->write($image);
+            return $response->withHeader('Content-Type', 'image/jpg');
+        } else {
+            $image = file_get_contents("images/nendos/unknown.png");
+            $response->write($image);
+            $this->applogger->addDebug("GET /images/$param_element/$internalid/$param_size - Image doesn't exist");
+            return $response->withHeader('Content-Type', 'image/png')->withStatus(404);
+        }
+    } catch (Exception $e){
+        $this->applogger->addError("GET /images/$param_element/$internalid/$number/$param_size", array('exception'=>$e));
+        return $response->withStatus(400);
+    }
+});
+
+// Retrieve the image of a single {element} using its {internalid}
+$app->get('/images/{element:photo|photos|user|users}/{internalid:[0-9]+}[/{size:full|thumb}]', function (Request $request, Response $response, $args) {
+    $param_element = $args['element'];
+    $internalid = (int)$args['internalid'];
+    $param_size = isset($args['size'])?$args['size']:'full';
+    $this->applogger->addInfo("GET /images/$param_element/$internalid/$param_size");
+
+    try {
+
+        switch($param_element){
             case "photo":
             case "photos":
                 $element = "photos";
@@ -62,7 +94,7 @@ $app->get('/images/{element:box|boxes|nendoroid|nendoroids|accessory|accessories
                 throw new Exception("Error Processing Request", 1);
         }
 
-        $filename = "images/nendos/$element/$internalid"."_$number"."_$param_size.jpg";
+        $filename = "images/nendos/$element/$internalid"."_$param_size.jpg";
 
         if (file_exists($filename)) {
             $image = file_get_contents($filename);
@@ -186,7 +218,6 @@ $app->post('/auth/images/{element:user|users}/{internalid:[0-9]+}', function (Re
     $userid = $request->getAttribute("token")->user->internalid;
     $param_element = $args['element'];
     $internalid = (int)$args['internalid'];
-    $imagenumber = 1;
     $files = $request->getUploadedFiles();
     $this->applogger->addInfo("Userid: $userid Internalid: $internalid");
     if( $userid == $internalid ){
@@ -240,7 +271,7 @@ $app->post('/auth/images/{element:user|users}/{internalid:[0-9]+}', function (Re
             imagejpeg($image_dest, $filename_thumb, 90);
 
             $mapper = MapperFactory::getMapper($this->db,$param_element);
-            $mapper->addPicture($internalid, $imagenumber, $userid);
+            $mapper->addPicture($internalid, $userid);
 
             return $response->withStatus(201);
 
