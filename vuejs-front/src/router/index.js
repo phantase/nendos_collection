@@ -695,7 +695,7 @@ export default new Router({
       component: FormNendoroid
     },
     {
-      path: '/nendoroid/:id/edit/image',
+      path: '/nendoroid/:id/edit/image/:number',
       name: 'Edit nendoroid photo',
       meta: {
         description: 'Edit the photo of a nendoroid',

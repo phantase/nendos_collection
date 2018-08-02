@@ -12,7 +12,7 @@ class NendoroidMapper extends Mapper
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
-                  n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
+                  n.validatorid, uv.username AS validatorname, n.validationdate, n.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -84,7 +84,7 @@ class NendoroidMapper extends Mapper
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
-                  n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
+                  n.validatorid, uv.username AS validatorname, n.validationdate, n.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -152,7 +152,7 @@ class NendoroidMapper extends Mapper
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
-                  n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
+                  n.validatorid, uv.username AS validatorname, n.validationdate, n.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -222,7 +222,7 @@ class NendoroidMapper extends Mapper
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
-                  n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
+                  n.validatorid, uv.username AS validatorname, n.validationdate, n.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -292,7 +292,7 @@ class NendoroidMapper extends Mapper
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
-                  n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
+                  n.validatorid, uv.username AS validatorname, n.validationdate, n.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -363,7 +363,7 @@ class NendoroidMapper extends Mapper
     $sql = "SELECT n.internalid, n.boxid, n.name, n.version, n.sex, n.dominant_color,
                   n.creatorid, uc.username AS creatorname, n.creationdate,
                   n.editorid, ue.username AS editorname, n.editiondate,
-                  n.validatorid, uv.username AS validatorname, n.validationdate, n.haspicture,
+                  n.validatorid, uv.username AS validatorname, n.validationdate, n.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -781,17 +781,35 @@ class NendoroidMapper extends Mapper
     return $this->getByInternalid($nendoroid->getInternalid(), $userid);
   }
 
-  public function addPicture($nendoroid_internalid, $userid) {
-    $sql = "UPDATE nendoroids SET
-              haspicture = 1
-            WHERE internalid = :internalid";
+  public function addPicture($nendoroid_internalid, $nendoroid_imagenumber, $userid) {
+    $sql = "SELECT nbpictures
+        FROM nendoroids
+        WHERE internalid = :nendoroidid";
     $stmt = $this->db->prepare($sql);
-    $result = $stmt->execute([
-        "internalid" => $nendoroid_internalid
-      ]);
-    if(!$result) {
-      throw new Exception("Could not update nendoroid");
+    $stmt->execute(["nendoroidid" => $nendoroid_internalid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new NendoroidEntity($row);
     }
-    $this->addHistory($userid, $nendoroid_internalid, "Update", "Picture has been updated");
+    $nbpictures = $results[0]->getNbPictures();
+
+    if ($nendoroid_imagenumber > $nbpictures) {
+      $nbpictures ++;
+
+      $sql = "UPDATE nendoroids SET
+                nbpictures = :nbpictures
+          WHERE internalid = :internalid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute([
+          "internalid" => $nendoroid_internalid,
+          "nbpictures" => $nbpictures
+        ]);
+      if(!$result) {
+        throw new Exception("Could not update nendoroid");
+      }
+    }
+
+    $this->addHistory($userid, $nendoroid_internalid, "Update", "Picture $nendoroid_imagenumber has been updated");
   }
 }

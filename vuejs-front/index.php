@@ -56,7 +56,7 @@
 
             $og_title = "Nendoroids-db - Already ".$rep['count']." nendoroids described in Nendoroids-db";
             $og_description = "We have ".$rep['count']." nendoroids described in Nendoroids-db. The last one is ".$rep['name']."".(isset($rep['version'])?" - ".$rep['version']:"")." - From box: ".$rep['box_category']."".(isset($rep['box_number'])?" #".$rep['box_number']:"")." - ".$rep['box_name'];
-            $og_image = "https://api.nendoroids-db.net/images/nendoroids/".$rep['internalid']."/thumb";
+            $og_image = "https://api.nendoroids-db.net/images/nendoroids/".$rep['internalid']."/1/thumb";
             break;
           case 'nendoroid':
             // We are in single nendoroid
@@ -67,7 +67,7 @@
 
             $og_title = "Nendoroids-db - Nendoroid: ".$rep['name']."".(isset($rep['version'])?" - ".$rep['version']:"")." - From box: ".$rep['box_category']."".(isset($rep['box_number'])?" #".$rep['box_number']:"")." - ".$rep['box_name'];
             $og_description = "A nendoroid described in Nendoroids-db, ".$rep['name']."".(isset($rep['version'])?" - ".$rep['version']:"")." - From box: ".$rep['box_category']."".(isset($rep['box_number'])?" #".$rep['box_number']:"")." - ".$rep['box_name'];
-            $og_image = "https://api.nendoroids-db.net/images/nendoroids/".$rep['internalid']."/thumb";
+            $og_image = "https://api.nendoroids-db.net/images/nendoroids/".$rep['internalid']."/1/thumb";
             break;
           case 'faces':
             // We are in faces

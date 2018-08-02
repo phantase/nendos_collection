@@ -18,7 +18,7 @@ class NendoroidEntity extends Entity implements JsonSerializable
   protected $validatorid;
   protected $validatorname;
   protected $validationdate;
-  protected $haspicture;
+  protected $nbpictures;
 
   /**
    *
@@ -45,7 +45,7 @@ class NendoroidEntity extends Entity implements JsonSerializable
     $this->validatorid = $data['validatorid'];
     $this->validatorname = $data['validatorname'];
     $this->validationdate = $data['validationdate'];
-    $this->haspicture = $data['haspicture'];
+    $this->nbpictures = $data['nbpictures'];
     $this->xmin = $data['xmin'];
     $this->xmax = $data['xmax'];
     $this->ymin = $data['ymin'];
@@ -120,8 +120,8 @@ class NendoroidEntity extends Entity implements JsonSerializable
     return $this->validationdate;
   }
 
-  public function getHasPicture() {
-    return $this->haspicture;
+  public function getNbPictures() {
+    return $this->nbpictures;
   }
 
   public function jsonSerialize() {
@@ -141,7 +141,7 @@ class NendoroidEntity extends Entity implements JsonSerializable
       'validatorid' => $this->validatorid,
       'validatorname' => $this->validatorname,
       'validationdate' => $this->validationdate,
-      'haspicture' => $this->haspicture,
+      'nbpictures' => $this->nbpictures,
       'xmin' => $this->xmin,
       'xmax' => $this->xmax,
       'ymin' => $this->ymin,

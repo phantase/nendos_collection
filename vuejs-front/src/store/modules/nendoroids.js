@@ -84,9 +84,13 @@ const mutations = {
     state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).numberfavorited--
     state.nendoroids.find(nendoroid => nendoroid.internalid === nendoroidid).inuserfavorites = null
   },
-  [types.ADD_NENDOROID_PICTURE] (state, internalid) {
+  [types.ADD_NENDOROID_PICTURE] (state, payload) {
+    let internalid = payload.internalid
+    let number = payload.number
     let idx = state.nendoroids.findIndex(intnendoroid => intnendoroid.internalid === internalid)
-    state.nendoroids[idx].haspicture = 1
+    if (number > state.nendoroids[idx].nbpictures) {
+      state.nendoroids[idx].nbpictures ++
+    }
   },
   [types.SET_NENDOROIDS_TAGS_CODELIST] (state, tags) {
     state.nendoroidsTagsCodeList = tags
@@ -247,7 +251,11 @@ const actions = {
   },
   addNendoroidPicture (store, payload) {
     let internalid = payload.internalid
-    store.commit(types.ADD_NENDOROID_PICTURE, internalid)
+    let number = payload.number
+    store.commit(types.ADD_NENDOROID_PICTURE, {
+      'internalid': internalid,
+      'number': number
+    })
   },
   setNendoroidsTagsCodeList (store, tags) {
     store.commit(types.SET_NENDOROIDS_TAGS_CODELIST, tags)

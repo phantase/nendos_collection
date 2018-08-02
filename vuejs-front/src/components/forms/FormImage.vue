@@ -208,7 +208,7 @@ export default {
                 this.addBoxPicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})
                 break
               case 'nendoroid':
-                this.addNendoroidPicture({'internalid': this.$route.params.id})
+                this.addNendoroidPicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})
                 break
               case 'accessory':
                 this.addAccessoryPicture({'internalid': this.$route.params.id, 'number': this.$route.params.number})

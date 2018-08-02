@@ -12,7 +12,7 @@
               data-toggle="tooltip" data-html="true"
               :title="`<div class='db-nendoroid-name'>`+nendoroid.name+`</div>
                         <div class='db-nendoroid-version'>`+(nendoroid.version ? nendoroid.version : '')+`</div>`">
-          <img :src="resources.img_url+'/images/nendoroids/'+nendoroid.internalid+'/thumb'" v-if="nendoroid.haspicture == '1'"/>
+          <img :src="resources.img_url+'/images/nendoroids/'+nendoroid.internalid+'/1/thumb'" v-if="nendoroid.nbpictures > 0"/>
           <img :src="resources.img_url+'/images/unknown'" v-else />
           <span v-if="!minimal">
             <span class="badge bg-blue incollection" v-if="nendoroid.collquantity">{{ nendoroid.collquantity }}</span>
