@@ -609,7 +609,7 @@ export default new Router({
       component: FormHand
     },
     {
-      path: '/hand/:id/edit/image',
+      path: '/hand/:id/edit/image/:number',
       name: 'Edit hand photo',
       meta: {
         description: 'Edit the photo of a hand',

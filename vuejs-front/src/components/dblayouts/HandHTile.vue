@@ -3,7 +3,7 @@
     <div class="info-box">
       <span class="info-box-icon bg-yellow"><i class="fa icon-icon_nendo_hand"></i></span>
       <span class="info-box-icon bg-yellow" style="float:right;">
-        <img :src="resources.img_url+'/images/hands/'+hand.internalid+'/thumb'" v-if="hand.haspicture == '1'"/>
+        <img :src="resources.img_url+'/images/hands/'+hand.internalid+'/1/thumb'" v-if="hand.nbpictures > 0"/>
         <img :src="resources.img_url+'/images/unknown'" v-else />
       </span>
       <div class="info-box-content">

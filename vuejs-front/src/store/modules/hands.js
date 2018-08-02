@@ -84,9 +84,13 @@ const mutations = {
     state.hands.find(hand => hand.internalid === handid).numberfavorited--
     state.hands.find(hand => hand.internalid === handid).inuserfavorites = null
   },
-  [types.ADD_HAND_PICTURE] (state, internalid) {
+  [types.ADD_HAND_PICTURE] (state, payload) {
+    let internalid = payload.internalid
+    let number = payload.number
     let idx = state.hands.findIndex(inthand => inthand.internalid === internalid)
-    state.hands[idx].haspicture = 1
+    if (number > state.hands[idx].nbpictures) {
+      state.hands[idx].nbpictures ++
+    }
   },
   [types.SET_HANDS_TAGS_CODELIST] (state, tags) {
     state.handsTagsCodeList = tags
@@ -247,7 +251,11 @@ const actions = {
   },
   addHandPicture (store, payload) {
     let internalid = payload.internalid
-    store.commit(types.ADD_HAND_PICTURE, internalid)
+    let number = payload.number
+    store.commit(types.ADD_HAND_PICTURE, {
+      'internalid': internalid,
+      'number': number
+    })
   },
   setHandsTagsCodeList (store, tags) {
     store.commit(types.SET_HANDS_TAGS_CODELIST, tags)

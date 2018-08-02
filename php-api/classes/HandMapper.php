@@ -12,7 +12,7 @@ class HandMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -84,7 +84,7 @@ class HandMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -152,7 +152,7 @@ class HandMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -222,7 +222,7 @@ class HandMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -292,7 +292,7 @@ class HandMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
                   CONCAT('[',tags.tags,']') AS tags
@@ -362,7 +362,7 @@ class HandMapper extends Mapper
     $sql = "SELECT h.internalid, h.boxid, h.nendoroidid, h.skin_color, h.leftright, h.posture, h.description,
                   h.creatorid, uc.username AS creatorname, h.creationdate,
                   h.editorid, ue.username AS editorname, h.editiondate,
-                  h.validatorid, uv.username AS validatorname, h.validationdate, h.haspicture,
+                  h.validatorid, uv.username AS validatorname, h.validationdate, h.nbpictures,
                   ph.xmin, ph.xmax, ph.ymin, ph.ymax, ph.internalid AS photoannotationid,
                   ucol.additiondate AS colladdeddate, ucol.quantity AS collquantity, CONCAT('[',colusers.colusers,']') AS colusers,
                   faved.numberfavorited, userfav.inuserfavorites, CONCAT('[',favusers.favusers,']') AS favusers,
@@ -499,17 +499,35 @@ class HandMapper extends Mapper
     return $this->getByInternalid($hand->getInternalId(), $userid);
   }
 
-  public function addPicture($hand_internalid, $userid) {
-    $sql = "UPDATE hands SET
-              haspicture = 1
-            WHERE internalid = :internalid";
+  public function addPicture($hand_internalid, $hand_imagenumber, $userid) {
+    $sql = "SELECT nbpictures
+        FROM hands
+        WHERE internalid = :handid";
     $stmt = $this->db->prepare($sql);
-    $result = $stmt->execute([
-        "internalid" => $hand_internalid
-      ]);
-    if(!$result) {
-      throw new Exception("Could not update hand");
+    $stmt->execute(["handid" => $hand_internalid]);
+
+    $results = [];
+    while ($row = $stmt->fetch()) {
+      $results[] = new HandEntity($row);
     }
-    $this->addHistory($userid, $hand_internalid, "Update", "Picture has been updated");
+    $nbpictures = $results[0]->getNbPictures();
+
+    if ($hand_imagenumber > $nbpictures) {
+      $nbpictures ++;
+
+      $sql = "UPDATE hands SET
+                nbpictures = :nbpictures
+          WHERE internalid = :internalid";
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute([
+          "internalid" => $hand_internalid,
+          "nbpictures" => $nbpictures
+        ]);
+      if(!$result) {
+        throw new Exception("Could not update hand");
+      }
+    }
+
+    $this->addHistory($userid, $hand_internalid, "Update", "Picture $hand_imagenumber has been updated");
   }
 }
