@@ -22,13 +22,15 @@
       <div class="box">
         <div class="box-body">
           <span v-if="validatorname">
-            <span class="btn btn-xs bg-red pull-right" @click="unvalidate"v-if="canvalidate">Unvalidate</span>
+            <span class="btn btn-xs bg-red pull-right" @click="unvalidate" v-if="canvalidate">Unvalidate</span>
             <span class="badge pull-right bg-green" v-else>V</span>
+            <span class="btn btn-xs bg-red pull-right givemespace" @click="unvalidatebox" v-if="canadmin && forbox">Unvalidate full box</span>
             Validated by <i>{{validatorname}}</i>
           </span>
           <span v-else>
             <span class="btn btn-xs bg-green pull-right" @click="validate" v-if="canvalidate">Validate</span>
             <span class="badge pull-right bg-red" v-else>NV</span>
+            <span class="btn btn-xs bg-green pull-right givemespace" @click="validatebox" v-if="canadmin && forbox">Validate full box</span>
             Not validated
           </span>
         </div>
@@ -43,14 +45,14 @@ import Vuex from 'vuex'
 
 export default {
   name: 'CollectionAndValidationTile',
-  props: ['colladdeddate', 'collquantity', 'validatorname'],
+  props: ['colladdeddate', 'collquantity', 'validatorname', 'forbox'],
   store: store,
   data () {
     return {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'canvalidate'])
+    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'canvalidate', 'canadmin'])
   },
   methods: {
     collect () {
@@ -64,6 +66,12 @@ export default {
     },
     unvalidate () {
       this.$emit('unvalidate')
+    },
+    validatebox () {
+      this.$emit('validatebox')
+    },
+    unvalidatebox () {
+      this.$emit('unvalidatebox')
     }
   }
 }

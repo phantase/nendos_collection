@@ -14,6 +14,8 @@ import Bodyparts from 'components/Bodyparts'
 import Box from 'components/Box'
 import BoxCollect from 'components/BoxCollect'
 import BoxUncollect from 'components/BoxUncollect'
+import BoxValidate from 'components/BoxValidate'
+import BoxUnvalidate from 'components/BoxUnvalidate'
 import Boxes from 'components/Boxes'
 import Face from 'components/Face'
 import Faces from 'components/Faces'
@@ -399,6 +401,42 @@ export default new Router({
         ]
       },
       component: BoxUncollect
+    },
+    {
+      path: '/box/:id/validate',
+      name: 'Box Validation',
+      meta: {
+        description: 'Validation of a box',
+        breadcrumb: [
+          {
+            title: 'Boxes',
+            link: '/boxes'
+          },
+          {
+            title: 'Box',
+            link: '/box/:id'
+          }
+        ]
+      },
+      component: BoxValidate
+    },
+    {
+      path: '/box/:id/unvalidate',
+      name: 'Box Unvalidation',
+      meta: {
+        description: 'Unvalidation of a box',
+        breadcrumb: [
+          {
+            title: 'Boxes',
+            link: '/boxes'
+          },
+          {
+            title: 'Box',
+            link: '/box/:id'
+          }
+        ]
+      },
+      component: BoxUnvalidate
     },
     {
       path: '/boxes',

@@ -36,7 +36,10 @@
                                     v-on:collect="collect"
                                     v-on:uncollect="uncollect"
                                     v-on:validate="validate"
-                                    v-on:unvalidate="unvalidate"></collection-and-validation-tile>
+                                    v-on:unvalidate="unvalidate"
+                                    forbox="true"
+                                    v-on:validatebox="validatebox"
+                                    v-on:unvalidatebox="unvalidatebox"></collection-and-validation-tile>
 
     <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
@@ -309,6 +312,12 @@ export default {
     },
     uncollect () {
       router.push('/box/' + this.$route.params.id + '/uncollect')
+    },
+    validatebox () {
+      router.push('/box/' + this.$route.params.id + '/validate')
+    },
+    unvalidatebox () {
+      router.push('/box/' + this.$route.params.id + '/unvalidate')
     },
     validate () {
       console.log('VALIDATE...')
