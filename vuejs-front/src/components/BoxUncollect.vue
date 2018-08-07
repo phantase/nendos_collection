@@ -66,27 +66,27 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div class="col-md-2 col-sm-4 col-xs-6" v-for="nendoroid in nendoroids4box">
+        <div class="col-md-2 col-sm-4 col-xs-6" v-for="nendoroid in nendoroids4box" :key="nendoroid.internalid">
           <nendoroid-tile :nendoroid="nendoroid"
                     minimal="true" uncollectpage="true" @keep="keeppart" @uncollect="uncollectpart"></nendoroid-tile>
         </div>
-        <div class="col-md-2 col-sm-4 col-xs-6" v-for="face in faces4box">
+        <div class="col-md-2 col-sm-4 col-xs-6" v-for="face in faces4box" :key="face.internalid">
           <face-tile :face="face"
                     minimal="true" uncollectpage="true" @keep="keeppart" @uncollect="uncollectpart"></face-tile>
         </div>
-        <div class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairs4box">
+        <div class="col-md-2 col-sm-4 col-xs-6" v-for="hair in hairs4box" :key="hair.internalid">
           <hair-tile :hair="hair"
                     minimal="true" uncollectpage="true" @keep="keeppart" @uncollect="uncollectpart"></hair-tile>
         </div>
-        <div class="col-md-2 col-sm-4 col-xs-6" v-for="hand in hands4box">
+        <div class="col-md-2 col-sm-4 col-xs-6" v-for="hand in hands4box" :key="hand.internalid">
           <hand-tile :hand="hand"
                     minimal="true" uncollectpage="true" @keep="keeppart" @uncollect="uncollectpart"></hand-tile>
         </div>
-        <div class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodyparts4box">
+        <div class="col-md-2 col-sm-4 col-xs-6" v-for="bodypart in bodyparts4box" :key="bodypart.internalid">
           <bodypart-tile :bodypart="bodypart"
                     minimal="true" uncollectpage="true" @keep="keeppart" @uncollect="uncollectpart"></bodypart-tile>
         </div>
-        <div class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessories4box">
+        <div class="col-md-2 col-sm-4 col-xs-6" v-for="accessory in accessories4box" :key="accessory.internalid">
           <accessory-tile :accessory="accessory"
                     minimal="true" uncollectpage="true" @keep="keeppart" @uncollect="uncollectpart"></accessory-tile>
         </div>
