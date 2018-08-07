@@ -229,7 +229,7 @@ export default {
           }).then(response => {
             console.log('Addition successful')
             if (this.willsubmittoimage) {
-              router.push('/nendoroid/' + response + '/edit/image')
+              router.push('/nendoroid/' + response + '/edit/image/1')
             } else {
               router.push('/nendoroid/' + response)
             }

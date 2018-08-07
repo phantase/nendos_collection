@@ -452,7 +452,7 @@ export default {
           }).then(response => {
             console.log('Addition successful')
             if (this.willsubmittoimage) {
-              router.push('/accessory/' + response + '/edit/image')
+              router.push('/accessory/' + response + '/edit/image/1')
             } else {
               router.push('/accessory/' + response)
             }
