@@ -21,6 +21,9 @@
                   <option value="notvalidated">Not validated</option>
                 </select>
               </span>
+              <div v-if="canadmin">
+                <router-link to="bodypartslist">View in list</router-link>
+              </div>
             </div>
             <div class="pull-right">
               <label>Sort by: </label>
@@ -91,7 +94,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'bodyparts', 'bodypartsOrderedBy', 'bodypartsDirection']),
+    ...Vuex.mapGetters(['canadmin', 'authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'bodyparts', 'bodypartsOrderedBy', 'bodypartsDirection']),
     displayedBodyparts () {
       return this.bodyparts.filter(this.filterBodyparts).concat().sort(this.sortBodyparts).slice(0, this.limit)
     },

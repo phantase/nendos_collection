@@ -11,6 +11,7 @@ import Accessory from 'components/Accessory'
 import Accessories from 'components/Accessories'
 import Bodypart from 'components/Bodypart'
 import Bodyparts from 'components/Bodyparts'
+import BodypartsList from 'components/BodypartsList'
 import Box from 'components/Box'
 import BoxCollect from 'components/BoxCollect'
 import BoxUncollect from 'components/BoxUncollect'
@@ -282,6 +283,14 @@ export default new Router({
         description: 'List of all bodyparts'
       },
       component: Bodyparts
+    },
+    {
+      path: '/bodypartslist',
+      name: 'Bodyparts (List)',
+      meta: {
+        description: 'List of all bodyparts, in for of a list'
+      },
+      component: BodypartsList
     },
     {
       path: '/box/add',
