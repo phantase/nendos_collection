@@ -13,6 +13,14 @@
                 <th @click="setBodypartsOrderedBy('description')">Description <i class="pull-right fa" :class="orderedby==='description'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i></th>
                 <th @click="setBodypartsOrderedBy('nbpictures')"># pictures <i class="pull-right fa" :class="orderedby==='nbpictures'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i></th>
               </tr>
+              <tr>
+                <td><input v-model="filterInternalid"/></td>
+                <td><input v-model="filterPart"/></td>
+                <td><input v-model="filterMainColor"/></td>
+                <td><input v-model="filterOtherColor"/></td>
+                <td><input v-model="filterDescription"/></td>
+                <td><input v-model="filterNbPictures"/></td>
+              </tr>
               <tr v-for="bodypart in displayedBodyparts" :key="bodypart.internalid">
                 <td>{{ bodypart.internalid }}</td>
                 <td>{{ bodypart.part }}</td>
@@ -50,8 +58,12 @@ export default {
       resources: Resources,
       orderedby: 'internalid',
       direction: 'desc',
-      filterincollection: 'all',
-      filtervalidation: 'all'
+      filterInternalid: null,
+      filterPart: null,
+      filterMainColor: null,
+      filterOtherColor: null,
+      filterDescription: null,
+      filterNbPictures: null
     }
   },
   computed: {
@@ -73,16 +85,24 @@ export default {
       this.direction = dir
     },
     filterBodyparts (e) {
-      if (this.filterincollection === 'yes' && e.colladdeddate === null) {
+      if (this.filterInternalid && e.internalid.toLowerCase().indexOf(this.filterInternalid.toLowerCase()) === -1) {
         return false
       }
-      if (this.filterincollection === 'no' && e.colladdeddate != null) {
+      if (this.filterPart && e.part.toLowerCase().indexOf(this.filterPart.toLowerCase()) === -1) {
         return false
       }
-      if (this.filtervalidation === 'validated' && e.validationdate === null) {
+      if (this.filterMainColor && e.main_color.toLowerCase().indexOf(this.filterMainColor.toLowerCase()) === -1) {
         return false
       }
-      if (this.filtervalidation === 'notvalidated' && e.validationdate != null) {
+      if (this.filterOtherColor && e.other_color && e.other_color.toLowerCase().indexOf(this.filterOtherColor.toLowerCase()) === -1) {
+        return false
+      } else if (this.filterOtherColor && !e.other_color) {
+        return false
+      }
+      if (this.filterDescription && e.description.toLowerCase().indexOf(this.filterDescription.toLowerCase()) === -1) {
+        return false
+      }
+      if (this.filterNbPictures && e.nbpictures.toLowerCase().indexOf(this.filterNbPictures.toLowerCase()) === -1) {
         return false
       }
       return true
