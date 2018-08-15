@@ -8,10 +8,10 @@
               <tr>
                 <th @click="setBodypartsOrderedBy('internalid')">internalid <i class="pull-right fa" :class="orderedby==='internalid'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i></th>
                 <th @click="setBodypartsOrderedBy('part')">Part <i class="pull-right fa" :class="orderedby==='part'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i></th>
-                <th>Main color <i class="pull-right fa fa-circle-o"></i></th>
-                <th>Other color <i class="pull-right fa fa-circle-o"></i></th>
-                <th>Description <i class="pull-right fa fa-circle-o"></i></th>
-                <th># pictures <i class="pull-right fa fa-circle-o"></i></th>
+                <th @click="setBodypartsOrderedBy('main_color')">Main color <i class="pull-right fa" :class="orderedby==='main_color'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i></th>
+                <th @click="setBodypartsOrderedBy('other_color')">Other color <i class="pull-right fa" :class="orderedby==='other_color'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i></th>
+                <th @click="setBodypartsOrderedBy('description')">Description <i class="pull-right fa" :class="orderedby==='description'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i></th>
+                <th @click="setBodypartsOrderedBy('nbpictures')"># pictures <i class="pull-right fa" :class="orderedby==='nbpictures'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i></th>
               </tr>
               <tr v-for="bodypart in displayedBodyparts" :key="bodypart.internalid">
                 <td>{{ bodypart.internalid }}</td>
@@ -110,8 +110,20 @@ export default {
         } else {
           return this.direction === 'desc' ? 1 : -1
         }
+      } else if (this.orderedby === 'internalid') {
+        if ((a[this.orderedby]) * 1 > (b[this.orderedby]) * 1) {
+          return this.direction === 'desc' ? -1 : 1
+        } else {
+          return this.direction === 'desc' ? 1 : -1
+        }
       } else {
-        if (a[this.orderedby] > b[this.orderedby]) {
+        if (a[this.orderedby] === null && b[this.orderedby] === null) {
+          return 0
+        } else if (a[this.orderedby] === null && b[this.orderedby]) {
+          return this.direction === 'desc' ? 1 : -1
+        } else if (a[this.orderedby] && b[this.orderedby] === null) {
+          return this.direction === 'desc' ? -1 : 1
+        } else if (a[this.orderedby] > b[this.orderedby]) {
           return this.direction === 'desc' ? -1 : 1
         } else {
           return this.direction === 'desc' ? 1 : -1
