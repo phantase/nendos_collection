@@ -6,7 +6,7 @@
           <div class="box-body">
             <table>
               <tr>
-                <th @click="setBodypartsOrderedBy('internalid')">internalid 
+                <th @click="setBodypartsOrderedBy('internalid')">internalid
                   <i class="pull-right fa" :class="orderedby==='internalid'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i>
                 </th>
                 <th @click="setBodypartsOrderedBy('part')">Part 
@@ -18,7 +18,7 @@
                 <th @click="setBodypartsOrderedBy('other_color')">Other color 
                   <i class="pull-right fa" :class="orderedby==='other_color'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i>
                 </th>
-                <th @click="setBodypartsOrderedBy('description')">Description 
+                <th @click="setBodypartsOrderedBy('description')">Description  [{{displayedBodyparts.length}} / {{bodyparts.length}}]
                   <i class="pull-right fa" :class="orderedby==='description'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i>
                 </th>
                 <th @click="setBodypartsOrderedBy('nbpictures')"># pictures 
@@ -26,12 +26,12 @@
                 </th>
               </tr>
               <tr>
-                <td><input v-model="filterInternalid"/></td>
-                <td><input v-model="filterPart"/></td>
-                <td><input v-model="filterMainColor"/></td>
-                <td><input v-model="filterOtherColor"/></td>
-                <td><input v-model="filterDescription"/></td>
-                <td><input v-model="filterNbPictures"/></td>
+                <td><input v-model="filterInternalid" placeholder="filter"/></td>
+                <td><input v-model="filterPart" placeholder="filter"/></td>
+                <td><input v-model="filterMainColor" placeholder="filter"/></td>
+                <td><input v-model="filterOtherColor" placeholder="filter"/></td>
+                <td><input v-model="filterDescription" placeholder="filter"/></td>
+                <td><input v-model="filterNbPictures" placeholder="filter"/></td>
               </tr>
               <tr v-for="bodypart in displayedBodyparts" :key="bodypart.internalid">
                 <td><router-link :to="'/bodypart/'+bodypart.internalid">{{ bodypart.internalid }}</router-link></td>
@@ -187,5 +187,9 @@ export default {
   td {
     border: 1px dashed grey;
     padding: 2px;
+  }
+
+  td > input {
+    width: 100%;
   }
 </style>
