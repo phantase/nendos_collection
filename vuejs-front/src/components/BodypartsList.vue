@@ -22,7 +22,7 @@
                 <td><input v-model="filterNbPictures"/></td>
               </tr>
               <tr v-for="bodypart in displayedBodyparts" :key="bodypart.internalid">
-                <td>{{ bodypart.internalid }}</td>
+                <td><router-link :to="'/bodypart/'+bodypart.internalid">{{ bodypart.internalid }}</router-link></td>
                 <td>{{ bodypart.part }}</td>
                 <td>{{ bodypart.main_color }}</td>
                 <td>{{ bodypart.other_color }}</td>
