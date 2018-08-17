@@ -7,22 +7,22 @@
             <table>
               <tr>
                 <th @click="setBodypartsOrderedBy('internalid')">internalid
-                  <i class="pull-right fa" :class="orderedby==='internalid'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i>
+                  <i class="pull-right fa" :class="orderedby==='internalid'?direction==='asc'?'fa-sort-up':'fa-sort-down':'fa-sort'"></i>
                 </th>
                 <th @click="setBodypartsOrderedBy('part')">Part 
-                  <i class="pull-right fa" :class="orderedby==='part'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i>
+                  <i class="pull-right fa" :class="orderedby==='part'?direction==='asc'?'fa-sort-up':'fa-sort-down':'fa-sort'"></i>
                 </th>
                 <th @click="setBodypartsOrderedBy('main_color')">Main color 
-                  <i class="pull-right fa" :class="orderedby==='main_color'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i>
+                  <i class="pull-right fa" :class="orderedby==='main_color'?direction==='asc'?'fa-sort-up':'fa-sort-down':'fa-sort'"></i>
                 </th>
                 <th @click="setBodypartsOrderedBy('other_color')">Other color 
-                  <i class="pull-right fa" :class="orderedby==='other_color'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i>
+                  <i class="pull-right fa" :class="orderedby==='other_color'?direction==='asc'?'fa-sort-up':'fa-sort-down':'fa-sort'"></i>
                 </th>
                 <th @click="setBodypartsOrderedBy('description')">Description  [{{displayedBodyparts.length}} / {{bodyparts.length}}]
-                  <i class="pull-right fa" :class="orderedby==='description'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i>
+                  <i class="pull-right fa" :class="orderedby==='description'?direction==='asc'?'fa-sort-up':'fa-sort-down':'fa-sort'"></i>
                 </th>
                 <th @click="setBodypartsOrderedBy('nbpictures')"># pictures 
-                  <i class="pull-right fa" :class="orderedby==='nbpictures'?direction==='asc'?'fa-arrow-up':'fa-arrow-down':'fa-circle-o'"></i>
+                  <i class="pull-right fa" :class="orderedby==='nbpictures'?direction==='asc'?'fa-sort-up':'fa-sort-down':'fa-sort'"></i>
                 </th>
               </tr>
               <tr>
