@@ -21,6 +21,9 @@
                   <option value="notvalidated">Not validated</option>
                 </select>
               </span>
+              <div v-if="canadmin">
+                <router-link to="accessorieslist">View in list</router-link>
+              </div>
             </div>
             <div class="pull-right">
               <label>Sort by: </label>
@@ -91,7 +94,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'accessories', 'accessoriesOrderedBy', 'accessoriesDirection']),
+    ...Vuex.mapGetters(['canadmin', 'authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'accessories', 'accessoriesOrderedBy', 'accessoriesDirection']),
     displayedAccessories () {
       return this.accessories.filter(this.filterAccessories).concat().sort(this.sortAccessories).slice(0, this.limit)
     },

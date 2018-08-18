@@ -9,6 +9,7 @@ import Confirm from 'components/Confirm'
 import ConfirmForgot from 'components/ConfirmForgot'
 import Accessory from 'components/Accessory'
 import Accessories from 'components/Accessories'
+import AccessoriesList from 'components/AccessoriesList'
 import Bodypart from 'components/Bodypart'
 import Bodyparts from 'components/Bodyparts'
 import BodypartsList from 'components/BodypartsList'
@@ -199,6 +200,14 @@ export default new Router({
       component: Accessories
     },
     {
+      path: '/accessorieslist',
+      name: 'Accessories (list)',
+      meta: {
+        description: 'List of all accessories, in form of a list'
+      },
+      component: AccessoriesList
+    },
+    {
       path: '/bodypart/add',
       name: 'Add bodypart',
       meta: {
@@ -288,7 +297,7 @@ export default new Router({
       path: '/bodypartslist',
       name: 'Bodyparts (List)',
       meta: {
-        description: 'List of all bodyparts, in for of a list'
+        description: 'List of all bodyparts, in form of a list'
       },
       component: BodypartsList
     },
