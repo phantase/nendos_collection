@@ -25,6 +25,7 @@ import Hair from 'components/Hair'
 import Hairs from 'components/Hairs'
 import Hand from 'components/Hand'
 import Hands from 'components/Hands'
+import HandsList from 'components/HandsList'
 import Nendoroid from 'components/Nendoroid'
 import Nendoroids from 'components/Nendoroids'
 import Photo from 'components/Photo'
@@ -721,6 +722,14 @@ export default new Router({
         description: 'List of all hands'
       },
       component: Hands
+    },
+    {
+      path: '/handslist',
+      name: 'Hands (list)',
+      meta: {
+        description: 'List of all hands, in form of a list'
+      },
+      component: HandsList
     },
     {
       path: '/nendoroid/add',

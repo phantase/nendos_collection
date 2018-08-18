@@ -21,6 +21,9 @@
                   <option value="notvalidated">Not validated</option>
                 </select>
               </span>
+              <div v-if="canadmin">
+                <router-link to="handslist">View in list</router-link>
+              </div>
             </div>
             <div class="pull-right">
               <label>Sort by: </label>
@@ -91,7 +94,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'hands', 'handsOrderedBy', 'handsDirection']),
+    ...Vuex.mapGetters(['canadmin', 'authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'hands', 'handsOrderedBy', 'handsDirection']),
     displayedHands () {
       return this.hands.filter(this.filterHands).concat().sort(this.sortHands).slice(0, this.limit)
     },
