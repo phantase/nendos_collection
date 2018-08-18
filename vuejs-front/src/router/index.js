@@ -21,6 +21,7 @@ import BoxUnvalidate from 'components/BoxUnvalidate'
 import Boxes from 'components/Boxes'
 import Face from 'components/Face'
 import Faces from 'components/Faces'
+import FacesList from 'components/FacesList'
 import Hair from 'components/Hair'
 import Hairs from 'components/Hairs'
 import HairsList from 'components/HairsList'
@@ -551,6 +552,14 @@ export default new Router({
         description: 'List of all faces'
       },
       component: Faces
+    },
+    {
+      path: '/faceslist',
+      name: 'Faces (list)',
+      meta: {
+        description: 'List of all faces, in form of a list'
+      },
+      component: FacesList
     },
     {
       path: '/hair/add',
