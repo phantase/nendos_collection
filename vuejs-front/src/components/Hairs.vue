@@ -21,6 +21,9 @@
                   <option value="notvalidated">Not validated</option>
                 </select>
               </span>
+              <div v-if="canadmin">
+                <router-link to="hairslist">View in list</router-link>
+              </div>
             </div>
             <div class="pull-right">
               <label>Sort by: </label>
@@ -92,7 +95,7 @@ export default {
     }
   },
   computed: {
-    ...Vuex.mapGetters(['authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'hairs', 'hairsOrderedBy', 'hairsDirection']),
+    ...Vuex.mapGetters(['canadmin', 'authenticated', 'viewvalidation', 'boxes', 'nendoroids', 'hairs', 'hairsOrderedBy', 'hairsDirection']),
     displayedHairs () {
       return this.hairs.filter(this.filterHairs).concat().sort(this.sortHairs).slice(0, this.limit)
     },

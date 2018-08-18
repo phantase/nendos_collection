@@ -23,6 +23,7 @@ import Face from 'components/Face'
 import Faces from 'components/Faces'
 import Hair from 'components/Hair'
 import Hairs from 'components/Hairs'
+import HairsList from 'components/HairsList'
 import Hand from 'components/Hand'
 import Hands from 'components/Hands'
 import HandsList from 'components/HandsList'
@@ -636,6 +637,14 @@ export default new Router({
         description: 'List of all hairs'
       },
       component: Hairs
+    },
+    {
+      path: '/hairslist',
+      name: 'Hairs (list)',
+      meta: {
+        description: 'List of all hairs, in form of a list'
+      },
+      component: HairsList
     },
     {
       path: '/hand/add',
