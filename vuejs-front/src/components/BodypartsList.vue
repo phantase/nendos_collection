@@ -55,14 +55,9 @@ import Vuex from 'vuex'
 
 import Resources from './../config/resources'
 
-import AppBoxHeader from './layouts/BoxHeader'
-import BodypartsTiles from './dblayouts/BodypartsTiles'
-
 export default {
   name: 'BodypartsList',
   components: {
-    AppBoxHeader,
-    BodypartsTiles
   },
   store: store,
   data () {
@@ -160,14 +155,6 @@ export default {
         } else {
           return this.direction === 'desc' ? 1 : -1
         }
-      }
-    }
-  },
-  mounted () {
-    window.onscroll = () => {
-      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
-      if (bottomOfWindow) {
-        this.limit += 20
       }
     }
   }
